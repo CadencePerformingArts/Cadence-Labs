@@ -1,0 +1,132 @@
+name: Show-night live watcher
+# On summer show nights, poll the DCI scores index every ~3 minutes and
+# publish the moment new scores appear — instead of waiting for the
+# half-hourly cron. One long job per evening; exits early on no-show days.
+on:
+  schedule:
+    # backup starts (the update pipeline auto-starts a shift whenever one
+    # isn't running in the window, since GitHub's cron is unreliable). Each
+    # shift watches for ~5 hours; back-to-back shifts cover noon ET → morning.
+    - cron: "0 16 * 5-8 *"    # noon ET — afternoon / matinee shows
+    - cron: "0 20 * 5-8 *"    # 4 PM ET — early-evening shows
+    - cron: "20 23 * 5-8 *"   # 7:20 PM ET — main evening block
+    - cron: "0 5 * 5-8 *"     # 1 AM ET — West Coast finishes
+  workflow_dispatch:
+# own lane, NOT the shared "scrape" group: this job holds its lock for a
+# five-hour shift, and sharing it froze every 15-minute update run behind
+# it all evening. Concurrent pushes are safe — both sides commit through
+# the same pull-rebase-retry sequence.
+concurrency:
+  group: watch
+  cancel-in-progress: false
+permissions:
+  contents: write
+  actions: write
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scraper/requirements.txt
+      - name: Watch for score drops
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -u
+          # no shows today (UTC date == ET date at 23:20) -> go back to sleep
+          python3 - <<'PY' || { echo "no shows today — exiting"; exit 0; }
+          import json, datetime, sys
+          try:
+              up = json.load(open("docs/data/upcoming.json"))
+          except Exception:
+              sys.exit(1)
+          now = datetime.datetime.utcnow()
+          days = {now.strftime("%Y-%m-%d"), (now - datetime.timedelta(days=1)).strftime("%Y-%m-%d")}
+          sys.exit(0 if any(e.get("date") in days for e in up) else 1)
+          PY
+          git config user.name "dci-tracker-bot"
+          git config user.email "actions@users.noreply.github.com"
+          request_deploy() {
+            local api code i
+            api="https://api.github.com/repos/${{ github.repository }}/actions/workflows/pages.yml/dispatches"
+            for i in 1 2 3 4; do
+              code=$(curl -s -o /tmp/pages-dispatch-response -w "%{http_code}" -X POST \
+                -H "Authorization: Bearer $GH_TOKEN" \
+                -H "Accept: application/vnd.github+json" \
+                "$api" -d '{"ref":"main"}')
+              [ "$code" = "204" ] && return 0
+              echo "::warning::Pages dispatch got HTTP $code (attempt $i): $(head -c 200 /tmp/pages-dispatch-response)"
+              sleep $((10 * i))
+            done
+            return 1
+          }
+          publish() {
+            git add -A data
+            git diff --cached --quiet || git commit -m "Live scores: $(date -u '+%Y-%m-%d %H:%M UTC') (inputs)"
+            git checkout -- . 2>/dev/null || true
+            git clean -fd docs/data 2>/dev/null || true
+            for i in 1 2 3 4; do
+              if ! git pull --rebase -X theirs origin main; then
+                git rebase --abort 2>/dev/null || true
+                sleep $((5 * i)); continue
+              fi
+              python scraper/build_data.py
+              git add -A data docs/data
+              git diff --cached --quiet || git commit -m "Live scores: $(date -u '+%Y-%m-%d %H:%M UTC')"
+              if git push; then
+                request_deploy || echo "::warning::could not dispatch Pages; the next update will retry"
+                return 0
+              fi
+              sleep $((5 * i))
+            done
+            echo "::warning::live publish failed after retries"
+            return 1
+          }
+          # Poll every ~30 seconds during show windows and rescrape the moment
+          # a source changes. Primary signal is CompetitionSuite's season list
+          # (authoritative — its per-show recapUrl populates when scores post,
+          # so it changes on both a new show AND fresh results); drum-corps.net
+          # and downbeatdesigns are cross-checks. Each response is validated to
+          # look real before hashing so a challenge/error page can't make every
+          # poll look like a fresh drop.
+          ORG="96b77ec2-333e-41e9-8d7d-806a8cbe116b"
+          YEAR=$(date -u +%Y)
+          SG=$(curl -sS --max-time 20 -H "Accept: application/json" \
+                "https://bridge.competitionsuite.com/api/orgscores/GetSeasons/jsonp?organization=$ORG" 2>/dev/null \
+              | python3 -c "import json,sys;print(next((s['seasonGuid'] for s in json.load(sys.stdin) if str(s.get('name'))=='$YEAR'),''))" 2>/dev/null || echo "")
+          CS="https://bridge.competitionsuite.com/api/orgscores/GetCompetitionsBySeason/jsonp?season=$SG"
+          DCN="https://www.drum-corps.net/scores"
+          DBD="https://downbeatdesigns.com/dci_2026"
+          echo "watching (season guid: ${SG:-none})"
+          last=""
+          end=$(( $(date +%s) + 300 * 60 ))   # five hours of watching
+          while [ "$(date +%s)" -lt "$end" ]; do
+            sig=""
+            if [ -n "$SG" ]; then
+              c=$(curl -sS --max-time 25 -H "Accept: application/json" "$CS" 2>/dev/null || echo "")
+              echo "$c" | grep -q "competitionGuid\|\"competitions\"" && sig="$sig$(printf '%s' "$c" | md5sum | cut -d' ' -f1)"
+            fi
+            a=$(curl -sS --max-time 25 "$DCN" 2>/dev/null || echo "")
+            echo "$a" | grep -q "scores/dci/" && sig="$sig$(printf '%s' "$a" | md5sum | cut -d' ' -f1)"
+            b=$(curl -sS --max-time 25 "$DBD" 2>/dev/null || echo "")
+            echo "$b" | grep -q "se-title" && sig="$sig$(printf '%s' "$b" | md5sum | cut -d' ' -f1)"
+            if [ -z "$sig" ]; then
+              echo "no reachable score source this poll — retrying"
+              sleep 30; continue
+            fi
+            cur=$(printf '%s' "$sig" | md5sum | cut -d' ' -f1)
+            if [ -n "$last" ] && [ "$cur" != "$last" ]; then
+              echo "a score source changed — scraping"
+              bash scraper/run_all.sh update || echo "::warning::scrape failed this cycle"
+              publish || true
+            fi
+            last="$cur"
+            sleep 30
+          done
+          echo "watch window closed"
