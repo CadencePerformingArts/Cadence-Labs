@@ -3768,7 +3768,7 @@
     [/^#\/data$/, () => { location.replace(FAM ? "#/compare" : "#/captions"); }],
     [/^#\/season\/(\d{4})$/, m => { location.replace(`#/events?y=${m[1]}`); }],
     [/^#\/event\/(\d{4})\/(\d+)$/, (m, st) => viewEvent(m[1], m[2], st)],
-    [/^#\/captions(?:\?(.*))?$/, (m, st) => viewCaptions(m[1], st)],
+    [/^#\/captions(?:\?(.*))?$/, (m, st) => { if (FAM) { location.replace("#/compare"); return; } return viewCaptions(m[1], st); }],
     [/^#\/records$/, viewRecords],
     [/^#\/settings$/, viewSettings],
     [/^#\/go(?:\?(.*))?$/, m => viewGo(m[1])],

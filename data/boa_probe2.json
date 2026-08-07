@@ -1,0 +1,1777 @@
+{
+ "source": "boa",
+ "probed_at": "2026-08-07T23:14:01.204379+00:00",
+ "index": "https://marching.musicforall.org/result/",
+ "events": [
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships-2025/",
+   "slug": "grand-national-championships-2025",
+   "year": 2025,
+   "title": "Grand National Championships",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Grand-Nationals-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Grand-Nationals-Semi-Finals-Recap.pdf",
+     "round_guess": "Semifinals"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Grand-Nationals-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/utah-regional-2025/",
+   "slug": "utah-regional-2025",
+   "year": 2025,
+   "title": "Utah Regional Championships",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Utah-PRELIMS-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Utah-FINALS-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-antonio-super-regional-2025/",
+   "slug": "san-antonio-super-regional-2025",
+   "year": 2025,
+   "title": "San Antonio Super Regional",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/southeastern-regional-2025/",
+   "slug": "southeastern-regional-2025",
+   "year": 2025,
+   "title": "Southeastern Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Southeastern-PRELIMS-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Southeastern-FINALS-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/california-regional-2025/",
+   "slug": "california-regional-2025",
+   "year": 2025,
+   "title": "California Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/California-PRELIMS-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/California-FINALS-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/idaho-regional-2025/",
+   "slug": "idaho-regional-2025",
+   "year": 2025,
+   "title": "Idaho Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Idaho-PRELIMS-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Idaho-FINALS-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mid-atlantic-regional-2025/",
+   "slug": "mid-atlantic-regional-2025",
+   "year": 2025,
+   "title": "Mid-Atlantic Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-Mid-Atlantic-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Mid-Atlantic-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indianapolis-super-regional-2025/",
+   "slug": "indianapolis-super-regional-2025",
+   "year": 2025,
+   "title": "Indianapolis Super Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-indy-super-prelims-recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-indy-super-recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/ballad-health-east-tennessee-regional-2025/",
+   "slug": "ballad-health-east-tennessee-regional-2025",
+   "year": 2025,
+   "title": "Ballad Health East Tennessee Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/ETSU-PRELIMS-RECAP-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/ETSU-FINALS-RECAP-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/orlando-regional-2025/",
+   "slug": "orlando-regional-2025",
+   "year": 2025,
+   "title": "Orlando Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Orlando_Prelims_Recap_BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Orland_Finals_Recap_BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/waco-regional-2025/",
+   "slug": "waco-regional-2025",
+   "year": 2025,
+   "title": "Waco Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Waco-Prelims-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Waco-Finals-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-louis-super-regional-2025/",
+   "slug": "st-louis-super-regional-2025",
+   "year": 2025,
+   "title": "St. Louis Super Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/STL-PRELIMS-RECAP-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/STL-FINALS-RECAP-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/memphis-regional-2025/",
+   "slug": "memphis-regional-2025",
+   "year": 2025,
+   "title": "Memphis Regional",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/north-texas-regional-2025/",
+   "slug": "north-texas-regional-2025",
+   "year": 2025,
+   "title": "North Texas Regional",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/west-texas-regional-2025/",
+   "slug": "west-texas-regional-2025",
+   "year": 2025,
+   "title": "West Texas Regional",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/carolina-regional-2025/",
+   "slug": "carolina-regional-2025",
+   "year": 2025,
+   "title": "Carolina Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2205-Carolina-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-Carolina-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/chattanooga-regional-2025/",
+   "slug": "chattanooga-regional-2025",
+   "year": 2025,
+   "title": "Chattanooga Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/chattanooga-prelims-recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/chattanooga-finals-recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/iowa-regional-2025/",
+   "slug": "iowa-regional-2025",
+   "year": 2025,
+   "title": "Iowa Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Iowa-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Iowa-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/south-houston-regional-2025/",
+   "slug": "south-houston-regional-2025",
+   "year": 2025,
+   "title": "South Houston Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Iowa-Colony-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Iowa-Colony-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dallas-mid-cities-regional-2025/",
+   "slug": "dallas-mid-cities-regional-2025",
+   "year": 2025,
+   "title": "Dallas Mid-Cities Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Bedford-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Bedford-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/kentucky-regional-2025/",
+   "slug": "kentucky-regional-2025",
+   "year": 2025,
+   "title": "Kentucky Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Kentucky-Regional-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Kentucky-Regional-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/central-ohio-regional-2025/",
+   "slug": "central-ohio-regional-2025",
+   "year": 2025,
+   "title": "Central Ohio Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Central-Ohio-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-Central-Ohio-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/central-texas-regional-2025/",
+   "slug": "central-texas-regional-2025",
+   "year": 2025,
+   "title": "Central Texas Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-San-Marcos-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-San-Marcos-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/north-houston-regional-2025/",
+   "slug": "north-houston-regional-2025",
+   "year": 2025,
+   "title": "North Houston Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-North-Houston-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-BOA-North-Houston-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/arizona-regional-2025/",
+   "slug": "arizona-regional-2025",
+   "year": 2025,
+   "title": "Arizona Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/2025-Flagstaff-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/northwest-ohio-regional-2025/",
+   "slug": "northwest-ohio-regional-2025",
+   "year": 2025,
+   "title": "Northwest Ohio Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Toledo-Prelims-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Toledo-Finals-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/south-texas-regional-2025/",
+   "slug": "south-texas-regional-2025",
+   "year": 2025,
+   "title": "South Texas Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/South-Texas-Prelims-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/South-Texas-Finals-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin-regional-2025/",
+   "slug": "austin-regional-2025",
+   "year": 2025,
+   "title": "Austin Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Austin-Prelims-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/Austin-Finals-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/new-mexico-regional-2025/",
+   "slug": "new-mexico-regional-2025",
+   "year": 2025,
+   "title": "New Mexico Regional",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/New-Mexico-Prelims-Recap-BOA25.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/New-Mexico-Finals-Recap-BOA25.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships-2024/",
+   "slug": "grand-national-championships-2024",
+   "year": 2024,
+   "title": "Grand National Championships 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/2024-BOA-GN-Thursday-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/2024-BOA-GN-SemiFinals-Recaps.pdf",
+     "round_guess": "Semifinals"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/2024-BOA-GN-Finals-Recap-1.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-george-ut-2024/",
+   "slug": "st-george-ut-2024",
+   "year": 2024,
+   "title": "St. George, UT 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/BOA24-UTAH-PRELIMS-RECAP.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/BOA24-UTAH-FINALS-RECAP.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-antonio-tx-2024/",
+   "slug": "san-antonio-tx-2024",
+   "year": 2024,
+   "title": "San Antonio, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/SATX-2024-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/2024-SATX-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/etiwanda-ca-2024/",
+   "slug": "etiwanda-ca-2024",
+   "year": 2024,
+   "title": "Etiwanda, CA 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/BOA24-CA-PRELIMS-RECAP.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/11/BOA24-CALIFORNIA-FINALS-RECAP.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/piscataway-nj-2024/",
+   "slug": "piscataway-nj-2024",
+   "year": 2024,
+   "title": "Piscataway, NJ 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/Jersey_Prelims_Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/Jersey_Finals_Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/orlando-fl-2024/",
+   "slug": "orlando-fl-2024",
+   "year": 2024,
+   "title": "Orlando, FL 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/Orlando_Prelims_Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/Orlando_Finals_Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-louis-mo-2024/",
+   "slug": "st-louis-mo-2024",
+   "year": 2024,
+   "title": "St. Louis, MO 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/St.Louis_Prelims_Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/St.Louis_Finals_Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/johnson-city-tn-2024/",
+   "slug": "johnson-city-tn-2024",
+   "year": 2024,
+   "title": "Johnson City, TN 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-Bands-of-America-East-Tennessee-Regional-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-Bands-of-America-East-Tennessee-Regional-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/newark-de-2024/",
+   "slug": "newark-de-2024",
+   "year": 2024,
+   "title": "Newark, DE 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-Mid-Atlantic-Regioanl-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-Mid-Atlantic-Regional-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/waco-tx-2024/",
+   "slug": "waco-tx-2024",
+   "year": 2024,
+   "title": "Waco, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-waco-prelims-recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-waco-finals-recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indianapolis-in-super-regional-2024/",
+   "slug": "indianapolis-in-super-regional-2024",
+   "year": 2024,
+   "title": "Army ROTC Indianapolis, IN Super Regional 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-Indianapolis-Super-Regional-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-Indianapolis-Super-Regional-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/conway-sc-2024/",
+   "slug": "conway-sc-2024",
+   "year": 2024,
+   "title": "Conway, SC 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/Carolina-10.12.2024-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/Carolina-10.12.2024-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/prosper-tx-2024/",
+   "slug": "prosper-tx-2024",
+   "year": 2024,
+   "title": "Prosper, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/prosper-2024-prelims-recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/prosper-finals-recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/vestavia-hills-al-2024/",
+   "slug": "vestavia-hills-al-2024",
+   "year": 2024,
+   "title": "Vestavia Hills, AL 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/alabama-2024-prelims-recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/alabama-2024-finals-recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/moscow-id-2024/",
+   "slug": "moscow-id-2024",
+   "year": 2024,
+   "title": "Moscow, ID 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/BOA24-Idaho-PRELIMS-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/BOA24-Idaho-FINALS-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/chattanooga-tn-2024/",
+   "slug": "chattanooga-tn-2024",
+   "year": 2024,
+   "title": "Chattanooga, TN 2024",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/memphis-tn-2024/",
+   "slug": "memphis-tn-2024",
+   "year": 2024,
+   "title": "Memphis, TN 2024",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/webster-tx-2024-2/",
+   "slug": "webster-tx-2024-2",
+   "year": 2024,
+   "title": "Webster, TX 2024",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/bedford-tx-2024/",
+   "slug": "bedford-tx-2024",
+   "year": 2024,
+   "title": "Bedford, TX 2024",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/flagstaff-az-2024/",
+   "slug": "flagstaff-az-2024",
+   "year": 2024,
+   "title": "Flagstaff, AZ 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/BOA24-ARIZONA-PRELIMS-RECAP.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024-BOA-Arizona-FINALS-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/louisville-ky-2024/",
+   "slug": "louisville-ky-2024",
+   "year": 2024,
+   "title": "Louisville, KY 2024",
+   "pdfs": []
+  },
+  {
+   "url": "https://marching.musicforall.org/result/shenandoah-tx-2024/",
+   "slug": "shenandoah-tx-2024",
+   "year": 2024,
+   "title": "Shenandoah, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/Shenandoah_24_Prelims_Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/Shenandoah_24_Finals_Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/odessa-tx-2024/",
+   "slug": "odessa-tx-2024",
+   "year": 2024,
+   "title": "Odessa, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/Odessa_24_Prelims_Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/Odessa_24_Finals_Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-marcos-tx-2024/",
+   "slug": "san-marcos-tx-2024",
+   "year": 2024,
+   "title": "San Marcos, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/San_Marcos_24_Prelims_Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/San_Marcos_24_Finals_Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/des-moines-ia-2024/",
+   "slug": "des-moines-ia-2024",
+   "year": 2024,
+   "title": "Des Moines, IA 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/Iowa-BOA24-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/Iowa-BOA24-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallen-tx-2024/",
+   "slug": "mcallen-tx-2024",
+   "year": 2024,
+   "title": "McAllen, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/2024-McAllen-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/obetz-oh-2024/",
+   "slug": "obetz-oh-2024",
+   "year": 2024,
+   "title": "Obetz, OH 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/2024-Obetz-Prelims-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/2024-Obetz-Finals-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/round-rock-tx-2024/",
+   "slug": "round-rock-tx-2024",
+   "year": 2024,
+   "title": "Round Rock, TX 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/2024-Austin-PRELIMS-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/2024-Austin-FINALS-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/las-cruces-nm-2024/",
+   "slug": "las-cruces-nm-2024",
+   "year": 2024,
+   "title": "Las Cruces, NM 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/2024-New-Mexico-PRELIMS-Recap.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/2024-New-Mexico-FINALS-Recap.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/toledo-oh-2024/",
+   "slug": "toledo-oh-2024",
+   "year": 2024,
+   "title": "Toledo, OH 2024",
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/TOLEDO-PRELIMS-RECAP-BOA24.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/09/TOLEDO-FINALS-RECAP-BOA24.pdf",
+     "round_guess": "Finals"
+    }
+   ]
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships-2023/",
+   "slug": "grand-national-championships-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/troy-al-2023/",
+   "slug": "troy-al-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-george-ut/",
+   "slug": "st-george-ut",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-antonio-tx-2023/",
+   "slug": "san-antonio-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/waco-tx-2023/",
+   "slug": "waco-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/piscataway-nj-2023/",
+   "slug": "piscataway-nj-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/riverside-ca-2023/",
+   "slug": "riverside-ca-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-louis-mo-2023/",
+   "slug": "st-louis-mo-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/college-park-md-2023/",
+   "slug": "college-park-md-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/ballad-health-east-tennessee-regional-2023/",
+   "slug": "ballad-health-east-tennessee-regional-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/orlando-fl-2023/",
+   "slug": "orlando-fl-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indianapolis-super-regional-2023/",
+   "slug": "indianapolis-super-regional-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/conway-sc-2023/",
+   "slug": "conway-sc-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/prosper-tx-2023/",
+   "slug": "prosper-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/toledo-oh-2023/",
+   "slug": "toledo-oh-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/memphis-tn-2023/",
+   "slug": "memphis-tn-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/bedford-tx-2023/",
+   "slug": "bedford-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/katy-tx-2023/",
+   "slug": "katy-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/flagstaff-az-2023/",
+   "slug": "flagstaff-az-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallen-tx-2023/",
+   "slug": "mcallen-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midland-tx-2023/",
+   "slug": "midland-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/des-moines-ia-2023/",
+   "slug": "des-moines-ia-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/shenandoah-tx-2023/",
+   "slug": "shenandoah-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/chattanooga-tn-2023/",
+   "slug": "chattanooga-tn-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/las-cruces-nm-2023/",
+   "slug": "las-cruces-nm-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/obetz-oh/",
+   "slug": "obetz-oh",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin-tx-2023/",
+   "slug": "austin-tx-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/louisville-ky-2023/",
+   "slug": "louisville-ky-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/whitewater-wi-2023/",
+   "slug": "whitewater-wi-2023",
+   "year": 2023
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grandnationals22/",
+   "slug": "grandnationals22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/utah22/",
+   "slug": "utah22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/satx22/",
+   "slug": "satx22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/newjersey22/",
+   "slug": "newjersey22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/alabama22/",
+   "slug": "alabama22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/waco22/",
+   "slug": "waco22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/orlando22/",
+   "slug": "orlando22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indysuper22/",
+   "slug": "indysuper22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/johnsoncity22/",
+   "slug": "johnsoncity22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/carolina22/",
+   "slug": "carolina22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/northtexas/",
+   "slug": "northtexas",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/stlouis22/",
+   "slug": "stlouis22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midatlantic22/",
+   "slug": "midatlantic22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dallasftworth22/",
+   "slug": "dallasftworth22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midland22/",
+   "slug": "midland22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/louisville22/",
+   "slug": "louisville22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/westhouston22/",
+   "slug": "westhouston22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/arizona22/",
+   "slug": "arizona22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin-regional-championship-7/",
+   "slug": "austin-regional-championship-7",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/iowa-regional-championship/",
+   "slug": "iowa-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/toledo22/",
+   "slug": "toledo22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/north-houston-regional-championship/",
+   "slug": "north-houston-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallen-22/",
+   "slug": "mcallen-22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/lascruces22/",
+   "slug": "lascruces22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/clarksville22/",
+   "slug": "clarksville22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/obetz22/",
+   "slug": "obetz22",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grandnats2021/",
+   "slug": "grandnats2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/utah2021/",
+   "slug": "utah2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/sanantonio2021/",
+   "slug": "sanantonio2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/johnsoncity2021/",
+   "slug": "johnsoncity2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/waco2021/",
+   "slug": "waco2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indysuper2021/",
+   "slug": "indysuper2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/stlouissuper2021/",
+   "slug": "stlouissuper2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/orlando2021/",
+   "slug": "orlando2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/alabama2021/",
+   "slug": "alabama2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/iowa2021/",
+   "slug": "iowa2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midatlantic2021/",
+   "slug": "midatlantic2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dallas2021/",
+   "slug": "dallas2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midland2021/",
+   "slug": "midland2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/westhouston2021/",
+   "slug": "westhouston2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/toledo2021/",
+   "slug": "toledo2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/obetz2021/",
+   "slug": "obetz2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/clarksville2021/",
+   "slug": "clarksville2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/northhouston2021/",
+   "slug": "northhouston2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin2021/",
+   "slug": "austin2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/powdersprings2021/",
+   "slug": "powdersprings2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dayton2021/",
+   "slug": "dayton2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallen2021/",
+   "slug": "mcallen2021",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships/",
+   "slug": "grand-national-championships",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/utah-regional-championship/",
+   "slug": "utah-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/california-regional-championship/",
+   "slug": "california-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/sanantoniosuper2019/",
+   "slug": "sanantoniosuper2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/powdersprings2019/",
+   "slug": "powdersprings2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/virginia2019/",
+   "slug": "virginia2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indysuper2019/",
+   "slug": "indysuper2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/waco2019/",
+   "slug": "waco2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/stlouissuper2019/",
+   "slug": "stlouissuper2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/tennessee2019/",
+   "slug": "tennessee2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/westtexas2019/",
+   "slug": "westtexas2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/orlando2019/",
+   "slug": "orlando2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/muncie2019/",
+   "slug": "muncie2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dallas2019/",
+   "slug": "dallas2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/houston2019/",
+   "slug": "houston2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midatlantic2019/",
+   "slug": "midatlantic2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin2019/",
+   "slug": "austin2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/arizona2019/",
+   "slug": "arizona2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/obetz2019/",
+   "slug": "obetz2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/iowa2019/",
+   "slug": "iowa2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/toledo2019/",
+   "slug": "toledo2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/louisville2019/",
+   "slug": "louisville2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallen2019/",
+   "slug": "mcallen2019",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships-2018/",
+   "slug": "grand-national-championships-2018",
+   "year": 2018
+  },
+  {
+   "url": "https://marching.musicforall.org/result/southern-california-regional-championship/",
+   "slug": "southern-california-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-antonio-super-regional-championship-14/",
+   "slug": "san-antonio-super-regional-championship-14",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-george-regional-championship-10/",
+   "slug": "st-george-regional-championship-10",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/powder-springs-regional-championship-5/",
+   "slug": "powder-springs-regional-championship-5",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-louis-super-regional-championship-12/",
+   "slug": "st-louis-super-regional-championship-12",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/northern-california-regional-championship/",
+   "slug": "northern-california-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midatlantic-regional-championship-5/",
+   "slug": "midatlantic-regional-championship-5",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indianapolis-super-regional-championship-8/",
+   "slug": "indianapolis-super-regional-championship-8",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/waco-regional-championship-2/",
+   "slug": "waco-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/gaffney-regional-championship/",
+   "slug": "gaffney-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/orlando-regional-championship-6/",
+   "slug": "orlando-regional-championship-6",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/canton-regional-championship/",
+   "slug": "canton-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dallas-ft-worth-regional-championship-2/",
+   "slug": "dallas-ft-worth-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/houston-regional-championship-21/",
+   "slug": "houston-regional-championship-21",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/jacksonville-regional-championship-8/",
+   "slug": "jacksonville-regional-championship-8",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/clarksville-regional-championship-5/",
+   "slug": "clarksville-regional-championship-5",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/bowling-green-regional-championship-3/",
+   "slug": "bowling-green-regional-championship-3",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin-regional-championship-6/",
+   "slug": "austin-regional-championship-6",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallen-regional-championship-3/",
+   "slug": "mcallen-regional-championship-3",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/oxford-regional-championship-3/",
+   "slug": "oxford-regional-championship-3",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midland-regional-championship-2/",
+   "slug": "midland-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships-2017/",
+   "slug": "grand-national-championships-2017",
+   "year": 2017
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-george-regional-championship-9/",
+   "slug": "st-george-regional-championship-9",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-antonio-super-regional-championship-13/",
+   "slug": "san-antonio-super-regional-championship-13",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/downey-regional-championship/",
+   "slug": "downey-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-jose-regional-championship-2/",
+   "slug": "san-jose-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/atlanta-super-regional-championship-14/",
+   "slug": "atlanta-super-regional-championship-14",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indianapolis-super-regional-championship-7/",
+   "slug": "indianapolis-super-regional-championship-7",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-louis-super-regional-championship-11/",
+   "slug": "st-louis-super-regional-championship-11",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/midland-regional-championship/",
+   "slug": "midland-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/winston-salem-regional-championship-4/",
+   "slug": "winston-salem-regional-championship-4",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/newark-regional-championship-4/",
+   "slug": "newark-regional-championship-4",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/jacksonville-regional-championship-7/",
+   "slug": "jacksonville-regional-championship-7",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dayton-regional-championship-4/",
+   "slug": "dayton-regional-championship-4",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/conroe-regional-championship-7/",
+   "slug": "conroe-regional-championship-7",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallen-regional-championship-2/",
+   "slug": "mcallen-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dallas-ft-worth-regional-championship/",
+   "slug": "dallas-ft-worth-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/clarksville-regional-championship-4/",
+   "slug": "clarksville-regional-championship-4",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin-regional-championship-5/",
+   "slug": "austin-regional-championship-5",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/toledo-regional-championship-18/",
+   "slug": "toledo-regional-championship-18",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/powderspringsregional-championship/",
+   "slug": "powderspringsregional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/northeast-ohio-regional/",
+   "slug": "northeast-ohio-regional",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships-2016/",
+   "slug": "grand-national-championships-2016",
+   "year": 2016
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indianapolis-super-regional-championship/",
+   "slug": "indianapolis-super-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/sanantonio-super-regional-championship/",
+   "slug": "sanantonio-super-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/atlanta-super-regional-championship/",
+   "slug": "atlanta-super-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-george-regional-championship/",
+   "slug": "st-george-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/long-beach-regional-championship/",
+   "slug": "long-beach-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-jose-regional-championship/",
+   "slug": "san-jose-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-louis-super-regional-championship/",
+   "slug": "st-louis-super-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/winston-salem-regional-championship/",
+   "slug": "winston-salem-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/newark-regional-championship/",
+   "slug": "newark-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/hillsboro-regional-championship/",
+   "slug": "hillsboro-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/plano-regional-championship/",
+   "slug": "plano-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/conroe-regional-championship/",
+   "slug": "conroe-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/jacksonville-regional-championship/",
+   "slug": "jacksonville-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/toledo-regional-championship/",
+   "slug": "toledo-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin-regional-championship/",
+   "slug": "austin-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/clarksville-regional-championship/",
+   "slug": "clarksville-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dayton-regional-championship/",
+   "slug": "dayton-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/powder-springs-regional-championship/",
+   "slug": "powder-springs-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/mcallenregional-championship/",
+   "slug": "mcallenregional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/monroeville-regional-championship/",
+   "slug": "monroeville-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/grand-national-championships-2015/",
+   "slug": "grand-national-championships-2015",
+   "year": 2015
+  },
+  {
+   "url": "https://marching.musicforall.org/result/american-canyon-regional-championship/",
+   "slug": "american-canyon-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-george-regional-championship-2/",
+   "slug": "st-george-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/atlanta-super-regional-championship-2/",
+   "slug": "atlanta-super-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/san-antonio-super-regional-championship/",
+   "slug": "san-antonio-super-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/long-beach-regional-championship-2/",
+   "slug": "long-beach-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/indianapolis-super-regional-championship-2/",
+   "slug": "indianapolis-super-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/newark-regional-championship-2/",
+   "slug": "newark-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/st-louis-super-regional-championship-2/",
+   "slug": "st-louis-super-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/arlington-regional-championship/",
+   "slug": "arlington-regional-championship",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/jacksonville-regional-championship-2/",
+   "slug": "jacksonville-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/winston-salem-regional-championship-2/",
+   "slug": "winston-salem-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/conroe-regional-championship-2/",
+   "slug": "conroe-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/dayton-regional-championship-2/",
+   "slug": "dayton-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/powder-springs-regional-championship-2/",
+   "slug": "powder-springs-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/austin-regional-championship-2/",
+   "slug": "austin-regional-championship-2",
+   "year": null
+  },
+  {
+   "url": "https://marching.musicforall.org/result/bowling-green-regional-championship/",
+   "slug": "bowling-green-regional-championship",
+   "year": null
+  }
+ ],
+ "pdf_events": 50,
+ "pdf_total": 100
+}

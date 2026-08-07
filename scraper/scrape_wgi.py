@@ -393,10 +393,83 @@ def scrape_champions(_year: int) -> int:
     return 0 if wrote == len(CHAMPION_PAGES) else 1
 
 
+# ---------------------------------------------------------------------------
+# public 2027 event calendars (wgi.org/27*events — no login)
+# ---------------------------------------------------------------------------
+
+EVENT_PAGES = {
+    "guard": ("27cgevents", "Color Guard"),
+    "percussion": ("27percevents", "Percussion"),
+    "winds": ("27windsevents", "Winds"),
+}
+
+MONTHS = {"January": 1, "February": 2, "March": 3, "April": 4, "May": 5,
+          "September": 9, "October": 10, "November": 11, "December": 12}
+
+
+def scrape_events(_year: int) -> int:
+    """Scrape the public 2027 event calendars into each activity's
+    upcoming.json + seasons/2027.json (real future schedule, no scores)."""
+    season = 2027
+    wrote = 0
+    for act, (slug_part, label) in EVENT_PAGES.items():
+        html = fetch(f"https://www.wgi.org/{slug_part}/") or ""
+        text = re.sub(r"<script.*?</script>|<style.*?</style>", "", html, flags=re.S)
+        text = re.sub(r"<[^>]+>", "|", text)
+        text = re.sub(r"[\u00a0\s]*\|[\u00a0\s]*", "|", re.sub(r"\|+", "|", text))
+        events = []
+        cur_date = None
+        for tok in text.split("|"):
+            tok = tok.strip().strip("*+ ").strip()
+            m = re.match(r"^(January|February|March|April|May|September|October|November|December)\s+(\d{1,2})(?:-\d{1,2})?$", tok)
+            if m:
+                cur_date = f"{season}-{MONTHS[m.group(1)]:02d}-{int(m.group(2)):02d}"
+                continue
+            cm = re.match(r"^([A-Z][A-Za-z .'-]{2,28}),\s*([A-Z]{2})\b(.*)$", tok)
+            if cur_date and cm:
+                city = f"{cm.group(1).strip()}, {cm.group(2)}"
+                extra = cm.group(3) or ""
+                kind = "World Championships" if "championship" in tok.lower() else "Regional"
+                name = f"WGI {cm.group(1).strip()} {label} {kind}"
+                if "Sunday Show" in extra:
+                    name += " (Sunday Show)"
+                events.append({
+                    "name": name, "date": cur_date,
+                    "date_display": None, "location": city,
+                    "url": f"https://www.wgi.org/{slug_part}/",
+                    "lineup": [],
+                })
+        # WGI World Championships (Dayton, April) — always the season finale
+        events.append({
+            "name": f"WGI World Championships — {label}", "date": f"{season}-04-15",
+            "date_display": None, "location": "Dayton, OH",
+            "url": "https://wgi.org/", "lineup": [],
+        })
+        for ev in events:
+            d = datetime.strptime(ev["date"], "%Y-%m-%d")
+            ev["date_display"] = d.strftime("%B %-d, %Y")
+        events.sort(key=lambda e: e["date"])
+        if len(events) < 6:
+            log(f"wgi/{act} events: only {len(events)} parsed — keeping existing schedule")
+            continue
+        out = DOCS_WGI / act / "data"
+        (out / "seasons").mkdir(parents=True, exist_ok=True)
+        (out / "upcoming.json").write_text(json.dumps(events))
+        season_events = [{"name": e["name"], "date": e["date"], "date_display": e["date_display"],
+                          "location": e["location"], "url": e["url"], "source": "wgi.org",
+                          "classes": [], "has_recap": False, "lineup": []} for e in events]
+        (out / f"seasons/{season}.json").write_text(json.dumps(season_events))
+        (out / "EVENTS_LIVE").write_text(json.dumps({"season": season, "events": len(events)}))
+        log(f"wgi/{act}: wrote {len(events)} real 2027 events")
+        wrote += 1
+    return 0 if wrote == len(EVENT_PAGES) else 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--discover", action="store_true")
     ap.add_argument("--champions", action="store_true")
+    ap.add_argument("--events", action="store_true")
     ap.add_argument("--ingest", action="store_true")
     ap.add_argument("--year", type=int, default=2026)
     args = ap.parse_args()
@@ -404,6 +477,8 @@ def main() -> int:
         return discover(args.year)
     if args.champions:
         return scrape_champions(args.year)
+    if args.events:
+        return scrape_events(args.year)
     if args.ingest:
         return ingest(args.year)
     ap.print_help()

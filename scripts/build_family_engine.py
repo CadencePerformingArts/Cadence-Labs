@@ -146,6 +146,12 @@ def main() -> None:
                   '[/^#\\/data$/, () => { location.replace(FAM ? "#/compare" : "#/captions"); }],',
                   "data route")
 
+    js = sub_once(
+        js,
+        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => viewCaptions(m[1], st)],",
+        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => { if (FAM) { location.replace(\"#/compare\"); return; } return viewCaptions(m[1], st); }],",
+        "captions family redirect")
+
     # ---- terminology: user-visible strings ----
     # NOTE: several targets live in PLAIN strings, not template literals —
     # those must use concatenation, never ${...} (which would render raw).
