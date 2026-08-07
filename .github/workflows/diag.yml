@@ -1,0 +1,23 @@
+name: Fetch diagnostics
+# One-shot, manual-only: confirm the cloud caption/score sources are
+# reachable from the GitHub runner network. Read results from job logs.
+on:
+  workflow_dispatch:
+permissions: {}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe sources
+        run: |
+          echo "=== downbeatdesigns.com ==="
+          curl -sS -L --max-time 30 -o /dev/null -w "status=%{http_code}\n" "https://downbeatdesigns.com/dci_2026" || echo "fail"
+          echo "=== drum-corps.net ==="
+          curl -sS -L --max-time 30 -o /dev/null -w "status=%{http_code}\n" "https://www.drum-corps.net/scores" || echo "fail"
+          echo "=== CompetitionSuite bridge API ==="
+          curl -sS --max-time 30 -H "Accept: application/json" "https://bridge.competitionsuite.com/api/orgscores/GetCompetitionsBySeason/jsonp?season=84f71c7b-8913-454a-a87f-d7a462905301" -o /tmp/b -w "status=%{http_code}\n" || echo "fail"
+          echo "competitions listed: $(grep -o competitionGuid /tmp/b | wc -l)"
+          echo "=== CompetitionSuite recap page ==="
+          curl -sS --max-time 30 "https://recaps.competitionsuite.com/1b5402fa-ca69-4d9a-8be5-7e984c0c04b9.htm" -o /tmp/r -w "status=%{http_code} size=%{size_download}\n" || echo "fail"
+          echo "corps rows in recap: $(grep -o "rightBorderDouble'>[A-Z]" /tmp/r | wc -l)"
