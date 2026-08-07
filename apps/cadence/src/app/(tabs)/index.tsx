@@ -70,6 +70,14 @@ function LeaderboardView() {
       {data && data.rows.length === 0 && <EmptyState icon={mode.icon} message={mode.emptyState} />}
       {data && data.rows.length > 0 && (
         <>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', paddingHorizontal: spacing(3), marginBottom: spacing(2) }}>
+            <Chip
+              label="⚖️ Compare trends"
+              active={false}
+              color={mode.accent}
+              onPress={() => router.push('/compare')}
+            />
+          </View>
           {(move || battle) && (
             <View style={{ flexDirection: 'row', gap: spacing(2.5), paddingHorizontal: spacing(3), marginBottom: spacing(2.5) }}>
               {move && (

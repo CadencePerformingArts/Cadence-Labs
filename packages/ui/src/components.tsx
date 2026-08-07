@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View, type ViewStyle } from 'react-native';
-import type { Division, Provenance } from '@cadence/domain';
+import type { CaptionScore, Division, Provenance } from '@cadence/domain';
 import { formatDelta, formatScore } from '@cadence/domain';
 import { radius, spacing, type, useTheme } from './index';
 
@@ -149,8 +149,16 @@ export interface ScoreRowProps {
   favorite?: boolean;
   advanced?: boolean;
   awards?: string[];
+  captions?: CaptionScore[];
+  penalty?: number;
   onPress?: () => void;
   onToggleFavorite?: () => void;
+}
+
+function captionAbbr(caption: string): string {
+  const words = caption.split(/\s+/);
+  if (words.length > 1) return words.map((w) => w[0]).join('').toUpperCase();
+  return caption.slice(0, 3).toUpperCase();
 }
 
 export function ScoreRow(props: ScoreRowProps) {
@@ -200,6 +208,15 @@ export function ScoreRow(props: ScoreRowProps) {
         {props.awards && props.awards.length > 0 ? (
           <Text style={{ color: t.accent, fontSize: type.tiny, fontWeight: '600' }} numberOfLines={2}>
             🏆 {props.awards.join(' · ')}
+          </Text>
+        ) : null}
+        {props.captions && props.captions.length > 0 ? (
+          <Text
+            style={{ color: t.textSecondary, fontSize: type.tiny, fontVariant: ['tabular-nums'] }}
+            numberOfLines={1}
+          >
+            {props.captions.map((c) => `${captionAbbr(c.caption)} ${formatScore(c.score)}`).join('  ·  ')}
+            {props.penalty ? `  ·  PEN −${props.penalty}` : ''}
           </Text>
         ) : null}
       </View>

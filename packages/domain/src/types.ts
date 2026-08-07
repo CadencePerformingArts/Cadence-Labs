@@ -214,3 +214,13 @@ export interface ChampionEntry {
   name: string;
   score?: number;
 }
+
+/** An all-time record score (e.g. highest World Class finals scores ever). */
+export interface ScoreRecord {
+  season: string;
+  date: string;
+  divisionId: string;
+  name: string;
+  score: number;
+  event: string;
+}
