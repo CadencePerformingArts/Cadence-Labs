@@ -259,6 +259,8 @@ def parse_recap(pdf_path: Path) -> dict | None:
             continue
         nums = [float(x) for x in m.group("nums").split()]
         sub, pen, tot = nums[-3], nums[-2], nums[-1]
+        if pen > 0 and abs(sub - pen - tot) <= 0.011:
+            pen = -pen  # older recaps print the deduction as a positive number
         if abs(sub + pen - tot) > 0.011 or not (40.0 <= tot <= 100.0):
             dropped += 1
             continue

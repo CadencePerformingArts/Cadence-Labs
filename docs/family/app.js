@@ -1221,7 +1221,7 @@
         chartEl.innerHTML = `<div class='empty' style="padding:52px 16px">
           <div style="font-size:30px" aria-hidden="true">📈</div>
           <div style="font-weight:650;color:var(--text-primary);margin:8px 0 4px">Pick ${TERM.plural} to compare — this season is already selected</div>
-          Select as many corps as you like — each corps-season draws its own line,<br>
+          Select as many ${TERM.plural} as you like — each ${TERM.singular}-season draws its own line,<br>
           and its row below expands into the full show-by-show log.</div>`;
         tableEl.innerHTML = "";
         return;
@@ -1718,6 +1718,7 @@
 
     // one table: every season, its champion, click through to the year
     const clsSet = new Set();
+    if (FAM) { try { const _ch = await data("champions.json"); if (!Object.keys(_ch || {}).length) { const t = document.getElementById("champT"); if (t) t.innerHTML = "<tr><td class='empty'>The record book fills in with this app's first full season of data.</td></tr>"; const cs = document.getElementById("champSub"); if (cs) cs.textContent = ""; return; } } catch (e) {} }
     Object.values(champs).forEach(byCls => Object.keys(byCls).forEach(c => clsSet.add(c)));
     const clsList = sortClasses([...clsSet]);
     let champCls = clsList.includes("World Class") ? "World Class" : clsList[0];
@@ -3786,10 +3787,11 @@
      Each top-level tab remembers where you last were (an open event, a
      corps, a stats sub-page with its filters-in-URL) and takes you back
      there. Tapping the tab you're already on returns to its front page. */
-  const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: "#/captions" };
+  const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM ? "#/compare" : "#/captions", champions: "#/champions" };
   function sectionOf(hash) {
     if (/^#\/(events|event\/|season\/|predictions)/.test(hash)) return "events";
     if (/^#\/corps/.test(hash)) return "corps";
+    if (FAM && /^#\/(champions|seasons)/.test(hash)) return "champions";
     if (/^#\/(data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";
     if (hash === "#/" || hash === "" || hash === "#") return "rankings";
     return null; // suggestions etc. carry no tab memory

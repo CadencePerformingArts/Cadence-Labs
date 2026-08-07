@@ -1,6 +1,6 @@
 {
  "source": "boa",
- "probed_at": "2026-08-07T23:14:01.204379+00:00",
+ "probed_at": "2026-08-07T23:27:24.778152+00:00",
  "index": "https://marching.musicforall.org/result/",
  "events": [
   {
@@ -44,7 +44,16 @@
    "slug": "san-antonio-super-regional-2025",
    "year": 2025,
    "title": "San Antonio Super Regional",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/11/SATX-Prelims-Friday.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/11/SATX-Finals-Saturday.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/southeastern-regional-2025/",
@@ -195,21 +204,48 @@
    "slug": "memphis-regional-2025",
    "year": 2025,
    "title": "Memphis Regional",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/10/Memphis_Prelims_2025.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/10/Memphis_Finals_2025.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/north-texas-regional-2025/",
    "slug": "north-texas-regional-2025",
    "year": 2025,
    "title": "North Texas Regional",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/NorthTexasPrelims.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/NorthTexasFinals.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/west-texas-regional-2025/",
    "slug": "west-texas-regional-2025",
    "year": 2025,
    "title": "West Texas Regional",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/WestTexas2025Prelims.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2025/09/WestTexas2025Finals.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/carolina-regional-2025/",
@@ -680,28 +716,64 @@
    "slug": "chattanooga-tn-2024",
    "year": 2024,
    "title": "Chattanooga, TN 2024",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024_Chattanooga_Prelims.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024_Chattanooga_Finals.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/memphis-tn-2024/",
    "slug": "memphis-tn-2024",
    "year": 2024,
    "title": "Memphis, TN 2024",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024_Memphis_Prelims.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024_Memphis_Finals.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/webster-tx-2024-2/",
    "slug": "webster-tx-2024-2",
    "year": 2024,
    "title": "Webster, TX 2024",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024_Webster_Prelims.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024_Webster_Finals.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/bedford-tx-2024/",
    "slug": "bedford-tx-2024",
    "year": 2024,
    "title": "Bedford, TX 2024",
-   "pdfs": []
+   "pdfs": [
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/Bedford_Prelims_2024.pdf",
+     "round_guess": "Prelims"
+    },
+    {
+     "href": "https://marching.musicforall.org/wp-content/uploads/sites/5/2024/10/2024_Dallas_MC_Finals.pdf",
+     "round_guess": "Finals"
+    }
+   ]
   },
   {
    "url": "https://marching.musicforall.org/result/flagstaff-az-2024/",
@@ -1772,6 +1844,6 @@
    "year": null
   }
  ],
- "pdf_events": 50,
- "pdf_total": 100
+ "pdf_events": 58,
+ "pdf_total": 116
 }

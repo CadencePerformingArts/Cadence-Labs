@@ -67,6 +67,7 @@
       var cls = (a.id === cur ? "cm-on" : "") + (a.indent ? " cm-ind" : "");
       return '<a href="' + a.href + '" class="' + cls + '">' + inner + "</a>";
     }).join("") +
+    '<a class="cm-all" href="' + base + '/plus.html">✨ Cadence+ — go beyond the scores →</a>' +
     '<a class="cm-all" href="' + base + '/modes.html">About the Cadence family →</a>';
   document.body.appendChild(menu);
 
