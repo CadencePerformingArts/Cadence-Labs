@@ -291,11 +291,17 @@ def gen_instance(key, cfg):
         }
 
     write = lambda rel, obj: (out / rel).write_text(json.dumps(obj))
-    write("meta.json", {"updated": UPDATED, "seasons": [{"year": y, "events": len(season_files[y])} for y in SEASONS]})
+    meta_seasons = [{"year": y, "events": len(season_files[y])} for y in SEASONS]
+    ev_live = out / "EVENTS_LIVE"
+    if ev_live.exists():
+        live = json.loads(ev_live.read_text())
+        meta_seasons.append({"year": live["season"], "events": live["events"]})
+    write("meta.json", {"updated": UPDATED, "seasons": meta_seasons})
     write("rankings.json", {"generated": UPDATED, "season": latest, "standings": standings, "recent_events": recent})
     for y in SEASONS:
         write(f"seasons/{y}.json", season_files[y])
-    write("upcoming.json", [])
+    if not ev_live.exists():
+        write("upcoming.json", [])
     write("corps_index.json", idx)
     write("profiles.json", profiles)
     if not (out / "CHAMPS_LIVE").exists():

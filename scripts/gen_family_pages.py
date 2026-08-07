@@ -5,6 +5,7 @@ plus a dataset from gen_family_data.py.
 
     python3 scripts/gen_family_pages.py
 """
+import hashlib
 import json
 from pathlib import Path
 
@@ -100,6 +101,14 @@ PAGES = {
     },
 }
 
+def v(rel: str) -> str:
+    """Content-hash version tag for an asset under docs/, for cache busting."""
+    p = DOCS / rel
+    if not p.exists():
+        return ""
+    return "?v=" + hashlib.sha1(p.read_bytes()).hexdigest()[:8]
+
+
 LOGO_SVG = """<svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
       <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
       <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
@@ -150,6 +159,9 @@ def page(key: str, c: dict) -> str:
     activity_chip = (
         f'<span class="fam-activity">{c["activity"]}</span>' if c["activity"] else ""
     )
+    v_app_css, v_fam_css = v("app.css"), v("family/family.css")
+    v_charts, v_wrapped = v("charts.js"), v("family/wrapped.js")
+    v_engine, v_modes = v("family/app.js"), v("modes.js")
     nav = c["nav"]
     et = c.get("extra_tab")
     extra_tab_html = (
@@ -176,8 +188,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;
 var name=localStorage.getItem("cad-corps-theme"),css=localStorage.getItem("cad-corps-css");
 if(name&&css){{var s=document.createElement("style");s.id="corpsTheme";s.textContent=css;document.head.appendChild(s);
 r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));}}}})();</script>
-<link rel="stylesheet" href="{r}/app.css">
-<link rel="stylesheet" href="{r}/family/family.css">
+<link rel="stylesheet" href="{r}/app.css{v_app_css}">
+<link rel="stylesheet" href="{r}/family/family.css{v_fam_css}">
 <style>:root {{ --fam-accent: {c["accent"]}; }}</style>
 </head>
 <body>
@@ -228,10 +240,10 @@ window.APP_CFG = {json.dumps(cfg)};
   addEventListener("appinstalled", function () {{ btn.hidden = true; }});
 }})();
 </script>
-<script src="{r}/charts.js"></script>
-<script src="{r}/family/wrapped.js"></script>
-<script src="{r}/family/app.js"></script>
-<script src="{r}/modes.js" data-base="{r}"></script>
+<script src="{r}/charts.js{v_charts}"></script>
+<script src="{r}/family/wrapped.js{v_wrapped}"></script>
+<script src="{r}/family/app.js{v_engine}"></script>
+<script src="{r}/modes.js{v_modes}" data-base="{r}"></script>
 </body>
 </html>
 """
