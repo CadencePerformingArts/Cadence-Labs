@@ -323,14 +323,87 @@ def ingest(year: int) -> int:
     return 0 if wrote else 1
 
 
+# ---------------------------------------------------------------------------
+# public champions history (wgi.org per-class champions pages — no login)
+# ---------------------------------------------------------------------------
+
+CHAMPION_PAGES = {
+    "guard": {
+        "Independent World": "independent-world-color-guard-champions",
+        "Independent Open": "independent-open-color-guard-champions",
+        "Independent A": "independent-a-color-guard-champions",
+        "Scholastic World": "scholastic-world-color-guard-champions",
+        "Scholastic Open": "scholastic-open-color-guard-champions",
+        "Scholastic A": "scholastic-a-color-guard-champions",
+    },
+    "percussion": {
+        "Independent World": "independent-world-percussion-champions",
+        "Independent Open": "independent-open-percussion-champions",
+        "Independent A": "independent-a-percussion-champions",
+        "Scholastic World": "scholastic-world-percussion-champions",
+        "Scholastic Open": "scholastic-open-percussion-champions",
+        "Scholastic A": "scholastic-a-percussion-champions",
+    },
+    "winds": {
+        "Independent World": "independent-world-winds-champions",
+        "Independent Open": "independent-open-winds-champions",
+        "Scholastic World": "scholastic-world-winds-champions",
+        "Scholastic Open": "scholastic-open-winds-champions",
+    },
+}
+
+ROW_RE = re.compile(r"<tr[^>]*>(.*?)</tr>", re.S)
+CELL_RE = re.compile(r"<t[dh][^>]*>(.*?)</t[dh]>", re.S)
+TAG_RE = re.compile(r"<[^>]+>")
+
+
+def scrape_champions(_year: int) -> int:
+    """Scrape the public per-class champions tables into each WGI activity's
+    champions.json (real data), leaving everything else untouched. Writes a
+    CHAMPS_LIVE marker so the demo generator preserves the file."""
+    wrote = 0
+    for act, pages in CHAMPION_PAGES.items():
+        data: dict = {}
+        for cls, slug_part in pages.items():
+            html = fetch(f"https://wgi.org/{slug_part}/") or ""
+            rows = ROW_RE.findall(html)
+            hits = 0
+            for row in rows:
+                cells = [TAG_RE.sub("", c).strip() for c in CELL_RE.findall(row)]
+                if len(cells) < 2 or not re.match(r"^(19|20)\d{2}$", cells[0]):
+                    continue
+                year_s, name = cells[0], cells[1]
+                score = None
+                if len(cells) >= 4:
+                    m = re.search(r"\d+\.?\d*", cells[3])
+                    if m:
+                        score = float(m.group(0))
+                if name:
+                    data.setdefault(year_s, {})[cls] = (
+                        {"corps": name, "score": score} if score is not None else {"corps": name})
+                    hits += 1
+            log(f"wgi champions {act}/{cls}: {hits} rows")
+        if len(data) >= 5:
+            out = DOCS_WGI / act / "data"
+            out.mkdir(parents=True, exist_ok=True)
+            (out / "champions.json").write_text(json.dumps(data))
+            (out / "CHAMPS_LIVE").write_text("real champions history from wgi.org\n")
+            wrote += 1
+            log(f"wgi/{act}: wrote real champions history ({len(data)} seasons)")
+    return 0 if wrote == len(CHAMPION_PAGES) else 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--discover", action="store_true")
+    ap.add_argument("--champions", action="store_true")
     ap.add_argument("--ingest", action="store_true")
     ap.add_argument("--year", type=int, default=2026)
     args = ap.parse_args()
     if args.discover:
         return discover(args.year)
+    if args.champions:
+        return scrape_champions(args.year)
     if args.ingest:
         return ingest(args.year)
     ap.print_help()

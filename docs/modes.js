@@ -12,12 +12,7 @@
     if (path.indexOf("/wgi/percussion") >= 0) return "wgi-perc";
     if (path.indexOf("/wgi/winds") >= 0) return "wgi-winds";
     if (path.indexOf("/boa") >= 0) return "boa";
-    if (path.indexOf("/uil") >= 0) return "uil";
-    if (path.indexOf("/state/indiana") >= 0) return "issma";
-    if (path.indexOf("/state/ohio") >= 0) return "omea";
-    if (path.indexOf("/state/florida") >= 0) return "fmbc";
     if (path.indexOf("/usbands") >= 0) return "usb";
-    if (path.indexOf("/showchoir") >= 0) return "sc";
     return "dci";
   }
   var cur = here();
@@ -30,13 +25,7 @@
     { id: "wgi-winds", icon: "🎷", name: "WGI Winds", sub: "Demo season", href: base + "/wgi/winds/", indent: true },
     { head: "More circuits" },
     { id: "boa", icon: "🎺", name: "Bands of America", sub: "Demo season", href: base + "/boa/" },
-    { head: "High school circuits" },
-    { id: "uil", icon: "🤠", name: "UIL Texas", sub: "Demo season", href: base + "/uil/", indent: true },
-    { id: "issma", icon: "🏁", name: "ISSMA Indiana", sub: "Demo season", href: base + "/state/indiana/", indent: true },
-    { id: "omea", icon: "🌰", name: "OMEA Ohio", sub: "Demo season", href: base + "/state/ohio/", indent: true },
-    { id: "fmbc", icon: "🌴", name: "FMBC Florida", sub: "Demo season", href: base + "/state/florida/", indent: true },
-    { id: "usb", icon: "🎼", name: "US Bands", sub: "Demo season", href: base + "/usbands/", indent: true },
-    { id: "sc", icon: "🎭", name: "Show Choir", sub: "Demo season", href: base + "/showchoir/" },
+    { id: "usb", icon: "🎼", name: "US Bands", sub: "Demo season", href: base + "/usbands/" },
   ];
 
   var css = [
