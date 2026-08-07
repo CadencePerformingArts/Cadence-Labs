@@ -1,0 +1,64 @@
+# WGI live data ingest via CompetitionSuite (same platform as the DCI scrape).
+# Run "discover" first — it writes data/wgi_probe.json as an artifact so the
+# organization GUID and season/competition shapes can be verified before the
+# first real ingest. "ingest" only commits data that passes validation; a
+# failed run never erases anything (the demo generator also skips any
+# activity that has a LIVE marker).
+name: WGI ingest
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "discover (probe only) or ingest (write data)"
+        type: choice
+        options: [discover, ingest]
+        default: discover
+      year:
+        description: "Season year"
+        default: "2026"
+  schedule:
+    # Weekly during the WGI season (Jan–Apr), Mondays 06:12 UTC
+    - cron: "12 6 * 1-4 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wgi-ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scraper/requirements.txt
+      - name: Run WGI scraper
+        env:
+          MODE: ${{ github.event.inputs.mode || 'ingest' }}
+          YEAR: ${{ github.event.inputs.year || '2026' }}
+          PYTHONPATH: scraper
+        run: |
+          python scraper/scrape_wgi.py --$MODE --year "$YEAR" || echo "::warning::wgi $MODE did not complete cleanly — see probe artifact"
+      - name: Upload probe report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wgi-probe
+          path: data/wgi_probe.json
+          if-no-files-found: ignore
+      - name: Commit ingested data
+        run: |
+          git config user.name "cadence-labs-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/wgi/*/data
+          if git diff --cached --quiet; then echo "no data changes"; exit 0; fi
+          git commit -m "WGI data ingest: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          for i in 1 2 3 4; do git push && break; git pull --rebase && sleep $((i*2)); done

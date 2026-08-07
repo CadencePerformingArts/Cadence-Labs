@@ -3794,7 +3794,7 @@
     // GitHub Pages CDN (which has to finish a build+deploy), so the scoreboard
     // updates as fast as the source itself has the scores. Off-season / on
     // failure it falls back to the normal Pages data.
-    const RAW = "https://raw.githubusercontent.com/LukeBesel/DCI-Tracker/main/docs/data/";
+    const RAW = "https://raw.githubusercontent.com/LukeBesel/Cadence-Labs/main/docs/data/";
     let stamp = null;
     let toast = null;
     let showActive = false;
