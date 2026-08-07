@@ -12,7 +12,6 @@
     if (path.indexOf("/wgi/percussion") >= 0) return "wgi-perc";
     if (path.indexOf("/wgi/winds") >= 0) return "wgi-winds";
     if (path.indexOf("/boa") >= 0) return "boa";
-    if (path.indexOf("/acappella") >= 0) return "aca";
     if (path.indexOf("/showchoir") >= 0) return "sc";
     return "dci";
   }
@@ -26,7 +25,6 @@
     { id: "wgi-winds", icon: "🎷", name: "WGI Winds", sub: "Demo season", href: base + "/wgi/winds/", indent: true },
     { head: "More circuits" },
     { id: "boa", icon: "🎺", name: "Bands of America", sub: "Demo season", href: base + "/boa/" },
-    { id: "aca", icon: "🎤", name: "A Cappella (ICCA/ICHSA)", sub: "Demo season", href: base + "/acappella/" },
     { id: "sc", icon: "🎭", name: "Show Choir", sub: "Demo season", href: base + "/showchoir/" },
   ];
 

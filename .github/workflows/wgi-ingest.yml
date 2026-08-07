@@ -52,7 +52,7 @@ jobs:
         env:
           PYTHONPATH: scraper
         run: |
-          for s in boa acappella showchoir; do
+          for s in boa showchoir; do
             python scraper/scrape_family_probe.py --source $s || echo "::warning::$s probe empty"
           done
       - name: Upload probe report
