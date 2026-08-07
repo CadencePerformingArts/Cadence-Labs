@@ -1,0 +1,130 @@
+name: Data update
+
+on:
+  schedule:
+    # every 15 minutes, year-round — GitHub's shared cron often fires late
+    # or skips, so the tighter schedule keeps real gaps near half an hour
+    # (the show-night watcher covers the minutes in between)
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scraper/requirements.txt
+      - name: Run update scrape
+        # the ~09:00 UTC run each day also does the deep passes
+        # (Wikipedia profiles + history archive chunks)
+        run: |
+          if [ "$(date -u +%H)" = "09" ]; then export RUN_HISTORY=1; fi
+          bash scraper/run_all.sh update
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "dci-tracker-bot"
+          git config user.email "actions@users.noreply.github.com"
+          # 1) commit ONLY scrape inputs (data/). docs/data is a build product:
+          #    it must never be merged — it is rebuilt from merged inputs below.
+          git add -A data
+          git diff --cached --quiet || git commit -m "Data update: $(date -u +'%F %H:%M') UTC (inputs)"
+          # the scrape-time build left docs/data modified in the working tree;
+          # drop those changes (docs/data regenerates from merged inputs below)
+          git checkout -- . 2>/dev/null || true
+          git clean -fd docs/data 2>/dev/null || true
+          for i in 1 2 3 4; do
+            if ! git pull --rebase -X theirs origin main; then
+              git rebase --abort 2>/dev/null || true
+              sleep $((5 * i))
+              continue
+            fi
+            # 2) regenerate site data from the merged inputs, commit, push
+            python scraper/build_data.py
+            git add -A data docs/data
+            git diff --cached --quiet || git commit -m "Data update: $(date -u +'%F %H:%M') UTC"
+            git push && exit 0
+            sleep $((5 * i))
+          done
+          echo "::error::could not push results after retries"
+          exit 1
+      - name: Save scrape output if push failed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scrape-data-${{ github.run_id }}
+          path: |
+            data/parsed
+            data/scrape_report.txt
+          retention-days: 3
+      # Dispatch instead of calling pages.yml as a nested job. A nested Pages
+      # deploy keeps this workflow in the "scrape" concurrency group while it
+      # waits, which can starve the following update runs during a Pages delay.
+      - name: Request site deploy
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          api="https://api.github.com/repos/${{ github.repository }}/actions/workflows/pages.yml/dispatches"
+          for i in 1 2 3 4; do
+            code=$(curl -s -o /tmp/pages-dispatch-response -w "%{http_code}" -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "$api" -d '{"ref":"main"}')
+            [ "$code" = "204" ] && exit 0
+            echo "::warning::Pages dispatch got HTTP $code (attempt $i): $(head -c 200 /tmp/pages-dispatch-response)"
+            sleep $((10 * i))
+          done
+          echo "::warning::could not dispatch Pages; the next update will retry"
+      - name: Keep the beat & wake the show-night watcher
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          api="https://api.github.com/repos/${{ github.repository }}/actions"
+          hdr1="Authorization: Bearer $GH_TOKEN"
+          hdr2="Accept: application/vnd.github+json"
+          # Ensure a long-lived shift of $1 is running; start one only if none
+          # is in-progress/queued. The pulse loop dispatches these updates
+          # every ~12 min, so this doesn't drive the cadence — it just RESTARTS
+          # the heartbeat (or the watcher) if it ever died, without stacking up
+          # duplicate multi-hour shifts. On an API hiccup it assumes "running"
+          # (n=1) and skips, rather than risk piling on.
+          ensure_running() {
+            local wf="$1" n=0 c st
+            for st in in_progress queued; do
+              c=$(curl -sf -H "$hdr1" -H "$hdr2" \
+                    "$api/workflows/$wf/runs?status=$st&per_page=1" \
+                  | python3 -c "import json,sys; print(json.load(sys.stdin).get('total_count',0))" 2>/dev/null || echo 1)
+              n=$((n + c))
+            done
+            if [ "$n" = "0" ]; then
+              echo "no $wf shift running — starting one"
+              curl -sf -X POST -H "$hdr1" -H "$hdr2" \
+                "$api/workflows/$wf/dispatches" -d '{"ref":"main"}' || true
+            fi
+          }
+          # keep the self-sustaining heartbeat alive
+          ensure_running pulse.yml
+          # show window (16:00 UTC → 10:59 UTC = noon ET through ~7 AM ET)
+          # covers afternoon/matinee shows, evening shows, and the overnight
+          # West Coast finishes. Make sure a live 3-minute watcher shift is
+          # running; its own no-shows check exits immediately on quiet days.
+          H=$(date -u +%H)
+          if [ "$H" -ge 16 ] || [ "$H" -lt 11 ]; then
+            ensure_running watch.yml
+          fi
