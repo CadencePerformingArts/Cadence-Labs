@@ -220,6 +220,39 @@ def main() -> None:
       a.classList.toggle("active", exact ? a === exact : a.dataset.route === route));""",
         "setNav data-href")
 
+    # championship hub: family apps lead the Champions tab with the reigning
+    # champion of every class (tap-through to profiles)
+    js = sub_once(
+        js,
+        '''<div class="chartwrap" id="champChart"></div>
+      </div></div>`;''',
+        '''<div class="chartwrap" id="champChart"></div>
+      </div></div>`;
+    if (FAM) (async () => {
+      try {
+        const ch = await data("champions.json");
+        const years = Object.keys(ch).sort();
+        const latest = years[years.length - 1];
+        if (!latest || !ch[latest]) return;
+        const ordered = CLASS_ORDER.filter(c => ch[latest][c])
+          .concat(Object.keys(ch[latest]).filter(c => !CLASS_ORDER.includes(c)));
+        if (!ordered.length) return;
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h2>Reigning Champions <span class="sub">${esc(String(latest))} titles</span></h2>
+          <div class="champ-grid">` + ordered.map(c => {
+            const w = ch[latest][c];
+            const score = w.score != null ? `<span class="champ-tile-s">${esc(String(w.score))}</span>` : "";
+            return `<a class="champ-tile" href="#/corps/${slugOf(w.corps)}">${corpsLogo(w.corps, 36)}
+              <span class="champ-tile-t"><span class="champ-tile-cls">${esc(c)}</span>
+              <b>${esc(w.corps)}</b>${score}</span></a>`;
+          }).join("") + `</div>`;
+        const h1 = app.querySelector("h1.page");
+        if (h1 && !stale()) h1.after(card);
+      } catch (e) {}
+    })();''',
+        "reigning champions hub")
+
     # per-sector scoreboard framing note (BOA/ACA/SC honesty line under the h1)
     js = sub_once(
         js,

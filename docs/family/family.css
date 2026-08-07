@@ -21,3 +21,13 @@
   letter-spacing: 0.3px;
 }
 @media (max-width: 640px) { .brand .fam-activity { display: none; } }
+
+/* Reigning Champions hub on the championship tab */
+.champ-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.champ-tile { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border-radius: 12px;
+  background: var(--surface-2); border: 1px solid var(--grid); color: inherit; }
+.champ-tile:hover { text-decoration: none; border-color: var(--gold); }
+.champ-tile-t { display: flex; flex-direction: column; min-width: 0; }
+.champ-tile-t b { font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.champ-tile-cls { font-size: 10.5px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); }
+.champ-tile-s { font-size: 12px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
