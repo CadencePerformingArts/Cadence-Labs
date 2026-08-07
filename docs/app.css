@@ -117,9 +117,9 @@ a:hover { text-decoration: underline; }
 .brand b { color: var(--gold); }
 .brand:hover { text-decoration: none; }
 #nav { display: flex; gap: 4px; flex-wrap: wrap; }
-#nav a { color: rgba(255,255,255,0.82); padding: 8px 15px; border-radius: 10px; font-size: 15.5px; font-weight: 550; display: flex; align-items: center; gap: 6px; }
+#nav a { color: #fff; padding: 8px 15px; border-radius: 10px; font-size: 15.5px; font-weight: 550; display: flex; align-items: center; gap: 6px; }
 #nav a svg { display: none; }
-#nav a:hover { color: #fff; background: rgba(255,255,255,0.10); text-decoration: none; }
+#nav a:hover { background: rgba(255,255,255,0.14); text-decoration: none; }
 #nav a.active { color: var(--on-accent, var(--navy)); background: var(--gold); font-weight: 700; }
 .updated { margin-left: auto; color: rgba(255,255,255,0.55); font-size: 11px; }
 
@@ -576,11 +576,11 @@ a.tile:hover { text-decoration: none; }
   }
   #nav a {
     flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 7px 2px; font-size: 12px; font-weight: 650; color: rgba(255,255,255,0.75);
+    padding: 7px 2px; font-size: 12px; font-weight: 650; color: #fff;
     border-radius: 12px; min-width: 0; white-space: nowrap;
   }
   #nav a svg { display: block; width: 26px; height: 26px; }
-  #nav a:hover { background: none; color: rgba(255,255,255,0.9); }
+  #nav a:hover { background: none; }
   #nav a.active { color: var(--on-accent, var(--navy)); background: var(--gold); }
   main { padding: 14px 12px 110px; }
   .foot { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }

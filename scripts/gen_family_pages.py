@@ -21,6 +21,7 @@ PAGES = {
         "short_name": "WGI Guard",
         "accent": "#7c3aed",
         "ns": "wgi-guard:",
+        "extra_tab": ("Worlds", "#/champions"),
         "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
@@ -37,6 +38,7 @@ PAGES = {
         "short_name": "WGI Perc",
         "accent": "#7c3aed",
         "ns": "wgi-perc:",
+        "extra_tab": ("Worlds", "#/champions"),
         "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
@@ -53,6 +55,7 @@ PAGES = {
         "short_name": "WGI Winds",
         "accent": "#7c3aed",
         "ns": "wgi-winds:",
+        "extra_tab": ("Worlds", "#/champions"),
         "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
@@ -69,6 +72,7 @@ PAGES = {
         "short_name": "Cadence BOA",
         "accent": "#dc2626",
         "ns": "boa:",
+        "extra_tab": ("Grand Nats", "#/champions"),
         "score_note": "Every championship has its own judging panel — this board shows each band's most recent score; compare within one event on its Shows page.",
         "terms": {"singular": "band", "plural": "bands", "a": "a band"},
         "events_title": "Shows",
@@ -86,6 +90,7 @@ PAGES = {
         "short_name": "UIL Texas",
         "accent": "#b45309",
         "ns": "uil:",
+        "extra_tab": ("State", "#/champions"),
         "score_note": "UIL contests are judged per event — this board shows each band's most recent score on the road to the Alamodome.",
         "terms": {"singular": "band", "plural": "bands", "a": "a band"},
         "events_title": "Shows",
@@ -102,6 +107,7 @@ PAGES = {
         "short_name": "ISSMA",
         "accent": "#0d9488",
         "ns": "issma:",
+        "extra_tab": ("State", "#/champions"),
         "score_note": "ISSMA contests are judged per event — this board shows each band's most recent score on the road to Lucas Oil Stadium.",
         "terms": {"singular": "band", "plural": "bands", "a": "a band"},
         "events_title": "Shows",
@@ -118,6 +124,7 @@ PAGES = {
         "short_name": "OMEA",
         "accent": "#0d9488",
         "ns": "omea:",
+        "extra_tab": ("State", "#/champions"),
         "score_note": "OMEA contests are judged per event — this board shows each band's most recent score on the road to State Finals.",
         "terms": {"singular": "band", "plural": "bands", "a": "a band"},
         "events_title": "Shows",
@@ -134,6 +141,7 @@ PAGES = {
         "short_name": "FMBC",
         "accent": "#0d9488",
         "ns": "fmbc:",
+        "extra_tab": ("State", "#/champions"),
         "score_note": "FMBC contests are judged per event — this board shows each band's most recent score on the road to Finals.",
         "terms": {"singular": "band", "plural": "bands", "a": "a band"},
         "events_title": "Shows",
@@ -150,6 +158,7 @@ PAGES = {
         "short_name": "US Bands",
         "accent": "#be185d",
         "ns": "usb:",
+        "extra_tab": ("Nationals", "#/champions"),
         "score_note": "US Bands shows are judged per event — this board shows each band's most recent score on the road to Nationals in Allentown.",
         "terms": {"singular": "band", "plural": "bands", "a": "a band"},
         "events_title": "Shows",
@@ -166,6 +175,7 @@ PAGES = {
         "short_name": "Show Choir",
         "accent": "#16a34a",
         "ns": "sc:",
+        "extra_tab": ("Champs", "#/champions"),
         "score_note": "Every invitational defines its own judging — this board shows each choir's most recent score; compare within one event on its Shows page.",
         "terms": {"singular": "choir", "plural": "choirs", "a": "a choir"},
         "events_title": "Shows",
@@ -227,6 +237,12 @@ def page(key: str, c: dict) -> str:
         f'<span class="fam-activity">{c["activity"]}</span>' if c["activity"] else ""
     )
     nav = c["nav"]
+    et = c.get("extra_tab")
+    extra_tab_html = (
+        f'<a href="{et[1]}" data-route="champions" data-href="{et[1]}">'
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        '<path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg>'
+        f'<span>{et[0]}</span></a>' if et else "")
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -261,6 +277,7 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
     <a href="#/events" data-route="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>{nav[1]}</span></a>
     <a href="#/corps" data-route="corps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 5l10 4M17 5L7 9"/><rect x="4" y="9" width="16" height="9" rx="2"/><path d="M4 12.5h16"/></svg><span>{nav[2]}</span></a>
     <a href="#/data" data-route="data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg><span>{nav[3]}</span></a>
+  {extra_tab_html}
   </nav>
   <a id="settingsBtn" href="#/settings" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 6.087a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.019.382c-.115.043-.283.031-.45-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></a>
   <div class="updated" id="updated" title="Data status"></div>

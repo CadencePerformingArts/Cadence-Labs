@@ -652,8 +652,11 @@
   }
 
   function setNav(route) {
-    document.querySelectorAll("#nav a").forEach(a =>
-      a.classList.toggle("active", a.dataset.route === route));
+    const hashv = location.hash || "#/";
+    const links = [...document.querySelectorAll("#nav a")];
+    const exact = links.find(a => a.dataset.href && hashv.indexOf(a.dataset.href) === 0);
+    links.forEach(a =>
+      a.classList.toggle("active", exact ? a === exact : a.dataset.route === route));
   }
   // Collapse long tables to the first `n` rows with a Show-all toggle.
   // Safe to call again after a re-render (replaces its own button).

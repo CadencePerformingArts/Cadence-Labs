@@ -205,6 +205,21 @@ def main() -> None:
         '  const TERM_TH = FAM ? FAM.terms.singular.charAt(0).toUpperCase() + FAM.terms.singular.slice(1) : "Corps";',
         "TERM_TH")
 
+    # custom tabs: a nav anchor carrying data-href highlights on exact hash
+    # prefix (used by each circuit's championship tab)
+    js = sub_once(
+        js,
+        """  function setNav(route) {
+    document.querySelectorAll("#nav a").forEach(a =>
+      a.classList.toggle("active", a.dataset.route === route));""",
+        """  function setNav(route) {
+    const hashv = location.hash || "#/";
+    const links = [...document.querySelectorAll("#nav a")];
+    const exact = links.find(a => a.dataset.href && hashv.indexOf(a.dataset.href) === 0);
+    links.forEach(a =>
+      a.classList.toggle("active", exact ? a === exact : a.dataset.route === route));""",
+        "setNav data-href")
+
     # per-sector scoreboard framing note (BOA/ACA/SC honesty line under the h1)
     js = sub_once(
         js,
