@@ -3286,6 +3286,11 @@
 
   /* ============ SUGGESTIONS ============ */
   const SUGGEST_REPO = "LukeBesel/DCI-Tracker";
+  const PALETTE_BAR = ["#0a3f6b", "#16233d", "#7c3aed", "#0f7b3d", "#b91c1c", "#0e7490",
+    "#c2410c", "#4338ca", "#701a75", "#92400e", "#1d4ed8", "#334155"];
+  const PALETTE_ACC = ["#f0b429", "#fbbf24", "#38bdf8", "#f472b6", "#34d399", "#fb923c",
+    "#e11d48", "#a3e635", "#c084fc", "#ffffff"];
+
   async function viewSettings(_m, stale) {
     setNav("");
     const themeMode = (window.CadTheme && window.CadTheme.mode()) || (localStorage.getItem("cad-theme") || "auto");
@@ -3364,10 +3369,12 @@
           <div class="corpslist-empty" id="corpsEmpty" hidden>No corps match “<span id="corpsEmptyQ"></span>”.</div>
         </div>
         <div class="custombuild">
-          <div class="custombuild-h">Or build your own <span class="kicker">just for fun</span></div>
+          <div class="custombuild-h">Or build your own <span class="kicker">pick a primary, then an accent</span></div>
+          <div class="palrow" data-pal="bar">${PALETTE_BAR.map(c => `<button type="button" class="palsw${c === custInit[0] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Primary ${c}"></button>`).join("")}</div>
+          <div class="palrow" data-pal="acc">${PALETTE_ACC.map(c => `<button type="button" class="palsw${c === custInit[1] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Accent ${c}"></button>`).join("")}</div>
           <div class="customrow">
-            <label class="custompick"><input type="color" id="custBar" value="${custInit[0]}"><span>Primary</span></label>
-            <label class="custompick"><input type="color" id="custAcc" value="${custInit[1]}"><span>Accent</span></label>
+            <label class="custompick"><input type="color" id="custBar" value="${custInit[0]}"><span>Fine-tune</span></label>
+            <label class="custompick"><input type="color" id="custAcc" value="${custInit[1]}"><span>Fine-tune</span></label>
             <span class="corpsrow-sw custpreview" id="custPreview" style="--c1:${custInit[0]};--c2:${custInit[1]}"></span>
             <button class="tab pr-lock" id="custApply" type="button">Use these</button>
           </div>
@@ -3445,7 +3452,17 @@
         if (qs) qs.textContent = search.value.trim();
       }
     });
-    // custom primary + accent — just for fun
+    // custom primary + accent — curated swatches drive the pickers, so the
+    // ugly native color dialog is only a fine-tune fallback
+    app.querySelectorAll(".palrow").forEach(rowEl => rowEl.addEventListener("click", e => {
+      const sw = e.target.closest(".palsw");
+      if (!sw) return;
+      const input = document.getElementById(rowEl.dataset.pal === "bar" ? "custBar" : "custAcc");
+      if (!input) return;
+      input.value = sw.dataset.c;
+      rowEl.querySelectorAll(".palsw").forEach(x => x.classList.toggle("on", x === sw));
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    }));
     const custBar = document.getElementById("custBar");
     const custAcc = document.getElementById("custAcc");
     const custPrev = document.getElementById("custPreview");

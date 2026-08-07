@@ -137,6 +137,36 @@ def slug(name: str) -> str:
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", name.lower())).strip("-")
 
 
+def monogram(name: str) -> str:
+    """Deterministic SVG monogram badge as a data URI. The '#logo.svg'
+    fragment satisfies the app's isLogoUrl() check; browsers ignore it."""
+    from urllib.parse import quote
+    h = jitter(name, "hue", mod=360)
+    c1, c2 = f"hsl({h},55%,30%)", f"hsl({(h + 42) % 360},75%,52%)"
+    words = [w for w in re.findall(r"[A-Za-z0-9]+", name) if w.upper() not in ("HS", "THE", "OF")]
+    ini = "".join(w[0] for w in words[:2]).upper() or name[:2].upper()
+    svg = ("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
+           "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>"
+           f"<stop offset='0' stop-color='{c1}'/><stop offset='1' stop-color='{c2}'/>"
+           "</linearGradient></defs>"
+           "<rect width='64' height='64' rx='14' fill='url(#g)'/>"
+           f"<text x='32' y='42' font-family='system-ui,sans-serif' font-size='27' "
+           f"font-weight='800' fill='#fff' text-anchor='middle'>{ini}</text></svg>")
+    return "data:image/svg+xml;utf8," + quote(svg, safe="") + "#logo.svg"
+
+
+def movers_and_battles(rows: list[dict]) -> tuple[list, list]:
+    movers = sorted((r for r in rows if isinstance(r.get("delta"), (int, float))),
+                    key=lambda r: -r["delta"])[:3]
+    battles = sorted(
+        ({"a": rows[i - 1]["corps"], "b": r["corps"], "ra": rows[i - 1]["rank"], "rb": r["rank"],
+          "sa": rows[i - 1]["score"], "sb": r["score"],
+          "gap": round(abs(rows[i - 1]["score"] - r["score"]), 3)}
+         for i, r in enumerate(rows) if i > 0),
+        key=lambda b: (b["gap"], b["ra"]))[:3]
+    return movers, battles
+
+
 def jitter(*parts, mod=100) -> int:
     h = hashlib.md5("|".join(str(p) for p in parts).encode()).hexdigest()
     return int(h[:8], 16) % mod
@@ -226,7 +256,8 @@ def gen_instance(key, cfg):
         rows.sort(key=lambda r: -r["score"])
         for i, r in enumerate(rows):
             r["rank"] = i + 1
-        standings[cls] = {"rows": rows}
+        movers, battles = movers_and_battles(rows)
+        standings[cls] = {"rows": rows, "movers": movers, "battles": battles}
 
     recent = []
     for ev in reversed(season_files[latest][-3:]):
@@ -253,9 +284,10 @@ def gen_instance(key, cfg):
             titles = [y for y, cl in champions.items() if cl.get(cls, {}).get("corps") == name]
             profiles[sl] = {
                 "title": name,
+                "img": monogram(name),
                 "summary": f"{name} ({home}) competes in {cls}. "
-                + (f"Demo-season champion: {', '.join(sorted(titles))}. " if titles else "")
-                + "This is demonstration data — scores are invented; the name belongs to a real, well-loved program.",
+                + (f"Preview-season champion: {', '.join(sorted(titles))}. " if titles else "")
+                + "Preview data — scores are placeholders until the live feed lands; the name belongs to a real, well-loved program.",
             }
     idx.sort(key=lambda c: c["name"])
 

@@ -47,12 +47,20 @@ jobs:
           PYTHONPATH: scraper
         run: |
           python scraper/scrape_wgi.py --$MODE --year "$YEAR" || echo "::warning::wgi $MODE did not complete cleanly — see probe artifact"
+      - name: Probe the other circuits' sources
+        if: ${{ (github.event.inputs.mode || 'ingest') == 'discover' }}
+        env:
+          PYTHONPATH: scraper
+        run: |
+          for s in boa acappella showchoir; do
+            python scraper/scrape_family_probe.py --source $s || echo "::warning::$s probe empty"
+          done
       - name: Upload probe report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wgi-probe
-          path: data/wgi_probe.json
+          name: ingest-probes
+          path: data/*_probe.json
           if-no-files-found: ignore
       - name: Commit ingested data
         run: |

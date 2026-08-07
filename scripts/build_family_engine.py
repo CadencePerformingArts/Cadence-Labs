@@ -42,21 +42,44 @@ SETTINGS_INJECT = """
       let clsList = [];
       try { clsList = sortClasses(Object.keys((await data("rankings.json")).standings || {})); } catch (e) {}
       if (!clsList.length) return;
+      const pref = (k, dflt) => { try { const v = localStorage.getItem(NS(k)); return v == null ? dflt : v; } catch (e) { return dflt; } };
+      const setPref = (k, v) => { try { localStorage.setItem(NS(k), v); } catch (e) {} };
       let on = null;
-      try { on = JSON.parse(localStorage.getItem(NS("cad-notify-classes")) || "null"); } catch (e) {}
+      try { on = JSON.parse(pref("cad-notify-classes", "null")); } catch (e) {}
       const onSet = new Set(Array.isArray(on) ? on.filter(c => clsList.includes(c)) : clsList);
+      const alertsOn = pref("cad-notify-on", "on") === "on";
+      const favsOnly = pref("cad-notify-scope", "all") === "favs";
       const card = document.createElement("div");
       card.className = "card setcard";
       card.innerHTML = `<h2>Notifications</h2>
-        <p class="setnote">Pick the classes you want score alerts for. Alerts switch on automatically once ${esc(FAM.appName)} has a live data source — this preview runs on demo data, so nothing pings yet.</p>
-        <div class="seg" style="flex-wrap:wrap;gap:6px">${clsList.map(c => `<button class="tab${onSet.has(c) ? " on" : ""}" data-ncls="${esc(c)}">${esc(c)}</button>`).join("")}</div>`;
+        <p class="setnote">Set up exactly what you want a ping for — alerts go live automatically the moment ${esc(FAM.appName)} has a live data feed.</p>
+        <div class="setrow">
+          <div><b>Score alerts</b><div class="setsub">A ping when new scores land</div></div>
+          <button class="toggle${alertsOn ? " on" : ""}" id="famNotifyOn" aria-pressed="${alertsOn}" aria-label="Score alerts"></button>
+        </div>
+        <div class="setrow">
+          <div><b>Only my favorites</b><div class="setsub">Alert just for your ★ ${esc(TERM.plural)}</div></div>
+          <button class="toggle${favsOnly ? " on" : ""}" id="famNotifyFavs" aria-pressed="${favsOnly}" aria-label="Favorites only"></button>
+        </div>
+        <div class="setrow setrow-classes">
+          <div><b>Which classes</b><div class="setsub">Only alert me for the classes I follow</div></div>
+        </div>
+        <div class="classchips">${clsList.map(c => `<button class="classchip${onSet.has(c) ? " on" : ""}" data-ncls="${esc(c)}" aria-pressed="${onSet.has(c)}">${esc(c)}</button>`).join("")}</div>`;
       const foot = app.querySelector(".setfoot");
       if (foot) app.insertBefore(card, foot); else app.appendChild(card);
+      const wireToggle = (id, apply) => card.querySelector(id).addEventListener("click", e => {
+        const now = !e.currentTarget.classList.contains("on");
+        e.currentTarget.classList.toggle("on", now);
+        e.currentTarget.setAttribute("aria-pressed", String(now));
+        apply(now);
+      });
+      wireToggle("#famNotifyOn", now => setPref("cad-notify-on", now ? "on" : "off"));
+      wireToggle("#famNotifyFavs", now => setPref("cad-notify-scope", now ? "favs" : "all"));
       card.querySelectorAll("[data-ncls]").forEach(b => b.addEventListener("click", () => {
         const c = b.dataset.ncls;
         if (onSet.has(c)) onSet.delete(c); else onSet.add(c);
         b.classList.toggle("on", onSet.has(c));
-        localStorage.setItem(NS("cad-notify-classes"), JSON.stringify([...onSet]));
+        setPref("cad-notify-classes", JSON.stringify([...onSet]));
       }));
     })();
 """
@@ -124,19 +147,23 @@ def main() -> None:
                   "data route")
 
     # ---- terminology: user-visible strings ----
+    # NOTE: several targets live in PLAIN strings, not template literals —
+    # those must use concatenation, never ${...} (which would render raw).
     pairs = [
-        ("Tap a corps below to start ranking", "Tap ${TERM.a} below to start ranking", 1),
+        ("'<li class=\"pr-hint\">Tap a corps below to start ranking…</li>'",
+         "'<li class=\"pr-hint\">Tap ' + TERM.a + ' below to start ranking…</li>'", 1),
         ("} corps`,", "} ${TERM.plural}`,", 1),
-        ("Pick corps to chart…", "Pick ${TERM.plural} to chart…", 2),
+        ('"Pick corps to chart…"', '"Pick " + TERM.plural + " to chart…"', 2),
         ("each corps' most recent score", "each ${TERM.singular}'s most recent score", 1),
-        ("Needs two corps within striking distance.", "Needs two ${TERM.plural} within striking distance.", 1),
+        ("\"<h2>Closest Battle</h2><div class='empty'>Needs two corps within striking distance.</div>\"",
+         "\"<h2>Closest Battle</h2><div class='empty'>Needs two \" + TERM.plural + \" within striking distance.</div>\"", 1),
         ("pick several corps and seasons — every corps-season gets its own line",
          "pick several ${TERM.plural} and seasons — every ${TERM.singular}-season gets its own line", 1),
-        ("Add corps — pick as many as you like…", "Add ${TERM.plural} — pick as many as you like…", 1),
+        ('"Add corps — pick as many as you like…"', '"Add " + TERM.plural + " — pick as many as you like…"', 1),
         ("Pick corps to compare — this season is already selected",
          "Pick ${TERM.plural} to compare — this season is already selected", 1),
         ("} corps-season lines — trim the selection", "} ${TERM.singular}-season lines — trim the selection", 1),
-        ("Pick a corps…", "Pick ${TERM.a}…", 2),
+        ('"Pick a corps…"', '"Pick " + TERM.a + "…"', 2),
         (">Pick a corps</h2>", ">Pick ${TERM.a}</h2>", 1),
         ("Choose any corps above to see season charts, the full performance log, and championship titles — back to 1972.",
          "Choose any ${TERM.singular} above to see season charts, the full performance log, and championship titles${FAM ? \"\" : \" — back to 1972\"}.", 1),

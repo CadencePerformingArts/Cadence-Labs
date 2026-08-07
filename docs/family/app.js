@@ -538,7 +538,7 @@
         container.innerHTML = h`<div class="predict">
           <div class="pr-head">🎯 Call the finish <span class="kicker">tap them in the order you think they'll place</span></div>
           <ol class="pr-list">${draft.map((c, i) => `<li><button class="pr-pick" data-drop="${i}">${esc(c)}<span class="pr-x">✕</span></button></li>`).join("")
-            || '<li class="pr-hint">Tap ${TERM.a} below to start ranking…</li>'}</ol>
+            || '<li class="pr-hint">Tap ' + TERM.a + ' below to start ranking…</li>'}</ol>
           ${rest.length ? `<div class="pr-pool">${rest.map(c => `<button class="pr-chip" data-add="${esc(c)}">${esc(c)}</button>`).join("")}</div>` : ""}
           <div class="pr-actions">
             ${rest.length ? `<button class="tab" data-act="auto">Auto-fill rest</button>` : ""}
@@ -995,7 +995,7 @@
       });
     }
     const msTrend = multiSelect(document.getElementById("trendCorpsSel"), {
-      label: "Pick ${TERM.plural} to chart…", searchable: block.rows.length > 12,
+      label: "Pick " + TERM.plural + " to chart…", searchable: block.rows.length > 12,
       summary: () => isDefaultPick() ? "Top 12" : null,
       bulk: true, bulkAll: false,
       presets: [{ label: "Top 12", values: () => top12 }],
@@ -1064,7 +1064,7 @@
       </table>
       <div style="margin-top:8px;font-size:13px;color:var(--text-secondary)">Gap: <b style="color:var(--bad)">${b.gap.toFixed(3)}</b></div>
       <div style="margin-top:8px;font-size:13px"><a href="#/compare?c=${slugOf(b.a)},${slugOf(b.b)}&y=${rk.season}">Compare head-to-head →</a></div>`
-      : "<h2>Closest Battle</h2><div class='empty'>Needs two ${TERM.plural} within striking distance.</div>";
+      : "<h2>Closest Battle</h2><div class='empty'>Needs two " + TERM.plural + " within striking distance.</div>";
   }
 
   /* ============ CORPS HUB (directory + compare) ============ */
@@ -1168,7 +1168,7 @@
       .sort((a, b) => b.last - a.last || a.name.localeCompare(b.name))
       .map(c => ({ value: c.slug, label: c.name, hint: c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));
     const msCorps = multiSelect(document.getElementById("corpsSel"), {
-      label: "Add ${TERM.plural} — pick as many as you like…", searchable: true,
+      label: "Add " + TERM.plural + " — pick as many as you like…", searchable: true,
       labelFor: v => (bySlug.get(v) || { name: v }).name,
       bulk: true, bulkAll: false,
       options: corpsOptions(),
@@ -1342,7 +1342,7 @@
       .map(c => ({ value: c.slug, label: c.name, hint: c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));
     const pickSet = new Set(current ? [current] : []);
     const msPick = multiSelect(document.getElementById("cpCorps"), {
-      label: "Pick ${TERM.a}…", searchable: true, single: true,
+      label: "Pick " + TERM.a + "…", searchable: true, single: true,
       labelFor: v => (bySlug.get(v) || { name: v }).name,
       options: corpsOpts(),
       selected: pickSet,
@@ -2681,7 +2681,7 @@
       const capOptions = board.map(b => ({ value: b.corps, label: b.corps, hint: `#${b.rank}` }));
       if (!msCap) {
         msCap = multiSelect(document.getElementById("capCorpsSel"), {
-          label: "Pick ${TERM.plural} to chart…", searchable: true,
+          label: "Pick " + TERM.plural + " to chart…", searchable: true,
           summary: () => capIsDefault() ? "Top 12" : null,
           bulk: true, bulkAll: false,
           presets: [{ label: "Top 12", values: () => lastBoard.slice(0, 12).map(b => b.corps) }],
@@ -2710,7 +2710,7 @@
       const wantSpot = spotWant && board.some(b => b.corps === spotWant) ? spotWant : null;
       if (!ssSpot) {
         ssSpot = singleSelect(document.getElementById("spotCorps"), {
-          label: "Pick ${TERM.a}…", searchable: board.length > 12, options: opts,
+          label: "Pick " + TERM.a + "…", searchable: board.length > 12, options: opts,
           value: wantSpot || (board.length ? board[0].corps : null),
           onChange: () => renderSpot(spotBoard),
         });
@@ -3298,6 +3298,11 @@
 
   /* ============ SUGGESTIONS ============ */
   const SUGGEST_REPO = "LukeBesel/DCI-Tracker";
+  const PALETTE_BAR = ["#0a3f6b", "#16233d", "#7c3aed", "#0f7b3d", "#b91c1c", "#0e7490",
+    "#c2410c", "#4338ca", "#701a75", "#92400e", "#1d4ed8", "#334155"];
+  const PALETTE_ACC = ["#f0b429", "#fbbf24", "#38bdf8", "#f472b6", "#34d399", "#fb923c",
+    "#e11d48", "#a3e635", "#c084fc", "#ffffff"];
+
   async function viewSettings(_m, stale) {
     setNav("");
     const themeMode = (window.CadTheme && window.CadTheme.mode()) || (localStorage.getItem("cad-theme") || "auto");
@@ -3376,10 +3381,12 @@
           <div class="corpslist-empty" id="corpsEmpty" hidden>No corps match “<span id="corpsEmptyQ"></span>”.</div>
         </div>
         <div class="custombuild">
-          <div class="custombuild-h">Or build your own <span class="kicker">just for fun</span></div>
+          <div class="custombuild-h">Or build your own <span class="kicker">pick a primary, then an accent</span></div>
+          <div class="palrow" data-pal="bar">${PALETTE_BAR.map(c => `<button type="button" class="palsw${c === custInit[0] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Primary ${c}"></button>`).join("")}</div>
+          <div class="palrow" data-pal="acc">${PALETTE_ACC.map(c => `<button type="button" class="palsw${c === custInit[1] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Accent ${c}"></button>`).join("")}</div>
           <div class="customrow">
-            <label class="custompick"><input type="color" id="custBar" value="${custInit[0]}"><span>Primary</span></label>
-            <label class="custompick"><input type="color" id="custAcc" value="${custInit[1]}"><span>Accent</span></label>
+            <label class="custompick"><input type="color" id="custBar" value="${custInit[0]}"><span>Fine-tune</span></label>
+            <label class="custompick"><input type="color" id="custAcc" value="${custInit[1]}"><span>Fine-tune</span></label>
             <span class="corpsrow-sw custpreview" id="custPreview" style="--c1:${custInit[0]};--c2:${custInit[1]}"></span>
             <button class="tab pr-lock" id="custApply" type="button">Use these</button>
           </div>
@@ -3420,21 +3427,44 @@
       let clsList = [];
       try { clsList = sortClasses(Object.keys((await data("rankings.json")).standings || {})); } catch (e) {}
       if (!clsList.length) return;
+      const pref = (k, dflt) => { try { const v = localStorage.getItem(NS(k)); return v == null ? dflt : v; } catch (e) { return dflt; } };
+      const setPref = (k, v) => { try { localStorage.setItem(NS(k), v); } catch (e) {} };
       let on = null;
-      try { on = JSON.parse(localStorage.getItem(NS("cad-notify-classes")) || "null"); } catch (e) {}
+      try { on = JSON.parse(pref("cad-notify-classes", "null")); } catch (e) {}
       const onSet = new Set(Array.isArray(on) ? on.filter(c => clsList.includes(c)) : clsList);
+      const alertsOn = pref("cad-notify-on", "on") === "on";
+      const favsOnly = pref("cad-notify-scope", "all") === "favs";
       const card = document.createElement("div");
       card.className = "card setcard";
       card.innerHTML = `<h2>Notifications</h2>
-        <p class="setnote">Pick the classes you want score alerts for. Alerts switch on automatically once ${esc(FAM.appName)} has a live data source — this preview runs on demo data, so nothing pings yet.</p>
-        <div class="seg" style="flex-wrap:wrap;gap:6px">${clsList.map(c => `<button class="tab${onSet.has(c) ? " on" : ""}" data-ncls="${esc(c)}">${esc(c)}</button>`).join("")}</div>`;
+        <p class="setnote">Set up exactly what you want a ping for — alerts go live automatically the moment ${esc(FAM.appName)} has a live data feed.</p>
+        <div class="setrow">
+          <div><b>Score alerts</b><div class="setsub">A ping when new scores land</div></div>
+          <button class="toggle${alertsOn ? " on" : ""}" id="famNotifyOn" aria-pressed="${alertsOn}" aria-label="Score alerts"></button>
+        </div>
+        <div class="setrow">
+          <div><b>Only my favorites</b><div class="setsub">Alert just for your ★ ${esc(TERM.plural)}</div></div>
+          <button class="toggle${favsOnly ? " on" : ""}" id="famNotifyFavs" aria-pressed="${favsOnly}" aria-label="Favorites only"></button>
+        </div>
+        <div class="setrow setrow-classes">
+          <div><b>Which classes</b><div class="setsub">Only alert me for the classes I follow</div></div>
+        </div>
+        <div class="classchips">${clsList.map(c => `<button class="classchip${onSet.has(c) ? " on" : ""}" data-ncls="${esc(c)}" aria-pressed="${onSet.has(c)}">${esc(c)}</button>`).join("")}</div>`;
       const foot = app.querySelector(".setfoot");
       if (foot) app.insertBefore(card, foot); else app.appendChild(card);
+      const wireToggle = (id, apply) => card.querySelector(id).addEventListener("click", e => {
+        const now = !e.currentTarget.classList.contains("on");
+        e.currentTarget.classList.toggle("on", now);
+        e.currentTarget.setAttribute("aria-pressed", String(now));
+        apply(now);
+      });
+      wireToggle("#famNotifyOn", now => setPref("cad-notify-on", now ? "on" : "off"));
+      wireToggle("#famNotifyFavs", now => setPref("cad-notify-scope", now ? "favs" : "all"));
       card.querySelectorAll("[data-ncls]").forEach(b => b.addEventListener("click", () => {
         const c = b.dataset.ncls;
         if (onSet.has(c)) onSet.delete(c); else onSet.add(c);
         b.classList.toggle("on", onSet.has(c));
-        localStorage.setItem(NS("cad-notify-classes"), JSON.stringify([...onSet]));
+        setPref("cad-notify-classes", JSON.stringify([...onSet]));
       }));
     })();
 
@@ -3484,7 +3514,17 @@
         if (qs) qs.textContent = search.value.trim();
       }
     });
-    // custom primary + accent — just for fun
+    // custom primary + accent — curated swatches drive the pickers, so the
+    // ugly native color dialog is only a fine-tune fallback
+    app.querySelectorAll(".palrow").forEach(rowEl => rowEl.addEventListener("click", e => {
+      const sw = e.target.closest(".palsw");
+      if (!sw) return;
+      const input = document.getElementById(rowEl.dataset.pal === "bar" ? "custBar" : "custAcc");
+      if (!input) return;
+      input.value = sw.dataset.c;
+      rowEl.querySelectorAll(".palsw").forEach(x => x.classList.toggle("on", x === sw));
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    }));
     const custBar = document.getElementById("custBar");
     const custAcc = document.getElementById("custAcc");
     const custPrev = document.getElementById("custPreview");

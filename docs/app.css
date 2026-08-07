@@ -869,3 +869,8 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
 .setcard .chipwrap, .setcard .corpsearch { display: none; }
 .brand, .brand > span { white-space: nowrap; }
 @media (max-width: 400px) { .brand { font-size: 16.5px; gap: 7px; } }
+
+/* curated theme palettes in Settings */
+.palrow { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+.palsw { width: 34px; height: 34px; border-radius: 9px; border: 2px solid var(--border); cursor: pointer; padding: 0; }
+.palsw.on { outline: 3px solid var(--gold); outline-offset: 1px; }
