@@ -111,8 +111,8 @@ PAGES = {
 }
 
 LOGO_SVG = """<svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
-      <rect x="3" y="3" width="58" height="58" rx="15" fill="#f0b429"/>
-      <g stroke="#16233d" stroke-width="6.5" stroke-linecap="round">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
         <line x1="16" y1="26" x2="16" y2="38"/>
         <line x1="27" y1="20" x2="27" y2="44"/>
         <line x1="38" y1="28" x2="38" y2="36"/>
