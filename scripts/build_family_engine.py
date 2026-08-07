@@ -165,6 +165,8 @@ def main() -> None:
          "\"<h2>Closest Battle</h2><div class='empty'>Needs two \" + TERM.plural + \" within striking distance.</div>\"", 1),
         ("pick several corps and seasons — every corps-season gets its own line",
          "pick several ${TERM.plural} and seasons — every ${TERM.singular}-season gets its own line", 1),
+        ("Select as many corps as you like — each corps-season draws its own line,",
+         "Select as many ${TERM.plural} as you like — each ${TERM.singular}-season draws its own line,", 1),
         ('"Add corps — pick as many as you like…"', '"Add " + TERM.plural + " — pick as many as you like…"', 1),
         ("Pick corps to compare — this season is already selected",
          "Pick ${TERM.plural} to compare — this season is already selected", 1),
@@ -258,6 +260,30 @@ def main() -> None:
       } catch (e) {}
     })();''',
         "reigning champions hub")
+
+    # fifth tab: per-tab memory must know the champions tab, and #/champions
+    # is its own section on family apps (not part of Stats), else the nav
+    # rewrite sets its href to the literal string "undefined" → 404
+    js = sub_once(
+        js,
+        'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: "#/captions" };',
+        'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM ? "#/compare" : "#/captions", champions: "#/champions" };',
+        "nav defaults")
+    js = sub_once(
+        js,
+        'if (/^#\\/(data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";',
+        'if (FAM && /^#\\/(champions|seasons)/.test(hash)) return "champions";\n'
+        '    if (/^#\\/(data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";',
+        "sectionOf champions")
+
+    # champions view: friendly state instead of "undefined" when the record
+    # book is empty (e.g. an adapter's first season is still ingesting)
+    js = sub_once(
+        js,
+        "    // one table: every season, its champion, click through to the year\n    const clsSet = new Set();",
+        "    // one table: every season, its champion, click through to the year\n    const clsSet = new Set();\n"
+        "    if (FAM) { try { const _ch = await data(\"champions.json\"); if (!Object.keys(_ch || {}).length) { const t = document.getElementById(\"champT\"); if (t) t.innerHTML = \"<tr><td class='empty'>The record book fills in with this app's first full season of data.</td></tr>\"; const cs = document.getElementById(\"champSub\"); if (cs) cs.textContent = \"\"; return; } } catch (e) {} }",
+        "champions empty guard")
 
     # per-sector scoreboard framing note (BOA/ACA/SC honesty line under the h1)
     js = sub_once(

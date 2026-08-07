@@ -10,3 +10,4 @@ apps/cadence/dist/
 *.tsbuildinfo
 .env
 .env.local
+data/audit-shots/

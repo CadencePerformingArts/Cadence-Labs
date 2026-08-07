@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadence+ — More depth, never a paywall on scores</title>
+<meta name="description" content="Cadence+ adds custom score alerts, advanced stats, unlimited compare and the full historical archive to every Cadence app. Scores stay free, forever.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='3' width='58' height='58' rx='15' fill='%23339af0'/><g stroke='%23ffd43b' stroke-width='6.5' stroke-linecap='round'><line x1='16' y1='26' x2='16' y2='38'/><line x1='27' y1='20' x2='27' y2='44'/><line x1='38' y1='28' x2='38' y2='36'/><line x1='49' y1='16' x2='49' y2='48'/></g></svg>">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;})();</script>
+<link rel="stylesheet" href="app.css">
+<style>
+  .fam-hero { text-align: center; padding: 34px 16px 10px; }
+  .fam-hero h1 { font-size: clamp(28px, 6vw, 40px); margin: 12px 0 6px; }
+  .fam-hero h1 b { color: var(--gold); }
+  .fam-hero p { color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.55; }
+  .fam-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); margin-top: 22px; }
+  .fam-ic { font-size: 34px; }
+  .fam-note { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .fam-badge { display: inline-block; border-radius: 6px; padding: 2px 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .5px; }
+  .fam-live { background: rgba(47, 158, 68, .14); color: #2f9e44; }
+  .fam-soon { background: var(--surface-2); color: var(--muted); }
+  /* Cadence+ page specifics — same card language as modes.html */
+  .plus-cols { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; margin-top: 22px; align-items: start; }
+  @media (max-width: 760px) { .plus-cols { grid-template-columns: 1fr; } }
+  .plus-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .plus-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 14px; line-height: 1.45; }
+  .plus-list .p-ic { font-size: 19px; flex: none; width: 26px; text-align: center; }
+  .plus-list b { display: block; font-size: 14px; }
+  .plus-list .p-sub { color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+  .price-grid { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; max-width: 560px; margin: 22px auto 0; }
+  @media (max-width: 560px) { .price-grid { grid-template-columns: 1fr; } }
+  .price-card { text-align: center; }
+  .price-card .p-amt { font-size: 34px; font-weight: 800; color: var(--heading); margin: 8px 0 0; }
+  .price-card .p-amt small { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .price-card .tab { margin-top: 12px; width: 100%; font-weight: 700; }
+  .price-card .tab:disabled { opacity: .55; cursor: not-allowed; }
+  .code-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .code-row .ctrl { flex: 1 1 220px; font-family: var(--mono); text-transform: uppercase; font-size: 15px; }
+  .code-row .tab { font-weight: 700; padding: 7px 18px; }
+  .code-msg { margin: 10px 0 0; font-size: 13.5px; font-weight: 600; display: none; }
+  .code-msg.ok { display: block; color: var(--good); }
+  .code-msg.err { display: block; color: var(--bad); }
+  .plus-active { display: none; align-items: center; gap: 11px; margin-top: 4px; padding: 11px 13px;
+    border-radius: 11px; background: var(--accent-wash); border: 1px solid rgba(240,180,41,0.5); font-size: 14px; }
+  .plus-active b { color: var(--accent-ink); }
+  .plus-active .p-since { color: var(--muted); font-size: 12.5px; }
+  .plus-active .p-off { margin-left: auto; border: 0; background: none; color: var(--link);
+    font: inherit; font-size: 12.5px; font-weight: 650; cursor: pointer; white-space: nowrap; }
+  .plus-active .p-off:hover { text-decoration: underline; }
+  body.plus-on .plus-active { display: flex; }
+  body.plus-on .code-form { display: none; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence</span>
+  </a>
+</header>
+
+<main class="viz-root">
+  <div class="fam-hero">
+    <h1>Cadence<b>+</b></h1>
+    <p>Every score, in every Cadence app, is free — and always will be.
+       Cadence+ is for the superfans: deeper alerts, deeper stats, the whole
+       archive at your fingertips. It keeps Cadence independent and ad-free.</p>
+  </div>
+
+  <div class="plus-cols">
+    <div class="card">
+      <h2><span class="fam-badge fam-live">FREE FOREVER</span></h2>
+      <ul class="plus-list" style="margin-top:12px">
+        <li><span class="p-ic">📡</span><span><b>Live scores</b>
+          <span class="p-sub">Every published score, the moment it lands — all circuits, all classes.</span></span></li>
+        <li><span class="p-ic">🗓️</span><span><b>Schedules</b>
+          <span class="p-sub">Every show, lineup and start time for the whole season.</span></span></li>
+        <li><span class="p-ic">🏁</span><span><b>Standings</b>
+          <span class="p-sub">Current season standings with basic score deltas.</span></span></li>
+        <li><span class="p-ic">🏆</span><span><b>Champions</b>
+          <span class="p-sub">Every champion, every year, every circuit.</span></span></li>
+        <li><span class="p-ic">🥁</span><span><b>Basic profiles</b>
+          <span class="p-sub">Corps and ensemble pages with history and season results.</span></span></li>
+      </ul>
+      <p class="fam-note" style="margin-top:14px">No trials, no teasers, no paywalled scores. This is the deal, forever.</p>
+    </div>
+
+    <div class="card">
+      <h2><span class="fam-badge" style="background:var(--accent-wash);color:var(--accent-ink)">CADENCE+ ADDS</span></h2>
+      <ul class="plus-list" id="plusFeats" style="margin-top:12px"></ul>
+    </div>
+  </div>
+
+  <div class="price-grid">
+    <div class="card price-card">
+      <div class="fam-ic">🎟️</div>
+      <h2>Monthly</h2>
+      <div class="p-amt">$3.99<small> / month</small></div>
+      <span class="fam-badge fam-soon" style="margin-top:8px">COMING SOON</span>
+      <button class="tab" type="button" disabled>Not on sale yet</button>
+    </div>
+    <div class="card price-card">
+      <div class="fam-ic">🏅</div>
+      <h2>Annual</h2>
+      <div class="p-amt">$29.99<small> / year</small></div>
+      <span class="fam-badge fam-soon" style="margin-top:8px">COMING SOON</span>
+      <button class="tab" type="button" disabled>Not on sale yet</button>
+    </div>
+  </div>
+  <p class="fam-note" style="text-align:center;margin:10px auto 0;max-width:560px">
+    Prices shown are placeholders while billing is built — nothing can be
+    purchased yet, and nobody gets charged.
+  </p>
+
+  <div class="card" style="max-width:560px;margin:22px auto 0">
+    <h2>I have a code</h2>
+    <p class="fam-note" style="margin:0 0 10px">Beta testers: enter the invite code you were sent and Cadence+ unlocks on this device.</p>
+    <div class="plus-active" id="plusActive">
+      <span style="font-size:19px">🎖️</span>
+      <span><b>Cadence+ is active on this device.</b>
+        <span class="p-since" id="plusSince"></span></span>
+      <button class="p-off" id="plusOff" type="button">Remove from this device</button>
+    </div>
+    <form class="code-form" id="codeForm">
+      <div class="code-row">
+        <input class="ctrl" id="codeInput" placeholder="CAD-XXXX-XXXX" autocomplete="off"
+               autocapitalize="characters" spellcheck="false" maxlength="13" aria-label="Cadence+ code">
+        <button class="tab" type="submit">Activate</button>
+      </div>
+      <p class="code-msg" id="codeMsg" role="status"></p>
+    </form>
+  </div>
+
+  <div class="notice" style="max-width:560px;margin:16px auto 0">
+    <b>An honest note:</b> purchases aren't live yet. The code system exists for
+    beta testers while real billing is built, and no money changes hands
+    anywhere in Cadence today. When Cadence+ does launch, scores stay free —
+    that part is not changing.
+  </div>
+
+  <p class="fam-note" style="text-align:center;margin:26px 0 8px">
+    Tip: in any Cadence app, tap the Cadence logo to switch apps.
+  </p>
+</main>
+
+<footer class="foot">
+  <div class="credit">Created by Lucas Besel · Cadence is an unofficial fan project</div>
+</footer>
+
+<script src="plus.js"></script>
+<script>
+(function () {
+  "use strict";
+  // What Plus adds — rendered from CadPlus.features so this page and any
+  // future Settings card share one source of truth.
+  var feats = document.getElementById("plusFeats");
+  feats.innerHTML = CadPlus.features.map(function (f) {
+    return '<li><span class="p-ic">' + f.icon + '</span><span><b>' + f.name + "</b>" +
+      '<span class="p-sub">' + f.desc + "</span></span></li>";
+  }).join("");
+
+  var input = document.getElementById("codeInput");
+  var msg = document.getElementById("codeMsg");
+  var since = document.getElementById("plusSince");
+
+  function paint() {
+    var rec = CadPlus.info();
+    document.body.classList.toggle("plus-on", !!rec);
+    if (rec) {
+      var d = new Date(rec.since);
+      since.textContent = "Beta access · code " + rec.key +
+        (isNaN(d) ? "" : " · since " + d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }));
+    }
+  }
+
+  document.getElementById("codeForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var ok = CadPlus.activate(input.value);
+    msg.className = "code-msg " + (ok ? "ok" : "err");
+    msg.textContent = ok
+      ? "Welcome to Cadence+ — everything is unlocked on this device. 🎉"
+      : "That code doesn't look right — codes look like CAD-XXXX-XXXX. Check for typos and try again.";
+    if (ok) input.value = "";
+  });
+  document.getElementById("plusOff").addEventListener("click", function () {
+    CadPlus.deactivate();
+    msg.className = "code-msg";
+    msg.textContent = "";
+  });
+  window.addEventListener("cad-plus-change", paint);
+  paint();
+})();
+</script>
+</body>
+</html>
