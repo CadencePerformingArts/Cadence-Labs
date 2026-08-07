@@ -285,6 +285,23 @@ def main() -> None:
         "    if (FAM) { try { const _ch = await data(\"champions.json\"); if (!Object.keys(_ch || {}).length) { const t = document.getElementById(\"champT\"); if (t) t.innerHTML = \"<tr><td class='empty'>The record book fills in with this app's first full season of data.</td></tr>\"; const cs = document.getElementById(\"champSub\"); if (cs) cs.textContent = \"\"; return; } } catch (e) {} }",
         "champions empty guard")
 
+    # compare: default to the latest season that actually has scores — a
+    # schedule-only future season (e.g. WGI 2027) must not open an empty chart
+    js = sub_once(
+        js,
+        "if (!yearsSel.length && allYears.length) yearsSel = [Math.max(...allYears)];",
+        """if (!yearsSel.length && allYears.length) {
+      let pool = allYears;
+      if (FAM) {
+        const scored = new Set();
+        idx.forEach(c => (c.series || []).forEach(sr => { if (sr[1] != null) scored.add(sr[0]); }));
+        const p = allYears.filter(y => scored.has(y));
+        if (p.length) pool = p;
+      }
+      yearsSel = [Math.max(...pool)];
+    }""",
+        "compare scored-year default")
+
     # per-sector scoreboard framing note (BOA/ACA/SC honesty line under the h1)
     js = sub_once(
         js,
