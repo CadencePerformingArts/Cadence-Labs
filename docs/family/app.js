@@ -1138,7 +1138,16 @@
     // corps otherwise start empty on purpose — you pick who to compare — but the
     // current season rides pre-selected so one corps pick draws a line
     // (a shared URL or the session's last selection still restores itself)
-    if (!yearsSel.length && allYears.length) yearsSel = [Math.max(...allYears)];
+    if (!yearsSel.length && allYears.length) {
+      let pool = allYears;
+      if (FAM) {
+        const scored = new Set();
+        idx.forEach(c => (c.series || []).forEach(sr => { if (sr[1] != null) scored.add(sr[0]); }));
+        const p = allYears.filter(y => scored.has(y));
+        if (p.length) pool = p;
+      }
+      yearsSel = [Math.max(...pool)];
+    }
 
     function persist() {
       if (stale()) return; // never rewrite the URL of a view we've left
