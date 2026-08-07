@@ -1,7 +1,7 @@
 {
-  "name": "Cadence \u2014 DCI Scores & History",
-  "short_name": "Cadence",
-  "description": "DCI drum corps scores, rankings, caption analytics and history \u2014 auto-updating from official published scores.",
+  "name": "Cadence Labs — DCI Scores & History",
+  "short_name": "Cadence Labs",
+  "description": "DCI drum corps scores, rankings, caption analytics and history — auto-updating from official published scores.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
