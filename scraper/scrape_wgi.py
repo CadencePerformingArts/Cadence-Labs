@@ -143,7 +143,15 @@ def assemble(activity: str, year: int, events: list[dict], updated: str) -> None
         rows.sort(key=lambda r: -r["score"])
         for i, r in enumerate(rows):
             r["rank"] = i + 1
-        standings[cls] = {"rows": rows}
+        movers = sorted((r for r in rows if isinstance(r.get("delta"), (int, float))),
+                        key=lambda r: -r["delta"])[:3]
+        battles = sorted(
+            ({"a": rows[i - 1]["corps"], "b": r["corps"], "ra": rows[i - 1]["rank"], "rb": r["rank"],
+              "sa": rows[i - 1]["score"], "sb": r["score"],
+              "gap": round(abs(rows[i - 1]["score"] - r["score"]), 3)}
+             for i, r in enumerate(rows) if i > 0),
+            key=lambda b: (b["gap"], b["ra"]))[:3]
+        standings[cls] = {"rows": rows, "movers": movers, "battles": battles}
 
     idx, profiles = [], {}
     for cls in classes:
