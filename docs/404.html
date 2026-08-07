@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadence</title>
+<meta name="theme-color" content="#0a3f6b">
+<script>
+// Dead links land on the family picker; old /app/ and /wgi/ paths redirect.
+(function () {
+  var p = location.pathname;
+  var root = "/Cadence-Labs/";
+  if (p.indexOf(root + "wgi/") === 0) { location.replace(root + "wgi/percussion/"); return; }
+  location.replace(root + "modes.html");
+})();
+</script>
+</head>
+<body style="background:#0a3f6b"></body>
+</html>
