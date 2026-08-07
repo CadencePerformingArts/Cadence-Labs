@@ -205,6 +205,14 @@ def main() -> None:
         '  const TERM_TH = FAM ? FAM.terms.singular.charAt(0).toUpperCase() + FAM.terms.singular.slice(1) : "Corps";',
         "TERM_TH")
 
+    # per-sector scoreboard framing note (BOA/ACA/SC honesty line under the h1)
+    js = sub_once(
+        js,
+        '<h1 class="page">${esc(String(rk.season))} Scoreboard</h1>',
+        '<h1 class="page">${esc(String(rk.season))} Scoreboard</h1>'
+        '${FAM && FAM.scoreNote ? `<p class="kicker" style="margin:-6px 2px 12px">${esc(FAM.scoreNote)}</p>` : ""}',
+        "score note")
+
     # "Show All N corps" expanders and the team-colors note
     js, n = re.subn(r'collapseRows\(([^;]*?), 5, "corps"\)', r'collapseRows(\1, 5, TERM.plural)', js)
     assert n == 3, f"collapseRows noun: {n}"

@@ -931,7 +931,7 @@
     if (savedExclusive) selected = [savedExclusive];
     const selectedSet = new Set(selected);
     app.innerHTML = h`
-      <h1 class="page">${esc(String(rk.season))} Scoreboard</h1>
+      <h1 class="page">${esc(String(rk.season))} Scoreboard</h1>${FAM && FAM.scoreNote ? `<p class="kicker" style="margin:-6px 2px 12px">${esc(FAM.scoreNote)}</p>` : ""}
       <div class="filters"><div id="clsSel"></div></div>
       <div class="card">
         <h2 id="trendTitle">Season Progression <span class="sub" id="trendSub">score by date · top 12</span></h2>
