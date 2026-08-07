@@ -1,0 +1,28 @@
+{
+  "name": "Cadence \u2014 DCI Scores & History",
+  "short_name": "Cadence",
+  "description": "DCI drum corps scores, rankings, caption analytics and history \u2014 auto-updating from official published scores.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f4f8",
+  "theme_color": "#0a3f6b",
+  "icons": [
+    {
+      "src": "icons/icon-192.png?v=4",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png?v=4",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/maskable-512.png?v=4",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

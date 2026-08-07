@@ -1,0 +1,13 @@
+name: Suggestion
+description: Tell us what you want to see in Cadence
+title: "[Idea] "
+labels: ["suggestion"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to see?
+      description: A stat, a view, a fix — anything that would make Cadence better for you.
+      placeholder: e.g. "Show each corps' all-time head-to-head record against a rival"
+    validations:
+      required: true

@@ -1,0 +1,58 @@
+name: Probe fetch
+
+# Diagnostic helper: fetch a handful of external pages from the Actions runner
+# (the only environment with open egress) and publish them on the `probe`
+# branch so page structures can be inspected before writing parsers.
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Whitespace-separated URLs to fetch"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scraper/requirements.txt
+      - name: Fetch pages
+        env:
+          URLS: ${{ inputs.urls }}
+        run: |
+          python - <<'EOF'
+          import json, os, pathlib, sys
+          sys.path.insert(0, "scraper")
+          from common import fetch
+          out = pathlib.Path("probe_out"); out.mkdir(exist_ok=True)
+          index = []
+          for i, u in enumerate(os.environ["URLS"].split()):
+              html = fetch(u, force=True)
+              (out / f"{i:02d}.html").write_text(html or "FETCH FAILED", encoding="utf-8")
+              index.append({"i": i, "url": u, "ok": html is not None, "bytes": len(html or "")})
+              print(index[-1])
+          (out / "index.json").write_text(json.dumps(index, indent=1))
+          EOF
+      - name: Publish to probe branch
+        run: |
+          git config user.name probe-bot
+          git config user.email actions@users.noreply.github.com
+          mv probe_out /tmp/probe_out
+          git checkout --orphan probe
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} +
+          mv /tmp/probe_out probe_out
+          git add -A
+          git commit -m "probe results"
+          git push -f origin probe
