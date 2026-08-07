@@ -1,0 +1,3986 @@
+{
+ "demo": true,
+ "generated": "fixture \u2014 demo season",
+ "season": 2026,
+ "activity_order": [
+  "guard",
+  "percussion",
+  "winds"
+ ],
+ "activities": {
+  "guard": {
+   "name": "Color Guard",
+   "classes": {
+    "Independent World": {
+     "rows": [
+      {
+       "ensemble": "Pride of Cincinnati",
+       "id": "pride-of-cincinnati",
+       "home": "Cincinnati, OH",
+       "score": 98.426,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         87.56,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         90.528,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         91.941,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         94.313,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         95.5,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         97.526,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         98.426,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Blessed Sacrament",
+       "id": "blessed-sacrament",
+       "home": "Newark, NJ",
+       "score": 97.516,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 6,
+       "trend": [
+        [
+         "2026-02-07",
+         86.65,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         88.518,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         91.031,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         92.303,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         96.616,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         97.516,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Onyx",
+       "id": "onyx",
+       "home": "Dayton, OH",
+       "score": 96.606,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 6,
+       "trend": [
+        [
+         "2026-02-21",
+         85.74,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-02-28",
+         87.608,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         89.021,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         91.393,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         95.706,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         96.606,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 3
+      },
+      {
+       "ensemble": "Paramount",
+       "id": "paramount",
+       "home": "Atlanta, GA",
+       "score": 94.596,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         83.73,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         86.698,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         88.111,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         89.383,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         91.67,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         93.696,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         94.596,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 4
+      },
+      {
+       "ensemble": "Imbue",
+       "id": "imbue",
+       "home": "Indianapolis, IN",
+       "score": 92.786,
+       "delta": 4.313,
+       "event": "WGI World Championships Semifinals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         82.82,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         84.688,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         87.201,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         88.473,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         92.786,
+         "WGI World Championships Semifinals"
+        ]
+       ],
+       "rank": 5
+      },
+      {
+       "ensemble": "Bluecoats Indoor",
+       "id": "bluecoats-indoor",
+       "home": "Canton, OH",
+       "score": 87.563,
+       "delta": 2.372,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-21",
+         80.81,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-02-28",
+         83.778,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         85.191,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         87.563,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 6
+      }
+     ]
+    },
+    "Independent Open": {
+     "rows": [
+      {
+       "ensemble": "Juxtaposition",
+       "id": "juxtaposition",
+       "home": "Rochester, NY",
+       "score": 92.0,
+       "delta": 1.187,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         84.06,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         87.028,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         88.441,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         90.813,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         92.0,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Vintage",
+       "id": "vintage",
+       "home": "Kettering, OH",
+       "score": 88.803,
+       "delta": 1.272,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-07",
+         83.15,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         85.018,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         87.531,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         88.803,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "MCM",
+       "id": "mcm",
+       "home": "San Antonio, TX",
+       "score": 88.17,
+       "delta": 2.287,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         80.23,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         83.198,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         84.611,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         85.883,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         88.17,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 3
+      },
+      {
+       "ensemble": "First Flight",
+       "id": "first-flight",
+       "home": "Raleigh, NC",
+       "score": 87.893,
+       "delta": 2.372,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-21",
+         82.24,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-02-28",
+         84.108,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         85.521,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         87.893,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 4
+      }
+     ]
+    },
+    "Independent A": {
+     "rows": [
+      {
+       "ensemble": "Veritas",
+       "id": "veritas",
+       "home": "Lexington, KY",
+       "score": 89.5,
+       "delta": 1.187,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         81.56,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         84.528,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         85.941,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         88.313,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         89.5,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Corona Winter Guard",
+       "id": "corona-winter-guard",
+       "home": "Corona, CA",
+       "score": 86.303,
+       "delta": 1.272,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-07",
+         80.65,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         82.518,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         85.031,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         86.303,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Sacred Heart",
+       "id": "sacred-heart",
+       "home": "Vineland, NJ",
+       "score": 85.393,
+       "delta": 2.372,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-21",
+         79.74,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-02-28",
+         81.608,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         83.021,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         85.393,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 3
+      }
+     ]
+    },
+    "Scholastic World": {
+     "rows": [
+      {
+       "ensemble": "Avon HS",
+       "id": "avon-hs",
+       "home": "Avon, IN",
+       "score": 97.426,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         86.56,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         89.528,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         90.941,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         93.313,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         94.5,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         96.526,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         97.426,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Carmel HS",
+       "id": "carmel-hs",
+       "home": "Carmel, IN",
+       "score": 96.516,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 6,
+       "trend": [
+        [
+         "2026-02-07",
+         85.65,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         87.518,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         90.031,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         91.303,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         95.616,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         96.516,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Tarpon Springs HS",
+       "id": "tarpon-springs-hs",
+       "home": "Tarpon Springs, FL",
+       "score": 95.606,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 6,
+       "trend": [
+        [
+         "2026-02-21",
+         84.74,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-02-28",
+         86.608,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         88.021,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         90.393,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         94.706,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         95.606,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 3
+      },
+      {
+       "ensemble": "Flanagan HS",
+       "id": "flanagan-hs",
+       "home": "Pembroke Pines, FL",
+       "score": 93.596,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         82.73,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         85.698,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         87.111,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         88.383,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         90.67,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         92.696,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         93.596,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 4
+      },
+      {
+       "ensemble": "Trumbull HS",
+       "id": "trumbull-hs",
+       "home": "Trumbull, CT",
+       "score": 87.473,
+       "delta": 1.272,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-07",
+         81.82,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         83.688,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         86.201,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         87.473,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 5
+      }
+     ]
+    },
+    "Scholastic Open": {
+     "rows": [
+      {
+       "ensemble": "Center Grove HS",
+       "id": "center-grove-hs",
+       "home": "Greenwood, IN",
+       "score": 91.0,
+       "delta": 1.187,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         83.06,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         86.028,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         87.441,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         89.813,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         91.0,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "James Bowie HS",
+       "id": "james-bowie-hs",
+       "home": "Austin, TX",
+       "score": 87.803,
+       "delta": 1.272,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-07",
+         82.15,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         84.018,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         86.531,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         87.803,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Fishers HS",
+       "id": "fishers-hs",
+       "home": "Fishers, IN",
+       "score": 86.893,
+       "delta": 2.372,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-21",
+         81.24,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-02-28",
+         83.108,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         84.521,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         86.893,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 3
+      }
+     ]
+    },
+    "Scholastic A": {
+     "rows": [
+      {
+       "ensemble": "Lebanon HS",
+       "id": "lebanon-hs",
+       "home": "Lebanon, OH",
+       "score": 88.5,
+       "delta": 1.187,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         80.56,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         83.528,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         84.941,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         87.313,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         88.5,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Bellbrook HS",
+       "id": "bellbrook-hs",
+       "home": "Bellbrook, OH",
+       "score": 85.303,
+       "delta": 1.272,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-07",
+         79.65,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-28",
+         81.518,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         84.031,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         85.303,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "North Ridgeville HS",
+       "id": "north-ridgeville-hs",
+       "home": "North Ridgeville, OH",
+       "score": 84.393,
+       "delta": 2.372,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-21",
+         78.74,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-02-28",
+         80.608,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         82.021,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         84.393,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 3
+      }
+     ]
+    }
+   },
+   "class_order": [
+    "Independent World",
+    "Independent Open",
+    "Independent A",
+    "Scholastic World",
+    "Scholastic Open",
+    "Scholastic A"
+   ]
+  },
+  "percussion": {
+   "name": "Percussion",
+   "classes": {
+    "Independent World": {
+     "rows": [
+      {
+       "ensemble": "Rhythm X",
+       "id": "rhythm-x",
+       "home": "Dayton, OH",
+       "score": 98.426,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         87.56,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         90.528,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         91.941,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         94.313,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         95.5,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         97.526,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         98.426,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Broken City",
+       "id": "broken-city",
+       "home": "Riverside, CA",
+       "score": 97.516,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         86.65,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-03-14",
+         88.518,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         91.031,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         96.616,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         97.516,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Pulse Percussion",
+       "id": "pulse-percussion",
+       "home": "Los Angeles, CA",
+       "score": 96.606,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-21",
+         85.74,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-28",
+         87.608,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         89.021,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         95.706,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         96.606,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 3
+      },
+      {
+       "ensemble": "Matrix",
+       "id": "matrix",
+       "home": "Akron, OH",
+       "score": 94.596,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         83.73,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         86.698,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         88.111,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         89.383,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         91.67,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         93.696,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         94.596,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 4
+      },
+      {
+       "ensemble": "STRYKE Percussion",
+       "id": "stryke-percussion",
+       "home": "Fort Lauderdale, FL",
+       "score": 92.786,
+       "delta": 5.585,
+       "event": "WGI World Championships Semifinals",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-07",
+         82.82,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-03-14",
+         84.688,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         87.201,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         92.786,
+         "WGI World Championships Semifinals"
+        ]
+       ],
+       "rank": 5
+      },
+      {
+       "ensemble": "United Percussion",
+       "id": "united-percussion",
+       "home": "Cherry Hill, NJ",
+       "score": 85.191,
+       "delta": 1.413,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 3,
+       "trend": [
+        [
+         "2026-02-21",
+         80.81,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-28",
+         83.778,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         85.191,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 6
+      }
+     ]
+    },
+    "Independent Open": {
+     "rows": [
+      {
+       "ensemble": "George Mason University",
+       "id": "george-mason-university",
+       "home": "Fairfax, VA",
+       "score": 92.0,
+       "delta": 1.187,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         84.06,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         87.028,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         88.441,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         90.813,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         92.0,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Vessel",
+       "id": "vessel",
+       "home": "Denton, TX",
+       "score": 87.531,
+       "delta": 2.513,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 3,
+       "trend": [
+        [
+         "2026-02-07",
+         83.15,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-03-14",
+         85.018,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         87.531,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Colt Cadets Indoor",
+       "id": "colt-cadets-indoor",
+       "home": "Dubuque, IA",
+       "score": 85.521,
+       "delta": 1.413,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 3,
+       "trend": [
+        [
+         "2026-02-21",
+         82.24,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-28",
+         84.108,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         85.521,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 3
+      }
+     ]
+    },
+    "Scholastic World": {
+     "rows": [
+      {
+       "ensemble": "Ayala HS",
+       "id": "ayala-hs",
+       "home": "Chino Hills, CA",
+       "score": 97.426,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         86.56,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         89.528,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         90.941,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         93.313,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         94.5,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         96.526,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         97.426,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Chino Hills HS",
+       "id": "chino-hills-hs",
+       "home": "Chino Hills, CA",
+       "score": 96.516,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         85.65,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-03-14",
+         87.518,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         90.031,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         95.616,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         96.516,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Dartmouth HS",
+       "id": "dartmouth-hs",
+       "home": "Dartmouth, MA",
+       "score": 95.606,
+       "delta": 7.585,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-21",
+         84.74,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-28",
+         86.608,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         88.021,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         95.606,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 3
+      },
+      {
+       "ensemble": "Plymouth-Canton",
+       "id": "plymouth-canton",
+       "home": "Canton, MI",
+       "score": 93.596,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         82.73,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         85.698,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         87.111,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         88.383,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         90.67,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         92.696,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         93.596,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 4
+      }
+     ]
+    },
+    "Scholastic Open": {
+     "rows": [
+      {
+       "ensemble": "Mission Viejo HS",
+       "id": "mission-viejo-hs",
+       "home": "Mission Viejo, CA",
+       "score": 91.0,
+       "delta": 1.187,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         83.06,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         86.028,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         87.441,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         89.813,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         91.0,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Sparkman HS",
+       "id": "sparkman-hs",
+       "home": "Harvest, AL",
+       "score": 90.09,
+       "delta": 2.287,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-07",
+         82.15,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         84.018,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         86.531,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         87.803,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         90.09,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 2
+      }
+     ]
+    },
+    "Scholastic Concert World": {
+     "rows": [
+      {
+       "ensemble": "Chino Hills Concert",
+       "id": "chino-hills-concert",
+       "home": "Chino Hills, CA",
+       "score": 95.426,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         84.56,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         87.528,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         88.941,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         91.313,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         92.5,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         94.526,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         95.426,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Poteet Concert",
+       "id": "poteet-concert",
+       "home": "Mesquite, TX",
+       "score": 94.516,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 7,
+       "trend": [
+        [
+         "2026-02-07",
+         83.65,
+         "WGI Mid-East Power Regional"
+        ],
+        [
+         "2026-02-21",
+         85.518,
+         "WGI SoCal Power Regional"
+        ],
+        [
+         "2026-03-14",
+         88.031,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         89.303,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         91.59,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         93.616,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         94.516,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 2
+      }
+     ]
+    }
+   },
+   "class_order": [
+    "Independent World",
+    "Independent Open",
+    "Scholastic World",
+    "Scholastic Open",
+    "Scholastic Concert World"
+   ]
+  },
+  "winds": {
+   "name": "Winds",
+   "classes": {
+    "Independent World": {
+     "rows": [
+      {
+       "ensemble": "Rhythm X Winds",
+       "id": "rhythm-x-winds",
+       "home": "Dayton, OH",
+       "score": 98.426,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-03-14",
+         87.56,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         90.528,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         91.941,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         97.526,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         98.426,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "STRYKE Wynds",
+       "id": "stryke-wynds",
+       "home": "Fort Lauderdale, FL",
+       "score": 97.516,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-28",
+         86.65,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         88.518,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         91.031,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         96.616,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         97.516,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Cap City Winds",
+       "id": "cap-city-winds",
+       "home": "Columbus, OH",
+       "score": 96.606,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-28",
+         85.74,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         87.608,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         89.021,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         95.706,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         96.606,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 3
+      },
+      {
+       "ensemble": "Resistance Winds",
+       "id": "resistance-winds",
+       "home": "Houston, TX",
+       "score": 94.596,
+       "delta": 6.485,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-03-14",
+         83.73,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         86.698,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         88.111,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         94.596,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 4
+      }
+     ]
+    },
+    "Independent Open": {
+     "rows": [
+      {
+       "ensemble": "Meraki Winds",
+       "id": "meraki-winds",
+       "home": "Nashville, TN",
+       "score": 90.813,
+       "delta": 2.372,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-28",
+         84.06,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         87.028,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         88.441,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         90.813,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Juniper Winds",
+       "id": "juniper-winds",
+       "home": "Boise, ID",
+       "score": 88.803,
+       "delta": 1.272,
+       "event": "WGI World Championships",
+       "date": "2026-04-18",
+       "outings": 4,
+       "trend": [
+        [
+         "2026-02-28",
+         83.15,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         85.018,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         87.531,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         88.803,
+         "WGI World Championships"
+        ]
+       ],
+       "rank": 2
+      }
+     ]
+    },
+    "Scholastic World": {
+     "rows": [
+      {
+       "ensemble": "Flanagan HS Winds",
+       "id": "flanagan-hs-winds",
+       "home": "Pembroke Pines, FL",
+       "score": 97.426,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-03-14",
+         86.56,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-03-28",
+         89.528,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         90.941,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         96.526,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         97.426,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 1
+      },
+      {
+       "ensemble": "Bellbrook HS Winds",
+       "id": "bellbrook-hs-winds",
+       "home": "Bellbrook, OH",
+       "score": 96.516,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-28",
+         85.65,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-14",
+         87.518,
+         "WGI Indianapolis Regional"
+        ],
+        [
+         "2026-04-18",
+         90.031,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         95.616,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         96.516,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 2
+      },
+      {
+       "ensemble": "Union HS Winds",
+       "id": "union-hs-winds",
+       "home": "Tulsa, OK",
+       "score": 95.606,
+       "delta": 0.9,
+       "event": "WGI World Championships Finals",
+       "date": "2026-04-18",
+       "outings": 5,
+       "trend": [
+        [
+         "2026-02-28",
+         84.74,
+         "WGI Tampa Regional"
+        ],
+        [
+         "2026-03-28",
+         86.608,
+         "WGI Dayton Regional"
+        ],
+        [
+         "2026-04-18",
+         88.021,
+         "WGI World Championships"
+        ],
+        [
+         "2026-04-18",
+         94.706,
+         "WGI World Championships Semifinals"
+        ],
+        [
+         "2026-04-18",
+         95.606,
+         "WGI World Championships Finals"
+        ]
+       ],
+       "rank": 3
+      }
+     ]
+    }
+   },
+   "class_order": [
+    "Independent World",
+    "Independent Open",
+    "Scholastic World"
+   ]
+  }
+ },
+ "events": [
+  {
+   "id": "2026-mideast-guard",
+   "activity": "guard",
+   "name": "WGI Mid-East Power Regional",
+   "date": "2026-02-07",
+   "city": "Cincinnati, OH",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Pride of Cincinnati",
+        "home": "Cincinnati, OH",
+        "score": 87.56,
+        "place": 1
+       },
+       {
+        "ensemble": "Blessed Sacrament",
+        "home": "Newark, NJ",
+        "score": 86.65,
+        "place": 2
+       },
+       {
+        "ensemble": "Paramount",
+        "home": "Atlanta, GA",
+        "score": 83.73,
+        "place": 3
+       },
+       {
+        "ensemble": "Imbue",
+        "home": "Indianapolis, IN",
+        "score": 82.82,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Juxtaposition",
+        "home": "Rochester, NY",
+        "score": 84.06,
+        "place": 1
+       },
+       {
+        "ensemble": "Vintage",
+        "home": "Kettering, OH",
+        "score": 83.15,
+        "place": 2
+       },
+       {
+        "ensemble": "MCM",
+        "home": "San Antonio, TX",
+        "score": 80.23,
+        "place": 3
+       }
+      ],
+      "Independent A": [
+       {
+        "ensemble": "Veritas",
+        "home": "Lexington, KY",
+        "score": 81.56,
+        "place": 1
+       },
+       {
+        "ensemble": "Corona Winter Guard",
+        "home": "Corona, CA",
+        "score": 80.65,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Avon HS",
+        "home": "Avon, IN",
+        "score": 86.56,
+        "place": 1
+       },
+       {
+        "ensemble": "Carmel HS",
+        "home": "Carmel, IN",
+        "score": 85.65,
+        "place": 2
+       },
+       {
+        "ensemble": "Flanagan HS",
+        "home": "Pembroke Pines, FL",
+        "score": 82.73,
+        "place": 3
+       },
+       {
+        "ensemble": "Trumbull HS",
+        "home": "Trumbull, CT",
+        "score": 81.82,
+        "place": 4
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Center Grove HS",
+        "home": "Greenwood, IN",
+        "score": 83.06,
+        "place": 1
+       },
+       {
+        "ensemble": "James Bowie HS",
+        "home": "Austin, TX",
+        "score": 82.15,
+        "place": 2
+       }
+      ],
+      "Scholastic A": [
+       {
+        "ensemble": "Lebanon HS",
+        "home": "Lebanon, OH",
+        "score": 80.56,
+        "place": 1
+       },
+       {
+        "ensemble": "Bellbrook HS",
+        "home": "Bellbrook, OH",
+        "score": 79.65,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-mideast-percussion",
+   "activity": "percussion",
+   "name": "WGI Mid-East Power Regional",
+   "date": "2026-02-07",
+   "city": "Cincinnati, OH",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X",
+        "home": "Dayton, OH",
+        "score": 87.56,
+        "place": 1
+       },
+       {
+        "ensemble": "Broken City",
+        "home": "Riverside, CA",
+        "score": 86.65,
+        "place": 2
+       },
+       {
+        "ensemble": "Matrix",
+        "home": "Akron, OH",
+        "score": 83.73,
+        "place": 3
+       },
+       {
+        "ensemble": "STRYKE Percussion",
+        "home": "Fort Lauderdale, FL",
+        "score": 82.82,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "George Mason University",
+        "home": "Fairfax, VA",
+        "score": 84.06,
+        "place": 1
+       },
+       {
+        "ensemble": "Vessel",
+        "home": "Denton, TX",
+        "score": 83.15,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Ayala HS",
+        "home": "Chino Hills, CA",
+        "score": 86.56,
+        "place": 1
+       },
+       {
+        "ensemble": "Chino Hills HS",
+        "home": "Chino Hills, CA",
+        "score": 85.65,
+        "place": 2
+       },
+       {
+        "ensemble": "Plymouth-Canton",
+        "home": "Canton, MI",
+        "score": 82.73,
+        "place": 3
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Mission Viejo HS",
+        "home": "Mission Viejo, CA",
+        "score": 83.06,
+        "place": 1
+       },
+       {
+        "ensemble": "Sparkman HS",
+        "home": "Harvest, AL",
+        "score": 82.15,
+        "place": 2
+       }
+      ],
+      "Scholastic Concert World": [
+       {
+        "ensemble": "Chino Hills Concert",
+        "home": "Chino Hills, CA",
+        "score": 84.56,
+        "place": 1
+       },
+       {
+        "ensemble": "Poteet Concert",
+        "home": "Mesquite, TX",
+        "score": 83.65,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-socal-guard",
+   "activity": "guard",
+   "name": "WGI SoCal Power Regional",
+   "date": "2026-02-21",
+   "city": "Riverside, CA",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Pride of Cincinnati",
+        "home": "Cincinnati, OH",
+        "score": 90.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Paramount",
+        "home": "Atlanta, GA",
+        "score": 86.698,
+        "place": 2
+       },
+       {
+        "ensemble": "Onyx",
+        "home": "Dayton, OH",
+        "score": 85.74,
+        "place": 3
+       },
+       {
+        "ensemble": "Bluecoats Indoor",
+        "home": "Canton, OH",
+        "score": 80.81,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Juxtaposition",
+        "home": "Rochester, NY",
+        "score": 87.028,
+        "place": 1
+       },
+       {
+        "ensemble": "MCM",
+        "home": "San Antonio, TX",
+        "score": 83.198,
+        "place": 2
+       },
+       {
+        "ensemble": "First Flight",
+        "home": "Raleigh, NC",
+        "score": 82.24,
+        "place": 3
+       }
+      ],
+      "Independent A": [
+       {
+        "ensemble": "Veritas",
+        "home": "Lexington, KY",
+        "score": 84.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Sacred Heart",
+        "home": "Vineland, NJ",
+        "score": 79.74,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Avon HS",
+        "home": "Avon, IN",
+        "score": 89.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Flanagan HS",
+        "home": "Pembroke Pines, FL",
+        "score": 85.698,
+        "place": 2
+       },
+       {
+        "ensemble": "Tarpon Springs HS",
+        "home": "Tarpon Springs, FL",
+        "score": 84.74,
+        "place": 3
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Center Grove HS",
+        "home": "Greenwood, IN",
+        "score": 86.028,
+        "place": 1
+       },
+       {
+        "ensemble": "Fishers HS",
+        "home": "Fishers, IN",
+        "score": 81.24,
+        "place": 2
+       }
+      ],
+      "Scholastic A": [
+       {
+        "ensemble": "Lebanon HS",
+        "home": "Lebanon, OH",
+        "score": 83.528,
+        "place": 1
+       },
+       {
+        "ensemble": "North Ridgeville HS",
+        "home": "North Ridgeville, OH",
+        "score": 78.74,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-socal-percussion",
+   "activity": "percussion",
+   "name": "WGI SoCal Power Regional",
+   "date": "2026-02-21",
+   "city": "Riverside, CA",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X",
+        "home": "Dayton, OH",
+        "score": 90.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Matrix",
+        "home": "Akron, OH",
+        "score": 86.698,
+        "place": 2
+       },
+       {
+        "ensemble": "Pulse Percussion",
+        "home": "Los Angeles, CA",
+        "score": 85.74,
+        "place": 3
+       },
+       {
+        "ensemble": "United Percussion",
+        "home": "Cherry Hill, NJ",
+        "score": 80.81,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "George Mason University",
+        "home": "Fairfax, VA",
+        "score": 87.028,
+        "place": 1
+       },
+       {
+        "ensemble": "Colt Cadets Indoor",
+        "home": "Dubuque, IA",
+        "score": 82.24,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Ayala HS",
+        "home": "Chino Hills, CA",
+        "score": 89.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Plymouth-Canton",
+        "home": "Canton, MI",
+        "score": 85.698,
+        "place": 2
+       },
+       {
+        "ensemble": "Dartmouth HS",
+        "home": "Dartmouth, MA",
+        "score": 84.74,
+        "place": 3
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Mission Viejo HS",
+        "home": "Mission Viejo, CA",
+        "score": 86.028,
+        "place": 1
+       },
+       {
+        "ensemble": "Sparkman HS",
+        "home": "Harvest, AL",
+        "score": 84.018,
+        "place": 2
+       }
+      ],
+      "Scholastic Concert World": [
+       {
+        "ensemble": "Chino Hills Concert",
+        "home": "Chino Hills, CA",
+        "score": 87.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Poteet Concert",
+        "home": "Mesquite, TX",
+        "score": 85.518,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-tampa-guard",
+   "activity": "guard",
+   "name": "WGI Tampa Regional",
+   "date": "2026-02-28",
+   "city": "Tampa, FL",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Blessed Sacrament",
+        "home": "Newark, NJ",
+        "score": 88.518,
+        "place": 1
+       },
+       {
+        "ensemble": "Onyx",
+        "home": "Dayton, OH",
+        "score": 87.608,
+        "place": 2
+       },
+       {
+        "ensemble": "Imbue",
+        "home": "Indianapolis, IN",
+        "score": 84.688,
+        "place": 3
+       },
+       {
+        "ensemble": "Bluecoats Indoor",
+        "home": "Canton, OH",
+        "score": 83.778,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Vintage",
+        "home": "Kettering, OH",
+        "score": 85.018,
+        "place": 1
+       },
+       {
+        "ensemble": "First Flight",
+        "home": "Raleigh, NC",
+        "score": 84.108,
+        "place": 2
+       }
+      ],
+      "Independent A": [
+       {
+        "ensemble": "Corona Winter Guard",
+        "home": "Corona, CA",
+        "score": 82.518,
+        "place": 1
+       },
+       {
+        "ensemble": "Sacred Heart",
+        "home": "Vineland, NJ",
+        "score": 81.608,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Carmel HS",
+        "home": "Carmel, IN",
+        "score": 87.518,
+        "place": 1
+       },
+       {
+        "ensemble": "Tarpon Springs HS",
+        "home": "Tarpon Springs, FL",
+        "score": 86.608,
+        "place": 2
+       },
+       {
+        "ensemble": "Trumbull HS",
+        "home": "Trumbull, CT",
+        "score": 83.688,
+        "place": 3
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "James Bowie HS",
+        "home": "Austin, TX",
+        "score": 84.018,
+        "place": 1
+       },
+       {
+        "ensemble": "Fishers HS",
+        "home": "Fishers, IN",
+        "score": 83.108,
+        "place": 2
+       }
+      ],
+      "Scholastic A": [
+       {
+        "ensemble": "Bellbrook HS",
+        "home": "Bellbrook, OH",
+        "score": 81.518,
+        "place": 1
+       },
+       {
+        "ensemble": "North Ridgeville HS",
+        "home": "North Ridgeville, OH",
+        "score": 80.608,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-tampa-winds",
+   "activity": "winds",
+   "name": "WGI Tampa Regional",
+   "date": "2026-02-28",
+   "city": "Tampa, FL",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "STRYKE Wynds",
+        "home": "Fort Lauderdale, FL",
+        "score": 86.65,
+        "place": 1
+       },
+       {
+        "ensemble": "Cap City Winds",
+        "home": "Columbus, OH",
+        "score": 85.74,
+        "place": 2
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Meraki Winds",
+        "home": "Nashville, TN",
+        "score": 84.06,
+        "place": 1
+       },
+       {
+        "ensemble": "Juniper Winds",
+        "home": "Boise, ID",
+        "score": 83.15,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Bellbrook HS Winds",
+        "home": "Bellbrook, OH",
+        "score": 85.65,
+        "place": 1
+       },
+       {
+        "ensemble": "Union HS Winds",
+        "home": "Tulsa, OK",
+        "score": 84.74,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-indy-guard",
+   "activity": "guard",
+   "name": "WGI Indianapolis Regional",
+   "date": "2026-03-14",
+   "city": "Indianapolis, IN",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Pride of Cincinnati",
+        "home": "Cincinnati, OH",
+        "score": 91.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Blessed Sacrament",
+        "home": "Newark, NJ",
+        "score": 91.031,
+        "place": 2
+       },
+       {
+        "ensemble": "Paramount",
+        "home": "Atlanta, GA",
+        "score": 88.111,
+        "place": 3
+       },
+       {
+        "ensemble": "Imbue",
+        "home": "Indianapolis, IN",
+        "score": 87.201,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Juxtaposition",
+        "home": "Rochester, NY",
+        "score": 88.441,
+        "place": 1
+       },
+       {
+        "ensemble": "Vintage",
+        "home": "Kettering, OH",
+        "score": 87.531,
+        "place": 2
+       },
+       {
+        "ensemble": "MCM",
+        "home": "San Antonio, TX",
+        "score": 84.611,
+        "place": 3
+       }
+      ],
+      "Independent A": [
+       {
+        "ensemble": "Veritas",
+        "home": "Lexington, KY",
+        "score": 85.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Corona Winter Guard",
+        "home": "Corona, CA",
+        "score": 85.031,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Avon HS",
+        "home": "Avon, IN",
+        "score": 90.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Carmel HS",
+        "home": "Carmel, IN",
+        "score": 90.031,
+        "place": 2
+       },
+       {
+        "ensemble": "Flanagan HS",
+        "home": "Pembroke Pines, FL",
+        "score": 87.111,
+        "place": 3
+       },
+       {
+        "ensemble": "Trumbull HS",
+        "home": "Trumbull, CT",
+        "score": 86.201,
+        "place": 4
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Center Grove HS",
+        "home": "Greenwood, IN",
+        "score": 87.441,
+        "place": 1
+       },
+       {
+        "ensemble": "James Bowie HS",
+        "home": "Austin, TX",
+        "score": 86.531,
+        "place": 2
+       }
+      ],
+      "Scholastic A": [
+       {
+        "ensemble": "Lebanon HS",
+        "home": "Lebanon, OH",
+        "score": 84.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Bellbrook HS",
+        "home": "Bellbrook, OH",
+        "score": 84.031,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-indy-percussion",
+   "activity": "percussion",
+   "name": "WGI Indianapolis Regional",
+   "date": "2026-03-14",
+   "city": "Indianapolis, IN",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X",
+        "home": "Dayton, OH",
+        "score": 91.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Broken City",
+        "home": "Riverside, CA",
+        "score": 88.518,
+        "place": 2
+       },
+       {
+        "ensemble": "Matrix",
+        "home": "Akron, OH",
+        "score": 88.111,
+        "place": 3
+       },
+       {
+        "ensemble": "STRYKE Percussion",
+        "home": "Fort Lauderdale, FL",
+        "score": 84.688,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "George Mason University",
+        "home": "Fairfax, VA",
+        "score": 88.441,
+        "place": 1
+       },
+       {
+        "ensemble": "Vessel",
+        "home": "Denton, TX",
+        "score": 85.018,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Ayala HS",
+        "home": "Chino Hills, CA",
+        "score": 90.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Chino Hills HS",
+        "home": "Chino Hills, CA",
+        "score": 87.518,
+        "place": 2
+       },
+       {
+        "ensemble": "Plymouth-Canton",
+        "home": "Canton, MI",
+        "score": 87.111,
+        "place": 3
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Mission Viejo HS",
+        "home": "Mission Viejo, CA",
+        "score": 87.441,
+        "place": 1
+       },
+       {
+        "ensemble": "Sparkman HS",
+        "home": "Harvest, AL",
+        "score": 86.531,
+        "place": 2
+       }
+      ],
+      "Scholastic Concert World": [
+       {
+        "ensemble": "Chino Hills Concert",
+        "home": "Chino Hills, CA",
+        "score": 88.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Poteet Concert",
+        "home": "Mesquite, TX",
+        "score": 88.031,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-indy-winds",
+   "activity": "winds",
+   "name": "WGI Indianapolis Regional",
+   "date": "2026-03-14",
+   "city": "Indianapolis, IN",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "STRYKE Wynds",
+        "home": "Fort Lauderdale, FL",
+        "score": 88.518,
+        "place": 1
+       },
+       {
+        "ensemble": "Rhythm X Winds",
+        "home": "Dayton, OH",
+        "score": 87.56,
+        "place": 2
+       },
+       {
+        "ensemble": "Resistance Winds",
+        "home": "Houston, TX",
+        "score": 83.73,
+        "place": 3
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Meraki Winds",
+        "home": "Nashville, TN",
+        "score": 87.028,
+        "place": 1
+       },
+       {
+        "ensemble": "Juniper Winds",
+        "home": "Boise, ID",
+        "score": 85.018,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Bellbrook HS Winds",
+        "home": "Bellbrook, OH",
+        "score": 87.518,
+        "place": 1
+       },
+       {
+        "ensemble": "Flanagan HS Winds",
+        "home": "Pembroke Pines, FL",
+        "score": 86.56,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-dayton-guard",
+   "activity": "guard",
+   "name": "WGI Dayton Regional",
+   "date": "2026-03-28",
+   "city": "Dayton, OH",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Pride of Cincinnati",
+        "home": "Cincinnati, OH",
+        "score": 94.313,
+        "place": 1
+       },
+       {
+        "ensemble": "Paramount",
+        "home": "Atlanta, GA",
+        "score": 89.383,
+        "place": 2
+       },
+       {
+        "ensemble": "Onyx",
+        "home": "Dayton, OH",
+        "score": 89.021,
+        "place": 3
+       },
+       {
+        "ensemble": "Bluecoats Indoor",
+        "home": "Canton, OH",
+        "score": 85.191,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Juxtaposition",
+        "home": "Rochester, NY",
+        "score": 90.813,
+        "place": 1
+       },
+       {
+        "ensemble": "MCM",
+        "home": "San Antonio, TX",
+        "score": 85.883,
+        "place": 2
+       },
+       {
+        "ensemble": "First Flight",
+        "home": "Raleigh, NC",
+        "score": 85.521,
+        "place": 3
+       }
+      ],
+      "Independent A": [
+       {
+        "ensemble": "Veritas",
+        "home": "Lexington, KY",
+        "score": 88.313,
+        "place": 1
+       },
+       {
+        "ensemble": "Sacred Heart",
+        "home": "Vineland, NJ",
+        "score": 83.021,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Avon HS",
+        "home": "Avon, IN",
+        "score": 93.313,
+        "place": 1
+       },
+       {
+        "ensemble": "Flanagan HS",
+        "home": "Pembroke Pines, FL",
+        "score": 88.383,
+        "place": 2
+       },
+       {
+        "ensemble": "Tarpon Springs HS",
+        "home": "Tarpon Springs, FL",
+        "score": 88.021,
+        "place": 3
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Center Grove HS",
+        "home": "Greenwood, IN",
+        "score": 89.813,
+        "place": 1
+       },
+       {
+        "ensemble": "Fishers HS",
+        "home": "Fishers, IN",
+        "score": 84.521,
+        "place": 2
+       }
+      ],
+      "Scholastic A": [
+       {
+        "ensemble": "Lebanon HS",
+        "home": "Lebanon, OH",
+        "score": 87.313,
+        "place": 1
+       },
+       {
+        "ensemble": "North Ridgeville HS",
+        "home": "North Ridgeville, OH",
+        "score": 82.021,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-dayton-percussion",
+   "activity": "percussion",
+   "name": "WGI Dayton Regional",
+   "date": "2026-03-28",
+   "city": "Dayton, OH",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X",
+        "home": "Dayton, OH",
+        "score": 94.313,
+        "place": 1
+       },
+       {
+        "ensemble": "Matrix",
+        "home": "Akron, OH",
+        "score": 89.383,
+        "place": 2
+       },
+       {
+        "ensemble": "Pulse Percussion",
+        "home": "Los Angeles, CA",
+        "score": 87.608,
+        "place": 3
+       },
+       {
+        "ensemble": "United Percussion",
+        "home": "Cherry Hill, NJ",
+        "score": 83.778,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "George Mason University",
+        "home": "Fairfax, VA",
+        "score": 90.813,
+        "place": 1
+       },
+       {
+        "ensemble": "Colt Cadets Indoor",
+        "home": "Dubuque, IA",
+        "score": 84.108,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Ayala HS",
+        "home": "Chino Hills, CA",
+        "score": 93.313,
+        "place": 1
+       },
+       {
+        "ensemble": "Plymouth-Canton",
+        "home": "Canton, MI",
+        "score": 88.383,
+        "place": 2
+       },
+       {
+        "ensemble": "Dartmouth HS",
+        "home": "Dartmouth, MA",
+        "score": 86.608,
+        "place": 3
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Mission Viejo HS",
+        "home": "Mission Viejo, CA",
+        "score": 89.813,
+        "place": 1
+       },
+       {
+        "ensemble": "Sparkman HS",
+        "home": "Harvest, AL",
+        "score": 87.803,
+        "place": 2
+       }
+      ],
+      "Scholastic Concert World": [
+       {
+        "ensemble": "Chino Hills Concert",
+        "home": "Chino Hills, CA",
+        "score": 91.313,
+        "place": 1
+       },
+       {
+        "ensemble": "Poteet Concert",
+        "home": "Mesquite, TX",
+        "score": 89.303,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-dayton-winds",
+   "activity": "winds",
+   "name": "WGI Dayton Regional",
+   "date": "2026-03-28",
+   "city": "Dayton, OH",
+   "worlds": false,
+   "sessions": [
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X Winds",
+        "home": "Dayton, OH",
+        "score": 90.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Cap City Winds",
+        "home": "Columbus, OH",
+        "score": 87.608,
+        "place": 2
+       },
+       {
+        "ensemble": "Resistance Winds",
+        "home": "Houston, TX",
+        "score": 86.698,
+        "place": 3
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Meraki Winds",
+        "home": "Nashville, TN",
+        "score": 88.441,
+        "place": 1
+       },
+       {
+        "ensemble": "Juniper Winds",
+        "home": "Boise, ID",
+        "score": 87.531,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Flanagan HS Winds",
+        "home": "Pembroke Pines, FL",
+        "score": 89.528,
+        "place": 1
+       },
+       {
+        "ensemble": "Union HS Winds",
+        "home": "Tulsa, OK",
+        "score": 86.608,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-worlds-guard",
+   "activity": "guard",
+   "name": "WGI World Championships",
+   "date": "2026-04-18",
+   "city": "Dayton, OH",
+   "worlds": true,
+   "sessions": [
+    {
+     "name": "Prelims",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Pride of Cincinnati",
+        "home": "Cincinnati, OH",
+        "score": 95.5,
+        "place": 1
+       },
+       {
+        "ensemble": "Blessed Sacrament",
+        "home": "Newark, NJ",
+        "score": 92.303,
+        "place": 2
+       },
+       {
+        "ensemble": "Paramount",
+        "home": "Atlanta, GA",
+        "score": 91.67,
+        "place": 3
+       },
+       {
+        "ensemble": "Onyx",
+        "home": "Dayton, OH",
+        "score": 91.393,
+        "place": 4
+       },
+       {
+        "ensemble": "Imbue",
+        "home": "Indianapolis, IN",
+        "score": 88.473,
+        "place": 5
+       },
+       {
+        "ensemble": "Bluecoats Indoor",
+        "home": "Canton, OH",
+        "score": 87.563,
+        "place": 6
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Juxtaposition",
+        "home": "Rochester, NY",
+        "score": 92.0,
+        "place": 1
+       },
+       {
+        "ensemble": "Vintage",
+        "home": "Kettering, OH",
+        "score": 88.803,
+        "place": 2
+       },
+       {
+        "ensemble": "MCM",
+        "home": "San Antonio, TX",
+        "score": 88.17,
+        "place": 3
+       },
+       {
+        "ensemble": "First Flight",
+        "home": "Raleigh, NC",
+        "score": 87.893,
+        "place": 4
+       }
+      ],
+      "Independent A": [
+       {
+        "ensemble": "Veritas",
+        "home": "Lexington, KY",
+        "score": 89.5,
+        "place": 1
+       },
+       {
+        "ensemble": "Corona Winter Guard",
+        "home": "Corona, CA",
+        "score": 86.303,
+        "place": 2
+       },
+       {
+        "ensemble": "Sacred Heart",
+        "home": "Vineland, NJ",
+        "score": 85.393,
+        "place": 3
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Avon HS",
+        "home": "Avon, IN",
+        "score": 94.5,
+        "place": 1
+       },
+       {
+        "ensemble": "Carmel HS",
+        "home": "Carmel, IN",
+        "score": 91.303,
+        "place": 2
+       },
+       {
+        "ensemble": "Flanagan HS",
+        "home": "Pembroke Pines, FL",
+        "score": 90.67,
+        "place": 3
+       },
+       {
+        "ensemble": "Tarpon Springs HS",
+        "home": "Tarpon Springs, FL",
+        "score": 90.393,
+        "place": 4
+       },
+       {
+        "ensemble": "Trumbull HS",
+        "home": "Trumbull, CT",
+        "score": 87.473,
+        "place": 5
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Center Grove HS",
+        "home": "Greenwood, IN",
+        "score": 91.0,
+        "place": 1
+       },
+       {
+        "ensemble": "James Bowie HS",
+        "home": "Austin, TX",
+        "score": 87.803,
+        "place": 2
+       },
+       {
+        "ensemble": "Fishers HS",
+        "home": "Fishers, IN",
+        "score": 86.893,
+        "place": 3
+       }
+      ],
+      "Scholastic A": [
+       {
+        "ensemble": "Lebanon HS",
+        "home": "Lebanon, OH",
+        "score": 88.5,
+        "place": 1
+       },
+       {
+        "ensemble": "Bellbrook HS",
+        "home": "Bellbrook, OH",
+        "score": 85.303,
+        "place": 2
+       },
+       {
+        "ensemble": "North Ridgeville HS",
+        "home": "North Ridgeville, OH",
+        "score": 84.393,
+        "place": 3
+       }
+      ]
+     }
+    },
+    {
+     "name": "Semifinals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Pride of Cincinnati",
+        "home": "Cincinnati, OH",
+        "score": 97.526,
+        "place": 1
+       },
+       {
+        "ensemble": "Blessed Sacrament",
+        "home": "Newark, NJ",
+        "score": 96.616,
+        "place": 2
+       },
+       {
+        "ensemble": "Onyx",
+        "home": "Dayton, OH",
+        "score": 95.706,
+        "place": 3
+       },
+       {
+        "ensemble": "Paramount",
+        "home": "Atlanta, GA",
+        "score": 93.696,
+        "place": 4
+       },
+       {
+        "ensemble": "Imbue",
+        "home": "Indianapolis, IN",
+        "score": 92.786,
+        "place": 5
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Avon HS",
+        "home": "Avon, IN",
+        "score": 96.526,
+        "place": 1
+       },
+       {
+        "ensemble": "Carmel HS",
+        "home": "Carmel, IN",
+        "score": 95.616,
+        "place": 2
+       },
+       {
+        "ensemble": "Tarpon Springs HS",
+        "home": "Tarpon Springs, FL",
+        "score": 94.706,
+        "place": 3
+       },
+       {
+        "ensemble": "Flanagan HS",
+        "home": "Pembroke Pines, FL",
+        "score": 92.696,
+        "place": 4
+       }
+      ]
+     }
+    },
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Pride of Cincinnati",
+        "home": "Cincinnati, OH",
+        "score": 98.426,
+        "place": 1,
+        "award": "Independent World Champion"
+       },
+       {
+        "ensemble": "Blessed Sacrament",
+        "home": "Newark, NJ",
+        "score": 97.516,
+        "place": 2
+       },
+       {
+        "ensemble": "Onyx",
+        "home": "Dayton, OH",
+        "score": 96.606,
+        "place": 3
+       },
+       {
+        "ensemble": "Paramount",
+        "home": "Atlanta, GA",
+        "score": 94.596,
+        "place": 4
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Avon HS",
+        "home": "Avon, IN",
+        "score": 97.426,
+        "place": 1,
+        "award": "Scholastic World Champion"
+       },
+       {
+        "ensemble": "Carmel HS",
+        "home": "Carmel, IN",
+        "score": 96.516,
+        "place": 2
+       },
+       {
+        "ensemble": "Tarpon Springs HS",
+        "home": "Tarpon Springs, FL",
+        "score": 95.606,
+        "place": 3
+       },
+       {
+        "ensemble": "Flanagan HS",
+        "home": "Pembroke Pines, FL",
+        "score": 93.596,
+        "place": 4
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-worlds-percussion",
+   "activity": "percussion",
+   "name": "WGI World Championships",
+   "date": "2026-04-18",
+   "city": "Dayton, OH",
+   "worlds": true,
+   "sessions": [
+    {
+     "name": "Prelims",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X",
+        "home": "Dayton, OH",
+        "score": 95.5,
+        "place": 1
+       },
+       {
+        "ensemble": "Matrix",
+        "home": "Akron, OH",
+        "score": 91.67,
+        "place": 2
+       },
+       {
+        "ensemble": "Broken City",
+        "home": "Riverside, CA",
+        "score": 91.031,
+        "place": 3
+       },
+       {
+        "ensemble": "Pulse Percussion",
+        "home": "Los Angeles, CA",
+        "score": 89.021,
+        "place": 4
+       },
+       {
+        "ensemble": "STRYKE Percussion",
+        "home": "Fort Lauderdale, FL",
+        "score": 87.201,
+        "place": 5
+       },
+       {
+        "ensemble": "United Percussion",
+        "home": "Cherry Hill, NJ",
+        "score": 85.191,
+        "place": 6
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "George Mason University",
+        "home": "Fairfax, VA",
+        "score": 92.0,
+        "place": 1
+       },
+       {
+        "ensemble": "Vessel",
+        "home": "Denton, TX",
+        "score": 87.531,
+        "place": 2
+       },
+       {
+        "ensemble": "Colt Cadets Indoor",
+        "home": "Dubuque, IA",
+        "score": 85.521,
+        "place": 3
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Ayala HS",
+        "home": "Chino Hills, CA",
+        "score": 94.5,
+        "place": 1
+       },
+       {
+        "ensemble": "Plymouth-Canton",
+        "home": "Canton, MI",
+        "score": 90.67,
+        "place": 2
+       },
+       {
+        "ensemble": "Chino Hills HS",
+        "home": "Chino Hills, CA",
+        "score": 90.031,
+        "place": 3
+       },
+       {
+        "ensemble": "Dartmouth HS",
+        "home": "Dartmouth, MA",
+        "score": 88.021,
+        "place": 4
+       }
+      ],
+      "Scholastic Open": [
+       {
+        "ensemble": "Mission Viejo HS",
+        "home": "Mission Viejo, CA",
+        "score": 91.0,
+        "place": 1
+       },
+       {
+        "ensemble": "Sparkman HS",
+        "home": "Harvest, AL",
+        "score": 90.09,
+        "place": 2
+       }
+      ],
+      "Scholastic Concert World": [
+       {
+        "ensemble": "Chino Hills Concert",
+        "home": "Chino Hills, CA",
+        "score": 92.5,
+        "place": 1
+       },
+       {
+        "ensemble": "Poteet Concert",
+        "home": "Mesquite, TX",
+        "score": 91.59,
+        "place": 2
+       }
+      ]
+     }
+    },
+    {
+     "name": "Semifinals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X",
+        "home": "Dayton, OH",
+        "score": 97.526,
+        "place": 1
+       },
+       {
+        "ensemble": "Broken City",
+        "home": "Riverside, CA",
+        "score": 96.616,
+        "place": 2
+       },
+       {
+        "ensemble": "Pulse Percussion",
+        "home": "Los Angeles, CA",
+        "score": 95.706,
+        "place": 3
+       },
+       {
+        "ensemble": "Matrix",
+        "home": "Akron, OH",
+        "score": 93.696,
+        "place": 4
+       },
+       {
+        "ensemble": "STRYKE Percussion",
+        "home": "Fort Lauderdale, FL",
+        "score": 92.786,
+        "place": 5
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Ayala HS",
+        "home": "Chino Hills, CA",
+        "score": 96.526,
+        "place": 1
+       },
+       {
+        "ensemble": "Chino Hills HS",
+        "home": "Chino Hills, CA",
+        "score": 95.616,
+        "place": 2
+       },
+       {
+        "ensemble": "Plymouth-Canton",
+        "home": "Canton, MI",
+        "score": 92.696,
+        "place": 3
+       }
+      ],
+      "Scholastic Concert World": [
+       {
+        "ensemble": "Chino Hills Concert",
+        "home": "Chino Hills, CA",
+        "score": 94.526,
+        "place": 1
+       },
+       {
+        "ensemble": "Poteet Concert",
+        "home": "Mesquite, TX",
+        "score": 93.616,
+        "place": 2
+       }
+      ]
+     }
+    },
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X",
+        "home": "Dayton, OH",
+        "score": 98.426,
+        "place": 1,
+        "award": "Independent World Champion"
+       },
+       {
+        "ensemble": "Broken City",
+        "home": "Riverside, CA",
+        "score": 97.516,
+        "place": 2
+       },
+       {
+        "ensemble": "Pulse Percussion",
+        "home": "Los Angeles, CA",
+        "score": 96.606,
+        "place": 3
+       },
+       {
+        "ensemble": "Matrix",
+        "home": "Akron, OH",
+        "score": 94.596,
+        "place": 4
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Ayala HS",
+        "home": "Chino Hills, CA",
+        "score": 97.426,
+        "place": 1,
+        "award": "Scholastic World Champion"
+       },
+       {
+        "ensemble": "Chino Hills HS",
+        "home": "Chino Hills, CA",
+        "score": 96.516,
+        "place": 2
+       },
+       {
+        "ensemble": "Dartmouth HS",
+        "home": "Dartmouth, MA",
+        "score": 95.606,
+        "place": 3
+       },
+       {
+        "ensemble": "Plymouth-Canton",
+        "home": "Canton, MI",
+        "score": 93.596,
+        "place": 4
+       }
+      ],
+      "Scholastic Concert World": [
+       {
+        "ensemble": "Chino Hills Concert",
+        "home": "Chino Hills, CA",
+        "score": 95.426,
+        "place": 1,
+        "award": "Scholastic Concert World Champion"
+       },
+       {
+        "ensemble": "Poteet Concert",
+        "home": "Mesquite, TX",
+        "score": 94.516,
+        "place": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "2026-worlds-winds",
+   "activity": "winds",
+   "name": "WGI World Championships",
+   "date": "2026-04-18",
+   "city": "Dayton, OH",
+   "worlds": true,
+   "sessions": [
+    {
+     "name": "Prelims",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X Winds",
+        "home": "Dayton, OH",
+        "score": 91.941,
+        "place": 1
+       },
+       {
+        "ensemble": "STRYKE Wynds",
+        "home": "Fort Lauderdale, FL",
+        "score": 91.031,
+        "place": 2
+       },
+       {
+        "ensemble": "Cap City Winds",
+        "home": "Columbus, OH",
+        "score": 89.021,
+        "place": 3
+       },
+       {
+        "ensemble": "Resistance Winds",
+        "home": "Houston, TX",
+        "score": 88.111,
+        "place": 4
+       }
+      ],
+      "Independent Open": [
+       {
+        "ensemble": "Meraki Winds",
+        "home": "Nashville, TN",
+        "score": 90.813,
+        "place": 1
+       },
+       {
+        "ensemble": "Juniper Winds",
+        "home": "Boise, ID",
+        "score": 88.803,
+        "place": 2
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Flanagan HS Winds",
+        "home": "Pembroke Pines, FL",
+        "score": 90.941,
+        "place": 1
+       },
+       {
+        "ensemble": "Bellbrook HS Winds",
+        "home": "Bellbrook, OH",
+        "score": 90.031,
+        "place": 2
+       },
+       {
+        "ensemble": "Union HS Winds",
+        "home": "Tulsa, OK",
+        "score": 88.021,
+        "place": 3
+       }
+      ]
+     }
+    },
+    {
+     "name": "Semifinals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X Winds",
+        "home": "Dayton, OH",
+        "score": 97.526,
+        "place": 1
+       },
+       {
+        "ensemble": "STRYKE Wynds",
+        "home": "Fort Lauderdale, FL",
+        "score": 96.616,
+        "place": 2
+       },
+       {
+        "ensemble": "Cap City Winds",
+        "home": "Columbus, OH",
+        "score": 95.706,
+        "place": 3
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Flanagan HS Winds",
+        "home": "Pembroke Pines, FL",
+        "score": 96.526,
+        "place": 1
+       },
+       {
+        "ensemble": "Bellbrook HS Winds",
+        "home": "Bellbrook, OH",
+        "score": 95.616,
+        "place": 2
+       },
+       {
+        "ensemble": "Union HS Winds",
+        "home": "Tulsa, OK",
+        "score": 94.706,
+        "place": 3
+       }
+      ]
+     }
+    },
+    {
+     "name": "Finals",
+     "classes": {
+      "Independent World": [
+       {
+        "ensemble": "Rhythm X Winds",
+        "home": "Dayton, OH",
+        "score": 98.426,
+        "place": 1,
+        "award": "Independent World Champion"
+       },
+       {
+        "ensemble": "STRYKE Wynds",
+        "home": "Fort Lauderdale, FL",
+        "score": 97.516,
+        "place": 2
+       },
+       {
+        "ensemble": "Cap City Winds",
+        "home": "Columbus, OH",
+        "score": 96.606,
+        "place": 3
+       },
+       {
+        "ensemble": "Resistance Winds",
+        "home": "Houston, TX",
+        "score": 94.596,
+        "place": 4
+       }
+      ],
+      "Scholastic World": [
+       {
+        "ensemble": "Flanagan HS Winds",
+        "home": "Pembroke Pines, FL",
+        "score": 97.426,
+        "place": 1,
+        "award": "Scholastic World Champion"
+       },
+       {
+        "ensemble": "Bellbrook HS Winds",
+        "home": "Bellbrook, OH",
+        "score": 96.516,
+        "place": 2
+       },
+       {
+        "ensemble": "Union HS Winds",
+        "home": "Tulsa, OK",
+        "score": 95.606,
+        "place": 3
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "upcoming": [
+  {
+   "name": "WGI Mid-East Power Regional",
+   "date": "2027-02-06",
+   "date_display": "February 6, 2027",
+   "city": "Cincinnati, OH",
+   "activities": [
+    "guard",
+    "percussion"
+   ]
+  }
+ ]
+}

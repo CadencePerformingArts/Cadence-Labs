@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadence WGI — Color Guard, Percussion & Winds Scores</title>
+<meta name="description" content="The Cadence scoreboard for WGI Sport of the Arts: Color Guard, Percussion and Winds standings, regionals and World Championships results. Demo season data.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='3' width='58' height='58' rx='15' fill='%237c3aed'/><g stroke='%23ffffff' stroke-width='6.5' stroke-linecap='round'><line x1='16' y1='26' x2='16' y2='38'/><line x1='27' y1='20' x2='27' y2='44'/><line x1='38' y1='28' x2='38' y2='36'/><line x1='49' y1='16' x2='49' y2='48'/></g></svg>">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="wgi.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#/">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#f0b429"/>
+      <g stroke="#16233d" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/>
+        <line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/>
+        <line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence <b class="wgi-tag">WGI</b></span>
+  </a>
+  <nav id="nav">
+    <a href="#/" data-route="rankings" title="Current standings by activity and class"><span>Scoreboard</span></a>
+    <a href="#/events" data-route="events" title="Regionals and World Championships results"><span>Events</span></a>
+    <a href="#/ensembles" data-route="ensembles" title="Every ensemble by class"><span>Ensembles</span></a>
+  </nav>
+  <div class="updated" id="updated" title="Data status"></div>
+</header>
+
+<div class="demo-strip">DEMO SEASON — sample data with real ensemble names. WGI has no public feed wired up yet; see <a href="#/about">about</a>.</div>
+
+<main id="app" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<footer class="foot">
+  <div>Part of the <a href="../modes.html"><b>Cadence family</b></a> — DCI · WGI · more on the way</div>
+  <div>Demo data for product preview. Not affiliated with WGI Sport of the Arts.</div>
+  <div class="credit">Created by Lucas Besel</div>
+</footer>
+
+<div id="tooltip" class="tooltip" hidden></div>
+<script src="../charts.js"></script>
+<script src="wgi.js"></script>
+<script src="../modes.js" data-base=".."></script>
+</body>
+</html>
