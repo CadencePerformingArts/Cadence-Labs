@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadence Show Choir — Invitational Results</title>
+<meta name="description" content="Cadence Show Choir — part of the Cadence scoreboard family. Demo season data.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Show Choir">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var t=localStorage.getItem("cad-theme");if(t)document.documentElement.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")document.documentElement.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="../family/family.css">
+<style>:root { --fam-accent: #16a34a; }</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#/">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#f0b429"/>
+      <g stroke="#16233d" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/>
+        <line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/>
+        <line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence <b>SC</b></span>
+  </a>
+  <nav id="nav">
+    <a href="#/" data-route="rankings"><span>Scoreboard</span></a>
+    <a href="#/events" data-route="events"><span>Invitationals</span></a>
+    <a href="#/corps" data-route="corps"><span>Choirs</span></a>
+    <a href="#/data" data-route="data"><span>Stats</span></a>
+  </nav>
+  <a id="settingsBtn" href="#/settings" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 6.087a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.019.382c-.115.043-.283.031-.45-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></a>
+  <div class="updated" id="updated" title="Data status"></div>
+</header>
+
+<div class="demo-strip">DEMO SEASON — sample data with real choir names. Every invitational defines its own judging; scores compare within an event.</div>
+
+<main id="app" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<footer class="foot">
+  <div><a href="#" id="installBtn" hidden><b>📲 Get the App</b> — install Cadence Show Choir on this device</a></div>
+  <div>Part of the <a href="../modes.html"><b>Cadence family</b></a> — tap the Cadence logo to switch apps</div>
+  <div>Demo data for product preview. An unofficial fan project.</div>
+  <div class="credit">Created by Lucas Besel</div>
+</footer>
+
+<div id="tooltip" class="tooltip" hidden></div>
+<script>
+window.APP_CFG = {"appName": "Cadence Show Choir", "ns": "sc:", "classOrder": ["Mixed", "Treble", "Small School", "Large School"], "combinable": [], "terms": {"singular": "choir", "plural": "choirs", "a": "a choir"}, "eventsTitle": "Invitationals", "siteUrl": "https://lukebesel.github.io/Cadence-Labs/showchoir", "siteLabel": "lukebesel.github.io/Cadence-Labs"};
+window.CadTheme = (function () {
+  var root = document.documentElement;
+  function effective() {
+    return root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+  function mode() { return localStorage.getItem("cad-theme") || "auto"; }
+  function paintMeta() {
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.content = effective() === "dark" ? "#0a2537" : "#0a3f6b";
+  }
+  function set(next) {
+    if (next === "auto") { delete root.dataset.theme; localStorage.removeItem("cad-theme"); }
+    else { root.dataset.theme = next; localStorage.setItem("cad-theme", next); }
+    paintMeta();
+  }
+  var mq = matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) mq.addEventListener("change", paintMeta);
+  paintMeta();
+  return { effective: effective, mode: mode, set: set, paintMeta: paintMeta };
+})();
+(function () {
+  addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); window.__famInstallEvent = e; });
+  var btn = document.getElementById("installBtn");
+  if (!btn) return;
+  var standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  btn.hidden = !!standalone;
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (window.__famInstallEvent) { window.__famInstallEvent.prompt(); return; }
+    alert(/iPhone|iPad|iPod/.test(navigator.userAgent)
+      ? "Install Cadence Show Choir:\n\n1. Tap the Share button\n2. Choose “Add to Home Screen”"
+      : "In your browser menu, choose “Install app” / “Add to Home screen”.");
+  });
+  addEventListener("appinstalled", function () { btn.hidden = true; });
+})();
+</script>
+<script src="../charts.js"></script>
+<script src="../family/wrapped.js"></script>
+<script src="../family/app.js"></script>
+<script src="../modes.js" data-base=".."></script>
+</body>
+</html>

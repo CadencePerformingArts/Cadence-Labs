@@ -47,6 +47,14 @@ jobs:
       # deployed Cadence app tracks the twice-daily pipeline automatically.
       - name: Regenerate DCI snapshot
         run: python3 scripts/gen_dci_snapshot.py
+      # The family apps (WGI/BOA/ACA/Show Choir) are derived from the DCI
+      # engine + generated datasets — rebuild them so they always match the
+      # deployed app.js. Asserted transforms fail the deploy on drift.
+      - name: Build Cadence family apps
+        run: |
+          python3 scripts/build_family_engine.py
+          python3 scripts/gen_family_data.py
+          python3 scripts/gen_family_pages.py
       - name: Build Cadence web app
         run: npx expo export --platform web
         working-directory: apps/cadence
