@@ -37,7 +37,7 @@ SETTINGS_INJECT = """
     if (FAM) (async () => {
       app.querySelectorAll(".setcard").forEach(c => {
         const t = ((c.querySelector("h2") || {}).textContent) || "";
-        if (/Team colors|Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
+        if (/Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
       });
       let clsList = [];
       try { clsList = sortClasses(Object.keys((await data("rankings.json")).standings || {})); } catch (e) {}
@@ -177,6 +177,17 @@ def main() -> None:
         'const TERM = FAM ? FAM.terms : { singular: "corps", plural: "corps", a: "a corps" };\n'
         '  const TERM_TH = FAM ? FAM.terms.singular.charAt(0).toUpperCase() + FAM.terms.singular.slice(1) : "Corps";',
         "TERM_TH")
+
+    # "Show All N corps" expanders and the team-colors note
+    js, n = re.subn(r'collapseRows\(([^;]*?), 5, "corps"\)', r'collapseRows(\1, 5, TERM.plural)', js)
+    assert n == 3, f"collapseRows noun: {n}"
+    js = sub_once(js, 'titlesMode === "years" ? "seasons" : "corps"',
+                  'titlesMode === "years" ? "seasons" : TERM.plural', "titles noun")
+    js = sub_once(
+        js,
+        "Paint Cadence in your corps' colors — or keep the classic Cadence look.",
+        "Paint Cadence in ${FAM ? \"your own colors\" : \"your corps' colors\"} — or keep the classic Cadence look.",
+        "team colors note")
 
     # plain double-quoted strings → concatenation
     js, n = re.subn(r'label: "All corps"', 'label: "All " + TERM.plural', js)

@@ -861,3 +861,11 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
     width: 50px; height: 50px; }
   .asklog { max-height: min(52vh, 520px); }
 }
+
+/* Cadence Labs adjustments: recap calendar button retired; team-colors picker
+   reduced to the default chip + custom builder (theme applies across every
+   Cadence app); brand always on one line */
+#rc-topbtn { display: none !important; }
+.setcard .chipwrap, .setcard .corpsearch { display: none; }
+.brand, .brand > span { white-space: nowrap; }
+@media (max-width: 400px) { .brand { font-size: 16.5px; gap: 7px; } }

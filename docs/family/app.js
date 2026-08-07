@@ -1042,7 +1042,7 @@
       document.querySelectorAll(".sparkcell").forEach(elm => {
         sparkline(elm, elm.dataset.trend.split(",").map(Number).filter(n => !isNaN(n)), "#97a2b3");
       });
-      collapseRows(document.querySelector("#standings tbody"), 5, "corps");
+      collapseRows(document.querySelector("#standings tbody"), 5, TERM.plural);
     }
     renderStandings();
 
@@ -2371,7 +2371,7 @@
       const rc = recByClass.get(m.dataset.cls);
       if (rc) renderRecapSheet(m, rc);
     });
-    document.querySelectorAll(".evres, .evcap").forEach(tb => collapseRows(tb, 5, "corps"));
+    document.querySelectorAll(".evres, .evcap").forEach(tb => collapseRows(tb, 5, TERM.plural));
     // tap a caption header to re-rank the sheet by that caption
     document.querySelectorAll(".capsort").forEach(table => {
       table.querySelectorAll("th[data-sort]").forEach(th => th.onclick = () => {
@@ -2672,7 +2672,7 @@
           <td class="num col-high" data-tip="${esc(`${score3(b.latest)} — ${b.latestEv} · ${fmtDateY(b.latestD)}`)}">${score3(b.latest)}</td>
           <td class="num col-perfs">${b.n}</td></tr>`).join("")}
         </tbody></table></div>` : "<div class='empty'>No recap data for this caption yet — it fills in as recaps are scraped.</div>";
-      if (board.length) collapseRows(document.querySelector("#capBoard tbody"), 5, "corps");
+      if (board.length) collapseRows(document.querySelector("#capBoard tbody"), 5, TERM.plural);
 
       renderSpot(board);
       renderShowCmp();
@@ -2849,7 +2849,7 @@
           ${rowsC.map(([n, c]) => `<tr><td>${corpsLink(n)}</td>${capsShown.map(([k]) => `<td class="num">${c.per[k] || "—"}</td>`).join("")}<td class="num score">${c.total}</td></tr>`).join("")}
         </tbody></table></div>`;
       }
-      collapseRows(document.getElementById("titleRows"), 5, titlesMode === "years" ? "seasons" : "corps");
+      collapseRows(document.getElementById("titleRows"), 5, titlesMode === "years" ? "seasons" : TERM.plural);
     }
 
     const _loadYear = loadYear;
@@ -3360,7 +3360,7 @@
 
       <div class="card setcard">
         <h2>Team colors</h2>
-        <p class="setnote">Paint Cadence in your corps' colors — or keep the classic Cadence look.</p>
+        <p class="setnote">Paint Cadence in ${FAM ? "your own colors" : "your corps' colors"} — or keep the classic Cadence look.</p>
         <button class="setreset${curCorps ? " armed" : " on"}" data-corps-set="">
           <span class="corpschip-sw" style="background:#f0b429"></span>
           <span class="setreset-label">Cadence</span>
@@ -3415,7 +3415,7 @@
     if (FAM) (async () => {
       app.querySelectorAll(".setcard").forEach(c => {
         const t = ((c.querySelector("h2") || {}).textContent) || "";
-        if (/Team colors|Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
+        if (/Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
       });
       let clsList = [];
       try { clsList = sortClasses(Object.keys((await data("rankings.json")).standings || {})); } catch (e) {}
@@ -3834,7 +3834,7 @@
     // GitHub Pages CDN (which has to finish a build+deploy), so the scoreboard
     // updates as fast as the source itself has the scores. Off-season / on
     // failure it falls back to the normal Pages data.
-    const RAW = "https://raw.githubusercontent.com/LukeBesel/DCI-Tracker/main/docs/data/";
+    const RAW = "https://raw.githubusercontent.com/LukeBesel/Cadence-Labs/main/docs/data/";
     let stamp = null;
     let toast = null;
     let showActive = false;
