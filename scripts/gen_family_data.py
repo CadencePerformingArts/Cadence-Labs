@@ -95,6 +95,89 @@ INSTANCES = {
         "base": {"Class AAAA": 88.0, "Class AAA": 85.5, "Class AA": 83.0, "Class A": 81.0},
         "note": "Every BOA championship has its own judging panel — scores compare within an event, and season standings show each band's most recent score.",
     },
+    "uil": {
+        "roster": {
+            "6A": [("The Woodlands HS", "The Woodlands, TX"), ("Vandegrift HS", "Austin, TX"), ("Hebron HS", "Carrollton, TX"), ("Flower Mound HS", "Flower Mound, TX"), ("Leander HS", "Leander, TX"), ("Round Rock HS", "Round Rock, TX"), ("Vista Ridge HS", "Cedar Park, TX"), ("Duncanville HS", "Duncanville, TX"), ("Claudia Taylor Johnson HS", "San Antonio, TX"), ("Ronald Reagan HS", "San Antonio, TX")],
+            "5A": [("Cedar Park HS", "Cedar Park, TX"), ("Dripping Springs HS", "Dripping Springs, TX"), ("Leander Rouse HS", "Leander, TX"), ("Grapevine HS", "Grapevine, TX"), ("Friendswood HS", "Friendswood, TX"), ("PSJA Memorial HS", "Alamo, TX")],
+            "4A": [("Argyle HS", "Argyle, TX"), ("Melissa HS", "Melissa, TX"), ("Kilgore HS", "Kilgore, TX"), ("La Vernia HS", "La Vernia, TX"), ("Canyon HS", "Canyon, TX")],
+            "3A": [("Sunnyvale HS", "Sunnyvale, TX"), ("Whitesboro HS", "Whitesboro, TX"), ("Grandview HS", "Grandview, TX"), ("Mount Vernon HS", "Mount Vernon, TX")],
+            "2A": [("Shiner HS", "Shiner, TX"), ("Post HS", "Post, TX"), ("Sundown HS", "Sundown, TX")],
+            "1A": [("Port Aransas HS", "Port Aransas, TX"), ("Water Valley HS", "Water Valley, TX")],
+        },
+        "schedule": [
+            ("Region 26 Marching Contest", 10, 10, "Pflugerville, TX", False),
+            ("Region 4 Marching Contest", 10, 11, "Denton, TX", False),
+            ("Region 12 Marching Contest", 10, 17, "San Antonio, TX", False),
+            ("Region 9 Marching Contest", 10, 18, "Houston, TX", False),
+            ("UIL Area Marching Contests", 10, 25, "statewide", False),
+            ("UIL State Marching Championships", 11, 4, "San Antonio, TX — Alamodome", True),
+        ],
+        "base": {"6A": 88.5, "5A": 86.5, "4A": 85.0, "3A": 84.0, "2A": 83.0, "1A": 82.0},
+    },
+    "state/indiana": {
+        "roster": {
+            "Open A": [("Carmel HS", "Carmel, IN"), ("Avon HS", "Avon, IN"), ("Center Grove HS", "Greenwood, IN"), ("Fishers HS", "Fishers, IN"), ("Homestead HS", "Fort Wayne, IN"), ("Lawrence Township", "Indianapolis, IN"), ("Castle HS", "Newburgh, IN"), ("Franklin Central HS", "Indianapolis, IN")],
+            "Open B": [("Greenwood HS", "Greenwood, IN"), ("Plainfield HS", "Plainfield, IN"), ("Columbus North HS", "Columbus, IN"), ("Jasper HS", "Jasper, IN")],
+            "Open C": [("Western HS", "Russiaville, IN"), ("Norwell HS", "Ossian, IN"), ("NorthWood HS", "Nappanee, IN")],
+            "Open D": [("Monrovia HS", "Monrovia, IN"), ("Forest Park HS", "Ferdinand, IN"), ("Southridge HS", "Huntingburg, IN")],
+        },
+        "schedule": [
+            ("ISSMA Gold Invitational", 9, 12, "Indianapolis, IN", False),
+            ("Avon Invitational", 9, 26, "Avon, IN", False),
+            ("ISSMA Regionals", 10, 17, "statewide", False),
+            ("ISSMA Semi-State", 10, 31, "statewide", False),
+            ("ISSMA State Finals", 11, 7, "Indianapolis, IN — Lucas Oil Stadium", True),
+        ],
+        "base": {"Open A": 88.0, "Open B": 85.5, "Open C": 84.0, "Open D": 83.0},
+    },
+    "state/ohio": {
+        "roster": {
+            "Class AA": [("William Mason HS", "Mason, OH"), ("Lakota West HS", "West Chester, OH"), ("Centerville HS", "Centerville, OH"), ("Milford HS", "Milford, OH"), ("Fairfield HS", "Fairfield, OH")],
+            "Class A": [("Bellbrook HS", "Bellbrook, OH"), ("Kings HS", "Kings Mills, OH"), ("Ross HS", "Hamilton, OH"), ("Teays Valley HS", "Ashville, OH")],
+            "Class B": [("Lebanon HS", "Lebanon, OH"), ("Bishop Fenwick HS", "Franklin, OH"), ("Valley View HS", "Germantown, OH")],
+            "Class C": [("Waynesville HS", "Waynesville, OH"), ("Carlisle HS", "Carlisle, OH"), ("West Liberty-Salem HS", "West Liberty, OH")],
+        },
+        "schedule": [
+            ("Mason Invitational", 9, 19, "Mason, OH", False),
+            ("Centerville Classic", 10, 3, "Centerville, OH", False),
+            ("OMEA Regional", 10, 24, "statewide", False),
+            ("OMEA State Marching Band Finals", 11, 7, "Canton, OH — Tom Benson Hall of Fame Stadium", True),
+        ],
+        "base": {"Class AA": 88.0, "Class A": 86.0, "Class B": 84.5, "Class C": 83.0},
+    },
+    "state/florida": {
+        "roster": {
+            "5A": [("Tarpon Springs HS", "Tarpon Springs, FL"), ("Flanagan HS", "Pembroke Pines, FL"), ("Timber Creek HS", "Orlando, FL"), ("Park Vista HS", "Lake Worth, FL")],
+            "4A": [("Buchholz HS", "Gainesville, FL"), ("Oakleaf HS", "Orange Park, FL"), ("Venice HS", "Venice, FL")],
+            "3A": [("Largo HS", "Largo, FL"), ("Mitchell HS", "New Port Richey, FL"), ("Ponte Vedra HS", "Ponte Vedra, FL")],
+            "2A": [("Bishop Moore HS", "Orlando, FL"), ("American Heritage", "Plantation, FL")],
+            "1A": [("Academy at the Lakes", "Land O' Lakes, FL"), ("Trinity Prep", "Winter Park, FL")],
+        },
+        "schedule": [
+            ("Ocean Sound Invitational", 10, 3, "Jupiter, FL", False),
+            ("Space Coast Classic", 10, 17, "Melbourne, FL", False),
+            ("FMBC Semifinals", 11, 14, "St. Petersburg, FL", False),
+            ("FMBC State Finals", 11, 21, "St. Petersburg, FL — Tropicana Field", True),
+        ],
+        "base": {"5A": 87.5, "4A": 86.0, "3A": 84.5, "2A": 83.5, "1A": 82.5},
+    },
+    "usbands": {
+        "roster": {
+            "Group VI Open": [("Bridgewater-Raritan HS", "Bridgewater, NJ"), ("Old Bridge HS", "Old Bridge, NJ"), ("Southern Regional HS", "Manahawkin, NJ"), ("Jackson Memorial HS", "Jackson, NJ")],
+            "Group V A": [("West Orange HS", "West Orange, NJ"), ("Union HS", "Union, NJ"), ("Passaic HS", "Passaic, NJ")],
+            "Group IV A": [("Roxbury HS", "Succasunna, NJ"), ("Phillipsburg HS", "Phillipsburg, NJ"), ("North Penn HS", "Lansdale, PA")],
+            "Group III A": [("Cedar Grove HS", "Cedar Grove, NJ"), ("Garnet Valley HS", "Glen Mills, PA"), ("Nutley HS", "Nutley, NJ")],
+            "Group II A": [("Point Pleasant Borough", "Point Pleasant, NJ"), ("Bordentown HS", "Bordentown, NJ")],
+            "Group I A": [("Highland Park HS", "Highland Park, NJ"), ("Metuchen HS", "Metuchen, NJ")],
+        },
+        "schedule": [
+            ("Yamaha Cup", 9, 20, "East Rutherford, NJ — MetLife Stadium", False),
+            ("Old Bridge Show", 10, 4, "Old Bridge, NJ", False),
+            ("New Jersey State Championships", 10, 25, "Rutgers University", False),
+            ("US Bands National Championships", 11, 8, "Allentown, PA — J. Birney Crum Stadium", True),
+        ],
+        "base": {"Group VI Open": 88.5, "Group V A": 86.5, "Group IV A": 85.5, "Group III A": 84.5, "Group II A": 83.5, "Group I A": 82.5},
+    },
     "showchoir": {
         "roster": {
             "Mixed": [('John Burroughs "Powerhouse"', "Burbank, CA"), ('Carmel "Ambassadors"', "Carmel, IN"), ('Waubonsie Valley "Sound Check"', "Aurora, IL"), ('Los Alamitos "Sound FX"', "Los Alamitos, CA"), ('Clinton "Attaché"', "Clinton, MS"), ('Burbank "In Sync"', "Burbank, CA"), ('Homestead "Class Royale"', "Fort Wayne, IN"), ('Franklin Central "Fanfare"', "Indianapolis, IN")],
