@@ -1,1 +1,1 @@
-{"workflow":"Deploy site","conclusion":"failure","url":"https://github.com/LukeBesel/Cadence-Labs/actions/runs/31214112903","sha":"99be8f8d264ddde7a298df1b71309200f97fc1e1","finished":"2026-08-07 20:04:35 UTC","failed_steps":"deploy: Enable & configure GitHub Pages\n"}
+{"workflow":"Deploy site","conclusion":"cancelled","url":"https://github.com/LukeBesel/Cadence-Labs/actions/runs/31214591060","sha":"9e0b1fcf0c3c72384f2c0c81ad49e7404de0f15f","finished":"2026-08-07 20:11:54 UTC","failed_steps":""}
