@@ -1,45 +1,59 @@
-# Corps Central — DCI & DCA scores dashboard
+# Cadence — the year-round scoreboard for the marching & performing arts
 
-An automatically-updating public dashboard for Drum Corps International (DCI) and
-Drum Corps Associates (DCA): live season standings, complete score history back
-to 1972, caption recaps, corps histories, champions timelines, and news.
+Cadence is a fan app for competitive musical performing arts: live scores,
+season standings, event results, histories and favorites — across five modes
+with one account, one design system and one navigation shell:
 
-**Live site:** https://lukebesel.github.io/DCI-Tracker/
+1. 🥁 **DCI** (Drum Corps International) — running on real 2026 season data
+2. 🚩 **WGI** (Color Guard · Percussion · Winds)
+3. 🎺 **Bands of America**
+4. 🎤 **Competitive A Cappella** (ICCA / ICHSA / The Open)
+5. 🎭 **Show Choir**
 
-## How it works
+**Try it in a browser:** https://lukebesel.github.io/Cadence-Labs/app/
+**Legacy DCI dashboard:** https://lukebesel.github.io/Cadence-Labs/
 
-- `scraper/` — Python scrapers for DCI.org (2013+, with caption recaps),
-  drum-corps.net archives (2001+, DCI & DCA), The Sound Machine historical
-  finals archive (1972–2004, incl. repertoires and archival recaps),
-  dcacorps.org, Wikipedia (DCA champions), and news feeds.
-- `data/raw/` — gzipped page cache (so reruns don't refetch history).
-- `data/parsed/` — intermediate normalized JSON per source.
-- `docs/` — the static site (GitHub Pages serves this folder) and its
-  `docs/data/` JSON built by `scraper/build_data.py`.
-- `.github/workflows/update.yml` — runs twice daily: refreshes the current
-  season, news, and DCA pages, rebuilds the site data, commits.
-- `.github/workflows/backfill.yml` — manual full historical scrape.
+WGI, BOA, A Cappella and Show Choir currently run on clearly-labeled
+demonstration fixtures; DCI runs on a real snapshot refreshed from the
+scraping pipeline. See `docs/data-sources.md`.
 
-## Running locally
+## Run it locally
 
 ```bash
-pip install -r scraper/requirements.txt
-export PYTHONPATH=scraper
-python scraper/scrape_dci.py           # 2013+ events + recaps (long)
-python scraper/scrape_dcnet.py         # 2001+ archives
-python scraper/scrape_history.py       # 1972-2004 finals + DCA champions
-python scraper/scrape_dca_site.py
-python scraper/scrape_news.py
-python scraper/build_data.py           # -> docs/data/
-python -m http.server -d docs 8000
+npm install
+npm run web          # web dev server
+npm run app          # Expo dev server — scan the QR with Expo Go (iOS/Android)
+npm test             # unit + contract tests
+npm run typecheck
 ```
 
-## Data sources & credit
+No paid accounts, API keys or app-store memberships are needed to develop or
+test. Native store builds (EAS), Supabase accounts and RevenueCat come later —
+see `docs/store-readiness.md` and `supabase/README.md`.
 
-Scores originate from [DCI.org](https://www.dci.org/scores) (powered by
-Competition Suite), [drum-corps.net](https://www.drum-corps.net),
-[The Sound Machine](https://www.soundmachine.org/dci/dcihistory.htm),
-[dcacorps.org](https://dcacorps.org) and
-[Wikipedia](https://en.wikipedia.org/wiki/Drum_Corps_Associates).
-This is an unofficial fan project, not affiliated with DCI or DCA. Scrapers are
-rate-limited and cache aggressively to keep load on source sites minimal.
+## Repository layout
+
+| Path | What it is |
+| --- | --- |
+| `apps/cadence` | Expo app — iOS, Android and web from one TypeScript codebase |
+| `packages/domain` | Mode registry, score comparability rules, shared types |
+| `packages/ui` | Cadence design system (navy/gold, light + dark) |
+| `packages/data` | Data provider interface, fixtures, real DCI snapshot |
+| `packages/ingestion` | Source adapters + contract tests |
+| `supabase/` | Database schema + Row Level Security (awaiting provisioning) |
+| `docs/*.md` | Product, architecture, security and operations docs |
+| `scraper/`, `data/`, `docs/` (site) | **Legacy Corps Central pipeline** — Python scrapers + the original DCI dashboard, still running on cron and feeding real data |
+| `.github/workflows` | CI (`app-ci.yml`), site deploy (`pages.yml`), legacy scrape jobs |
+
+Architecture decisions are recorded in `docs/decisions/`. Rules for AI agents
+working here are in `AGENTS.md`.
+
+## Data & credit
+
+DCI scores originate from [DCI.org](https://www.dci.org/scores) (Competition
+Suite), [drum-corps.net](https://www.drum-corps.net),
+[The Sound Machine](https://www.soundmachine.org/dci/dcihistory.htm) and
+other credited sources. Cadence is an unofficial fan project, not affiliated
+with DCI, WGI, Music for All, Varsity Vocals or any circuit. Scrapers are
+rate-limited and cache aggressively; every published number carries its
+source and freshness.

@@ -2,3 +2,11 @@ __pycache__/
 *.pyc
 .DS_Store
 # generated locally by make_mock.py — real data is committed only by CI
+
+# Node / Expo monorepo
+node_modules/
+.expo/
+apps/cadence/dist/
+*.tsbuildinfo
+.env
+.env.local

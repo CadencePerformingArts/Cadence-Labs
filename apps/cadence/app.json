@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Cadence",
+    "slug": "cadence",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "cadence",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "com.cadencelabs.cadence",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.cadencelabs.cadence",
+      "adaptiveIcon": {
+        "backgroundColor": "#0a3f6b",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0a3f6b",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": false,
+      "reactCompiler": true,
+      "baseUrl": "/Cadence-Labs/app"
+    }
+  }
+}

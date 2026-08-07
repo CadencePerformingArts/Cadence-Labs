@@ -1,0 +1,52 @@
+# Validation for the Cadence app monorepo (apps/ + packages/).
+# The legacy scraper pipeline has its own workflows and is not touched here.
+name: App CI
+
+on:
+  pull_request:
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "supabase/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/app-ci.yml"
+  push:
+    branches-ignore: [main]
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "supabase/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/app-ci.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: app-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Type check
+        run: npm run typecheck
+      - name: Unit + contract tests
+        run: npm test
+      - name: Web export builds
+        run: npx expo export --platform web
+        working-directory: apps/cadence
+      - name: Expo config is valid
+        run: npx expo config --type public > /dev/null
+        working-directory: apps/cadence
