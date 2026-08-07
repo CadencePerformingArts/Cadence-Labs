@@ -101,6 +101,8 @@ export default function EventDetail() {
                     points={r.points}
                     advanced={r.advanced}
                     awards={r.awards}
+                    captions={r.captions}
+                    penalty={r.penalty}
                     onPress={() => router.push(`/ensemble/${modeId}/${r.ensembleId}`)}
                   />
                 );

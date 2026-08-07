@@ -29,12 +29,49 @@ def slug(name: str) -> str:
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", name.lower())).strip("-")
 
 
+def load_caption_totals(season: int) -> dict:
+    """Parse the season's caption recaps into per-(event, corps) caption-group
+    totals. Recap rows are flat score arrays laid out as, per judging group:
+    each sub-caption's columns then its subtotal, then the group total; the
+    array ends with [score, penalty, total]."""
+    path = DATA / "recaps" / f"{season}.json"
+    if not path.exists():
+        return {}
+    recaps = json.loads(path.read_text())
+    out: dict = {}
+    for ev in recaps.get("events", []):
+        key_prefix = (ev.get("e", ""), ev.get("d", ""))
+        for cls in ev.get("classes", []):
+            for row in cls.get("rows", []):
+                name, scores = row[0], row[1]
+                idx = 0
+                captions = []
+                ok = True
+                for group in cls.get("groups", []):
+                    for sub in group.get("subs", []):
+                        idx += len(sub.get("cols", [])) + 1
+                    if idx >= len(scores):
+                        ok = False
+                        break
+                    captions.append({"caption": group["n"], "score": scores[idx]})
+                    idx += 1
+                penalty = scores[idx + 1] if ok and idx + 2 < len(scores) + 1 and len(scores) >= idx + 2 else None
+                if ok and captions:
+                    entry = {"captions": captions}
+                    if isinstance(penalty, (int, float)) and penalty:
+                        entry["penalty"] = penalty
+                    out[(key_prefix[0], key_prefix[1], name)] = entry
+    return out
+
+
 def main() -> None:
     rankings = json.loads((DATA / "rankings.json").read_text())
     season = rankings["season"]
     season_events = json.loads((DATA / "seasons" / f"{season}.json").read_text())
     upcoming = json.loads((DATA / "upcoming.json").read_text())
     champions = json.loads((DATA / "champions.json").read_text())
+    records = json.loads((DATA / "records.json").read_text())
+    caption_totals = load_caption_totals(season)
 
     generated = rankings.get("generated", "")
     fetched_at = (
@@ -101,15 +138,17 @@ def main() -> None:
                         "name": r["corps"],
                     },
                 )
-                results.append(
-                    {
-                        "ensembleId": eid,
-                        "ensembleName": r["corps"],
-                        "divisionId": division,
-                        "score": r.get("score"),
-                        "rank": r.get("place"),
-                    }
-                )
+                perf = {
+                    "ensembleId": eid,
+                    "ensembleName": r["corps"],
+                    "divisionId": division,
+                    "score": r.get("score"),
+                    "rank": r.get("place"),
+                }
+                recap = caption_totals.get((ev["name"], ev["date"], r["corps"]))
+                if recap:
+                    perf.update(recap)
+                results.append({k: v for k, v in perf.items() if v is not None})
         if not results:
             continue
         events.append(
@@ -159,6 +198,23 @@ def main() -> None:
                 }
             )
 
+    record_rows = []
+    for class_name, block in records.items():
+        division = DIVISION_BY_CLASS.get(class_name)
+        if not division:
+            continue
+        for season_year, date, corps, score, event_name in block.get("top", [])[:10]:
+            record_rows.append(
+                {
+                    "season": str(season_year),
+                    "date": date,
+                    "divisionId": division,
+                    "name": corps,
+                    "score": score,
+                    "event": event_name,
+                }
+            )
+
     snapshot = {
         "season": season,
         "provenance": {
@@ -172,6 +228,7 @@ def main() -> None:
         "events": sorted(events, key=lambda e: e["date"], reverse=True),
         "ensembles": sorted(ensembles.values(), key=lambda e: e["name"]),
         "champions": champion_rows,
+        "records": record_rows,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(snapshot, indent=1))

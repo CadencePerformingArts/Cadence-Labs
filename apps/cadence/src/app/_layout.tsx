@@ -23,6 +23,8 @@ function RootStack() {
       />
       <Stack.Screen name="event/[mode]/[id]" options={{ title: 'Event' }} />
       <Stack.Screen name="ensemble/[mode]/[id]" options={{ title: 'Profile' }} />
+      <Stack.Screen name="records" options={{ title: 'All-Time Records' }} />
+      <Stack.Screen name="compare" options={{ title: 'Compare' }} />
     </Stack>
   );
 }

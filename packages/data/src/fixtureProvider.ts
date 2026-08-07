@@ -7,6 +7,7 @@ import {
   type Ensemble,
   type ModeId,
   type Provenance,
+  type ScoreRecord,
   type StandingRow,
   type Standings,
 } from '@cadence/domain';
@@ -25,6 +26,7 @@ interface DciSnapshot {
   events: CompetitionEvent[];
   ensembles: Ensemble[];
   champions: ChampionEntry[];
+  records: ScoreRecord[];
 }
 
 const dci = dciSnapshot as unknown as DciSnapshot;
@@ -106,6 +108,10 @@ export class FixtureProvider implements CadenceDataProvider {
 
   async getChampions(modeId: ModeId): Promise<ChampionEntry[]> {
     return modeId === 'dci' ? dci.champions : [];
+  }
+
+  async getRecords(modeId: ModeId): Promise<ScoreRecord[]> {
+    return modeId === 'dci' ? (dci.records ?? []) : [];
   }
 
   async getProvenance(modeId: ModeId): Promise<Provenance> {

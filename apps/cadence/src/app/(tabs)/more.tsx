@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
 import { formatScore } from '@cadence/domain';
 import { Badge, Card, FreshnessBadge, SectionHeader, spacing, type, useTheme } from '@cadence/ui';
 import { provider } from '@cadence/data';
@@ -21,6 +22,7 @@ function Row({ label, value }: { label: string; value: string }) {
 
 export default function More() {
   const t = useTheme();
+  const router = useRouter();
   const { mode } = useMode();
   const { data: provenance } = useAsyncData(() => provider.getProvenance(mode.id), [mode.id]);
   const { data: champions } = useAsyncData(() => provider.getChampions(mode.id), [mode.id]);
@@ -42,6 +44,22 @@ export default function More() {
           </Text>
         </Card>
 
+        {(champions ?? []).length > 0 && (
+          <>
+            <SectionHeader title="History" />
+            <Card>
+              <Text
+                style={{ color: t.text, fontWeight: '800', fontSize: type.body }}
+                onPress={() => router.push('/records')}
+              >
+                📜 All-time record scores →
+              </Text>
+              <Text style={{ color: t.textSecondary, fontSize: type.small, marginTop: 4 }}>
+                The highest scores ever posted, by class — real data back to 1972.
+              </Text>
+            </Card>
+          </>
+        )}
         {recentChampions.length > 0 && (
           <>
             <SectionHeader title="World Class Champions" />

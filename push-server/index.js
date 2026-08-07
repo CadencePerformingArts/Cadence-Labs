@@ -13,7 +13,7 @@ import path from "node:path";
 import webpush from "web-push";
 
 const VERSION = 15; // bump on every behavior change — /status shows what's really deployed
-const SITE = process.env.SITE_URL || "https://lukebesel.github.io/DCI-Tracker/";
+const SITE = process.env.SITE_URL || "https://lukebesel.github.io/Cadence-Labs/";
 const PORT = process.env.PORT || 8787;
 const POLL_MS = +(process.env.POLL_SECONDS || 60) * 1000;
 const DATA_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH || "./data";
@@ -369,7 +369,7 @@ http.createServer(async (req, res) => {
       const up = await fetch(target, {
         redirect: "follow",
         signal: AbortSignal.timeout(25000),
-        headers: { "user-agent": "cadence-relay/1 (+https://github.com/LukeBesel/DCI-Tracker)" },
+        headers: { "user-agent": "cadence-relay/1 (+https://github.com/LukeBesel/Cadence-Labs)" },
       });
       const text = await up.text();
       status.lastRelay = `${new Date().toISOString()} ${up.status} ${target.pathname}`;

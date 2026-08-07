@@ -4,6 +4,7 @@ import type {
   Ensemble,
   ModeId,
   Provenance,
+  ScoreRecord,
   Standings,
 } from '@cadence/domain';
 
@@ -20,5 +21,6 @@ export interface CadenceDataProvider {
   getEnsembles(modeId: ModeId, segmentId?: string): Promise<Ensemble[]>;
   getEnsemble(modeId: ModeId, ensembleId: string): Promise<Ensemble | undefined>;
   getChampions(modeId: ModeId): Promise<ChampionEntry[]>;
+  getRecords(modeId: ModeId): Promise<ScoreRecord[]>;
   getProvenance(modeId: ModeId, segmentId?: string): Promise<Provenance>;
 }
