@@ -38,35 +38,19 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      # Refresh the in-app DCI snapshot from the latest scraped data so the
-      # deployed Cadence app tracks the twice-daily pipeline automatically.
-      - name: Regenerate DCI snapshot
-        run: python3 scripts/gen_dci_snapshot.py
-      # The family apps (WGI/BOA/ACA/Show Choir) are derived from the DCI
-      # engine + generated datasets — rebuild them so they always match the
-      # deployed app.js. Asserted transforms fail the deploy on drift.
+      # The family apps are derived from the DCI engine + generated datasets —
+      # rebuild them so they always match the deployed app.js. Asserted
+      # transforms fail the deploy on drift. (The React Native prototype is
+      # deliberately NOT published — the site is the static app family only.)
       - name: Build Cadence family apps
         run: |
           python3 scripts/build_family_engine.py
           python3 scripts/gen_family_data.py
           python3 scripts/gen_family_pages.py
-      - name: Build Cadence web app
-        run: npx expo export --platform web
-        working-directory: apps/cadence
-      - name: Compose site (legacy dashboard at /, Cadence app at /app/)
+      - name: Compose site
         run: |
           mkdir -p _site
           cp -r docs/. _site/
-          mkdir -p _site/app
-          cp -r apps/cadence/dist/. _site/app/
-          # SPA fallback: unknown paths (e.g. /app/ensemble/dci/bluecoats)
-          # fall through to the app shell, which routes client-side.
-          cp _site/app/index.html _site/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
