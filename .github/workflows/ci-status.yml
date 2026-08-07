@@ -1,0 +1,53 @@
+name: Publish CI status
+
+on:
+  workflow_run:
+    workflows: ["Full historical backfill", "Daily update", "Deploy site"]
+    types: [completed]
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: ci-status
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Write status file to ci-status branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WF_NAME: ${{ github.event.workflow_run.name }}
+          WF_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          WF_URL: ${{ github.event.workflow_run.html_url }}
+          WF_SHA: ${{ github.event.workflow_run.head_sha }}
+          WF_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          git config user.name "ci-status-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git fetch origin ci-status:ci-status 2>/dev/null || git checkout --orphan ci-status
+          git checkout ci-status 2>/dev/null || true
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} + 2>/dev/null || true
+          mkdir -p status
+          # fetch failed-step log tails for debugging (best effort)
+          LOGNOTE="(no log excerpt)"
+          if [ "$WF_CONCLUSION" != "success" ]; then
+            gh api "repos/${{ github.repository }}/actions/runs/${WF_RUN_ID}/jobs" \
+              --jq '.jobs[] | select(.conclusion=="failure") | .name + ": " + (.steps[] | select(.conclusion=="failure") | .name)' \
+              > status/failed_steps.txt 2>/dev/null || true
+            LOGNOTE=$(head -c 2000 status/failed_steps.txt 2>/dev/null || echo none)
+          fi
+          slug=$(echo "$WF_NAME" | tr 'A-Z ' 'a-z-')
+          cat > "status/${slug}.json" <<JSON
+          {"workflow":"$WF_NAME","conclusion":"$WF_CONCLUSION","url":"$WF_URL","sha":"$WF_SHA","finished":"$(date -u +'%F %T UTC')","failed_steps":$(python3 -c "import json,sys;print(json.dumps(open('status/failed_steps.txt').read() if __import__('os').path.exists('status/failed_steps.txt') else ''))")}
+          JSON
+          git add -A status
+          git commit -m "status: $WF_NAME -> $WF_CONCLUSION" || exit 0
+          git push -f origin ci-status
