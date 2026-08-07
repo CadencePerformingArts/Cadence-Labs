@@ -37,6 +37,8 @@
   /* What Plus includes — the one list every surface renders from, so the
      upgrade page and a future Settings card can never drift apart. */
   var FEATURES = [
+    { id: "captions", icon: "🎼", name: "Caption breakdowns",
+      desc: "Judge-by-judge recap breakdowns — GE, visual and music sub-scores for every show." },
     { id: "alerts", icon: "🔔", name: "Fully custom score alerts",
       desc: "Per-caption, per-rival and threshold alerts on your schedule — not just “scores posted.”" },
     { id: "stats", icon: "📈", name: "Advanced stats & caption analysis",
