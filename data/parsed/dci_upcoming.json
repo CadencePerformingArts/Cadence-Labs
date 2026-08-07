@@ -515,6 +515,74 @@
   "_seen": "2026-08-07"
  },
  {
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
+  "name": "Northwest Youth Music Games Portland",
+  "location": "Portland, OR",
+  "date_display": "July 1, 2026",
+  "date": "2026-07-01",
+  "lineup": [
+   "One More Time Around Marching Band",
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:15 PM",
+    "One More Time Around Marching Band"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:52 PM",
+    "Impulse"
+   ],
+   [
+    "8:07 PM",
+    "Columbians"
+   ],
+   [
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:37 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-08-07"
+ },
+ {
   "url": "https://www.dci.org/events/2026-midcal-showcase/",
   "name": "MidCal Showcase",
   "location": "Camarillo, CA",
@@ -664,6 +732,79 @@
    ]
   ],
   "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-08-07"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-capital-classic/",
+  "name": "DCI Capital Classic",
+  "location": "Sacramento, CA",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Sparta Ignite",
+   "Golden Empire",
+   "Impulse",
+   "Gold",
+   "Mandarins Alumni Corps",
+   "Seattle Cascades",
+   "The Academy",
+   "Santa Clara Vanguard",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sparta Ignite"
+   ],
+   [
+    "6:52 PM",
+    "Golden Empire"
+   ],
+   [
+    "7:07 PM",
+    "Impulse"
+   ],
+   [
+    "7:22 PM",
+    "Gold"
+   ],
+   [
+    "7:37 PM",
+    "Mandarins Alumni Corps"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:22 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:40 PM",
+    "The Academy"
+   ],
+   [
+    "8:58 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:16 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:41 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-07"
  },
  {
@@ -5160,100 +5301,6 @@
   "_seen": "2026-08-07"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
-  "name": "DCI Open Class World Championship Finals",
-  "location": "Dayton, OH",
-  "date_display": "August 4, 2026",
-  "date": "2026-08-04",
-  "lineup": [
-   "Mercedes Marching Band",
-   "Heat Wave",
-   "Eclipse",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Blue Devils B",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Mercedes Marching Band"
-   ],
-   [
-    "6:27 PM",
-    "Heat Wave"
-   ],
-   [
-    "6:44 PM",
-    "Eclipse"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:00 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:17 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:51 PM",
-    "The Battalion"
-   ],
-   [
-    "10:16 PM",
-    "Retreat"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
-  "_seen": "2026-08-07"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
   "name": "DCI 2026: Big, Loud & Live",
   "date_display": "August 6, 2026",
@@ -5774,7 +5821,20 @@
   "location": "Indianapolis, IN",
   "date_display": "August 8, 2026",
   "date": "2026-08-08",
-  "lineup": [],
+  "lineup": [
+   "MBI",
+   "Northern Lights",
+   "Govenaires",
+   "Rogues Hollow Regiment",
+   "Fusion Core",
+   "White Sabers",
+   "Hurricanes",
+   "Cincinnati Tradition",
+   "Bushwackers",
+   "Atlanta CV",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers"
+  ],
   "schedule": [
    [
     "9:00 AM",
@@ -5786,15 +5846,55 @@
    ],
    [
     "10:00 AM",
-    "All-Age Class Finals Begins"
+    "MBI"
+   ],
+   [
+    "10:17 AM",
+    "Northern Lights"
+   ],
+   [
+    "10:34 AM",
+    "Govenaires"
+   ],
+   [
+    "10:51 AM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "11:08 AM",
+    "Fusion Core"
+   ],
+   [
+    "11:25 AM",
+    "White Sabers"
    ],
    [
     "11:42 AM",
     "Intermission"
    ],
    [
-    "11:52 AM",
-    "Competition Resumes"
+    "11:57 AM",
+    "Hurricanes"
+   ],
+   [
+    "12:14 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "12:31 PM",
+    "Bushwackers"
+   ],
+   [
+    "12:48 PM",
+    "Atlanta CV"
+   ],
+   [
+    "1:05 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "1:22 PM",
+    "Reading Buccaneers"
    ],
    [
     "1:45 PM",

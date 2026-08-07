@@ -1,7 +1,7 @@
 {
  "https://www.dci.org/scores/final-scores/2026-big-sounds-in-motion/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-dci-2026-big-loud-live/": "HTTP 403, body 139B",
- "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-prelims/": "HTTP 200, body 185892B",
+ "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-prelims/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-dci-world-championship-semifinals/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-shining-a-light-on-music-education/": "HTTP 403, body 139B"
 }
