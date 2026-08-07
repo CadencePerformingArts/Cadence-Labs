@@ -55,6 +55,7 @@ jobs:
           for s in boa showchoir; do
             python scraper/scrape_family_probe.py --source $s || echo "::warning::$s probe empty"
           done
+          python scraper/scrape_usbands.py --discover || echo "::warning::usbands probe incomplete"
       - name: Upload probe report
         if: always()
         uses: actions/upload-artifact@v4
