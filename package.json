@@ -1,0 +1,20 @@
+{
+  "name": "cadence-labs",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "app": "npm --workspace cadence run start",
+    "web": "npm --workspace cadence run web",
+    "typecheck": "tsc -p packages/domain && tsc -p packages/data && tsc -p packages/ui && tsc -p packages/ingestion && tsc -p apps/cadence",
+    "test": "vitest run",
+    "export:web": "npm --workspace cadence run export:web"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vitest": "^3.2.0"
+  }
+}

@@ -1,0 +1,8317 @@
+{
+ "season": 2026,
+ "provenance": {
+  "sourceId": "dci-org-snapshot",
+  "sourceName": "DCI.org via Corps Central pipeline",
+  "url": "https://www.dci.org/scores",
+  "fetchedAt": "2026-08-07T18:51:00+00:00",
+  "kind": "snapshot"
+ },
+ "standings": {
+  "allage": [
+   {
+    "ensembleId": "reading-buccaneers",
+    "name": "Reading Buccaneers",
+    "divisionId": "allage",
+    "rank": 1,
+    "score": 94.7,
+    "delta": 1.875,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 6,
+    "trend": [
+     {
+      "date": "2026-06-27",
+      "score": 80.95
+     },
+     {
+      "date": "2026-07-11",
+      "score": 84.05
+     },
+     {
+      "date": "2026-07-18",
+      "score": 86.95
+     },
+     {
+      "date": "2026-07-25",
+      "score": 91.5
+     },
+     {
+      "date": "2026-07-31",
+      "score": 92.825
+     },
+     {
+      "date": "2026-08-07",
+      "score": 94.7
+     }
+    ]
+   },
+   {
+    "ensembleId": "hawthorne-caballeros",
+    "name": "Hawthorne Caballeros",
+    "divisionId": "allage",
+    "rank": 2,
+    "score": 94.05,
+    "delta": 2.875,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 5,
+    "trend": [
+     {
+      "date": "2026-06-27",
+      "score": 78.7
+     },
+     {
+      "date": "2026-07-11",
+      "score": 83.25
+     },
+     {
+      "date": "2026-07-25",
+      "score": 90.3
+     },
+     {
+      "date": "2026-07-31",
+      "score": 91.175
+     },
+     {
+      "date": "2026-08-07",
+      "score": 94.05
+     }
+    ]
+   },
+   {
+    "ensembleId": "atlanta-cv",
+    "name": "Atlanta CV",
+    "divisionId": "allage",
+    "rank": 3,
+    "score": 91.4,
+    "delta": 0.2,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 7,
+    "trend": [
+     {
+      "date": "2026-07-08",
+      "score": 72.35
+     },
+     {
+      "date": "2026-07-09",
+      "score": 75.2
+     },
+     {
+      "date": "2026-07-24",
+      "score": 84.6
+     },
+     {
+      "date": "2026-07-25",
+      "score": 83.425
+     },
+     {
+      "date": "2026-07-26",
+      "score": 84.7
+     },
+     {
+      "date": "2026-08-03",
+      "score": 91.2
+     },
+     {
+      "date": "2026-08-07",
+      "score": 91.4
+     }
+    ]
+   },
+   {
+    "ensembleId": "bushwackers",
+    "name": "Bushwackers",
+    "divisionId": "allage",
+    "rank": 4,
+    "score": 90.975,
+    "delta": -0.475,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 8,
+    "trend": [
+     {
+      "date": "2026-06-27",
+      "score": 76.8
+     },
+     {
+      "date": "2026-07-11",
+      "score": 80.5
+     },
+     {
+      "date": "2026-07-18",
+      "score": 84.2
+     },
+     {
+      "date": "2026-07-25",
+      "score": 87.3
+     },
+     {
+      "date": "2026-07-31",
+      "score": 88.65
+     },
+     {
+      "date": "2026-08-01",
+      "score": 89.5
+     },
+     {
+      "date": "2026-08-03",
+      "score": 91.45
+     },
+     {
+      "date": "2026-08-07",
+      "score": 90.975
+     }
+    ]
+   },
+   {
+    "ensembleId": "cincinnati-tradition",
+    "name": "Cincinnati Tradition",
+    "divisionId": "allage",
+    "rank": 5,
+    "score": 89.9,
+    "delta": 2.55,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 4,
+    "trend": [
+     {
+      "date": "2026-07-25",
+      "score": 81.55
+     },
+     {
+      "date": "2026-07-26",
+      "score": 84.9
+     },
+     {
+      "date": "2026-07-30",
+      "score": 87.35
+     },
+     {
+      "date": "2026-08-07",
+      "score": 89.9
+     }
+    ]
+   },
+   {
+    "ensembleId": "connecticut-hurricanes",
+    "name": "Connecticut Hurricanes",
+    "divisionId": "allage",
+    "rank": 6,
+    "score": 86.263,
+    "delta": 1.313,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 6,
+    "trend": [
+     {
+      "date": "2026-06-27",
+      "score": 71.35
+     },
+     {
+      "date": "2026-07-11",
+      "score": 73.65
+     },
+     {
+      "date": "2026-07-25",
+      "score": 79.95
+     },
+     {
+      "date": "2026-08-01",
+      "score": 83.2
+     },
+     {
+      "date": "2026-08-03",
+      "score": 84.95
+     },
+     {
+      "date": "2026-08-07",
+      "score": 86.263
+     }
+    ]
+   },
+   {
+    "ensembleId": "white-sabers",
+    "name": "White Sabers",
+    "divisionId": "allage",
+    "rank": 7,
+    "score": 84.55,
+    "delta": 1.25,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 5,
+    "trend": [
+     {
+      "date": "2026-07-11",
+      "score": 75.3
+     },
+     {
+      "date": "2026-07-18",
+      "score": 78.3
+     },
+     {
+      "date": "2026-07-24",
+      "score": 80.9
+     },
+     {
+      "date": "2026-08-01",
+      "score": 83.3
+     },
+     {
+      "date": "2026-08-07",
+      "score": 84.55
+     }
+    ]
+   },
+   {
+    "ensembleId": "fusion-core",
+    "name": "Fusion Core",
+    "divisionId": "allage",
+    "rank": 8,
+    "score": 84.2,
+    "delta": 8.075,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 3,
+    "trend": [
+     {
+      "date": "2026-07-24",
+      "score": 77.45
+     },
+     {
+      "date": "2026-07-25",
+      "score": 76.125
+     },
+     {
+      "date": "2026-08-07",
+      "score": 84.2
+     }
+    ]
+   },
+   {
+    "ensembleId": "rogues-hollow-regiment",
+    "name": "Rogues Hollow Regiment",
+    "divisionId": "allage",
+    "rank": 9,
+    "score": 82.775,
+    "delta": 1.075,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 4,
+    "trend": [
+     {
+      "date": "2026-07-25",
+      "score": 75.55
+     },
+     {
+      "date": "2026-07-26",
+      "score": 78.55
+     },
+     {
+      "date": "2026-08-01",
+      "score": 81.7
+     },
+     {
+      "date": "2026-08-07",
+      "score": 82.775
+     }
+    ]
+   },
+   {
+    "ensembleId": "govenaires",
+    "name": "Govenaires",
+    "divisionId": "allage",
+    "rank": 10,
+    "score": 81.175,
+    "delta": 1.925,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 5,
+    "trend": [
+     {
+      "date": "2026-07-05",
+      "score": 70.15
+     },
+     {
+      "date": "2026-07-22",
+      "score": 77.3
+     },
+     {
+      "date": "2026-07-24",
+      "score": 77.6
+     },
+     {
+      "date": "2026-07-25",
+      "score": 79.25
+     },
+     {
+      "date": "2026-08-07",
+      "score": 81.175
+     }
+    ]
+   },
+   {
+    "ensembleId": "northern-lights-drum-bugle-corps",
+    "name": "Northern Lights Drum & Bugle Corps",
+    "divisionId": "allage",
+    "rank": 11,
+    "score": 79.325,
+    "delta": 2.475,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 4,
+    "trend": [
+     {
+      "date": "2026-07-10",
+      "score": 74.0
+     },
+     {
+      "date": "2026-07-25",
+      "score": 73.825
+     },
+     {
+      "date": "2026-07-31",
+      "score": 76.85
+     },
+     {
+      "date": "2026-08-07",
+      "score": 79.325
+     }
+    ]
+   },
+   {
+    "ensembleId": "minnesota-brass",
+    "name": "Minnesota Brass",
+    "divisionId": "allage",
+    "rank": 12,
+    "score": 78.275,
+    "delta": 9.275,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 2,
+    "trend": [
+     {
+      "date": "2026-07-22",
+      "score": 69.0
+     },
+     {
+      "date": "2026-08-07",
+      "score": 78.275
+     }
+    ]
+   },
+   {
+    "ensembleId": "sunrisers",
+    "name": "Sunrisers",
+    "divisionId": "allage",
+    "rank": 13,
+    "score": 73.825,
+    "delta": 1.625,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 3,
+    "trend": [
+     {
+      "date": "2026-07-18",
+      "score": 70.2
+     },
+     {
+      "date": "2026-07-25",
+      "score": 72.2
+     },
+     {
+      "date": "2026-08-07",
+      "score": 73.825
+     }
+    ]
+   },
+   {
+    "ensembleId": "columbus-saints",
+    "name": "Columbus Saints",
+    "divisionId": "allage",
+    "rank": 14,
+    "score": 73.325,
+    "delta": -1.575,
+    "lastEvent": "DCI All-Age World Championship Prelims",
+    "lastDate": "2026-08-07",
+    "outings": 2,
+    "trend": [
+     {
+      "date": "2026-08-01",
+      "score": 74.9
+     },
+     {
+      "date": "2026-08-07",
+      "score": 73.325
+     }
+    ]
+   }
+  ],
+  "open": [
+   {
+    "ensembleId": "blue-devils-b",
+    "name": "Blue Devils B",
+    "divisionId": "open",
+    "rank": 1,
+    "score": 81.725,
+    "delta": 1.525,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 7,
+    "trend": [
+     {
+      "date": "2026-07-05",
+      "score": 67.7
+     },
+     {
+      "date": "2026-07-09",
+      "score": 68.75
+     },
+     {
+      "date": "2026-07-10",
+      "score": 69.3
+     },
+     {
+      "date": "2026-07-11",
+      "score": 71.125
+     },
+     {
+      "date": "2026-07-12",
+      "score": 72.5
+     },
+     {
+      "date": "2026-08-03",
+      "score": 80.2
+     },
+     {
+      "date": "2026-08-04",
+      "score": 81.725
+     }
+    ]
+   },
+   {
+    "ensembleId": "the-battalion",
+    "name": "The Battalion",
+    "divisionId": "open",
+    "rank": 2,
+    "score": 81.5,
+    "delta": 0.7,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 10,
+    "trend": [
+     {
+      "date": "2026-06-30",
+      "score": 63.3
+     },
+     {
+      "date": "2026-07-01",
+      "score": 63.0
+     },
+     {
+      "date": "2026-07-21",
+      "score": 71.15
+     },
+     {
+      "date": "2026-07-22",
+      "score": 71.95
+     },
+     {
+      "date": "2026-07-25",
+      "score": 75.7
+     },
+     {
+      "date": "2026-07-29",
+      "score": 78.4
+     },
+     {
+      "date": "2026-07-30",
+      "score": 78.4
+     },
+     {
+      "date": "2026-07-31",
+      "score": 79.2
+     },
+     {
+      "date": "2026-08-03",
+      "score": 80.8
+     },
+     {
+      "date": "2026-08-04",
+      "score": 81.5
+     }
+    ]
+   },
+   {
+    "ensembleId": "gold",
+    "name": "Gold",
+    "divisionId": "open",
+    "rank": 3,
+    "score": 80.3,
+    "delta": -0.1,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-18",
+      "score": 70.475
+     },
+     {
+      "date": "2026-07-21",
+      "score": 72.05
+     },
+     {
+      "date": "2026-07-22",
+      "score": 71.35
+     },
+     {
+      "date": "2026-07-25",
+      "score": 74.65
+     },
+     {
+      "date": "2026-07-26",
+      "score": 74.75
+     },
+     {
+      "date": "2026-07-29",
+      "score": 77.4
+     },
+     {
+      "date": "2026-07-30",
+      "score": 78.85
+     },
+     {
+      "date": "2026-07-31",
+      "score": 79.1
+     },
+     {
+      "date": "2026-08-03",
+      "score": 80.4
+     },
+     {
+      "date": "2026-08-04",
+      "score": 80.3
+     }
+    ]
+   },
+   {
+    "ensembleId": "memphis-blues",
+    "name": "Memphis Blues",
+    "divisionId": "open",
+    "rank": 4,
+    "score": 77.6,
+    "delta": 1.325,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 8,
+    "trend": [
+     {
+      "date": "2026-07-09",
+      "score": 64.25
+     },
+     {
+      "date": "2026-07-24",
+      "score": 69.6
+     },
+     {
+      "date": "2026-07-25",
+      "score": 69.9
+     },
+     {
+      "date": "2026-07-29",
+      "score": 73.6
+     },
+     {
+      "date": "2026-07-30",
+      "score": 72.15
+     },
+     {
+      "date": "2026-07-31",
+      "score": 75.05
+     },
+     {
+      "date": "2026-08-03",
+      "score": 76.275
+     },
+     {
+      "date": "2026-08-04",
+      "score": 77.6
+     }
+    ]
+   },
+   {
+    "ensembleId": "river-city-rhythm",
+    "name": "River City Rhythm",
+    "divisionId": "open",
+    "rank": 5,
+    "score": 76.675,
+    "delta": 0.925,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 10,
+    "trend": [
+     {
+      "date": "2026-07-05",
+      "score": 61.45
+     },
+     {
+      "date": "2026-07-07",
+      "score": 63.3
+     },
+     {
+      "date": "2026-07-10",
+      "score": 65.25
+     },
+     {
+      "date": "2026-07-11",
+      "score": 66.725
+     },
+     {
+      "date": "2026-07-22",
+      "score": 69.95
+     },
+     {
+      "date": "2026-07-25",
+      "score": 70.65
+     },
+     {
+      "date": "2026-07-30",
+      "score": 74.6
+     },
+     {
+      "date": "2026-07-31",
+      "score": 75.95
+     },
+     {
+      "date": "2026-08-03",
+      "score": 75.75
+     },
+     {
+      "date": "2026-08-04",
+      "score": 76.675
+     }
+    ]
+   },
+   {
+    "ensembleId": "columbians",
+    "name": "Columbians",
+    "divisionId": "open",
+    "rank": 6,
+    "score": 75.175,
+    "delta": 0.4,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 7,
+    "trend": [
+     {
+      "date": "2026-06-30",
+      "score": 57.2
+     },
+     {
+      "date": "2026-07-01",
+      "score": 58.85
+     },
+     {
+      "date": "2026-07-22",
+      "score": 67.7
+     },
+     {
+      "date": "2026-07-25",
+      "score": 69.725
+     },
+     {
+      "date": "2026-07-29",
+      "score": 72.35
+     },
+     {
+      "date": "2026-08-03",
+      "score": 74.775
+     },
+     {
+      "date": "2026-08-04",
+      "score": 75.175
+     }
+    ]
+   },
+   {
+    "ensembleId": "colt-cadets",
+    "name": "Colt Cadets",
+    "divisionId": "open",
+    "rank": 7,
+    "score": 73.225,
+    "delta": 0.7,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 10,
+    "trend": [
+     {
+      "date": "2026-07-01",
+      "score": 55.45
+     },
+     {
+      "date": "2026-07-10",
+      "score": 61.1
+     },
+     {
+      "date": "2026-07-13",
+      "score": 63.1
+     },
+     {
+      "date": "2026-07-22",
+      "score": 65.65
+     },
+     {
+      "date": "2026-07-24",
+      "score": 65.6
+     },
+     {
+      "date": "2026-07-25",
+      "score": 66.75
+     },
+     {
+      "date": "2026-07-30",
+      "score": 69.6
+     },
+     {
+      "date": "2026-07-31",
+      "score": 72.15
+     },
+     {
+      "date": "2026-08-03",
+      "score": 72.525
+     },
+     {
+      "date": "2026-08-04",
+      "score": 73.225
+     }
+    ]
+   },
+   {
+    "ensembleId": "raiders",
+    "name": "Raiders",
+    "divisionId": "open",
+    "rank": 8,
+    "score": 72.025,
+    "delta": 1.475,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 8,
+    "trend": [
+     {
+      "date": "2026-07-11",
+      "score": 59.55
+     },
+     {
+      "date": "2026-07-18",
+      "score": 64.15
+     },
+     {
+      "date": "2026-07-25",
+      "score": 66.45
+     },
+     {
+      "date": "2026-07-29",
+      "score": 67.8
+     },
+     {
+      "date": "2026-07-30",
+      "score": 69.25
+     },
+     {
+      "date": "2026-07-31",
+      "score": 70.75
+     },
+     {
+      "date": "2026-08-03",
+      "score": 70.55
+     },
+     {
+      "date": "2026-08-04",
+      "score": 72.025
+     }
+    ]
+   },
+   {
+    "ensembleId": "7th-regiment",
+    "name": "7th Regiment",
+    "divisionId": "open",
+    "rank": 9,
+    "score": 70.625,
+    "delta": 0.425,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 9,
+    "trend": [
+     {
+      "date": "2026-06-27",
+      "score": 47.25
+     },
+     {
+      "date": "2026-07-11",
+      "score": 58.75
+     },
+     {
+      "date": "2026-07-25",
+      "score": 65.95
+     },
+     {
+      "date": "2026-07-26",
+      "score": 67.2
+     },
+     {
+      "date": "2026-07-29",
+      "score": 69.2
+     },
+     {
+      "date": "2026-07-30",
+      "score": 69.5
+     },
+     {
+      "date": "2026-07-31",
+      "score": 69.6
+     },
+     {
+      "date": "2026-08-03",
+      "score": 70.2
+     },
+     {
+      "date": "2026-08-04",
+      "score": 70.625
+     }
+    ]
+   },
+   {
+    "ensembleId": "les-stentors",
+    "name": "Les Stentors",
+    "divisionId": "open",
+    "rank": 10,
+    "score": 69.4,
+    "delta": 1.35,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 8,
+    "trend": [
+     {
+      "date": "2026-07-11",
+      "score": 56.8
+     },
+     {
+      "date": "2026-07-18",
+      "score": 60.55
+     },
+     {
+      "date": "2026-07-25",
+      "score": 63.1
+     },
+     {
+      "date": "2026-07-26",
+      "score": 64.7
+     },
+     {
+      "date": "2026-07-30",
+      "score": 66.1
+     },
+     {
+      "date": "2026-07-31",
+      "score": 69.0
+     },
+     {
+      "date": "2026-08-03",
+      "score": 68.05
+     },
+     {
+      "date": "2026-08-04",
+      "score": 69.4
+     }
+    ]
+   },
+   {
+    "ensembleId": "zephyrus",
+    "name": "Zephyrus",
+    "divisionId": "open",
+    "rank": 11,
+    "score": 68.2,
+    "delta": 0.4,
+    "lastEvent": "DCI McKinney",
+    "lastDate": "2026-07-20",
+    "outings": 5,
+    "trend": [
+     {
+      "date": "2026-07-14",
+      "score": 63.15
+     },
+     {
+      "date": "2026-07-16",
+      "score": 64.8
+     },
+     {
+      "date": "2026-07-18",
+      "score": 67.7
+     },
+     {
+      "date": "2026-07-19",
+      "score": 67.8
+     },
+     {
+      "date": "2026-07-20",
+      "score": 68.2
+     }
+    ]
+   },
+   {
+    "ensembleId": "impulse",
+    "name": "Impulse",
+    "divisionId": "open",
+    "rank": 12,
+    "score": 68.1,
+    "delta": 1.7,
+    "lastEvent": "So Cal Classic Open Class Pacific Championship Finals",
+    "lastDate": "2026-07-12",
+    "outings": 7,
+    "trend": [
+     {
+      "date": "2026-06-30",
+      "score": 56.95
+     },
+     {
+      "date": "2026-07-01",
+      "score": 58.0
+     },
+     {
+      "date": "2026-07-03",
+      "score": 59.25
+     },
+     {
+      "date": "2026-07-05",
+      "score": 62.1
+     },
+     {
+      "date": "2026-07-10",
+      "score": 65.55
+     },
+     {
+      "date": "2026-07-11",
+      "score": 66.4
+     },
+     {
+      "date": "2026-07-12",
+      "score": 68.1
+     }
+    ]
+   },
+   {
+    "ensembleId": "eclipse",
+    "name": "Eclipse",
+    "divisionId": "open",
+    "rank": 13,
+    "score": 67.325,
+    "delta": 0.9,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 4,
+    "trend": [
+     {
+      "date": "2026-07-10",
+      "score": 64.05
+     },
+     {
+      "date": "2026-07-11",
+      "score": 64.25
+     },
+     {
+      "date": "2026-08-03",
+      "score": 66.425
+     },
+     {
+      "date": "2026-08-04",
+      "score": 67.325
+     }
+    ]
+   },
+   {
+    "ensembleId": "golden-empire",
+    "name": "Golden Empire",
+    "divisionId": "open",
+    "rank": 14,
+    "score": 64.95,
+    "delta": 0.85,
+    "lastEvent": "So Cal Classic Open Class Pacific Championship Finals",
+    "lastDate": "2026-07-12",
+    "outings": 6,
+    "trend": [
+     {
+      "date": "2026-07-03",
+      "score": 59.8
+     },
+     {
+      "date": "2026-07-05",
+      "score": 60.75
+     },
+     {
+      "date": "2026-07-09",
+      "score": 63.0
+     },
+     {
+      "date": "2026-07-10",
+      "score": 63.5
+     },
+     {
+      "date": "2026-07-11",
+      "score": 64.1
+     },
+     {
+      "date": "2026-07-12",
+      "score": 64.95
+     }
+    ]
+   },
+   {
+    "ensembleId": "blue-devils-c",
+    "name": "Blue Devils C",
+    "divisionId": "open",
+    "rank": 15,
+    "score": 64.85,
+    "delta": 1.1,
+    "lastEvent": "So Cal Classic Open Class Pacific Championship Finals",
+    "lastDate": "2026-07-12",
+    "outings": 5,
+    "trend": [
+     {
+      "date": "2026-07-05",
+      "score": 61.2
+     },
+     {
+      "date": "2026-07-09",
+      "score": 61.7
+     },
+     {
+      "date": "2026-07-10",
+      "score": 62.25
+     },
+     {
+      "date": "2026-07-11",
+      "score": 63.75
+     },
+     {
+      "date": "2026-07-12",
+      "score": 64.85
+     }
+    ]
+   },
+   {
+    "ensembleId": "arsenal",
+    "name": "Arsenal",
+    "divisionId": "open",
+    "rank": 16,
+    "score": 64.3,
+    "delta": -0.075,
+    "lastEvent": "DCI Dallas",
+    "lastDate": "2026-07-19",
+    "outings": 4,
+    "trend": [
+     {
+      "date": "2026-07-14",
+      "score": 62.1
+     },
+     {
+      "date": "2026-07-16",
+      "score": 65.1
+     },
+     {
+      "date": "2026-07-18",
+      "score": 64.375
+     },
+     {
+      "date": "2026-07-19",
+      "score": 64.3
+     }
+    ]
+   },
+   {
+    "ensembleId": "heat-wave",
+    "name": "Heat Wave",
+    "divisionId": "open",
+    "rank": 17,
+    "score": 63.95,
+    "delta": 1.325,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 7,
+    "trend": [
+     {
+      "date": "2026-07-24",
+      "score": 61.85
+     },
+     {
+      "date": "2026-07-26",
+      "score": 57.8
+     },
+     {
+      "date": "2026-07-29",
+      "score": 59.75
+     },
+     {
+      "date": "2026-07-30",
+      "score": 60.6
+     },
+     {
+      "date": "2026-07-31",
+      "score": 62.45
+     },
+     {
+      "date": "2026-08-03",
+      "score": 62.625
+     },
+     {
+      "date": "2026-08-04",
+      "score": 63.95
+     }
+    ]
+   },
+   {
+    "ensembleId": "gems",
+    "name": "Gems",
+    "divisionId": "open",
+    "rank": 18,
+    "score": 58.95,
+    "delta": 1.25,
+    "lastEvent": "Northwest Youth Music Games Portland",
+    "lastDate": "2026-07-01",
+    "outings": 2,
+    "trend": [
+     {
+      "date": "2026-06-30",
+      "score": 57.7
+     },
+     {
+      "date": "2026-07-01",
+      "score": 58.95
+     }
+    ]
+   }
+  ],
+  "world": [
+   {
+    "ensembleId": "bluecoats",
+    "name": "Bluecoats",
+    "divisionId": "world",
+    "rank": 1,
+    "score": 98.3,
+    "delta": 0.85,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 16,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 90.4
+     },
+     {
+      "date": "2026-07-17",
+      "score": 91.15
+     },
+     {
+      "date": "2026-07-18",
+      "score": 93.05
+     },
+     {
+      "date": "2026-07-24",
+      "score": 94.3
+     },
+     {
+      "date": "2026-07-25",
+      "score": 94.725
+     },
+     {
+      "date": "2026-07-26",
+      "score": 94.85
+     },
+     {
+      "date": "2026-07-30",
+      "score": 96.25
+     },
+     {
+      "date": "2026-07-31",
+      "score": 96.825
+     },
+     {
+      "date": "2026-08-03",
+      "score": 97.45
+     },
+     {
+      "date": "2026-08-06",
+      "score": 98.3
+     }
+    ]
+   },
+   {
+    "ensembleId": "blue-devils",
+    "name": "Blue Devils",
+    "divisionId": "world",
+    "rank": 2,
+    "score": 97.025,
+    "delta": 0.875,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 16,
+    "trend": [
+     {
+      "date": "2026-07-17",
+      "score": 88.7
+     },
+     {
+      "date": "2026-07-18",
+      "score": 90.825
+     },
+     {
+      "date": "2026-07-19",
+      "score": 91.65
+     },
+     {
+      "date": "2026-07-22",
+      "score": 92.95
+     },
+     {
+      "date": "2026-07-24",
+      "score": 92.3
+     },
+     {
+      "date": "2026-07-25",
+      "score": 93.413
+     },
+     {
+      "date": "2026-07-26",
+      "score": 93.4
+     },
+     {
+      "date": "2026-07-31",
+      "score": 95.45
+     },
+     {
+      "date": "2026-08-03",
+      "score": 96.15
+     },
+     {
+      "date": "2026-08-06",
+      "score": 97.025
+     }
+    ]
+   },
+   {
+    "ensembleId": "carolina-crown",
+    "name": "Carolina Crown",
+    "divisionId": "world",
+    "rank": 3,
+    "score": 96.475,
+    "delta": 0.425,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 14,
+    "trend": [
+     {
+      "date": "2026-07-18",
+      "score": 90.425
+     },
+     {
+      "date": "2026-07-20",
+      "score": 91.35
+     },
+     {
+      "date": "2026-07-24",
+      "score": 92.2
+     },
+     {
+      "date": "2026-07-25",
+      "score": 93.075
+     },
+     {
+      "date": "2026-07-26",
+      "score": 92.65
+     },
+     {
+      "date": "2026-07-28",
+      "score": 93.3
+     },
+     {
+      "date": "2026-07-29",
+      "score": 94.7
+     },
+     {
+      "date": "2026-08-01",
+      "score": 95.275
+     },
+     {
+      "date": "2026-08-03",
+      "score": 96.05
+     },
+     {
+      "date": "2026-08-06",
+      "score": 96.475
+     }
+    ]
+   },
+   {
+    "ensembleId": "boston-crusaders",
+    "name": "Boston Crusaders",
+    "divisionId": "world",
+    "rank": 4,
+    "score": 95.438,
+    "delta": 0.413,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 13,
+    "trend": [
+     {
+      "date": "2026-07-14",
+      "score": 87.6
+     },
+     {
+      "date": "2026-07-16",
+      "score": 88.6
+     },
+     {
+      "date": "2026-07-17",
+      "score": 89.5
+     },
+     {
+      "date": "2026-07-18",
+      "score": 90.888
+     },
+     {
+      "date": "2026-07-24",
+      "score": 92.3
+     },
+     {
+      "date": "2026-07-25",
+      "score": 92.375
+     },
+     {
+      "date": "2026-07-30",
+      "score": 94.7
+     },
+     {
+      "date": "2026-08-01",
+      "score": 94.9
+     },
+     {
+      "date": "2026-08-03",
+      "score": 95.025
+     },
+     {
+      "date": "2026-08-06",
+      "score": 95.438
+     }
+    ]
+   },
+   {
+    "ensembleId": "santa-clara-vanguard",
+    "name": "Santa Clara Vanguard",
+    "divisionId": "world",
+    "rank": 5,
+    "score": 94.563,
+    "delta": 0.613,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 86.8
+     },
+     {
+      "date": "2026-07-18",
+      "score": 88.838
+     },
+     {
+      "date": "2026-07-21",
+      "score": 90.7
+     },
+     {
+      "date": "2026-07-22",
+      "score": 91.3
+     },
+     {
+      "date": "2026-07-24",
+      "score": 91.65
+     },
+     {
+      "date": "2026-07-25",
+      "score": 91.95
+     },
+     {
+      "date": "2026-07-29",
+      "score": 92.9
+     },
+     {
+      "date": "2026-08-01",
+      "score": 93.763
+     },
+     {
+      "date": "2026-08-03",
+      "score": 93.95
+     },
+     {
+      "date": "2026-08-06",
+      "score": 94.563
+     }
+    ]
+   },
+   {
+    "ensembleId": "blue-stars",
+    "name": "Blue Stars",
+    "divisionId": "world",
+    "rank": 6,
+    "score": 93.2,
+    "delta": 0.3,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-20",
+      "score": 87.8
+     },
+     {
+      "date": "2026-07-22",
+      "score": 88.55
+     },
+     {
+      "date": "2026-07-24",
+      "score": 89.5
+     },
+     {
+      "date": "2026-07-25",
+      "score": 89.425
+     },
+     {
+      "date": "2026-07-26",
+      "score": 89.9
+     },
+     {
+      "date": "2026-07-28",
+      "score": 90.1
+     },
+     {
+      "date": "2026-07-29",
+      "score": 91.0
+     },
+     {
+      "date": "2026-07-31",
+      "score": 92.025
+     },
+     {
+      "date": "2026-08-03",
+      "score": 92.9
+     },
+     {
+      "date": "2026-08-06",
+      "score": 93.2
+     }
+    ]
+   },
+   {
+    "ensembleId": "phantom-regiment",
+    "name": "Phantom Regiment",
+    "divisionId": "world",
+    "rank": 7,
+    "score": 93.063,
+    "delta": -0.662,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 85.65
+     },
+     {
+      "date": "2026-07-18",
+      "score": 87.363
+     },
+     {
+      "date": "2026-07-20",
+      "score": 87.8
+     },
+     {
+      "date": "2026-07-22",
+      "score": 88.85
+     },
+     {
+      "date": "2026-07-24",
+      "score": 89.0
+     },
+     {
+      "date": "2026-07-25",
+      "score": 89.5
+     },
+     {
+      "date": "2026-07-30",
+      "score": 92.25
+     },
+     {
+      "date": "2026-08-01",
+      "score": 92.275
+     },
+     {
+      "date": "2026-08-03",
+      "score": 93.725
+     },
+     {
+      "date": "2026-08-06",
+      "score": 93.063
+     }
+    ]
+   },
+   {
+    "ensembleId": "the-cavaliers",
+    "name": "The Cavaliers",
+    "divisionId": "world",
+    "rank": 8,
+    "score": 92.088,
+    "delta": -1.012,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 15,
+    "trend": [
+     {
+      "date": "2026-07-17",
+      "score": 83.9
+     },
+     {
+      "date": "2026-07-18",
+      "score": 85.225
+     },
+     {
+      "date": "2026-07-19",
+      "score": 87.1
+     },
+     {
+      "date": "2026-07-21",
+      "score": 88.05
+     },
+     {
+      "date": "2026-07-24",
+      "score": 88.4
+     },
+     {
+      "date": "2026-07-25",
+      "score": 87.725
+     },
+     {
+      "date": "2026-07-29",
+      "score": 89.45
+     },
+     {
+      "date": "2026-08-01",
+      "score": 91.038
+     },
+     {
+      "date": "2026-08-03",
+      "score": 93.1
+     },
+     {
+      "date": "2026-08-06",
+      "score": 92.088
+     }
+    ]
+   },
+   {
+    "ensembleId": "colts",
+    "name": "Colts",
+    "divisionId": "world",
+    "rank": 9,
+    "score": 89.938,
+    "delta": 0.688,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 16,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 82.4
+     },
+     {
+      "date": "2026-07-18",
+      "score": 82.413
+     },
+     {
+      "date": "2026-07-19",
+      "score": 84.0
+     },
+     {
+      "date": "2026-07-22",
+      "score": 84.3
+     },
+     {
+      "date": "2026-07-24",
+      "score": 84.9
+     },
+     {
+      "date": "2026-07-25",
+      "score": 87.075
+     },
+     {
+      "date": "2026-07-26",
+      "score": 88.0
+     },
+     {
+      "date": "2026-07-31",
+      "score": 88.5
+     },
+     {
+      "date": "2026-08-03",
+      "score": 89.25
+     },
+     {
+      "date": "2026-08-06",
+      "score": 89.938
+     }
+    ]
+   },
+   {
+    "ensembleId": "spirit-of-atlanta",
+    "name": "Spirit of Atlanta",
+    "divisionId": "world",
+    "rank": 10,
+    "score": 88.7,
+    "delta": 0.6,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-22",
+      "score": 82.1
+     },
+     {
+      "date": "2026-07-24",
+      "score": 82.75
+     },
+     {
+      "date": "2026-07-25",
+      "score": 83.425
+     },
+     {
+      "date": "2026-07-26",
+      "score": 84.35
+     },
+     {
+      "date": "2026-07-28",
+      "score": 85.25
+     },
+     {
+      "date": "2026-07-29",
+      "score": 86.1
+     },
+     {
+      "date": "2026-07-31",
+      "score": 86.025
+     },
+     {
+      "date": "2026-08-01",
+      "score": 87.55
+     },
+     {
+      "date": "2026-08-03",
+      "score": 88.1
+     },
+     {
+      "date": "2026-08-06",
+      "score": 88.7
+     }
+    ]
+   },
+   {
+    "ensembleId": "troopers",
+    "name": "Troopers",
+    "divisionId": "world",
+    "rank": 11,
+    "score": 88.688,
+    "delta": -0.162,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-14",
+      "score": 81.8
+     },
+     {
+      "date": "2026-07-18",
+      "score": 81.15
+     },
+     {
+      "date": "2026-07-20",
+      "score": 83.35
+     },
+     {
+      "date": "2026-07-22",
+      "score": 84.55
+     },
+     {
+      "date": "2026-07-24",
+      "score": 85.55
+     },
+     {
+      "date": "2026-07-25",
+      "score": 85.025
+     },
+     {
+      "date": "2026-07-26",
+      "score": 86.45
+     },
+     {
+      "date": "2026-07-31",
+      "score": 87.5
+     },
+     {
+      "date": "2026-08-03",
+      "score": 88.85
+     },
+     {
+      "date": "2026-08-06",
+      "score": 88.688
+     }
+    ]
+   },
+   {
+    "ensembleId": "pacific-crest",
+    "name": "Pacific Crest",
+    "divisionId": "world",
+    "rank": 12,
+    "score": 87.35,
+    "delta": 0.225,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 14,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 79.5
+     },
+     {
+      "date": "2026-07-18",
+      "score": 80.0
+     },
+     {
+      "date": "2026-07-19",
+      "score": 80.7
+     },
+     {
+      "date": "2026-07-22",
+      "score": 81.2
+     },
+     {
+      "date": "2026-07-24",
+      "score": 82.5
+     },
+     {
+      "date": "2026-07-25",
+      "score": 83.2
+     },
+     {
+      "date": "2026-07-30",
+      "score": 85.15
+     },
+     {
+      "date": "2026-08-01",
+      "score": 86.0
+     },
+     {
+      "date": "2026-08-03",
+      "score": 87.125
+     },
+     {
+      "date": "2026-08-06",
+      "score": 87.35
+     }
+    ]
+   },
+   {
+    "ensembleId": "blue-knights",
+    "name": "Blue Knights",
+    "divisionId": "world",
+    "rank": 13,
+    "score": 86.913,
+    "delta": 0.463,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 82.5
+     },
+     {
+      "date": "2026-07-18",
+      "score": 82.4
+     },
+     {
+      "date": "2026-07-19",
+      "score": 83.15
+     },
+     {
+      "date": "2026-07-22",
+      "score": 84.0
+     },
+     {
+      "date": "2026-07-24",
+      "score": 84.8
+     },
+     {
+      "date": "2026-07-25",
+      "score": 84.075
+     },
+     {
+      "date": "2026-07-26",
+      "score": 85.1
+     },
+     {
+      "date": "2026-07-31",
+      "score": 85.863
+     },
+     {
+      "date": "2026-08-03",
+      "score": 86.45
+     },
+     {
+      "date": "2026-08-06",
+      "score": 86.913
+     }
+    ]
+   },
+   {
+    "ensembleId": "madison-scouts",
+    "name": "Madison Scouts",
+    "divisionId": "world",
+    "rank": 14,
+    "score": 86.55,
+    "delta": 0.2,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 16,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 80.45
+     },
+     {
+      "date": "2026-07-18",
+      "score": 80.425
+     },
+     {
+      "date": "2026-07-19",
+      "score": 80.9
+     },
+     {
+      "date": "2026-07-21",
+      "score": 82.65
+     },
+     {
+      "date": "2026-07-24",
+      "score": 81.85
+     },
+     {
+      "date": "2026-07-25",
+      "score": 83.0
+     },
+     {
+      "date": "2026-07-29",
+      "score": 84.75
+     },
+     {
+      "date": "2026-08-01",
+      "score": 85.05
+     },
+     {
+      "date": "2026-08-03",
+      "score": 86.35
+     },
+     {
+      "date": "2026-08-06",
+      "score": 86.55
+     }
+    ]
+   },
+   {
+    "ensembleId": "crossmen",
+    "name": "Crossmen",
+    "divisionId": "world",
+    "rank": 15,
+    "score": 84.363,
+    "delta": 0.713,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 15,
+    "trend": [
+     {
+      "date": "2026-07-18",
+      "score": 77.125
+     },
+     {
+      "date": "2026-07-20",
+      "score": 77.45
+     },
+     {
+      "date": "2026-07-22",
+      "score": 78.75
+     },
+     {
+      "date": "2026-07-24",
+      "score": 79.75
+     },
+     {
+      "date": "2026-07-25",
+      "score": 80.35
+     },
+     {
+      "date": "2026-07-28",
+      "score": 82.1
+     },
+     {
+      "date": "2026-07-29",
+      "score": 82.6
+     },
+     {
+      "date": "2026-08-01",
+      "score": 82.538
+     },
+     {
+      "date": "2026-08-03",
+      "score": 83.65
+     },
+     {
+      "date": "2026-08-06",
+      "score": 84.363
+     }
+    ]
+   },
+   {
+    "ensembleId": "music-city",
+    "name": "Music City",
+    "divisionId": "world",
+    "rank": 16,
+    "score": 83.975,
+    "delta": 0.7,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-21",
+      "score": 77.9
+     },
+     {
+      "date": "2026-07-24",
+      "score": 78.9
+     },
+     {
+      "date": "2026-07-25",
+      "score": 79.25
+     },
+     {
+      "date": "2026-07-26",
+      "score": 79.05
+     },
+     {
+      "date": "2026-07-28",
+      "score": 80.05
+     },
+     {
+      "date": "2026-07-29",
+      "score": 81.35
+     },
+     {
+      "date": "2026-07-31",
+      "score": 81.475
+     },
+     {
+      "date": "2026-08-01",
+      "score": 83.3
+     },
+     {
+      "date": "2026-08-03",
+      "score": 83.275
+     },
+     {
+      "date": "2026-08-06",
+      "score": 83.975
+     }
+    ]
+   },
+   {
+    "ensembleId": "the-academy",
+    "name": "The Academy",
+    "divisionId": "world",
+    "rank": 17,
+    "score": 83.363,
+    "delta": 0.913,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-18",
+      "score": 76.0
+     },
+     {
+      "date": "2026-07-19",
+      "score": 75.9
+     },
+     {
+      "date": "2026-07-24",
+      "score": 78.15
+     },
+     {
+      "date": "2026-07-25",
+      "score": 78.25
+     },
+     {
+      "date": "2026-07-26",
+      "score": 81.1
+     },
+     {
+      "date": "2026-07-28",
+      "score": 79.8
+     },
+     {
+      "date": "2026-07-29",
+      "score": 81.1
+     },
+     {
+      "date": "2026-08-01",
+      "score": 82.125
+     },
+     {
+      "date": "2026-08-03",
+      "score": 82.45
+     },
+     {
+      "date": "2026-08-06",
+      "score": 83.363
+     }
+    ]
+   },
+   {
+    "ensembleId": "blue-devils-b",
+    "name": "Blue Devils B",
+    "divisionId": "world",
+    "rank": 18,
+    "score": 81.525,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 81.525
+     }
+    ]
+   },
+   {
+    "ensembleId": "spartans",
+    "name": "Spartans",
+    "divisionId": "world",
+    "rank": 19,
+    "score": 81.125,
+    "delta": 1.525,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 14,
+    "trend": [
+     {
+      "date": "2026-07-17",
+      "score": 73.0
+     },
+     {
+      "date": "2026-07-18",
+      "score": 72.85
+     },
+     {
+      "date": "2026-07-19",
+      "score": 72.85
+     },
+     {
+      "date": "2026-07-24",
+      "score": 74.65
+     },
+     {
+      "date": "2026-07-25",
+      "score": 75.0
+     },
+     {
+      "date": "2026-07-26",
+      "score": 76.8
+     },
+     {
+      "date": "2026-07-30",
+      "score": 77.95
+     },
+     {
+      "date": "2026-08-01",
+      "score": 78.65
+     },
+     {
+      "date": "2026-08-03",
+      "score": 79.6
+     },
+     {
+      "date": "2026-08-06",
+      "score": 81.125
+     }
+    ]
+   },
+   {
+    "ensembleId": "the-battalion",
+    "name": "The Battalion",
+    "divisionId": "world",
+    "rank": 20,
+    "score": 80.6,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 80.6
+     }
+    ]
+   },
+   {
+    "ensembleId": "seattle-cascades",
+    "name": "Seattle Cascades",
+    "divisionId": "world",
+    "rank": 21,
+    "score": 79.738,
+    "delta": 0.413,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 17,
+    "trend": [
+     {
+      "date": "2026-07-16",
+      "score": 70.9
+     },
+     {
+      "date": "2026-07-18",
+      "score": 71.55
+     },
+     {
+      "date": "2026-07-21",
+      "score": 73.3
+     },
+     {
+      "date": "2026-07-22",
+      "score": 74.25
+     },
+     {
+      "date": "2026-07-24",
+      "score": 74.0
+     },
+     {
+      "date": "2026-07-25",
+      "score": 75.025
+     },
+     {
+      "date": "2026-07-29",
+      "score": 79.15
+     },
+     {
+      "date": "2026-08-01",
+      "score": 78.275
+     },
+     {
+      "date": "2026-08-03",
+      "score": 79.325
+     },
+     {
+      "date": "2026-08-06",
+      "score": 79.738
+     }
+    ]
+   },
+   {
+    "ensembleId": "gold",
+    "name": "Gold",
+    "divisionId": "world",
+    "rank": 22,
+    "score": 79.425,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 79.425
+     }
+    ]
+   },
+   {
+    "ensembleId": "genesis",
+    "name": "Genesis",
+    "divisionId": "world",
+    "rank": 23,
+    "score": 77.438,
+    "delta": -0.362,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 15,
+    "trend": [
+     {
+      "date": "2026-07-11",
+      "score": 69.875
+     },
+     {
+      "date": "2026-07-16",
+      "score": 72.5
+     },
+     {
+      "date": "2026-07-17",
+      "score": 73.05
+     },
+     {
+      "date": "2026-07-18",
+      "score": 71.875
+     },
+     {
+      "date": "2026-07-22",
+      "score": 74.15
+     },
+     {
+      "date": "2026-07-24",
+      "score": 74.05
+     },
+     {
+      "date": "2026-07-25",
+      "score": 74.725
+     },
+     {
+      "date": "2026-07-31",
+      "score": 76.275
+     },
+     {
+      "date": "2026-08-03",
+      "score": 77.8
+     },
+     {
+      "date": "2026-08-06",
+      "score": 77.438
+     }
+    ]
+   },
+   {
+    "ensembleId": "memphis-blues",
+    "name": "Memphis Blues",
+    "divisionId": "world",
+    "rank": 24,
+    "score": 77.225,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 77.225
+     }
+    ]
+   },
+   {
+    "ensembleId": "river-city-rhythm",
+    "name": "River City Rhythm",
+    "divisionId": "world",
+    "rank": 25,
+    "score": 75.0,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 75.0
+     }
+    ]
+   },
+   {
+    "ensembleId": "columbians",
+    "name": "Columbians",
+    "divisionId": "world",
+    "rank": 26,
+    "score": 73.6,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 73.6
+     }
+    ]
+   },
+   {
+    "ensembleId": "colt-cadets",
+    "name": "Colt Cadets",
+    "divisionId": "world",
+    "rank": 27,
+    "score": 73.35,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 73.35
+     }
+    ]
+   },
+   {
+    "ensembleId": "raiders",
+    "name": "Raiders",
+    "divisionId": "world",
+    "rank": 28,
+    "score": 71.05,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 71.05
+     }
+    ]
+   },
+   {
+    "ensembleId": "les-stentors",
+    "name": "Les Stentors",
+    "divisionId": "world",
+    "rank": 29,
+    "score": 69.8,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 69.8
+     }
+    ]
+   },
+   {
+    "ensembleId": "7th-regiment",
+    "name": "7th Regiment",
+    "divisionId": "world",
+    "rank": 30,
+    "score": 69.475,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 69.475
+     }
+    ]
+   },
+   {
+    "ensembleId": "eclipse",
+    "name": "Eclipse",
+    "divisionId": "world",
+    "rank": 31,
+    "score": 67.4,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 67.4
+     }
+    ]
+   },
+   {
+    "ensembleId": "heat-wave",
+    "name": "Heat Wave",
+    "divisionId": "world",
+    "rank": 32,
+    "score": 64.45,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 64.45
+     }
+    ]
+   },
+   {
+    "ensembleId": "mercedes-marching-band",
+    "name": "Mercedes Marching Band",
+    "divisionId": "world",
+    "rank": 33,
+    "score": 61.8,
+    "lastEvent": "DCI World Championship Prelims",
+    "lastDate": "2026-08-06",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-06",
+      "score": 61.8
+     }
+    ]
+   }
+  ],
+  "intl": [
+   {
+    "ensembleId": "mercedes-marching-band",
+    "name": "Mercedes Marching Band",
+    "divisionId": "intl",
+    "rank": 1,
+    "score": 61.025,
+    "lastEvent": "DCI Open Class World Championship Finals",
+    "lastDate": "2026-08-04",
+    "outings": 1,
+    "trend": [
+     {
+      "date": "2026-08-04",
+      "score": 61.025
+     }
+    ]
+   }
+  ]
+ },
+ "events": [
+  {
+   "id": "2026-dci-all-age-world-championship-finals-2026-08-08-upcoming",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI All-Age World Championship Finals",
+   "date": "2026-08-08",
+   "city": "Indianapolis, IN",
+   "sessions": [],
+   "upcoming": true,
+   "lineup": [],
+   "sourceUrl": "https://www.dci.org/events/2026-dci-all-age-world-championship-finals/"
+  },
+  {
+   "id": "2026-dci-world-championship-finals-2026-08-08-upcoming",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI World Championship Finals",
+   "date": "2026-08-08",
+   "city": "Indianapolis, IN",
+   "sessions": [],
+   "upcoming": true,
+   "lineup": [
+    "INpact & BANDtastic Band",
+    "U.S. Marine Drum & Bugle Corps"
+   ],
+   "sourceUrl": "https://www.dci.org/events/2026-dci-world-championship-finals/"
+  },
+  {
+   "id": "2026-soundsport-international-music-food-festival-2026-08-08-upcoming",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "SoundSport International Music & Food Festival",
+   "date": "2026-08-08",
+   "city": "Indianapolis, IN",
+   "sessions": [],
+   "upcoming": true,
+   "lineup": [
+    "14th Place All-Age Corps",
+    "13th Place All-Age Corps",
+    "Spark",
+    "IPS Combined Marching Band",
+    "Alexandria Marching Tigers",
+    "Sacramento Freelancers Mini Corps",
+    "Green Beret Marching Band",
+    "Apogee",
+    "Apollo Marching Theatre",
+    "Mercedes Marching Band",
+    "Sacramento Freelancers",
+    "Drumline Battle Seeding Round",
+    "Phoenix",
+    "Rhythm IN BLUE",
+    "Conquest Drum & Bugle Corps",
+    "Carolina Gold",
+    "Sonus Brass Theater",
+    "DrumLine Battle"
+   ],
+   "sourceUrl": "https://www.dci.org/events/2026-soundsport-international-music-food-festival/"
+  },
+  {
+   "id": "2026-dci-all-age-world-championship-prelims-2026-08-07",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI All-Age World Championship Prelims",
+   "date": "2026-08-07",
+   "city": "Indianapolis, IN",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "reading-buccaneers",
+       "ensembleName": "Reading Buccaneers",
+       "divisionId": "allage",
+       "score": 94.7,
+       "rank": 1
+      },
+      {
+       "ensembleId": "hawthorne-caballeros",
+       "ensembleName": "Hawthorne Caballeros",
+       "divisionId": "allage",
+       "score": 94.05,
+       "rank": 2
+      },
+      {
+       "ensembleId": "atlanta-cv",
+       "ensembleName": "Atlanta CV",
+       "divisionId": "allage",
+       "score": 91.4,
+       "rank": 3
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 90.975,
+       "rank": 4
+      },
+      {
+       "ensembleId": "cincinnati-tradition",
+       "ensembleName": "Cincinnati Tradition",
+       "divisionId": "allage",
+       "score": 89.9,
+       "rank": 5
+      },
+      {
+       "ensembleId": "connecticut-hurricanes",
+       "ensembleName": "Connecticut Hurricanes",
+       "divisionId": "allage",
+       "score": 86.263,
+       "rank": 6
+      },
+      {
+       "ensembleId": "white-sabers",
+       "ensembleName": "White Sabers",
+       "divisionId": "allage",
+       "score": 84.55,
+       "rank": 7
+      },
+      {
+       "ensembleId": "fusion-core",
+       "ensembleName": "Fusion Core",
+       "divisionId": "allage",
+       "score": 84.2,
+       "rank": 8
+      },
+      {
+       "ensembleId": "rogues-hollow-regiment",
+       "ensembleName": "Rogues Hollow Regiment",
+       "divisionId": "allage",
+       "score": 82.775,
+       "rank": 9
+      },
+      {
+       "ensembleId": "govenaires",
+       "ensembleName": "Govenaires",
+       "divisionId": "allage",
+       "score": 81.175,
+       "rank": 10
+      },
+      {
+       "ensembleId": "northern-lights-drum-bugle-corps",
+       "ensembleName": "Northern Lights Drum & Bugle Corps",
+       "divisionId": "allage",
+       "score": 79.325,
+       "rank": 11
+      },
+      {
+       "ensembleId": "minnesota-brass",
+       "ensembleName": "Minnesota Brass",
+       "divisionId": "allage",
+       "score": 78.275,
+       "rank": 12
+      },
+      {
+       "ensembleId": "sunrisers",
+       "ensembleName": "Sunrisers",
+       "divisionId": "allage",
+       "score": 73.825,
+       "rank": 13
+      },
+      {
+       "ensembleId": "columbus-saints",
+       "ensembleName": "Columbus Saints",
+       "divisionId": "allage",
+       "score": 73.325,
+       "rank": 14
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-prelims/"
+  },
+  {
+   "id": "2026-dci-all-age-world-championship-prelims-2026-08-07-upcoming",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI All-Age World Championship Prelims",
+   "date": "2026-08-07",
+   "city": "Indianapolis, IN",
+   "sessions": [],
+   "upcoming": true,
+   "lineup": [
+    "MBI",
+    "Sunrisers",
+    "Columbus Saints",
+    "Northern Lights",
+    "Fusion Core",
+    "Govenaires",
+    "Rogues Hollow Regiment",
+    "White Sabers",
+    "Hurricanes",
+    "Cincinnati Tradition",
+    "Hawthorne Caballeros",
+    "Atlanta CV",
+    "Bushwackers",
+    "Reading Buccaneers"
+   ],
+   "sourceUrl": "https://www.dci.org/events/2026-dci-all-age-world-championship-prelims/"
+  },
+  {
+   "id": "2026-dci-world-championship-semifinals-2026-08-07-upcoming",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI World Championship Semifinals",
+   "date": "2026-08-07",
+   "city": "Indianapolis, IN",
+   "sessions": [],
+   "upcoming": true,
+   "lineup": [
+    "All-Age World Championships Prelims",
+    "River City Rhythm",
+    "Memphis Blues",
+    "Genesis",
+    "Gold",
+    "Seattle Cascades",
+    "The Battalion",
+    "Spartans",
+    "Blue Devils B",
+    "The Academy",
+    "Music City",
+    "Crossmen",
+    "Madison Scouts",
+    "Blue Knights",
+    "Pacific Crest",
+    "Troopers",
+    "Spirit of Atlanta",
+    "Colts",
+    "The Cavaliers",
+    "Phantom Regiment",
+    "Blue Stars",
+    "Santa Clara Vanguard",
+    "Boston Crusaders",
+    "Carolina Crown",
+    "Blue Devils",
+    "Bluecoats",
+    "Phantom Regiment Alumni Corps",
+    "Age-Out Ceremony"
+   ],
+   "sourceUrl": "https://www.dci.org/events/2026-dci-world-championship-semifinals/"
+  },
+  {
+   "id": "2026-shining-a-light-on-music-education-2026-08-07-upcoming",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Shining a Light on Music Education",
+   "date": "2026-08-07",
+   "city": "Indianapolis, IN",
+   "sessions": [],
+   "upcoming": true,
+   "lineup": [
+    "Apogee",
+    "Freelancers",
+    "Green Beret Marching Band",
+    "Mercedes Marching Band",
+    "Rhythm IN BLUE",
+    "Spark"
+   ],
+   "sourceUrl": "https://www.dci.org/events/2026-shining-a-light-on-music-education/"
+  },
+  {
+   "id": "2026-dci-world-championship-prelims-2026-08-06",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI World Championship Prelims",
+   "date": "2026-08-06",
+   "city": "Indianapolis, IN",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 98.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 97.025,
+       "rank": 2
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 96.475,
+       "rank": 3
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 95.438,
+       "rank": 4
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 94.563,
+       "rank": 5
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 93.2,
+       "rank": 6
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 93.063,
+       "rank": 7
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 92.088,
+       "rank": 8
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 89.938,
+       "rank": 9
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 88.7,
+       "rank": 10
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 88.688,
+       "rank": 11
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 87.35,
+       "rank": 12
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 86.913,
+       "rank": 13
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 86.55,
+       "rank": 14
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 84.363,
+       "rank": 15
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 83.975,
+       "rank": 16
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 83.363,
+       "rank": 17
+      },
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "world",
+       "score": 81.525,
+       "rank": 18
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 81.125,
+       "rank": 19
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "world",
+       "score": 80.6,
+       "rank": 20
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 79.738,
+       "rank": 21
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "world",
+       "score": 79.425,
+       "rank": 22
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 77.438,
+       "rank": 23
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "world",
+       "score": 77.225,
+       "rank": 24
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "world",
+       "score": 75.0,
+       "rank": 25
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "world",
+       "score": 73.6,
+       "rank": 26
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "world",
+       "score": 73.35,
+       "rank": 27
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "world",
+       "score": 71.05,
+       "rank": 28
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "world",
+       "score": 69.8,
+       "rank": 29
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "world",
+       "score": 69.475,
+       "rank": 30
+      },
+      {
+       "ensembleId": "eclipse",
+       "ensembleName": "Eclipse",
+       "divisionId": "world",
+       "score": 67.4,
+       "rank": 31
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "world",
+       "score": 64.45,
+       "rank": 32
+      },
+      {
+       "ensembleId": "mercedes-marching-band",
+       "ensembleName": "Mercedes Marching Band",
+       "divisionId": "world",
+       "score": 61.8,
+       "rank": 33
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-world-championship-prelims/"
+  },
+  {
+   "id": "2026-dci-open-class-world-championship-finals-2026-08-04",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Open Class World Championship Finals",
+   "date": "2026-08-04",
+   "city": "Dayton, OH",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "open",
+       "score": 81.725,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 81.5,
+       "rank": 2
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 80.3,
+       "rank": 3
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 77.6,
+       "rank": 4
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 76.675,
+       "rank": 5
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "open",
+       "score": 75.175,
+       "rank": 6
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 73.225,
+       "rank": 7
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 72.025,
+       "rank": 8
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 70.625,
+       "rank": 9
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 69.4,
+       "rank": 10
+      },
+      {
+       "ensembleId": "eclipse",
+       "ensembleName": "Eclipse",
+       "divisionId": "open",
+       "score": 67.325,
+       "rank": 11
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "open",
+       "score": 63.95,
+       "rank": 12
+      },
+      {
+       "ensembleId": "mercedes-marching-band",
+       "ensembleName": "Mercedes Marching Band",
+       "divisionId": "intl",
+       "score": 61.025,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-open-class-world-championship-finals/"
+  },
+  {
+   "id": "2026-dci-kentucky-2026-08-03",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Kentucky",
+   "date": "2026-08-03",
+   "city": "Lexington, KY",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 93.725,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 93.1,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 92.9,
+       "rank": 3
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 88.85,
+       "rank": 4
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 88.1,
+       "rank": 5
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 86.45,
+       "rank": 6
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 79.6,
+       "rank": 7
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 91.45,
+       "rank": 1
+      },
+      {
+       "ensembleId": "atlanta-cv",
+       "ensembleName": "Atlanta CV",
+       "divisionId": "allage",
+       "score": 91.2,
+       "rank": 2
+      },
+      {
+       "ensembleId": "connecticut-hurricanes",
+       "ensembleName": "Connecticut Hurricanes",
+       "divisionId": "allage",
+       "score": 84.95,
+       "rank": 3
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-kentucky/"
+  },
+  {
+   "id": "2026-dci-open-class-world-championship-prelims-2026-08-03",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Open Class World Championship Prelims",
+   "date": "2026-08-03",
+   "city": "Dayton, OH",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 80.8,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 80.4,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "open",
+       "score": 80.2,
+       "rank": 3
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 76.275,
+       "rank": 4
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 75.75,
+       "rank": 5
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "open",
+       "score": 74.775,
+       "rank": 6
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 72.525,
+       "rank": 7
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 70.55,
+       "rank": 8
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 70.2,
+       "rank": 9
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 68.05,
+       "rank": 10
+      },
+      {
+       "ensembleId": "eclipse",
+       "ensembleName": "Eclipse",
+       "divisionId": "open",
+       "score": 66.425,
+       "rank": 11
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "open",
+       "score": 62.625,
+       "rank": 12
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-open-class-world-championship-prelims/"
+  },
+  {
+   "id": "2026-innovations-in-brass-2026-08-03",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Innovations In Brass",
+   "date": "2026-08-03",
+   "city": "Akron, OH",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 97.45,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 96.15,
+       "rank": 2
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 96.05,
+       "rank": 3
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 95.025,
+       "rank": 4
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 93.95,
+       "rank": 5
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 89.25,
+       "rank": 6
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 87.125,
+       "rank": 7
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 86.35,
+       "rank": 8
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 83.65,
+       "rank": 9
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 83.275,
+       "rank": 10
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 82.45,
+       "rank": 11
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 79.325,
+       "rank": 12
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 77.8,
+       "rank": 13
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-innovations-in-brass/"
+  },
+  {
+   "id": "2026-dci-eastern-classic-2026-08-01",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Eastern Classic",
+   "date": "2026-08-01",
+   "city": "Allentown, PA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 95.275,
+       "rank": 1
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 94.9,
+       "rank": 2
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 93.763,
+       "rank": 3
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 92.275,
+       "rank": 4
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 91.038,
+       "rank": 5
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 86.0,
+       "rank": 6
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 85.05,
+       "rank": 7
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 82.538,
+       "rank": 8
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 82.125,
+       "rank": 9
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 78.65,
+       "rank": 10
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 78.275,
+       "rank": 11
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-eastern-classic-2026-08-01/"
+  },
+  {
+   "id": "2026-dci-pittsburgh-2026-08-01",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Pittsburgh",
+   "date": "2026-08-01",
+   "city": "Pittsburgh, PA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 87.55,
+       "rank": 1
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 83.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 89.5,
+       "rank": 1
+      },
+      {
+       "ensembleId": "white-sabers",
+       "ensembleName": "White Sabers",
+       "divisionId": "allage",
+       "score": 83.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "connecticut-hurricanes",
+       "ensembleName": "Connecticut Hurricanes",
+       "divisionId": "allage",
+       "score": 83.2,
+       "rank": 3
+      },
+      {
+       "ensembleId": "rogues-hollow-regiment",
+       "ensembleName": "Rogues Hollow Regiment",
+       "divisionId": "allage",
+       "score": 81.7,
+       "rank": 4
+      },
+      {
+       "ensembleId": "columbus-saints",
+       "ensembleName": "Columbus Saints",
+       "divisionId": "allage",
+       "score": 74.9,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-pittsburgh/"
+  },
+  {
+   "id": "2026-dci-eastern-classic-2026-07-31",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Eastern Classic",
+   "date": "2026-07-31",
+   "city": "Allentown, PA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 96.825,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 95.45,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 92.025,
+       "rank": 3
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 88.5,
+       "rank": 4
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 87.5,
+       "rank": 5
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 86.025,
+       "rank": 6
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 85.863,
+       "rank": 7
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 81.475,
+       "rank": 8
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 76.275,
+       "rank": 9
+      },
+      {
+       "ensembleId": "reading-buccaneers",
+       "ensembleName": "Reading Buccaneers",
+       "divisionId": "allage",
+       "score": 92.825,
+       "rank": 1
+      },
+      {
+       "ensembleId": "hawthorne-caballeros",
+       "ensembleName": "Hawthorne Caballeros",
+       "divisionId": "allage",
+       "score": 91.175,
+       "rank": 2
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 88.65,
+       "rank": 3
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-eastern-classic/"
+  },
+  {
+   "id": "2026-dci-michigan-2026-07-31",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Michigan",
+   "date": "2026-07-31",
+   "city": "Allendale, MI",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 79.2,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 79.1,
+       "rank": 2
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 75.95,
+       "rank": 3
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 75.05,
+       "rank": 4
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 72.15,
+       "rank": 5
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 70.75,
+       "rank": 6
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 69.6,
+       "rank": 7
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 69.0,
+       "rank": 8
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "open",
+       "score": 62.45,
+       "rank": 9
+      },
+      {
+       "ensembleId": "northern-lights-drum-bugle-corps",
+       "ensembleName": "Northern Lights Drum & Bugle Corps",
+       "divisionId": "allage",
+       "score": 76.85,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-michigan/"
+  },
+  {
+   "id": "2026-dci-east-coast-showcase-2026-07-30",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI East Coast Showcase",
+   "date": "2026-07-30",
+   "city": "Lawrence, MA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 96.25,
+       "rank": 1
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 94.7,
+       "rank": 2
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 92.25,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 85.15,
+       "rank": 4
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 77.95,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-east-coast-showcase/"
+  },
+  {
+   "id": "2026-the-marion-open-2026-07-30",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "The Marion Open",
+   "date": "2026-07-30",
+   "city": "Marion, OH",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 78.85,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 78.4,
+       "rank": 2
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 74.6,
+       "rank": 3
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 72.15,
+       "rank": 4
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 69.6,
+       "rank": 5
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 69.5,
+       "rank": 6
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 69.25,
+       "rank": 7
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 66.1,
+       "rank": 8
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "open",
+       "score": 60.6,
+       "rank": 9
+      },
+      {
+       "ensembleId": "cincinnati-tradition",
+       "ensembleName": "Cincinnati Tradition",
+       "divisionId": "allage",
+       "score": 87.35,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-the-marion-open/"
+  },
+  {
+   "id": "2026-dci-huntington-2026-07-29",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Huntington",
+   "date": "2026-07-29",
+   "city": "Huntington, WV",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 92.9,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 89.45,
+       "rank": 2
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 84.75,
+       "rank": 3
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 79.15,
+       "rank": 4
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 78.4,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 77.4,
+       "rank": 2
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 73.6,
+       "rank": 3
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "open",
+       "score": 72.35,
+       "rank": 4
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 69.2,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-huntington/"
+  },
+  {
+   "id": "2026-summer-music-games-of-southwest-virginia-2026-07-29",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Summer Music Games of Southwest Virginia",
+   "date": "2026-07-29",
+   "city": "Salem, VA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 94.7,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 91.0,
+       "rank": 2
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 86.1,
+       "rank": 3
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 82.6,
+       "rank": 4
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 81.35,
+       "rank": 5
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 81.1,
+       "rank": 6
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 67.8,
+       "rank": 1
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "open",
+       "score": 59.75,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-summer-music-games-of-southwest-virginia/"
+  },
+  {
+   "id": "2026-brass-at-the-beach-2026-07-28",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Brass at the Beach",
+   "date": "2026-07-28",
+   "city": "Myrtle Beach, SC",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 93.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 90.1,
+       "rank": 2
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 85.25,
+       "rank": 3
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 82.1,
+       "rank": 4
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 80.05,
+       "rank": 5
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 79.8,
+       "rank": 6
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-brass-at-the-beach/"
+  },
+  {
+   "id": "2026-dci-in-motion-2026-07-26",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI in Motion",
+   "date": "2026-07-26",
+   "city": "Norton, OH",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 74.75,
+       "rank": 1
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 67.2,
+       "rank": 2
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 64.7,
+       "rank": 3
+      },
+      {
+       "ensembleId": "cincinnati-tradition",
+       "ensembleName": "Cincinnati Tradition",
+       "divisionId": "allage",
+       "score": 84.9,
+       "rank": 1
+      },
+      {
+       "ensembleId": "rogues-hollow-regiment",
+       "ensembleName": "Rogues Hollow Regiment",
+       "divisionId": "allage",
+       "score": 78.55,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-in-motion/"
+  },
+  {
+   "id": "2026-nightbeat-2026-07-26",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "NightBEAT",
+   "date": "2026-07-26",
+   "city": "Winston-Salem, NC",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 94.85,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 93.4,
+       "rank": 2
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 92.65,
+       "rank": 3
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 89.9,
+       "rank": 4
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 88.0,
+       "rank": 5
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 86.45,
+       "rank": 6
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 85.1,
+       "rank": 7
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 84.35,
+       "rank": 8
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 81.1,
+       "rank": 9
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 79.05,
+       "rank": 10
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 76.8,
+       "rank": 11
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "open",
+       "score": 57.8,
+       "rank": 1
+      },
+      {
+       "ensembleId": "atlanta-cv",
+       "ensembleName": "Atlanta CV",
+       "divisionId": "allage",
+       "score": 84.7,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-nightbeat/"
+  },
+  {
+   "id": "2026-bushwackers-invitational-2026-07-25",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Bushwackers Invitational",
+   "date": "2026-07-25",
+   "city": "Mt. Olive, NJ",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "reading-buccaneers",
+       "ensembleName": "Reading Buccaneers",
+       "divisionId": "allage",
+       "score": 91.5,
+       "rank": 1
+      },
+      {
+       "ensembleId": "hawthorne-caballeros",
+       "ensembleName": "Hawthorne Caballeros",
+       "divisionId": "allage",
+       "score": 90.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 87.3,
+       "rank": 3
+      },
+      {
+       "ensembleId": "connecticut-hurricanes",
+       "ensembleName": "Connecticut Hurricanes",
+       "divisionId": "allage",
+       "score": 79.95,
+       "rank": 4
+      },
+      {
+       "ensembleId": "sunrisers",
+       "ensembleName": "Sunrisers",
+       "divisionId": "allage",
+       "score": 72.2,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-bushwackers-invitational/"
+  },
+  {
+   "id": "2026-dci-southeastern-championship-2026-07-25",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Southeastern Championship",
+   "date": "2026-07-25",
+   "city": "Atlanta, GA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 94.725,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 93.413,
+       "rank": 2
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 93.075,
+       "rank": 3
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 92.375,
+       "rank": 4
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 89.425,
+       "rank": 5
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 87.075,
+       "rank": 6
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 85.025,
+       "rank": 7
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 84.075,
+       "rank": 8
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 83.425,
+       "rank": 9
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 80.35,
+       "rank": 10
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 79.25,
+       "rank": 11
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 78.25,
+       "rank": 12
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 75.0,
+       "rank": 13
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 69.9,
+       "rank": 1
+      },
+      {
+       "ensembleId": "atlanta-cv",
+       "ensembleName": "Atlanta CV",
+       "divisionId": "allage",
+       "score": 83.425,
+       "rank": 1
+      },
+      {
+       "ensembleId": "fusion-core",
+       "ensembleName": "Fusion Core",
+       "divisionId": "allage",
+       "score": 76.125,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-southeastern-championship/"
+  },
+  {
+   "id": "2026-midwestern-championship-2026-07-25",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Midwestern Championship",
+   "date": "2026-07-25",
+   "city": "DeKalb, IL",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 91.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 89.5,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 87.725,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 83.2,
+       "rank": 4
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 83.0,
+       "rank": 5
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 75.025,
+       "rank": 6
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 74.725,
+       "rank": 7
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 70.65,
+       "rank": 1
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "open",
+       "score": 69.725,
+       "rank": 2
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 66.75,
+       "rank": 3
+      },
+      {
+       "ensembleId": "govenaires",
+       "ensembleName": "Govenaires",
+       "divisionId": "allage",
+       "score": 79.25,
+       "rank": 1
+      },
+      {
+       "ensembleId": "northern-lights-drum-bugle-corps",
+       "ensembleName": "Northern Lights Drum & Bugle Corps",
+       "divisionId": "allage",
+       "score": 73.825,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-midwestern-championship/"
+  },
+  {
+   "id": "2026-music-on-the-mountain-2026-07-25",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Music on the Mountain",
+   "date": "2026-07-25",
+   "city": "Sheffield, PA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 75.7,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 74.65,
+       "rank": 2
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 66.45,
+       "rank": 3
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 65.95,
+       "rank": 4
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 63.1,
+       "rank": 5
+      },
+      {
+       "ensembleId": "cincinnati-tradition",
+       "ensembleName": "Cincinnati Tradition",
+       "divisionId": "allage",
+       "score": 81.55,
+       "rank": 1
+      },
+      {
+       "ensembleId": "rogues-hollow-regiment",
+       "ensembleName": "Rogues Hollow Regiment",
+       "divisionId": "allage",
+       "score": 75.55,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-music-on-the-mountain/"
+  },
+  {
+   "id": "2026-dci-birmingham-2026-07-24",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Birmingham",
+   "date": "2026-07-24",
+   "city": "Birmingham, AL",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 89.5,
+       "rank": 1
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 85.55,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 84.8,
+       "rank": 3
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 79.75,
+       "rank": 4
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 78.15,
+       "rank": 5
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 74.65,
+       "rank": 6
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 69.6,
+       "rank": 1
+      },
+      {
+       "ensembleId": "heat-wave",
+       "ensembleName": "Heat Wave",
+       "divisionId": "open",
+       "score": 61.85,
+       "rank": 2
+      },
+      {
+       "ensembleId": "atlanta-cv",
+       "ensembleName": "Atlanta CV",
+       "divisionId": "allage",
+       "score": 84.6,
+       "rank": 1
+      },
+      {
+       "ensembleId": "fusion-core",
+       "ensembleName": "Fusion Core",
+       "divisionId": "allage",
+       "score": 77.45,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-birmingham/"
+  },
+  {
+   "id": "2026-dci-middle-tennessee-2026-07-24",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Middle Tennessee",
+   "date": "2026-07-24",
+   "city": "Murfreesboro, TN",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 94.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 92.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 92.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 92.2,
+       "rank": 4
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 84.9,
+       "rank": 5
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 82.75,
+       "rank": 6
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 78.9,
+       "rank": 7
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-middle-tennessee/"
+  },
+  {
+   "id": "2026-dci-syracuse-2026-07-24",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Syracuse",
+   "date": "2026-07-24",
+   "city": "Central Square, NY",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "white-sabers",
+       "ensembleName": "White Sabers",
+       "divisionId": "allage",
+       "score": 80.9,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-syracuse/"
+  },
+  {
+   "id": "2026-drums-on-parade-2026-07-24",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drums on Parade",
+   "date": "2026-07-24",
+   "city": "Madison, WI",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 91.65,
+       "rank": 1
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 89.0,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 88.4,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 82.5,
+       "rank": 4
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 81.85,
+       "rank": 5
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 74.05,
+       "rank": 6
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 74.0,
+       "rank": 7
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 65.6,
+       "rank": 1
+      },
+      {
+       "ensembleId": "govenaires",
+       "ensembleName": "Govenaires",
+       "divisionId": "allage",
+       "score": 77.6,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drums-on-parade/"
+  },
+  {
+   "id": "2026-dci-southern-mississippi-2026-07-22",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Southern Mississippi",
+   "date": "2026-07-22",
+   "city": "Hattiesburg, MS",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 92.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 88.55,
+       "rank": 2
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 84.55,
+       "rank": 3
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 84.0,
+       "rank": 4
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 82.1,
+       "rank": 5
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 78.75,
+       "rank": 6
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-southern-mississippi/"
+  },
+  {
+   "id": "2026-drums-on-the-ohio-2026-07-22",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drums on the Ohio",
+   "date": "2026-07-22",
+   "city": "Evansville, IN",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 91.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 88.85,
+       "rank": 2
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 84.3,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 81.2,
+       "rank": 4
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 74.25,
+       "rank": 5
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 74.15,
+       "rank": 6
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 71.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 71.35,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drums-on-the-ohio/"
+  },
+  {
+   "id": "2026-march-on-2026-07-22",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "March On!",
+   "date": "2026-07-22",
+   "city": "Champlin, MN",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 69.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "open",
+       "score": 67.7,
+       "rank": 2
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 65.65,
+       "rank": 3
+      },
+      {
+       "ensembleId": "govenaires",
+       "ensembleName": "Govenaires",
+       "divisionId": "allage",
+       "score": 77.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "minnesota-brass",
+       "ensembleName": "Minnesota Brass",
+       "divisionId": "allage",
+       "score": 69.0,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-march-on/"
+  },
+  {
+   "id": "2026-dci-st-louis-2026-07-21",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI St. Louis",
+   "date": "2026-07-21",
+   "city": "Belleville, IL",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 90.7,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 88.05,
+       "rank": 2
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 82.65,
+       "rank": 3
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 77.9,
+       "rank": 4
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 73.3,
+       "rank": 5
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 72.05,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 71.15,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-st-louis/"
+  },
+  {
+   "id": "2026-dci-mckinney-2026-07-20",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI McKinney",
+   "date": "2026-07-20",
+   "city": "McKinney, TX",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 91.35,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 87.8,
+       "rank": 2
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 87.8,
+       "rank": 2
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 83.35,
+       "rank": 4
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 80.95,
+       "rank": 5
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 77.45,
+       "rank": 6
+      },
+      {
+       "ensembleId": "zephyrus",
+       "ensembleName": "Zephyrus",
+       "divisionId": "open",
+       "score": 68.2,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-mckinney/"
+  },
+  {
+   "id": "2026-dci-dallas-2026-07-19",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Dallas",
+   "date": "2026-07-19",
+   "city": "Bedford, TX",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 91.65,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 87.1,
+       "rank": 2
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 84.0,
+       "rank": 3
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 83.15,
+       "rank": 4
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 80.9,
+       "rank": 5
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 80.7,
+       "rank": 6
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 76.6,
+       "rank": 7
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 75.9,
+       "rank": 8
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 72.85,
+       "rank": 9
+      },
+      {
+       "ensembleId": "zephyrus",
+       "ensembleName": "Zephyrus",
+       "divisionId": "open",
+       "score": 67.8,
+       "rank": 1
+      },
+      {
+       "ensembleId": "arsenal",
+       "ensembleName": "Arsenal",
+       "divisionId": "open",
+       "score": 64.3,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-dallas/"
+  },
+  {
+   "id": "2026-dci-southwestern-championship-2026-07-18",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Southwestern Championship",
+   "date": "2026-07-18",
+   "city": "San Antonio, TX",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 93.05,
+       "rank": 1
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 90.888,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 90.825,
+       "rank": 3
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 90.425,
+       "rank": 4
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 88.838,
+       "rank": 5
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 87.363,
+       "rank": 6
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 86.113,
+       "rank": 7
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 85.225,
+       "rank": 8
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 82.413,
+       "rank": 9
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 82.4,
+       "rank": 10
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 81.15,
+       "rank": 11
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 80.425,
+       "rank": 12
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 80.0,
+       "rank": 13
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 79.9,
+       "rank": 14
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 77.125,
+       "rank": 15
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 76.0,
+       "rank": 16
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 75.725,
+       "rank": 17
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 72.85,
+       "rank": 18
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 71.875,
+       "rank": 19
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 71.55,
+       "rank": 20
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 70.475,
+       "rank": 1
+      },
+      {
+       "ensembleId": "zephyrus",
+       "ensembleName": "Zephyrus",
+       "divisionId": "open",
+       "score": 67.7,
+       "rank": 2
+      },
+      {
+       "ensembleId": "arsenal",
+       "ensembleName": "Arsenal",
+       "divisionId": "open",
+       "score": 64.375,
+       "rank": 3
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-southwestern-championship/"
+  },
+  {
+   "id": "2026-the-buccaneer-classic-2026-07-18",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "The Buccaneer Classic",
+   "date": "2026-07-18",
+   "city": "Landisville, PA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 64.15,
+       "rank": 1
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 60.55,
+       "rank": 2
+      },
+      {
+       "ensembleId": "reading-buccaneers",
+       "ensembleName": "Reading Buccaneers",
+       "divisionId": "allage",
+       "score": 86.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 84.2,
+       "rank": 2
+      },
+      {
+       "ensembleId": "white-sabers",
+       "ensembleName": "White Sabers",
+       "divisionId": "allage",
+       "score": 78.3,
+       "rank": 3
+      },
+      {
+       "ensembleId": "sunrisers",
+       "ensembleName": "Sunrisers",
+       "divisionId": "allage",
+       "score": 70.2,
+       "rank": 4
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-the-buccaneer-classic/"
+  },
+  {
+   "id": "2026-dci-houston-2026-07-17",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Houston",
+   "date": "2026-07-17",
+   "city": "Houston, TX",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 91.15,
+       "rank": 1
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 89.5,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 88.7,
+       "rank": 3
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 88.5,
+       "rank": 4
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 85.0,
+       "rank": 5
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 83.9,
+       "rank": 6
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 77.65,
+       "rank": 7
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 76.8,
+       "rank": 8
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 73.05,
+       "rank": 9
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 73.0,
+       "rank": 10
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-houston/"
+  },
+  {
+   "id": "2026-dci-central-texas-2026-07-16",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Central Texas",
+   "date": "2026-07-16",
+   "city": "Killeen, TX",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 82.5,
+       "rank": 1
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 82.4,
+       "rank": 2
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 80.45,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 79.5,
+       "rank": 4
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 76.4,
+       "rank": 5
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 72.5,
+       "rank": 6
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 69.9,
+       "rank": 1
+      },
+      {
+       "ensembleId": "arsenal",
+       "ensembleName": "Arsenal",
+       "divisionId": "open",
+       "score": 65.1,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-central-texas/"
+  },
+  {
+   "id": "2026-dci-denton-2026-07-16",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Denton",
+   "date": "2026-07-16",
+   "city": "Denton, TX",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 90.4,
+       "rank": 1
+      },
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 88.6,
+       "rank": 2
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 88.05,
+       "rank": 3
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 86.8,
+       "rank": 4
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 85.65,
+       "rank": 5
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 79.45,
+       "rank": 6
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 70.9,
+       "rank": 7
+      },
+      {
+       "ensembleId": "zephyrus",
+       "ensembleName": "Zephyrus",
+       "divisionId": "open",
+       "score": 64.8,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-denton/"
+  },
+  {
+   "id": "2026-dci-broken-arrow-2026-07-14",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Broken Arrow",
+   "date": "2026-07-14",
+   "city": "Broken Arrow, OK",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 87.6,
+       "rank": 1
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 87.15,
+       "rank": 2
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 85.0,
+       "rank": 3
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 83.35,
+       "rank": 4
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 79.65,
+       "rank": 5
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 78.45,
+       "rank": 6
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 75.85,
+       "rank": 7
+      },
+      {
+       "ensembleId": "zephyrus",
+       "ensembleName": "Zephyrus",
+       "divisionId": "open",
+       "score": 63.15,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-broken-arrow/"
+  },
+  {
+   "id": "2026-dci-hutchinson-2026-07-14",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Hutchinson",
+   "date": "2026-07-14",
+   "city": "Hutchinson, KS",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 84.25,
+       "rank": 1
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 81.8,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 80.25,
+       "rank": 3
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 78.85,
+       "rank": 4
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 73.8,
+       "rank": 5
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 72.25,
+       "rank": 6
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-hutchinson/"
+  },
+  {
+   "id": "2026-dci-new-mexico-2026-07-14",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI New Mexico",
+   "date": "2026-07-14",
+   "city": "Albuquerque, NM",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 89.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 77.7,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 74.95,
+       "rank": 3
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 70.6,
+       "rank": 4
+      },
+      {
+       "ensembleId": "arsenal",
+       "ensembleName": "Arsenal",
+       "divisionId": "open",
+       "score": 62.1,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-new-mexico/"
+  },
+  {
+   "id": "2026-brass-impact-2026-07-13",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Brass Impact",
+   "date": "2026-07-13",
+   "city": "Olathe, KS",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 84.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 83.2,
+       "rank": 2
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 79.55,
+       "rank": 3
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 78.3,
+       "rank": 4
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 78.1,
+       "rank": 5
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 75.15,
+       "rank": 6
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 71.25,
+       "rank": 7
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 63.1,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-brass-impact/"
+  },
+  {
+   "id": "2026-so-cal-classic-open-class-pacific-championship-finals-2026-07-12",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "So Cal Classic Open Class Pacific Championship Finals",
+   "date": "2026-07-12",
+   "city": "Buena Park, CA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "open",
+       "score": 72.5,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 69.7,
+       "rank": 2
+      },
+      {
+       "ensembleId": "impulse",
+       "ensembleName": "Impulse",
+       "divisionId": "open",
+       "score": 68.1,
+       "rank": 3
+      },
+      {
+       "ensembleId": "golden-empire",
+       "ensembleName": "Golden Empire",
+       "divisionId": "open",
+       "score": 64.95,
+       "rank": 4
+      },
+      {
+       "ensembleId": "blue-devils-c",
+       "ensembleName": "Blue Devils C",
+       "divisionId": "open",
+       "score": 64.85,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-so-cal-classic-open-class-pacific-championship-finals/"
+  },
+  {
+   "id": "2026-drum-corps-grand-prix-2026-07-11",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drum Corps Grand Prix",
+   "date": "2026-07-11",
+   "city": "Clifton, NJ",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "reading-buccaneers",
+       "ensembleName": "Reading Buccaneers",
+       "divisionId": "allage",
+       "score": 84.05,
+       "rank": 1
+      },
+      {
+       "ensembleId": "hawthorne-caballeros",
+       "ensembleName": "Hawthorne Caballeros",
+       "divisionId": "allage",
+       "score": 83.25,
+       "rank": 2
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 80.5,
+       "rank": 3
+      },
+      {
+       "ensembleId": "white-sabers",
+       "ensembleName": "White Sabers",
+       "divisionId": "allage",
+       "score": 75.3,
+       "rank": 4
+      },
+      {
+       "ensembleId": "connecticut-hurricanes",
+       "ensembleName": "Connecticut Hurricanes",
+       "divisionId": "allage",
+       "score": 73.65,
+       "rank": 5
+      },
+      {
+       "ensembleId": "raiders",
+       "ensembleName": "Raiders",
+       "divisionId": "open",
+       "score": 59.55,
+       "rank": 1
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 58.75,
+       "rank": 2
+      },
+      {
+       "ensembleId": "les-stentors",
+       "ensembleName": "Les Stentors",
+       "divisionId": "open",
+       "score": 56.8,
+       "rank": 3
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drum-corps-grand-prix/"
+  },
+  {
+   "id": "2026-drum-corps-at-the-rose-bowl-2026-07-11",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drum Corps at the Rose Bowl",
+   "date": "2026-07-11",
+   "city": "Pasadena, CA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 87.575,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 86.675,
+       "rank": 2
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 84.65,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 76.225,
+       "rank": 4
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 74.6,
+       "rank": 5
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 70.075,
+       "rank": 6
+      },
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "open",
+       "score": 71.125,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 68.275,
+       "rank": 2
+      },
+      {
+       "ensembleId": "impulse",
+       "ensembleName": "Impulse",
+       "divisionId": "open",
+       "score": 66.4,
+       "rank": 3
+      },
+      {
+       "ensembleId": "golden-empire",
+       "ensembleName": "Golden Empire",
+       "divisionId": "open",
+       "score": 64.1,
+       "rank": 4
+      },
+      {
+       "ensembleId": "blue-devils-c",
+       "ensembleName": "Blue Devils C",
+       "divisionId": "open",
+       "score": 63.75,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drum-corps-at-the-rose-bowl/"
+  },
+  {
+   "id": "2026-the-whitewater-classic-2026-07-11",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "The Whitewater Classic",
+   "date": "2026-07-11",
+   "city": "Whitewater, WI",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 83.35,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 81.925,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 80.975,
+       "rank": 3
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 77.925,
+       "rank": 4
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 77.15,
+       "rank": 5
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 76.925,
+       "rank": 6
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 73.5,
+       "rank": 7
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 71.25,
+       "rank": 8
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 69.875,
+       "rank": 9
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 66.725,
+       "rank": 1
+      },
+      {
+       "ensembleId": "eclipse",
+       "ensembleName": "Eclipse",
+       "divisionId": "open",
+       "score": 64.25,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-the-whitewater-classic/"
+  },
+  {
+   "id": "2026-cavalcade-of-brass-2026-07-10",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Cavalcade of Brass",
+   "date": "2026-07-10",
+   "city": "Lisle, IL",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 80.8,
+       "rank": 1
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 79.1,
+       "rank": 2
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 76.6,
+       "rank": 3
+      },
+      {
+       "ensembleId": "crossmen",
+       "ensembleName": "Crossmen",
+       "divisionId": "world",
+       "score": 72.35,
+       "rank": 4
+      },
+      {
+       "ensembleId": "spartans",
+       "ensembleName": "Spartans",
+       "divisionId": "world",
+       "score": 70.25,
+       "rank": 5
+      },
+      {
+       "ensembleId": "eclipse",
+       "ensembleName": "Eclipse",
+       "divisionId": "open",
+       "score": 64.05,
+       "rank": 1
+      },
+      {
+       "ensembleId": "northern-lights-drum-bugle-corps",
+       "ensembleName": "Northern Lights Drum & Bugle Corps",
+       "divisionId": "allage",
+       "score": 74.0,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-cavalcade-of-brass/"
+  },
+  {
+   "id": "2026-music-on-the-march-2026-07-10",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Music On the March",
+   "date": "2026-07-10",
+   "city": "Dubuque, IA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 80.8,
+       "rank": 1
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 78.25,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 77.1,
+       "rank": 3
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 75.7,
+       "rank": 4
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 70.2,
+       "rank": 5
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 65.25,
+       "rank": 1
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 61.1,
+       "rank": 2
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-music-on-the-march/"
+  },
+  {
+   "id": "2026-western-corps-connection-2026-07-10",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Western Corps Connection",
+   "date": "2026-07-10",
+   "city": "Walnut, CA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 86.75,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 85.25,
+       "rank": 2
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 83.7,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 74.1,
+       "rank": 4
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 73.3,
+       "rank": 5
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 68.85,
+       "rank": 6
+      },
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "open",
+       "score": 69.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 67.8,
+       "rank": 2
+      },
+      {
+       "ensembleId": "impulse",
+       "ensembleName": "Impulse",
+       "divisionId": "open",
+       "score": 65.55,
+       "rank": 3
+      },
+      {
+       "ensembleId": "golden-empire",
+       "ensembleName": "Golden Empire",
+       "divisionId": "open",
+       "score": 63.5,
+       "rank": 4
+      },
+      {
+       "ensembleId": "blue-devils-c",
+       "ensembleName": "Blue Devils C",
+       "divisionId": "open",
+       "score": 62.25,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-western-corps-connection/"
+  },
+  {
+   "id": "2026-dci-northern-alabama-2026-07-09",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Northern Alabama",
+   "date": "2026-07-09",
+   "city": "Muscle Shoals, AL",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 84.55,
+       "rank": 1
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 76.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 71.55,
+       "rank": 3
+      },
+      {
+       "ensembleId": "memphis-blues",
+       "ensembleName": "Memphis Blues",
+       "divisionId": "open",
+       "score": 64.25,
+       "rank": 1
+      },
+      {
+       "ensembleId": "atlanta-cv",
+       "ensembleName": "Atlanta CV",
+       "divisionId": "allage",
+       "score": 75.2,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-northern-alabama/"
+  },
+  {
+   "id": "2026-gold-showcase-2026-07-09",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Gold Showcase",
+   "date": "2026-07-09",
+   "city": "Santa Clarita, CA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 85.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 84.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 82.95,
+       "rank": 3
+      },
+      {
+       "ensembleId": "pacific-crest",
+       "ensembleName": "Pacific Crest",
+       "divisionId": "world",
+       "score": 71.8,
+       "rank": 4
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 71.65,
+       "rank": 5
+      },
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "open",
+       "score": 68.75,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 66.15,
+       "rank": 2
+      },
+      {
+       "ensembleId": "golden-empire",
+       "ensembleName": "Golden Empire",
+       "divisionId": "open",
+       "score": 63.0,
+       "rank": 3
+      },
+      {
+       "ensembleId": "blue-devils-c",
+       "ensembleName": "Blue Devils C",
+       "divisionId": "open",
+       "score": 61.7,
+       "rank": 4
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-gold-showcase/"
+  },
+  {
+   "id": "2026-drums-across-america-2026-07-08",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drums Across America",
+   "date": "2026-07-08",
+   "city": "Newnan, GA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 83.85,
+       "rank": 1
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 75.05,
+       "rank": 2
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 70.35,
+       "rank": 3
+      },
+      {
+       "ensembleId": "atlanta-cv",
+       "ensembleName": "Atlanta CV",
+       "divisionId": "allage",
+       "score": 72.35,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drums-across-america/"
+  },
+  {
+   "id": "2026-drums-across-the-smokies-2026-07-07",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drums Across the Smokies",
+   "date": "2026-07-07",
+   "city": "Sevierville, TN",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "boston-crusaders",
+       "ensembleName": "Boston Crusaders",
+       "divisionId": "world",
+       "score": 83.05,
+       "rank": 1
+      },
+      {
+       "ensembleId": "carolina-crown",
+       "ensembleName": "Carolina Crown",
+       "divisionId": "world",
+       "score": 82.1,
+       "rank": 2
+      },
+      {
+       "ensembleId": "spirit-of-atlanta",
+       "ensembleName": "Spirit of Atlanta",
+       "divisionId": "world",
+       "score": 72.85,
+       "rank": 3
+      },
+      {
+       "ensembleId": "music-city",
+       "ensembleName": "Music City",
+       "divisionId": "world",
+       "score": 68.85,
+       "rank": 4
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drums-across-the-smokies/"
+  },
+  {
+   "id": "2026-the-kiwanis-thunder-of-drums-2026-07-07",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "The Kiwanis Thunder of Drums",
+   "date": "2026-07-07",
+   "city": "Mankato, MN",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 77.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 75.05,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 74.5,
+       "rank": 3
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 73.3,
+       "rank": 4
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 67.85,
+       "rank": 5
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 63.3,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-the-kiwanis-thunder-of-drums/"
+  },
+  {
+   "id": "2026-dci-west-2026-07-05",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI West",
+   "date": "2026-07-05",
+   "city": "Stanford, CA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 83.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 82.05,
+       "rank": 2
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 81.15,
+       "rank": 3
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 69.25,
+       "rank": 4
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 64.2,
+       "rank": 5
+      },
+      {
+       "ensembleId": "blue-devils-b",
+       "ensembleName": "Blue Devils B",
+       "divisionId": "open",
+       "score": 67.7,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 64.55,
+       "rank": 2
+      },
+      {
+       "ensembleId": "impulse",
+       "ensembleName": "Impulse",
+       "divisionId": "open",
+       "score": 62.1,
+       "rank": 3
+      },
+      {
+       "ensembleId": "blue-devils-c",
+       "ensembleName": "Blue Devils C",
+       "divisionId": "open",
+       "score": 61.2,
+       "rank": 4
+      },
+      {
+       "ensembleId": "golden-empire",
+       "ensembleName": "Golden Empire",
+       "divisionId": "open",
+       "score": 60.75,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-west/"
+  },
+  {
+   "id": "2026-river-city-rhapsody-2026-07-05",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "River City Rhapsody",
+   "date": "2026-07-05",
+   "city": "La Crosse, WI",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 79.2,
+       "rank": 1
+      },
+      {
+       "ensembleId": "blue-stars",
+       "ensembleName": "Blue Stars",
+       "divisionId": "world",
+       "score": 77.4,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-cavaliers",
+       "ensembleName": "The Cavaliers",
+       "divisionId": "world",
+       "score": 75.25,
+       "rank": 3
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 73.75,
+       "rank": 4
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 73.0,
+       "rank": 5
+      },
+      {
+       "ensembleId": "madison-scouts",
+       "ensembleName": "Madison Scouts",
+       "divisionId": "world",
+       "score": 72.5,
+       "rank": 6
+      },
+      {
+       "ensembleId": "river-city-rhythm",
+       "ensembleName": "River City Rhythm",
+       "divisionId": "open",
+       "score": 61.45,
+       "rank": 1
+      },
+      {
+       "ensembleId": "govenaires",
+       "ensembleName": "Govenaires",
+       "divisionId": "allage",
+       "score": 70.15,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-river-city-rhapsody/"
+  },
+  {
+   "id": "2026-dci-capital-classic-2026-07-03",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "DCI Capital Classic",
+   "date": "2026-07-03",
+   "city": "Sacramento, CA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "bluecoats",
+       "ensembleName": "Bluecoats",
+       "divisionId": "world",
+       "score": 82.2,
+       "rank": 1
+      },
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 80.3,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-academy",
+       "ensembleName": "The Academy",
+       "divisionId": "world",
+       "score": 68.3,
+       "rank": 3
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 63.25,
+       "rank": 4
+      },
+      {
+       "ensembleId": "gold",
+       "ensembleName": "Gold",
+       "divisionId": "open",
+       "score": 63.65,
+       "rank": 1
+      },
+      {
+       "ensembleId": "golden-empire",
+       "ensembleName": "Golden Empire",
+       "divisionId": "open",
+       "score": 59.8,
+       "rank": 2
+      },
+      {
+       "ensembleId": "impulse",
+       "ensembleName": "Impulse",
+       "divisionId": "open",
+       "score": 59.25,
+       "rank": 3
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-dci-capital-classic/"
+  },
+  {
+   "id": "2026-drums-across-nebraska-2026-07-01",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drums Across Nebraska",
+   "date": "2026-07-01",
+   "city": "Omaha, NE",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 76.4,
+       "rank": 1
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 71.85,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 70.85,
+       "rank": 3
+      },
+      {
+       "ensembleId": "colts",
+       "ensembleName": "Colts",
+       "divisionId": "world",
+       "score": 69.7,
+       "rank": 4
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 63.2,
+       "rank": 5
+      },
+      {
+       "ensembleId": "colt-cadets",
+       "ensembleName": "Colt Cadets",
+       "divisionId": "open",
+       "score": 55.45,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drums-across-nebraska/"
+  },
+  {
+   "id": "2026-northwest-youth-music-games-portland-2026-07-01",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Northwest Youth Music Games Portland",
+   "date": "2026-07-01",
+   "city": "Portland, OR",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 79.1,
+       "rank": 1
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 63.0,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 63.0,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gems",
+       "ensembleName": "Gems",
+       "divisionId": "open",
+       "score": 58.95,
+       "rank": 2
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "open",
+       "score": 58.85,
+       "rank": 3
+      },
+      {
+       "ensembleId": "impulse",
+       "ensembleName": "Impulse",
+       "divisionId": "open",
+       "score": 58.0,
+       "rank": 4
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-northwest-youth-music-games-portland/"
+  },
+  {
+   "id": "2026-northwest-youth-music-games-seattle-2026-06-30",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Northwest Youth Music Games Seattle",
+   "date": "2026-06-30",
+   "city": "Seattle, WA",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "santa-clara-vanguard",
+       "ensembleName": "Santa Clara Vanguard",
+       "divisionId": "world",
+       "score": 77.55,
+       "rank": 1
+      },
+      {
+       "ensembleId": "seattle-cascades",
+       "ensembleName": "Seattle Cascades",
+       "divisionId": "world",
+       "score": 62.65,
+       "rank": 2
+      },
+      {
+       "ensembleId": "the-battalion",
+       "ensembleName": "The Battalion",
+       "divisionId": "open",
+       "score": 63.3,
+       "rank": 1
+      },
+      {
+       "ensembleId": "gems",
+       "ensembleName": "Gems",
+       "divisionId": "open",
+       "score": 57.7,
+       "rank": 2
+      },
+      {
+       "ensembleId": "columbians",
+       "ensembleName": "Columbians",
+       "divisionId": "open",
+       "score": 57.2,
+       "rank": 3
+      },
+      {
+       "ensembleId": "impulse",
+       "ensembleName": "Impulse",
+       "divisionId": "open",
+       "score": 56.95,
+       "rank": 4
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-northwest-youth-music-games-seattle/"
+  },
+  {
+   "id": "2026-corps-encore-2026-06-28",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Corps Encore",
+   "date": "2026-06-28",
+   "city": "Ogden, UT",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 77.25,
+       "rank": 1
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 69.4,
+       "rank": 2
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 69.0,
+       "rank": 3
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 62.15,
+       "rank": 4
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-corps-encore/"
+  },
+  {
+   "id": "2026-barnum-festival-champions-on-parade-2026-06-27",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Barnum Festival Champions On Parade",
+   "date": "2026-06-27",
+   "city": "Shelton, CT",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "reading-buccaneers",
+       "ensembleName": "Reading Buccaneers",
+       "divisionId": "allage",
+       "score": 80.95,
+       "rank": 1
+      },
+      {
+       "ensembleId": "hawthorne-caballeros",
+       "ensembleName": "Hawthorne Caballeros",
+       "divisionId": "allage",
+       "score": 78.7,
+       "rank": 2
+      },
+      {
+       "ensembleId": "bushwackers",
+       "ensembleName": "Bushwackers",
+       "divisionId": "allage",
+       "score": 76.8,
+       "rank": 3
+      },
+      {
+       "ensembleId": "connecticut-hurricanes",
+       "ensembleName": "Connecticut Hurricanes",
+       "divisionId": "allage",
+       "score": 71.35,
+       "rank": 4
+      },
+      {
+       "ensembleId": "7th-regiment",
+       "ensembleName": "7th Regiment",
+       "divisionId": "open",
+       "score": 47.25,
+       "rank": 1
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-barnum-festival-champions-on-parade/"
+  },
+  {
+   "id": "2026-drums-along-the-rockies-2026-06-27",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "name": "Drums Along the Rockies",
+   "date": "2026-06-27",
+   "city": "Fort Collins, CO",
+   "sessions": [
+    {
+     "id": "results",
+     "name": "Results",
+     "order": 1,
+     "results": [
+      {
+       "ensembleId": "blue-devils",
+       "ensembleName": "Blue Devils",
+       "divisionId": "world",
+       "score": 75.65,
+       "rank": 1
+      },
+      {
+       "ensembleId": "phantom-regiment",
+       "ensembleName": "Phantom Regiment",
+       "divisionId": "world",
+       "score": 72.65,
+       "rank": 2
+      },
+      {
+       "ensembleId": "troopers",
+       "ensembleName": "Troopers",
+       "divisionId": "world",
+       "score": 67.85,
+       "rank": 3
+      },
+      {
+       "ensembleId": "blue-knights",
+       "ensembleName": "Blue Knights",
+       "divisionId": "world",
+       "score": 67.55,
+       "rank": 4
+      },
+      {
+       "ensembleId": "genesis",
+       "ensembleName": "Genesis",
+       "divisionId": "world",
+       "score": 60.35,
+       "rank": 5
+      }
+     ]
+    }
+   ],
+   "sourceUrl": "https://www.dci.org/scores/final-scores/2026-drums-along-the-rockies/"
+  }
+ ],
+ "ensembles": [
+  {
+   "id": "7th-regiment",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "7th Regiment"
+  },
+  {
+   "id": "arsenal",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Arsenal"
+  },
+  {
+   "id": "atlanta-cv",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Atlanta CV"
+  },
+  {
+   "id": "blue-devils",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Blue Devils"
+  },
+  {
+   "id": "blue-devils-b",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Blue Devils B"
+  },
+  {
+   "id": "blue-devils-c",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Blue Devils C"
+  },
+  {
+   "id": "blue-knights",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Blue Knights"
+  },
+  {
+   "id": "blue-stars",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Blue Stars"
+  },
+  {
+   "id": "bluecoats",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Bluecoats"
+  },
+  {
+   "id": "boston-crusaders",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Boston Crusaders"
+  },
+  {
+   "id": "bushwackers",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Bushwackers"
+  },
+  {
+   "id": "carolina-crown",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Carolina Crown"
+  },
+  {
+   "id": "cincinnati-tradition",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Cincinnati Tradition"
+  },
+  {
+   "id": "colt-cadets",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Colt Cadets"
+  },
+  {
+   "id": "colts",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Colts"
+  },
+  {
+   "id": "columbians",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Columbians"
+  },
+  {
+   "id": "columbus-saints",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Columbus Saints"
+  },
+  {
+   "id": "connecticut-hurricanes",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Connecticut Hurricanes"
+  },
+  {
+   "id": "crossmen",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Crossmen"
+  },
+  {
+   "id": "eclipse",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Eclipse"
+  },
+  {
+   "id": "fusion-core",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Fusion Core"
+  },
+  {
+   "id": "gems",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Gems"
+  },
+  {
+   "id": "genesis",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Genesis"
+  },
+  {
+   "id": "gold",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Gold"
+  },
+  {
+   "id": "golden-empire",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Golden Empire"
+  },
+  {
+   "id": "govenaires",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Govenaires"
+  },
+  {
+   "id": "hawthorne-caballeros",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Hawthorne Caballeros"
+  },
+  {
+   "id": "heat-wave",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Heat Wave"
+  },
+  {
+   "id": "impulse",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Impulse"
+  },
+  {
+   "id": "les-stentors",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Les Stentors"
+  },
+  {
+   "id": "madison-scouts",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Madison Scouts"
+  },
+  {
+   "id": "memphis-blues",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Memphis Blues"
+  },
+  {
+   "id": "mercedes-marching-band",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Mercedes Marching Band"
+  },
+  {
+   "id": "minnesota-brass",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Minnesota Brass"
+  },
+  {
+   "id": "music-city",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Music City"
+  },
+  {
+   "id": "northern-lights-drum-bugle-corps",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Northern Lights Drum & Bugle Corps"
+  },
+  {
+   "id": "pacific-crest",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Pacific Crest"
+  },
+  {
+   "id": "phantom-regiment",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Phantom Regiment"
+  },
+  {
+   "id": "raiders",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Raiders"
+  },
+  {
+   "id": "reading-buccaneers",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Reading Buccaneers"
+  },
+  {
+   "id": "river-city-rhythm",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "River City Rhythm"
+  },
+  {
+   "id": "rogues-hollow-regiment",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Rogues Hollow Regiment"
+  },
+  {
+   "id": "santa-clara-vanguard",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Santa Clara Vanguard"
+  },
+  {
+   "id": "seattle-cascades",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Seattle Cascades"
+  },
+  {
+   "id": "spartans",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Spartans"
+  },
+  {
+   "id": "spirit-of-atlanta",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Spirit of Atlanta"
+  },
+  {
+   "id": "sunrisers",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "Sunrisers"
+  },
+  {
+   "id": "the-academy",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "The Academy"
+  },
+  {
+   "id": "the-battalion",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "The Battalion"
+  },
+  {
+   "id": "the-cavaliers",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "The Cavaliers"
+  },
+  {
+   "id": "troopers",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "world",
+   "name": "Troopers"
+  },
+  {
+   "id": "white-sabers",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "allage",
+   "name": "White Sabers"
+  },
+  {
+   "id": "zephyrus",
+   "modeId": "dci",
+   "segmentId": "dci-tour",
+   "divisionId": "open",
+   "name": "Zephyrus"
+  }
+ ],
+ "champions": [
+  {
+   "season": "2026",
+   "divisionId": "open",
+   "name": "Blue Devils B",
+   "score": 81.725
+  },
+  {
+   "season": "2026",
+   "divisionId": "intl",
+   "name": "Mercedes Marching Band",
+   "score": 61.025
+  },
+  {
+   "season": "2025",
+   "divisionId": "open",
+   "name": "Spartans",
+   "score": 82.15
+  },
+  {
+   "season": "2025",
+   "divisionId": "intl",
+   "name": "Calgary Stampede Showband",
+   "score": 76.8
+  },
+  {
+   "season": "2025",
+   "divisionId": "allage",
+   "name": "Reading Buccaneers",
+   "score": 97.525
+  },
+  {
+   "season": "2025",
+   "divisionId": "world",
+   "name": "Boston Crusaders",
+   "score": 98.425
+  },
+  {
+   "season": "2024",
+   "divisionId": "allage",
+   "name": "Reading Buccaneers",
+   "score": 95.925
+  },
+  {
+   "season": "2024",
+   "divisionId": "world",
+   "name": "Bluecoats",
+   "score": 98.75
+  },
+  {
+   "season": "2024",
+   "divisionId": "open",
+   "name": "Spartans",
+   "score": 82.963
+  },
+  {
+   "season": "2023",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.975
+  },
+  {
+   "season": "2023",
+   "divisionId": "open",
+   "name": "Spartans",
+   "score": 82.263
+  },
+  {
+   "season": "2022",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.75
+  },
+  {
+   "season": "2022",
+   "divisionId": "open",
+   "name": "Vanguard Cadets",
+   "score": 83.55
+  },
+  {
+   "season": "2022",
+   "divisionId": "intl",
+   "name": "Calgary Stampede Showband",
+   "score": 78.475
+  },
+  {
+   "season": "2019",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.325
+  },
+  {
+   "season": "2019",
+   "divisionId": "open",
+   "name": "Spartans",
+   "score": 81.05
+  },
+  {
+   "season": "2018",
+   "divisionId": "world",
+   "name": "Santa Clara Vanguard",
+   "score": 98.625
+  },
+  {
+   "season": "2018",
+   "divisionId": "open",
+   "name": "Vanguard Cadets",
+   "score": 80.075
+  },
+  {
+   "season": "2018",
+   "divisionId": "intl",
+   "name": "Jubal",
+   "score": 67.125
+  },
+  {
+   "season": "2017",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.538
+  },
+  {
+   "season": "2017",
+   "divisionId": "open",
+   "name": "Vanguard Cadets",
+   "score": 80.725
+  },
+  {
+   "season": "2017",
+   "divisionId": "intl",
+   "name": "The Company",
+   "score": 72.325
+  },
+  {
+   "season": "2016",
+   "divisionId": "world",
+   "name": "Bluecoats",
+   "score": 97.65
+  },
+  {
+   "season": "2016",
+   "divisionId": "open",
+   "name": "Blue Devils B",
+   "score": 79.9
+  },
+  {
+   "season": "2015",
+   "divisionId": "open",
+   "name": "Vanguard Cadets",
+   "score": 81.225
+  },
+  {
+   "season": "2015",
+   "divisionId": "intl",
+   "name": "Jubal",
+   "score": 68.45
+  },
+  {
+   "season": "2015",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 97.65
+  },
+  {
+   "season": "2014",
+   "divisionId": "open",
+   "name": "Blue Devils B",
+   "score": 82.65
+  },
+  {
+   "season": "2014",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 99.65
+  },
+  {
+   "season": "2013",
+   "divisionId": "world",
+   "name": "Carolina Crown",
+   "score": 98.3
+  },
+  {
+   "season": "2013",
+   "divisionId": "open",
+   "name": "Vanguard Cadets",
+   "score": 96.15
+  },
+  {
+   "season": "2012",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.7
+  },
+  {
+   "season": "2011",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 98.35
+  },
+  {
+   "season": "2010",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.9
+  },
+  {
+   "season": "2009",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 99.05
+  },
+  {
+   "season": "2008",
+   "divisionId": "open",
+   "name": "Vanguard Cadets",
+   "score": 96.825
+  },
+  {
+   "season": "2008",
+   "divisionId": "world",
+   "name": "Phantom Regiment",
+   "score": 98.125
+  },
+  {
+   "season": "2007",
+   "divisionId": "open",
+   "name": "Spartans",
+   "score": 96.15
+  },
+  {
+   "season": "2007",
+   "divisionId": "intl",
+   "name": "Yokohama Scouts",
+   "score": 88.625
+  },
+  {
+   "season": "2007",
+   "divisionId": "allage",
+   "name": "Fever",
+   "score": 90.45
+  },
+  {
+   "season": "2007",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.0
+  },
+  {
+   "season": "2006",
+   "divisionId": "world",
+   "name": "The Cavaliers",
+   "score": 97.2
+  },
+  {
+   "season": "2005",
+   "divisionId": "open",
+   "name": "Spartans",
+   "score": 96.275
+  },
+  {
+   "season": "2005",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 99.15
+  },
+  {
+   "season": "2004",
+   "divisionId": "world",
+   "name": "The Cavaliers",
+   "score": 98.7
+  },
+  {
+   "season": "2003",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.8
+  },
+  {
+   "season": "2002",
+   "divisionId": "world",
+   "name": "The Cavaliers",
+   "score": 99.15
+  },
+  {
+   "season": "2001",
+   "divisionId": "open",
+   "name": "Mandarins",
+   "score": 97.8
+  },
+  {
+   "season": "2001",
+   "divisionId": "allage",
+   "name": "Syracuse Brigadiers",
+   "score": 91.9
+  },
+  {
+   "season": "2001",
+   "divisionId": "world",
+   "name": "The Cavaliers",
+   "score": 98.35
+  },
+  {
+   "season": "2000",
+   "divisionId": "world",
+   "name": "The Cavaliers & The Cadets",
+   "score": 97.65
+  },
+  {
+   "season": "1999",
+   "divisionId": "world",
+   "name": "Blue Devils & Santa Clara Vanguard",
+   "score": 98.4
+  },
+  {
+   "season": "1998",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 98.4
+  },
+  {
+   "season": "1998",
+   "divisionId": "open",
+   "name": "Beatrix",
+   "score": 87.1
+  },
+  {
+   "season": "1997",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.4
+  },
+  {
+   "season": "1997",
+   "divisionId": "open",
+   "name": "Beatrix",
+   "score": 86.9
+  },
+  {
+   "season": "1996",
+   "divisionId": "world",
+   "name": "Blue Devils & Phantom Regiment",
+   "score": 97.4
+  },
+  {
+   "season": "1996",
+   "divisionId": "open",
+   "name": "Beatrix",
+   "score": 83.1
+  },
+  {
+   "season": "1995",
+   "divisionId": "world",
+   "name": "The Cavaliers",
+   "score": 98.3
+  },
+  {
+   "season": "1995",
+   "divisionId": "open",
+   "name": "Beatrix",
+   "score": 83.8
+  },
+  {
+   "season": "1994",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.4
+  },
+  {
+   "season": "1994",
+   "divisionId": "open",
+   "name": "Jubal",
+   "score": 76.1
+  },
+  {
+   "season": "1993",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 97.4
+  },
+  {
+   "season": "1993",
+   "divisionId": "open",
+   "name": "Jubal",
+   "score": 82.9
+  },
+  {
+   "season": "1992",
+   "divisionId": "world",
+   "name": "The Cavaliers",
+   "score": 97.5
+  },
+  {
+   "season": "1991",
+   "divisionId": "world",
+   "name": "Star of Indiana",
+   "score": 97.0
+  },
+  {
+   "season": "1990",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 97.7
+  },
+  {
+   "season": "1989",
+   "divisionId": "world",
+   "name": "Santa Clara Vanguard",
+   "score": 98.8
+  },
+  {
+   "season": "1988",
+   "divisionId": "world",
+   "name": "Madison Scouts",
+   "score": 97.1
+  },
+  {
+   "season": "1987",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 97.9
+  },
+  {
+   "season": "1986",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 98.4
+  },
+  {
+   "season": "1985",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 98.4
+  },
+  {
+   "season": "1984",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 98.0
+  },
+  {
+   "season": "1983",
+   "divisionId": "world",
+   "name": "The Cadets",
+   "score": 94.4
+  },
+  {
+   "season": "1982",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 95.25
+  },
+  {
+   "season": "1981",
+   "divisionId": "world",
+   "name": "Santa Clara Vanguard",
+   "score": 94.0
+  },
+  {
+   "season": "1980",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 90.6
+  },
+  {
+   "season": "1979",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 93.55
+  },
+  {
+   "season": "1978",
+   "divisionId": "world",
+   "name": "Santa Clara Vanguard",
+   "score": 91.55
+  },
+  {
+   "season": "1977",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 92.05
+  },
+  {
+   "season": "1976",
+   "divisionId": "world",
+   "name": "Blue Devils",
+   "score": 92.7
+  },
+  {
+   "season": "1975",
+   "divisionId": "world",
+   "name": "Madison Scouts",
+   "score": 92.5
+  },
+  {
+   "season": "1974",
+   "divisionId": "world",
+   "name": "Santa Clara Vanguard",
+   "score": 89.5
+  },
+  {
+   "season": "1973",
+   "divisionId": "world",
+   "name": "Santa Clara Vanguard",
+   "score": 88.65
+  },
+  {
+   "season": "1972",
+   "divisionId": "world",
+   "name": "Kingsmen",
+   "score": 88.1
+  }
+ ]
+}
