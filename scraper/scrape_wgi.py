@@ -201,9 +201,46 @@ def assemble(activity: str, year: int, events: list[dict], updated: str) -> None
 # modes
 # ---------------------------------------------------------------------------
 
+def harvest_candidates() -> tuple[list[str], dict]:
+    """All GUIDs seen on wgi.org score surfaces plus one hop of score-ish
+    links — candidates to test against the bridge API."""
+    pages = [
+        "https://wgi.org/", "https://wgi.org/scores/", "https://wgi.org/events/",
+        "https://wgi.org/color-guard/", "https://wgi.org/percussion/", "https://wgi.org/winds/",
+    ]
+    seen, evidence = [], {}
+    hop = []
+    for url in pages:
+        html = fetch(url) or ""
+        evidence[url] = {"bytes": len(html), "guids": sorted(set(GUID_RE.findall(html)))}
+        seen += evidence[url]["guids"]
+        for m in re.finditer(r'href="(https?://[^"]*(?:score|recap|event|competitionsuite)[^"]*)"', html, re.I):
+            if len(hop) < 12 and m.group(1) not in hop:
+                hop.append(m.group(1))
+    for url in hop:
+        html = fetch(url) or ""
+        g = sorted(set(GUID_RE.findall(html)))
+        if g:
+            evidence[url] = {"bytes": len(html), "guids": g}
+            seen += g
+    ordered = list(dict.fromkeys(seen))
+    return ordered, evidence
+
+
 def discover(year: int) -> int:
     org = discover_org_guid()
     report: dict = {"org_guid": org, "probed_at": datetime.now(timezone.utc).isoformat()}
+    if not org:
+        candidates, evidence = harvest_candidates()
+        report["candidates_tested"] = candidates[:15]
+        report["evidence"] = evidence
+        for guid in candidates[:15]:
+            seasons = cs._bridge(f"GetSeasons/jsonp?organization={guid}") or []
+            if seasons:
+                org = guid
+                report["org_guid"] = org
+                report["org_guid_via"] = "bridge-tested candidate"
+                break
     if org:
         seasons = cs._bridge(f"GetSeasons/jsonp?organization={org}") or []
         report["seasons"] = seasons
