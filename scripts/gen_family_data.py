@@ -95,23 +95,6 @@ INSTANCES = {
         "base": {"Class AAAA": 88.0, "Class AAA": 85.5, "Class AA": 83.0, "Class A": 81.0},
         "note": "Every BOA championship has its own judging panel — scores compare within an event, and season standings show each band's most recent score.",
     },
-    "acappella": {
-        "roster": {
-            "ICCA": [("The SoCal VoCals", "University of Southern California"), ("The Nor'easters", "Northeastern University"), ("Pitch Slapped", "Berklee College of Music"), ("Voices in Your Head", "University of Chicago"), ("Fundamentally Sound", "University of Wisconsin"), ("The Melodores", "Vanderbilt University"), ("Vocal Point", "Brigham Young University"), ("The Hullabahoos", "University of Virginia"), ("Off the Beat", "University of Pennsylvania"), ("The Techtonics", "Imperial College London"), ("Mixed Company", "Yale University"), ("The Amateurs", "University of Georgia")],
-            "ICHSA": [("Forte", "Centerville HS"), ("Limited Edition", "Homestead HS"), ("Vocal Fusion", "Millburn HS"), ("Highland Voices", "Highland Park HS"), ("The Vocal Chords", "Oak Park HS"), ("Central Sound", "Naperville Central HS")],
-        },
-        "schedule": [
-            ("ICCA & ICHSA Quarterfinals — Northeast", 2, 7, "Boston, MA", False),
-            ("ICCA & ICHSA Quarterfinals — Mid-Atlantic", 2, 14, "Philadelphia, PA", False),
-            ("ICCA & ICHSA Quarterfinals — West", 2, 21, "Los Angeles, CA", False),
-            ("ICCA & ICHSA Quarterfinals — South", 2, 28, "Nashville, TN", False),
-            ("ICCA & ICHSA Semifinals — Midwest", 3, 21, "Chicago, IL", False),
-            ("ICCA & ICHSA Semifinals — Northeast", 3, 28, "New York, NY", False),
-            ("Varsity Vocals Finals", 4, 25, "New York, NY", True),
-        ],
-        "base": {"ICCA": 88.0, "ICHSA": 84.0},
-        "note": "Varsity Vocals is a bracketed tournament — points rank groups within one round of one event; standings show each group's most recent judged score.",
-    },
     "showchoir": {
         "roster": {
             "Mixed": [('John Burroughs "Powerhouse"', "Burbank, CA"), ('Carmel "Ambassadors"', "Carmel, IN"), ('Waubonsie Valley "Sound Check"', "Aurora, IL"), ('Los Alamitos "Sound FX"', "Los Alamitos, CA"), ('Clinton "Attaché"', "Clinton, MS"), ('Burbank "In Sync"', "Burbank, CA"), ('Homestead "Class Royale"', "Fort Wayne, IN"), ('Franklin Central "Fanfare"', "Indianapolis, IN")],

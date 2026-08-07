@@ -27,11 +27,6 @@ SOURCES = {
         "https://marching.musicforall.org/schedule/",
         "https://musicforall.org/our-programs/marching/",
     ],
-    "acappella": [
-        "https://varsityvocals.com/events/",
-        "https://varsityvocals.com/icca-results/",
-        "https://varsityvocals.com/ichsa-results/",
-    ],
     "showchoir": [
         "https://www.showchoirscores.com/",
         "https://showchoir.com/events/",
