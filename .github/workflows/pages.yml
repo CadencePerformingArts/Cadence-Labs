@@ -1,0 +1,42 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**"]
+  workflow_dispatch: {}
+  # Retained for infrequent backfill/history jobs. The frequent data updater
+  # dispatches this workflow asynchronously so Pages cannot hold its lock.
+  workflow_call: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # ref: main, NOT the run's trigger sha — when called after a data
+      # update, the trigger sha predates the data commit the update job
+      # just pushed, and deploying it would publish one-cycle-stale scores
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Enable & configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deployment
+        uses: actions/deploy-pages@v4

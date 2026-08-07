@@ -1,0 +1,56 @@
+name: Pulse
+# The pipeline's heartbeat. GitHub's shared cron delivers */15 schedules
+# roughly hourly at best, so a single job holds the beat: it loops for a
+# ~5-hour shift, dispatching a data update every ~12 minutes, then re-arms
+# the next shift. Because it's a resilient internal loop (not a one-shot
+# hand-off that dispatches the next pulse), a single rate-limited dispatch
+# can't break the chain — the next tick just retries 12 minutes later. The
+# cron here (staggered minutes for better delivery odds) and update.yml's
+# ensure_running check are the backstops that restart the loop if it ever
+# dies; the concurrency group folds any duplicate shifts into one.
+on:
+  schedule:
+    - cron: "5,20,35,50 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  actions: write
+
+concurrency:
+  group: pulse
+  cancel-in-progress: false
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 320
+    steps:
+      - name: Heartbeat — dispatch a data update every ~12 minutes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          api="https://api.github.com/repos/${{ github.repository }}/actions"
+          hdr1="Authorization: Bearer $GH_TOKEN"
+          hdr2="Accept: application/vnd.github+json"
+          # dispatch a workflow, retrying transient GitHub rate limits;
+          # returns non-zero only after several failed attempts
+          dispatch() {
+            local wf="$1" code i
+            for i in 1 2 3 4; do
+              code=$(curl -s -o /tmp/resp -w "%{http_code}" -X POST -H "$hdr1" -H "$hdr2" \
+                "$api/workflows/$wf/dispatches" -d '{"ref":"main"}')
+              [ "$code" = "204" ] && return 0
+              echo "::warning::dispatch $wf got HTTP $code (attempt $i): $(head -c 200 /tmp/resp)"
+              sleep $((10 * i))
+            done
+            return 1
+          }
+          # ~4.8-hour shift, one update every 12 minutes
+          end=$(( $(date +%s) + 288 * 60 ))
+          while [ "$(date +%s)" -lt "$end" ]; do
+            sleep 720
+            dispatch update.yml || echo "::warning::update dispatch failed this tick — retrying in 12 min"
+          done
+          # hand off to the next shift; if this fails, cron / update.yml's
+          # ensure_running restarts the heartbeat within the hour
+          dispatch pulse.yml || echo "::warning::could not re-arm pulse — backstops will restart it"

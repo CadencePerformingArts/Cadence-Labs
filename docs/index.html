@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadence — DCI Scores, Rankings & History</title>
+<meta name="description" content="Auto-updating DCI drum corps dashboard: current season rankings, multi-corps multi-year comparisons, every published score, caption recaps, corps histories and champions — straight from official DCI.org published scores.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="manifest" href="manifest.webmanifest?v=4">
+<link rel="apple-touch-icon" href="icons/icon-192.png?v=4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cadence">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='3' width='58' height='58' rx='15' fill='%23f0b429'/><g stroke='%2316233d' stroke-width='6.5' stroke-linecap='round'><line x1='16' y1='26' x2='16' y2='38'/><line x1='27' y1='20' x2='27' y2='44'/><line x1='38' y1='28' x2='38' y2='36'/><line x1='49' y1='16' x2='49' y2='48'/></g></svg>">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;
+var name=localStorage.getItem("cad-corps-theme"),css=localStorage.getItem("cad-corps-css");
+if(name&&css){var s=document.createElement("style");s.id="corpsTheme";s.textContent=css;document.head.appendChild(s);
+r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));
+var m=document.querySelector('meta[name="theme-color"]'),bar=localStorage.getItem("cad-corps-bar");if(m&&bar)m.content=bar;}})();</script>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#/">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#f0b429"/>
+      <g stroke="#16233d" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/>
+        <line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/>
+        <line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence</span>
+  </a>
+  <nav id="nav">
+    <a href="#/" data-route="rankings" title="Current standings — latest scores and movement"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20v-6"/><path d="M3 20h18"/></svg><span>Scoreboard</span></a>
+    <a href="#/events" data-route="events" title="Every show — schedules, lineups, results, back to 1972"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>Shows</span></a>
+    <a href="#/corps" data-route="corps" title="One corps in depth: season charts, every performance, titles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 5l10 4M17 5L7 9"/><rect x="4" y="9" width="16" height="9" rx="2"/><path d="M4 12.5h16"/></svg><span>Corps</span></a>
+    <a href="#/data" data-route="data" title="Stats hub: compare corps, caption scores, champions, all-time records, full database"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg><span>Stats</span></a>
+  </nav>
+  <a id="settingsBtn" href="#/settings" title="Settings — theme, team colors, alerts" aria-label="Settings"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 6.087a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.019.382c-.115.043-.283.031-.45-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></a>
+  <div class="updated" id="updated" title="Data refresh time"></div>
+</header>
+
+<main id="app" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<footer class="foot">
+  <div><a href="#" id="installBtn" hidden><b>📲 Get the App</b> — install on this device (iPhone needs this for score alerts)</a></div>
+  <div><a href="#" id="pushBtn"><b>🔔 Score alerts</b> — get a ping when scores drop</a></div>
+  <div>Scores from <a href="https://www.dci.org/scores" rel="noopener">DCI.org</a> · refreshed several times an hour · minute-by-minute on show nights</div>
+  <div><a href="#/suggestions"><b>Suggestions</b> — tell us what to build next →</a></div>
+  <div class="credit">Created by Lucas Besel</div>
+</footer>
+
+<div id="tooltip" class="tooltip" hidden></div>
+<!-- Ask Cadence assistant button — hidden until the assistant is switched on
+     (set ANTHROPIC_API_KEY on the relay). Re-enable by restoring this anchor:
+<a id="askFab" href="#/ask" title="Ask Cadence — questions about the scores" aria-label="Ask Cadence">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M12 8.2v.02M9.6 9.6a2.4 2.4 0 0 1 4.2 1.6c0 1.6-2.4 2-2.4 2" stroke-width="1.7"/></svg>
+</a>
+-->
+<script src="charts.js"></script>
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+  // when a tapped notification asks the already-open app to open a show, route to it
+  navigator.serviceWorker.addEventListener("message", function (e) {
+    var m = e.data;
+    if (m && m.type === "navigate" && typeof m.url === "string") {
+      var i = m.url.indexOf("#");
+      location.hash = i >= 0 ? m.url.slice(i) : "#/";
+    }
+  });
+}
+// theme: system default with an explicit light/dark override, and a per-corps
+// color theme — both live on the Settings page (#/settings). paintMeta keeps
+// the browser chrome (status bar) matched to whatever's active, including a
+// corps theme's dark topbar color.
+window.CadTheme = (function () {
+  var root = document.documentElement;
+  function effective() {
+    return root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+  function mode() { return localStorage.getItem("cad-theme") || "auto"; }
+  function paintMeta() {
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (!m) return;
+    var bar = localStorage.getItem("cad-corps-bar");
+    m.content = bar ? bar : (effective() === "dark" ? "#0a2537" : "#0a3f6b");
+  }
+  function set(next) {
+    if (next === "auto") { delete root.dataset.theme; localStorage.removeItem("cad-theme"); }
+    else { root.dataset.theme = next; localStorage.setItem("cad-theme", next); }
+    paintMeta();
+  }
+  var mq = matchMedia("(prefers-color-scheme: dark)");
+  if (mq.addEventListener) mq.addEventListener("change", paintMeta);
+  paintMeta();
+  return { effective: effective, mode: mode, set: set, paintMeta: paintMeta };
+})();
+// footer install link → the friendly Add-to-Home-Screen sheet (window.CadInstall,
+// from install.js). Capture the native prompt early here too, since
+// beforeinstallprompt can fire before install.js loads.
+(function () {
+  addEventListener("beforeinstallprompt", e => { e.preventDefault(); window.__cadInstallEvent = e; });
+  const btn = document.getElementById("installBtn");
+  if (!btn) return;
+  const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  btn.hidden = !!standalone;
+  btn.addEventListener("click", e => { e.preventDefault(); if (window.CadInstall) window.CadInstall.open(); });
+  addEventListener("appinstalled", () => { btn.hidden = true; });
+})();
+// score alerts: Web Push via the Cadence push relay — exposed as window.CadPush
+// so the footer button and the Settings page drive the same subscription.
+window.CadPush = (function () {
+  var SERVER = "https://cadenceapp.up.railway.app";
+  var canPush = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+  var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  var listeners = [];
+  function standalone() { return matchMedia("(display-mode: standalone)").matches || navigator.standalone; }
+  function scope() { try { return localStorage.getItem("cad-notify-scope") || "all"; } catch (e) { return "all"; } }
+  function classes() { try { var v = JSON.parse(localStorage.getItem("cad-notify-classes") || "null"); return Array.isArray(v) ? v : null; } catch (e) { return null; } }
+  function setClasses(arr) { try { localStorage.setItem("cad-notify-classes", JSON.stringify(arr || [])); } catch (e) {} syncSub(); emit(); }
+  function emit() { listeners.forEach(function (cb) { try { cb(); } catch (e) {} }); }
+  function b64(s) {
+    var pad = "=".repeat((4 - s.length % 4) % 4);
+    var raw = atob((s + pad).replace(/-/g, "+").replace(/_/g, "/"));
+    return Uint8Array.from([].map.call(raw, function (c) { return c.charCodeAt(0); }));
+  }
+  async function getSub() {
+    if (!canPush) return null;
+    try { var reg = await navigator.serviceWorker.ready; return await reg.pushManager.getSubscription(); }
+    catch (e) { return null; }
+  }
+  function favList() { try { return JSON.parse(localStorage.getItem("cad-favs") || "[]"); } catch (e) { return []; } }
+  function post(path, body) {
+    return fetch(SERVER + path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+  }
+  async function status() {
+    if (!canPush) return isIOS && !standalone() ? "ios-install" : "unsupported";
+    return (await getSub()) ? "on" : "off";
+  }
+  async function enable() {
+    if (!canPush) return { ok: false, reason: isIOS && !standalone()
+      ? "Score alerts on iPhone/iPad need the app installed first:\n\n1. Tap Share → 'Add to Home Screen'\n2. Open Cadence from your home screen\n3. Turn on Score alerts again"
+      : "This browser doesn't support notifications." };
+    var vapid;
+    try { vapid = (await (await fetch(SERVER + "/vapid")).json()).key; }
+    catch (e) { return { ok: false, reason: "The alert server isn't reachable right now — try again in a bit." }; }
+    var perm = await Notification.requestPermission();
+    if (perm !== "granted") { emit(); return { ok: false }; }
+    try {
+      var reg = await navigator.serviceWorker.ready;
+      var sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(vapid) });
+      await post("/subscribe", { subscription: sub.toJSON(), favs: favList(), favsOnly: scope() === "favs", classes: classes() });
+      // prove the whole chain end-to-end; the delay lets the user background
+      // the app first (iOS won't banner a push that lands while it's on screen)
+      post("/test", { endpoint: sub.endpoint, delay: 12000 }).catch(function () {});
+      emit();
+      return { ok: true, test: true };
+    } catch (e) { return { ok: false, reason: "Couldn't turn on alerts: " + e.message }; }
+  }
+  async function disable() {
+    var sub = await getSub();
+    if (sub) {
+      try { await post("/unsubscribe", { endpoint: sub.endpoint }); } catch (e) {}
+      try { await sub.unsubscribe(); } catch (e) {}
+    }
+    emit();
+  }
+  function setScope(v) { try { localStorage.setItem("cad-notify-scope", v); } catch (e) {} syncSub(); emit(); }
+  // self-healing: every app open re-registers the subscription (and fresh
+  // ★ favorites) with the relay; if the relay's push key rotated since we
+  // subscribed, silently resubscribe under the new key
+  async function syncSub() {
+    if (!canPush || Notification.permission !== "granted") return;
+    var reg, sub;
+    try { reg = await navigator.serviceWorker.ready; sub = await reg.pushManager.getSubscription(); }
+    catch (e) { return; }
+    if (!sub) return; // alerts are off — respect that
+    var vapid;
+    try { vapid = (await (await fetch(SERVER + "/vapid")).json()).key; } catch (e) { return; }
+    try {
+      var cur = sub.options.applicationServerKey
+        ? btoa(String.fromCharCode.apply(null, new Uint8Array(sub.options.applicationServerKey)))
+            .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "")
+        : null;
+      if (cur && cur !== vapid) {
+        await sub.unsubscribe();
+        sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(vapid) });
+      }
+      await post("/subscribe", { subscription: sub.toJSON(), favs: favList(), favsOnly: scope() === "favs", classes: classes() });
+    } catch (e) { /* next open retries */ }
+  }
+  syncSub();
+  return {
+    supported: function () { return canPush; }, isIOS: function () { return isIOS; }, standalone: standalone,
+    status: status, enable: enable, disable: disable, scope: scope, setScope: setScope,
+    classes: classes, setClasses: setClasses,
+    onChange: function (cb) { listeners.push(cb); },
+  };
+})();
+// Ask Cadence — the scores assistant. Sends a plain-English question to the
+// relay's /ask, which grounds Claude on the published scores. Exposed as
+// window.CadAsk so the #/ask view can drive it.
+window.CadAsk = (function () {
+  var SERVER = "https://cadenceapp.up.railway.app";
+  async function ask(q, opts) {
+    opts = opts || {};
+    var r = await fetch(SERVER + "/ask", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ q: q, year: opts.year, history: opts.history || [] }),
+    });
+    var data = {};
+    try { data = await r.json(); } catch (e) {}
+    if (!r.ok) throw new Error(data.error || ("The assistant is unavailable (" + r.status + ")."));
+    return data;
+  }
+  return { ask: ask };
+})();
+// footer score-alerts button — a shortcut into the same subscription CadPush owns
+(function () {
+  var btn = document.getElementById("pushBtn");
+  if (!btn || !window.CadPush) return;
+  async function paint() {
+    var s = await CadPush.status();
+    btn.innerHTML = s === "on" ? "<b>🔕 Score alerts on</b> — tap to turn off"
+      : s === "ios-install" ? "<b>🔔 Score alerts</b> — on iPhone, install the app first · tap for steps"
+      : s === "unsupported" ? "<b>🔔 Score alerts</b> — not supported in this browser"
+      : "<b>🔔 Score alerts</b> — get a ping when scores drop";
+  }
+  CadPush.onChange(paint);
+  btn.addEventListener("click", async function (e) {
+    e.preventDefault();
+    var s = await CadPush.status();
+    if (s === "on") { await CadPush.disable(); await paint(); return; }
+    var r = await CadPush.enable();
+    if (r && r.ok && r.test) btn.innerHTML = "<b>✅ Alerts on!</b> — test ping in ~15 s, lock your screen or go home to see it";
+    else if (r && r.reason) alert(r.reason);
+    setTimeout(paint, 20000);
+  });
+  paint();
+})();
+</script>
+<!-- Temporary DCI World Championships "Championship Mode" (Aug 6–8, 2026). Self-contained; remove champ.js + this tag + its SW cache entry to retire. -->
+<script src="champ.js"></script>
+<!-- Shareable "Wrapped" image cards — season cards, daily recaps & this-day-in-history. Self-contained. Must load before recap.js. -->
+<script src="wrapped.js"></script>
+<!-- Daily Recaps — nightly show-day card deck + a browsable archive. Renders via wrapped.js. Self-contained. -->
+<script src="recap.js"></script>
+<!-- Hidden "Keep the Beat" mini-game (tap the logo 3× fast). Self-contained. -->
+<script src="arcade.js"></script>
+<!-- Add-to-Home-Screen helper: obvious iOS instructions + occasional nudge. Self-contained. -->
+<script src="install.js"></script>
+</body>
+</html>

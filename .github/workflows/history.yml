@@ -1,0 +1,79 @@
+name: Pre-2013 history backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_fetches:
+        description: "Max live page fetches this run"
+        default: "2000"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scraper/requirements.txt
+      - name: Run history chunk
+        run: bash scraper/run_all.sh history
+        env:
+          MAX_FETCHES: ${{ inputs.max_fetches || '2000' }}
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "dci-tracker-bot"
+          git config user.email "actions@users.noreply.github.com"
+          # 1) commit ONLY scrape inputs (data/). docs/data is a build product:
+          #    it must never be merged — it is rebuilt from merged inputs below.
+          git add -A data
+          git diff --cached --quiet || git commit -m "History chunk: $(date -u +'%F %H:%M') UTC (inputs)"
+          # the scrape-time build left docs/data modified in the working tree;
+          # drop those changes (docs/data regenerates from merged inputs below)
+          git checkout -- . 2>/dev/null || true
+          git clean -fd docs/data 2>/dev/null || true
+          for i in 1 2 3 4; do
+            if ! git pull --rebase -X theirs origin main; then
+              git rebase --abort 2>/dev/null || true
+              sleep $((5 * i))
+              continue
+            fi
+            # 2) regenerate site data from the merged inputs, commit, push
+            python scraper/build_data.py
+            git add -A data docs/data
+            git diff --cached --quiet || git commit -m "History chunk: $(date -u +'%F %H:%M') UTC"
+            git push && exit 0
+            sleep $((5 * i))
+          done
+          echo "::error::could not push results after retries"
+          exit 1
+      - name: Save scrape output if push failed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scrape-data-${{ github.run_id }}
+          path: |
+            data/parsed
+            data/scrape_report.txt
+          retention-days: 3
+
+  deploy:
+    needs: history
+    uses: ./.github/workflows/pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
