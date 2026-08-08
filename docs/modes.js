@@ -13,6 +13,11 @@
     if (path.indexOf("/wgi/winds") >= 0) return "wgi-winds";
     if (path.indexOf("/boa") >= 0) return "boa";
     if (path.indexOf("/usbands") >= 0) return "usb";
+    if (path.indexOf("/uil") >= 0) return "uil";
+    if (path.indexOf("/issma") >= 0) return "issma";
+    if (path.indexOf("/wgasc") >= 0) return "wgasc";
+    if (path.indexOf("/tcgc") >= 0) return "tcgc";
+    if (path.indexOf("/ffcc") >= 0) return "ffcc";
     return "dci";
   }
   var cur = here();
@@ -34,6 +39,12 @@
     { head: "Marching band" },
     { id: "boa", icon: "🎺", name: "Bands of America", sub: "Live · 2024–25 real seasons", href: base + "/boa/", indent: true },
     { id: "usb", icon: "🎼", name: "US Bands", sub: "Live · 2024–25 real seasons", href: base + "/usbands/", indent: true },
+    { id: "uil", icon: "🤠", name: "UIL Texas", sub: "Ratings 2005–25 · state results to 1979", href: base + "/uil/", indent: true },
+    { id: "issma", icon: "🏵", name: "ISSMA", sub: "Indiana State Finals since 1973", href: base + "/issma/", indent: true },
+    { head: "Regional indoor" },
+    { id: "wgasc", icon: "🌟", name: "WGASC", sub: "SoCal winter guard · live captions", href: base + "/wgasc/", indent: true },
+    { id: "tcgc", icon: "🤠", name: "TCGC", sub: "Texas color guard · 13 real seasons", href: base + "/tcgc/", indent: true },
+    { id: "ffcc", icon: "🌴", name: "FFCC", sub: "Florida guard, perc & winds", href: base + "/ffcc/", indent: true },
   ];
 
   var css = [
