@@ -75,7 +75,7 @@ PDF_CACHE = ROOT / "data" / "raw" / "boa_pdf"
 PARSED_CACHE = ROOT / "data" / "parsed" / "boa_recaps"
 CAPTIONS_DIR = DOCS_BOA / "captions"
 BACKFILL_REPORT = ROOT / "data" / "boa_backfill_report.json"
-PARSE_VERSION = 3   # bump to invalidate the parsed-recap memo cache
+PARSE_VERSION = 4   # bump to invalidate the parsed-recap memo cache
 MAX_INDEX_PAGES = 40  # the archive is 22 pages today; headroom for growth
 
 # docs/boa/data/captions/ column order — same structural schema as the DCI
@@ -184,10 +184,13 @@ def round_guess(href: str) -> str:
     f = href.rsplit("/", 1)[-1].lower()
     if "semi" in f:
         return "Semifinals"
-    if "prelim" in f:
+    if re.search(r"prel|prlm|pre[_.]", f):
         return "Prelims"
-    if "final" in f:
+    if re.search(r"fin|final", f):
         return "Finals"
+    # 2001-2011 uploads end in a bare p/f code: "2003.10.18txarp.pdf"
+    if re.search(r"[a-z0-9]p\.pdf$", f) and not f.endswith("recap.pdf"):
+        return "Prelims"
     return "Finals"
 
 
@@ -200,13 +203,15 @@ def event_pdfs(ev: dict, *, force: bool = True) -> dict:
         title = norm_space(m.group(1))
     pdfs, other = [], []
     for href in dict.fromkeys(PDF_URL_RE.findall(html)):
-        # results PDFs are not consistently named "recap" (e.g.
-        # SATX-Finals-Saturday.pdf, NorthTexasPrelims.pdf) — accept any
-        # round-ish name; the row parser validates the content anyway.
-        if re.search(r"recap|prelim|semi|final", href.lower()):
-            pdfs.append({"href": href, "round_guess": round_guess(href)})
-        else:
+        # results PDFs are wildly inconsistently named ("SATX-Finals-Saturday",
+        # "2003.10.18txarp", "1991.classA", "1985whitewater") — accept every
+        # linked PDF except obvious non-results; the row parser validates the
+        # content anyway, so a stray program booklet just parses to nothing.
+        if re.search(r"schedule|program|map|press|itinerar|ticket|patron|handbook|logo",
+                     href.lower()):
             other.append(href)
+        else:
+            pdfs.append({"href": href, "round_guess": round_guess(href)})
     return {"title": title, "pdfs": pdfs, "other_pdfs": other}
 
 
@@ -226,7 +231,7 @@ ALT_NAME_RE = re.compile(r"^((?:19|20)\d{2})\s+(.{4,}?)(?:\s+at\s+(.+?))?\s*$")
 ALT_DATE_RE = re.compile(r"^(.*\S)\s+-\s+(.+?)\s*$")
 # the round is its own line in the modern layout ("Finals"); the 2015–2022
 # generation appends "Recap" ("Semi-Finals Recap")
-ROUND_RE = re.compile(r"^\s*(Prelims|Preliminaries|Semi-?\s?Finals?|Semifinals|Finals)(?:\s+Recap)?\s*$", re.M | re.I)
+ROUND_RE = re.compile(r"^\s*(?:Class\s+\S+\s+)?(Prelims|Preliminaries|Semi-?\s?Finals?|Semifinals|Finals)(?:\s+Recap)?(?:\s+Panel\s+\d+)?\s*$", re.M | re.I)
 # 2015-era header prints the date as a bare "11/14/15" line
 NUM_DATE_RE = re.compile(r"^(\d{1,2})/(\d{1,2})/(\d{2,4})$")
 # One scored band per line:  [order-no] <name> - <ST> [Block X - Panel N]
@@ -236,7 +241,16 @@ ROW_RE = re.compile(
     r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){4,})\s+"
     r"(?:(?P<rating>I{1,3})\s+)?"
     r"(?:(?P<crank>\d{1,3})\s+(?P<cls>[1-4]A|A{1,4})\s+)?"
-    r"(?:(?P<prank>\d{1,3})\s+)?"  # 2018-21 prelims add a "Place in Panel"
+    r"(?P<orank>\d{1,3})\s*$")
+# 2018-21 prelims insert a "Place in Panel" between class and overall; the
+# mandatory roman rating keeps this from swallowing the 90s reversed tails
+# ("29 AAA 14 3" = Overall Class InClass Rating), which ROW_RE2 owns.
+ROW_RE_PANEL = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){4,})\s+"
+    r"(?P<rating>I{1,3})\s+"
+    r"(?P<crank>\d{1,3})\s+(?P<cls>[1-4]A|A{1,4})\s+"
+    r"\d{1,3}\s+"  # place in panel (not kept)
     r"(?P<orank>\d{1,3})\s*$")
 # 1981–1996 generation: pen printed as a bare integer ("0", "1") which breaks
 # ROW_RE's float run, the name/state often has no separator ("Norwell H.S. IN"),
@@ -276,6 +290,13 @@ ROW_RE5 = re.compile(
     r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
     r"(?P<n1>\d{1,3})\s+"
     r"(?P<cls>[1-4]A|A{1,4}|Open)\s*$")
+# 1983 Summer Nationals: tail is "Class InClass Overall"
+ROW_RE6 = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
+    r"(?P<cls>[1-4]A|A{1,4}|Open)\s+"
+    r"(?P<crank>\d{1,3})\s+"
+    r"(?P<orank>\d{1,3})\s*$")
 BLOCK_RE = re.compile(r"\s+Block\s+\S+\s+-\s+Panel\s+\d+$", re.I)
 ORDER_RE = re.compile(r"^\d{1,3}\s+(?=\S)")
 NAME_ST_RE = re.compile(r"^(.*\S)\s*(?:\s+-\s+|,\s+)([A-Z]{2})$")
@@ -311,6 +332,11 @@ def _parse_datepart(s: str, year_hint: int | None) -> str | None:
         if mo and yr and 1 <= dy <= 31:
             return f"{yr:04d}-{mo:02d}-{dy:02d}"
         return None
+    m = re.match(r"^(\d{1,2})\s+([A-Za-z.]+)$", s)  # "31 October"
+    if m and _month_num(m.group(2)):
+        yr, mo, dy = year_hint, _month_num(m.group(2)), int(m.group(1))
+        if yr and 1 <= dy <= 31:
+            return f"{yr:04d}-{mo:02d}-{dy:02d}"
     m = re.match(r"^(\d{1,2})[/-](\d{1,2})"
                  r"(?:\s*-\s*(?:(\d{1,2})/)?(\d{1,2}))?"
                  r"(?:/(\d{2,4}))?$", s)
@@ -428,14 +454,14 @@ def parse_recap(pdf_path: Path) -> dict | None:
     tail5_is_crank = bool(re.search(r"in Class\s+Class\s*$", text, re.M))
     for ln in lines:
         s = ln.strip()
-        m = ROW_RE.match(s)
+        m = ROW_RE.match(s) or ROW_RE_PANEL.match(s)
         if m:
             nums = [float(x) for x in m.group("nums").split()]
             pre_raw, rating = m.group("pre"), m.group("rating")
             cls_raw, crank, orank = m.group("cls"), m.group("crank"), m.group("orank")
         else:
             m2 = (ROW_RE3.match(s) or ROW_RE2.match(s) or ROW_RE4.match(s)
-                  or ROW_RE5.match(s))
+                  or ROW_RE5.match(s) or ROW_RE6.match(s))
             if not m2:
                 continue
             gd = m2.groupdict()

@@ -308,11 +308,11 @@ def main() -> None:
 
     # wrapped.js: share cards print the family app's own URL, not DCI-Tracker's
     wj = (ROOT / "docs" / "wrapped.js").read_text()
-    wj = sub_once(wj, 'var SITE_URL = "https://lukebesel.github.io/DCI-Tracker";',
-                  'var SITE_URL = (window.APP_CFG && window.APP_CFG.siteUrl) || "https://lukebesel.github.io/Cadence-Labs";',
+    wj = sub_once(wj, 'var SITE_URL = "https://cadenceperformingarts.github.io/Cadence-Labs";',
+                  'var SITE_URL = (window.APP_CFG && window.APP_CFG.siteUrl) || "https://cadenceperformingarts.github.io/Cadence-Labs";',
                   "wrapped url")
-    wj = sub_once(wj, 'var SITE_LABEL = "lukebesel.github.io/DCI-Tracker";',
-                  'var SITE_LABEL = (window.APP_CFG && window.APP_CFG.siteLabel) || "lukebesel.github.io/Cadence-Labs";',
+    wj = sub_once(wj, 'var SITE_LABEL = "cadenceperformingarts.github.io/Cadence-Labs";',
+                  'var SITE_LABEL = (window.APP_CFG && window.APP_CFG.siteLabel) || "cadenceperformingarts.github.io/Cadence-Labs";',
                   "wrapped label")
     (OUT_DIR / "wrapped.js").write_text(wj)
 

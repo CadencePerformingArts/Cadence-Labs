@@ -117,10 +117,13 @@ def norm_class(name: str) -> str:
 
 def display_name(unit: str) -> str:
     n = norm_space(htmllib.unescape(unit or ""))
+    # guest performers carry a real judged score — keep the row, thread the
+    # ensemble's identity by stripping the tag
+    n = re.sub(r"\s*\((?:guest|exhibition)\)\s*$", "", n, flags=re.I)
     n = re.sub(r"\bH\.?\s?S\.?(?=$|\s)", "HS", n)
     n = re.sub(r"\bHigh School\b", "HS", n)
     n = re.sub(r"\bMiddle School\b", "MS", n)
-    return norm_space(n).rstrip(",")
+    return norm_space(n).rstrip("*+^~, ")
 
 
 # display order: guard classes best-first, then percussion, then winds.
@@ -176,23 +179,46 @@ def is_champ_event(name: str) -> bool:
 # caption recaps (judge-level sheets from the public recap page)
 # ---------------------------------------------------------------------------
 
-CAPTION_COLS = ["eq", "mv", "dsg", "ge1", "ge2", "ge", "pen", "tot"]
-_EQ_SET = {"e", "ea", "equipment", "equipment analysis"}
-_MV_SET = {"m", "ma", "movement", "movement analysis"}
-_DSG_SET = {"da", "design", "design analysis"}
+# Superset of every TCGC sheet family (verified live against real recaps):
+#   guard:        eq / mv / dsg / ge (ge1+ge2 judge totals where doubled)
+#   guard 2013:   ge / pa / vis   (General Effect, Performance Analysis, Visual)
+#   percussion:   em / ev / mus / vis; concert percussion: em / mus
+#   perc 2013:    perf / art      (Performance, Artistry)
+#   winds:        oe / ma / va
+# A class only ever fills its own sheet's columns; the rest stay null.
+CAPTION_COLS = ["eq", "mv", "dsg", "ge1", "ge2", "ge", "pa", "em", "ev", "oe",
+                "ma", "mus", "va", "vis", "perf", "art", "pen", "tot"]
+# normalized caption-group heading -> column ("Ensemble Analysis" was the
+# design caption's name on early-2010s guard sheets)
+COLMAP = {
+    "e": "eq", "equipment": "eq", "equipment analysis": "eq",
+    "m": "mv", "movement": "mv", "movement analysis": "mv",
+    "da": "dsg", "design": "dsg", "design analysis": "dsg", "ensemble analysis": "dsg",
+    "ge": "ge", "general effect": "ge",
+    "pa": "pa", "performance analysis": "pa",
+    "effect - music": "em", "effect-music": "em", "effect": "em",
+    "effect - visual": "ev", "effect-visual": "ev",
+    "overall effect": "oe",
+    "music analysis": "ma", "music": "mus",
+    "visual analysis": "va", "visual": "vis",
+    "performance": "perf", "artistry": "art",
+}
+UNMAPPED_GROUPS: set[str] = set()   # reported by ingest so sheet drift is visible
 
 _SECT = re.compile(r"<a name='(?:round|division)_([0-9a-f-]{36})'")
 _TR = re.compile(r"<tr\b.*?</tr>", re.S)
 _CELL = re.compile(r"<td\b([^>]*)>(.*?)</td>", re.S)
-# unit row: name cell + location cell (location text may be blank), both
-# 'content topBorder rightBorderDouble' — TCGC recaps put a style attribute on
-# these cells, which is why scrape_compsuite's stricter _ANCHOR is not reused
+# unit row: name cell, then an optional location cell (blank on many rows,
+# absent entirely on 2013-era sheets), both 'content topBorder
+# rightBorderDouble' — TCGC recaps put a style attribute on these cells, which
+# is why scrape_compsuite's stricter _ANCHOR is not reused
 _ANCH = re.compile(r"<td class='content topBorder rightBorderDouble'[^>]*>\s*(?:<a[^>]*>)?"
-                   r"([^<]+?)\s*(?:</a>)?\s*</td>\s*"
-                   r"<td class='content topBorder rightBorderDouble'[^>]*>([^<]*)</td>")
+                   r"([^<]+?)\s*(?:</a>)?\s*</td>"
+                   r"(?:\s*<td class='content topBorder rightBorderDouble'[^>]*>[^<]*</td>)?")
 
 
-def _cells(row: str) -> list[tuple[str, int, int]]:
+def _cells(row: str) -> list[tuple[str, int, int, bool]]:
+    """(text, colspan, rowspan, is_caption_group) per <td>."""
     out = []
     for m in _CELL.finditer(row):
         attrs, inner = m.group(1), m.group(2)
@@ -200,34 +226,40 @@ def _cells(row: str) -> list[tuple[str, int, int]]:
         rsn = re.search(r"rowspan='?\"?(\d+)", attrs)
         txt = re.sub(r"<[^>]+>", " ", inner)
         txt = norm_space(htmllib.unescape(txt).replace("\xa0", " "))
-        out.append((txt, int(csn.group(1)) if csn else 1, int(rsn.group(1)) if rsn else 1))
+        out.append((txt, int(csn.group(1)) if csn else 1,
+                    int(rsn.group(1)) if rsn else 1, "captionTotal" in attrs))
     return out
 
 
 def _leaf_layout(sec: str) -> list[tuple[str, str]] | None:
     """[(group, leaf-label)] per data-row score cell, from the sheet's header
-    rows: groups row (colspans name the caption blocks; rowspan cells like
-    Sub Total / Total are their own single columns) + leaf-labels row."""
+    rows: the groups row names the caption blocks in captionTotal-classed cells
+    (colspan = leaf count); rowspan cells like Sub Total / Total are their own
+    single columns. Cells before the first caption group are the unit-name /
+    location / flight-label placeholders and contribute no score cells."""
     a0 = _ANCH.search(sec)
     trs = _TR.findall(sec[:a0.start()]) if a0 else []
     if len(trs) < 3:
         return None
-    grow, _jrow, crow = ([c for c in (_cells(t) for t in trs)][-3:])
-    leaf_q = [t for t, csn, _ in crow for _ in range(csn)]
+    grow, crow = _cells(trs[-3]), _cells(trs[-1])
+    leaf_q = [t for t, csn, _, _ in crow for _ in range(csn)]
     layout: list[tuple[str, str]] = []
     started = False
-    for txt, csn, rsn in grow:
-        if not started and not txt:
-            continue  # leading unit-name / location placeholders
+    for txt, csn, rsn, grp in grow:
+        if not started and not grp:
+            continue
         started = True
-        if rsn > 1:
-            layout.append((txt, txt))       # Sub Total / Total columns
-        else:
+        if grp:
             for _ in range(csn):
                 if not leaf_q:
                     return None
                 layout.append((txt, leaf_q.pop(0)))
-    return layout if not leaf_q else None
+        else:
+            layout.append((txt, txt))       # Sub Total / Total columns
+    return layout if layout and not leaf_q else None
+
+
+_SCORE_TXT = re.compile(r"class='content score'[^>]*>\s*([^<]*?)\s*<")
 
 
 def _num(raw: str) -> float | None:
@@ -241,12 +273,12 @@ def _num(raw: str) -> float | None:
 
 
 def parse_recap_captions(html_page: str) -> dict[str, list[dict]]:
-    """Competition recap page -> {round_guid: [{corps, eq, mv, dsg, ge1, ge2,
-    ge, pen, tot}]} for rounds judged on the guard sheet (Equipment / Movement /
-    Design Analysis / General Effect). Percussion & winds sheets use different
-    captions and are skipped. Every row must reconcile arithmetically
-    (eq+mv+dsg+ge-pen == tot ±0.05) or it is dropped — a mis-parse can never
-    surface as a wrong score."""
+    """Competition recap page -> {round_guid: [{corps, <caption cols>, pen,
+    tot}]}. Sheet-agnostic: caption groups are read from the section's own
+    header and mapped through COLMAP, so guard, percussion and winds sheets of
+    every era all parse. Every row must reconcile arithmetically against the
+    sheet's own Sub Total / Total columns (some sheets scale the caption sum
+    ×1.25) or it is dropped — a mis-parse can never surface as a wrong score."""
     out: dict[str, list[dict]] = {}
     secs = [(m.start(), m.group(1)) for m in _SECT.finditer(html_page)]
     for k, (pos, guid) in enumerate(secs):
@@ -255,29 +287,43 @@ def parse_recap_captions(html_page: str) -> dict[str, list[dict]]:
         layout = _leaf_layout(sec)
         if not layout:
             continue
-        idx: dict[str, int | None] = {c: None for c in CAPTION_COLS}
-        ge_tots = []
+        # caption-group runs (consecutive leaves sharing a heading) + specials
+        runs: list[tuple[str, list[int]]] = []
+        pen_leaves: list[tuple[str, int]] = []
+        i_sub = i_tot = None
         for i, (g, leaf) in enumerate(layout):
-            gl, ll = g.lower().rstrip("*"), leaf.lower().lstrip("*")
-            is_tot = ll in ("tot", "tot.")
-            if gl in _EQ_SET and is_tot:
-                idx["eq"] = i
-            elif gl in _MV_SET and is_tot:
-                idx["mv"] = i
-            elif gl in _DSG_SET and is_tot:
-                idx["dsg"] = i
-            elif ("effect" in gl or gl == "ge") and is_tot:
-                ge_tots.append(i)
-            elif ("penal" in gl or "timing" in gl):
-                idx["pen"] = i
+            gl = norm_space(g.lower().strip("*"))
+            if "penal" in gl or "timing" in gl:
+                pen_leaves.append((leaf.lower().strip("* ."), i))
+            elif gl.startswith("sub"):
+                i_sub = i
             elif gl.startswith("total"):
-                idx["tot"] = i
-        if len(ge_tots) >= 2:
-            idx["ge1"], idx["ge2"], idx["ge"] = ge_tots[0], ge_tots[1], ge_tots[-1]
-        elif ge_tots:
-            idx["ge"] = ge_tots[0]
-        if any(idx[c] is None for c in ("eq", "mv", "dsg", "ge", "tot")):
-            continue  # not the guard sheet
+                i_tot = i
+            elif gl:
+                if not runs or runs[-1][0] != gl:
+                    runs.append((gl, []))
+                runs[-1][1].append(i)
+        if i_tot is None or len(runs) < 2:
+            continue
+        i_pen = None
+        if pen_leaves:   # prefer the group's Tot column, else its Pen column
+            tots = [i for ll, i in pen_leaves if ll == "tot"]
+            i_pen = tots[-1] if tots else pen_leaves[-1][1]
+        # per group: judge sub-totals + the combined caption total (last Tot)
+        caption_idx: list[tuple[str | None, int, list[int]]] = []
+        ok_sheet = True
+        for gl, leaf_idx in runs:
+            tots = [i for i in leaf_idx
+                    if layout[i][1].lower().strip("* .") in ("tot", "total")]
+            if not tots:
+                ok_sheet = False
+                break
+            col = COLMAP.get(gl)
+            if col is None:
+                UNMAPPED_GROUPS.add(gl)
+            caption_idx.append((col, tots[-1], tots[:-1]))
+        if not ok_sheet:
+            continue
         anchors = list(_ANCH.finditer(sec))
         rows = []
         for j, a in enumerate(anchors):
@@ -285,17 +331,39 @@ def parse_recap_captions(html_page: str) -> dict[str, list[dict]]:
             vals = []
             for cell in cs._SCORE_CELL.finditer(sec[a.end():aend]):
                 nm = cs._NUM.search(cell.group(2))
+                if not nm:  # 2013-era sheets carry the value as plain cell text
+                    nm = _SCORE_TXT.search(cell.group(2))
                 vals.append(_num(nm.group(1)) if nm else None)
             if len(vals) != len(layout):
                 continue
-            take = {c: (vals[idx[c]] if idx[c] is not None else None) for c in CAPTION_COLS}
-            need = [take[c] for c in ("eq", "mv", "dsg", "ge", "tot")]
-            if any(v is None for v in need):
+            take: dict[str, float | None] = {c: None for c in CAPTION_COLS}
+            base = 0.0
+            complete = True
+            for col, i_val, judge_tots in caption_idx:
+                v = vals[i_val]
+                if v is None:
+                    complete = False
+                    break
+                base += v
+                if col:
+                    take[col] = v
+                if col == "ge" and len(judge_tots) >= 2:
+                    take["ge1"], take["ge2"] = vals[judge_tots[0]], vals[judge_tots[1]]
+            tot = vals[i_tot]
+            if not complete or tot is None:
                 continue
-            pen = take["pen"] or 0.0
-            if abs(take["eq"] + take["mv"] + take["dsg"] + take["ge"] - pen - take["tot"]) > 0.051:
+            # 2013 sheets print penalties negative — store magnitude
+            pen = abs(vals[i_pen] or 0.0) if i_pen is not None else 0.0
+            sub = vals[i_sub] if i_sub is not None else None
+            take["pen"], take["tot"] = pen, tot
+            if sub is not None:
+                ok = (any(abs(f * base - sub) <= 0.06 for f in (1.0, 1.25))
+                      and abs(sub - pen - tot) <= 0.051)
+            else:
+                ok = any(abs(f * base - pen - tot) <= 0.06 for f in (1.0, 1.25))
+            if not ok or tot < SCORE_MIN:
                 continue
-            rows.append({"corps": display_name(a.group(1)), **take, "pen": pen})
+            rows.append({"corps": display_name(a.group(1)), **take})
         if rows:
             out[guid] = rows
     return out
@@ -361,16 +429,19 @@ def parse_competition(comp: dict, year: int, *, force: bool = False,
     if not classes_out:
         return None
 
-    captions = []
+    captions: list[dict] = []
     recap_html = fetch(f"{RECAPS}/{guid}.htm", force=force)
     if recap_html:
-        by_round = parse_recap_captions(recap_html)
-        for rguid, rows in by_round.items():
+        best: dict[tuple[str, str], dict] = {}   # one row per class+unit
+        for rguid, rows in parse_recap_captions(recap_html).items():
             cls = round_cls.get(rguid)
             if not cls:
                 continue
             for r in rows:
-                captions.append({"cls": cls, **r})
+                key = (cls, r["corps"])
+                if key not in best or r["tot"] > best[key]["tot"]:
+                    best[key] = {"cls": cls, **r}
+        captions = list(best.values())
 
     return {"name": name, "date": date,
             "venue": norm_space(comp.get("location") or "") or None,
@@ -400,6 +471,10 @@ def ingest_season(year: int, *, force: bool = False) -> list[dict] | None:
                 f"{len(ev['captions'])} caption rows")
     for k, v in stats.items():
         log(f"tcgc {year}: {k}: {len(v)} — {v[:4]}")
+    if UNMAPPED_GROUPS:
+        log(f"tcgc {year}: caption groups without a column (values verified but "
+            f"not exported): {sorted(UNMAPPED_GROUPS)}")
+        UNMAPPED_GROUPS.clear()
     n_rows = sum(len(c["results"]) for e in events for c in e["classes"])
     if len(events) < 5 or n_rows < 100:
         log(f"tcgc {year}: validation FAILED ({len(events)} events, {n_rows} rows) — season not stored")
@@ -627,11 +702,13 @@ def ingest(year: int, *, force: bool = False) -> int:
 
 def ingest_all(*, force_latest: bool = False) -> int:
     store = load_store()
+    DOCS.mkdir(parents=True, exist_ok=True)
     ok = 0
     for year in sorted(SEASONS):
         events = ingest_season(year, force=force_latest and year == max(SEASONS))
         if events is not None:
             store.setdefault("years", {})[str(year)] = events
+            STORE.write_text(json.dumps(store))   # survive an interrupted run
             ok += 1
     if not ok:
         return 1

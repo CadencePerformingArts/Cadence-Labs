@@ -153,8 +153,8 @@ def page(key: str, c: dict) -> str:
         "terms": c["terms"],
         "eventsTitle": c["events_title"],
         "scoreNote": c.get("score_note"),
-        "siteUrl": f"https://lukebesel.github.io/Cadence-Labs/{key}",
-        "siteLabel": "lukebesel.github.io/Cadence-Labs",
+        "siteUrl": f"https://cadenceperformingarts.github.io/Cadence-Labs/{key}",
+        "siteLabel": "cadenceperformingarts.github.io/Cadence-Labs",
     }
     activity_chip = (
         f'<span class="fam-activity">{c["activity"]}</span>' if c["activity"] else ""

@@ -10,8 +10,8 @@ with one account, one design system and one navigation shell:
 4. 🎤 **Competitive A Cappella** (ICCA / ICHSA / The Open)
 5. 🎭 **Show Choir**
 
-**Try it in a browser:** https://lukebesel.github.io/Cadence-Labs/app/
-**Legacy DCI dashboard:** https://lukebesel.github.io/Cadence-Labs/
+**Try it in a browser:** https://cadenceperformingarts.github.io/Cadence-Labs/app/
+**Legacy DCI dashboard:** https://cadenceperformingarts.github.io/Cadence-Labs/
 
 WGI, BOA, A Cappella and Show Choir currently run on clearly-labeled
 demonstration fixtures; DCI runs on a real snapshot refreshed from the
