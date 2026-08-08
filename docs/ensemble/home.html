@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workspace — Cadence Ensemble</title>
+<meta name="description" content="Your organization's private home base in Cadence.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script>
+/* The workspace dashboard: what's happening today, what needs a response,
+   and where to go next. Every section degrades on its own — a feature whose
+   tables aren't migrated yet simply doesn't render, so the page is never
+   broken mid-rollout. */
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc;
+
+  var fmtTime = function (iso) {
+    try {
+      return new Date(iso).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+    } catch (e) { return ""; }
+  };
+  var fmtDay = function (iso) {
+    try {
+      return new Date(iso).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+    } catch (e) { return ""; }
+  };
+  var isToday = function (iso) {
+    var d = new Date(iso), n = new Date();
+    return d.getFullYear() === n.getFullYear() && d.getMonth() === n.getMonth() && d.getDate() === n.getDate();
+  };
+
+  /* every fetch is optional — a missing table means that feature isn't
+     migrated yet, which must never take the dashboard down */
+  async function tryGet(path) {
+    try { return await CadOrg.rest(path); } catch (e) { return null; }
+  }
+
+  function section(title, href, linkLabel, body) {
+    return '<div class="card"><div class="ens-h"><h2>' + title + "</h2>" +
+      (href ? '<a href="' + href + '">' + linkLabel + "</a>" : "") + "</div>" + body + "</div>";
+  }
+
+  async function render(org) {
+    var member = CadOrg.member() || {};
+    var nowIso = new Date().toISOString();
+    var soon = new Date(Date.now() + 21 * 86400000).toISOString();
+
+    var results = await Promise.all([
+      tryGet("org_events?select=id,title,kind,starts_at,location,rsvp_required&org_id=eq." + org.id +
+             "&starts_at=gte." + nowIso + "&starts_at=lte." + soon + "&order=starts_at.asc&limit=8"),
+      tryGet("posts?select=id,title,body,priority,pinned,requires_ack,created_at&org_id=eq." + org.id +
+             "&archived=is.false&order=pinned.desc,created_at.desc&limit=6"),
+      tryGet("org_group_members?select=group:org_groups(id,name,kind)&member_id=eq." + (member.id || "00000000-0000-0000-0000-000000000000")),
+      tryGet("org_files?select=id,name,created_at&org_id=eq." + org.id + "&order=created_at.desc&limit=5"),
+      tryGet("org_event_rsvps?select=event_id&member_id=eq." + (member.id || "00000000-0000-0000-0000-000000000000")),
+      tryGet("post_acks?select=post_id&member_id=eq." + (member.id || "00000000-0000-0000-0000-000000000000")),
+    ]);
+    var events = results[0] || [], posts = results[1] || [], groups = results[2] || [],
+        files = results[3] || [], rsvps = results[4] || [], acks = results[5] || [];
+
+    var rsvped = {}; rsvps.forEach(function (r) { rsvped[r.event_id] = true; });
+    var acked = {}; acks.forEach(function (a) { acked[a.post_id] = true; });
+
+    var today = events.filter(function (e) { return isToday(e.starts_at); });
+    var upcoming = events.filter(function (e) { return !isToday(e.starts_at); });
+    var important = posts.filter(function (p) { return p.priority !== "normal" || p.pinned; });
+
+    // things actually waiting on this person
+    var actions = [];
+    events.forEach(function (e) {
+      if (e.rsvp_required && !rsvped[e.id]) {
+        actions.push('<a class="ens-item" href="event.html?id=' + e.id + '" style="text-decoration:none">' +
+          '<span class="ens-when">RSVP</span><span><b>' + esc(e.title) + "</b>" +
+          '<span class="ens-sub">' + fmtDay(e.starts_at) + " · needs your response</span></span></a>");
+      }
+    });
+    posts.forEach(function (p) {
+      if (p.requires_ack && !acked[p.id]) {
+        actions.push('<a class="ens-item" href="feed.html#post-' + p.id + '" style="text-decoration:none">' +
+          '<span class="ens-when">Read</span><span><b>' + esc(p.title || "Announcement") + "</b>" +
+          '<span class="ens-sub">acknowledgment required</span></span></a>');
+      }
+    });
+
+    var quick = "";
+    if (CadOrg.canDo("announce.create")) quick += '<a class="tab" href="feed.html">Post announcement</a>';
+    if (CadOrg.canDo("event.create")) quick += '<a class="tab" href="calendar.html">Create event</a>';
+    if (CadOrg.canDo("file.upload")) quick += '<a class="tab" href="files.html">Upload files</a>';
+    if (CadOrg.can("member.manage")) quick += '<a class="tab" href="members.html">Invite members</a>';
+
+    main.innerHTML =
+      '<h1 class="page">' + esc(org.name) +
+        ' <span class="kicker">· ' + esc((CadOrg.role() || {}).name || "Member") + "</span></h1>" +
+      (quick ? '<div class="ens-quick" style="margin-bottom:14px">' + quick + "</div>" : "") +
+      '<div class="ens-grid">' +
+
+      section("Today", "calendar.html", "Calendar →",
+        today.length
+          ? today.map(function (e) {
+              return '<a class="ens-item" href="event.html?id=' + e.id + '" style="text-decoration:none">' +
+                '<span class="ens-when">' + fmtTime(e.starts_at) + "</span>" +
+                "<span><b>" + esc(e.title) + "</b>" +
+                (e.location ? '<span class="ens-sub">' + esc(e.location) + "</span>" : "") +
+                "</span></a>";
+            }).join("")
+          : '<div class="empty">Nothing scheduled today.</div>') +
+
+      (actions.length
+        ? section("Waiting on you", null, null, actions.join(""))
+        : "") +
+
+      section("Important", "feed.html", "All posts →",
+        important.length
+          ? important.map(function (p) {
+              return '<a class="ens-item" href="feed.html#post-' + p.id + '" style="text-decoration:none">' +
+                '<span class="ens-when"><span class="ens-tag ' + esc(p.priority) + '">' +
+                  (p.priority === "urgent" ? "Urgent" : p.priority === "important" ? "Important" : "Post") +
+                "</span></span><span><b>" + esc(p.title || "Announcement") + "</b>" +
+                '<span class="ens-sub">' + esc(String(p.body || "").slice(0, 90)) + "</span></span></a>";
+            }).join("")
+          : '<div class="empty">No pinned or priority announcements.</div>') +
+
+      section("Upcoming", "calendar.html", "Calendar →",
+        upcoming.length
+          ? upcoming.slice(0, 6).map(function (e) {
+              return '<a class="ens-item" href="event.html?id=' + e.id + '" style="text-decoration:none">' +
+                '<span class="ens-when">' + fmtDay(e.starts_at) + "</span>" +
+                "<span><b>" + esc(e.title) + "</b>" +
+                (e.location ? '<span class="ens-sub">' + esc(e.location) + "</span>" : "") +
+                "</span></a>";
+            }).join("")
+          : '<div class="empty">Nothing on the calendar yet.</div>') +
+
+      section("Your groups", "members.html", "Groups →",
+        groups.length
+          ? '<div class="ens-quick">' + groups.map(function (g) {
+              return g.group ? '<a class="tab" href="feed.html?group=' + g.group.id + '">' + esc(g.group.name) + "</a>" : "";
+            }).join("") + "</div>"
+          : '<div class="empty">You\'re not in any groups yet.</div>') +
+
+      section("Recent files", "files.html", "Library →",
+        files.length
+          ? files.map(function (f) {
+              return '<a class="ens-item" href="files.html#file-' + f.id + '" style="text-decoration:none">' +
+                '<span class="ens-when">' + fmtDay(f.created_at) + "</span>" +
+                "<span><b>" + esc(f.name) + "</b></span></a>";
+            }).join("")
+          : '<div class="empty">No files yet.</div>') +
+
+      "</div>";
+  }
+
+  CadOrg.start({ nav: "home" }).then(function (org) {
+    if (org) render(org);
+  });
+})();
+</script>
+</body>
+</html>
