@@ -119,21 +119,85 @@ def slug(name: str) -> str:
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", name.lower())).strip("-")
 
 
+# Monogram palette: hand-tuned dark-anchor -> vivid-accent pairs (hash-spun
+# hues drift into muddy olives/browns; a curated set never does). Each name
+# hashes to a pair, then gets a small deterministic hue spin so two ensembles
+# sharing a palette still read as distinct.
+_MONO_PAL = [
+    ("#1b2a6b", "#4263eb"),  # royal
+    ("#0b3357", "#1c7ed6"),  # ocean
+    ("#0b4a53", "#15aabf"),  # lagoon
+    ("#0c4f3f", "#12b886"),  # emerald
+    ("#1c4d2c", "#37b24d"),  # field green
+    ("#6b4400", "#f5b301"),  # gold
+    ("#77200a", "#e8590c"),  # ember
+    ("#6b1220", "#e03131"),  # crimson
+    ("#791843", "#e64980"),  # raspberry
+    ("#4c1273", "#ae3ec9"),  # violet
+    ("#35226b", "#7048e8"),  # indigo
+    ("#2b3a67", "#748ffc"),  # periwinkle
+    ("#1a1d23", "#5c6670"),  # graphite
+    ("#233a3f", "#4f9ea8"),  # steel teal
+]
+
+# words that never carry a monogram initial ("Avon HS" -> A, "Spirit of
+# Atlanta" -> SA); if stripping them leaves nothing, fall back to all words
+_MONO_NOISE = {"HS", "H.S", "HIGH", "SCHOOL", "THE", "OF", "AND"}
+
+
+def _mono_spin(hexcolor: str, deg: float) -> str:
+    import colorsys
+    r, g, b = (int(hexcolor[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    h, l, s = colorsys.rgb_to_hls(r, g, b)
+    r, g, b = colorsys.hls_to_rgb((h + deg / 360) % 1, l, s)
+    return "#%02x%02x%02x" % (round(r * 255), round(g * 255), round(b * 255))
+
+
+def _mono_initials(name: str) -> str:
+    """Real initials: hyphen/slash-aware ("Bridgewater-Raritan HS" -> BR),
+    noise-word-aware ("Pride of Cincinnati" -> PC), keeps short acronym names
+    whole ("MCM", "CGT Dallas" -> CGT), drops middle initials ("Fred J. Page
+    HS" -> FP) while keeping meaningful trailing ones ("Rhythm X" -> RX)."""
+    words = [w for w in (re.sub(r"[^A-Za-z0-9]", "", p)
+                         for p in re.split(r"[\s\-–—/]+", name)) if w]
+    core = [w for w in words if w.upper() not in _MONO_NOISE] or words
+    if core and core[0].isupper() and 2 <= len(core[0]) <= 3:
+        return core[0]
+    if len(core) > 2:
+        core = [core[0]] + [w for w in core[1:-1] if len(w) > 1] + [core[-1]]
+    ini = "".join(w[0] for w in core[:2]).upper()
+    return ini or (name.strip()[:1].upper() or "?")
+
+
 def monogram(name: str) -> str:
-    """Deterministic SVG monogram badge as a data URI. The '#logo.svg'
-    fragment satisfies the app's isLogoUrl() check; browsers ignore it."""
+    """Deterministic premium-looking SVG monogram as a data URI: two-tone
+    diagonal gradient from a curated palette, soft sheen sweep, inset bezel,
+    notched inner ring, tracked bold initials with a 1px drop shade. The
+    '#logo.svg' fragment satisfies the app's isLogoUrl() check; browsers
+    ignore it."""
     from urllib.parse import quote
-    h = jitter(name, "hue", mod=360)
-    c1, c2 = f"hsl({h},55%,30%)", f"hsl({(h + 42) % 360},75%,52%)"
-    words = [w for w in re.findall(r"[A-Za-z0-9]+", name) if w.upper() not in ("HS", "THE", "OF")]
-    ini = "".join(w[0] for w in words[:2]).upper() or name[:2].upper()
+    c1, c2 = _MONO_PAL[jitter(name, "pal", mod=len(_MONO_PAL))]
+    deg = jitter(name, "spin", mod=13) - 6
+    c1, c2 = _mono_spin(c1, deg), _mono_spin(c2, deg)
+    ini = _mono_initials(name)
+    n = len(ini)
+    fs = {1: 27, 2: 22.5}.get(n, 16.5)      # font size by initial count
+    ls = {1: 0, 2: 1.1}.get(n, 0.7)         # letter-spacing (tracking)
+    tx = 32 - ls / 2                        # re-center: trailing tracking skews anchor
+    ty = round(32 + fs * 0.355, 1)          # optical vertical center
+    text = (f"x='{tx}' y='{ty}' font-family=\"'Avenir Next','Segoe UI',system-ui,sans-serif\" "
+            f"font-size='{fs}' font-weight='700' letter-spacing='{ls}' text-anchor='middle'")
     svg = ("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
            "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>"
            f"<stop offset='0' stop-color='{c1}'/><stop offset='1' stop-color='{c2}'/>"
            "</linearGradient></defs>"
-           "<rect width='64' height='64' rx='14' fill='url(#g)'/>"
-           f"<text x='32' y='42' font-family='system-ui,sans-serif' font-size='27' "
-           f"font-weight='800' fill='#fff' text-anchor='middle'>{ini}</text></svg>")
+           "<rect width='64' height='64' rx='15' fill='url(#g)'/>"
+           "<polygon points='0 46,64 4,64 16,0 58' fill='#fff' opacity='.055'/>"
+           "<rect x='1.25' y='1.25' width='61.5' height='61.5' rx='13.75' fill='none' stroke='#fff' stroke-opacity='.16'/>"
+           "<circle cx='32' cy='32' r='24' fill='none' stroke='#fff' stroke-opacity='.38' stroke-width='1.5' "
+           "pathLength='100' stroke-dasharray='86 14' stroke-dashoffset='80.5' stroke-linecap='round'/>"
+           f"<text {text} fill='rgba(6,10,18,.35)' transform='translate(0 1)'>{ini}</text>"
+           f"<text {text} fill='#fff'>{ini}</text></svg>")
     return "data:image/svg+xml;utf8," + quote(svg, safe="") + "#logo.svg"
 
 
@@ -321,6 +385,10 @@ def main():
             print(f"{key}: LIVE data present — demo generator skipped")
             continue
         gen_instance(key, cfg)
+    # re-apply the curated real-logo overrides (data/logos/overrides.json) so
+    # a regeneration can never wipe them back to generated monograms
+    import apply_logo_overrides
+    apply_logo_overrides.main()
 
 
 if __name__ == "__main__":
