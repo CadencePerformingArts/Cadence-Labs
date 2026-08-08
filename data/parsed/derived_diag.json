@@ -3,7 +3,7 @@
  "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-finals/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-prelims/": "HTTP 200, body 187264B",
  "https://www.dci.org/scores/final-scores/2026-dci-world-championship-finals/": "HTTP 403, body 139B",
- "https://www.dci.org/scores/final-scores/2026-dci-world-championship-semifinals/": "HTTP 200, body 194035B",
+ "https://www.dci.org/scores/final-scores/2026-dci-world-championship-semifinals/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-shining-a-light-on-music-education/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-soundsport-international-music-food-festival/": "HTTP 403, body 139B"
 }
