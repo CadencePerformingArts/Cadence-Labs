@@ -16,8 +16,11 @@ season-history app for the marching arts
 Cadence began as a DCI live-scores dashboard and now covers Bands of America
 (every published recap back to 1976), US Bands, UIL Texas, and several
 regional winter circuits — always built from officially published results,
-always with attribution. Fans keep asking for one thing more than anything
-else: WGI color guard, percussion, and winds.
+always with attribution. The app is still in active development and testing
+with a small group of fans, which is exactly why I'm reaching out now: I'd
+rather set up WGI's data the right way from day one than ask forgiveness
+after we grow. Fans keep asking for one thing more than anything else: WGI
+color guard, percussion, and winds.
 
 Right now our WGI sections show only what is fully public — champions
 history and event calendars — because live WGI scores sit behind your
