@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cadence WGI — Percussion Scores & Standings</title>
-<meta name="description" content="Cadence WGI Percussion — part of the Cadence scoreboard family. Real champions history and the full 2027 schedule — live season scores pending WGI permission.">
+<meta name="description" content="Cadence WGI Percussion — part of the Cadence scoreboard family. Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors' portal, so Cadence carries no season scores — we've asked for access.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="manifest" href="manifest.webmanifest">
@@ -17,7 +17,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;
 var name=localStorage.getItem("cad-corps-theme"),css=localStorage.getItem("cad-corps-css");
 if(name&&css){var s=document.createElement("style");s.id="corpsTheme";s.textContent=css;document.head.appendChild(s);
 r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));}})();</script>
-<link rel="stylesheet" href="../../app.css?v=c67c22d1">
+<link rel="stylesheet" href="../../app.css?v=a1c5e7a6">
 <link rel="stylesheet" href="../../family/family.css?v=22b01b47">
 <style>:root { --fam-accent: #7c3aed; }</style>
 </head>
@@ -54,13 +54,13 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
 <footer class="foot">
   <div><a href="#" id="installBtn" hidden><b>📲 Get the App</b> — install Cadence WGI Percussion on this device</a></div>
   <div>Part of the <a href="../../modes.html"><b>Cadence family</b></a> — tap the Cadence logo to switch apps</div>
-  <div>Real champions history and the full 2027 schedule — live season scores pending WGI permission. Not affiliated with WGI Sport of the Arts.</div>
+  <div>Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors' portal, so Cadence carries no season scores — we've asked for access. Not affiliated with WGI Sport of the Arts.</div>
   <div class="credit">Created by Lucas Besel</div>
 </footer>
 
 <div id="tooltip" class="tooltip" hidden></div>
 <script>
-window.APP_CFG = {"appName": "Cadence WGI Percussion", "root": "../..", "captions": false, "resultsKind": null, "board": "trend", "ns": "wgi-perc:", "classOrder": ["Independent World", "Independent Open", "Scholastic World", "Scholastic Open", "Scholastic Concert World"], "combinable": [], "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"}, "eventsTitle": "Shows", "scoreNote": null, "siteUrl": "https://cadenceperformingarts.github.io/Cadence-Labs/wgi/percussion", "siteLabel": "cadenceperformingarts.github.io/Cadence-Labs"};
+window.APP_CFG = {"appName": "Cadence WGI Percussion", "root": "../..", "captions": false, "resultsKind": null, "board": "history", "ns": "wgi-perc:", "classOrder": ["Independent World", "Independent Open", "Scholastic World", "Scholastic Open", "Scholastic Concert World"], "combinable": [], "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"}, "eventsTitle": "Shows", "scoreNote": null, "siteUrl": "https://cadenceperformingarts.github.io/Cadence-Labs/wgi/percussion", "siteLabel": "cadenceperformingarts.github.io/Cadence-Labs"};
 window.CadTheme = (function () {
   var root = document.documentElement;
   function effective() {

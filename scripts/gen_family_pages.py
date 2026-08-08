@@ -14,7 +14,8 @@ DOCS = ROOT / "docs"
 
 PAGES = {
     "wgi/guard": {
-        "status": 'Real champions history and the full 2027 schedule — live season scores pending WGI permission.',
+        "board": "history",
+        "status": 'Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors\' portal, so Cadence carries no season scores — we\'ve asked for access.',
         "root": "../..",
         "title": "Cadence WGI — Color Guard Scores & Standings",
         "brand_tag": "WGI",
@@ -30,7 +31,8 @@ PAGES = {
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "wgi/percussion": {
-        "status": 'Real champions history and the full 2027 schedule — live season scores pending WGI permission.',
+        "board": "history",
+        "status": 'Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors\' portal, so Cadence carries no season scores — we\'ve asked for access.',
         "root": "../..",
         "title": "Cadence WGI — Percussion Scores & Standings",
         "brand_tag": "WGI",
@@ -46,7 +48,8 @@ PAGES = {
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "wgi/winds": {
-        "status": 'Real champions history and the full 2027 schedule — live season scores pending WGI permission.',
+        "board": "history",
+        "status": 'Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors\' portal, so Cadence carries no season scores — we\'ve asked for access.',
         "root": "../..",
         "title": "Cadence WGI — Winds Scores & Standings",
         "brand_tag": "WGI",
