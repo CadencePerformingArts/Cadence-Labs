@@ -183,9 +183,9 @@ CAPTION_COLS = ["ea", "ma", "da", "ge", "pen"]
 
 _GROUP_CELL = re.compile(
     r"<td (?:colspan='(\d+)' )?class='[^']*\bcaptionTotal\b[^']*'[^>]*>([^<]*)</td>")
-_NAME_CELL = re.compile(
+_NAME_CELL = re.compile(  # ensemble cell, optionally followed by a location cell
     r"<td class='content topBorder rightBorderDouble'[^>]*>([^<]+)</td>\s*"
-    r"<td class='content topBorder rightBorderDouble'[^>]*>([^<]*)</td>", re.I)
+    r"(?:<td class='content topBorder rightBorderDouble'[^>]*>[^<]*</td>)?", re.I)
 _SCORE_CELL = re.compile(
     r"<td class='(?:content )?(?:topBorder )?[^']*'[^>]*>\s*"
     r"<table class='scoreTable'.*?data-translate-number='([^']*)'.*?</table>\s*</td>", re.S)
@@ -299,6 +299,9 @@ def ingest_season(year: int, *, captions: bool = True) -> list[dict] | None:
         date = (comp.get("competitionDate") or "")[:10]
         if not guid or not re.match(r"\d{4}-\d{2}-\d{2}$", date) or int(date[:4]) != year:
             continue
+        if re.search(r"\btest\b", comp.get("name") or "", re.I):
+            log(f"  {year} {date} skipped test event: {comp.get('name')}")
+            continue
         detail = bridge_json(f"GetCompetition/jsonp?competition={guid}")
         if not detail:
             log(f"  {year} {date} {comp.get('name')}: GetCompetition failed — skipped")
@@ -338,22 +341,31 @@ def ingest_season(year: int, *, captions: bool = True) -> list[dict] | None:
             n_rows += len(ranked)
         if not classes:
             continue
-        # caption cross-check: recap total must equal the bridge score
+        # caption cross-check: recap total must equal the bridge score. The two
+        # surfaces occasionally print different names for the same unit
+        # ("Camarillo HS" vs "Adolfo Camarillo HS"), so an unmatched name falls
+        # back to a UNIQUE-total join within the class and adopts the bridge
+        # (published) name; ambiguous totals are dropped, never guessed.
         captions_out = {}
         for cls, rows in ev["cap_map"].items():
             by_name = {r["corps"]: r["score"]
                        for c in classes if c["class"] == cls for r in c["results"]}
             keep, seen = [], set()
             for r in rows:
-                if r["corps"] in seen:
-                    continue
-                bridge_s = by_name.get(r["corps"])
+                corps, bridge_s = r["corps"], by_name.get(r["corps"])
                 if bridge_s is None or abs(bridge_s - r["tot"]) > 0.011:
-                    log(f"    {date} {name} [{cls}] caption row dropped "
-                        f"({r['corps']}): recap {r['tot']} vs bridge {bridge_s}")
+                    cands = [n for n, s in by_name.items()
+                             if n not in seen and abs(s - r["tot"]) <= 0.011]
+                    if bridge_s is None and len(cands) == 1:
+                        corps = cands[0]
+                    else:
+                        log(f"    {date} {name} [{cls}] caption row dropped "
+                            f"({r['corps']}): recap {r['tot']} vs bridge {bridge_s}")
+                        continue
+                if corps in seen:
                     continue
-                seen.add(r["corps"])
-                keep.append([r["corps"], r["ea"], r["ma"], r["da"], r["ge"], r["pen"], r["tot"]])
+                seen.add(corps)
+                keep.append([corps, r["ea"], r["ma"], r["da"], r["ge"], r["pen"], r["tot"]])
             if keep:
                 captions_out[cls] = keep
         out.append({"name": name, "date": date, "venue": ev["venue"], "url": ev["url"],

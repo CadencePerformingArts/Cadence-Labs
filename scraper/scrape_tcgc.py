@@ -191,17 +191,24 @@ CAPTION_COLS = ["eq", "mv", "dsg", "ge1", "ge2", "ge", "pa", "em", "ev", "oe",
 # normalized caption-group heading -> column ("Ensemble Analysis" was the
 # design caption's name on early-2010s guard sheets)
 COLMAP = {
-    "e": "eq", "equipment": "eq", "equipment analysis": "eq",
-    "m": "mv", "movement": "mv", "movement analysis": "mv",
+    "equipment": "eq", "equipment analysis": "eq",
+    "movement": "mv", "movement analysis": "mv",
     "da": "dsg", "design": "dsg", "design analysis": "dsg", "ensemble analysis": "dsg",
     "ge": "ge", "general effect": "ge",
     "pa": "pa", "performance analysis": "pa",
-    "effect - music": "em", "effect-music": "em", "effect": "em",
+    "effect - music": "em", "effect-music": "em",
     "effect - visual": "ev", "effect-visual": "ev",
     "overall effect": "oe",
     "music analysis": "ma", "music": "mus",
     "visual analysis": "va", "visual": "vis",
     "performance": "perf", "artistry": "art",
+}
+# single-letter / ambiguous headings depend on the sheet: 'M' is Movement on a
+# guard sheet but Music on a 2019-era concert-percussion sheet
+CTX_MAP = {
+    "guard": {"e": "eq", "m": "mv", "effect": "ge"},
+    "perc": {"m": "mus", "a": "art", "e": "em", "v": "vis", "effect": "em"},
+    "winds": {"m": "mus", "a": "art", "effect": "oe"},
 }
 UNMAPPED_GROUPS: set[str] = set()   # reported by ingest so sheet drift is visible
 
@@ -272,16 +279,23 @@ def _num(raw: str) -> float | None:
         return None
 
 
-def parse_recap_captions(html_page: str) -> dict[str, list[dict]]:
+def parse_recap_captions(html_page: str,
+                         cls_by_guid: dict[str, str]) -> dict[str, list[dict]]:
     """Competition recap page -> {round_guid: [{corps, <caption cols>, pen,
     tot}]}. Sheet-agnostic: caption groups are read from the section's own
-    header and mapped through COLMAP, so guard, percussion and winds sheets of
-    every era all parse. Every row must reconcile arithmetically against the
-    sheet's own Sub Total / Total columns (some sheets scale the caption sum
-    ×1.25) or it is dropped — a mis-parse can never surface as a wrong score."""
+    header and mapped through COLMAP (with per-activity CTX_MAP for the
+    abbreviated headings), so guard, percussion and winds sheets of every era
+    all parse. Every row must reconcile arithmetically against the sheet's own
+    Sub Total / Total columns (some sheets scale the caption sum ×1.25) or it
+    is dropped — a mis-parse can never surface as a wrong score."""
     out: dict[str, list[dict]] = {}
     secs = [(m.start(), m.group(1)) for m in _SECT.finditer(html_page)]
     for k, (pos, guid) in enumerate(secs):
+        cls = cls_by_guid.get(guid)
+        if not cls:
+            continue   # exhibition round / not a scored class
+        ctx = CTX_MAP["perc" if cls.startswith("Percussion")
+                      else "winds" if cls.startswith("Winds") else "guard"]
         end = secs[k + 1][0] if k + 1 < len(secs) else len(html_page)
         sec = html_page[pos:end]
         layout = _leaf_layout(sec)
@@ -293,7 +307,7 @@ def parse_recap_captions(html_page: str) -> dict[str, list[dict]]:
         i_sub = i_tot = None
         for i, (g, leaf) in enumerate(layout):
             gl = norm_space(g.lower().strip("*"))
-            if "penal" in gl or "timing" in gl:
+            if "penal" in gl or "timing" in gl or gl == "t":
                 pen_leaves.append((leaf.lower().strip("* ."), i))
             elif gl.startswith("sub"):
                 i_sub = i
@@ -318,7 +332,7 @@ def parse_recap_captions(html_page: str) -> dict[str, list[dict]]:
             if not tots:
                 ok_sheet = False
                 break
-            col = COLMAP.get(gl)
+            col = ctx.get(gl) or COLMAP.get(gl)
             if col is None:
                 UNMAPPED_GROUPS.add(gl)
             caption_idx.append((col, tots[-1], tots[:-1]))
@@ -433,7 +447,7 @@ def parse_competition(comp: dict, year: int, *, force: bool = False,
     recap_html = fetch(f"{RECAPS}/{guid}.htm", force=force)
     if recap_html:
         best: dict[tuple[str, str], dict] = {}   # one row per class+unit
-        for rguid, rows in parse_recap_captions(recap_html).items():
+        for rguid, rows in parse_recap_captions(recap_html, round_cls).items():
             cls = round_cls.get(rguid)
             if not cls:
                 continue

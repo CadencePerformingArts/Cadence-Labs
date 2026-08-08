@@ -75,7 +75,7 @@ PDF_CACHE = ROOT / "data" / "raw" / "boa_pdf"
 PARSED_CACHE = ROOT / "data" / "parsed" / "boa_recaps"
 CAPTIONS_DIR = DOCS_BOA / "captions"
 BACKFILL_REPORT = ROOT / "data" / "boa_backfill_report.json"
-PARSE_VERSION = 4   # bump to invalidate the parsed-recap memo cache
+PARSE_VERSION = 5   # bump to invalidate the parsed-recap memo cache
 MAX_INDEX_PAGES = 40  # the archive is 22 pages today; headroom for growth
 
 # docs/boa/data/captions/ column order — same structural schema as the DCI
@@ -307,6 +307,24 @@ ROW_RE7 = re.compile(
     r"(?P<crank>\d{1,3})\s+"
     r"(?P<rating>I{1,3})\s+"
     r"(?P<cls>[1-4]A|A{1,4}|Open)\s*$")
+# some 1998–2000 sheets print bare-integer scores ("13", "26") which break
+# every float-run pattern above — these two demand EXACTLY the 12 score
+# columns plus pen/total so the int/float mix stays unambiguous, and the
+# subtotal+pen=total gate downstream rejects any residual misalignment.
+_N12 = r"(?P<nums>(?:-?\d+(?:\.\d{1,3})?\s+){11}-?\d+(?:\.\d{1,3})?)"
+ROW_RE8 = re.compile(  # prelims tail "Overall InClass Rating Class"
+    r"^(?P<pre>.+?)\s+" + _N12 +
+    r"\s+(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<orank>\d{1,3})\s+"
+    r"(?P<crank>\d{1,3})\s+"
+    r"(?P<nrating>I{1,3}|[1-3])\s+"
+    r"(?P<cls>[1-4]A|A{1,4}|Open)\s*$")
+ROW_RE9 = re.compile(  # finals tail: bare Overall
+    r"^(?P<pre>.+?)\s+" + _N12 +
+    r"\s+(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+\.\d{1,3})\s+"
+    r"(?P<orank>\d{1,3})\s*$")
 BLOCK_RE = re.compile(r"\s+Block\s+\S+\s+-\s+Panel\s+\d+$", re.I)
 ORDER_RE = re.compile(r"^\d{1,3}\s+(?=\S)")
 NAME_ST_RE = re.compile(r"^(.*\S)\s*(?:\s+-\s+|,\s+)([A-Z]{2})$")
@@ -471,7 +489,8 @@ def parse_recap(pdf_path: Path) -> dict | None:
             cls_raw, crank, orank = m.group("cls"), m.group("crank"), m.group("orank")
         else:
             m2 = (ROW_RE3.match(s) or ROW_RE2.match(s) or ROW_RE4.match(s)
-                  or ROW_RE5.match(s) or ROW_RE6.match(s) or ROW_RE7.match(s))
+                  or ROW_RE5.match(s) or ROW_RE6.match(s) or ROW_RE7.match(s)
+                  or ROW_RE8.match(s) or ROW_RE9.match(s))
             if not m2:
                 continue
             gd = m2.groupdict()
