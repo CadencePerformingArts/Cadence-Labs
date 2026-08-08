@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ensemble Admin — Cadence</title>
+<meta name="description" content="Manage your ensemble's official Cadence profile — description, show, staff, recruiting, announcements and links.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='3' width='58' height='58' rx='15' fill='%23339af0'/><g stroke='%23ffd43b' stroke-width='6.5' stroke-linecap='round'><line x1='16' y1='26' x2='16' y2='38'/><line x1='27' y1='20' x2='27' y2='44'/><line x1='38' y1='28' x2='38' y2='36'/><line x1='49' y1='16' x2='49' y2='48'/></g></svg>">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;})();</script>
+<link rel="stylesheet" href="app.css">
+<style>
+  .fam-hero { text-align: center; padding: 34px 16px 10px; }
+  .fam-hero h1 { font-size: clamp(26px, 6vw, 38px); margin: 12px 0 6px; }
+  .fam-hero h1 b { color: var(--gold); }
+  .fam-hero p { color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.55; }
+  .fam-note { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .st-badge { display: inline-block; border-radius: 6px; padding: 2px 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .5px; }
+  .st-pending { background: var(--surface-2); color: var(--muted); }
+  .st-approved { background: rgba(47, 158, 68, .14); color: #2f9e44; }
+  .st-rejected { background: rgba(201, 42, 42, .12); color: var(--bad); }
+  .adm-wrap { max-width: 1060px; margin: 0 auto; }
+  .adm-cols { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-top: 14px; align-items: start; }
+  @media (max-width: 900px) { .adm-cols { grid-template-columns: 1fr; } }
+  .adm-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .signin-form { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .signin-form .ctrl { flex: 1 1 220px; font-size: 14px; }
+  .signin-form .tab { font-weight: 700; padding: 8px 18px; }
+  .adm-form label { display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .6px; color: var(--muted); margin: 14px 0 5px; }
+  .adm-form label:first-of-type { margin-top: 0; }
+  .adm-form .ctrl { width: 100%; min-width: 0; box-sizing: border-box; font-size: 14px; }
+  .adm-form textarea.ctrl { font-family: inherit; resize: vertical; min-height: 70px; }
+  .adm-two { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 480px) { .adm-two { grid-template-columns: 1fr; } }
+  .adm-sec { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .adm-sec > h3 { margin: 0; font-size: 13px; font-weight: 700; color: var(--heading); }
+  .adm-sec > .fam-note { margin: 3px 0 0; }
+  .adm-reprow { display: flex; gap: 8px; margin-top: 8px; align-items: flex-start; flex-wrap: wrap; }
+  .adm-reprow .ctrl { flex: 1 1 150px; width: auto; }
+  .adm-reprow textarea.ctrl { flex: 1 1 100%; min-height: 52px; }
+  .adm-del { flex: none; border: 1px solid var(--baseline); background: var(--surface-1); color: var(--muted);
+    border-radius: 9px; width: 32px; height: 34px; cursor: pointer; font-size: 13px; }
+  .adm-del:hover { color: var(--bad); border-color: var(--bad); }
+  .adm-add { margin-top: 9px; font-size: 12.5px; padding: 6px 14px; }
+  .adm-pubrow { display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 11px 13px; border-radius: 11px; background: var(--surface-2); margin-bottom: 14px; }
+  .adm-pubrow b { font-size: 14px; }
+  .adm-pubrow .fam-note { margin: 2px 0 0; }
+  .adm-save { display: flex; align-items: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+  .adm-save .tab { font-weight: 700; padding: 9px 22px; }
+  .adm-msg { font-size: 13.5px; font-weight: 600; display: none; }
+  .adm-msg.ok { display: inline; color: var(--good); }
+  .adm-msg.err { display: inline; color: var(--bad); }
+  .adm-preview-note { margin: 0 0 8px; }
+  .adm-acct { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    font-size: 12.5px; color: var(--muted); max-width: 1060px; margin: 14px auto 0; }
+  .adm-acct button { border: 0; background: none; color: var(--link); font: inherit; font-weight: 650; cursor: pointer; }
+  .adm-acct button:hover { text-decoration: underline; }
+  .myclaim { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 0; border-top: 1px solid var(--border); font-size: 14px; flex-wrap: wrap; }
+  .myclaim:first-of-type { border-top: 0; }
+  .myclaim .mc-sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence</span>
+  </a>
+</header>
+
+<main class="viz-root">
+  <div class="fam-hero">
+    <h1>Ensemble <b>Admin</b></h1>
+    <p>Your ensemble's official presence on Cadence — the profile fans see under your
+       scores, managed by you.</p>
+  </div>
+
+  <div class="adm-wrap">
+    <!-- signed-out -->
+    <div class="card" id="admSignin" hidden style="max-width:560px;margin:22px auto 0">
+      <h2>Sign in to manage your ensemble</h2>
+      <p class="fam-note" style="margin:0">Ensemble Admin uses your Cadence account — the same
+        one that syncs your favorites. Enter your email and we'll send a sign-in link;
+        no password, nothing to remember.</p>
+      <form class="signin-form" id="signinForm">
+        <input class="ctrl" id="signinEmail" type="email" placeholder="you@ensemble.org" autocomplete="email" required>
+        <button class="tab" type="submit">Email me a link →</button>
+      </form>
+      <p class="fam-note" id="signinMsg" style="margin:10px 0 0"></p>
+    </div>
+
+    <!-- signed-in, no approved claims -->
+    <div class="card" id="admNone" hidden style="max-width:560px;margin:22px auto 0">
+      <h2>No ensembles yet</h2>
+      <p class="fam-note" style="margin:0">You don't have an approved ensemble claim on this
+        account. Open your ensemble's page in any Cadence app and tap
+        <b>“Claim this profile”</b> — every claim is verified by Cadence before approval,
+        so pages only ever go to the organizations they belong to.</p>
+      <p class="fam-note" style="margin:8px 0 0"><a href="pro.html"><b>About Ensemble Pro →</b></a></p>
+    </div>
+
+    <!-- pending claims -->
+    <div class="card" id="admPending" hidden style="max-width:560px;margin:22px auto 0">
+      <h2>Claims in review</h2>
+      <div id="admPendingList"></div>
+      <p class="fam-note" style="margin:10px 0 0">Claims are verified by a real person at
+        Cadence before approval. Once a claim flips to approved, its ensemble appears here
+        ready to manage.</p>
+    </div>
+
+    <!-- picker + editor -->
+    <div class="card" id="admPicker" hidden style="margin-top:22px">
+      <h2>Your ensembles</h2>
+      <div class="adm-picker" id="admPickerTabs"></div>
+    </div>
+
+    <div class="adm-cols" id="admEditor" hidden>
+      <div class="card adm-form">
+        <h2 id="admFormTitle">Profile</h2>
+        <div class="adm-pubrow">
+          <div><b>Published</b>
+            <p class="fam-note">Off hides the whole official card from fans while you edit.</p></div>
+          <button class="toggle" type="button" id="fPub" role="switch" aria-checked="true" aria-label="Published"></button>
+        </div>
+
+        <label for="fDesc">Description</label>
+        <textarea class="ctrl" id="fDesc" rows="4" placeholder="Who you are, in your own words."></textarea>
+
+        <div class="adm-sec"><h3>This year's show</h3></div>
+        <label for="fShow">Show title</label>
+        <input class="ctrl" id="fShow" placeholder="e.g. “The Sound of Us”">
+        <label for="fRep">Repertoire</label>
+        <textarea class="ctrl" id="fRep" rows="3" placeholder="One piece per line — title, composer/arranger."></textarea>
+
+        <div class="adm-sec"><h3>Staff</h3></div>
+        <div id="repStaff"></div>
+
+        <div class="adm-sec"><h3>Links</h3></div>
+        <label for="fWebsite">Website</label>
+        <input class="ctrl" id="fWebsite" type="url" inputmode="url" placeholder="https://…">
+        <div class="adm-two">
+          <div><label for="fInsta">Instagram</label><input class="ctrl" id="fInsta" type="url" inputmode="url" placeholder="https://instagram.com/…"></div>
+          <div><label for="fFace">Facebook</label><input class="ctrl" id="fFace" type="url" inputmode="url" placeholder="https://facebook.com/…"></div>
+          <div><label for="fX">X (Twitter)</label><input class="ctrl" id="fX" type="url" inputmode="url" placeholder="https://x.com/…"></div>
+          <div><label for="fYt">YouTube</label><input class="ctrl" id="fYt" type="url" inputmode="url" placeholder="https://youtube.com/…"></div>
+          <div><label for="fTt">TikTok</label><input class="ctrl" id="fTt" type="url" inputmode="url" placeholder="https://tiktok.com/@…"></div>
+        </div>
+        <div class="adm-two">
+          <div><label for="fMerch">Merch store</label><input class="ctrl" id="fMerch" type="url" inputmode="url" placeholder="https://…"></div>
+          <div><label for="fDonate">Donate / fundraising</label><input class="ctrl" id="fDonate" type="url" inputmode="url" placeholder="https://…"></div>
+        </div>
+
+        <div class="adm-sec"><h3>Auditions &amp; recruiting</h3></div>
+        <label for="fAudInfo">Audition info</label>
+        <textarea class="ctrl" id="fAudInfo" rows="3" placeholder="Camp dates, how to register, what to prepare…"></textarea>
+        <label for="fAudLink">Audition link</label>
+        <input class="ctrl" id="fAudLink" type="url" inputmode="url" placeholder="https://…">
+        <label>Open positions</label>
+        <div id="repPos"></div>
+
+        <div class="adm-sec"><h3>Announcements</h3>
+          <p class="fam-note">Fans see the latest three on your profile.</p></div>
+        <div id="repAnn"></div>
+
+        <div class="adm-sec"><h3>Videos</h3></div>
+        <div id="repVid"></div>
+
+        <div class="adm-sec"><h3>Sponsors</h3>
+          <p class="fam-note">Always shown with a “Sponsor” label — no stealth ads on Cadence.</p></div>
+        <div id="repSpon"></div>
+
+        <div class="adm-sec"><h3>Images &amp; alumni</h3></div>
+        <div class="adm-two">
+          <div><label for="fLogo">Logo URL</label><input class="ctrl" id="fLogo" type="url" inputmode="url" placeholder="https://…/logo.png"></div>
+          <div><label for="fCover">Cover image URL</label><input class="ctrl" id="fCover" type="url" inputmode="url" placeholder="https://…/cover.jpg"></div>
+        </div>
+        <label for="fAlumni">Alumni</label>
+        <textarea class="ctrl" id="fAlumni" rows="3" placeholder="Alumni association info, notable alumni, reunion links…"></textarea>
+
+        <div class="adm-save">
+          <button class="tab" type="button" id="admSave">Save profile</button>
+          <span class="adm-msg" id="admMsg" role="status"></span>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>Live preview</h2>
+          <p class="fam-note adm-preview-note">Exactly what fans see on your ensemble's page —
+            updates as you type, goes live when you save.</p>
+          <div id="admPreview"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice" style="max-width:560px;margin:22px auto 0">
+      <b>An honest note:</b> every claim is verified by a human at Cadence before approval, and
+      everything you publish here appears on a page clearly marked as managed by your ensemble.
+      Fan-facing scores stay free and untouched either way.
+    </div>
+  </div>
+
+  <div class="adm-acct" id="admAcct" hidden>
+    <span id="admAcctWho"></span>
+    <button type="button" id="admSignOut">Sign out</button>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="credit">Created by Lucas Besel · Cadence is an unofficial fan project</div>
+</footer>
+
+<script src="vendor/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="account.js"></script>
+<script src="ensembles.js"></script>
+<script>
+(function () {
+  "use strict";
+  var CE = window.CadEnsembles;
+  var ACC = window.CadAccount;
+  var $ = function (id) { return document.getElementById(id); };
+
+  if (!CE || !CE.enabled || !ACC || !ACC.enabled) {
+    $("admSignin").hidden = false;
+    $("admSignin").innerHTML = "<h2>Ensemble Admin isn't available</h2>" +
+      "<p class='fam-note' style='margin:0'>The accounts backend isn't configured on this copy of Cadence.</p>";
+    return;
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  /* ---------- repeatable rows ---------- */
+  var previewTimer = null;
+  function touch() { clearTimeout(previewTimer); previewTimer = setTimeout(renderPreview, 250); }
+
+  function repeater(mountId, fields, addLabel) {
+    var mount = $(mountId);
+    var rows = [];
+    function render() {
+      mount.innerHTML = "";
+      rows.forEach(function (r, i) {
+        var div = document.createElement("div");
+        div.className = "adm-reprow";
+        fields.forEach(function (f) {
+          var el;
+          if (f.kind === "textarea") { el = document.createElement("textarea"); el.rows = 2; }
+          else { el = document.createElement("input"); el.type = f.kind || "text"; }
+          el.className = "ctrl";
+          el.placeholder = f.ph;
+          el.value = r[f.key] || "";
+          el.addEventListener("input", function () { r[f.key] = el.value; touch(); });
+          div.appendChild(el);
+        });
+        var del = document.createElement("button");
+        del.type = "button"; del.className = "adm-del"; del.title = "Remove"; del.textContent = "✕";
+        del.addEventListener("click", function () { rows.splice(i, 1); render(); touch(); });
+        div.appendChild(del);
+        mount.appendChild(div);
+      });
+      var add = document.createElement("button");
+      add.type = "button"; add.className = "tab adm-add"; add.textContent = addLabel;
+      add.addEventListener("click", function () { rows.push({}); render(); });
+      mount.appendChild(add);
+    }
+    render();
+    return {
+      set: function (list) { rows = list || []; render(); },
+      rows: function () { return rows; },
+    };
+  }
+
+  var repStaff = repeater("repStaff",
+    [{ key: "name", ph: "Name" }, { key: "role", ph: "Role (Director, Caption Head…)" }], "+ Add staff member");
+  var repPos = repeater("repPos",
+    [{ key: "v", ph: "Open position (e.g. Baritone, Battery — snare)" }], "+ Add open position");
+  var repAnn = repeater("repAnn",
+    [{ key: "title", ph: "Announcement title" }, { key: "body", ph: "The announcement itself…", kind: "textarea" }],
+    "+ Add announcement");
+  var repVid = repeater("repVid",
+    [{ key: "v", ph: "Video URL (YouTube, Vimeo…)", kind: "url" }], "+ Add video");
+  var repSpon = repeater("repSpon",
+    [{ key: "name", ph: "Sponsor name" }, { key: "url", ph: "Sponsor URL (optional)", kind: "url" }], "+ Add sponsor");
+
+  /* ---------- editor state ---------- */
+  var current = null;      // { appKey, name } of the selected approved claim
+  var currentRow = null;   // loaded ensemble_profiles row (or null when new)
+  var published = true;
+
+  $("fPub").addEventListener("click", function () {
+    published = !published;
+    this.classList.toggle("on", published);
+    this.setAttribute("aria-checked", String(published));
+    touch();
+  });
+
+  var TEXT_FIELDS = ["fDesc", "fShow", "fRep", "fWebsite", "fInsta", "fFace", "fX", "fYt", "fTt",
+    "fMerch", "fDonate", "fAudInfo", "fAudLink", "fLogo", "fCover", "fAlumni"];
+  TEXT_FIELDS.forEach(function (id) { $(id).addEventListener("input", touch); });
+
+  function val(id) { return $(id).value.trim(); }
+
+  function buildContent() {
+    var c = {};
+    var set = function (k, v) { if (v) c[k] = v; };
+    set("description", val("fDesc"));
+    set("show_title", val("fShow"));
+    set("repertoire", val("fRep"));
+    var staff = repStaff.rows().map(function (r) {
+      return { name: (r.name || "").trim(), role: (r.role || "").trim() };
+    }).filter(function (m) { return m.name || m.role; });
+    if (staff.length) c.staff = staff;
+    set("website", val("fWebsite"));
+    var socials = {};
+    if (val("fInsta")) socials.instagram = val("fInsta");
+    if (val("fFace")) socials.facebook = val("fFace");
+    if (val("fX")) socials.x = val("fX");
+    if (val("fYt")) socials.youtube = val("fYt");
+    if (val("fTt")) socials.tiktok = val("fTt");
+    if (Object.keys(socials).length) c.socials = socials;
+    var aud = {};
+    if (val("fAudInfo")) aud.info = val("fAudInfo");
+    if (val("fAudLink")) aud.link = val("fAudLink");
+    if (Object.keys(aud).length) c.auditions = aud;
+    var pos = repPos.rows().map(function (r) { return (r.v || "").trim(); }).filter(Boolean);
+    if (pos.length) c.open_positions = pos;
+    set("merch_url", val("fMerch"));
+    set("donate_url", val("fDonate"));
+    var spons = repSpon.rows().map(function (r) {
+      var s = { name: (r.name || "").trim() };
+      if ((r.url || "").trim()) s.url = r.url.trim();
+      return s;
+    }).filter(function (s) { return s.name; });
+    if (spons.length) c.sponsors = spons;
+    var anns = repAnn.rows().map(function (r) {
+      return { ts: r.ts || new Date().toISOString(), title: (r.title || "").trim(), body: (r.body || "").trim() };
+    }).filter(function (a) { return a.title || a.body; });
+    if (anns.length) c.announcements = anns;
+    var vids = repVid.rows().map(function (r) { return (r.v || "").trim(); }).filter(Boolean);
+    if (vids.length) c.videos = vids;
+    set("alumni", val("fAlumni"));
+    set("logo_url", val("fLogo"));
+    set("cover_url", val("fCover"));
+    return c;
+  }
+
+  function fillForm(row) {
+    currentRow = row || null;
+    var c = (row && row.content) || {};
+    published = row ? row.published !== false : true;
+    $("fPub").classList.toggle("on", published);
+    $("fPub").setAttribute("aria-checked", String(published));
+    $("fDesc").value = c.description || "";
+    $("fShow").value = c.show_title || "";
+    $("fRep").value = c.repertoire || "";
+    var soc = c.socials || {};
+    $("fWebsite").value = c.website || "";
+    $("fInsta").value = soc.instagram || "";
+    $("fFace").value = soc.facebook || "";
+    $("fX").value = soc.x || soc.twitter || "";
+    $("fYt").value = soc.youtube || "";
+    $("fTt").value = soc.tiktok || "";
+    $("fMerch").value = c.merch_url || "";
+    $("fDonate").value = c.donate_url || "";
+    var aud = c.auditions || {};
+    $("fAudInfo").value = aud.info || "";
+    $("fAudLink").value = aud.link || "";
+    $("fLogo").value = c.logo_url || "";
+    $("fCover").value = c.cover_url || "";
+    $("fAlumni").value = c.alumni || "";
+    repStaff.set((c.staff || []).map(function (m) {
+      return typeof m === "string" ? { name: m } : { name: m.name || "", role: m.role || "" };
+    }));
+    repPos.set((c.open_positions || []).map(function (p) { return { v: String(p) }; }));
+    repAnn.set((c.announcements || []).map(function (a) {
+      return { ts: a.ts, title: a.title || "", body: a.body || "" };
+    }));
+    repVid.set((c.videos || []).map(function (v) { return { v: String(v) }; }));
+    repSpon.set((c.sponsors || []).map(function (s) {
+      return typeof s === "string" ? { name: s } : { name: s.name || "", url: s.url || "" };
+    }));
+    renderPreview();
+  }
+
+  function renderPreview() {
+    if (!current) return;
+    CE.preview($("admPreview"), {
+      ensemble_name: current.name,
+      published: true, // preview always shows the card, even while unpublished
+      content: buildContent(),
+    });
+    if (!published) {
+      var note = document.createElement("p");
+      note.className = "fam-note";
+      note.style.margin = "8px 0 0";
+      note.textContent = "Profile is unpublished — fans won't see this card until you switch Published back on.";
+      $("admPreview").appendChild(note);
+    }
+  }
+
+  /* ---------- claims + profile loading ---------- */
+  function ep(s) { return encodeURIComponent(s); }
+
+  function selectClaim(claim, tabs) {
+    current = { appKey: claim.app_key, name: claim.target_name };
+    Array.prototype.forEach.call(tabs.children, function (b) {
+      b.classList.toggle("on", b.dataset.key === claim.app_key + "|" + claim.target_name);
+    });
+    $("admEditor").hidden = false;
+    $("admFormTitle").textContent = claim.target_name + " · " + CE.appLabel(claim.app_key);
+    $("admMsg").className = "adm-msg";
+    CE.rest("ensemble_profiles?select=*&app_key=eq." + ep(claim.app_key) +
+            "&ensemble_name=eq." + ep(claim.target_name))
+      .then(function (rows) { fillForm((rows && rows[0]) || null); })
+      .catch(function () { fillForm(null); });
+  }
+
+  function loadClaims() {
+    var u = ACC.user();
+    if (!u) return;
+    CE.rest("claims?select=id,kind,app_key,target_name,claimant_role,status,created_at,reviewer_note" +
+            "&kind=eq.ensemble&order=created_at.desc")
+      .then(function (rows) {
+        rows = rows || [];
+        var approved = rows.filter(function (c) { return c.status === "approved"; });
+        var pending = rows.filter(function (c) { return c.status !== "approved"; });
+
+        $("admNone").hidden = !!(approved.length || pending.length);
+        $("admPending").hidden = !pending.length;
+        if (pending.length) {
+          $("admPendingList").innerHTML = pending.map(function (c) {
+            var badge = c.status === "pending"
+              ? '<span class="st-badge st-pending">PENDING REVIEW</span>'
+              : '<span class="st-badge st-rejected">NOT APPROVED</span>';
+            return '<div class="myclaim"><div style="min-width:0"><b>' + esc(c.target_name) + "</b>" +
+              '<div class="mc-sub">' + esc(CE.appLabel(c.app_key)) +
+              (c.claimant_role ? " · " + esc(c.claimant_role) : "") +
+              (c.status === "rejected" && c.reviewer_note ? " · " + esc(c.reviewer_note) : "") +
+              "</div></div>" + badge + "</div>";
+          }).join("");
+        }
+
+        $("admPicker").hidden = !approved.length;
+        if (!approved.length) { $("admEditor").hidden = true; return; }
+        var tabs = $("admPickerTabs");
+        tabs.innerHTML = "";
+        approved.forEach(function (c) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "tab";
+          b.dataset.key = c.app_key + "|" + c.target_name;
+          b.textContent = c.target_name + " · " + CE.appLabel(c.app_key);
+          b.addEventListener("click", function () { selectClaim(c, tabs); });
+          tabs.appendChild(b);
+        });
+        selectClaim(approved[0], tabs);
+      })
+      .catch(function () {
+        $("admNone").hidden = false;
+        $("admNone").querySelector("h2").textContent = "Couldn't load your claims";
+      });
+  }
+
+  /* ---------- save ---------- */
+  $("admSave").addEventListener("click", function () {
+    var u = ACC.user();
+    if (!u || !current) return;
+    var btn = this, msg = $("admMsg");
+    btn.disabled = true; btn.textContent = "Saving…";
+    msg.className = "adm-msg";
+    CE.rest("ensemble_profiles?on_conflict=app_key,ensemble_name", {
+      method: "POST",
+      headers: { Prefer: "resolution=merge-duplicates,return=representation" },
+      body: [{
+        app_key: current.appKey,
+        ensemble_name: current.name,
+        owner_user_id: u.id,
+        published: published,
+        content: buildContent(),
+      }],
+    }).then(function (rows) {
+      currentRow = (rows && rows[0]) || currentRow;
+      msg.className = "adm-msg ok";
+      msg.textContent = published ? "Saved — live on your ensemble's page." : "Saved as unpublished draft.";
+    }).catch(function (err) {
+      msg.className = "adm-msg err";
+      msg.textContent = "Save failed: " + ((err && err.message) || "network error");
+    }).finally(function () {
+      btn.disabled = false; btn.textContent = "Save profile";
+    });
+  });
+
+  /* ---------- auth gate ---------- */
+  $("signinForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = $("signinEmail").value.trim();
+    if (!email) return;
+    var m = $("signinMsg");
+    ACC.signIn(email).then(function () {
+      m.innerHTML = "<b>Check your email</b> — tap the sign-in link and you'll land right back here.";
+    }).catch(function (err) {
+      m.textContent = "Couldn't send the link (" + ((err && err.message) || "error") + "). Check the address and try again.";
+    });
+  });
+
+  $("admSignOut").addEventListener("click", function () {
+    Promise.resolve(ACC.signOut()).then(function () { location.reload(); }, function () { location.reload(); });
+  });
+
+  var painted = null;
+  function paint() {
+    var u = ACC.user();
+    var key = u ? u.id : "out";
+    if (key === painted) return;
+    painted = key;
+    $("admSignin").hidden = !!u;
+    $("admAcct").hidden = !u;
+    if (u) {
+      $("admAcctWho").textContent = "Signed in as " + (u.email || "your account");
+      loadClaims();
+    } else {
+      $("admNone").hidden = true;
+      $("admPending").hidden = true;
+      $("admPicker").hidden = true;
+      $("admEditor").hidden = true;
+    }
+  }
+  ACC.onChange(paint);
+  paint();
+})();
+</script>
+</body>
+</html>
