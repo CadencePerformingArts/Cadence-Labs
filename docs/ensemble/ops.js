@@ -401,6 +401,16 @@
         var id = showKey(s) + "|" + s.date;
         if (seen[id]) return;
         seen[id] = true;
+        // upcoming shows publish a lineup; scored shows imply one from the
+        // recap, so "shows we were in" works for past events too
+        if (!s.lineup && s.classes) {
+          s = Object.assign({}, s, {
+            lineup: s.classes.reduce(function (acc, c) {
+              (c.results || []).forEach(function (r) { if (r.corps) acc.push(r.corps); });
+              return acc;
+            }, []),
+          });
+        }
         out.push({
           key: showKey(s), name: s.name, date: s.date,
           date_display: s.date_display || fmtDayLong(s.date),

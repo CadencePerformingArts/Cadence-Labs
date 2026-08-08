@@ -376,7 +376,6 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         "If this workspace is new, the operations migration (0007) may not be applied yet.</div></div>";
       return;
     }
-    if (window.matchMedia && window.matchMedia("(min-width: 860px)").matches) view = "list";
     render();
   });
 })();

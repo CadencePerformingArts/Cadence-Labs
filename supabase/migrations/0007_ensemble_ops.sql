@@ -523,7 +523,7 @@ create policy events_delete on public.org_events for delete to authenticated
   using (public.can_manage_event(id));
 
 create policy event_targets_read on public.org_event_targets for select to authenticated
-  using (public.is_org_member(public.event_org(event_id)));
+  using (public.can_see_event(event_id));
 create policy event_targets_write on public.org_event_targets for all to authenticated
   using (public.can_manage_event(event_id))
   with check (public.can_manage_event(event_id));
@@ -763,8 +763,11 @@ begin
     raise exception 'not_permitted';
   end if;
 
+  -- If staff have already marked this member, only the note changes. If they
+  -- haven't, the row starts as 'absent' — a member cannot excuse themselves;
+  -- staff move it to 'excused' once they accept the reason.
   insert into public.org_attendance (event_id, member_id, status, note)
-  values (p_event, v_member, 'excused', p_note)
+  values (p_event, v_member, 'absent', p_note)
   on conflict (event_id, member_id) do update set note = excluded.note;
 end $$;
 

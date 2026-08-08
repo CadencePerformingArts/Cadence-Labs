@@ -16,6 +16,9 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 /* Feed-local classes. Tokens and base components come from app.css /
    ensemble.css — nothing here overrides them, it only adds the pieces a
    feed needs (composer, acknowledgment meter, comment threads). */
+/* several blocks below set display:, which would otherwise beat the `hidden`
+   attribute the scripts toggle — this keeps hidden meaning hidden. */
+[hidden] { display: none !important; }
 .ens-feedwrap { display: grid; gap: 14px; max-width: 760px; }
 .ens-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 2px; }
 .ens-mini { padding: 5px 10px; font-size: 12.5px; }
@@ -481,14 +484,17 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
     msg.className = "acct-msg"; msg.style.display = "block"; msg.textContent = "Saving…";
     var picker = form.querySelector('[data-picker="edit"]');
     var targets = C.readTargets(picker);
+    /* NB: read fields with querySelector — form.title would hand back the
+       element's title attribute, not the input named "title". */
+    var f = function (name) { return form.querySelector('[name="' + name + '"]'); };
     try {
       await CadOrg.rest("posts?id=eq." + post.id, { method: "PATCH", body: {
-        title: form.title.value.trim() || null,
-        body: form.body.value.trim(),
-        kind: form.kind.value,
-        priority: form.priority.value,
-        pinned: form.pinned.checked,
-        requires_ack: form.requires_ack.checked,
+        title: f("title").value.trim() || null,
+        body: f("body").value.trim(),
+        kind: f("kind").value,
+        priority: f("priority").value,
+        pinned: f("pinned").checked,
+        requires_ack: f("requires_ack").checked,
       } });
       await CadOrg.rest("post_targets?post_id=eq." + post.id, { method: "DELETE" });
       if (targets.length) {

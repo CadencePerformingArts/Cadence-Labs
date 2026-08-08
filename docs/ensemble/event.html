@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event — Cadence Ensemble</title>
+<meta name="description" content="A single Cadence Ensemble event — details, RSVPs, itinerary, packing list, volunteer signups, attendance and the official competition result.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* Operations layer — shared with calendar.html, plus the screens that only
+   exist here: the itinerary timeline, the packing checklist, signup slots
+   and the fast attendance grid. Tokens all come from app.css. */
+.ops-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 6px; }
+.ops-head h1 { margin: 0; }
+.ops-head .ops-head-r { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+.ops-back { font-size: 13px; font-weight: 650; }
+
+.ops-note { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.ops-rsvp { display: inline-flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
+.ops-rsvp-b { border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+  font: inherit; font-size: 13px; font-weight: 650; padding: 8px 16px; border-radius: 999px; cursor: pointer; }
+.ops-rsvp-b:hover { background: var(--surface-2); }
+.ops-rsvp-b.on { border-color: transparent; color: #fff; }
+.ops-rsvp-b.on.yes { background: var(--good); }
+.ops-rsvp-b.on.maybe { background: var(--accent); }
+.ops-rsvp-b.on.no { background: var(--bad); }
+.ops-rsvp-b[disabled] { opacity: .5; cursor: default; }
+
+.ops-hero-meta { display: grid; gap: 4px; font-size: 14px; color: var(--text-secondary); margin: 8px 0; }
+.ops-hero-meta b { color: var(--text-primary); }
+.ops-desc { white-space: pre-wrap; margin-top: 10px; font-size: 14.5px; }
+.ops-attach { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.ops-attach a { border: 1px solid var(--border); border-radius: 9px; padding: 6px 11px; font-size: 13px; }
+
+/* competition result */
+.ops-result { border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface-2); }
+.ops-result-head { display: flex; align-items: center; gap: 14px; }
+.ops-place { font-size: 30px; font-weight: 800; color: var(--accent-ink); }
+.ops-result-head b { font-size: 24px; font-weight: 800; color: var(--heading); display: block; line-height: 1.15; }
+.ops-result-head span { font-size: 12px; color: var(--muted); font-weight: 600; }
+.ops-mini { margin-top: 10px; gap: 14px; }
+.ops-mini div b { font-size: 15px; }
+
+/* itinerary timeline */
+.ops-tl { position: relative; margin-top: 4px; }
+.ops-tl:before { content: ""; position: absolute; left: 62px; top: 6px; bottom: 6px;
+  width: 2px; background: var(--grid); }
+.ops-tl-item { display: flex; gap: 14px; align-items: flex-start; padding: 9px 0; position: relative; }
+.ops-tl-time { flex: none; width: 56px; text-align: right; font-size: 12.5px; font-weight: 800;
+  color: var(--accent-ink); padding-top: 1px; }
+.ops-tl-dot { position: absolute; left: 58px; top: 14px; width: 10px; height: 10px; border-radius: 999px;
+  background: var(--accent); border: 2px solid var(--surface-1); }
+.ops-tl-body { margin-left: 22px; min-width: 0; flex: 1; }
+.ops-tl-body b { font-size: 14.5px; }
+.ops-tl-body div { color: var(--muted); font-size: 12.5px; }
+.ops-tl-item.mine .ops-tl-dot { background: var(--good); }
+
+/* packing list */
+.ops-pack { display: grid; gap: 2px; }
+.ops-pack-item { display: flex; align-items: center; gap: 11px; padding: 10px 4px;
+  border-top: 1px solid var(--grid); font-size: 14.5px; cursor: pointer; }
+.ops-pack-item:first-child { border-top: 0; }
+.ops-pack-item input { width: 19px; height: 19px; flex: none; }
+.ops-pack-item.on { color: var(--muted); text-decoration: line-through; }
+.ops-pack-item span.g { margin-left: auto; font-size: 11px; color: var(--muted); font-weight: 700; }
+.ops-progress { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; margin: 8px 0 2px; }
+.ops-progress i { display: block; height: 100%; background: var(--good); }
+
+/* signup slots */
+.ops-slot { border: 1px solid var(--border); border-radius: 12px; padding: 11px; margin-bottom: 9px; }
+.ops-slot-h { display: flex; align-items: baseline; gap: 10px; }
+.ops-slot-h b { font-size: 14.5px; }
+.ops-slot-h span { margin-left: auto; font-size: 12px; color: var(--muted); font-weight: 700; }
+.ops-slot-people { font-size: 12.5px; color: var(--muted); margin: 6px 0; }
+.ops-slot-people em { font-style: normal; color: var(--accent-ink); font-weight: 700; }
+.ops-full { color: var(--bad); }
+
+/* attendance grid — one tap per member, thumb-sized targets */
+.ops-att { display: grid; gap: 6px; }
+.ops-att-row { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  border: 1px solid var(--border); background: var(--surface-1); border-radius: 11px;
+  padding: 10px 12px; font: inherit; cursor: pointer; }
+.ops-att-row:hover { background: var(--surface-2); }
+.ops-att-row b { font-size: 14.5px; font-weight: 650; }
+.ops-att-row i { font-style: normal; color: var(--muted); font-size: 12px; display: block; }
+.ops-att-pill { margin-left: auto; flex: none; min-width: 84px; text-align: center;
+  border-radius: 999px; padding: 5px 10px; font-size: 12px; font-weight: 800;
+  background: var(--surface-2); color: var(--muted); }
+.ops-att-pill.good { background: rgba(43,138,62,.15); color: var(--good); }
+.ops-att-pill.bad { background: rgba(201,42,42,.13); color: var(--bad); }
+.ops-att-pill.warn { background: var(--accent-wash); color: var(--accent-ink); }
+.ops-att-pill.info { background: rgba(28,95,168,.13); color: var(--link); }
+.ops-att-sec { font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase;
+  color: var(--muted); margin: 12px 0 2px; }
+.ops-sticky { position: sticky; bottom: 72px; z-index: 20; background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 12px; padding: 10px; margin-top: 12px;
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap; box-shadow: 0 6px 18px rgba(10,25,50,.12); }
+@media (min-width: 800px) { .ops-sticky { bottom: 12px; } }
+.ops-sticky .grow { flex: 1; }
+
+/* shared bits */
+.ops-f { margin-bottom: 11px; }
+.ops-f > label { display: block; font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+.ops-f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ops-check { display: flex; align-items: center; gap: 8px; font-size: 14px; margin: 6px 0; }
+.ops-check input { width: 17px; height: 17px; }
+.ops-picks { display: flex; flex-wrap: wrap; gap: 7px; }
+.ops-pick { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px 11px; font-size: 13px; cursor: pointer; background: var(--surface-1); }
+.ops-pick input { margin: 0; }
+.ops-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.ops-actions .grow { flex: 1; }
+.ops-danger { color: var(--bad); }
+.ops-sheet-body .ctrl, .ops-sheet-body textarea.ctrl { width: 100%; }
+.ops-showrow { display: block; width: 100%; text-align: left; border: 1px solid var(--border);
+  background: var(--surface-1); border-radius: 11px; padding: 10px 12px; margin-bottom: 7px;
+  font: inherit; cursor: pointer; }
+.ops-showrow:hover { background: var(--surface-2); }
+.ops-showrow b { display: block; font-size: 14px; }
+.ops-showrow span { color: var(--muted); font-size: 12.5px; }
+.ops-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 84px; z-index: 300;
+  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13.5px;
+  font-weight: 650; box-shadow: 0 8px 24px rgba(10,25,50,.3); transition: opacity .4s; }
+.ops-toast.bad { background: var(--bad); }
+.ops-toast.out { opacity: 0; }
+@media (min-width: 800px) { .ops-toast { bottom: 24px; } }
+.ops-row-btn { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="ops.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc, O = CadOps;
+  var EVENT_ID = O.qs("id");
+
+  var org = null, me = null, bridge = null;
+  var ev = null, groups = [], groupNames = {}, seasons = [];
+  var members = [], memberName = {}, groupOf = {};
+  var attendance = [], attDraft = {}, attFilter = "";
+  var itinerary = null, packLists = [], signups = [];
+  var compResult = null, compShow = null;
+
+  function memberLabel(id) { return memberName[id] || "Member"; }
+  function canEdit() {
+    return CadOrg.canDo("event.edit", "calendar") ||
+      (CadOrg.canDo("event.create", "calendar") && ev && me && ev.created_by_member === me.id);
+  }
+  function canTakeAttendance() { return CadOrg.canDo("attendance.edit", "attendance"); }
+  function canSeeAttendance() { return CadOrg.can("attendance.view") || canTakeAttendance(); }
+  function canManageSignups() { return CadOrg.canDo("signup.manage", "volunteer_management"); }
+
+  /* ── data ─────────────────────────────────────────────────────────── */
+  async function load() {
+    var rows = await CadOrg.rest("org_events?select=*,targets:org_event_targets(group_id)," +
+      "rsvps:org_event_rsvps(member_id,response,note)&id=eq." + encodeURIComponent(EVENT_ID));
+    ev = (rows || [])[0] || null;
+    if (!ev) return;
+
+    var res = await Promise.all([
+      CadOrg.rest("org_groups?select=id,name,kind&org_id=eq." + org.id + "&order=name.asc"),
+      CadOrg.rest("org_seasons?select=id,name,is_current&org_id=eq." + org.id),
+      CadOrg.rest("org_members?select=id,display_name,section,instrument&org_id=eq." + org.id +
+        "&status=eq.active&order=section.asc.nullslast,display_name.asc.nullslast"),
+      CadOrg.rest("org_group_members?select=group_id,member_id"),
+      CadOrg.rest("org_itineraries?select=id,items:org_itinerary_items(id,at_time,title,detail,group_id,sort)" +
+        "&event_id=eq." + ev.id).catch(function () { return []; }),
+      CadOrg.rest("org_packing_lists?select=id,name,is_template," +
+        "items:org_packing_items(id,label,group_id,sort,checks:org_packing_checks(member_id))" +
+        "&event_id=eq." + ev.id).catch(function () { return []; }),
+      CadOrg.rest("org_signups?select=id,title,description,closes_at," +
+        "slots:org_signup_slots(id,label,starts_at,ends_at,capacity,notes,sort," +
+        "claims:org_signup_claims(member_id,note,waitlisted,claimed_at))" +
+        "&event_id=eq." + ev.id).catch(function () { return []; }),
+      CadOrg.rest("org_attendance?select=*&event_id=eq." + ev.id).catch(function () { return []; }),
+    ]);
+    groups = res[0] || []; seasons = res[1] || []; members = res[2] || [];
+    itinerary = (res[4] || [])[0] || null;
+    packLists = res[5] || []; signups = res[6] || [];
+    attendance = res[7] || [];
+
+    groupNames = {}; groups.forEach(function (g) { groupNames[g.id] = g.name; });
+    memberName = {};
+    members.forEach(function (m) { memberName[m.id] = m.display_name || "Member"; });
+    groupOf = {};
+    (res[3] || []).forEach(function (r) {
+      (groupOf[r.group_id] = groupOf[r.group_id] || []).push(r.member_id);
+    });
+    attDraft = {};
+    attendance.forEach(function (a) { attDraft[a.member_id] = a.status; });
+
+    if (ev.public_event_key && bridge && bridge.linked) {
+      try {
+        compResult = await bridge.resultFor(ev);
+        compShow = await bridge.findShow(ev.public_event_key, ev.public_event_date);
+      } catch (e) { compResult = null; }
+    }
+  }
+
+  /* members this event is actually for (targets = groups, none = everyone) */
+  function audience() {
+    var t = (ev.targets || []).map(function (x) { return x.group_id; });
+    if (!t.length) return members;
+    var ids = {};
+    t.forEach(function (g) { (groupOf[g] || []).forEach(function (m) { ids[m] = 1; }); });
+    return members.filter(function (m) { return ids[m.id]; });
+  }
+
+  /* ── sections ─────────────────────────────────────────────────────── */
+
+  function heroCard() {
+    var k = O.kind(ev.kind);
+    var map = O.mapLink(ev);
+    var targets = (ev.targets || []).map(function (t) { return groupNames[t.group_id] || "a group"; });
+    var att = (ev.attachments || []);
+    return '<div class="card">' +
+      '<div class="ops-head"><h1 class="page">' + esc(ev.title) + "</h1>" +
+        '<div class="ops-head-r">' +
+          (canEdit() ? '<button class="tab" type="button" id="edit">Edit</button>' : "") +
+        "</div></div>" +
+      '<div class="ops-card-tags"><span class="ens-tag important">' + esc(k.icon + " " + k.label) + "</span>" +
+        (ev.rsvp_required ? '<span class="ens-tag normal">RSVP required</span>' : "") +
+        (ev.attendance_required ? '<span class="ens-tag normal">Attendance taken</span>' : "") +
+        (ev.public_event_key ? '<span class="ens-tag important">🏆 Cadence show</span>' : "") +
+      "</div>" +
+      '<div class="ops-hero-meta">' +
+        "<div><b>" + esc(O.fmtDayLong(ev.starts_at)) + "</b> · " + esc(O.fmtWhen(ev)) +
+          " · " + esc(O.relativeDay(ev.starts_at)) + "</div>" +
+        (ev.location
+          ? "<div>" + esc(ev.location) +
+            (map ? ' · <a href="' + esc(map) + '" target="_blank" rel="noopener">Open in Maps →</a>' : "") +
+            "</div>"
+          : "") +
+        (ev.address ? "<div>" + esc(ev.address) + "</div>" : "") +
+        (targets.length
+          ? "<div>For: " + esc(targets.join(", ")) + "</div>"
+          : "<div>For the whole organization</div>") +
+      "</div>" +
+      (ev.description ? '<div class="ops-desc">' + esc(ev.description) + "</div>" : "") +
+      (att.length
+        ? '<div class="ops-attach">' + att.map(function (a) {
+            var name = (a && (a.name || a.label)) || "Attachment";
+            var href = (a && (a.url || a.href)) || "files.html";
+            return '<a href="' + esc(href) + '">📎 ' + esc(name) + "</a>";
+          }).join("") + "</div>"
+        : "") +
+      '<div class="ops-row-btn">' +
+        '<a class="tab" href="messages.html?event=' + esc(ev.id) + '">💬 Event chat</a>' +
+        '<a class="tab" href="calendar.html">← All events</a>' +
+      "</div></div>";
+  }
+
+  /* the payoff: the official placement, straight out of public Cadence */
+  function competitionCard() {
+    if (!ev.public_event_key) return "";
+    if (!bridge || !bridge.linked) {
+      return '<div class="card"><div class="ens-h"><h2>Competition result</h2></div>' +
+        '<p class="setnote">This event is linked to a Cadence show, but the workspace has no ' +
+        "public ensemble set, so we don't know which line of the recap is yours. An admin can " +
+        "set it in workspace settings.</p></div>";
+    }
+    if (compResult) {
+      return '<div class="card"><div class="ens-h"><h2>Official result</h2>' +
+        '<span class="ens-tag important">' + esc(bridge.ensembleName) + "</span></div>" +
+        O.resultHtml(compResult) + "</div>";
+    }
+    var sched = compShow && compShow.schedule;
+    var mine = null;
+    if (sched && bridge.ensembleName) {
+      for (var i = 0; i < sched.length; i++) {
+        if (O.nameMatches(sched[i][1], bridge.ensembleName)) { mine = sched[i]; break; }
+      }
+    }
+    return '<div class="card"><div class="ens-h"><h2>Competition</h2>' +
+      '<span class="ens-tag normal">Cadence link</span></div>' +
+      (compShow
+        ? '<div class="ops-hero-meta"><div><b>' + esc(compShow.name) + "</b></div>" +
+          "<div>" + esc(compShow.date_display || compShow.date) +
+          (compShow.location ? " · " + esc(compShow.location) : "") + "</div>" +
+          (mine ? "<div>Your performance time: <b>" + esc(mine[0]) + "</b></div>" : "") +
+          (compShow.lineup && compShow.lineup.length
+            ? "<div>" + compShow.lineup.length + " ensembles in the lineup</div>" : "") +
+          "</div>"
+        : '<p class="setnote">Linked to a Cadence show.</p>') +
+      '<p class="ops-note">Scores appear here automatically once the recap is published — ' +
+      "no one has to type them in.</p></div>";
+  }
+
+  function rsvpCard() {
+    var counts = O.rsvpCounts(ev);
+    var mine = me ? O.myRsvp(ev, me.id) : null;
+    var lists = { yes: [], maybe: [], no: [] };
+    (ev.rsvps || []).forEach(function (r) {
+      if (lists[r.response]) lists[r.response].push(memberLabel(r.member_id));
+    });
+    var aud = audience().length;
+    var responded = (ev.rsvps || []).length;
+    return '<div class="card"><div class="ens-h"><h2>RSVP</h2>' +
+      '<span class="ens-tag normal">' + responded + " of " + aud + " replied</span></div>" +
+      '<div id="rsvpHost"></div>' +
+      '<div class="ens-stat" style="margin-top:14px">' +
+        "<div><b>" + counts.yes + "</b><span>Going</span></div>" +
+        "<div><b>" + counts.maybe + "</b><span>Maybe</span></div>" +
+        "<div><b>" + counts.no + "</b><span>Can't</span></div>" +
+        "<div><b>" + Math.max(0, aud - responded) + "</b><span>No reply</span></div>" +
+      "</div>" +
+      (lists.yes.length ? '<div class="ops-note"><b>Going:</b> ' + esc(lists.yes.join(", ")) + "</div>" : "") +
+      (lists.maybe.length ? '<div class="ops-note"><b>Maybe:</b> ' + esc(lists.maybe.join(", ")) + "</div>" : "") +
+      (lists.no.length ? '<div class="ops-note"><b>Can\'t:</b> ' + esc(lists.no.join(", ")) + "</div>" : "") +
+      "</div>";
+  }
+
+  function itineraryCard() {
+    var gate = O.gate(org, "itineraries");
+    var items = (itinerary && itinerary.items ? itinerary.items.slice() : []);
+    items.sort(function (a, b) {
+      var d = new Date(a.at_time) - new Date(b.at_time);
+      return d || (a.sort - b.sort);
+    });
+    var body;
+    if (!items.length) {
+      body = '<div class="empty">No timeline yet. On a competition day this is the thing everyone ' +
+        "screenshots — call times, load, warm-up, gate, performance, awards.</div>";
+    } else {
+      body = '<div class="ops-tl">' + items.map(function (it) {
+        var mineGroup = it.group_id && me && (groupOf[it.group_id] || []).indexOf(me.id) >= 0;
+        return '<div class="ops-tl-item' + (mineGroup ? " mine" : "") + '" data-it="' + esc(it.id) + '">' +
+          '<div class="ops-tl-time">' + esc(O.fmtTime(it.at_time)) + "</div>" +
+          '<div class="ops-tl-dot"></div>' +
+          '<div class="ops-tl-body"><b>' + esc(it.title) + "</b>" +
+          (it.detail ? "<div>" + esc(it.detail) + "</div>" : "") +
+          (it.group_id ? "<div>" + esc(groupNames[it.group_id] || "group") + " only</div>" : "") +
+          "</div>" +
+          (canEdit() && gate.ok ? '<button class="tab" type="button" data-delit="' + esc(it.id) + '">×</button>' : "") +
+          "</div>";
+      }).join("") + "</div>";
+    }
+    return '<div class="card' + (gate.ok ? "" : " ens-locked") + '">' +
+      '<div class="ens-h"><h2>Itinerary</h2>' +
+      (gate.ok ? "" : '<span class="ens-tag normal">Pro</span>') + "</div>" +
+      (gate.ok ? body : '<div class="empty">Minute-by-minute competition-day timelines are part of ' +
+        "Cadence Ensemble Pro.</div>") +
+      (gate.ok
+        ? (canEdit()
+            ? '<div class="ops-row-btn"><button class="tab" type="button" id="addIt">+ Add a step</button></div>'
+            : "")
+        : '<p class="ens-lock-note">' + esc(gate.note) + ' <a href="billing.html">See plans →</a></p>') +
+      "</div>";
+  }
+
+  function packingCard() {
+    var gate = O.gate(org, "packing_lists");
+    var body = "";
+    if (!packLists.length) {
+      body = '<div class="empty">No packing list for this event.</div>';
+    } else {
+      body = packLists.map(function (l) {
+        var items = (l.items || []).slice().sort(function (a, b) { return a.sort - b.sort; });
+        var visible = items.filter(function (i) {
+          if (!i.group_id || !me) return true;
+          return (groupOf[i.group_id] || []).indexOf(me.id) >= 0 || canEdit();
+        });
+        var mineDone = visible.filter(function (i) {
+          return (i.checks || []).some(function (c) { return me && c.member_id === me.id; });
+        }).length;
+        var pct = visible.length ? Math.round(100 * mineDone / visible.length) : 0;
+        return "<h3>" + esc(l.name) + "</h3>" +
+          '<div class="ops-progress"><i style="width:' + pct + '%"></i></div>' +
+          '<div class="ops-note">' + mineDone + " of " + visible.length + " packed</div>" +
+          '<div class="ops-pack">' + visible.map(function (i) {
+            var on = (i.checks || []).some(function (c) { return me && c.member_id === me.id; });
+            return '<label class="ops-pack-item' + (on ? " on" : "") + '">' +
+              '<input type="checkbox" data-pack="' + esc(i.id) + '"' + (on ? " checked" : "") +
+              (CadOrg.isWritable(org) ? "" : " disabled") + ">" +
+              "<span>" + esc(i.label) + "</span>" +
+              (i.group_id ? '<span class="g">' + esc(groupNames[i.group_id] || "group") + "</span>" : "") +
+              "</label>";
+          }).join("") + "</div>" +
+          (canEdit()
+            ? '<div class="ops-row-btn"><button class="tab" type="button" data-additem="' + esc(l.id) +
+              '">+ Add an item</button></div>'
+            : "");
+      }).join("");
+    }
+    return '<div class="card' + (gate.ok ? "" : " ens-locked") + '">' +
+      '<div class="ens-h"><h2>Packing list</h2>' +
+      (gate.ok ? "" : '<span class="ens-tag normal">Pro</span>') + "</div>" +
+      (gate.ok ? body : '<div class="empty">Shared packing lists with per-member checkoff are part ' +
+        "of Cadence Ensemble Pro.</div>") +
+      (gate.ok
+        ? (canEdit()
+            ? '<div class="ops-row-btn"><button class="tab" type="button" id="addList">+ New list</button></div>'
+            : "")
+        : '<p class="ens-lock-note">' + esc(gate.note) + ' <a href="billing.html">See plans →</a></p>') +
+      "</div>";
+  }
+
+  function signupsCard() {
+    var gate = O.gate(org, "volunteer_management");
+    var body;
+    if (!signups.length) {
+      body = '<div class="empty">No signups for this event.</div>';
+    } else {
+      body = signups.map(function (s) {
+        var closed = s.closes_at && new Date(s.closes_at) <= new Date();
+        var slots = (s.slots || []).slice().sort(function (a, b) { return a.sort - b.sort; });
+        return "<h3>" + esc(s.title) + "</h3>" +
+          (s.description ? '<p class="setnote">' + esc(s.description) + "</p>" : "") +
+          (s.closes_at
+            ? '<div class="ops-note">' + (closed ? "Closed " : "Closes ") +
+              esc(O.fmtDay(s.closes_at)) + " " + esc(O.fmtTime(s.closes_at)) + "</div>"
+            : "") +
+          slots.map(function (sl) {
+            var claims = (sl.claims || []).slice().sort(function (a, b) {
+              return String(a.claimed_at) < String(b.claimed_at) ? -1 : 1; });
+            var taken = claims.filter(function (c) { return !c.waitlisted; });
+            var wait = claims.filter(function (c) { return c.waitlisted; });
+            var mineRow = me && claims.filter(function (c) { return c.member_id === me.id; })[0];
+            var full = sl.capacity > 0 && taken.length >= sl.capacity;
+            return '<div class="ops-slot"><div class="ops-slot-h"><b>' + esc(sl.label) + "</b>" +
+              "<span" + (full ? ' class="ops-full"' : "") + ">" + taken.length +
+              (sl.capacity > 0 ? " / " + sl.capacity : "") + "</span></div>" +
+              ((sl.starts_at || sl.ends_at)
+                ? '<div class="ops-slot-people">' +
+                  esc((sl.starts_at ? O.fmtTime(sl.starts_at) : "") +
+                      (sl.ends_at ? " – " + O.fmtTime(sl.ends_at) : "")) + "</div>"
+                : "") +
+              (sl.notes ? '<div class="ops-slot-people">' + esc(sl.notes) + "</div>" : "") +
+              '<div class="ops-slot-people">' +
+                (taken.length ? esc(taken.map(function (c) { return memberLabel(c.member_id); }).join(", "))
+                              : "Nobody yet") +
+                (wait.length ? " · <em>Waitlist: " +
+                  esc(wait.map(function (c) { return memberLabel(c.member_id); }).join(", ")) + "</em>" : "") +
+              "</div>" +
+              (closed || !CadOrg.isWritable(org)
+                ? ""
+                : '<div class="ops-row-btn">' + (mineRow
+                    ? '<button class="tab" type="button" data-release="' + esc(sl.id) + '">' +
+                      (mineRow.waitlisted ? "Leave waitlist" : "Give up my spot") + "</button>"
+                    : '<button class="tab on" type="button" data-claim="' + esc(sl.id) + '">' +
+                      (full ? "Join waitlist" : "Sign up") + "</button>") + "</div>") +
+              "</div>";
+          }).join("");
+      }).join("");
+    }
+    return '<div class="card' + (gate.ok ? "" : " ens-locked") + '">' +
+      '<div class="ens-h"><h2>Signups</h2>' +
+      (gate.ok ? "" : '<span class="ens-tag normal">Pro</span>') + "</div>" +
+      (gate.ok ? body : '<div class="empty">Volunteer signups with capacity and automatic waitlists ' +
+        "are part of Cadence Ensemble Pro.</div>") +
+      (gate.ok
+        ? (canManageSignups()
+            ? '<div class="ops-row-btn"><button class="tab" type="button" id="addSignup">+ New signup</button>' +
+              (signups.length
+                ? signups.map(function (s) {
+                    return '<button class="tab" type="button" data-addslot="' + esc(s.id) +
+                      '">+ Slot in “' + esc(s.title) + "”</button>"; }).join("")
+                : "") + "</div>"
+            : "")
+        : '<p class="ens-lock-note">' + esc(gate.note) + ' <a href="billing.html">See plans →</a></p>') +
+      "</div>";
+  }
+
+  function attendanceCard() {
+    if (!canSeeAttendance()) return myAttendanceCard();
+    var aud = audience().filter(function (m) {
+      if (!attFilter) return true;
+      var s = (m.display_name || "") + " " + (m.section || "");
+      return s.toLowerCase().indexOf(attFilter.toLowerCase()) >= 0;
+    });
+    var bySec = {};
+    aud.forEach(function (m) { (bySec[m.section || "Unsectioned"] = bySec[m.section || "Unsectioned"] || []).push(m); });
+    var tally = { present: 0, absent: 0, late: 0, excused: 0, left_early: 0, none: 0 };
+    audience().forEach(function (m) {
+      var st = attDraft[m.id];
+      if (st && tally[st] != null) tally[st]++; else tally.none++;
+    });
+
+    var rows = Object.keys(bySec).sort().map(function (sec) {
+      return '<div class="ops-att-sec">' + esc(sec) + "</div>" +
+        '<div class="ops-att">' + bySec[sec].map(function (m) {
+          var st = attDraft[m.id] || null;
+          var info = st ? O.attInfo(st) : null;
+          return '<button type="button" class="ops-att-row" data-att="' + esc(m.id) + '">' +
+            "<span><b>" + esc(m.display_name || "Member") + "</b>" +
+            "<i>" + esc([m.section, m.instrument].filter(Boolean).join(" · ")) + "</i></span>" +
+            '<span class="ops-att-pill' + (info ? " " + info.tone : "") + '">' +
+            esc(info ? info.label : "Not marked") + "</span></button>";
+        }).join("") + "</div>";
+    }).join("");
+
+    return '<div class="card"><div class="ens-h"><h2>Attendance</h2>' +
+      '<span class="ens-tag normal">' + tally.present + " present · " + tally.absent + " absent</span></div>" +
+      (canTakeAttendance()
+        ? '<p class="setnote">Tap a name to cycle Present → Absent → Late → Excused → Left early. ' +
+          "Nothing is written until you save, and the whole grid saves in one request.</p>"
+        : '<p class="setnote">You can see attendance but not change it.</p>') +
+      '<input class="ctrl" id="attSearch" placeholder="Filter by name or section" value="' +
+        esc(attFilter) + '">' +
+      (aud.length ? rows : '<div class="empty">No members in this event\'s audience yet.</div>') +
+      (canTakeAttendance() && aud.length
+        ? '<div class="ops-sticky">' +
+          '<button class="tab" type="button" id="allPresent">Mark all present</button>' +
+          '<button class="tab on grow" type="button" id="attSave">Save attendance</button></div>'
+        : "") +
+      "</div>";
+  }
+
+  /* what a student or parent sees instead of the grid */
+  function myAttendanceCard() {
+    if (!me) return "";
+    var mine = attendance.filter(function (a) { return a.member_id === me.id; })[0];
+    if (!mine && !ev.attendance_required) return "";
+    var info = mine ? O.attInfo(mine.status) : null;
+    return '<div class="card"><div class="ens-h"><h2>My attendance</h2>' +
+      (info ? '<span class="ens-tag ' + (mine.status === "present" ? "important" : "normal") + '">' +
+        esc(info.label) + "</span>" : '<span class="ens-tag normal">Not marked</span>') + "</div>" +
+      '<p class="setnote">' + (mine && mine.note ? esc(mine.note) :
+        "If you'll be out, leave a note for the staff — it saves a phone call.") + "</p>" +
+      (CadOrg.isWritable(org)
+        ? '<div class="ops-row-btn"><button class="tab" type="button" id="attNote">Explain an absence</button></div>'
+        : "") + "</div>";
+  }
+
+  /* ── render ───────────────────────────────────────────────────────── */
+  function render() {
+    if (!ev) {
+      main.innerHTML = '<div class="card"><div class="empty">That event doesn\'t exist, or it\'s ' +
+        "targeted at a group you're not in.</div>" +
+        '<div class="ops-row-btn"><a class="tab" href="calendar.html">← Back to the calendar</a></div></div>';
+      return;
+    }
+    main.innerHTML =
+      '<a class="ops-back" href="calendar.html">← Calendar</a>' +
+      heroCard() +
+      competitionCard() +
+      (ev.rsvp_required || (ev.rsvps || []).length ? rsvpCard() : "") +
+      itineraryCard() +
+      packingCard() +
+      signupsCard() +
+      attendanceCard() +
+      (canSeeAttendance() ? myAttendanceCard() : "");
+    wire();
+  }
+
+  function wire() {
+    var edit = document.getElementById("edit");
+    if (edit) edit.addEventListener("click", function () {
+      O.eventForm({
+        org: org, groups: groups, seasons: seasons, bridge: bridge,
+        onSaved: function () { reload(); },
+        onDeleted: function () { location.href = "calendar.html"; },
+      }, ev);
+    });
+
+    var host = document.getElementById("rsvpHost");
+    if (host) {
+      var mine = me ? O.myRsvp(ev, me.id) : null;
+      var locked = !CadOrg.isWritable(org) || !me;
+      O.rsvpControl(host, mine && mine.response, function (r) {
+        CadOrg.rpc("org_rsvp_set", { p_event: ev.id, p_response: r }).then(function () {
+          O.toast("RSVP saved"); reload();
+        }).catch(function (err) {
+          O.toast("Couldn't save that RSVP" + (err && err.message ? " — " + err.message : ""), true);
+        });
+      }, { disabled: locked, note: locked ? "This workspace is read-only." : "" });
+    }
+
+    var addIt = document.getElementById("addIt");
+    if (addIt) addIt.addEventListener("click", itineraryForm);
+    Array.prototype.forEach.call(main.querySelectorAll("[data-delit]"), function (b) {
+      b.addEventListener("click", async function () {
+        try {
+          await CadOrg.rest("org_itinerary_items?id=eq." + b.dataset.delit, { method: "DELETE" });
+          reload();
+        } catch (e) { O.toast("Couldn't remove that step", true); }
+      });
+    });
+
+    var addList = document.getElementById("addList");
+    if (addList) addList.addEventListener("click", packListForm);
+    Array.prototype.forEach.call(main.querySelectorAll("[data-additem]"), function (b) {
+      b.addEventListener("click", function () { packItemForm(b.dataset.additem); });
+    });
+    Array.prototype.forEach.call(main.querySelectorAll("[data-pack]"), function (c) {
+      c.addEventListener("change", async function () {
+        if (!me) return;
+        try {
+          if (c.checked) {
+            await CadOrg.rest("org_packing_checks", { method: "POST",
+              headers: { Prefer: "resolution=merge-duplicates" },
+              body: { item_id: c.dataset.pack, member_id: me.id } });
+          } else {
+            await CadOrg.rest("org_packing_checks?item_id=eq." + c.dataset.pack +
+              "&member_id=eq." + me.id, { method: "DELETE" });
+          }
+          c.closest(".ops-pack-item").classList.toggle("on", c.checked);
+        } catch (e) {
+          c.checked = !c.checked;
+          O.toast("Couldn't save that", true);
+        }
+      });
+    });
+
+    var addSignup = document.getElementById("addSignup");
+    if (addSignup) addSignup.addEventListener("click", signupForm);
+    Array.prototype.forEach.call(main.querySelectorAll("[data-addslot]"), function (b) {
+      b.addEventListener("click", function () { slotForm(b.dataset.addslot); });
+    });
+    Array.prototype.forEach.call(main.querySelectorAll("[data-claim]"), function (b) {
+      b.addEventListener("click", async function () {
+        b.disabled = true;
+        try {
+          var okd = await CadOrg.rpc("org_signup_claim", { p_slot: b.dataset.claim });
+          O.toast(okd ? "You're signed up" : "Added to the waitlist");
+          reload();
+        } catch (err) {
+          b.disabled = false;
+          O.toast("Couldn't sign up" + (err && err.message ? " — " + err.message : ""), true);
+        }
+      });
+    });
+    Array.prototype.forEach.call(main.querySelectorAll("[data-release]"), function (b) {
+      b.addEventListener("click", async function () {
+        b.disabled = true;
+        try { await CadOrg.rpc("org_signup_release", { p_slot: b.dataset.release }); reload(); }
+        catch (err) { b.disabled = false; O.toast("Couldn't release that slot", true); }
+      });
+    });
+
+    var search = document.getElementById("attSearch");
+    if (search) search.addEventListener("input", function () {
+      attFilter = this.value;
+      var pos = this.selectionStart;
+      render();
+      var s2 = document.getElementById("attSearch");
+      if (s2) { s2.focus(); try { s2.setSelectionRange(pos, pos); } catch (e) {} }
+    });
+    Array.prototype.forEach.call(main.querySelectorAll("[data-att]"), function (b) {
+      if (!canTakeAttendance()) return;
+      b.addEventListener("click", function () {
+        var id = b.dataset.att;
+        attDraft[id] = O.attNext(attDraft[id]);
+        var info = O.attInfo(attDraft[id]);
+        var pill = b.querySelector(".ops-att-pill");
+        pill.className = "ops-att-pill " + info.tone;
+        pill.textContent = info.label;
+      });
+    });
+    var allP = document.getElementById("allPresent");
+    if (allP) allP.addEventListener("click", function () {
+      audience().forEach(function (m) { attDraft[m.id] = "present"; });
+      render();
+    });
+    var save = document.getElementById("attSave");
+    if (save) save.addEventListener("click", async function () {
+      save.disabled = true; save.textContent = "Saving…";
+      var rows = Object.keys(attDraft).filter(function (k) { return attDraft[k]; })
+        .map(function (k) { return { member_id: k, status: attDraft[k] }; });
+      try {
+        await CadOrg.rpc("org_attendance_save", { p_event: ev.id, p_rows: rows });
+        CadOrg.log("attendance.saved", "event", ev.id, { rows: rows.length });
+        O.toast("Attendance saved for " + rows.length + " members");
+        await reload();
+      } catch (err) {
+        save.disabled = false; save.textContent = "Save attendance";
+        O.toast("Couldn't save attendance" + (err && err.message ? " — " + err.message : ""), true);
+      }
+    });
+
+    var note = document.getElementById("attNote");
+    if (note) note.addEventListener("click", function () {
+      var mine = attendance.filter(function (a) { return a.member_id === me.id; })[0];
+      O.sheet("Explain an absence",
+        '<div class="ops-f"><label for="nText">Note for the staff</label>' +
+        '<textarea class="ctrl" id="nText" rows="3">' + esc(mine ? (mine.note || "") : "") + "</textarea></div>" +
+        '<p class="ops-note">Staff set the official status. Until they do, this marks you ' +
+        "absent with your note attached — nobody can excuse themselves.</p>" +
+        '<p class="acct-msg" id="nMsg" role="status"></p>' +
+        '<div class="ops-actions"><button class="tab on grow" type="button" id="nSave">Send note</button>' +
+        '<button class="tab" type="button" data-close>Cancel</button></div>',
+        function (wrap, close) {
+          wrap.querySelector("#nSave").addEventListener("click", async function () {
+            try {
+              await CadOrg.rpc("org_attendance_self_note", {
+                p_event: ev.id, p_note: wrap.querySelector("#nText").value.trim() });
+              close(); O.toast("Note sent"); reload();
+            } catch (err) {
+              var m = wrap.querySelector("#nMsg");
+              m.className = "acct-msg err";
+              m.textContent = "Couldn't send that: " + ((err && err.message) || "unknown error");
+            }
+          });
+        });
+    });
+  }
+
+  /* ── small forms ──────────────────────────────────────────────────── */
+  function groupSelect(id) {
+    return '<select class="ctrl" id="' + id + '"><option value="">Everyone at this event</option>' +
+      groups.map(function (g) { return '<option value="' + g.id + '">' + esc(g.name) + "</option>"; }).join("") +
+      "</select>";
+  }
+
+  function itineraryForm() {
+    var day = O.toLocalInput(ev.starts_at).slice(0, 11);
+    O.sheet("Add a step",
+      '<div class="ops-f"><label for="iTime">Time</label>' +
+      '<input class="ctrl" id="iTime" type="datetime-local" value="' + esc(day + "06:00") + '"></div>' +
+      '<div class="ops-f"><label for="iTitle">What happens</label>' +
+      '<input class="ctrl" id="iTitle" maxlength="120" placeholder="Buses load"></div>' +
+      '<div class="ops-f"><label for="iDetail">Detail</label>' +
+      '<textarea class="ctrl" id="iDetail" rows="2" placeholder="Full uniform, instruments on the truck"></textarea></div>' +
+      '<div class="ops-f"><label for="iGroup">Applies to</label>' + groupSelect("iGroup") + "</div>" +
+      '<p class="acct-msg" id="iMsg" role="status"></p>' +
+      '<div class="ops-actions"><button class="tab on grow" type="button" id="iSave">Add step</button>' +
+      '<button class="tab" type="button" data-close>Cancel</button></div>',
+      function (wrap, close) {
+        wrap.querySelector("#iSave").addEventListener("click", async function () {
+          var msg = wrap.querySelector("#iMsg");
+          var title = wrap.querySelector("#iTitle").value.trim();
+          var at = O.fromLocalInput(wrap.querySelector("#iTime").value);
+          if (!title || !at) {
+            msg.className = "acct-msg err"; msg.textContent = "A time and a title, please."; return;
+          }
+          msg.className = "acct-msg"; msg.textContent = "Saving…";
+          try {
+            var itId = itinerary && itinerary.id;
+            if (!itId) {
+              var made = await CadOrg.rest("org_itineraries", { method: "POST",
+                headers: { Prefer: "return=representation" }, body: { event_id: ev.id } });
+              itId = made[0].id;
+            }
+            await CadOrg.rest("org_itinerary_items", { method: "POST", body: {
+              itinerary_id: itId, at_time: at, title: title,
+              detail: wrap.querySelector("#iDetail").value.trim() || null,
+              group_id: wrap.querySelector("#iGroup").value || null,
+            } });
+            close(); reload();
+          } catch (err) {
+            msg.className = "acct-msg err";
+            msg.textContent = "Couldn't save: " + ((err && err.message) || "unknown error");
+          }
+        });
+      });
+  }
+
+  function packListForm() {
+    O.sheet("New packing list",
+      '<div class="ops-f"><label for="pName">Name</label>' +
+      '<input class="ctrl" id="pName" maxlength="80" placeholder="Regional travel — what to bring"></div>' +
+      '<label class="ops-check"><input type="checkbox" id="pTpl"> Save as a reusable template</label>' +
+      '<p class="acct-msg" id="pMsg" role="status"></p>' +
+      '<div class="ops-actions"><button class="tab on grow" type="button" id="pSave">Create list</button>' +
+      '<button class="tab" type="button" data-close>Cancel</button></div>',
+      function (wrap, close) {
+        wrap.querySelector("#pSave").addEventListener("click", async function () {
+          var msg = wrap.querySelector("#pMsg");
+          var name = wrap.querySelector("#pName").value.trim();
+          if (!name) { msg.className = "acct-msg err"; msg.textContent = "Give the list a name."; return; }
+          try {
+            await CadOrg.rest("org_packing_lists", { method: "POST", body: {
+              org_id: org.id, event_id: ev.id, name: name,
+              is_template: wrap.querySelector("#pTpl").checked,
+            } });
+            close(); reload();
+          } catch (err) {
+            msg.className = "acct-msg err";
+            msg.textContent = "Couldn't save: " + ((err && err.message) || "unknown error");
+          }
+        });
+      });
+  }
+
+  function packItemForm(listId) {
+    O.sheet("Add packing items",
+      '<div class="ops-f"><label for="pItems">One item per line</label>' +
+      '<textarea class="ctrl" id="pItems" rows="5" placeholder="Show shirt&#10;Black socks&#10;Water jug"></textarea></div>' +
+      '<div class="ops-f"><label for="pGroup">Only for</label>' + groupSelect("pGroup") + "</div>" +
+      '<p class="acct-msg" id="pMsg2" role="status"></p>' +
+      '<div class="ops-actions"><button class="tab on grow" type="button" id="pAdd">Add items</button>' +
+      '<button class="tab" type="button" data-close>Cancel</button></div>',
+      function (wrap, close) {
+        wrap.querySelector("#pAdd").addEventListener("click", async function () {
+          var msg = wrap.querySelector("#pMsg2");
+          var lines = wrap.querySelector("#pItems").value.split("\n")
+            .map(function (s) { return s.trim(); }).filter(Boolean);
+          if (!lines.length) { msg.className = "acct-msg err"; msg.textContent = "Nothing to add."; return; }
+          var g = wrap.querySelector("#pGroup").value || null;
+          try {
+            await CadOrg.rest("org_packing_items", { method: "POST",
+              body: lines.map(function (l, i) {
+                return { list_id: listId, label: l, group_id: g, sort: i };
+              }) });
+            close(); reload();
+          } catch (err) {
+            msg.className = "acct-msg err";
+            msg.textContent = "Couldn't save: " + ((err && err.message) || "unknown error");
+          }
+        });
+      });
+  }
+
+  function signupForm() {
+    O.sheet("New signup",
+      '<div class="ops-f"><label for="sTitle">Title</label>' +
+      '<input class="ctrl" id="sTitle" maxlength="120" placeholder="Chaperones & pit crew"></div>' +
+      '<div class="ops-f"><label for="sDesc">Description</label>' +
+      '<textarea class="ctrl" id="sDesc" rows="2"></textarea></div>' +
+      '<div class="ops-f"><label for="sClose">Closes</label>' +
+      '<input class="ctrl" id="sClose" type="datetime-local"></div>' +
+      '<p class="acct-msg" id="sMsg" role="status"></p>' +
+      '<div class="ops-actions"><button class="tab on grow" type="button" id="sSave">Create signup</button>' +
+      '<button class="tab" type="button" data-close>Cancel</button></div>',
+      function (wrap, close) {
+        wrap.querySelector("#sSave").addEventListener("click", async function () {
+          var msg = wrap.querySelector("#sMsg");
+          var title = wrap.querySelector("#sTitle").value.trim();
+          if (!title) { msg.className = "acct-msg err"; msg.textContent = "Give it a title."; return; }
+          try {
+            await CadOrg.rest("org_signups", { method: "POST", body: {
+              org_id: org.id, event_id: ev.id, title: title,
+              description: wrap.querySelector("#sDesc").value.trim() || null,
+              closes_at: O.fromLocalInput(wrap.querySelector("#sClose").value),
+            } });
+            close(); reload();
+          } catch (err) {
+            msg.className = "acct-msg err";
+            msg.textContent = "Couldn't save: " + ((err && err.message) || "unknown error");
+          }
+        });
+      });
+  }
+
+  function slotForm(signupId) {
+    var day = O.toLocalInput(ev.starts_at).slice(0, 11);
+    O.sheet("Add a slot",
+      '<div class="ops-f"><label for="slLabel">Label</label>' +
+      '<input class="ctrl" id="slLabel" maxlength="120" placeholder="Water crew — first half"></div>' +
+      '<div class="ops-f2"><div class="ops-f"><label for="slStart">From</label>' +
+      '<input class="ctrl" id="slStart" type="datetime-local" value="' + esc(day + "16:00") + '"></div>' +
+      '<div class="ops-f"><label for="slEnd">To</label>' +
+      '<input class="ctrl" id="slEnd" type="datetime-local" value="' + esc(day + "19:00") + '"></div></div>' +
+      '<div class="ops-f"><label for="slCap">How many people (0 = unlimited)</label>' +
+      '<input class="ctrl" id="slCap" type="number" min="0" value="2"></div>' +
+      '<div class="ops-f"><label for="slNotes">Notes</label>' +
+      '<input class="ctrl" id="slNotes" maxlength="200"></div>' +
+      '<p class="acct-msg" id="slMsg" role="status"></p>' +
+      '<div class="ops-actions"><button class="tab on grow" type="button" id="slSave">Add slot</button>' +
+      '<button class="tab" type="button" data-close>Cancel</button></div>',
+      function (wrap, close) {
+        wrap.querySelector("#slSave").addEventListener("click", async function () {
+          var msg = wrap.querySelector("#slMsg");
+          var label = wrap.querySelector("#slLabel").value.trim();
+          if (!label) { msg.className = "acct-msg err"; msg.textContent = "Name the slot."; return; }
+          try {
+            await CadOrg.rest("org_signup_slots", { method: "POST", body: {
+              signup_id: signupId, label: label,
+              starts_at: O.fromLocalInput(wrap.querySelector("#slStart").value),
+              ends_at: O.fromLocalInput(wrap.querySelector("#slEnd").value),
+              capacity: Math.max(0, parseInt(wrap.querySelector("#slCap").value, 10) || 0),
+              notes: wrap.querySelector("#slNotes").value.trim() || null,
+            } });
+            close(); reload();
+          } catch (err) {
+            msg.className = "acct-msg err";
+            msg.textContent = "Couldn't save: " + ((err && err.message) || "unknown error");
+          }
+        });
+      });
+  }
+
+  /* ── boot ─────────────────────────────────────────────────────────── */
+  async function reload() {
+    try { await load(); } catch (e) {}
+    render();
+  }
+
+  CadOrg.start({ nav: "calendar" }).then(async function (o) {
+    if (!o) return;
+    if (!EVENT_ID) { location.href = "calendar.html"; return; }
+    org = o;
+    me = CadOrg.member();
+    bridge = O.bridge(org);
+    try { await load(); } catch (e) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load that event. ' +
+        "If this workspace is new, the operations migration (0007) may not be applied yet.</div></div>";
+      return;
+    }
+    render();
+  });
+})();
+</script>
+</body>
+</html>

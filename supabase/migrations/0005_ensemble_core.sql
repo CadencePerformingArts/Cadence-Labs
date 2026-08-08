@@ -320,8 +320,7 @@ begin
     (new.id, 'booster', 'Booster', 'booster', array['announce.view','file.view'], true, 100),
     (new.id, 'volunteer', 'Volunteer', 'volunteer', array['announce.view'], true, 110),
     (new.id, 'alumni', 'Alumni', 'alumni', array['announce.view'], true, 120),
-    (new.id, 'guest', 'Guest', 'guest', array['announce.view'], true, 130)
-  returning id into owner_role;
+    (new.id, 'guest', 'Guest', 'guest', array['announce.view'], true, 130);
 
   select id into owner_role from public.org_roles where org_id = new.id and key = 'owner';
 
@@ -375,6 +374,49 @@ end $$;
 
 create trigger org_members_autogroup after insert or update of role_id, section
   on public.org_members for each row execute function public.sync_member_auto_groups();
+
+-- Billing is not self-serve. An org admin runs the workspace, but plan,
+-- status, trial dates and storage limits are set by the billing system
+-- (service role / webhook) — otherwise any admin could grant themselves a
+-- paid plan and unlimited storage with one PATCH.
+-- SECURITY INVOKER on purpose: this must see the CALLER's role. Inside a
+-- SECURITY DEFINER function current_user is the function owner, which would
+-- lock out the billing system itself.
+create or replace function public.guard_org_billing_fields()
+returns trigger language plpgsql set search_path = public as $$
+declare claims_role text;
+begin
+  claims_role := coalesce(
+    nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', '');
+  if claims_role = 'service_role' or current_user = 'service_role' then
+    return new;                       -- billing system may write anything
+  end if;
+  if new.plan is distinct from old.plan
+     or new.status is distinct from old.status
+     or new.trial_ends_at is distinct from old.trial_ends_at
+     or new.grace_ends_at is distinct from old.grace_ends_at
+     or new.renews_at is distinct from old.renews_at
+     or new.storage_quota_bytes is distinct from old.storage_quota_bytes
+     or new.stripe_customer_id is distinct from old.stripe_customer_id then
+    raise exception
+      'billing_fields_readonly: plan, status, trial dates and storage limits are set by billing';
+  end if;
+  return new;
+end $$;
+
+create trigger organizations_guard_billing before update on public.organizations
+  for each row execute function public.guard_org_billing_fields();
+
+-- the audit log records who actually acted, not who the client claims
+create or replace function public.stamp_audit_actor()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  new.actor_user_id := auth.uid();
+  return new;
+end $$;
+
+create trigger org_audit_actor before insert on public.org_audit_log
+  for each row execute function public.stamp_audit_actor();
 
 create trigger organizations_touch before update on public.organizations
   for each row execute function public.touch_updated_at();

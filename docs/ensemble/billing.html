@@ -392,7 +392,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     render();
   }
 
-  CadOrg.start({ nav: "home" }).then(async function (org) {
+  CadOrg.start({ nav: "billing" }).then(async function (org) {
     if (!org) return;
     S.org = org;
     try { await load(); } catch (e) {}
