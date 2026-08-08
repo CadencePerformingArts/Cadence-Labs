@@ -53,9 +53,19 @@
       desc: "A badge on your profile — and the warm glow of keeping Cadence independent and ad-free." },
   ];
 
+  /* Pricing lives here — one configurable spot, no numbers hardcoded into
+     pages. Presentation only until real billing lands. */
+  var PRICING = {
+    currency: "$",
+    monthly: 1.99,
+    annual: 9.99,
+    annualNote: "best value",
+  };
+
   window.CadPlus = {
     /* true when this device holds a Cadence+ entitlement */
     active: function () { return !!read(); },
+    pricing: PRICING,
     /* the stored record ({key, since}) or null — handy for Settings UI */
     info: read,
     /* Redeem a code. Returns true and stores the entitlement when the code is

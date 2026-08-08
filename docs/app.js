@@ -1916,10 +1916,18 @@
     await LIVE.refresh().catch(() => {});
     if (stale() || !mount()) return;
 
-    // running season: the schedule's future events join the list, marked
-    // "upcoming" — the season page is the one place with the whole summer
-    events = events.slice(); // never mutate the array shared by the data() cache
-    if (+year === new Date().getFullYear()) {
+    // the schedule's future events join the list, marked "upcoming" — keyed
+    // by each entry's own season year, not the wall clock, so fall and winter
+    // circuits (whose seasons straddle or lead the calendar year) still show
+    // their full slate
+    events = events.map(ev => Object.assign({}, ev)); // never mutate the data() cache
+    {
+      // season files published ahead of scores carry future dates with no
+      // results — those are upcoming shows even before upcoming.json says so
+      const todayStr = LIVE.today() || new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
+      events.forEach(ev => {
+        if (!ev.future && ev.date >= todayStr && !(ev.classes || []).some(c => (c.results || []).length)) ev.future = true;
+      });
       const up = await data("upcoming.json").catch(() => []);
       if (stale()) return;
       const seen = new Set(events.map(e => (e.date || "") + "|" + (e.name || "").toLowerCase()));
@@ -2029,16 +2037,19 @@
       const q = document.getElementById("fQ").value.trim().toLowerCase();
       const matched = events.map((ev, i) => [ev, i]).filter(([ev]) => matches(ev, cls, q));
       const filtering = !!(cls || corpsPick.size || q);
-      const isCurrentYear = +year === new Date().getFullYear();
       const today = LIVE.today() || new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
       // a show is "finished" once its day is past, or (today) once it has results
       // and is no longer live — those drop to the results section below
       const finished = ([ev]) => ev.date < today || (ev.date === today && !ev.future && !LIVE.showLive(ev));
+      // any season with shows still to come gets the what's-on view (upcoming
+      // first) — decided by the data, not the calendar year, since fall and
+      // winter circuits' seasons straddle or lead the year they're named for
+      const seasonAhead = matched.some(e => !finished(e));
 
       const cnt = document.getElementById("evcount");
       let html;
-      if (filtering || !isCurrentYear) {
-        // filtered / past-season browse: a single flat list, newest first
+      if (filtering || !seasonAhead) {
+        // filtered / wrapped-season browse: a single flat list, newest first
         const sorted = matched.slice().sort(([a], [b]) =>
           (b.date || "").localeCompare(a.date || "") || a.name.localeCompare(b.name));
         html = sorted.map(rowHtml).join("");
@@ -3290,6 +3301,140 @@
     "#c2410c", "#4338ca", "#701a75", "#92400e", "#1d4ed8", "#334155"];
   const PALETTE_ACC = ["#f0b429", "#fbbf24", "#38bdf8", "#f472b6", "#34d399", "#fb923c",
     "#e11d48", "#a3e635", "#c084fc", "#ffffff"];
+  // hex ↔ HSL for the inline color sliders (no native color dialog anywhere)
+  const hexToHsl = hex => {
+    const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim());
+    const n = parseInt(m ? m[1] : "0a3f6b", 16);
+    const r = (n >> 16) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+    let h = 0;
+    if (d) {
+      if (max === r) h = ((g - b) / d) % 6;
+      else if (max === g) h = (b - r) / d + 2;
+      else h = (r - g) / d + 4;
+      h = Math.round(h * 60);
+      if (h < 0) h += 360;
+    }
+    const l = (max + min) / 2;
+    const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+    return [h, Math.round(s * 100), Math.round(l * 100)];
+  };
+  const hslToHex = (h, s, l) => {
+    s /= 100; l /= 100;
+    const f = n => {
+      const k = (n + h / 30) % 12;
+      const c = l - s * Math.min(l, 1 - l) * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+      return Math.round(c * 255).toString(16).padStart(2, "0");
+    };
+    return "#" + f(0) + f(8) + f(4);
+  };
+
+  /* Every Cadence app, for the one settings surface that manages alert
+     preferences across the whole family. path is from the site root; ns
+     prefixes that app's stored keys (one origin = one shared localStorage,
+     so any app's Settings page can manage every app's preferences). */
+  const CAD_APPS = [
+    { name: "Cadence DCI", path: ".", ns: "" },
+    { name: "WGI Color Guard", path: "wgi/guard", ns: "wgi-guard:" },
+    { name: "WGI Percussion", path: "wgi/percussion", ns: "wgi-perc:" },
+    { name: "WGI Winds", path: "wgi/winds", ns: "wgi-winds:" },
+    { name: "Bands of America", path: "boa", ns: "boa:" },
+    { name: "US Bands", path: "usbands", ns: "usb:" },
+  ];
+
+  /* One card that manages score-alert preferences for every Cadence app —
+     rendered on every app's Settings page. The DCI page keeps its native
+     push card above this (real subscriptions need the DCI service worker),
+     so its own entry is skipped there; on family pages DCI appears as a
+     link row for the same reason. */
+  function mountFamilyAlerts() {
+    const curNs = (window.APP_CFG && window.APP_CFG.ns) || "";
+    const rootPrefix = (window.APP_CFG && window.APP_CFG.root) || ".";
+    const dciHref = rootPrefix === "." ? "#/settings" : rootPrefix + "/#/settings";
+    const apps = CAD_APPS.filter(a => a.ns !== "" || curNs !== "")
+      .slice().sort((a, b) => (a.ns === curNs ? -1 : 0) - (b.ns === curNs ? -1 : 0));
+    if (!apps.length) return;
+    const pref = (ns, k, dflt) => { try { const v = localStorage.getItem(ns + k); return v == null ? dflt : v; } catch (e) { return dflt; } };
+    const setPref = (ns, k, v) => { try { localStorage.setItem(ns + k, v); } catch (e) {} };
+
+    const card = document.createElement("div");
+    card.className = "card setcard";
+    card.innerHTML = `<h2>Alerts across Cadence</h2>
+      <p class="setnote">One place for every Cadence app — pick exactly what you want a ping for.
+      Preferences apply the moment each app's alert feed goes live.</p>`
+      + apps.map(a => {
+        if (a.ns === "") return `<a class="famapp-link" href="${dciHref}">🥁 <b>Cadence DCI</b>
+          <span class="setsub">Push alerts live — manage them in the DCI app</span><span class="famapp-go">→</span></a>`;
+        const open = a.ns === curNs;
+        const on = pref(a.ns, "cad-notify-on", "on") === "on";
+        return `<div class="famapp${open ? " open" : ""}" data-ns="${a.ns}" data-path="${a.path}">
+          <div class="famapp-head">
+            <button class="famapp-name" type="button" aria-expanded="${open}"><span class="caret">▸</span>${esc(a.name)}</button>
+            <button class="toggle${on ? " on" : ""}" data-fam-on aria-pressed="${on}" aria-label="${esc(a.name)} score alerts"></button>
+          </div>
+          <div class="famapp-body"${open ? "" : " hidden"}></div>
+        </div>`;
+      }).join("");
+
+    async function fillBody(wrap) {
+      const ns = wrap.dataset.ns, body = wrap.querySelector(".famapp-body");
+      if (!body || body.dataset.filled) return;
+      body.dataset.filled = "1";
+      const favs = pref(ns, "cad-notify-scope", "all") === "favs";
+      let clsList = [];
+      try {
+        const rk = await (await fetch(`${rootPrefix}/${wrap.dataset.path}/data/rankings.json`)).json();
+        clsList = Object.keys(rk.standings || {});
+      } catch (e) {}
+      let onRaw = null;
+      try { onRaw = JSON.parse(pref(ns, "cad-notify-classes", "null")); } catch (e) {}
+      const onSet = new Set(Array.isArray(onRaw) ? onRaw.filter(c => clsList.includes(c)) : clsList);
+      body.innerHTML = `
+        <div class="setrow">
+          <div><b>Only my favorites</b><div class="setsub">Alert just for your ★ picks</div></div>
+          <button class="toggle${favs ? " on" : ""}" data-fam-favs aria-pressed="${favs}" aria-label="Favorites only"></button>
+        </div>` + (clsList.length ? `
+        <div class="setrow setrow-classes">
+          <div><b>Which classes</b><div class="setsub">Only alert me for the classes I follow</div></div>
+        </div>
+        <div class="classchips">${clsList.map(c => `<button class="classchip${onSet.has(c) ? " on" : ""}" data-ncls="${esc(c)}" aria-pressed="${onSet.has(c)}">${esc(c)}</button>`).join("")}</div>` : "");
+      const favBtn = body.querySelector("[data-fam-favs]");
+      if (favBtn) favBtn.addEventListener("click", () => {
+        const now = !favBtn.classList.contains("on");
+        favBtn.classList.toggle("on", now);
+        favBtn.setAttribute("aria-pressed", String(now));
+        setPref(ns, "cad-notify-scope", now ? "favs" : "all");
+      });
+      body.querySelectorAll("[data-ncls]").forEach(b => b.addEventListener("click", () => {
+        const c = b.dataset.ncls;
+        if (onSet.has(c)) onSet.delete(c); else onSet.add(c);
+        b.classList.toggle("on", onSet.has(c));
+        setPref(ns, "cad-notify-classes", JSON.stringify([...onSet]));
+      }));
+    }
+
+    card.querySelectorAll(".famapp").forEach(wrap => {
+      wrap.querySelector(".famapp-name").addEventListener("click", () => {
+        const body = wrap.querySelector(".famapp-body");
+        const open = body.hidden;
+        body.hidden = !open;
+        wrap.classList.toggle("open", open);
+        wrap.querySelector(".famapp-name").setAttribute("aria-expanded", String(open));
+        if (open) fillBody(wrap);
+      });
+      const onBtn = wrap.querySelector("[data-fam-on]");
+      onBtn.addEventListener("click", () => {
+        const now = !onBtn.classList.contains("on");
+        onBtn.classList.toggle("on", now);
+        onBtn.setAttribute("aria-pressed", String(now));
+        setPref(wrap.dataset.ns, "cad-notify-on", now ? "on" : "off");
+      });
+      if (!wrap.querySelector(".famapp-body").hidden) fillBody(wrap);
+    });
+
+    const foot = app.querySelector(".setfoot");
+    if (foot) app.insertBefore(card, foot); else app.appendChild(card);
+  }
 
   async function viewSettings(_m, stale) {
     setNav("");
@@ -3372,9 +3517,21 @@
           <div class="custombuild-h">Or build your own <span class="kicker">pick a primary, then an accent</span></div>
           <div class="palrow" data-pal="bar">${PALETTE_BAR.map(c => `<button type="button" class="palsw${c === custInit[0] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Primary ${c}"></button>`).join("")}</div>
           <div class="palrow" data-pal="acc">${PALETTE_ACC.map(c => `<button type="button" class="palsw${c === custInit[1] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Accent ${c}"></button>`).join("")}</div>
+          <div class="custsliders">
+            <div class="custslide">
+              <span class="custlbl">Primary</span>
+              <input type="range" class="slider-hue" id="custBarH" min="0" max="359" step="1" aria-label="Primary hue">
+              <input type="range" class="slider-lit" id="custBarL" min="10" max="88" step="1" aria-label="Primary lightness">
+            </div>
+            <div class="custslide">
+              <span class="custlbl">Accent</span>
+              <input type="range" class="slider-hue" id="custAccH" min="0" max="359" step="1" aria-label="Accent hue">
+              <input type="range" class="slider-lit" id="custAccL" min="10" max="94" step="1" aria-label="Accent lightness">
+            </div>
+          </div>
           <div class="customrow">
-            <label class="custompick"><input type="color" id="custBar" value="${custInit[0]}"><span>Fine-tune</span></label>
-            <label class="custompick"><input type="color" id="custAcc" value="${custInit[1]}"><span>Fine-tune</span></label>
+            <input type="hidden" id="custBar" value="${custInit[0]}">
+            <input type="hidden" id="custAcc" value="${custInit[1]}">
             <span class="corpsrow-sw custpreview" id="custPreview" style="--c1:${custInit[0]};--c2:${custInit[1]}"></span>
             <button class="tab pr-lock" id="custApply" type="button">Use these</button>
           </div>
@@ -3470,8 +3627,46 @@
     const paintCustPreview = () => {
       if (custPrev && custBar && custAcc) { custPrev.style.setProperty("--c1", custBar.value); custPrev.style.setProperty("--c2", custAcc.value); }
     };
-    if (custBar) custBar.addEventListener("input", paintCustPreview);
-    if (custAcc) custAcc.addEventListener("input", paintCustPreview);
+    // inline hue + lightness sliders drive each channel; the hidden inputs
+    // hold the hex the rest of the code (swatch rows, Apply) already speaks.
+    // Saturation is remembered per channel so curated swatches round-trip
+    // exactly; dragging hue on a near-grey bumps it to something visible.
+    const custSat = { bar: hexToHsl(custBar.value)[1], acc: hexToHsl(custAcc.value)[1] };
+    const custSliders = pal => ({
+      h: document.getElementById(pal === "bar" ? "custBarH" : "custAccH"),
+      l: document.getElementById(pal === "bar" ? "custBarL" : "custAccL"),
+      input: pal === "bar" ? custBar : custAcc,
+    });
+    function paintTracks(pal) {
+      const s = custSliders(pal), hue = +s.h.value, ss = custSat[pal];
+      s.l.style.background = `linear-gradient(90deg, hsl(${hue},${ss}%,8%), hsl(${hue},${ss}%,50%), hsl(${hue},${ss}%,95%))`;
+      s.h.style.setProperty("--thumb", `hsl(${hue},${Math.max(ss, 40)}%,50%)`);
+      s.l.style.setProperty("--thumb", s.input.value);
+    }
+    function syncFromHex(pal) { // hex (swatch tap, saved value) → sliders
+      const s = custSliders(pal), hsl = hexToHsl(s.input.value);
+      custSat[pal] = hsl[1];
+      s.h.value = hsl[0];
+      s.l.value = Math.min(+s.l.max, Math.max(+s.l.min, hsl[2]));
+      paintTracks(pal);
+    }
+    function syncFromSliders(pal) { // slider drag → hex
+      const s = custSliders(pal);
+      if (custSat[pal] < 12) custSat[pal] = 72;
+      s.input.value = hslToHex(+s.h.value, custSat[pal], +s.l.value);
+      paintTracks(pal);
+      paintCustPreview();
+      const row = app.querySelector(`.palrow[data-pal="${pal}"]`);
+      if (row) row.querySelectorAll(".palsw").forEach(x => x.classList.toggle("on", x.dataset.c === s.input.value));
+    }
+    ["bar", "acc"].forEach(pal => {
+      const s = custSliders(pal);
+      if (!s.h || !s.l || !s.input) return;
+      s.h.addEventListener("input", () => syncFromSliders(pal));
+      s.l.addEventListener("input", () => syncFromSliders(pal));
+      s.input.addEventListener("input", () => { syncFromHex(pal); paintCustPreview(); });
+      syncFromHex(pal);
+    });
     if (custApply) custApply.addEventListener("click", () => {
       applyCustomTheme(custBar.value, custAcc.value);
       app.querySelectorAll("[data-corps-set]").forEach(x => x.classList.remove("on"));
@@ -3529,6 +3724,7 @@
       if (window.CadPush && CadPush.setClasses) CadPush.setClasses(picked);
     }));
     paintPush();
+    mountFamilyAlerts();
   }
 
   // Ask Cadence — natural-language questions answered from the official scores.

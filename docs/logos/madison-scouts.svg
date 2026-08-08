@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47pre4 r22446"
+   width="57.609314"
+   height="57.75"
+   sodipodi:docname="Madison_Scouts_Drum_and_Bugle_Corps_old.svg">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2878"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="970"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="10.269366"
+     inkscape:cx="15.627315"
+     inkscape:cy="34.712175"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <path
+     style="fill:#0b6728;fill-opacity:1;stroke:none"
+     d="m 29.125,0 c -0.09619,0.1230541 -0.187999,0.2517819 -0.28125,0.375 l 0,57 0.28125,0.375 5.65625,-7.09375 C 30.249982,47.933913 31.011645,43.0082 30.5,39.0625 L 32.375,39 c 1.187908,15.436194 14.877599,13.646285 16.78125,7.84375 -7.219879,4.833741 -12.807142,-1.32391 -12.25,-7.28125 2.910104,-0.286053 3.085908,-3.737396 0,-4 C 39.951132,22.617306 50.16198,22.132451 57.4375,30.875 59.832393,21.472144 36.471053,8.607302 32.15625,35.5625 L 30.625,35.53125 c -0.06581,-1.065919 0.08121,-1.867651 0.3125,-2.8125 C 33.646171,21.653345 36.271895,10.567913 29.125,0 z"
+     id="path2818" />
+  <path
+     style="fill:#0e280b;fill-opacity:1;stroke:none"
+     d="m 29.125,0 c -8.161918,10.441204 -5.680948,21.492351 -1.875,32.59375 0.02145,0.06256 0.04097,0.124932 0.0625,0.1875 0.300712,0.873797 0.534804,1.811732 0.46875,2.6875 l -0.9375,0.0625 -0.09375,0 -0.4375,0.03125 C 23.42485,13.545424 2.93347,14.139011 0,31.71875 3.957342,25.871583 19.150835,20.342253 21.21875,35.6875 c -2.975398,0.144954 -3.14429,3.308281 0.125,3.59375 0.415045,5.702299 -3.090837,12.097495 -12.8125,7.84375 3.658599,4.483945 14.477486,8.343293 17.5,-7.875 L 27.6875,39.15625 C 27.834532,42.632525 27.148879,46.883186 23.625,50.5 l 5.5,7.25 0,-57.75 z"
+     id="rect2884" />
+</svg>

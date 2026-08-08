@@ -737,14 +737,42 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
 .custombuild-h { font-weight: 650; font-size: 14px; color: var(--heading); margin-bottom: 11px; }
 .custombuild-h .kicker { font-weight: 500; }
 .customrow { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; }
-.custompick { display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
-  font-size: 11.5px; color: var(--muted); font-weight: 600; cursor: pointer; }
-.custompick input[type=color] { width: 46px; height: 34px; border: 1.5px solid var(--border);
-  border-radius: 9px; background: var(--surface-1); cursor: pointer; padding: 3px; }
-.custompick input[type=color]::-webkit-color-swatch { border: 0; border-radius: 5px; }
-.custompick input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
 .custpreview { width: 36px; height: 24px; align-self: center; }
 .customrow .tab { margin-left: auto; }
+/* inline hue + lightness sliders — the whole picker lives on the page,
+   no native color dialog anywhere */
+.custsliders { display: grid; gap: 12px 16px; grid-template-columns: 1fr 1fr; margin: 2px 0 12px; }
+@media (max-width: 560px) { .custsliders { grid-template-columns: 1fr; } }
+.custslide { display: flex; flex-direction: column; gap: 7px; }
+.custlbl { font-size: 11.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--muted); }
+.custslide input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 14px;
+  border-radius: 999px; border: 1px solid var(--border); outline-offset: 3px; cursor: pointer; margin: 0; }
+.custslide .slider-hue { background: linear-gradient(90deg,
+  hsl(0,78%,50%), hsl(60,78%,50%), hsl(120,78%,42%), hsl(180,78%,42%),
+  hsl(240,78%,55%), hsl(300,78%,50%), hsl(359,78%,50%)); }
+.custslide input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+  width: 24px; height: 24px; border-radius: 50%; background: var(--thumb, #fff);
+  border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+.custslide input[type=range]::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%; background: var(--thumb, #fff);
+  border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+/* per-app sections of the "Alerts across Cadence" card */
+.famapp { border-top: 1px solid var(--grid); }
+.famapp-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.famapp-name { display: flex; align-items: center; gap: 8px; border: 0; background: none;
+  font: inherit; font-weight: 700; font-size: 14.5px; color: var(--heading);
+  padding: 12px 0; cursor: pointer; flex: 1; text-align: left; }
+.famapp-name .caret { transition: transform .15s; color: var(--muted); }
+.famapp.open .famapp-name .caret { transform: rotate(90deg); }
+.famapp-body { padding: 0 0 12px 22px; }
+.famapp-body .classchips { margin-top: 8px; }
+.famapp-link { display: flex; align-items: center; gap: 8px; padding: 12px 0;
+  border-top: 1px solid var(--grid); color: var(--text); text-decoration: none;
+  font-size: 14.5px; flex-wrap: wrap; }
+.famapp-link b { color: var(--heading); }
+.famapp-link .setsub { flex: 1 1 100%; margin-left: 27px; }
+.famapp-link .famapp-go { margin-left: auto; color: var(--link); font-weight: 700; }
+.famapp-link:hover b { text-decoration: underline; }
 /* labelled rows (select + toggles) */
 .setrow { display: flex; align-items: center; justify-content: space-between; gap: 14px;
   padding: 13px 0; border-top: 1px solid var(--grid); }

@@ -14,6 +14,7 @@ DOCS = ROOT / "docs"
 
 PAGES = {
     "wgi/guard": {
+        "status": 'Real champions history and the full 2027 schedule — live season scores pending WGI permission.',
         "root": "../..",
         "title": "Cadence WGI — Color Guard Scores & Standings",
         "brand_tag": "WGI",
@@ -26,10 +27,10 @@ PAGES = {
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
         "class_order": ["Independent World", "Independent Open", "Independent A", "Scholastic World", "Scholastic Open", "Scholastic A"],
-        "strip": "DEMO SEASON — sample data with real ensemble names. Switch WGI activity from the Cadence logo menu.",
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "wgi/percussion": {
+        "status": 'Real champions history and the full 2027 schedule — live season scores pending WGI permission.',
         "root": "../..",
         "title": "Cadence WGI — Percussion Scores & Standings",
         "brand_tag": "WGI",
@@ -42,10 +43,10 @@ PAGES = {
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
         "class_order": ["Independent World", "Independent Open", "Scholastic World", "Scholastic Open", "Scholastic Concert World"],
-        "strip": "DEMO SEASON — sample data with real ensemble names. Switch WGI activity from the Cadence logo menu.",
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "wgi/winds": {
+        "status": 'Real champions history and the full 2027 schedule — live season scores pending WGI permission.',
         "root": "../..",
         "title": "Cadence WGI — Winds Scores & Standings",
         "brand_tag": "WGI",
@@ -58,10 +59,10 @@ PAGES = {
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
         "class_order": ["Independent World", "Independent Open", "Scholastic World"],
-        "strip": "DEMO SEASON — sample data with real ensemble names. Switch WGI activity from the Cadence logo menu.",
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "boa": {
+        "status": 'Real results from official Bands of America recaps.',
         "root": "..",
         "title": "Cadence BOA — Bands of America Scores & Results",
         "brand_tag": "BOA",
@@ -75,10 +76,10 @@ PAGES = {
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Bands", "Stats"],
         "class_order": ["Class AAAA", "Class AAA", "Class AA", "Class A"],
-        "strip": "DEMO SEASON — sample data with real band names. Panels differ between championships; scores compare within an event.",
         "credit": "Not affiliated with Music for All / Bands of America.",
     },
     "usbands": {
+        "status": "Real 2024\u201325 US Bands results from every published score recap \u2014 590+ bands.",
         "root": "..",
         "title": "Cadence US Bands — Scores & National Championships",
         "brand_tag": "USB",
@@ -91,7 +92,7 @@ PAGES = {
         "terms": {"singular": "band", "plural": "bands", "a": "a band"},
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Bands", "Stats"],
-        "class_order": ["Group VI Open", "Group V A", "Group IV A", "Group III A", "Group II A", "Group I A"],
+        "class_order": ["World", "Group V Open", "Group IV Open", "Group III Open", "Group II Open", "Group I Open", "Group II AA", "Group I AA", "Group V A", "Group IV A", "Group III A", "Group II A", "Group I A", "Group IV Regional A", "Group III Regional A", "Group II Regional A", "Group I Regional A", "Finalist"],
         "credit": "Not affiliated with US Bands.",
     },
 }
@@ -142,6 +143,7 @@ def page(key: str, c: dict) -> str:
     r = c["root"]
     cfg = {
         "appName": c["app_name"],
+        "root": r,
         "ns": c["ns"],
         "classOrder": c["class_order"],
         "combinable": [],
@@ -170,7 +172,7 @@ def page(key: str, c: dict) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{c["title"]}</title>
-<meta name="description" content="{c["app_name"]} — part of the Cadence scoreboard family. Demo season data.">
+<meta name="description" content="{c["app_name"]} — part of the Cadence scoreboard family. {c.get("status", "")}">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="manifest" href="manifest.webmanifest">
@@ -211,7 +213,7 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
 <footer class="foot">
   <div><a href="#" id="installBtn" hidden><b>📲 Get the App</b> — install {c["app_name"]} on this device</a></div>
   <div>Part of the <a href="{r}/modes.html"><b>Cadence family</b></a> — tap the Cadence logo to switch apps</div>
-  <div>Preview build — live data feeds are in progress. {c["credit"]}</div>
+  <div>{c.get("status", "")} {c["credit"]}</div>
   <div class="credit">Created by Lucas Besel</div>
 </footer>
 

@@ -30,7 +30,7 @@ they enter it in the "I have a code" box → `CadPlus.activate()` unlocks.
 1. Create a Stripe account at dashboard.stripe.com and complete activation
    (business details, bank account for payouts, tax info).
 2. In **Product catalog**, create one product, **Cadence+**, with two
-   recurring prices: **$3.99/month** and **$29.99/year** (the placeholders on
+   recurring prices matching `PRICING` in docs/plus.js — currently **$1.99/month** and **$9.99/year** (the placeholders on
    `plus.html`; adjust at will — the page is the only thing that hardcodes
    them).
 3. Create two **Payment Links** (one per price). In each link's settings:

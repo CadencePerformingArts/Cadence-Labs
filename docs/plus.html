@@ -103,14 +103,14 @@
     <div class="card price-card">
       <div class="fam-ic">🎟️</div>
       <h2>Monthly</h2>
-      <div class="p-amt">$1.99<small> / month</small></div>
+      <div class="p-amt" id="priceMonthly"><small>&nbsp;</small></div>
       <span class="fam-badge fam-soon" style="margin-top:8px">COMING SOON</span>
       <button class="tab" type="button" disabled>Not on sale yet</button>
     </div>
     <div class="card price-card">
       <div class="fam-ic">🏅</div>
-      <h2>Annual · best value</h2>
-      <div class="p-amt">$14.99<small> / year</small></div>
+      <h2>Annual · <span id="priceAnnualNote">best value</span></h2>
+      <div class="p-amt" id="priceAnnual"><small>&nbsp;</small></div>
       <span class="fam-badge fam-soon" style="margin-top:8px">COMING SOON</span>
       <button class="tab" type="button" disabled>Not on sale yet</button>
     </div>
@@ -166,6 +166,14 @@
     return '<li><span class="p-ic">' + f.icon + '</span><span><b>' + f.name + "</b>" +
       '<span class="p-sub">' + f.desc + "</span></span></li>";
   }).join("");
+
+  // pricing renders from CadPlus.pricing — the one configurable source
+  var pr = CadPlus.pricing;
+  document.getElementById("priceMonthly").innerHTML =
+    pr.currency + pr.monthly.toFixed(2) + "<small> / month</small>";
+  document.getElementById("priceAnnual").innerHTML =
+    pr.currency + pr.annual.toFixed(2) + "<small> / year</small>";
+  document.getElementById("priceAnnualNote").textContent = pr.annualNote;
 
   var input = document.getElementById("codeInput");
   var msg = document.getElementById("codeMsg");
