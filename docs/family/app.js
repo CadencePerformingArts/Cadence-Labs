@@ -924,6 +924,12 @@
   /* ============ RANKINGS (home) ============ */
   async function viewRankings(_m, stale) {
     setNav("rankings");
+    if (FAM && FAM.board && FAM.board !== "trend" && window.CadBoard) {
+      return CadBoard.render({
+        app, data, stale, shape: FAM.board, cfg: FAM,
+        helpers: { esc, h, score3, corpsLink, corpsLogo, sortClasses, fmtDate2, FAVS, ensureLogos },
+      });
+    }
     const rk = await data("rankings.json");
     if (stale()) return;
     await ensureLogos();
@@ -4048,6 +4054,7 @@
     if (fab) fab.hidden = /^#\/ask$/.test(hash); // hide the shortcut on its own page
     document.querySelectorAll("#nav a").forEach(a => {
       const r = a.dataset.route;
+      if (!r || !NAV_DEFAULT[r]) return; // plain links (My Cadence) aren't routes
       a.setAttribute("href", r === sec ? NAV_DEFAULT[r]
         : (sessionStorage.getItem(NS("cad-last-" + r)) || NAV_DEFAULT[r]));
     });

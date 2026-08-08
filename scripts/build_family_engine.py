@@ -128,6 +128,25 @@ def main() -> None:
         'const score3 = v => v == null ? "\u2014" : RES_KIND === "rating" ? (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v)) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);',
         "score3 kinds")
 
+    # Alternate scoreboards. DCI's standings board assumes corps meet each
+    # other repeatedly all season (10 performances each, 92% with 3+), which
+    # makes trend lines meaningful. That premise fails for circuits where a
+    # band competes once or twice a year against a different panel — so those
+    # apps declare a board shape and render purpose-built modules instead.
+    js = sub_once(
+        js,
+        """  async function viewRankings(_m, stale) {
+    setNav("rankings");""",
+        """  async function viewRankings(_m, stale) {
+    setNav("rankings");
+    if (FAM && FAM.board && FAM.board !== "trend" && window.CadBoard) {
+      return CadBoard.render({
+        app, data, stale, shape: FAM.board, cfg: FAM,
+        helpers: { esc, h, score3, corpsLink, corpsLogo, sortClasses, fmtDate2, FAVS, ensureLogos },
+      });
+    }""",
+        "board shape hook")
+
     # stats hub: no captions tab for family; #/data lands on Compare
     js = sub_once(
         js,

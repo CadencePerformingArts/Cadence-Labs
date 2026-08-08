@@ -912,3 +912,11 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
 .acct-msg { margin: 10px 0 0; font-size: 13.5px; font-weight: 600; display: none; }
 .acct-msg.ok { display: block; color: var(--good); }
 .acct-msg.err { display: block; color: var(--bad); }
+/* the permanent My Cadence tab — same nav language, subtly set apart since it
+   leaves the scoreboard for the personal/workspace side of the product */
+#nav a.navmy { position: relative; }
+#nav a.navmy::before {
+  content: ""; position: absolute; left: -3px; top: 18%; height: 64%;
+  width: 1px; background: rgba(255,255,255,0.22);
+}
+@media (max-width: 560px) { #nav a.navmy::before { display: none; } }

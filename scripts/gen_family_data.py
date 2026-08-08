@@ -378,6 +378,16 @@ def gen_instance(key, cfg):
 
 
 def main():
+    # Fabricated scores are retired. Every shipped app now carries real data or
+    # an honest empty state (see scripts/purge_fabricated.py); inventing
+    # results under real ensemble names is never acceptable, so this generator
+    # refuses to run against a shipped dataset.
+    print("gen_family_data: demo score generation is retired — no data written.")
+    print("  Real feeds live in scraper/*.py; empty states are built by")
+    print("  scripts/purge_fabricated.py --rebuild.")
+    return
+
+def _retired_main():
     for key, cfg in INSTANCES.items():
         # An activity that has real ingested data (scraper/scrape_wgi.py writes
         # a LIVE marker) must never be overwritten by demo data.

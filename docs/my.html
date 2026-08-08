@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Cadence — your whole marching world, one page</title>
+<meta name="description" content="My Cadence brings your favorites from every Cadence scoreboard — DCI, WGI, BOA and more — together with your private ensemble workspaces on one personalized home page.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="My Cadence">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='3' width='58' height='58' rx='15' fill='%23339af0'/><g stroke='%23ffd43b' stroke-width='6.5' stroke-linecap='round'><line x1='16' y1='26' x2='16' y2='38'/><line x1='27' y1='20' x2='27' y2='44'/><line x1='38' y1='28' x2='38' y2='36'/><line x1='49' y1='16' x2='49' y2='48'/></g></svg>">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;
+var name=localStorage.getItem("cad-corps-theme"),css=localStorage.getItem("cad-corps-css");
+if(name&&css){var s=document.createElement("style");s.id="corpsTheme";s.textContent=css;document.head.appendChild(s);
+r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));
+var m=document.querySelector('meta[name="theme-color"]'),bar=localStorage.getItem("cad-corps-bar");if(m&&bar)m.content=bar;}})();</script>
+<link rel="stylesheet" href="app.css">
+<style>
+/* ===== My Cadence — one home for the fan, the performer and the parent =====
+   Public scoreboard content keeps the family's navy/gold card language.
+   Private workspace content is unmistakably different: violet accent, lock
+   badge, left rule — never confusable with public scores. */
+:root, .viz-root { --priv: #6741d9; --priv-wash: rgba(103,65,217,.10); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]), :root:not([data-theme="light"]) .viz-root {
+    --priv: #9775fa; --priv-wash: rgba(151,117,250,.13); }
+}
+:root[data-theme="dark"], :root[data-theme="dark"] .viz-root {
+  --priv: #9775fa; --priv-wash: rgba(151,117,250,.13); }
+
+/* hero — magazine masthead, same gradient language as the corps hero */
+.my-hero { position: relative; overflow: hidden; border-radius: 22px; color: #fff;
+  padding: 24px 22px 20px; margin: 4px 0 18px;
+  background: linear-gradient(158deg, #123a5e, #0a1420);
+  box-shadow: 0 14px 34px rgba(0,0,0,.30); }
+.my-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 88% -10%, rgba(240,180,41,.32), transparent 62%); }
+.my-hero > * { position: relative; }
+.my-kicker { font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  font-weight: 800; color: #f0b429; }
+.my-title { font-size: clamp(26px, 6vw, 38px); font-weight: 900; line-height: 1.05; margin: 4px 0 0; }
+.my-sub { margin-top: 6px; font-size: 13.5px; color: rgba(255,255,255,.72); font-weight: 600; max-width: 62ch; }
+.my-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+@media (max-width: 640px) { .my-stats { grid-template-columns: repeat(2, 1fr); } }
+.my-stat { background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 14px; padding: 11px 13px 10px; }
+.my-stat .b { width: 24px; height: 4px; border-radius: 2px; background: #f0b429; margin-bottom: 8px; }
+.my-stat.pv .b { background: var(--priv); }
+.my-stat .v { font-size: clamp(19px, 4.6vw, 26px); font-weight: 900; line-height: 1; }
+.my-stat .l { margin-top: 5px; font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase;
+  font-weight: 700; color: rgba(255,255,255,.72); }
+
+/* two-column dashboard flow */
+.my-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: start; }
+.my-grid > .card { min-width: 0; }
+
+/* list rows shared by every public card */
+.my-item { display: flex; gap: 11px; align-items: flex-start; padding: 10px 0;
+  border-top: 1px solid var(--grid); font-size: 14px; color: inherit; text-decoration: none; }
+.my-item:first-of-type { border-top: 0; }
+a.my-item:hover { text-decoration: none; background: var(--surface-2); margin: 0 -8px; padding: 10px 8px; border-radius: 10px; }
+a.my-item:hover + .my-item { border-top-color: transparent; }
+.my-when { flex: none; width: 46px; display: flex; flex-direction: column; line-height: 1.15;
+  color: var(--heading); font-weight: 750; font-variant-numeric: tabular-nums; }
+.my-when small { font-size: 10.5px; color: var(--muted); font-weight: 600; letter-spacing: .3px; }
+.my-main { min-width: 0; flex: 1; }
+.my-main b { display: block; line-height: 1.3; }
+.my-main .sub { display: block; color: var(--muted); font-size: 12.5px; margin-top: 1px; }
+.my-main .favline { display: block; color: var(--accent-ink); font-size: 12.5px; font-weight: 650; margin-top: 2px; }
+.my-num { flex: none; text-align: right; }
+.my-num .score { display: block; font-size: 15px; }
+.my-num .sub { display: block; color: var(--muted); font-size: 11.5px; }
+.appdot { display: inline-flex; align-items: center; gap: 5px; border-radius: 6px; padding: 2px 7px;
+  background: var(--surface-2); border: 1px solid var(--border); color: var(--text-secondary);
+  font-size: 10.5px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; white-space: nowrap; }
+.my-item .appdot { margin-top: 1px; }
+
+/* circuit-follow chips (onboarding + edit panel) */
+.my-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.my-chip { border: 1.5px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+  font: inherit; font-size: 13px; font-weight: 650; padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.my-chip:hover { border-color: var(--muted); }
+.my-chip.on { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-ink); }
+.my-chip .n { font-weight: 500; color: var(--muted); font-size: 12px; }
+.my-chip.on .n { color: var(--accent-ink); }
+
+/* the two-sides explainer (signed-out / empty onboarding) */
+.my-sides { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 760px) { .my-sides { grid-template-columns: 1fr; } }
+.my-side-ic { font-size: 30px; }
+.my-sides .card h2 { margin-top: 6px; }
+
+/* ===== private half — visually its own species ===== */
+.my-priv .card { border-left: 4px solid var(--priv); }
+.my-priv .secdiv-mark, .privline b { color: var(--priv); }
+.privbadge { display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; padding: 2px 7px;
+  background: var(--priv-wash); color: var(--priv); border: 1px solid var(--priv-wash);
+  font-size: 10.5px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; white-space: nowrap; }
+.my-priv .my-when { color: var(--priv); }
+.secdiv .lock { font-size: 11px; }
+.my-need { background: var(--priv-wash); border-radius: 10px; padding: 2px 10px; margin: 0 -10px 4px; }
+.my-need .my-when { width: 52px; }
+.privline { font-size: 12.5px; color: var(--muted); margin: 12px 2px 0; }
+
+/* invite card when no workspace yet — first-class, not an ad banner */
+.my-invite { display: flex; gap: 14px; align-items: flex-start; }
+.my-invite .ic { font-size: 30px; flex: none; }
+.my-invite .facts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px;
+  font-size: 12.5px; color: var(--muted); }
+.my-invite .facts b { color: var(--text-secondary); }
+
+.my-foot-tip { color: var(--muted); font-size: 12.5px; text-align: center; margin: 22px 0 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="my.html">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/>
+        <line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/>
+        <line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence <b>My</b></span>
+  </a>
+  <nav id="nav">
+    <a href="my.html" class="active" title="My Cadence — your favorites and workspaces"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"/><path d="M6 10.5V19h12v-8.5"/></svg><span>My Cadence</span></a>
+    <a href="modes.html" title="Every Cadence scoreboard app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span>Scoreboards</span></a>
+    <a href="ensemble/" title="Your organization's private workspace"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Ensemble</span></a>
+    <a href="plus.html" title="Cadence+ — go beyond the scores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Plus</span></a>
+  </nav>
+  <div class="updated" id="updated" title="Data status"></div>
+</header>
+
+<main id="app" class="viz-root">
+  <div class="loading">Loading your Cadence…</div>
+</main>
+
+<footer class="foot">
+  <div>Part of the <a href="modes.html"><b>Cadence family</b></a> — tap the Cadence logo to switch apps</div>
+  <div>Favorites you star in any Cadence scoreboard appear here automatically — and follow your account across devices when you sign in.</div>
+  <div><a href="ensemble/"><b>Cadence Ensemble</b> — your organization's private workspace →</a></div>
+  <div class="credit">Created by Lucas Besel</div>
+</footer>
+
+<script src="vendor/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="account.js"></script>
+<script src="analytics.js"></script>
+<script src="my.js"></script>
+<script src="modes.js" data-base="."></script>
+</body>
+</html>
