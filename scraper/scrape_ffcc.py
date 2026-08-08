@@ -125,7 +125,7 @@ def bridge_json(endpoint: str, *, force: bool = False):
 
 ROUND_SUFFIX = re.compile(r"\s*\((?:Round\s*\d+|Finals(?:\s+Round\s*\d+)?)\)\s*$", re.I)
 ROUND_SUFFIX2 = re.compile(r"\s+Round\s*\d+\s*$", re.I)
-SKIP_ROUNDS = re.compile(r"exhibition|classification|critique|clinic|solo|duet", re.I)
+SKIP_ROUNDS = re.compile(r"exhibition|classification|critique|clinic|solo|duet|evaluation", re.I)
 
 # archive-era token expansions (order matters: longest first)
 _EXPAND = [
@@ -136,10 +136,42 @@ _EXPAND = [
 # archive-era percussion/winds titles -> modern bridge-era class names
 _ARCHIVE_MAP = {
     "Scholastic Regional A": "Regional A",       # SRA == today's Regional A
-    "Cadet Regional A": "Cadet",                 # 2021 combined-name rounds
+    "Cadet Regional A": "Cadet",                 # 2021 'SRA'-suffixed rounds
     "Class B Regional A": "Class B",
+    "Cadet Novice Regional A": "Cadet Novice",
     "Novice": "Cadet Novice",                    # pre-2016 name (MS novice)
+    "Percussion AA": "Percussion Scholastic AA",
+    "Percussion AAA": "Percussion Scholastic AAA",
+    "Percussion A": "Percussion Scholastic A",
+    "Percussion Open": "Percussion Scholastic Open",
+    "Percussion World": "Percussion Scholastic World",
+    "Percussion Novice": "Percussion Scholastic Novice",
 }
+# championship flights titled 'Class - <sponsor> Division' (the parenthetical
+# variant is handled generically below)
+_DASH_DIV = re.compile(r"^(.*?)\s*[-–]\s*[^-–]*\bDiv(?:ision|\.)\s*$")
+# 2018/2019 championships title rounds with ONLY the division name
+# ('Anastasia Div.') — the hosting page's event title names the class
+# ('FFCC Circuit Championships AAA Class'). Only Scholastic A/AA/AAA,
+# Class B and Percussion Scholastic A ever split into named divisions.
+_BARE_DIV = re.compile(r"^[A-Za-z.' ]+\bDiv(?:ision|\.)$")
+
+
+def _champ_class_hint(event_title: str) -> str | None:
+    t = event_title or ""
+    if not CHAMP_RE.search(t):
+        return None
+    if re.search(r"\bAAA\b", t):
+        return "Scholastic AAA"
+    if re.search(r"\bAA\b", t):
+        return "Scholastic AA"
+    if re.search(r"\bB Class\b|\bClass B\b", t):
+        return "Class B"
+    if re.search(r"\bA,? Open,?( and)? World\b", t):
+        return "Scholastic A"
+    if re.search(r"\bPercussion\b", t):
+        return "Percussion Scholastic A"
+    return None
 
 
 def _norm_round_title(s: str) -> str:
@@ -166,20 +198,26 @@ def norm_class_bridge(round_name: str) -> str | None:
     return s  # unknown label — caller logs and skips
 
 
-def norm_class_archive(round_name: str, page_kind: str) -> str | None:
+def norm_class_archive(round_name: str, page_kind: str,
+                       event_title: str = "") -> str | None:
     """Archive-era round title -> modern class name. page_kind gives the
-    activity when the title omits it ('cg' | 'perc' | 'winds' | 'any')."""
+    activity when the title omits it ('cg' | 'perc' | 'winds' | 'any');
+    event_title resolves bare championship-division round names."""
     s = _norm_round_title(round_name)
     if not s or SKIP_ROUNDS.search(s):
         return None
     for rx, rep in _EXPAND:
         s = rx.sub(rep, s)
     s = norm_space(s)
+    m = _DASH_DIV.match(s)
+    if m and norm_space(m.group(1)) in CLASS_RANK:
+        s = norm_space(m.group(1))
     # activity tokens embedded in the title win over page kind
     if re.search(r"\bMarching\b", s):
         s = norm_space("Percussion " + s.replace("Marching", ""))
-    elif re.search(r"\bConcert\b", s) and page_kind in ("perc", "any"):
-        # 'Concert A' -> 'Percussion Scholastic Concert A'
+    elif re.search(r"\bConcert\b", s):
+        # 'Concert A' / 'Scholastic Concert Open' (concert percussion is the
+        # only FFCC concert activity) -> 'Percussion Scholastic Concert A'
         s = norm_space(re.sub(r"^(?:Percussion )?(?:Scholastic )?Concert",
                               "Percussion Scholastic Concert", s))
     elif re.search(r"\bWinds\b", s):
@@ -195,6 +233,10 @@ def norm_class_archive(round_name: str, page_kind: str) -> str | None:
     m = re.match(r"^(.*?)\s*\([^)]*\)$", s)
     if m and norm_space(m.group(1)) in CLASS_RANK:
         return norm_space(m.group(1))
+    if _BARE_DIV.match(re.sub(r"^(?:Percussion|Winds)\s+", "", s)):
+        hint = _champ_class_hint(event_title)
+        if hint:
+            return hint
     return s  # unknown label — caller logs and skips
 
 
@@ -539,9 +581,15 @@ def ingest_wayback() -> dict[int, list[dict]]:
                 "url": f"https://web.archive.org/web/{ts}/{orig}",
                 "champ": is_champ(title), "cls_map": {}, "cap_map": {},
             })
+            kind_eff = kind
+            if kind == "any":  # combined /scores page: title names the activity
+                if re.search(r"\bPercussion\b", title, re.I):
+                    kind_eff = "perc"
+                elif re.search(r"\bWinds\b", title, re.I):
+                    kind_eff = "winds"
             got = 0
             for rt, block in _WB_ROUND.findall(html):
-                cls = norm_class_archive(rt, kind)
+                cls = norm_class_archive(rt, kind_eff, title)
                 if cls is None:
                     continue
                 if cls not in CLASS_RANK:
@@ -595,7 +643,7 @@ def ingest_wayback() -> dict[int, list[dict]]:
             got = 0
             for i, (pos, label) in enumerate(marks):
                 end = marks[i + 1][0] if i + 1 < len(marks) else len(html)
-                cls = norm_class_archive(label, "cg")
+                cls = norm_class_archive(label, "cg", title)
                 if cls is None:
                     continue
                 if cls not in CLASS_RANK:

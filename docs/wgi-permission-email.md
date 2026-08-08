@@ -1,40 +1,61 @@
 # WGI permission request — email draft
 
+Where to send: wgi.org/contact-us (address it to Media/Communications; if a
+staff directory is listed, the Director of Communications or Marketing is the
+right first door — they can route to whoever owns results/data).
+
 To: WGI Sport of the Arts — Media / Communications
-Subject: Permission request — displaying published WGI scores in a free fan app
+Subject: Permission request — displaying WGI results in Cadence, a free fan scoreboard
 
 Hello,
 
-My name is Lucas Besel. I build Cadence, a free fan-made scoreboard and
-season-history dashboard for the marching arts (cadenceperformingarts.github.io/Cadence-Labs).
-Cadence started as a DCI scores dashboard — live standings, score trends,
-head-to-head comparisons, and historical records — and fans have asked us to
-bring the same experience to WGI color guard, percussion, and winds.
+My name is Lucas Besel. I'm currently pursuing my MBA in Management
+Information Systems, and Cadence is where that degree meets a lifelong love
+of DCI and band: a free fan-made scoreboard and season-history app for the
+marching arts (cadenceperformingarts.github.io/Cadence-Labs).
 
-Before we do, I want to make sure we handle WGI's data the right way, so I'm
-writing to ask:
+Cadence began as a DCI live-scores dashboard and now covers Bands of America
+(every published recap back to 1976), US Bands, UIL Texas, and several
+regional winter circuits — always built from officially published results,
+always with attribution. The app is still in active development and testing
+with a small group of fans, which is exactly why I'm reaching out now: I'd
+rather set up WGI's data the right way from day one than ask forgiveness
+after we grow. Fans keep asking for one thing more than anything else: WGI
+color guard, percussion, and winds.
 
-1. May we display scores that WGI has already published publicly (recaps and
-   results pages), with clear attribution to WGI on every screen?
-2. If there is a preferred or licensed way to access results — an API, feed,
-   or your CompetitionSuite publishing surface — what would it take to use it?
+Right now our WGI sections show only what is fully public — champions
+history and event calendars — because live WGI scores sit behind your
+directors' portal and we won't go around that. So I'm writing to ask
+directly:
 
-In return, we commit to:
+1. May we display WGI-published scores (the results you post publicly after
+   events), with "Scores courtesy of WGI Sport of the Arts" and a link to
+   wgi.org on every screen that shows them?
+2. Is there a preferred or licensed channel for results — an API, a feed, or
+   your CompetitionSuite publishing surface — and what would it take to use
+   it properly?
 
-- Prominent attribution ("Scores courtesy of WGI Sport of the Arts") with
-  links back to wgi.org on every results view.
-- Driving fans to WGI: links to event ticketing and to FloMarching for
-  live streams — we display numbers, never video or recaps' judge commentary.
-- Full takedown compliance: if anything we display is a problem, we remove it
-  promptly, no questions asked.
-- No ads against WGI data and no charge to fans for it.
+What WGI gets from us, in writing if you'd like:
 
-Happy to sign whatever terms you need, or adjust the product to fit your
-guidelines. Thank you for everything WGI does for the activity.
+- Prominent attribution and wgi.org links on every WGI results view.
+- Fans pushed toward WGI, not away: event pages link to your ticketing and
+  to FloMarching for streams. We show numbers only — never video, photos, or
+  judge commentary.
+- Scores free to every fan, no ads on WGI data, ever.
+- Immediate takedown compliance: if anything we display is a problem, it
+  comes down promptly, no questions asked.
+
+Cadence exists because these activities deserve big-league stats treatment.
+I'd love to do that for WGI with your blessing, on your terms. Happy to sign
+whatever you need or hop on a call.
+
+Thank you for everything WGI does for the activity.
 
 Best regards,
 Lucas Besel
-Creator, Cadence fan apps — cadenceperformingarts.github.io/Cadence-Labs
+MBA candidate, Management Information Systems
+Creator, Cadence — cadenceperformingarts.github.io/Cadence-Labs
+lucasbesel41@gmail.com
 
 ---
 
