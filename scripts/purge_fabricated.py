@@ -129,13 +129,18 @@ def purge_app(key, rebuild=False):
             shutil.rmtree(db)
         dump(d / "db" / "index.json", {"decades": [], "rows": 0})
 
-    meta = load(d / "meta.json") or {}
-    meta["seasons"] = [{"year": y, "events": len(load(seasons_dir / f"{y}.json") or [])}
-                       for y in sorted(kept_years)]
-    dump(d / "meta.json", meta)
+    # only rewrite meta when this app actually changed — untouched apps (DCI
+    # especially, whose meta.json is owned by the live-scores job) must not be
+    # rewritten just because a rebuild pass ran
+    if removed_files or not has_scores:
+        meta = load(d / "meta.json") or {}
+        meta["seasons"] = [{"year": y, "events": len(load(seasons_dir / f"{y}.json") or [])}
+                           for y in sorted(kept_years)]
+        dump(d / "meta.json", meta)
 
     # stop the demo generator from ever refilling this app
-    (d / "LIVE").write_text("real data only — see scripts/purge_fabricated.py\n")
+    if removed_files or not has_scores:
+        (d / "LIVE").write_text("real data only — see scripts/purge_fabricated.py\n")
 
     return {"app": key or "dci", "removed_seasons": removed_files,
             "removed_rows": removed_rows, "kept_years": sorted(kept_years),
