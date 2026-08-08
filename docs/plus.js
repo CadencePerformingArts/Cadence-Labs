@@ -65,8 +65,13 @@
     eventProMin: 49,
     eventProMax: 199,
     /* Stripe-hosted checkout links; null = that plan isn't purchasable yet and
-       its button stays disabled. testMode flags the sandbox banner. */
-    links: { monthly: null, annual: null, portal: null },
+       its button stays disabled. testMode flags the sandbox banner — flip to
+       false (and swap in live links) only when the Stripe account is activated. */
+    links: {
+      monthly: "https://buy.stripe.com/test_eVqcN5c4O70naKg0bdcQU00",
+      annual: "https://buy.stripe.com/test_eVqbJ15GqdoL5pW9LNcQU01",
+      portal: null,
+    },
     testMode: true,
   };
 
