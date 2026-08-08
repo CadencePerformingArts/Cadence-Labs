@@ -9,9 +9,10 @@ Subject: Permission request — displaying WGI results in Cadence, a free fan sc
 
 Hello,
 
-My name is Lucas Besel. I build Cadence, a free fan-made scoreboard and
-season-history app for the marching arts
-(cadenceperformingarts.github.io/Cadence-Labs).
+My name is Lucas Besel. I'm currently pursuing my MBA in Management
+Information Systems, and Cadence is where that degree meets a lifelong love
+of DCI and band: a free fan-made scoreboard and season-history app for the
+marching arts (cadenceperformingarts.github.io/Cadence-Labs).
 
 Cadence began as a DCI live-scores dashboard and now covers Bands of America
 (every published recap back to 1976), US Bands, UIL Texas, and several
@@ -52,6 +53,7 @@ Thank you for everything WGI does for the activity.
 
 Best regards,
 Lucas Besel
+MBA candidate, Management Information Systems
 Creator, Cadence — cadenceperformingarts.github.io/Cadence-Labs
 lucasbesel41@gmail.com
 
