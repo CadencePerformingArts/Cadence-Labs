@@ -144,6 +144,9 @@ def page(key: str, c: dict) -> str:
     cfg = {
         "appName": c["app_name"],
         "root": r,
+        # apps with real caption datasets get the full DCI Captions tab;
+        # everyone else lands on Compare
+        "captions": c.get("captions", False),
         "ns": c["ns"],
         "classOrder": c["class_order"],
         "combinable": [],
