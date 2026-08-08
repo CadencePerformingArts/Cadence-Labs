@@ -735,79 +735,6 @@
   "_seen": "2026-08-08"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-capital-classic/",
-  "name": "DCI Capital Classic",
-  "location": "Sacramento, CA",
-  "date_display": "July 3, 2026",
-  "date": "2026-07-03",
-  "lineup": [
-   "Sparta Ignite",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Mandarins Alumni Corps",
-   "Seattle Cascades",
-   "The Academy",
-   "Santa Clara Vanguard",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "Sparta Ignite"
-   ],
-   [
-    "6:52 PM",
-    "Golden Empire"
-   ],
-   [
-    "7:07 PM",
-    "Impulse"
-   ],
-   [
-    "7:22 PM",
-    "Gold"
-   ],
-   [
-    "7:37 PM",
-    "Mandarins Alumni Corps"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:22 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:40 PM",
-    "The Academy"
-   ],
-   [
-    "8:58 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:16 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:41 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-08"
- },
- {
   "url": "https://www.dci.org/events/2026-show-of-shows/",
   "name": "Show of Shows",
   "location": "Rockford, IL",
@@ -888,109 +815,6 @@
    ]
   ],
   "bag_policy": "Swanson Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-08"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-west/",
-  "name": "DCI West",
-  "location": "Stanford, CA",
-  "date_display": "July 5, 2026",
-  "date": "2026-07-05",
-  "lineup": [
-   "Alisal Union School District Marching Band",
-   "Alisal Union School District All-Star Academy",
-   "Sacramento Freelancers",
-   "Sparta Ignite",
-   "Golden Empire",
-   "Gold",
-   "Impulse",
-   "Blue Devils C",
-   "Blue Devils B",
-   "Seattle Cascades",
-   "The Academy",
-   "Bluecoats",
-   "Santa Clara Vanguard",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "5:25 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:35 PM",
-    "Alisal Union School District Marching Band"
-   ],
-   [
-    "5:45 PM",
-    "Alisal Union School District All-Star Academy"
-   ],
-   [
-    "5:55 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "6:10 PM",
-    "Sparta Ignite"
-   ],
-   [
-    "6:20 PM",
-    "Intermission"
-   ],
-   [
-    "6:40 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:57 PM",
-    "Gold"
-   ],
-   [
-    "7:14 PM",
-    "Impulse"
-   ],
-   [
-    "7:31 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:48 PM",
-    "Blue Devils B"
-   ],
-   [
-    "8:05 PM",
-    "Intermission"
-   ],
-   [
-    "8:40 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:57 PM",
-    "The Academy"
-   ],
-   [
-    "9:14 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:31 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:48 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:13 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Stanford Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. See more details about the clear bag policy on the Stanford website . For more information, visit this page .",
   "_seen": "2026-08-08"
  },
  {
@@ -2080,6 +1904,133 @@
     "Retreat"
    ]
   ],
+  "_seen": "2026-08-08"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-brass-impact/",
+  "name": "Brass Impact",
+  "location": "Olathe, KS",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Sky Ryders",
+   "Colt Cadets",
+   "Spartans",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:38 PM",
+    "Sky Ryders"
+   ],
+   [
+    "7:50 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:07 PM",
+    "Spartans"
+   ],
+   [
+    "8:24 PM",
+    "Crossmen"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Intermission"
+   ],
+   [
+    "9:13 PM",
+    "Troopers"
+   ],
+   [
+    "9:30 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:47 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Colts"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-08"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
+  "name": "Drums Across the Desert",
+  "location": "Mesa, AZ",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Seattle Cascades",
+   "Pacific Crest",
+   "The Academy",
+   "Bluecoats",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "National Anthem The Phoenix Symphony Brass Quintet"
+   ],
+   [
+    "8:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:56 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:13 PM",
+    "Encore - The Bluecoats and The Academy - Tempe, AZ"
+   ],
+   [
+    "9:21 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-08-08"
  },
  {
