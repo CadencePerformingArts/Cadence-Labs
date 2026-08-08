@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendar — Cadence Ensemble</title>
+<meta name="description" content="Your organization's private calendar — rehearsals, competitions, games and travel, with RSVPs, targeting by group and real Cadence competition links.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* Operations layer — event cards, month grid, RSVP controls. Tokens and
+   components come from app.css / ensemble.css; this only adds shapes those
+   don't have. Mobile first: the list is the primary view, the month grid
+   appears when there's room for it. */
+.ops-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 6px; }
+.ops-head h1 { margin: 0; }
+.ops-head .ops-head-r { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+
+.ops-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 14px 0; }
+.ops-bar .ctrl { flex: 1 1 150px; min-width: 0; max-width: 260px; }
+.ops-seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 2px; }
+.ops-seg button { border: 0; background: none; font: inherit; font-weight: 650; font-size: 13px;
+  color: var(--muted); padding: 6px 13px; border-radius: 8px; cursor: pointer; }
+.ops-seg button.on { background: var(--surface-1); color: var(--text-primary); box-shadow: 0 1px 2px rgba(10,25,50,.14); }
+.ops-viewtog { display: none; }
+@media (min-width: 860px) { .ops-viewtog { display: inline-flex; } }
+
+.ops-list-head { display: flex; align-items: baseline; gap: 10px; margin: 22px 0 8px; }
+.ops-list-head h2 { margin: 0; font-size: 15px; color: var(--heading); }
+.ops-list-head span { color: var(--muted); font-size: 12.5px; font-weight: 600; }
+
+.ops-card { display: flex; gap: 12px; align-items: flex-start; background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 13px; padding: 12px; margin-bottom: 9px; }
+.ops-card.past { opacity: .72; }
+.ops-card-when { flex: none; width: 46px; text-align: center; line-height: 1.1; }
+.ops-card-when b { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: .5px;
+  text-transform: uppercase; color: var(--accent-ink); }
+.ops-card-when i { display: block; font-style: normal; font-size: 22px; font-weight: 800; color: var(--heading); }
+.ops-card-when span { display: block; font-size: 10.5px; color: var(--muted); font-weight: 700; }
+.ops-card-body { min-width: 0; flex: 1; }
+.ops-card-title { display: block; font-size: 15.5px; font-weight: 700; color: var(--text-primary); }
+.ops-card-title:hover { color: var(--link); text-decoration: none; }
+.ops-card-meta { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.ops-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.ops-card-tags:empty { display: none; }
+
+.ops-rsvp { display: inline-flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
+.ops-rsvp-b { border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+  font: inherit; font-size: 13px; font-weight: 650; padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.ops-rsvp-b:hover { background: var(--surface-2); }
+.ops-rsvp-b.on { border-color: transparent; color: #fff; }
+.ops-rsvp-b.on.yes { background: var(--good); }
+.ops-rsvp-b.on.maybe { background: var(--accent); }
+.ops-rsvp-b.on.no { background: var(--bad); }
+.ops-rsvp-b[disabled] { opacity: .5; cursor: default; }
+.ops-note { color: var(--muted); font-size: 12px; margin-top: 6px; }
+
+.ops-today { border-left: 4px solid var(--accent); }
+.ops-today .ens-h h2 { font-size: 16.5px; }
+
+/* month grid */
+.ops-month { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px;
+  background: var(--grid); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.ops-month .dow { background: var(--surface-2); color: var(--muted); font-size: 11px; font-weight: 800;
+  letter-spacing: .5px; text-transform: uppercase; padding: 7px 6px; text-align: center; }
+.ops-cell { background: var(--surface-1); min-height: 96px; padding: 5px 6px; text-align: left;
+  border: 0; font: inherit; cursor: pointer; display: block; width: 100%; }
+.ops-cell:hover { background: var(--surface-2); }
+.ops-cell.out { background: var(--page); }
+.ops-cell.out .ops-cell-n { color: var(--baseline); }
+.ops-cell-n { font-size: 12.5px; font-weight: 700; color: var(--text-secondary); }
+.ops-cell.today .ops-cell-n { background: var(--accent); color: #fff; border-radius: 999px;
+  padding: 1px 6px; display: inline-block; }
+.ops-chip { display: block; font-size: 11px; font-weight: 650; margin-top: 3px; padding: 2px 5px;
+  border-radius: 5px; background: var(--accent-wash); color: var(--accent-ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ops-chip.comp { background: rgba(43,138,62,.14); color: var(--good); }
+.ops-more { font-size: 10.5px; color: var(--muted); font-weight: 700; margin-top: 2px; }
+
+/* forms inside the sheet */
+.ops-sheet-body .ctrl, .ops-sheet-body textarea.ctrl { width: 100%; }
+.ops-f { margin-bottom: 11px; }
+.ops-f > label { display: block; font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+.ops-f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ops-check { display: flex; align-items: center; gap: 8px; font-size: 14px; margin: 6px 0; }
+.ops-check input { width: 17px; height: 17px; }
+.ops-picks { display: flex; flex-wrap: wrap; gap: 7px; }
+.ops-pick { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px 11px; font-size: 13px; cursor: pointer; background: var(--surface-1); }
+.ops-pick input { margin: 0; }
+.ops-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.ops-actions .grow { flex: 1; }
+.ops-danger { color: var(--bad); }
+
+.ops-showrow { display: block; width: 100%; text-align: left; border: 1px solid var(--border);
+  background: var(--surface-1); border-radius: 11px; padding: 10px 12px; margin-bottom: 7px;
+  font: inherit; cursor: pointer; }
+.ops-showrow:hover { background: var(--surface-2); }
+.ops-showrow b { display: block; font-size: 14px; }
+.ops-showrow span { color: var(--muted); font-size: 12.5px; }
+
+.ops-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 84px; z-index: 300;
+  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13.5px;
+  font-weight: 650; box-shadow: 0 8px 24px rgba(10,25,50,.3); transition: opacity .4s; }
+.ops-toast.bad { background: var(--bad); }
+.ops-toast.out { opacity: 0; }
+@media (min-width: 800px) { .ops-toast { bottom: 24px; } }
+
+.ops-result { border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface-2); }
+.ops-result-head { display: flex; align-items: center; gap: 14px; }
+.ops-place { font-size: 26px; font-weight: 800; color: var(--accent-ink); }
+.ops-result-head b { font-size: 22px; font-weight: 800; color: var(--heading); display: block; line-height: 1.15; }
+.ops-result-head span { font-size: 12px; color: var(--muted); font-weight: 600; }
+.ops-mini { margin-top: 10px; gap: 14px; }
+.ops-mini div b { font-size: 15px; }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="ops.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc, O = CadOps;
+
+  var org = null, me = null, bridge = null;
+  var events = [], groups = [], groupNames = {}, seasons = [];
+  var view = "list";
+  var cursor = new Date();                 // month being shown in grid view
+  var filter = { kind: "", group: "" };
+
+  /* ── data ─────────────────────────────────────────────────────────── */
+  async function load() {
+    var sel = "org_events?select=*,targets:org_event_targets(group_id)," +
+      "rsvps:org_event_rsvps(member_id,response)&org_id=eq." + org.id + "&order=starts_at.asc";
+    var res = await Promise.all([
+      CadOrg.rest(sel),
+      CadOrg.rest("org_groups?select=id,name,kind&org_id=eq." + org.id + "&order=name.asc"),
+      CadOrg.rest("org_seasons?select=id,name,is_current&org_id=eq." + org.id + "&order=starts_on.desc.nullslast"),
+    ]);
+    events = res[0] || []; groups = res[1] || []; seasons = res[2] || [];
+    groupNames = {};
+    groups.forEach(function (g) { groupNames[g.id] = g.name; });
+  }
+
+  function visible() {
+    return events.filter(function (e) {
+      if (filter.kind && e.kind !== filter.kind) return false;
+      if (filter.group) {
+        var t = e.targets || [];
+        if (!t.length) return true;                    // whole-org events always show
+        return t.some(function (x) { return x.group_id === filter.group; });
+      }
+      return true;
+    });
+  }
+
+  /* ── rendering ────────────────────────────────────────────────────── */
+  function canCreate() { return CadOrg.canDo("event.create", "calendar"); }
+
+  function todayCard() {
+    var all = visible();
+    var todays = all.filter(O.isToday);
+    var next = all.filter(function (e) { return !O.isPast(e) && !O.isToday(e); })[0];
+    var body;
+    if (todays.length) {
+      body = todays.map(function (e) {
+        return '<div class="ens-item"><div class="ens-when">' + esc(e.all_day ? "All day" : O.fmtTime(e.starts_at)) +
+          '</div><div><a href="event.html?id=' + esc(e.id) + '"><b>' + esc(e.title) + "</b></a>" +
+          '<div class="ens-sub">' + esc(O.kindLabel(e.kind)) +
+          (e.location ? " · " + esc(e.location) : "") + "</div></div></div>";
+      }).join("");
+    } else {
+      body = '<div class="setsub">Nothing on the schedule today.</div>';
+    }
+    if (next) {
+      body += '<div class="ens-item"><div class="ens-when">Next</div><div>' +
+        '<a href="event.html?id=' + esc(next.id) + '"><b>' + esc(next.title) + "</b></a>" +
+        '<div class="ens-sub">' + esc(O.relativeDay(next.starts_at)) + " · " +
+        esc(O.fmtDay(next.starts_at)) + " " + esc(O.fmtWhen(next)) + "</div></div></div>";
+    }
+    return '<div class="card ops-today"><div class="ens-h"><h2>' +
+      esc(O.fmtDayLong(new Date())) + "</h2>" +
+      '<span class="ens-tag normal">' + all.length + " event" + (all.length === 1 ? "" : "s") + "</span></div>" +
+      body + "</div>";
+  }
+
+  function barHtml() {
+    return '<div class="ops-bar">' +
+      '<select class="ctrl" id="fKind"><option value="">All kinds</option>' +
+        O.KINDS.map(function (k) {
+          return '<option value="' + k.key + '"' + (filter.kind === k.key ? " selected" : "") +
+            ">" + esc(k.icon + " " + k.label) + "</option>";
+        }).join("") + "</select>" +
+      '<select class="ctrl" id="fGroup"><option value="">All groups</option>' +
+        groups.map(function (g) {
+          return '<option value="' + g.id + '"' + (filter.group === g.id ? " selected" : "") +
+            ">" + esc(g.name) + "</option>";
+        }).join("") + "</select>" +
+      '<div class="ops-seg ops-viewtog" role="tablist">' +
+        '<button type="button" id="vList" class="' + (view === "list" ? "on" : "") + '">List</button>' +
+        '<button type="button" id="vMonth" class="' + (view === "month" ? "on" : "") + '">Month</button>' +
+      "</div></div>";
+  }
+
+  function listHtml() {
+    var all = visible();
+    var upcoming = all.filter(function (e) { return !O.isPast(e); });
+    var past = all.filter(O.isPast).reverse();
+    function section(title, rows, note, isPast) {
+      if (!rows.length) return "";
+      return '<div class="ops-list-head"><h2>' + esc(title) + "</h2><span>" + rows.length +
+        (note ? " · " + esc(note) : "") + "</span></div>" +
+        rows.map(function (e) {
+          var html = O.eventCard(e, { groupNames: groupNames, memberId: me && me.id, rsvp: !isPast });
+          return isPast ? html.replace('class="ops-card"', 'class="ops-card past"') : html;
+        }).join("");
+    }
+    if (!all.length) {
+      return '<div class="card"><div class="empty">No events yet.' +
+        (canCreate() ? " Add the first rehearsal — everything else hangs off the calendar." : "") +
+        "</div></div>";
+    }
+    return section("Upcoming", upcoming, "", false) +
+      section("Past", past.slice(0, 60), past.length > 60 ? "showing 60 most recent" : "", true);
+  }
+
+  function monthHtml() {
+    var y = cursor.getFullYear(), m = cursor.getMonth();
+    var byDay = {};
+    visible().forEach(function (e) {
+      var k = O.dayKey(e.starts_at);
+      (byDay[k] = byDay[k] || []).push(e);
+    });
+    var todayKey = O.dayKey(new Date());
+    var cells = O.monthMatrix(y, m).map(function (week) {
+      return week.map(function (d) {
+        var k = O.dayKey(d), list = byDay[k] || [];
+        return '<button type="button" class="ops-cell' + (d.getMonth() !== m ? " out" : "") +
+          (k === todayKey ? " today" : "") + '" data-day="' + k + '">' +
+          '<span class="ops-cell-n">' + d.getDate() + "</span>" +
+          list.slice(0, 3).map(function (e) {
+            return '<span class="ops-chip' + (e.kind === "competition" ? " comp" : "") + '">' +
+              esc((e.all_day ? "" : O.fmtTime(e.starts_at).replace(":00", "") + " ") + e.title) + "</span>";
+          }).join("") +
+          (list.length > 3 ? '<span class="ops-more">+' + (list.length - 3) + " more</span>" : "") +
+          "</button>";
+      }).join("");
+    }).join("");
+    return '<div class="ops-bar"><div class="ops-seg">' +
+        '<button type="button" id="mPrev">←</button>' +
+        '<button type="button" id="mToday">' + esc(O.MONTHS_LONG[m] + " " + y) + "</button>" +
+        '<button type="button" id="mNext">→</button></div></div>' +
+      '<div class="ops-month">' +
+        O.DAYS.map(function (d) { return '<div class="dow">' + d + "</div>"; }).join("") +
+        cells + "</div>";
+  }
+
+  function render() {
+    main.innerHTML =
+      '<div class="ops-head"><h1 class="page">Calendar</h1>' +
+        '<div class="ops-head-r">' +
+          (canCreate() ? '<button class="tab on" id="newEv" type="button">+ New event</button>' : "") +
+        "</div></div>" +
+      '<p class="lede">Everything the organization is doing — and who it\'s for. ' +
+      "Events targeted at a group only appear for that group." +
+      (bridge && bridge.linked
+        ? " Competitions can be linked to real Cadence shows, so official scores land here automatically."
+        : "") + "</p>" +
+      todayCard() +
+      barHtml() +
+      (view === "month" ? monthHtml() : listHtml());
+    wire();
+  }
+
+  function wire() {
+    var fk = document.getElementById("fKind");
+    if (fk) fk.addEventListener("change", function () { filter.kind = this.value; render(); });
+    var fg = document.getElementById("fGroup");
+    if (fg) fg.addEventListener("change", function () { filter.group = this.value; render(); });
+    var vl = document.getElementById("vList");
+    if (vl) vl.addEventListener("click", function () { view = "list"; render(); });
+    var vm = document.getElementById("vMonth");
+    if (vm) vm.addEventListener("click", function () { view = "month"; render(); });
+    var mp = document.getElementById("mPrev");
+    if (mp) mp.addEventListener("click", function () {
+      cursor = new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1); render();
+    });
+    var mn = document.getElementById("mNext");
+    if (mn) mn.addEventListener("click", function () {
+      cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1); render();
+    });
+    var mt = document.getElementById("mToday");
+    if (mt) mt.addEventListener("click", function () { cursor = new Date(); render(); });
+    var nb = document.getElementById("newEv");
+    if (nb) nb.addEventListener("click", function () { openForm(null); });
+
+    Array.prototype.forEach.call(main.querySelectorAll(".ops-cell"), function (c) {
+      c.addEventListener("click", function () { openDay(c.dataset.day); });
+    });
+    mountRsvps(main);
+  }
+
+  /* inline RSVP on every upcoming card that asks for one */
+  function mountRsvps(root) {
+    Array.prototype.forEach.call(root.querySelectorAll("[data-rsvp]"), function (slot) {
+      var ev = events.filter(function (e) { return e.id === slot.dataset.rsvp; })[0];
+      if (!ev) return;
+      var mine = me ? O.myRsvp(ev, me.id) : null;
+      var locked = !CadOrg.isWritable(org) || !me;
+      O.rsvpControl(slot, mine && mine.response, function (r) {
+        CadOrg.rpc("org_rsvp_set", { p_event: ev.id, p_response: r }).then(function () {
+          ev.rsvps = (ev.rsvps || []).filter(function (x) { return x.member_id !== me.id; });
+          ev.rsvps.push({ member_id: me.id, response: r });
+          O.toast("RSVP saved");
+        }).catch(function (err) {
+          O.toast("Couldn't save that RSVP" + (err && err.message ? " — " + err.message : ""), true);
+        });
+      }, { disabled: locked, note: locked ? "This workspace is read-only." : "" });
+    });
+  }
+
+  function openDay(key) {
+    var rows = visible().filter(function (e) { return O.dayKey(e.starts_at) === key; });
+    var s = O.sheet(O.fmtDayLong(key), rows.length
+      ? rows.map(function (e) {
+          return O.eventCard(e, { groupNames: groupNames, memberId: me && me.id, rsvp: !O.isPast(e) });
+        }).join("")
+      : '<div class="empty">Nothing scheduled.</div>', function (wrap) {
+        mountRsvps(wrap);
+      });
+    s.el.querySelector(".ops-sheet-body").insertAdjacentHTML("beforeend",
+      '<div class="ops-actions">' +
+      (canCreate() ? '<button class="tab grow" type="button" id="dayNew">+ Add an event</button>' : "") +
+      '<button class="tab" type="button" data-close>Close</button></div>');
+    var dn = s.el.querySelector("#dayNew");
+    if (dn) dn.addEventListener("click", function () {
+      s.close();
+      openForm(null, key);
+    });
+  }
+
+  /* ── create / edit ────────────────────────────────────────────────── */
+  function openForm(ev, defaultDay) {
+    return O.eventForm({
+      org: org, groups: groups, seasons: seasons, bridge: bridge,
+      onSaved: async function () { await load(); render(); },
+    }, ev, defaultDay);
+  }
+
+  /* ── boot ─────────────────────────────────────────────────────────── */
+  CadOrg.start({ nav: "calendar" }).then(async function (o) {
+    if (!o) return;
+    org = o;
+    me = CadOrg.member();
+    bridge = O.bridge(org);
+    try { await load(); } catch (e) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load the calendar. ' +
+        "If this workspace is new, the operations migration (0007) may not be applied yet.</div></div>";
+      return;
+    }
+    if (window.matchMedia && window.matchMedia("(min-width: 860px)").matches) view = "list";
+    render();
+  });
+})();
+</script>
+</body>
+</html>

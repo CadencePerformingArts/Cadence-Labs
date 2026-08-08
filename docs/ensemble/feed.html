@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed — Cadence Ensemble</title>
+<meta name="description" content="Cadence Ensemble — announcements and the organization feed: priority, targeting, acknowledgments, comments and reactions.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* Feed-local classes. Tokens and base components come from app.css /
+   ensemble.css — nothing here overrides them, it only adds the pieces a
+   feed needs (composer, acknowledgment meter, comment threads). */
+.ens-feedwrap { display: grid; gap: 14px; max-width: 760px; }
+.ens-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 2px; }
+.ens-mini { padding: 5px 10px; font-size: 12.5px; }
+.ens-tags { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }
+.ens-post .ens-h { align-items: flex-start; }
+.ens-post .ens-h h2 { line-height: 1.3; }
+.ens-byline { margin: -4px 0 10px; max-width: none; }
+.ens-postbody { font-size: 14.5px; line-height: 1.62; color: var(--text-primary); word-break: break-word; }
+.ens-postbody a { word-break: break-all; }
+.ens-mention { background: var(--accent-wash); color: var(--accent-ink); border-radius: 5px; padding: 0 3px; font-weight: 650; }
+
+.ens-ackwrap { margin-top: 12px; padding: 11px 12px; border-radius: 11px; background: var(--surface-2); display: grid; gap: 9px; }
+.ens-ack { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13.5px; }
+.ens-ack > div { flex: 1 1 200px; }
+.ens-meter { height: 6px; border-radius: 4px; background: var(--baseline); margin-top: 6px; overflow: hidden; }
+.ens-meter i { display: block; height: 100%; background: var(--good); }
+.ens-missing { display: flex; flex-wrap: wrap; gap: 5px; }
+.ens-ackbtn { width: 100%; }
+.ens-done { color: var(--good); font-size: 13px; font-weight: 700; }
+.ens-readcount { margin-left: 10px; display: inline; }
+
+.ens-reactrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--grid); }
+.ens-react { border: 1.5px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+  border-radius: 999px; padding: 4px 10px; font: inherit; font-size: 13px; cursor: pointer; }
+.ens-react:hover { border-color: var(--muted); }
+.ens-react.on { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-ink); }
+.ens-react b { font-weight: 800; }
+.ens-admin { margin-left: auto; display: flex; gap: 6px; }
+
+.ens-commentwrap { margin-top: 10px; border-top: 1px solid var(--grid); padding-top: 10px; }
+.ens-comments { display: grid; gap: 9px; margin-bottom: 9px; }
+.ens-comment { font-size: 13.5px; line-height: 1.55; position: relative; padding-right: 22px; }
+.ens-comment b { color: var(--heading); }
+.ens-when2 { color: var(--muted); font-size: 12px; margin-left: 5px; }
+.ens-x { position: absolute; right: 0; top: -2px; border: 0; background: none; color: var(--muted);
+  font-size: 17px; line-height: 1; cursor: pointer; padding: 0 3px; }
+.ens-x:hover { color: var(--bad); }
+
+.ens-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ens-pane { margin-top: 10px; display: grid; gap: 8px; }
+.ens-people { max-height: 190px; overflow: auto; padding: 2px; }
+.ens-dim { color: var(--muted); font-weight: 500; }
+.ens-target { margin: 4px 0 2px; }
+.ens-field { display: grid; gap: 6px; margin-bottom: 12px; }
+.ens-field > label { font-size: 13px; font-weight: 700; color: var(--text-secondary); }
+.ens-row2 { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 620px) { .ens-row2 { grid-template-columns: 1fr 1fr; } }
+.ens-checks { display: grid; gap: 8px; margin: 4px 0 12px; }
+.ens-check { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; }
+.ens-check input { margin-top: 2px; }
+.ens-check.off { opacity: .62; }
+.ens-check small { display: block; color: var(--muted); font-size: 12px; }
+textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height: 1.55; }
+.ens-steps { text-align: left; max-width: 460px; margin: 0 auto; padding-left: 20px; line-height: 1.75; font-size: 14px; }
+.ens-live { font-size: 11.5px; font-weight: 700; color: var(--muted); letter-spacing: .3px; }
+.ens-live.on { color: var(--good); }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="comms.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc;
+  var C = window.CadComms;
+
+  var org = null, me = null, dir = null, posts = [], live = null;
+  var filter = "all";
+  var editing = null;           // post id currently open in the inline editor
+  var perms = {};
+
+  var SELECT = "*," +
+    "targets:post_targets(id,group_id,role_kind,member_id)," +
+    "acks:post_acks(member_id)," +
+    "reads:post_reads(member_id)," +
+    "comments:post_comments(id,member_id,body,created_at,deleted_at)," +
+    "reactions:post_reactions(member_id,emoji)";
+
+  /* ── data ─────────────────────────────────────────────────────────── */
+  async function load() {
+    posts = await CadOrg.rest("posts?select=" + SELECT + "&org_id=eq." + org.id +
+      "&order=pinned.desc,publish_at.desc&limit=80");
+    return posts;
+  }
+
+  function visible() {
+    var now = Date.now();
+    return posts.filter(function (p) {
+      var scheduled = p.publish_at && new Date(p.publish_at).getTime() > now;
+      if (filter === "archived") return p.archived;
+      if (p.archived) return false;
+      if (filter === "scheduled") return scheduled;
+      if (scheduled) return false;
+      if (filter === "announcements") return p.kind === "announcement" || p.priority !== "normal";
+      if (filter === "pinned") return p.pinned;
+      return true;
+    });
+  }
+
+  /* ── composer ─────────────────────────────────────────────────────── */
+  function composerHtml() {
+    if (!CadOrg.can("announce.create")) return "";
+    var writable = CadOrg.isWritable(org);
+    var ackOk = CadOrg.canUseFeature(org, "acknowledgments");
+    var urgentOk = CadOrg.can("announce.urgent");
+    return '<div class="card" id="composer">' +
+      '<div class="ens-h"><h2>Post to your organization</h2>' +
+        '<span class="ens-live" id="liveDot">connecting…</span></div>' +
+      (!writable
+        ? '<div class="ens-strip warn" style="border-radius:10px;margin-bottom:12px">' +
+          "<b>This workspace is read-only.</b> Everything already posted stays readable — " +
+          'reactivate the subscription to post again. <a href="billing.html">See plans →</a></div>'
+        : "") +
+      '<form id="composeForm"' + (writable ? "" : " data-locked") + '>' +
+        '<div class="ens-field"><label for="cTitle">Headline</label>' +
+          '<input class="ctrl" id="cTitle" maxlength="160" placeholder="Bus call moved to 6:00 AM"' +
+          (writable ? "" : " disabled") + "></div>" +
+        '<div class="ens-field"><label for="cBody">Message</label>' +
+          '<textarea class="ctrl" id="cBody" maxlength="8000" required placeholder="Write it the way you\'d say it at the podium. @mention people by name."' +
+          (writable ? "" : " disabled") + "></textarea></div>" +
+        '<div class="ens-row2">' +
+          '<div class="ens-field"><label for="cKind">Type</label>' +
+            '<select class="ctrl" id="cKind"' + (writable ? "" : " disabled") + '>' +
+            '<option value="announcement">Announcement</option>' +
+            '<option value="post">Ordinary post</option></select></div>' +
+          '<div class="ens-field"><label for="cPriority">Priority</label>' +
+            '<select class="ctrl" id="cPriority"' + (writable ? "" : " disabled") + '>' +
+            '<option value="normal">Normal</option>' +
+            '<option value="important">Important</option>' +
+            '<option value="urgent"' + (urgentOk ? "" : " disabled") + ">Urgent" +
+              (urgentOk ? "" : " — needs the announce.urgent permission") + "</option>" +
+            "</select></div>" +
+        "</div>" +
+        '<div class="ens-field"><label>Who sees this</label>' +
+          C.targetPickerHtml(dir, "compose") + "</div>" +
+        '<div class="ens-checks">' +
+          '<label class="ens-check"><input type="checkbox" id="cPin"' + (writable ? "" : " disabled") + ">" +
+            "<span>Pin to the top of the feed<small>Stays first until you unpin it.</small></span></label>" +
+          '<label class="ens-check' + (ackOk ? "" : " off") + '">' +
+            '<input type="checkbox" id="cAck"' + (ackOk && writable ? "" : " disabled") + ">" +
+            "<span>Require acknowledgment<small>" +
+            (ackOk
+              ? "Members get a prominent Acknowledge button and you get a live count."
+              : "Acknowledgment tracking is part of Cadence Ensemble Pro. Your plan (" +
+                esc(CadOrg.planOf(org).label) + ") doesn't include it — " +
+                '<a href="billing.html">see plans</a>.') +
+            "</small></span></label>" +
+        "</div>" +
+        '<div class="ens-field"><label for="cWhen">Send</label>' +
+          '<select class="ctrl" id="cWhen"' + (writable ? "" : " disabled") + '>' +
+          '<option value="now">Right now</option><option value="later">Schedule for later…</option>' +
+          "</select>" +
+          '<input class="ctrl" type="datetime-local" id="cAt" hidden></div>' +
+        '<button class="tab on" type="submit"' + (writable ? "" : " disabled") + ">Post</button>" +
+        '<p class="acct-msg" id="cMsg" role="status"></p>' +
+      "</form></div>";
+  }
+
+  function emptyHtml() {
+    if (filter !== "all") {
+      return '<div class="card"><div class="empty">Nothing here yet.</div></div>';
+    }
+    if (!CadOrg.can("announce.create")) {
+      return '<div class="card"><div class="empty">No announcements yet. ' +
+        "When your staff posts something, it lands here — and anything marked urgent " +
+        "will reach you even if you've muted notifications.</div></div>";
+    }
+    return '<div class="card"><div class="empty">' +
+      "<h2 style=\"margin-bottom:6px\">Your feed is empty — that's the right place to start</h2>" +
+      '<p class="setnote" style="max-width:460px;margin:0 auto 14px">' +
+      "The feed is where the organization hears from you once, in one place, " +
+      "instead of six group texts and a flyer.</p>" +
+      '<ol class="ens-steps">' +
+        "<li><b>Write the first one now.</b> Something small — \"Rehearsal Tuesday, 6–9, field.\"</li>" +
+        "<li><b>Choose who sees it.</b> Whole organization, one section, staff only, " +
+        "parents only, or a handful of people.</li>" +
+        "<li><b>Mark it Important or Urgent</b> when it matters. Urgent announcements " +
+        "reach everyone even if they've muted the workspace.</li>" +
+        "<li><b>Require acknowledgment</b> for the ones you'll be asked about later — " +
+        "you'll see exactly who has read it and who hasn't.</li>" +
+        "<li><b>Pin</b> the things that need to stay on top all season.</li>" +
+      "</ol></div></div>";
+  }
+
+  /* ── render ───────────────────────────────────────────────────────── */
+  function render() {
+    var ctx = {
+      dir: dir, myMemberId: me && me.id,
+      canModerate: CadOrg.can("announce.edit"),
+      canAckFeature: CadOrg.canUseFeature(org, "acknowledgments"),
+    };
+    var list = visible();
+    var tabs = [["all", "All"], ["announcements", "Announcements"], ["pinned", "Pinned"]];
+    if (ctx.canModerate || CadOrg.can("announce.create")) {
+      tabs.push(["scheduled", "Scheduled"]);
+      tabs.push(["archived", "Archived"]);
+    }
+    main.innerHTML =
+      '<h1 class="page">Feed</h1>' +
+      '<p class="lede">Announcements and everyday news for ' + esc(org.name) +
+      ". Targeted, prioritized, and acknowledged — so nobody can say they didn't hear it.</p>" +
+      '<div class="ens-filters">' + tabs.map(function (t) {
+        return '<button class="tab' + (filter === t[0] ? " on" : "") + '" type="button" data-filter="' +
+          t[0] + '">' + t[1] + "</button>";
+      }).join("") + "</div>" +
+      '<div class="ens-feedwrap">' +
+        composerHtml() +
+        (list.length ? list.map(function (p) { return C.postHtml(p, ctx); }).join("") : emptyHtml()) +
+      "</div>";
+
+    wireFilters();
+    wireComposer();
+    setLive(live && live.status);
+  }
+
+  function setLive(status) {
+    var dot = document.getElementById("liveDot");
+    if (!dot) return;
+    var ok = status === "SUBSCRIBED";
+    dot.className = "ens-live" + (ok ? " on" : "");
+    dot.textContent = ok ? "● live" : (status === "unavailable" ? "" : "connecting…");
+  }
+
+  function wireFilters() {
+    main.querySelectorAll("[data-filter]").forEach(function (b) {
+      b.addEventListener("click", function () { filter = b.dataset.filter; render(); });
+    });
+  }
+
+  function wireComposer() {
+    var form = document.getElementById("composeForm");
+    if (!form) return;
+    var picker = form.querySelector('[data-picker="compose"]');
+    C.wireTargetPicker(picker, dir);
+    var whenSel = document.getElementById("cWhen"), at = document.getElementById("cAt");
+    whenSel.addEventListener("change", function () {
+      at.hidden = whenSel.value !== "later";
+      if (!at.hidden && !at.value) {
+        at.value = C.localInputValue(new Date(Date.now() + 3600000));
+      }
+    });
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = document.getElementById("cMsg");
+      var body = document.getElementById("cBody").value.trim();
+      if (!body) return;
+      msg.className = "acct-msg"; msg.textContent = "Posting…";
+      msg.style.display = "block";
+      var targets = C.readTargets(picker);
+      var publishAt = null;
+      if (whenSel.value === "later" && at.value) {
+        publishAt = new Date(at.value).toISOString();
+      }
+      try {
+        var rows = await CadOrg.rest("posts", {
+          method: "POST", headers: { Prefer: "return=representation" },
+          body: {
+            org_id: org.id,
+            author_member_id: me.id,
+            kind: document.getElementById("cKind").value,
+            priority: document.getElementById("cPriority").value,
+            title: document.getElementById("cTitle").value.trim() || null,
+            body: body,
+            pinned: document.getElementById("cPin").checked,
+            requires_ack: document.getElementById("cAck").checked,
+            publish_at: publishAt || new Date().toISOString(),
+          },
+        });
+        var post = rows[0];
+        if (targets.length) {
+          await CadOrg.rest("post_targets", {
+            method: "POST",
+            body: targets.map(function (t) {
+              return { post_id: post.id, group_id: t.group_id || null,
+                       role_kind: t.role_kind || null, member_id: t.member_id || null };
+            }),
+          });
+        }
+        CadOrg.log("post.created", "post", post.id, { priority: post.priority });
+        await load(); render();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = explain(err);
+      }
+    });
+  }
+
+  function explain(err) {
+    var m = (err && err.message) || "";
+    if (err && err.status === 403 || /row-level security|violates row-level/i.test(m)) {
+      return "The server refused that — usually a permission you don't have " +
+        "(urgent priority, or acknowledgments on a plan that doesn't include them), " +
+        "or a read-only workspace.";
+    }
+    return "Couldn't save that: " + (m || "unknown error");
+  }
+
+  /* ── post interactions (delegated) ────────────────────────────────── */
+  main.addEventListener("click", async function (e) {
+    var btn = e.target.closest && e.target.closest("[data-act]");
+    if (!btn || btn.tagName === "FORM") return;
+    var card = btn.closest(".ens-post");
+    if (!card) return;
+    var id = card.dataset.post;
+    var post = posts.filter(function (p) { return p.id === id; })[0];
+    if (!post) return;
+    var act = btn.dataset.act;
+
+    try {
+      if (act === "who") {
+        var box = card.querySelector("[data-missing]");
+        if (box) box.hidden = !box.hidden;
+      } else if (act === "ack") {
+        btn.disabled = true; btn.textContent = "Saving…";
+        await C.ack(id, me.id);
+        post.acks = (post.acks || []).concat([{ member_id: me.id }]);
+        CadOrg.log("post.acknowledged", "post", id);
+        render();
+      } else if (act === "seen") {
+        btn.disabled = true;
+        await C.markRead(id, me.id);
+        post.reads = (post.reads || []).concat([{ member_id: me.id }]);
+        render();
+      } else if (act === "react") {
+        var emoji = btn.dataset.emoji;
+        var on = !btn.classList.contains("on");
+        await C.toggleReaction(id, me.id, emoji, on);
+        post.reactions = (post.reactions || []).filter(function (r) {
+          return !(r.member_id === me.id && r.emoji === emoji);
+        });
+        if (on) post.reactions.push({ member_id: me.id, emoji: emoji });
+        render();
+      } else if (act === "togglecomments") {
+        var wrap = card.querySelector(".ens-commentwrap");
+        if (wrap) { wrap.hidden = !wrap.hidden; if (!wrap.hidden) wrap.querySelector("input").focus(); }
+      } else if (act === "delcomment") {
+        var cid = btn.closest("[data-comment]").dataset.comment;
+        await CadOrg.rest("post_comments?id=eq." + cid, {
+          method: "PATCH", body: { deleted_at: new Date().toISOString() } });
+        post.comments = (post.comments || []).map(function (c) {
+          if (c.id === cid) c.deleted_at = new Date().toISOString();
+          return c;
+        });
+        render();
+      } else if (act === "pin") {
+        await CadOrg.rest("posts?id=eq." + id, { method: "PATCH", body: { pinned: !post.pinned } });
+        post.pinned = !post.pinned;
+        await load(); render();
+      } else if (act === "archive") {
+        await CadOrg.rest("posts?id=eq." + id, { method: "PATCH", body: { archived: !post.archived } });
+        CadOrg.log(post.archived ? "post.restored" : "post.archived", "post", id);
+        post.archived = !post.archived;
+        render();
+      } else if (act === "edit") {
+        editing = id; openEditor(card, post);
+      } else if (act === "canceledit") {
+        editing = null; render();
+      }
+    } catch (err) {
+      alert(explain(err));
+      render();
+    }
+  });
+
+  main.addEventListener("submit", async function (e) {
+    var form = e.target;
+    var card = form.closest && form.closest(".ens-post");
+    if (!card) return;
+    var id = card.dataset.post;
+    var post = posts.filter(function (p) { return p.id === id; })[0];
+    if (!post) return;
+
+    if (form.dataset.act === "comment") {
+      e.preventDefault();
+      var input = form.querySelector('[name="body"]');
+      var text = input.value.trim();
+      if (!text) return;
+      input.disabled = true;
+      try {
+        var rows = await C.comment(id, me.id, text);
+        post.comments = (post.comments || []).concat(rows || []);
+        input.value = ""; render();
+      } catch (err) { alert(explain(err)); input.disabled = false; }
+    } else if (form.dataset.act === "saveedit") {
+      e.preventDefault();
+      await saveEdit(form, post);
+    }
+  });
+
+  /* ── inline editor ────────────────────────────────────────────────── */
+  function initialAud(post) {
+    var t = post.targets || [];
+    if (!t.length) return "all";
+    if (t.some(function (x) { return x.member_id; })) return "people";
+    if (t.some(function (x) { return x.group_id; })) return "groups";
+    if (t.every(function (x) { return x.role_kind === "staff" || x.role_kind === "owner"; })) return "staff";
+    if (t.some(function (x) { return x.role_kind === "parent"; })) return "parents";
+    return "groups";
+  }
+
+  function openEditor(card, post) {
+    var ackOk = CadOrg.canUseFeature(org, "acknowledgments");
+    var urgentOk = CadOrg.can("announce.urgent");
+    card.innerHTML = '<form data-act="saveedit">' +
+      '<div class="ens-h"><h2>Editing</h2></div>' +
+      '<div class="ens-field"><label>Headline</label>' +
+        '<input class="ctrl" name="title" maxlength="160" value="' + esc(post.title || "") + '"></div>' +
+      '<div class="ens-field"><label>Message</label>' +
+        '<textarea class="ctrl" name="body" maxlength="8000" required>' + esc(post.body || "") + "</textarea></div>" +
+      '<div class="ens-row2">' +
+        '<div class="ens-field"><label>Type</label><select class="ctrl" name="kind">' +
+          '<option value="announcement"' + (post.kind === "announcement" ? " selected" : "") + ">Announcement</option>" +
+          '<option value="post"' + (post.kind === "post" ? " selected" : "") + ">Ordinary post</option>" +
+        "</select></div>" +
+        '<div class="ens-field"><label>Priority</label><select class="ctrl" name="priority">' +
+          C.PRIORITIES.map(function (p) {
+            var dis = p[0] === "urgent" && !urgentOk;
+            return '<option value="' + p[0] + '"' + (post.priority === p[0] ? " selected" : "") +
+              (dis ? " disabled" : "") + ">" + p[1] + "</option>";
+          }).join("") + "</select></div>" +
+      "</div>" +
+      '<div class="ens-field"><label>Who sees this</label>' + C.targetPickerHtml(dir, "edit") + "</div>" +
+      '<div class="ens-checks">' +
+        '<label class="ens-check"><input type="checkbox" name="pinned"' + (post.pinned ? " checked" : "") +
+          "><span>Pinned</span></label>" +
+        '<label class="ens-check' + (ackOk ? "" : " off") + '"><input type="checkbox" name="requires_ack"' +
+          (post.requires_ack ? " checked" : "") + (ackOk ? "" : " disabled") +
+          "><span>Require acknowledgment" +
+          (ackOk ? "" : "<small>Not included in " + esc(CadOrg.planOf(org).label) + ".</small>") +
+          "</span></label>" +
+      "</div>" +
+      '<div class="ens-filters"><button class="tab on" type="submit">Save changes</button>' +
+      '<button class="tab" type="button" data-act="canceledit">Cancel</button></div>' +
+      '<p class="acct-msg" data-editmsg role="status"></p></form>';
+
+    var picker = card.querySelector('[data-picker="edit"]');
+    C.wireTargetPicker(picker, dir);
+    /* preselect the audience this post already has */
+    var aud = initialAud(post);
+    var chip = picker.querySelector('[data-aud="' + aud + '"]');
+    if (chip) chip.click();
+    (post.targets || []).forEach(function (t) {
+      var b = t.group_id ? picker.querySelector('[data-group="' + t.group_id + '"]')
+            : t.member_id ? picker.querySelector('[data-member="' + t.member_id + '"]') : null;
+      if (b && !b.classList.contains("on")) b.click();
+    });
+  }
+
+  async function saveEdit(form, post) {
+    var msg = form.querySelector("[data-editmsg]");
+    msg.className = "acct-msg"; msg.style.display = "block"; msg.textContent = "Saving…";
+    var picker = form.querySelector('[data-picker="edit"]');
+    var targets = C.readTargets(picker);
+    try {
+      await CadOrg.rest("posts?id=eq." + post.id, { method: "PATCH", body: {
+        title: form.title.value.trim() || null,
+        body: form.body.value.trim(),
+        kind: form.kind.value,
+        priority: form.priority.value,
+        pinned: form.pinned.checked,
+        requires_ack: form.requires_ack.checked,
+      } });
+      await CadOrg.rest("post_targets?post_id=eq." + post.id, { method: "DELETE" });
+      if (targets.length) {
+        await CadOrg.rest("post_targets", { method: "POST", body: targets.map(function (t) {
+          return { post_id: post.id, group_id: t.group_id || null,
+                   role_kind: t.role_kind || null, member_id: t.member_id || null };
+        }) });
+      }
+      CadOrg.log("post.edited", "post", post.id);
+      editing = null;
+      await load(); render();
+    } catch (err) {
+      msg.className = "acct-msg err";
+      msg.textContent = explain(err);
+    }
+  }
+
+  /* ── realtime ─────────────────────────────────────────────────────── */
+  var pending = null;
+  function refreshSoon() {
+    if (editing) return;                 // never yank the editor out from under someone
+    clearTimeout(pending);
+    pending = setTimeout(function () {
+      load().then(render).catch(function () {});
+    }, 500);
+  }
+
+  /* ── boot ─────────────────────────────────────────────────────────── */
+  CadOrg.start({ nav: "feed" }).then(async function (o) {
+    if (!o) return;                      // sign-in gate rendered by core.js
+    org = o;
+    me = CadOrg.member();
+    try {
+      dir = await C.loadDirectory(org.id);
+      await load();
+    } catch (err) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load the feed. ' +
+        "If this workspace is new, the communication migration " +
+        "(0006_ensemble_comms.sql) may not have been applied yet.<br><br>" +
+        esc((err && err.message) || "") + "</div></div>";
+      return;
+    }
+    render();
+    live = C.realtime(org.id, {
+      onPost: refreshSoon, onComment: refreshSoon,
+      onAck: refreshSoon, onPostReaction: refreshSoon,
+      onStatus: setLive,
+    });
+    window.addEventListener("beforeunload", function () { live && live.close(); });
+  });
+})();
+</script>
+</body>
+</html>

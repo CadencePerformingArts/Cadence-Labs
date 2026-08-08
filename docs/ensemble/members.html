@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Members — Cadence Ensemble</title>
+<meta name="description" content="Your organization's roster: members, sections, groups, guardians and invites — private to your workspace.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* People screens — layout only; every colour comes from app.css tokens. */
+.ppl-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.ppl-filters .ctrl { min-width: 0; }
+.ppl-filters input.ctrl { flex: 1 1 220px; }
+.ppl-count { color: var(--muted); font-size: 12.5px; font-weight: 650; margin: 0 2px 8px; }
+.ppl-list { display: grid; gap: 2px; }
+.ppl-row {
+  display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
+  background: none; border: 0; font: inherit; cursor: pointer; color: var(--text-primary);
+  padding: 9px 10px; border-radius: 11px;
+}
+.ppl-row:hover { background: var(--surface-2); }
+.ppl-av {
+  flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent-wash); color: var(--accent-ink); font-size: 12.5px; font-weight: 800;
+}
+.ppl-main { flex: 1; min-width: 0; }
+.ppl-main b { display: block; font-size: 14.5px; font-weight: 650; }
+.ppl-sub { display: block; color: var(--muted); font-size: 12.5px; margin-top: 1px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ppl-tags { flex: none; display: flex; gap: 5px; align-items: center; }
+/* drawer */
+.ppl-drawer { position: fixed; inset: 0; z-index: 210; background: rgba(10,25,50,.45);
+  display: flex; align-items: flex-end; justify-content: center; }
+.ppl-drawer-in { position: relative; background: var(--surface-1); width: 100%; max-width: 620px;
+  border-radius: 16px 16px 0 0; padding: 20px; max-height: 88vh; overflow: auto; }
+@media (min-width: 700px) { .ppl-drawer { align-items: center; } .ppl-drawer-in { border-radius: 16px; } }
+.ppl-x { position: absolute; top: 10px; right: 12px; border: 0; background: none; cursor: pointer;
+  font-size: 25px; line-height: 1; color: var(--muted); padding: 4px 8px; }
+.ppl-drawer-in h3 { margin: 0 0 4px; font-size: 19px; color: var(--heading); }
+.ppl-drawer-in h4 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--muted); }
+.ppl-field { display: block; margin: 0 0 10px; }
+.ppl-field > span { display: block; font-size: 12.5px; font-weight: 650; color: var(--muted); margin-bottom: 4px; }
+.ppl-field .ctrl, .ppl-field textarea.ctrl { width: 100%; box-sizing: border-box; min-width: 0; }
+.ppl-2 { display: grid; gap: 0 12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .ppl-2 { grid-template-columns: 1fr; } }
+.ppl-kv { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; font-size: 14px; }
+.ppl-kv dt { color: var(--muted); font-size: 12.5px; font-weight: 650; }
+.ppl-kv dd { margin: 0; }
+.ppl-chiprow { display: flex; flex-wrap: wrap; gap: 6px; }
+.ppl-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; font-size: 12.5px; }
+.ppl-chip button { border: 0; background: none; cursor: pointer; color: var(--muted); font-size: 15px; line-height: 1; padding: 0; }
+.ppl-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.ppl-perms { border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; margin: 0 0 10px; }
+.ppl-perms legend { font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--muted); padding: 0 4px; }
+.ppl-perm { display: flex; gap: 9px; align-items: flex-start; padding: 5px 0; font-size: 13.5px; }
+.ppl-perm.implied { opacity: .55; }
+.ppl-perm code { font-family: var(--mono); font-size: 12px; }
+.ppl-perm-d { display: block; color: var(--muted); font-size: 12px; }
+.ppl-code { font-family: var(--mono); font-size: 13px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 8px; padding: 4px 8px; word-break: break-all; }
+.ppl-tree-row { display: flex; align-items: center; gap: 8px; padding: 7px 6px; border-radius: 9px; }
+.ppl-tree-row:hover { background: var(--surface-2); }
+.ppl-tree-row b { font-size: 14px; font-weight: 650; }
+.ppl-tree-row .ppl-sub { display: inline; }
+.ppl-toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
+  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 600; z-index: 400; box-shadow: 0 4px 16px rgba(10,25,50,.3); }
+.ppl-toast.bad { background: var(--bad, #c92a2a); }
+.ppl-warn { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+.ppl-pane { display: none; }
+.ppl-pane.on { display: block; }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="people.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc, P = CadPeople;
+  var S = {
+    org: null, members: [], roles: [], groups: [], gm: [], guardians: [],
+    invites: [], guardianTableMissing: false, tab: "directory",
+    filters: { q: "", role: "", section: "", group: "", status: "active" },
+  };
+
+  function canManage() { return CadOrg.canDo("member.manage"); }
+  function canGroups() { return CadOrg.canDo("group.create"); }
+  function myMemberId() { var m = CadOrg.member(); return m ? m.id : null; }
+
+  /* ── data ─────────────────────────────────────────────────────────── */
+  async function load() {
+    var orgId = S.org.id;
+    S.members = await CadOrg.rest("org_members?select=id,user_id,display_name,section," +
+      "instrument,grad_year,leadership_title,is_minor,status,role_id,joined_at,custom," +
+      "role:org_roles(id,key,name,kind,permissions)&org_id=eq." + orgId +
+      "&order=display_name.asc.nullslast");
+    S.roles = await CadOrg.rest("org_roles?select=id,key,name,kind,permissions,sort&org_id=eq." +
+      orgId + "&order=sort.asc");
+    S.groups = await CadOrg.rest("org_groups?select=id,parent_id,name,kind,description," +
+      "auto_role_keys,auto_sections&org_id=eq." + orgId + "&order=name.asc");
+    var ids = S.groups.map(function (g) { return g.id; });
+    S.gm = ids.length
+      ? await CadOrg.rest("org_group_members?select=group_id,member_id&group_id=in.(" + ids.join(",") + ")")
+      : [];
+    try {
+      S.guardians = await CadOrg.rest("org_guardians?select=guardian_member_id,member_id," +
+        "relationship,is_primary&org_id=eq." + orgId);
+    } catch (e) { S.guardians = []; S.guardianTableMissing = true; }
+    if (canManage()) {
+      try {
+        S.invites = await CadOrg.rest("org_invites?select=*&org_id=eq." + orgId +
+          "&order=created_at.desc&limit=100");
+      } catch (e) { S.invites = []; }
+    }
+  }
+
+  function memberById(id) {
+    return S.members.filter(function (m) { return m.id === id; })[0] || null;
+  }
+  function groupsOf(memberId) {
+    var set = {};
+    S.gm.forEach(function (r) { if (r.member_id === memberId) set[r.group_id] = true; });
+    return S.groups.filter(function (g) { return set[g.id]; });
+  }
+  function guardiansOf(memberId) {
+    return S.guardians.filter(function (g) { return g.member_id === memberId; })
+      .map(function (g) { return { link: g, member: memberById(g.guardian_member_id) }; })
+      .filter(function (r) { return r.member; });
+  }
+  function studentsOf(guardianMemberId) {
+    return S.guardians.filter(function (g) { return g.guardian_member_id === guardianMemberId; })
+      .map(function (g) { return { link: g, member: memberById(g.member_id) }; })
+      .filter(function (r) { return r.member; });
+  }
+  function sections() {
+    var set = {};
+    S.members.forEach(function (m) { if (m.section) set[m.section] = true; });
+    return Object.keys(set).sort();
+  }
+
+  /* ── directory ────────────────────────────────────────────────────── */
+  function filtered() {
+    var f = S.filters, q = f.q.toLowerCase();
+    var inGroup = null;
+    if (f.group) {
+      inGroup = {};
+      S.gm.forEach(function (r) { if (r.group_id === f.group) inGroup[r.member_id] = true; });
+    }
+    return S.members.filter(function (m) {
+      if (f.status && m.status !== f.status) return false;
+      if (f.role && m.role_id !== f.role) return false;
+      if (f.section && m.section !== f.section) return false;
+      if (inGroup && !inGroup[m.id]) return false;
+      if (!q) return true;
+      return [P.memberName(m), m.section, m.instrument, m.leadership_title,
+              m.role && m.role.name].filter(Boolean).join(" ").toLowerCase().indexOf(q) >= 0;
+    });
+  }
+
+  function directoryHtml() {
+    var rows = filtered();
+    return '<div class="card">' +
+      '<div class="ppl-filters">' +
+        '<input class="ctrl" id="fq" type="search" placeholder="Search name, section, instrument…" value="' + esc(S.filters.q) + '">' +
+        '<select class="ctrl" id="frole"><option value="">All roles</option>' +
+          S.roles.map(function (r) {
+            return '<option value="' + esc(r.id) + '"' + (S.filters.role === r.id ? " selected" : "") +
+              ">" + esc(r.name) + "</option>"; }).join("") + "</select>" +
+        '<select class="ctrl" id="fsection"><option value="">All sections</option>' +
+          sections().map(function (s) {
+            return '<option value="' + esc(s) + '"' + (S.filters.section === s ? " selected" : "") +
+              ">" + esc(s) + "</option>"; }).join("") + "</select>" +
+        '<select class="ctrl" id="fgroup"><option value="">All groups</option>' +
+          P.flattenTree(P.groupTree(S.groups)).map(function (n) {
+            return '<option value="' + esc(n.group.id) + '"' + (S.filters.group === n.group.id ? " selected" : "") +
+              ">" + esc(new Array(n.depth + 1).join("— ") + n.group.name) + "</option>"; }).join("") + "</select>" +
+        '<select class="ctrl" id="fstatus">' +
+          [["active", "Active"], ["pending", "Pending"], ["inactive", "Inactive"],
+           ["alumni", "Alumni"], ["", "Everyone"]].map(function (s) {
+            return '<option value="' + s[0] + '"' + (S.filters.status === s[0] ? " selected" : "") +
+              ">" + s[1] + "</option>"; }).join("") + "</select>" +
+      "</div>" +
+      '<p class="ppl-count">' + rows.length + " member" + (rows.length === 1 ? "" : "s") +
+        " shown · " + S.members.length + " on the roster</p>" +
+      (rows.length
+        ? '<div class="ppl-list" id="pplList">' + rows.map(function (m) {
+            return P.memberRowHtml(m, { tag: m.leadership_title
+              ? '<span class="ens-tag important">' + esc(m.leadership_title) + "</span>" : "" });
+          }).join("") + "</div>"
+        : '<div class="empty">No members match those filters.</div>') +
+      "</div>";
+  }
+
+  /* ── member drawer ────────────────────────────────────────────────── */
+  async function openMember(id) {
+    var m = memberById(id);
+    if (!m) return;
+    var isSelf = m.id === myMemberId();
+    var isGuardian = studentsOf(myMemberId() || "").some(function (r) { return r.member.id === m.id; });
+    var mayEdit = canManage();
+    var d = P.drawer('<div class="loading">Loading…</div>');
+    var contacts = null, contactsBlocked = false;
+    if (P.canSeeContacts(S.org, { isSelf: isSelf, isGuardian: isGuardian })) {
+      try {
+        var rows = await CadOrg.rest("org_member_contacts?select=*&member_id=eq." + m.id);
+        contacts = rows && rows[0] ? rows[0] : {};
+      } catch (e) { contactsBlocked = true; }
+    }
+    var gs = groupsOf(m.id), gds = guardiansOf(m.id), sts = studentsOf(m.id);
+
+    d.el.innerHTML = '<button class="ppl-x" type="button" aria-label="Close">×</button>' +
+      "<h3>" + esc(P.memberName(m)) + "</h3>" +
+      '<div class="setsub" style="margin-bottom:12px">' +
+        esc((m.role && m.role.name) || "Member") +
+        (m.section ? " · " + esc(m.section) : "") +
+        (m.status !== "active" ? " · " + esc(m.status) : "") + "</div>" +
+
+      (mayEdit ? '<form id="mEdit">' +
+        '<div class="ppl-2">' +
+          '<label class="ppl-field"><span>Display name</span><input class="ctrl" id="eName" maxlength="120" value="' + esc(m.display_name || "") + '"></label>' +
+          '<label class="ppl-field"><span>Role</span><select class="ctrl" id="eRole">' +
+            P.roleOptionsHtml(S.roles, m.role_id) + "</select></label>" +
+          '<label class="ppl-field"><span>Section</span><input class="ctrl" id="eSection" maxlength="60" value="' + esc(m.section || "") + '"></label>' +
+          '<label class="ppl-field"><span>Instrument</span><input class="ctrl" id="eInstrument" maxlength="60" value="' + esc(m.instrument || "") + '"></label>' +
+          '<label class="ppl-field"><span>Leadership title</span><input class="ctrl" id="eTitle" maxlength="60" value="' + esc(m.leadership_title || "") + '"></label>' +
+          '<label class="ppl-field"><span>Graduation year</span><input class="ctrl" id="eGrad" type="number" min="1900" max="2100" value="' + esc(m.grad_year || "") + '"></label>' +
+          '<label class="ppl-field"><span>Status</span><select class="ctrl" id="eStatus">' +
+            P.MEMBER_STATUSES.map(function (s) {
+              return '<option value="' + s[0] + '"' + (m.status === s[0] ? " selected" : "") + ">" + s[1] + "</option>";
+            }).join("") + "</select></label>" +
+          '<label class="ppl-field"><span>Minor</span><select class="ctrl" id="eMinor">' +
+            '<option value="false"' + (m.is_minor ? "" : " selected") + ">No</option>" +
+            '<option value="true"' + (m.is_minor ? " selected" : "") + ">Yes</option></select></label>" +
+        "</div>" +
+        '<div class="ppl-actions"><button class="tab on" type="submit">Save changes</button>' +
+        '<span class="acct-msg" id="mMsg" role="status"></span></div></form>'
+      : '<dl class="ppl-kv">' +
+          "<dt>Role</dt><dd>" + esc((m.role && m.role.name) || "—") + "</dd>" +
+          "<dt>Section</dt><dd>" + esc(m.section || "—") + "</dd>" +
+          "<dt>Instrument</dt><dd>" + esc(m.instrument || "—") + "</dd>" +
+          "<dt>Leadership</dt><dd>" + esc(m.leadership_title || "—") + "</dd>" +
+          "<dt>Joined</dt><dd>" + esc(P.fmtDate(m.joined_at)) + "</dd></dl>") +
+
+      "<h4>Groups</h4>" +
+      '<div class="ppl-chiprow" id="mGroups">' + (gs.length
+        ? gs.map(function (g) { return '<span class="ppl-chip">' + esc(g.name) +
+            (canGroups() ? '<button type="button" data-ungroup="' + esc(g.id) + '" title="Remove from group">×</button>' : "") +
+            "</span>"; }).join("")
+        : '<span class="setsub">Not in any group yet.</span>') + "</div>" +
+      (canGroups() ? '<div class="ppl-actions"><select class="ctrl" id="mAddGroup"><option value="">Add to group…</option>' +
+        P.flattenTree(P.groupTree(S.groups)).map(function (n) {
+          return '<option value="' + esc(n.group.id) + '">' +
+            esc(new Array(n.depth + 1).join("— ") + n.group.name) + "</option>"; }).join("") +
+        "</select></div>" : "") +
+
+      "<h4>Guardians</h4>" +
+      (S.guardianTableMissing
+        ? '<p class="ppl-warn">Guardian links need migration 0009 — run it in Supabase to enable this.</p>'
+        : '<div class="ppl-chiprow" id="mGuardians">' + (gds.length
+            ? gds.map(function (r) { return '<span class="ppl-chip">' + esc(P.memberName(r.member)) +
+                (r.link.relationship ? " · " + esc(r.link.relationship) : "") +
+                (mayEdit ? '<button type="button" data-unlink-g="' + esc(r.member.id) + '" title="Unlink">×</button>' : "") +
+                "</span>"; }).join("")
+            : '<span class="setsub">No guardian linked.</span>') + "</div>" +
+          (sts.length ? "<h4>Students</h4><div class=\"ppl-chiprow\">" + sts.map(function (r) {
+              return '<span class="ppl-chip">' + esc(P.memberName(r.member)) +
+                (mayEdit ? '<button type="button" data-unlink-s="' + esc(r.member.id) + '" title="Unlink">×</button>' : "") +
+                "</span>"; }).join("") + "</div>" : "") +
+          (mayEdit ? '<div class="ppl-actions"><select class="ctrl" id="gPick"><option value="">Link a guardian…</option>' +
+            S.members.filter(function (x) { return x.id !== m.id; }).map(function (x) {
+              return '<option value="' + esc(x.id) + '">' + esc(P.memberName(x)) +
+                (x.role ? " (" + esc(x.role.name) + ")" : "") + "</option>"; }).join("") + "</select>" +
+            '<input class="ctrl" id="gRel" placeholder="Relationship (Mother, Guardian…)" maxlength="40" style="min-width:0;flex:1 1 180px">' +
+            '<button class="tab" type="button" id="gLink">Link</button></div>' : "")) +
+
+      "<h4>Contact details</h4>" + contactHtml(contacts, contactsBlocked, isSelf, mayEdit) +
+      '<p class="ppl-warn">' + esc(P.contactPolicyNote(S.org)) + "</p>";
+
+    wireDrawer(d, m, contacts);
+  }
+
+  function contactHtml(c, blocked, isSelf, mayEdit) {
+    if (blocked) return '<p class="ppl-warn">Contact details are restricted for your role.</p>';
+    if (!c) return '<p class="ppl-warn">Contact details are visible only to the member, ' +
+      "their guardians, and staff who hold <code>student.info</code>, <code>parent.info</code> " +
+      "or <code>member.manage</code>. The database enforces this — not this page.</p>";
+    if (!(isSelf || mayEdit)) {
+      return '<dl class="ppl-kv"><dt>Email</dt><dd>' + esc(c.email || "—") + "</dd>" +
+        "<dt>Phone</dt><dd>" + esc(c.phone || "—") + "</dd>" +
+        "<dt>Emergency</dt><dd>" + esc(c.emergency_name || "—") +
+        (c.emergency_phone ? " · " + esc(c.emergency_phone) : "") + "</dd></dl>";
+    }
+    return '<form id="cEdit"><div class="ppl-2">' +
+      '<label class="ppl-field"><span>Email</span><input class="ctrl" id="cEmail" type="email" value="' + esc(c.email || "") + '"></label>' +
+      '<label class="ppl-field"><span>Phone</span><input class="ctrl" id="cPhone" value="' + esc(c.phone || "") + '"></label>' +
+      '<label class="ppl-field"><span>Emergency contact</span><input class="ctrl" id="cEName" value="' + esc(c.emergency_name || "") + '"></label>' +
+      '<label class="ppl-field"><span>Emergency phone</span><input class="ctrl" id="cEPhone" value="' + esc(c.emergency_phone || "") + '"></label>' +
+      "</div>" +
+      '<label class="ppl-field"><span>Address</span><input class="ctrl" id="cAddress" value="' + esc(c.address || "") + '"></label>' +
+      '<div class="ppl-actions"><button class="tab" type="submit">Save contact details</button>' +
+      '<span class="acct-msg" id="cMsg" role="status"></span></div></form>';
+  }
+
+  function wireDrawer(d, m, contacts) {
+    var el = d.el;
+    var edit = el.querySelector("#mEdit");
+    if (edit) edit.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = el.querySelector("#mMsg");
+      msg.className = "acct-msg"; msg.textContent = "Saving…";
+      var body = {
+        display_name: el.querySelector("#eName").value.trim() || null,
+        role_id: el.querySelector("#eRole").value,
+        section: el.querySelector("#eSection").value.trim() || null,
+        instrument: el.querySelector("#eInstrument").value.trim() || null,
+        leadership_title: el.querySelector("#eTitle").value.trim() || null,
+        grad_year: parseInt(el.querySelector("#eGrad").value, 10) || null,
+        status: el.querySelector("#eStatus").value,
+        is_minor: el.querySelector("#eMinor").value === "true",
+      };
+      try {
+        await CadOrg.rest("org_members?id=eq." + m.id, { method: "PATCH", body: body });
+        await CadOrg.log("member.updated", "member", m.id, { fields: Object.keys(body) });
+        msg.className = "acct-msg ok"; msg.textContent = "Saved.";
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't save: " + (err.message || "unknown error");
+      }
+    });
+
+    var cEdit = el.querySelector("#cEdit");
+    if (cEdit) cEdit.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = el.querySelector("#cMsg");
+      msg.className = "acct-msg"; msg.textContent = "Saving…";
+      var body = {
+        member_id: m.id, org_id: S.org.id,
+        email: el.querySelector("#cEmail").value.trim() || null,
+        phone: el.querySelector("#cPhone").value.trim() || null,
+        emergency_name: el.querySelector("#cEName").value.trim() || null,
+        emergency_phone: el.querySelector("#cEPhone").value.trim() || null,
+        address: el.querySelector("#cAddress").value.trim() || null,
+      };
+      try {
+        await CadOrg.rest("org_member_contacts", {
+          method: "POST", headers: { Prefer: "resolution=merge-duplicates" }, body: body });
+        msg.className = "acct-msg ok"; msg.textContent = "Saved.";
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't save: " + (err.message || "unknown error");
+      }
+    });
+
+    var addGroup = el.querySelector("#mAddGroup");
+    if (addGroup) addGroup.addEventListener("change", async function () {
+      if (!addGroup.value) return;
+      try {
+        await CadOrg.rest("org_group_members", { method: "POST",
+          body: { group_id: addGroup.value, member_id: m.id } });
+        P.toast("Added to group.");
+        await refresh(); d.close(); openMember(m.id);
+      } catch (err) { P.toast("Couldn't add: " + (err.message || "error"), true); }
+    });
+
+    el.addEventListener("click", async function (e) {
+      var t = e.target;
+      if (t.dataset && t.dataset.ungroup) {
+        try {
+          await CadOrg.rest("org_group_members?group_id=eq." + t.dataset.ungroup +
+            "&member_id=eq." + m.id, { method: "DELETE" });
+          P.toast("Removed from group."); await refresh(); d.close(); openMember(m.id);
+        } catch (err) { P.toast("Couldn't remove: " + (err.message || "error"), true); }
+      }
+      if (t.dataset && (t.dataset.unlinkG || t.dataset.unlinkS)) {
+        var g = t.dataset.unlinkG ? t.dataset.unlinkG : m.id;
+        var s = t.dataset.unlinkG ? m.id : t.dataset.unlinkS;
+        try {
+          await CadOrg.rest("org_guardians?guardian_member_id=eq." + g + "&member_id=eq." + s,
+            { method: "DELETE" });
+          await CadOrg.log("guardian.unlinked", "member", s, { guardian: g });
+          P.toast("Guardian link removed."); await refresh(); d.close(); openMember(m.id);
+        } catch (err) { P.toast("Couldn't unlink: " + (err.message || "error"), true); }
+      }
+    });
+
+    var gLink = el.querySelector("#gLink");
+    if (gLink) gLink.addEventListener("click", async function () {
+      var pick = el.querySelector("#gPick").value;
+      if (!pick) { P.toast("Choose a member to link first.", true); return; }
+      try {
+        await CadOrg.rest("org_guardians", { method: "POST", body: {
+          org_id: S.org.id, guardian_member_id: pick, member_id: m.id,
+          relationship: el.querySelector("#gRel").value.trim() || null } });
+        await CadOrg.log("guardian.linked", "member", m.id, { guardian: pick });
+        P.toast("Guardian linked."); await refresh(); d.close(); openMember(m.id);
+      } catch (err) { P.toast("Couldn't link: " + (err.message || "error"), true); }
+    });
+  }
+
+  /* ── invites ──────────────────────────────────────────────────────── */
+  function invitesHtml() {
+    if (!canManage()) {
+      return '<div class="card"><div class="empty">Only members who can manage the roster ' +
+        "may create invites.</div></div>";
+    }
+    var live = S.invites.filter(function (i) {
+      return (!i.expires_at || new Date(i.expires_at) > new Date()) && i.uses < i.max_uses;
+    });
+    return '<div class="ens-grid">' +
+      '<div class="card"><h2>Invite one person</h2>' +
+        '<p class="setnote">Creates a single-use code tied to that email address.</p>' +
+        '<form class="acct-form" id="oneForm">' +
+          '<input class="ctrl" id="oneEmail" type="email" placeholder="name@example.com" required>' +
+          '<select class="ctrl" id="oneRole">' + P.roleOptionsHtml(S.roles, defaultRoleId()) + "</select>" +
+          '<input class="ctrl" id="oneSection" placeholder="Section (optional)">' +
+          '<button class="tab on" type="submit">Create invite</button></form>' +
+        '<p class="acct-msg" id="oneMsg" role="status"></p></div>' +
+
+      '<div class="card"><h2>Bulk invite from a roster</h2>' +
+        '<p class="setnote">Paste or upload CSV: <code>name,email,role,section</code>. ' +
+        "A header row is fine. Each line becomes its own single-use invite.</p>" +
+        '<textarea class="ctrl" id="csvText" rows="6" style="width:100%;box-sizing:border-box" ' +
+        'placeholder="Jordan Reyes,jordan@example.com,Member,Trumpet&#10;Pat Reyes,pat@example.com,Parent,"></textarea>' +
+        '<div class="ppl-actions"><input type="file" id="csvFile" accept=".csv,text/csv,text/plain">' +
+        '<button class="tab" type="button" id="csvCheck">Check roster</button>' +
+        '<button class="tab on" type="button" id="csvGo" disabled>Create invites</button></div>' +
+        '<div id="csvOut"></div></div>' +
+
+      '<div class="card" style="grid-column:1/-1"><h2>Open invites</h2>' +
+        '<p class="setnote">Cadence does not email these for you yet — copy a link or code and ' +
+        "send it the way your families already hear from you.</p>" +
+        (live.length ? live.map(inviteRowHtml).join("")
+          : '<div class="empty">No open invites.</div>') + "</div>" +
+      "</div>";
+  }
+
+  function inviteRowHtml(i) {
+    var role = S.roles.filter(function (r) { return r.id === i.role_id; })[0];
+    return '<div class="ens-item"><div style="flex:1;min-width:0">' +
+      '<span class="ppl-code">' + esc(i.code) + "</span> " +
+      '<button class="tab" type="button" data-copy-code="' + esc(i.code) + '">Copy code</button> ' +
+      '<button class="tab" type="button" data-copy-link="' + esc(i.code) + '">Copy link</button>' +
+      '<div class="ens-sub">' + esc(i.email || "Anyone with the link") +
+        (role ? " · " + esc(role.name) : "") + (i.section ? " · " + esc(i.section) : "") +
+        " · " + i.uses + "/" + i.max_uses + " used" +
+        (i.expires_at ? " · expires " + esc(P.fmtDate(i.expires_at)) : " · no expiry") + "</div>" +
+      "</div>" +
+      '<button class="tab" type="button" data-revoke="' + esc(i.id) + '">Revoke</button></div>';
+  }
+
+  function defaultRoleId() {
+    var r = S.roles.filter(function (x) { return x.key === "member"; })[0] || S.roles[0];
+    return r ? r.id : "";
+  }
+
+  function inviteBody(email, roleId, section, opts) {
+    opts = opts || {};
+    return {
+      org_id: S.org.id, code: P.makeInviteCode(8), email: email || null,
+      role_id: roleId || defaultRoleId(), section: section || null,
+      max_uses: opts.maxUses || 1,
+      expires_at: new Date(Date.now() + (opts.days || 30) * 86400000).toISOString(),
+      created_by: CadAccount.user().id,
+    };
+  }
+
+  function wireInvites(root) {
+    var one = root.querySelector("#oneForm");
+    if (one) one.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = root.querySelector("#oneMsg");
+      msg.className = "acct-msg"; msg.textContent = "Creating…";
+      try {
+        var rows = await CadOrg.rest("org_invites", { method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: inviteBody(root.querySelector("#oneEmail").value.trim().toLowerCase(),
+            root.querySelector("#oneRole").value,
+            root.querySelector("#oneSection").value.trim()) });
+        await CadOrg.log("invite.created", "invite", rows[0].id, { email: rows[0].email });
+        msg.className = "acct-msg ok";
+        msg.textContent = "Invite code " + rows[0].code + " created.";
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't create that invite: " + (err.message || "unknown error");
+      }
+    });
+
+    var file = root.querySelector("#csvFile");
+    if (file) file.addEventListener("change", function () {
+      var f = file.files && file.files[0];
+      if (!f) return;
+      var rd = new FileReader();
+      rd.onload = function () { root.querySelector("#csvText").value = String(rd.result || ""); };
+      rd.readAsText(f);
+    });
+
+    var parsed = null;
+    var check = root.querySelector("#csvCheck");
+    if (check) check.addEventListener("click", function () {
+      parsed = P.parseRoster(root.querySelector("#csvText").value);
+      var out = root.querySelector("#csvOut");
+      root.querySelector("#csvGo").disabled = parsed.rows.length === 0;
+      out.innerHTML = (parsed.errors.length
+          ? '<p class="acct-msg err">' + parsed.errors.map(esc).join("<br>") + "</p>" : "") +
+        (parsed.rows.length
+          ? '<p class="ppl-count">' + parsed.rows.length + " invite" +
+            (parsed.rows.length === 1 ? "" : "s") + " ready:</p>" +
+            '<div class="ppl-list">' + parsed.rows.slice(0, 40).map(function (r) {
+              var role = P.matchRole(S.roles, r.role);
+              return '<div class="ppl-row" style="cursor:default"><span class="ppl-av">' +
+                esc(P.initials(r.name || r.email)) + '</span><span class="ppl-main"><b>' +
+                esc(r.name || r.email) + '</b><span class="ppl-sub">' + esc(r.email) + " · " +
+                esc(role ? role.name : "Member (default)") + (r.section ? " · " + esc(r.section) : "") +
+                "</span></span></div>"; }).join("") +
+            (parsed.rows.length > 40 ? '<p class="ppl-count">…and ' + (parsed.rows.length - 40) + " more.</p>" : "") +
+            "</div>"
+          : '<div class="empty">Nothing to import yet.</div>');
+    });
+
+    var go = root.querySelector("#csvGo");
+    if (go) go.addEventListener("click", async function () {
+      if (!parsed || !parsed.rows.length) return;
+      go.disabled = true;
+      var bodies = parsed.rows.map(function (r) {
+        var role = P.matchRole(S.roles, r.role);
+        return inviteBody(r.email, role ? role.id : defaultRoleId(), r.section, { days: 45 });
+      });
+      try {
+        await CadOrg.rest("org_invites", { method: "POST", body: bodies });
+        await CadOrg.log("invite.bulk_created", "invite", null, { count: bodies.length });
+        P.toast(bodies.length + " invites created.");
+        await refresh();
+      } catch (err) {
+        P.toast("Couldn't create invites: " + (err.message || "error"), true);
+        go.disabled = false;
+      }
+    });
+
+    root.addEventListener("click", async function (e) {
+      var t = e.target;
+      if (!t.dataset) return;
+      if (t.dataset.copyCode) {
+        P.copyText(t.dataset.copyCode).then(function (ok) {
+          P.toast(ok ? "Code copied." : "Copy failed — select it by hand.", !ok); });
+      }
+      if (t.dataset.copyLink) {
+        P.copyText(P.inviteUrl(t.dataset.copyLink)).then(function (ok) {
+          P.toast(ok ? "Invite link copied." : "Copy failed — select it by hand.", !ok); });
+      }
+      if (t.dataset.revoke) {
+        try {
+          await CadOrg.rest("org_invites?id=eq." + t.dataset.revoke, { method: "DELETE" });
+          await CadOrg.log("invite.revoked", "invite", t.dataset.revoke);
+          P.toast("Invite revoked."); await refresh();
+        } catch (err) { P.toast("Couldn't revoke: " + (err.message || "error"), true); }
+      }
+    });
+  }
+
+  /* ── groups ───────────────────────────────────────────────────────── */
+  function groupsHtml() {
+    var tree = P.flattenTree(P.groupTree(S.groups));
+    var counts = {};
+    S.gm.forEach(function (r) { counts[r.group_id] = (counts[r.group_id] || 0) + 1; });
+    return '<div class="ens-grid">' +
+      '<div class="card" style="grid-column:1/-1"><div class="ens-h"><h2>Groups</h2>' +
+        '<span class="setsub">' + S.groups.length + " total</span></div>" +
+        (tree.length ? tree.map(function (n) {
+          var g = n.group;
+          return '<div class="ppl-tree-row" style="padding-left:' + (n.depth * 18) + 'px">' +
+            "<b>" + esc(g.name) + "</b>" +
+            '<span class="ppl-sub">' + esc(g.kind) + " · " + (counts[g.id] || 0) + " member" +
+            ((counts[g.id] || 0) === 1 ? "" : "s") +
+            (g.auto_role_keys && g.auto_role_keys.length ? " · auto: " + esc(g.auto_role_keys.join(", ")) : "") +
+            (g.auto_sections && g.auto_sections.length ? " · sections: " + esc(g.auto_sections.join(", ")) : "") +
+            "</span>" +
+            '<span style="margin-left:auto"><button class="tab" type="button" data-group="' + esc(g.id) + '">' +
+            (canGroups() ? "Manage" : "View") + "</button></span></div>";
+        }).join("") : '<div class="empty">No groups yet.</div>') + "</div>" +
+      (canGroups() ? '<div class="card"><h2>New group</h2>' +
+        '<form class="acct-form" id="gForm">' +
+          '<input class="ctrl" id="gName" placeholder="Group name (Brass, Battery, Chaperones…)" required maxlength="80">' +
+          '<select class="ctrl" id="gKind">' + P.GROUP_KINDS.map(function (k) {
+            return '<option value="' + k[0] + '">' + k[1] + "</option>"; }).join("") + "</select>" +
+          '<select class="ctrl" id="gParent"><option value="">No parent group</option>' +
+            P.flattenTree(P.groupTree(S.groups)).map(function (n) {
+              return '<option value="' + esc(n.group.id) + '">' +
+                esc(new Array(n.depth + 1).join("— ") + n.group.name) + "</option>"; }).join("") + "</select>" +
+          '<button class="tab on" type="submit">Create group</button></form>' +
+        '<p class="acct-msg" id="gMsg" role="status"></p></div>' : "") +
+      "</div>";
+  }
+
+  function openGroup(id) {
+    var g = S.groups.filter(function (x) { return x.id === id; })[0];
+    if (!g) return;
+    var mayEdit = canGroups();
+    var inGroup = {};
+    S.gm.forEach(function (r) { if (r.group_id === id) inGroup[r.member_id] = true; });
+    var d = P.drawer(
+      "<h3>" + esc(g.name) + "</h3>" +
+      '<div class="setsub" style="margin-bottom:12px">' + esc(g.kind) + " group</div>" +
+      (mayEdit ? '<form id="gEdit"><div class="ppl-2">' +
+        '<label class="ppl-field"><span>Name</span><input class="ctrl" id="gxName" value="' + esc(g.name) + '" maxlength="80"></label>' +
+        '<label class="ppl-field"><span>Kind</span><select class="ctrl" id="gxKind">' +
+          P.GROUP_KINDS.map(function (k) {
+            return '<option value="' + k[0] + '"' + (g.kind === k[0] ? " selected" : "") + ">" + k[1] + "</option>";
+          }).join("") + "</select></label>" +
+        '<label class="ppl-field"><span>Parent group</span><select class="ctrl" id="gxParent">' +
+          '<option value="">None</option>' + S.groups.filter(function (x) { return x.id !== g.id; })
+            .map(function (x) {
+              return '<option value="' + esc(x.id) + '"' + (g.parent_id === x.id ? " selected" : "") +
+                ">" + esc(x.name) + "</option>"; }).join("") + "</select></label>" +
+        '<label class="ppl-field"><span>Auto-join roles</span><input class="ctrl" id="gxRoles" ' +
+          'placeholder="member, leadership" value="' + esc((g.auto_role_keys || []).join(", ")) + '"></label>' +
+        '<label class="ppl-field"><span>Auto-join sections</span><input class="ctrl" id="gxSections" ' +
+          'placeholder="Trumpet, Mellophone" value="' + esc((g.auto_sections || []).join(", ")) + '"></label>' +
+        "</div>" +
+        '<p class="ppl-warn">Auto-join uses role <em>keys</em> (owner, director, staff, leadership, ' +
+        "member, parent, booster…). Saving also backfills anyone already on the roster who matches.</p>" +
+        '<div class="ppl-actions"><button class="tab on" type="submit">Save group</button>' +
+        '<button class="tab" type="button" id="gxDelete">Delete group</button>' +
+        '<span class="acct-msg" id="gxMsg" role="status"></span></div></form>' : "") +
+      "<h4>Members</h4>" +
+      '<div class="ppl-list" style="max-height:44vh;overflow:auto">' +
+        S.members.filter(function (m) { return m.status === "active"; }).map(function (m) {
+          return '<label class="ppl-row" style="cursor:pointer">' +
+            '<input type="checkbox" data-gmember="' + esc(m.id) + '"' +
+            (inGroup[m.id] ? " checked" : "") + (mayEdit ? "" : " disabled") + ">" +
+            '<span class="ppl-av">' + esc(P.initials(P.memberName(m))) + "</span>" +
+            '<span class="ppl-main"><b>' + esc(P.memberName(m)) + "</b>" +
+            '<span class="ppl-sub">' + esc([(m.role && m.role.name), m.section].filter(Boolean).join(" · ")) +
+            "</span></span></label>"; }).join("") +
+      "</div>");
+
+    d.el.addEventListener("change", async function (e) {
+      var box = e.target;
+      if (!box.dataset || !box.dataset.gmember) return;
+      try {
+        if (box.checked) {
+          await CadOrg.rest("org_group_members", { method: "POST",
+            body: { group_id: g.id, member_id: box.dataset.gmember } });
+        } else {
+          await CadOrg.rest("org_group_members?group_id=eq." + g.id +
+            "&member_id=eq." + box.dataset.gmember, { method: "DELETE" });
+        }
+        await refresh(true);
+      } catch (err) {
+        box.checked = !box.checked;
+        P.toast("Couldn't change membership: " + (err.message || "error"), true);
+      }
+    });
+
+    var form = d.el.querySelector("#gEdit");
+    if (form) form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = d.el.querySelector("#gxMsg");
+      msg.className = "acct-msg"; msg.textContent = "Saving…";
+      var roles = splitList(d.el.querySelector("#gxRoles").value);
+      var secs = splitList(d.el.querySelector("#gxSections").value);
+      try {
+        await CadOrg.rest("org_groups?id=eq." + g.id, { method: "PATCH", body: {
+          name: d.el.querySelector("#gxName").value.trim(),
+          kind: d.el.querySelector("#gxKind").value,
+          parent_id: d.el.querySelector("#gxParent").value || null,
+          auto_role_keys: roles, auto_sections: secs } });
+        await backfillAutoJoin(g.id, roles, secs);
+        await CadOrg.log("group.updated", "group", g.id, { auto_role_keys: roles });
+        msg.className = "acct-msg ok"; msg.textContent = "Saved.";
+        await refresh(); d.close(); openGroup(g.id);
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't save: " + (err.message || "unknown error");
+      }
+    });
+
+    var del = d.el.querySelector("#gxDelete");
+    if (del) del.addEventListener("click", async function () {
+      if (!confirm("Delete “" + g.name + "”? Members stay on the roster; nested groups are removed too.")) return;
+      try {
+        await CadOrg.rest("org_groups?id=eq." + g.id, { method: "DELETE" });
+        await CadOrg.log("group.deleted", "group", g.id, { name: g.name });
+        P.toast("Group deleted."); d.close(); await refresh();
+      } catch (err) { P.toast("Couldn't delete: " + (err.message || "error"), true); }
+    });
+  }
+
+  function splitList(s) {
+    return String(s || "").split(",").map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+
+  /* The DB trigger auto-joins members when their role or section CHANGES;
+     changing the group's rules needs this one-off backfill. */
+  async function backfillAutoJoin(groupId, roleKeys, sectionNames) {
+    if (!roleKeys.length && !sectionNames.length) return;
+    var already = {};
+    S.gm.forEach(function (r) { if (r.group_id === groupId) already[r.member_id] = true; });
+    var add = S.members.filter(function (m) {
+      if (already[m.id] || m.status !== "active") return false;
+      var key = m.role && m.role.key;
+      return (key && roleKeys.indexOf(key) >= 0) ||
+        (m.section && sectionNames.indexOf(m.section) >= 0);
+    }).map(function (m) { return { group_id: groupId, member_id: m.id }; });
+    if (!add.length) return;
+    try {
+      await CadOrg.rest("org_group_members", { method: "POST",
+        headers: { Prefer: "resolution=ignore-duplicates" }, body: add });
+    } catch (e) {}
+  }
+
+  /* ── page ─────────────────────────────────────────────────────────── */
+  function render() {
+    main.innerHTML =
+      '<h1 class="page">Members</h1>' +
+      '<p class="lede">Everyone in ' + esc(S.org.name) + " — who they are, what they play, " +
+      "which groups they're in, and who their guardians are. Private to this workspace.</p>" +
+      (CadOrg.isWritable(S.org) ? "" :
+        '<div class="notice" style="margin-bottom:14px">This workspace is read-only, so the ' +
+        "roster can be read but not changed. Everything is preserved.</div>") +
+      '<div class="subtabs" role="tablist">' +
+        [["directory", "Directory"], ["groups", "Groups"], ["invites", "Invites"]]
+          .map(function (t) {
+            return '<button class="tab' + (S.tab === t[0] ? " on" : "") + '" type="button" data-tab="' +
+              t[0] + '">' + t[1] + "</button>"; }).join("") +
+      "</div>" +
+      '<div class="ppl-pane' + (S.tab === "directory" ? " on" : "") + '" id="paneDirectory">' + directoryHtml() + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "groups" ? " on" : "") + '" id="paneGroups">' + groupsHtml() + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "invites" ? " on" : "") + '" id="paneInvites">' + invitesHtml() + "</div>";
+
+    main.querySelectorAll("[data-tab]").forEach(function (b) {
+      b.addEventListener("click", function () { S.tab = b.dataset.tab; render(); });
+    });
+
+    var pd = main.querySelector("#paneDirectory");
+    ["fq", "frole", "fsection", "fgroup", "fstatus"].forEach(function (id) {
+      var el = pd.querySelector("#" + id);
+      if (!el) return;
+      el.addEventListener(id === "fq" ? "input" : "change", function () {
+        S.filters.q = pd.querySelector("#fq").value;
+        S.filters.role = pd.querySelector("#frole").value;
+        S.filters.section = pd.querySelector("#fsection").value;
+        S.filters.group = pd.querySelector("#fgroup").value;
+        S.filters.status = pd.querySelector("#fstatus").value;
+        render();
+        if (id === "fq") {
+          var again = document.getElementById("fq");
+          if (again) { again.focus(); again.setSelectionRange(again.value.length, again.value.length); }
+        }
+      });
+    });
+
+    pd.addEventListener("click", function (e) {
+      var row = e.target.closest && e.target.closest("[data-member]");
+      if (row) openMember(row.dataset.member);
+    });
+
+    var pg = main.querySelector("#paneGroups");
+    pg.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest("[data-group]");
+      if (b) openGroup(b.dataset.group);
+    });
+    var gForm = pg.querySelector("#gForm");
+    if (gForm) gForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = pg.querySelector("#gMsg");
+      msg.className = "acct-msg"; msg.textContent = "Creating…";
+      try {
+        var rows = await CadOrg.rest("org_groups", { method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: { org_id: S.org.id, name: pg.querySelector("#gName").value.trim(),
+            kind: pg.querySelector("#gKind").value,
+            parent_id: pg.querySelector("#gParent").value || null,
+            created_by: CadAccount.user().id } });
+        await CadOrg.log("group.created", "group", rows[0].id, { name: rows[0].name });
+        msg.className = "acct-msg ok"; msg.textContent = "Group created.";
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't create that group: " + (err.message || "unknown error");
+      }
+    });
+
+    wireInvites(main.querySelector("#paneInvites"));
+  }
+
+  async function refresh(quiet) {
+    try { await load(); } catch (e) {
+      if (!quiet) P.toast("Couldn't reload the roster: " + (e.message || "error"), true);
+      return;
+    }
+    if (!quiet) render();
+  }
+
+  CadOrg.start({ nav: "members" }).then(async function (org) {
+    if (!org) return;
+    S.org = org;
+    var hash = (location.hash || "").replace("#", "");
+    if (["directory", "groups", "invites"].indexOf(hash) >= 0) S.tab = hash;
+    try { await load(); } catch (e) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load the roster. ' +
+        "If this is a fresh install, migrations 0005 and 0009 may not be applied yet.</div></div>";
+      return;
+    }
+    render();
+  });
+})();
+</script>
+</body>
+</html>
