@@ -285,6 +285,15 @@ revoke execute on function public.org_writable(uuid) from public, anon;
 revoke execute on function public.org_can_write(uuid, text) from public, anon;
 revoke execute on function public.org_member_id(uuid) from public, anon;
 revoke execute on function public.is_group_member(uuid) from public, anon;
+-- …but signed-in users MUST be able to execute them: RLS policies are
+-- evaluated with the caller's privileges, so a policy calling a function the
+-- caller can't execute fails with "permission denied for function".
+grant execute on function public.is_org_member(uuid) to authenticated;
+grant execute on function public.org_has_perm(uuid, text) to authenticated;
+grant execute on function public.org_writable(uuid) to authenticated;
+grant execute on function public.org_can_write(uuid, text) to authenticated;
+grant execute on function public.org_member_id(uuid) to authenticated;
+grant execute on function public.is_group_member(uuid) to authenticated;
 
 -- ═══ seeding: a new organization gets its default roles, groups, season,
 --     and its creator as owner — in one transaction, server-side ═══
@@ -557,6 +566,7 @@ begin
   return inv.org_id;
 end $$;
 revoke execute on function public.redeem_org_invite(text) from public, anon;
+grant execute on function public.redeem_org_invite(text) to authenticated;
 
 -- ── public discovery surface: name/type only, never private content
 create view public.org_directory
