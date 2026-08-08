@@ -1,0 +1,99 @@
+/* Cadence Ensemble — operational layer on top of the public app's design
+   system (docs/app.css). Same tokens, cards, buttons and spacing; denser,
+   more workmanlike layouts. Mobile first: the section nav is a bottom bar
+   on phones and a horizontal rail on desktop. */
+
+.ens-top { gap: 12px; }
+.ens-top .brand span { font-size: 17px; }
+.ens-orgpick {
+  display: flex; align-items: center; gap: 7px; border: 0; cursor: pointer;
+  background: rgba(255,255,255,0.12); color: #fff; font: inherit;
+  padding: 7px 13px; border-radius: 10px; max-width: 52vw;
+}
+.ens-orgpick b { font-weight: 700; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ens-orgpick:hover { background: rgba(255,255,255,0.2); }
+.ens-caret { font-size: 10px; opacity: .8; }
+.ens-topline { margin-left: auto; color: rgba(255,255,255,0.72); font-size: 12.5px; font-weight: 600; }
+.ens-topline:hover { color: #fff; }
+
+/* section nav — bottom bar on phones */
+.ens-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+  display: flex; background: var(--surface-1); border-top: 1px solid var(--border);
+  padding: 4px 2px calc(4px + env(safe-area-inset-bottom));
+}
+.ens-nav-a {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 7px 2px; color: var(--muted); font-size: 10.5px; font-weight: 650;
+  text-decoration: none; border-radius: 9px; min-width: 0;
+}
+.ens-nav-a svg { width: 21px; height: 21px; }
+.ens-nav-a.on { color: var(--link); }
+.ens-nav-a:hover { text-decoration: none; background: var(--surface-2); }
+body.ens { padding-bottom: 68px; }
+@media (min-width: 800px) {
+  .ens-nav {
+    position: static; border-top: 0; border-bottom: 1px solid var(--border);
+    padding: 6px 14px; gap: 4px; max-width: 1180px; margin: 0 auto;
+  }
+  .ens-nav-a { flex: none; flex-direction: row; gap: 8px; font-size: 14px; padding: 9px 14px; }
+  .ens-nav-a.on { background: var(--accent-wash); }
+  body.ens { padding-bottom: 0; }
+}
+
+/* subscription / trial strip */
+.ens-strip {
+  background: var(--accent-wash); color: var(--accent-ink);
+  font-size: 13px; font-weight: 600; text-align: center; padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.ens-strip.warn { background: rgba(201,42,42,.10); color: var(--bad); }
+.ens-strip a { font-weight: 700; margin-left: 4px; }
+
+/* workspace switcher sheet */
+.ens-sheet {
+  position: fixed; inset: 0; z-index: 200; background: rgba(10,25,50,.45);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.ens-sheet-in {
+  background: var(--surface-1); width: 100%; max-width: 460px;
+  border-radius: 16px 16px 0 0; padding: 18px; max-height: 80vh; overflow: auto;
+}
+@media (min-width: 620px) { .ens-sheet { align-items: center; } .ens-sheet-in { border-radius: 16px; } }
+.ens-sheet-in h3 { margin: 0 0 12px; font-size: 16px; color: var(--heading); }
+.ens-sheet-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; text-align: left; border: 0; background: none; font: inherit;
+  padding: 11px 12px; border-radius: 11px; cursor: pointer; color: var(--text-primary);
+  text-decoration: none;
+}
+.ens-sheet-row:hover { background: var(--surface-2); text-decoration: none; }
+.ens-sheet-row.on { background: var(--accent-wash); }
+.ens-sheet-row span { color: var(--muted); font-size: 12.5px; }
+
+/* dashboard blocks */
+.ens-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.ens-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 10px; }
+.ens-h h2 { margin: 0; }
+.ens-h a { font-size: 12.5px; font-weight: 650; }
+.ens-item {
+  display: flex; gap: 11px; align-items: flex-start;
+  padding: 11px 0; border-top: 1px solid var(--grid); font-size: 14px;
+}
+.ens-item:first-of-type { border-top: 0; }
+.ens-item .ens-when { flex: none; width: 62px; color: var(--muted); font-size: 12px; font-weight: 700; }
+.ens-item .ens-sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.ens-tag {
+  display: inline-block; border-radius: 6px; padding: 2px 7px;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase;
+}
+.ens-tag.urgent { background: rgba(201,42,42,.12); color: var(--bad); }
+.ens-tag.important { background: var(--accent-wash); color: var(--accent-ink); }
+.ens-tag.normal { background: var(--surface-2); color: var(--muted); }
+.ens-quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.ens-quick .tab { font-weight: 650; }
+.ens-stat { display: flex; gap: 18px; flex-wrap: wrap; }
+.ens-stat div b { display: block; font-size: 24px; font-weight: 800; color: var(--heading); line-height: 1.2; }
+.ens-stat div span { font-size: 12px; color: var(--muted); font-weight: 600; }
+.ens-locked { opacity: .6; }
+.ens-lock-note { font-size: 12.5px; color: var(--muted); margin-top: 6px; }

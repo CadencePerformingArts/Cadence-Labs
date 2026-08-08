@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Ensembles — Cadence</title>
+<meta name="description" content="Cadence Ensemble — the private home base for marching arts organizations: announcements, groups, chat, calendar, files and operations.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc;
+
+  var TYPES = [
+    ["marching_band", "Marching band"], ["drum_corps", "Drum corps"],
+    ["winter_guard", "Winter guard"], ["indoor_percussion", "Indoor percussion"],
+    ["wgi_guard", "WGI color guard"], ["wgi_percussion", "WGI percussion"],
+    ["wgi_winds", "WGI winds"], ["concert_band", "Concert band program"],
+    ["school_music", "School music program"], ["booster", "Booster organization"],
+    ["independent", "Independent ensemble"],
+  ];
+
+  function slugify(s) {
+    return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
+  }
+
+  function card(r) {
+    var o = r.org, days = CadOrg.trialDaysLeft(o);
+    var badge = o.status === "trialing"
+      ? '<span class="ens-tag important">Trial · ' + (days > 0 ? days + "d left" : "expired") + "</span>"
+      : CadOrg.isWritable(o) ? '<span class="ens-tag normal">' + esc(CadOrg.planOf(o).label) + "</span>"
+      : '<span class="ens-tag urgent">Read-only</span>';
+    return '<a class="card" style="text-decoration:none;display:block" href="home.html?org=' + o.id + '">' +
+      '<div class="ens-h"><h2>' + esc(o.name) + "</h2>" + badge + "</div>" +
+      '<div class="setsub">' + esc((r.role && r.role.name) || "Member") +
+      (r.section ? " · " + esc(r.section) : "") + "</div></a>";
+  }
+
+  function render() {
+    var orgs = CadOrg.orgs();
+    main.innerHTML =
+      '<h1 class="page">My Ensembles</h1>' +
+      '<p class="lede">Your organizations\' private home base — announcements, groups, chat, ' +
+      "calendar, files and day-to-day operations. Separate from your public Cadence profile, " +
+      "and visible only to approved members.</p>" +
+      (orgs.length
+        ? '<div class="ens-grid">' + orgs.map(card).join("") + "</div>"
+        : '<div class="card"><div class="empty">You\'re not in a workspace yet. ' +
+          "Join one with an invite code, or start one below.</div></div>") +
+      '<div class="ens-grid" style="margin-top:18px">' +
+        '<div class="card"><h2>Join with a code</h2>' +
+          '<p class="setnote">Directors hand these out — a code, a link, or a QR at the first rehearsal.</p>' +
+          '<form class="acct-form" id="joinForm"><input class="ctrl" id="joinCode" placeholder="Invite code" ' +
+          'autocapitalize="characters" autocomplete="off" required>' +
+          '<button class="tab" type="submit">Join workspace</button></form>' +
+          '<p class="acct-msg" id="joinMsg" role="status"></p></div>' +
+        '<div class="card"><h2>Start a workspace</h2>' +
+          '<p class="setnote">Free for 60 days with everything unlocked — enough to run a real ' +
+          "season's worth of rehearsals before deciding.</p>" +
+          '<form class="acct-form" id="newForm">' +
+          '<input class="ctrl" id="newName" placeholder="Organization name" required maxlength="120">' +
+          '<select class="ctrl" id="newType">' + TYPES.map(function (t) {
+            return '<option value="' + t[0] + '">' + t[1] + "</option>"; }).join("") + "</select>" +
+          '<button class="tab" type="submit">Create workspace →</button></form>' +
+          '<p class="acct-msg" id="newMsg" role="status"></p></div>' +
+      "</div>" +
+      '<p class="fam-note" style="color:var(--muted);font-size:12.5px;margin-top:18px">' +
+      "Cadence Ensemble is the private side of Cadence. Your public scores, rankings and " +
+      'ensemble profile live over in <a href="../modes.html">public Cadence</a>.</p>';
+
+    document.getElementById("joinForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = document.getElementById("joinMsg");
+      msg.className = "acct-msg"; msg.textContent = "Checking…";
+      try {
+        var orgId = await CadOrg.rpc("redeem_org_invite", { p_code: document.getElementById("joinCode").value.trim() });
+        location.href = "home.html?org=" + orgId;
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = /invite_invalid/.test(err.message || "")
+          ? "That code isn't valid any more — ask your director for a fresh one."
+          : "Couldn't join: " + (err.message || "unknown error");
+      }
+    });
+
+    document.getElementById("newForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = document.getElementById("newMsg");
+      var name = document.getElementById("newName").value.trim();
+      msg.className = "acct-msg"; msg.textContent = "Creating…";
+      try {
+        var rows = await CadOrg.rest("organizations", {
+          method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: {
+            name: name,
+            slug: slugify(name) + "-" + Math.random().toString(36).slice(2, 6),
+            org_type: document.getElementById("newType").value,
+            created_by: CadAccount.user().id,
+            billing_owner_user_id: CadAccount.user().id,
+          },
+        });
+        location.href = "home.html?org=" + rows[0].id;
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't create that workspace: " + (err.message || "unknown error");
+      }
+    });
+  }
+
+  CadOrg.start({ nav: "home", allowNoOrg: true }).then(function () {
+    if (!CadAccount || !CadAccount.user()) return; // sign-in gate already rendered
+    CadOrg.mountShell("home");
+    render();
+  });
+})();
+</script>
+</body>
+</html>
