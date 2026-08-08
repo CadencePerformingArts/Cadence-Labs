@@ -297,6 +297,16 @@ ROW_RE6 = re.compile(
     r"(?P<cls>[1-4]A|A{1,4}|Open)\s+"
     r"(?P<crank>\d{1,3})\s+"
     r"(?P<orank>\d{1,3})\s*$")
+# 1997–2000 prelims: tail is "Overall InClass Rating Class"
+ROW_RE7 = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
+    r"(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+\.\d{1,3})\s+"
+    r"(?P<orank>\d{1,3})\s+"
+    r"(?P<crank>\d{1,3})\s+"
+    r"(?P<rating>I{1,3})\s+"
+    r"(?P<cls>[1-4]A|A{1,4}|Open)\s*$")
 BLOCK_RE = re.compile(r"\s+Block\s+\S+\s+-\s+Panel\s+\d+$", re.I)
 ORDER_RE = re.compile(r"^\d{1,3}\s+(?=\S)")
 NAME_ST_RE = re.compile(r"^(.*\S)\s*(?:\s+-\s+|,\s+)([A-Z]{2})$")
@@ -461,7 +471,7 @@ def parse_recap(pdf_path: Path) -> dict | None:
             cls_raw, crank, orank = m.group("cls"), m.group("crank"), m.group("orank")
         else:
             m2 = (ROW_RE3.match(s) or ROW_RE2.match(s) or ROW_RE4.match(s)
-                  or ROW_RE5.match(s) or ROW_RE6.match(s))
+                  or ROW_RE5.match(s) or ROW_RE6.match(s) or ROW_RE7.match(s))
             if not m2:
                 continue
             gd = m2.groupdict()
