@@ -6,7 +6,7 @@ Subject: Permission request — displaying published WGI scores in a free fan ap
 Hello,
 
 My name is Lucas Besel. I build Cadence, a free fan-made scoreboard and
-season-history dashboard for the marching arts (lukebesel.github.io/Cadence-Labs).
+season-history dashboard for the marching arts (cadenceperformingarts.github.io/Cadence-Labs).
 Cadence started as a DCI scores dashboard — live standings, score trends,
 head-to-head comparisons, and historical records — and fans have asked us to
 bring the same experience to WGI color guard, percussion, and winds.
@@ -34,7 +34,7 @@ guidelines. Thank you for everything WGI does for the activity.
 
 Best regards,
 Lucas Besel
-Creator, Cadence fan apps — lukebesel.github.io/Cadence-Labs
+Creator, Cadence fan apps — cadenceperformingarts.github.io/Cadence-Labs
 
 ---
 
