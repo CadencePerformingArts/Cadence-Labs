@@ -97,6 +97,7 @@ PAGES = {
         "credit": "Not affiliated with US Bands.",
     },
     "uil": {
+        "results_kind": "rating",
         "status": "Real UIL Texas results — 21 rated region seasons (2005–2025, ~1,000 bands/yr) plus state placements back to 1979. Division ratings, not point scores.",
         "root": "..",
         "title": "Cadence UIL — Texas Marching Band Ratings & State Results",
@@ -114,6 +115,7 @@ PAGES = {
         "score_note": "UIL awards Division ratings at region contests (1 = Superior … 5 = Poor) and ordinal placements at the State Marching Band Championships — this circuit publishes no point scores, so score columns show ratings/placements instead.",
     },
     "issma": {
+        "results_kind": "placement",
         "status": "Every ISSMA State Finals placement since 1973, plus the full fall 2026 schedule — ISSMA keeps scores directors-only, so this is a placements board.",
         "root": "..",
         "title": "Cadence ISSMA — Indiana Marching Band State Finals",
@@ -236,6 +238,7 @@ def page(key: str, c: dict) -> str:
         # apps with real caption datasets get the full DCI Captions tab;
         # everyone else lands on Compare
         "captions": c.get("captions", False),
+        "resultsKind": c.get("results_kind"),
         "ns": c["ns"],
         "classOrder": c["class_order"],
         "combinable": [],

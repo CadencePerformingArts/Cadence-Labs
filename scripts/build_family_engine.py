@@ -31,6 +31,18 @@ FAM_BOOTSTRAP = """  // --- Cadence family config (absent on the DCI app, set by
   const FAM = window.APP_CFG || null;
   const NS = k => (FAM ? FAM.ns : "") + k;
   const TERM = FAM ? FAM.terms : { singular: "corps", plural: "corps", a: "a corps" };
+  // ratings/placements circuits (UIL, ISSMA): scores are null by design; the
+  // published rating or placement rides in the score channel for display
+  const ORD = n => { n = Math.round(n); const s = ["th", "st", "nd", "rd"], k = n % 100; return n + (s[(k - 20) % 10] || s[k] || s[0]); };
+  const RES_KIND = FAM ? FAM.resultsKind : null;
+  const normKind = o => {
+    if (Array.isArray(o)) { for (const x of o) normKind(x); return o; }
+    if (o && typeof o === "object") {
+      if (o.score == null && (o.rating != null || o.placement != null)) o.score = o.rating != null ? o.rating : o.placement;
+      for (const k in o) normKind(o[k]);
+    }
+    return o;
+  };
 """
 
 SETTINGS_INJECT = """
@@ -94,6 +106,27 @@ def main() -> None:
                   '''["cmp-corps", "cmp-years", "cad-shows-f",
       "cad-last-rankings", "cad-last-events", "cad-last-corps", "cad-last-data"]
       .forEach(k => sessionStorage.removeItem(NS(k)));''', "brand reset ss")
+
+    # ratings/placements circuits: normalize fetched JSON so every view sees
+    # the rating/placement in the score channel (display via score3 below)
+    js = sub_once(
+        js,
+        '''    const p = fetch("data/" + path).then(r => {
+      if (!r.ok) throw new Error(path + " " + r.status);
+      return r.json();
+    });''',
+        '''    const p = fetch("data/" + path).then(r => {
+      if (!r.ok) throw new Error(path + " " + r.status);
+      return r.json();
+    }).then(j => (RES_KIND ? normKind(j) : j));''',
+        "ratings normalize")
+
+    # score3 renders ratings as roman numerals, placements as ordinals
+    js = sub_once(
+        js,
+        'const score3 = v => v == null ? "\u2014" : (+v).toFixed(3);',
+        'const score3 = v => v == null ? "\u2014" : RES_KIND === "rating" ? (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v)) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);',
+        "score3 kinds")
 
     # stats hub: no captions tab for family; #/data lands on Compare
     js = sub_once(

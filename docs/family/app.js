@@ -14,6 +14,18 @@
   const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
   const TERM = FAM ? FAM.terms : { singular: "corps", plural: "corps", a: "a corps" };
   const TERM_TH = FAM ? FAM.terms.singular.charAt(0).toUpperCase() + FAM.terms.singular.slice(1) : "Corps";
+  // ratings/placements circuits (UIL, ISSMA): scores are null by design; the
+  // published rating or placement rides in the score channel for display
+  const ORD = n => { n = Math.round(n); const s = ["th", "st", "nd", "rd"], k = n % 100; return n + (s[(k - 20) % 10] || s[k] || s[0]); };
+  const RES_KIND = FAM ? FAM.resultsKind : null;
+  const normKind = o => {
+    if (Array.isArray(o)) { for (const x of o) normKind(x); return o; }
+    if (o && typeof o === "object") {
+      if (o.score == null && (o.rating != null || o.placement != null)) o.score = o.rating != null ? o.rating : o.placement;
+      for (const k in o) normKind(o[k]);
+    }
+    return o;
+  };
 
 
   async function data(path) {
@@ -21,7 +33,7 @@
     const p = fetch("data/" + path).then(r => {
       if (!r.ok) throw new Error(path + " " + r.status);
       return r.json();
-    });
+    }).then(j => (RES_KIND ? normKind(j) : j));
     cache.set(path, p);
     try { return await p; } catch (e) { cache.delete(path); throw e; }
   }
@@ -110,7 +122,7 @@
   })();
   const LIVE_BADGE = '<span class="pill live" title="Performing now — scores landing"><span class="livedot"></span>LIVE</span>';
 
-  const score3 = v => v == null ? "—" : (+v).toFixed(3);
+  const score3 = v => v == null ? "—" : RES_KIND === "rating" ? (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v)) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);
   const h = (strings, ...vals) => strings.map((s, i) => s + (vals[i] == null ? "" : vals[i])).join("");
 
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
