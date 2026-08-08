@@ -99,19 +99,25 @@ def bridge(endpoint: str, *, force: bool = False):
 # names & classes
 # ---------------------------------------------------------------------------
 
-# flight/panel split a class runs in at one show ("Scholastic Regional A
-# (Red Round)", "Novice (Blue)") — same class, union the rows and re-rank
-FLIGHT_RE = re.compile(r"\s*[-–(]\s*(?:Red|Blue|White|Green|Gold|Silver|Purple|Orange)"
-                       r"(?:\s+Round)?\)?\s*$", re.I)
+# flight/panel split a class runs in at one show — same class, union the rows
+# and re-rank. Label styles seen across eras: "(Red Round)", "(Blue)",
+# "(SRA WHITE)", "(Nov. Blue)", "(Scholatic A Blue)" [sic], "(Round 1)",
+# "- Red"
+FLIGHT_RE = re.compile(
+    r"\s*\((?:[^)]*\b(?:red|blue|white|green|gold|silver|purple|orange)\b[^)]*"
+    r"|round\s*\d+)\)\s*$"
+    r"|\s*[-–]\s*(?:Red|Blue|White|Green|Gold|Silver|Purple|Orange)(?:\s+Round)?\s*$", re.I)
 # rounds that aren't competitive classes
-NONCLASS_RE = re.compile(r"exhibition|critique|clinic|solo|ensemble\b.*only|festival rating", re.I)
+NONCLASS_RE = re.compile(r"exhibition|critique|clinic|solo|ensemble\b.*only|festival", re.I)
 # events that carry no circuit scores at all
-NONEVENT_RE = re.compile(r"solo\s*&?\s*ensemble|critique|clinic|field day|training", re.I)
+NONEVENT_RE = re.compile(r"solo\s*(?:&|and)?\s*ensemble|critique|clinic|field day|training", re.I)
 
 
 def norm_class(name: str) -> str:
     c = norm_space(htmllib.unescape(name or ""))
     c = FLIGHT_RE.sub("", c)
+    # 2016-17 era name for the same class as the modern label
+    c = re.sub(r"^Percussion Concert\b", "Percussion Scholastic Concert", c)
     return norm_space(c)
 
 

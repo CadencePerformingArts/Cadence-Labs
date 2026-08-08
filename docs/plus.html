@@ -104,15 +104,17 @@
       <div class="fam-ic">🎟️</div>
       <h2>Monthly</h2>
       <div class="p-amt" id="priceMonthly"><small>&nbsp;</small></div>
-      <span class="fam-badge fam-soon" style="margin-top:8px">COMING SOON</span>
-      <button class="tab" type="button" disabled>Not on sale yet</button>
+      <span class="fam-badge fam-soon" id="badgeMonthly" style="margin-top:8px">COMING SOON</span>
+      <a class="tab buy-btn" id="buyMonthly" hidden target="_blank" rel="noopener">Get monthly →</a>
+      <button class="tab" type="button" id="soonMonthly" disabled>Not on sale yet</button>
     </div>
     <div class="card price-card">
       <div class="fam-ic">🏅</div>
       <h2>Annual · <span id="priceAnnualNote">best value</span></h2>
       <div class="p-amt" id="priceAnnual"><small>&nbsp;</small></div>
-      <span class="fam-badge fam-soon" style="margin-top:8px">COMING SOON</span>
-      <button class="tab" type="button" disabled>Not on sale yet</button>
+      <span class="fam-badge fam-soon" id="badgeAnnual" style="margin-top:8px">COMING SOON</span>
+      <a class="tab buy-btn" id="buyAnnual" hidden target="_blank" rel="noopener">Get annual →</a>
+      <button class="tab" type="button" id="soonAnnual" disabled>Not on sale yet</button>
     </div>
   </div>
   <p class="fam-note" style="text-align:center;margin:10px auto 0;max-width:560px">
@@ -155,6 +157,9 @@
   <div class="credit">Created by Lucas Besel · Cadence is an unofficial fan project</div>
 </footer>
 
+<script src="vendor/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="account.js"></script>
 <script src="plus.js"></script>
 <script>
 (function () {
@@ -174,6 +179,43 @@
   document.getElementById("priceAnnual").innerHTML =
     pr.currency + pr.annual.toFixed(2) + "<small> / year</small>";
   document.getElementById("priceAnnualNote").textContent = pr.annualNote;
+
+  // purchase buttons go live per-plan the moment a checkout link is configured
+  function arm(plan) {
+    var link = pr.links && pr.links[plan];
+    if (!link) return;
+    var cap = plan.charAt(0).toUpperCase() + plan.slice(1);
+    document.getElementById("soon" + cap).hidden = true;
+    var badge = document.getElementById("badge" + cap);
+    badge.textContent = pr.testMode ? "TEST MODE — no real charges" : "AVAILABLE NOW";
+    if (!pr.testMode) badge.className = "fam-badge fam-live";
+    var buy = document.getElementById("buy" + cap);
+    buy.href = link;
+    buy.hidden = false;
+  }
+  arm("monthly");
+  arm("annual");
+
+  // signed-in members see their standing (entitlements live on the account)
+  function paintMember() {
+    if (!window.CadAccount || !CadAccount.enabled) return;
+    var u = CadAccount.user(), p = CadAccount.plusStatus();
+    var el = document.getElementById("memberState");
+    if (!el) {
+      el = document.createElement("p");
+      el.id = "memberState";
+      el.className = "fam-note";
+      el.style.cssText = "text-align:center;margin:14px auto 0;max-width:560px;font-weight:600";
+      document.querySelector(".price-grid").after(el);
+    }
+    el.textContent = !u
+      ? "Tip: sign in first (any app → Settings → Cadence account) so your purchase attaches to your account on every device."
+      : (p && p.status === "active") ? "🎖️ Cadence+ is active on this account — thank you!"
+      : (p && p.status === "beta") ? "🎖️ You have Cadence+ beta access on this account."
+      : "Signed in as " + (u.email || "your account") + " — a purchase will attach here automatically.";
+  }
+  paintMember();
+  if (window.CadAccount) CadAccount.onChange(paintMember);
 
   var input = document.getElementById("codeInput");
   var msg = document.getElementById("codeMsg");
