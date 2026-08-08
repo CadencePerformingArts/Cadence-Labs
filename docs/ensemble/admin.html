@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Cadence Ensemble</title>
+<meta name="description" content="The director's control room: what needs attention today, access requests, roles and permissions, seasons and the audit log.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* Admin — layout only; colours come from app.css tokens. */
+.adm-tiles { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.adm-tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 13px;
+  padding: 13px 14px; text-decoration: none; display: block; color: inherit; }
+.adm-tile:hover { background: var(--surface-2); text-decoration: none; }
+.adm-tile b { display: block; font-size: 27px; font-weight: 800; color: var(--heading); line-height: 1.15; }
+.adm-tile span { font-size: 12.5px; color: var(--muted); font-weight: 650; }
+.adm-tile.alert b { color: var(--bad, #c92a2a); }
+.adm-note { font-size: 12.5px; color: var(--muted); margin: 8px 2px 0; }
+.ppl-drawer { position: fixed; inset: 0; z-index: 210; background: rgba(10,25,50,.45);
+  display: flex; align-items: flex-end; justify-content: center; }
+.ppl-drawer-in { position: relative; background: var(--surface-1); width: 100%; max-width: 620px;
+  border-radius: 16px 16px 0 0; padding: 20px; max-height: 88vh; overflow: auto; }
+@media (min-width: 700px) { .ppl-drawer { align-items: center; } .ppl-drawer-in { border-radius: 16px; } }
+.ppl-x { position: absolute; top: 10px; right: 12px; border: 0; background: none; cursor: pointer;
+  font-size: 25px; line-height: 1; color: var(--muted); padding: 4px 8px; }
+.ppl-drawer-in h3 { margin: 0 0 4px; font-size: 19px; color: var(--heading); }
+.ppl-drawer-in h4 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--muted); }
+.ppl-field { display: block; margin: 0 0 10px; }
+.ppl-field > span { display: block; font-size: 12.5px; font-weight: 650; color: var(--muted); margin-bottom: 4px; }
+.ppl-field .ctrl { width: 100%; box-sizing: border-box; min-width: 0; }
+.ppl-2 { display: grid; gap: 0 12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .ppl-2 { grid-template-columns: 1fr; } }
+.ppl-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+.ppl-perms { border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; margin: 0 0 10px; }
+.ppl-perms legend { font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--muted); padding: 0 4px; }
+.ppl-perm { display: flex; gap: 9px; align-items: flex-start; padding: 5px 0; font-size: 13.5px; }
+.ppl-perm.implied { opacity: .55; }
+.ppl-perm code { font-family: var(--mono); font-size: 12px; }
+.ppl-perm-d { display: block; color: var(--muted); font-size: 12px; }
+.ppl-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
+  background: none; border: 0; font: inherit; cursor: pointer; color: var(--text-primary);
+  padding: 9px 10px; border-radius: 11px; }
+.ppl-row:hover { background: var(--surface-2); }
+.ppl-main { flex: 1; min-width: 0; }
+.ppl-main b { display: block; font-size: 14.5px; font-weight: 650; }
+.ppl-sub { display: block; color: var(--muted); font-size: 12.5px; margin-top: 1px; }
+.ppl-list { display: grid; gap: 2px; }
+.ppl-toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
+  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 600; z-index: 400; box-shadow: 0 4px 16px rgba(10,25,50,.3); }
+.ppl-toast.bad { background: var(--bad, #c92a2a); }
+.ppl-warn { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+.ppl-pane { display: none; }
+.ppl-pane.on { display: block; }
+.adm-log { display: grid; gap: 0; }
+.adm-log-row { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--grid); font-size: 13.5px; }
+.adm-log-row:first-child { border-top: 0; }
+.adm-log-row time { flex: none; width: 118px; color: var(--muted); font-size: 12px; font-weight: 650; }
+.adm-log-row code { font-family: var(--mono); font-size: 12.5px; }
+.adm-fieldrow { display: flex; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.adm-fieldrow .ctrl { min-width: 0; flex: 1 1 140px; }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="people.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc, P = CadPeople;
+  var S = {
+    org: null, tab: "dashboard", roles: [], seasons: [], groups: [],
+    requests: [], audit: [], forms: [], counts: {}, recentFiles: null,
+    auditFilter: { action: "", since: "" },
+  };
+
+  function isAdmin() { return CadOrg.can("org.admin"); }
+  function canMembers() { return CadOrg.canDo("member.manage"); }
+  function canForms() { return CadOrg.canDo("form.manage"); }
+
+  /* ── counts. Everything is a HEAD-style exact count (Prefer: count=exact,
+     Range 0-0) so no dashboard ever downloads a table. Tables other phases
+     own may not exist yet — softCount turns that into "—". ─────────────── */
+  async function firstCount(paths) {
+    for (var i = 0; i < paths.length; i++) {
+      var n = await P.softCount(paths[i]);
+      if (n !== null) return n;
+    }
+    return null;
+  }
+
+  async function loadCounts() {
+    var org = S.org.id, now = new Date().toISOString();
+    var c = {};
+    c.members = await P.softCount("org_members?org_id=eq." + org + "&status=eq.active");
+    c.requests = await P.softCount("org_access_requests?org_id=eq." + org + "&status=eq.pending");
+    c.forms = await firstCount([
+      "org_forms?org_id=eq." + org + "&is_open=is.true",
+      "org_forms?org_id=eq." + org,
+    ]);
+    // owned by other phases — guessed table names, "—" when absent
+    c.events = await firstCount([
+      "org_events?org_id=eq." + org + "&starts_at=gte." + now,
+      "org_calendar_events?org_id=eq." + org + "&starts_at=gte." + now,
+    ]);
+    c.acks = await firstCount([
+      "org_post_acks?org_id=eq." + org + "&acknowledged_at=is.null",
+      "org_acknowledgments?org_id=eq." + org + "&acknowledged_at=is.null",
+    ]);
+    c.attendance = await firstCount([
+      "org_attendance?org_id=eq." + org + "&status=in.(absent,unexcused,no_show)",
+      "org_event_attendance?org_id=eq." + org + "&status=in.(absent,unexcused)",
+    ]);
+    S.counts = c;
+  }
+
+  async function loadRecentFiles() {
+    var org = S.org.id;
+    var paths = [
+      "org_files?select=id,name,created_at&org_id=eq." + org + "&order=created_at.desc&limit=5",
+      "org_documents?select=id,name,created_at&org_id=eq." + org + "&order=created_at.desc&limit=5",
+    ];
+    for (var i = 0; i < paths.length; i++) {
+      try { return await CadOrg.rest(paths[i]); } catch (e) {}
+    }
+    return null;
+  }
+
+  async function load() {
+    var org = S.org.id;
+    S.roles = await CadOrg.rest("org_roles?select=*&org_id=eq." + org + "&order=sort.asc");
+    S.seasons = await CadOrg.rest("org_seasons?select=*&org_id=eq." + org + "&order=created_at.desc");
+    S.groups = await CadOrg.rest("org_groups?select=id,parent_id,name,kind,auto_role_keys," +
+      "auto_sections,season_id&org_id=eq." + org + "&order=name.asc");
+    try {
+      S.requests = await CadOrg.rest("org_access_requests?select=*&org_id=eq." + org +
+        "&order=created_at.desc&limit=100");
+    } catch (e) { S.requests = []; }
+    try {
+      S.audit = await CadOrg.rest("org_audit_log?select=*&org_id=eq." + org +
+        "&order=created_at.desc&limit=200");
+    } catch (e) { S.audit = []; }
+    try {
+      S.forms = await CadOrg.rest("org_forms?select=id,title,kind,is_sensitive,is_open," +
+        "closes_at,created_at,target_group_ids&org_id=eq." + org + "&order=created_at.desc");
+    } catch (e) { S.forms = null; }
+    S.recentFiles = await loadRecentFiles();
+    await loadCounts();
+  }
+
+  function currentSeason() {
+    return S.seasons.filter(function (s) { return s.is_current; })[0] || S.seasons[0] || null;
+  }
+
+  /* ── dashboard ────────────────────────────────────────────────────── */
+  function n(v) { return v === null || v === undefined ? "—" : String(v); }
+
+  function tile(href, value, label, alert) {
+    return '<a class="adm-tile' + (alert && value ? " alert" : "") + '" href="' + href + '">' +
+      "<b>" + n(value) + "</b><span>" + esc(label) + "</span></a>";
+  }
+
+  function dashboardHtml() {
+    var c = S.counts;
+    var quick = [
+      ["Post announcement", "feed.html"],
+      ["Create event", "calendar.html"],
+      ["Upload file", "files.html"],
+      ["Add member", "members.html#invites"],
+      ["Create group", "members.html#groups"],
+      ["Create poll", "feed.html"],
+      ["Create form", "admin.html#forms"],
+    ];
+    return '<div class="card"><div class="ens-h"><h2>Today</h2>' +
+        '<span class="setsub">' + esc(CadOrg.planOf(S.org).label) + " · " + esc(S.org.status) + "</span></div>" +
+        '<div class="adm-tiles">' +
+          tile("members.html", c.members, "Active members") +
+          tile("feed.html", c.acks, "Unread acknowledgments", true) +
+          tile("calendar.html", c.events, "Upcoming events") +
+          tile("admin.html#forms", c.forms, "Open forms") +
+          tile("calendar.html", c.attendance, "Attendance alerts", true) +
+          tile("admin.html#requests", c.requests, "Pending access requests", true) +
+        "</div>" +
+        '<p class="adm-note">A dash means that part of the workspace hasn\'t been set up yet — ' +
+        "the screen that owns it will fill this in.</p></div>" +
+
+      '<div class="ens-grid" style="margin-top:14px">' +
+        '<div class="card"><div class="ens-h"><h2>Quick actions</h2></div>' +
+          '<div class="ens-quick">' + quick.map(function (q) {
+            return '<a class="tab" href="' + q[1] + '">' + esc(q[0]) + "</a>"; }).join("") +
+          "</div>" +
+          (CadOrg.isWritable(S.org) ? "" :
+            '<p class="ppl-warn">This workspace is read-only — these open, but saving is paused ' +
+            'until the subscription is reactivated. <a href="billing.html">Billing →</a></p>') + "</div>" +
+
+        '<div class="card"><div class="ens-h"><h2>Recent files</h2>' +
+          '<a href="files.html">All files →</a></div>' +
+          (S.recentFiles === null
+            ? '<div class="empty">The files workspace isn\'t set up yet.</div>'
+            : S.recentFiles.length
+              ? S.recentFiles.map(function (f) {
+                  return '<div class="ens-item"><div style="flex:1"><b>' +
+                    esc(f.name || "Untitled") + '</b><div class="ens-sub">' +
+                    esc(P.relTime(f.created_at)) + "</div></div></div>"; }).join("")
+              : '<div class="empty">No files uploaded yet.</div>') + "</div>" +
+
+        '<div class="card" style="grid-column:1/-1"><div class="ens-h"><h2>Recent admin activity</h2>' +
+          '<a href="admin.html#audit">Full audit log →</a></div>' +
+          (S.audit.length ? '<div class="adm-log">' + S.audit.slice(0, 8).map(auditRowHtml).join("") + "</div>"
+            : '<div class="empty">Nothing logged yet.</div>') + "</div>" +
+      "</div>";
+  }
+
+  function auditRowHtml(a) {
+    return '<div class="adm-log-row"><time>' + esc(P.fmtDateTime(a.created_at)) + "</time>" +
+      "<div><code>" + esc(a.action) + "</code>" +
+      (a.target_type ? ' <span class="ppl-sub" style="display:inline">' + esc(a.target_type) + "</span>" : "") +
+      (a.detail && Object.keys(a.detail).length
+        ? '<div class="ppl-sub">' + esc(JSON.stringify(a.detail).slice(0, 160)) + "</div>" : "") +
+      "</div></div>";
+  }
+
+  /* ── access requests ──────────────────────────────────────────────── */
+  function requestsHtml() {
+    if (!canMembers()) {
+      return '<div class="card"><div class="empty">Reviewing access requests needs ' +
+        "<code>member.manage</code>.</div></div>";
+    }
+    var pending = S.requests.filter(function (r) { return r.status === "pending"; });
+    var done = S.requests.filter(function (r) { return r.status !== "pending"; }).slice(0, 20);
+    return '<div class="card"><div class="ens-h"><h2>Pending requests</h2>' +
+        '<span class="setsub">' + pending.length + " waiting</span></div>" +
+        '<p class="setnote">People find your workspace from your public Cadence profile and ask ' +
+        "to join. Approving creates their member row with the role you choose.</p>" +
+        (pending.length ? pending.map(function (r) {
+          return '<div class="ens-item" data-req="' + esc(r.id) + '"><div style="flex:1;min-width:0">' +
+            "<b>" + esc(r.requested_kind || "member") + " request</b>" +
+            '<div class="ens-sub">' + esc(r.message || "No message") + " · " +
+            esc(P.relTime(r.created_at)) + "</div>" +
+            '<div class="ppl-actions">' +
+              '<select class="ctrl" data-role-for="' + esc(r.id) + '">' +
+                P.roleOptionsHtml(S.roles, defaultRoleId()) + "</select>" +
+              '<input class="ctrl" data-note-for="' + esc(r.id) + '" placeholder="Note (optional)" maxlength="200">' +
+              '<button class="tab on" type="button" data-approve="' + esc(r.id) + '">Approve</button>' +
+              '<button class="tab" type="button" data-reject="' + esc(r.id) + '">Reject</button>' +
+            "</div></div></div>"; }).join("")
+          : '<div class="empty">No one is waiting.</div>') + "</div>" +
+      '<div class="card" style="margin-top:14px"><h2>Recently reviewed</h2>' +
+        (done.length ? done.map(function (r) {
+          return '<div class="ens-item"><div style="flex:1"><b>' + esc(r.status) + "</b>" +
+            '<div class="ens-sub">' + esc(r.reviewer_note || "") + " · " +
+            esc(P.fmtDate(r.reviewed_at || r.created_at)) + "</div></div></div>"; }).join("")
+          : '<div class="empty">Nothing reviewed yet.</div>') + "</div>";
+  }
+
+  function defaultRoleId() {
+    var r = S.roles.filter(function (x) { return x.key === "member"; })[0] || S.roles[0];
+    return r ? r.id : "";
+  }
+
+  async function approveRequest(id, roleId, note) {
+    var req = S.requests.filter(function (r) { return r.id === id; })[0];
+    if (!req) return;
+    var season = currentSeason();
+    // 1) create the member (the request row itself carries the user id)
+    await CadOrg.rest("org_members", { method: "POST",
+      headers: { Prefer: "resolution=merge-duplicates" },
+      body: { org_id: S.org.id, user_id: req.user_id, role_id: roleId || defaultRoleId(),
+        status: "active", season_id: season ? season.id : null } });
+    // 2) mark the request approved
+    await CadOrg.rest("org_access_requests?id=eq." + id, { method: "PATCH",
+      body: { status: "approved", reviewed_at: new Date().toISOString(),
+        reviewer_note: note || null } });
+    await CadOrg.log("access_request.approved", "access_request", id, { user_id: req.user_id });
+  }
+
+  /* ── roles ────────────────────────────────────────────────────────── */
+  function rolesHtml() {
+    if (!canMembers()) {
+      return '<div class="card"><div class="empty">Editing roles needs <code>member.manage</code>.</div></div>';
+    }
+    return '<div class="card"><div class="ens-h"><h2>Roles &amp; permissions</h2>' +
+        '<span class="setsub">' + S.roles.length + " roles</span></div>" +
+        '<p class="setnote">Every role is editable, including the seeded ones. Add your own — ' +
+        "Battery Staff, Prop Crew, Hospitality — and give each exactly the permissions it needs.</p>" +
+        '<div class="ppl-list">' + S.roles.map(function (r) {
+          var perms = r.permissions || [];
+          return '<button class="ppl-row" type="button" data-role="' + esc(r.id) + '">' +
+            '<span class="ppl-main"><b>' + esc(r.name) + "</b>" +
+            '<span class="ppl-sub"><code>' + esc(r.key) + "</code> · " + esc(r.kind) + " · " +
+            (perms.indexOf("org.admin") >= 0 ? "full admin" : perms.length + " permissions") +
+            "</span></span>" +
+            (r.is_system ? '<span class="ens-tag normal">Default</span>' : "") + "</button>";
+        }).join("") + "</div></div>" +
+      '<div class="card" style="margin-top:14px"><h2>New role</h2>' +
+        '<form class="acct-form" id="roleForm">' +
+          '<input class="ctrl" id="roleName" placeholder="Role name (Battery Staff)" required maxlength="60">' +
+          '<select class="ctrl" id="roleKind">' + P.ROLE_KINDS.map(function (k) {
+            return '<option value="' + k[0] + '">' + k[1] + "</option>"; }).join("") + "</select>" +
+          '<button class="tab on" type="submit">Create role</button></form>' +
+        '<p class="acct-msg" id="roleMsg" role="status"></p></div>';
+  }
+
+  function openRole(id) {
+    var r = S.roles.filter(function (x) { return x.id === id; })[0];
+    if (!r) return;
+    var d = P.drawer("<h3>" + esc(r.name) + "</h3>" +
+      '<div class="setsub" style="margin-bottom:12px"><code>' + esc(r.key) + "</code>" +
+      (r.is_system ? " · seeded default (still editable)" : " · custom role") + "</div>" +
+      '<form id="roleEdit"><div class="ppl-2">' +
+        '<label class="ppl-field"><span>Name</span><input class="ctrl" id="rName" value="' + esc(r.name) + '" maxlength="60"></label>' +
+        '<label class="ppl-field"><span>Kind</span><select class="ctrl" id="rKind">' +
+          P.ROLE_KINDS.map(function (k) {
+            return '<option value="' + k[0] + '"' + (r.kind === k[0] ? " selected" : "") + ">" + k[1] + "</option>";
+          }).join("") + "</select></label></div>" +
+      "<h4>Permissions</h4>" +
+      '<div id="rPerms">' + P.permissionEditorHtml(r.permissions || []) + "</div>" +
+      '<div class="ppl-actions"><button class="tab on" type="submit">Save role</button>' +
+      (r.is_system ? "" : '<button class="tab" type="button" id="rDelete">Delete role</button>') +
+      '<span class="acct-msg" id="rMsg" role="status"></span></div></form>' +
+      '<p class="ppl-warn">Changing a role changes it for everyone who holds it, immediately. ' +
+      "<code>student.info</code> unlocks medical form submissions — grant it deliberately.</p>");
+
+    d.el.querySelector("#roleEdit").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = d.el.querySelector("#rMsg");
+      msg.className = "acct-msg"; msg.textContent = "Saving…";
+      var perms = P.readPermissionEditor(d.el.querySelector("#rPerms"));
+      try {
+        await CadOrg.rest("org_roles?id=eq." + r.id, { method: "PATCH", body: {
+          name: d.el.querySelector("#rName").value.trim(),
+          kind: d.el.querySelector("#rKind").value,
+          permissions: perms } });
+        await CadOrg.log("role.updated", "role", r.id, { permissions: perms });
+        msg.className = "acct-msg ok"; msg.textContent = "Saved.";
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't save: " + (err.message || "unknown error");
+      }
+    });
+
+    var del = d.el.querySelector("#rDelete");
+    if (del) del.addEventListener("click", async function () {
+      if (!confirm("Delete the role “" + r.name + "”? Members holding it must be moved first.")) return;
+      try {
+        await CadOrg.rest("org_roles?id=eq." + r.id, { method: "DELETE" });
+        await CadOrg.log("role.deleted", "role", r.id, { name: r.name });
+        P.toast("Role deleted."); d.close(); await refresh();
+      } catch (err) {
+        P.toast("Couldn't delete — members probably still hold it.", true);
+      }
+    });
+  }
+
+  /* ── seasons ──────────────────────────────────────────────────────── */
+  function seasonsHtml() {
+    if (!isAdmin()) {
+      return '<div class="card"><div class="empty">Season management needs <code>org.admin</code>.</div></div>';
+    }
+    return '<div class="card"><div class="ens-h"><h2>Seasons</h2></div>' +
+        '<p class="setnote">Organizations run year after year. Nothing is deleted when a season ' +
+        "ends — archive it and start the next one.</p>" +
+        (S.seasons.length ? S.seasons.map(function (s) {
+          var groups = S.groups.filter(function (g) { return g.season_id === s.id; }).length;
+          return '<div class="ens-item"><div style="flex:1;min-width:0"><b>' + esc(s.name) + "</b>" +
+            (s.is_current ? ' <span class="ens-tag important">Current</span>' : "") +
+            (s.archived ? ' <span class="ens-tag normal">Archived</span>' : "") +
+            '<div class="ens-sub">' + esc(P.fmtDate(s.starts_on)) + " – " + esc(P.fmtDate(s.ends_on)) +
+            " · " + groups + " group" + (groups === 1 ? "" : "s") + "</div></div>" +
+            '<div class="ppl-actions" style="margin:0">' +
+              (s.is_current ? "" : '<button class="tab" type="button" data-switch="' + esc(s.id) + '">Make current</button>') +
+              (s.archived ? '<button class="tab" type="button" data-unarchive="' + esc(s.id) + '">Unarchive</button>'
+                : '<button class="tab" type="button" data-archive="' + esc(s.id) + '">Archive</button>') +
+            "</div></div>"; }).join("")
+          : '<div class="empty">No seasons yet.</div>') + "</div>" +
+      '<div class="card" style="margin-top:14px"><h2>Start a new season</h2>' +
+        '<form class="acct-form" id="seasonForm">' +
+          '<input class="ctrl" id="sName" placeholder="2027 Marching Season" required maxlength="80">' +
+          '<input class="ctrl" id="sStart" type="date" aria-label="Season start">' +
+          '<input class="ctrl" id="sEnd" type="date" aria-label="Season end">' +
+          '<label style="display:flex;gap:8px;align-items:center;font-size:13.5px">' +
+            '<input type="checkbox" id="sCopy" checked> Copy this season\'s groups into it</label>' +
+          '<label style="display:flex;gap:8px;align-items:center;font-size:13.5px">' +
+            '<input type="checkbox" id="sCurrent" checked> Make it the current season</label>' +
+          '<button class="tab on" type="submit">Create season</button></form>' +
+        '<p class="acct-msg" id="sMsg" role="status"></p>' +
+        '<p class="ppl-warn">Roles and permissions are organization-wide, so they carry over ' +
+        "automatically — only groups belong to a season.</p></div>";
+  }
+
+  async function copyGroupsToSeason(fromSeasonId, toSeasonId) {
+    var src = S.groups.filter(function (g) { return g.season_id === fromSeasonId; });
+    if (!src.length) return 0;
+    // pass 1: create every group without a parent, remembering old → new ids
+    var created = await CadOrg.rest("org_groups", { method: "POST",
+      headers: { Prefer: "return=representation" },
+      body: src.map(function (g) {
+        return { org_id: S.org.id, name: g.name, kind: g.kind,
+          auto_role_keys: g.auto_role_keys || [], auto_sections: g.auto_sections || [],
+          season_id: toSeasonId, created_by: CadAccount.user().id }; }) });
+    var mapByName = {};
+    created.forEach(function (g) { mapByName[g.name] = g.id; });
+    // pass 2: rebuild nesting by name (names are unique within a season in practice)
+    var withParents = src.filter(function (g) { return g.parent_id; });
+    for (var i = 0; i < withParents.length; i++) {
+      var g = withParents[i];
+      var parent = src.filter(function (x) { return x.id === g.parent_id; })[0];
+      if (!parent || !mapByName[parent.name] || !mapByName[g.name]) continue;
+      try {
+        await CadOrg.rest("org_groups?id=eq." + mapByName[g.name], { method: "PATCH",
+          body: { parent_id: mapByName[parent.name] } });
+      } catch (e) {}
+    }
+    return created.length;
+  }
+
+  /* ── forms ────────────────────────────────────────────────────────── */
+  var FIELD_TYPES = [["text", "Short text"], ["longtext", "Long text"], ["number", "Number"],
+    ["date", "Date"], ["select", "Choose one"], ["multiselect", "Choose several"],
+    ["checkbox", "Checkbox"], ["file", "File upload"], ["signature", "Signature"]];
+  var FORM_KINDS = [["general", "General"], ["medical", "Medical"], ["travel", "Travel"],
+    ["sizing", "Sizing"], ["volunteer", "Volunteer"], ["audition", "Audition"], ["survey", "Survey"]];
+
+  function formsHtml() {
+    if (S.forms === null) {
+      return '<div class="card"><div class="empty">Forms need migration 0009 — run it in ' +
+        "Supabase to enable medical, travel, sizing and volunteer forms.</div></div>";
+    }
+    if (!canForms()) {
+      return '<div class="card"><div class="empty">Creating forms needs <code>form.manage</code>.</div></div>';
+    }
+    return '<div class="card"><div class="ens-h"><h2>Forms</h2>' +
+        '<span class="setsub">' + S.forms.length + " total</span></div>" +
+        (S.forms.length ? S.forms.map(function (f) {
+          return '<div class="ens-item"><div style="flex:1;min-width:0"><b>' + esc(f.title) + "</b>" +
+            (f.is_sensitive ? ' <span class="ens-tag urgent">Sensitive</span>' : "") +
+            (f.is_open ? "" : ' <span class="ens-tag normal">Closed</span>') +
+            '<div class="ens-sub">' + esc(f.kind) + " · created " + esc(P.fmtDate(f.created_at)) +
+            (f.closes_at ? " · closes " + esc(P.fmtDate(f.closes_at)) : "") + "</div></div>" +
+            '<button class="tab" type="button" data-form="' + esc(f.id) + '">Submissions</button></div>';
+        }).join("") : '<div class="empty">No forms yet.</div>') + "</div>" +
+      '<div class="card" style="margin-top:14px"><h2>New form</h2>' +
+        '<p class="setnote">Medical forms are marked sensitive automatically: their submissions ' +
+        "are readable only by staff holding both <code>form.manage</code> and <code>student.info</code>, " +
+        "plus the person who submitted and their guardians.</p>" +
+        '<form id="formForm"><div class="ppl-2">' +
+          '<label class="ppl-field"><span>Title</span><input class="ctrl" id="fTitle" required maxlength="120"></label>' +
+          '<label class="ppl-field"><span>Kind</span><select class="ctrl" id="fKind">' +
+            FORM_KINDS.map(function (k) { return '<option value="' + k[0] + '">' + k[1] + "</option>"; }).join("") +
+            "</select></label></div>" +
+          '<label class="ppl-field"><span>Description</span><input class="ctrl" id="fDesc" maxlength="400"></label>' +
+          '<div class="ppl-2"><label class="ppl-field"><span>Closes on (optional)</span>' +
+            '<input class="ctrl" id="fCloses" type="date"></label>' +
+          '<label class="ppl-field"><span>Sensitive (medical / protected)</span>' +
+            '<select class="ctrl" id="fSensitive"><option value="false">No</option>' +
+            '<option value="true">Yes — restrict to student.info</option></select></label></div>' +
+          "<h4>Fields</h4><div id=\"fFields\"></div>" +
+          '<button class="tab" type="button" id="fAddField">+ Add field</button>' +
+          '<div class="ppl-actions"><button class="tab on" type="submit">Create form</button>' +
+          '<span class="acct-msg" id="fMsg" role="status"></span></div></form>' +
+        '<p class="ppl-warn">The member-facing fill-in screen ships with the forms phase; ' +
+        "what you build here is stored and readable through the submissions view.</p></div>";
+  }
+
+  function fieldRowHtml() {
+    return '<div class="adm-fieldrow">' +
+      '<input class="ctrl" data-f="label" placeholder="Question / label">' +
+      '<select class="ctrl" data-f="type">' + FIELD_TYPES.map(function (t) {
+        return '<option value="' + t[0] + '">' + t[1] + "</option>"; }).join("") + "</select>" +
+      '<input class="ctrl" data-f="options" placeholder="Options, comma separated">' +
+      '<label style="display:flex;gap:6px;align-items:center;font-size:12.5px">' +
+      '<input type="checkbox" data-f="required"> Required</label>' +
+      '<button class="tab" type="button" data-f="remove">×</button></div>';
+  }
+
+  async function openFormSubmissions(id) {
+    var f = S.forms.filter(function (x) { return x.id === id; })[0];
+    if (!f) return;
+    var d = P.drawer('<div class="loading">Loading…</div>');
+    var subs = null, fields = [];
+    try {
+      fields = await CadOrg.rest("org_form_fields?select=*&form_id=eq." + id + "&order=sort.asc");
+      subs = await CadOrg.rest("org_form_submissions?select=id,member_id,created_at,data," +
+        "member:org_members(display_name)&form_id=eq." + id + "&order=created_at.desc&limit=200");
+    } catch (e) { subs = null; }
+    d.el.innerHTML = '<button class="ppl-x" type="button" aria-label="Close">×</button>' +
+      "<h3>" + esc(f.title) + "</h3>" +
+      '<div class="setsub" style="margin-bottom:12px">' + esc(f.kind) +
+      (f.is_sensitive ? " · sensitive" : "") + "</div>" +
+      "<h4>Fields</h4>" + (fields.length ? '<div class="ppl-list">' + fields.map(function (x) {
+        return '<div class="ppl-row" style="cursor:default"><span class="ppl-main"><b>' +
+          esc(x.label) + '</b><span class="ppl-sub">' + esc(x.field_type) +
+          (x.required ? " · required" : "") + "</span></span></div>"; }).join("") + "</div>"
+        : '<p class="ppl-warn">No fields defined.</p>') +
+      "<h4>Submissions</h4>" +
+      (subs === null
+        ? '<p class="ppl-warn">You don\'t have permission to read these submissions. ' +
+          "Sensitive forms need <code>student.info</code> as well as <code>form.manage</code>.</p>"
+        : subs.length ? '<div class="ppl-list">' + subs.map(function (s) {
+            return '<div class="ppl-row" style="cursor:default;align-items:flex-start">' +
+              '<span class="ppl-main"><b>' + esc((s.member && s.member.display_name) || "Member") +
+              '</b><span class="ppl-sub">' + esc(P.fmtDateTime(s.created_at)) + "</span>" +
+              '<span class="ppl-sub">' + esc(JSON.stringify(s.data || {}).slice(0, 300)) +
+              "</span></span></div>"; }).join("") + "</div>"
+          : '<div class="empty">No submissions yet.</div>') +
+      '<div class="ppl-actions">' +
+        (f.is_open ? '<button class="tab" type="button" id="fClose">Close this form</button>' : "") +
+      "</div>";
+    var close = d.el.querySelector("#fClose");
+    if (close) close.addEventListener("click", async function () {
+      try {
+        await CadOrg.rest("org_forms?id=eq." + f.id, { method: "PATCH", body: { is_open: false } });
+        await CadOrg.log("form.closed", "form", f.id, { title: f.title });
+        P.toast("Form closed."); d.close(); await refresh();
+      } catch (err) { P.toast("Couldn't close: " + (err.message || "error"), true); }
+    });
+  }
+
+  /* ── audit ────────────────────────────────────────────────────────── */
+  function auditHtml() {
+    if (!(isAdmin() || CadOrg.can("audit.view"))) {
+      return '<div class="card"><div class="empty">The audit log needs <code>audit.view</code>.</div></div>';
+    }
+    var f = S.auditFilter;
+    var rows = S.audit.filter(function (a) {
+      if (f.action && a.action.indexOf(f.action) < 0) return false;
+      if (f.since && new Date(a.created_at) < new Date(f.since)) return false;
+      return true;
+    });
+    var actions = {};
+    S.audit.forEach(function (a) { actions[a.action.split(".")[0]] = true; });
+    return '<div class="card"><div class="ens-h"><h2>Audit log</h2>' +
+      '<span class="setsub">' + rows.length + " of " + S.audit.length + " entries</span></div>" +
+      '<div class="ppl-actions" style="margin:0 0 12px">' +
+        '<select class="ctrl" id="aAction"><option value="">Everything</option>' +
+          Object.keys(actions).sort().map(function (k) {
+            return '<option value="' + esc(k) + '"' + (f.action === k ? " selected" : "") +
+              ">" + esc(k) + "</option>"; }).join("") + "</select>" +
+        '<input class="ctrl" id="aSince" type="date" value="' + esc(f.since) + '" aria-label="Since">' +
+      "</div>" +
+      (rows.length ? '<div class="adm-log">' + rows.map(auditRowHtml).join("") + "</div>"
+        : '<div class="empty">Nothing matches those filters.</div>') +
+      '<p class="ppl-warn">The log keeps the last 200 entries on screen; everything is retained ' +
+      "in the database.</p></div>";
+  }
+
+  /* ── page ─────────────────────────────────────────────────────────── */
+  var TABS = [["dashboard", "Dashboard"], ["requests", "Requests"], ["roles", "Roles"],
+    ["seasons", "Seasons"], ["forms", "Forms"], ["audit", "Audit log"]];
+
+  function render() {
+    main.innerHTML =
+      '<h1 class="page">Admin</h1>' +
+      '<p class="lede">' + esc(S.org.name) + " — what needs attention, who is asking to join, " +
+      "what each role may do, and every administrative change that has been made.</p>" +
+      '<div class="subtabs" role="tablist">' + TABS.map(function (t) {
+        return '<button class="tab' + (S.tab === t[0] ? " on" : "") + '" type="button" data-tab="' +
+          t[0] + '">' + t[1] + "</button>"; }).join("") + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "dashboard" ? " on" : "") + '" id="paneDashboard">' + dashboardHtml() + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "requests" ? " on" : "") + '" id="paneRequests">' + requestsHtml() + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "roles" ? " on" : "") + '" id="paneRoles">' + rolesHtml() + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "seasons" ? " on" : "") + '" id="paneSeasons">' + seasonsHtml() + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "forms" ? " on" : "") + '" id="paneForms">' + formsHtml() + "</div>" +
+      '<div class="ppl-pane' + (S.tab === "audit" ? " on" : "") + '" id="paneAudit">' + auditHtml() + "</div>";
+
+    main.querySelectorAll("[data-tab]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        S.tab = b.dataset.tab;
+        try { history.replaceState(null, "", "#" + S.tab); } catch (e) {}
+        render();
+      });
+    });
+
+    wireRequests(main.querySelector("#paneRequests"));
+    wireRoles(main.querySelector("#paneRoles"));
+    wireSeasons(main.querySelector("#paneSeasons"));
+    wireForms(main.querySelector("#paneForms"));
+    wireAudit(main.querySelector("#paneAudit"));
+  }
+
+  function wireRequests(root) {
+    root.addEventListener("click", async function (e) {
+      var t = e.target;
+      if (!t.dataset) return;
+      var id = t.dataset.approve || t.dataset.reject;
+      if (!id) return;
+      var note = root.querySelector('[data-note-for="' + id + '"]');
+      t.disabled = true;
+      try {
+        if (t.dataset.approve) {
+          var sel = root.querySelector('[data-role-for="' + id + '"]');
+          await approveRequest(id, sel ? sel.value : null, note ? note.value.trim() : "");
+          P.toast("Approved — they're on the roster.");
+        } else {
+          await CadOrg.rest("org_access_requests?id=eq." + id, { method: "PATCH", body: {
+            status: "rejected", reviewed_at: new Date().toISOString(),
+            reviewer_note: (note && note.value.trim()) || null } });
+          await CadOrg.log("access_request.rejected", "access_request", id);
+          P.toast("Request rejected.");
+        }
+        await refresh();
+      } catch (err) {
+        t.disabled = false;
+        P.toast("Couldn't do that: " + (err.message || "error"), true);
+      }
+    });
+  }
+
+  function wireRoles(root) {
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest("[data-role]");
+      if (b) openRole(b.dataset.role);
+    });
+    var form = root.querySelector("#roleForm");
+    if (form) form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = root.querySelector("#roleMsg");
+      var name = root.querySelector("#roleName").value.trim();
+      var key = name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 40);
+      msg.className = "acct-msg"; msg.textContent = "Creating…";
+      try {
+        var rows = await CadOrg.rest("org_roles", { method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: { org_id: S.org.id, key: key, name: name,
+            kind: root.querySelector("#roleKind").value,
+            permissions: ["announce.view", "file.view"], sort: 200 } });
+        await CadOrg.log("role.created", "role", rows[0].id, { key: key });
+        msg.className = "acct-msg ok"; msg.textContent = "Created — open it to set permissions.";
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't create that role: " + (err.message || "unknown error");
+      }
+    });
+  }
+
+  function wireSeasons(root) {
+    root.addEventListener("click", async function (e) {
+      var t = e.target;
+      if (!t.dataset) return;
+      try {
+        if (t.dataset.switch) {
+          await CadOrg.rest("org_seasons?org_id=eq." + S.org.id + "&is_current=is.true",
+            { method: "PATCH", body: { is_current: false } });
+          await CadOrg.rest("org_seasons?id=eq." + t.dataset.switch,
+            { method: "PATCH", body: { is_current: true } });
+          await CadOrg.log("season.switched", "season", t.dataset.switch);
+          P.toast("Current season changed."); await refresh();
+        } else if (t.dataset.archive || t.dataset.unarchive) {
+          var id = t.dataset.archive || t.dataset.unarchive;
+          await CadOrg.rest("org_seasons?id=eq." + id, { method: "PATCH",
+            body: { archived: !!t.dataset.archive } });
+          await CadOrg.log(t.dataset.archive ? "season.archived" : "season.unarchived", "season", id);
+          P.toast("Season updated."); await refresh();
+        }
+      } catch (err) { P.toast("Couldn't update the season: " + (err.message || "error"), true); }
+    });
+
+    var form = root.querySelector("#seasonForm");
+    if (form) form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = root.querySelector("#sMsg");
+      msg.className = "acct-msg"; msg.textContent = "Creating…";
+      var from = currentSeason();
+      var makeCurrent = root.querySelector("#sCurrent").checked;
+      try {
+        if (makeCurrent) {
+          await CadOrg.rest("org_seasons?org_id=eq." + S.org.id + "&is_current=is.true",
+            { method: "PATCH", body: { is_current: false } });
+        }
+        var rows = await CadOrg.rest("org_seasons", { method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: { org_id: S.org.id, name: root.querySelector("#sName").value.trim(),
+            starts_on: root.querySelector("#sStart").value || null,
+            ends_on: root.querySelector("#sEnd").value || null,
+            is_current: makeCurrent } });
+        var copied = 0;
+        if (root.querySelector("#sCopy").checked && from) {
+          copied = await copyGroupsToSeason(from.id, rows[0].id);
+        }
+        await CadOrg.log("season.created", "season", rows[0].id,
+          { name: rows[0].name, groups_copied: copied });
+        msg.className = "acct-msg ok";
+        msg.textContent = "Season created" + (copied ? " with " + copied + " groups copied." : ".");
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't create that season: " + (err.message || "unknown error");
+      }
+    });
+  }
+
+  function wireForms(root) {
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest("[data-form]");
+      if (b) openFormSubmissions(b.dataset.form);
+    });
+    var fields = root.querySelector("#fFields");
+    var add = root.querySelector("#fAddField");
+    if (add && fields) {
+      fields.insertAdjacentHTML("beforeend", fieldRowHtml());
+      add.addEventListener("click", function () {
+        fields.insertAdjacentHTML("beforeend", fieldRowHtml());
+      });
+      fields.addEventListener("click", function (e) {
+        if (e.target.dataset && e.target.dataset.f === "remove") {
+          e.target.closest(".adm-fieldrow").remove();
+        }
+      });
+    }
+    var kind = root.querySelector("#fKind");
+    if (kind) kind.addEventListener("change", function () {
+      if (kind.value === "medical") root.querySelector("#fSensitive").value = "true";
+    });
+
+    var form = root.querySelector("#formForm");
+    if (form) form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = root.querySelector("#fMsg");
+      msg.className = "acct-msg"; msg.textContent = "Creating…";
+      var me = CadOrg.member();
+      try {
+        var rows = await CadOrg.rest("org_forms", { method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: { org_id: S.org.id,
+            title: root.querySelector("#fTitle").value.trim(),
+            description: root.querySelector("#fDesc").value.trim() || null,
+            kind: root.querySelector("#fKind").value,
+            is_sensitive: root.querySelector("#fSensitive").value === "true",
+            closes_at: root.querySelector("#fCloses").value
+              ? new Date(root.querySelector("#fCloses").value).toISOString() : null,
+            created_by_member: me ? me.id : null } });
+        var defs = Array.prototype.slice.call(root.querySelectorAll(".adm-fieldrow"))
+          .map(function (r, i) {
+            var label = r.querySelector('[data-f="label"]').value.trim();
+            if (!label) return null;
+            var opts = r.querySelector('[data-f="options"]').value.trim();
+            return { form_id: rows[0].id, label: label,
+              field_type: r.querySelector('[data-f="type"]').value,
+              options: opts ? opts.split(",").map(function (s) { return s.trim(); }).filter(Boolean) : [],
+              required: r.querySelector('[data-f="required"]').checked, sort: (i + 1) * 10 };
+          }).filter(Boolean);
+        if (defs.length) await CadOrg.rest("org_form_fields", { method: "POST", body: defs });
+        await CadOrg.log("form.created", "form", rows[0].id,
+          { title: rows[0].title, sensitive: rows[0].is_sensitive, fields: defs.length });
+        msg.className = "acct-msg ok"; msg.textContent = "Form created.";
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't create that form: " + (err.message || "unknown error");
+      }
+    });
+  }
+
+  function wireAudit(root) {
+    var a = root.querySelector("#aAction"), s = root.querySelector("#aSince");
+    if (a) a.addEventListener("change", function () { S.auditFilter.action = a.value; render(); });
+    if (s) s.addEventListener("change", function () { S.auditFilter.since = s.value; render(); });
+  }
+
+  async function refresh() {
+    try { await load(); } catch (e) {}
+    render();
+  }
+
+  CadOrg.start({ nav: "admin" }).then(async function (org) {
+    if (!org) return;
+    S.org = org;
+    if (!(CadOrg.can("org.admin") || CadOrg.can("member.manage") || CadOrg.can("audit.view"))) {
+      main.innerHTML = '<h1 class="page">Admin</h1><div class="card"><div class="empty">' +
+        "This area is for directors and staff who manage the roster.</div></div>";
+      return;
+    }
+    var hash = (location.hash || "").replace("#", "");
+    if (TABS.some(function (t) { return t[0] === hash; })) S.tab = hash;
+    try { await load(); } catch (e) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load the admin data. ' +
+        "If this is a fresh install, migrations 0005 and 0009 may not be applied yet.</div></div>";
+      return;
+    }
+    render();
+  });
+})();
+</script>
+</body>
+</html>

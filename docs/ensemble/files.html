@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Files — Cadence Ensemble</title>
+<meta name="description" content="Your ensemble's digital library — sheet music, recordings, drill, forms and handouts, organized in folders only the right people can open.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* Files & music library — page-local styling on top of app.css tokens. */
+.fl-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; margin-bottom: 14px; }
+.fl-quota { min-width: 240px; flex: 1 1 260px; max-width: 420px; }
+.fl-quota-bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; border: 1px solid var(--border); }
+.fl-quota-bar i { display: block; height: 100%; background: var(--link); }
+.fl-quota.warn .fl-quota-bar i { background: var(--bad); }
+.fl-quota-txt { font-size: 12.5px; color: var(--muted); font-weight: 650; margin-top: 5px; }
+.fl-quota.warn .fl-quota-txt { color: var(--bad); }
+
+.fl-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+.fl-tools .grow { flex: 1 1 200px; min-width: 0; }
+.fl-tools input.ctrl { min-width: 0; width: 100%; }
+.fl-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.fl-chip { border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
+  border-radius: 999px; padding: 5px 12px; font-size: 12.5px; font-family: inherit; cursor: pointer; font-weight: 650; }
+.fl-chip:hover { background: var(--surface-2); color: var(--text-primary); }
+.fl-chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+.fl-crumbs { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 13px; margin: 0 0 10px; color: var(--muted); }
+.fl-crumbs button { border: 0; background: none; font: inherit; color: var(--link); cursor: pointer; padding: 2px 3px; font-weight: 650; }
+.fl-crumbs span.sep { opacity: .55; }
+
+.fl-folders { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); margin: 0 0 16px; }
+.fl-folder { display: flex; gap: 10px; align-items: center; text-align: left; width: 100%;
+  border: 1px solid var(--border); background: var(--surface-1); border-radius: 11px; padding: 11px 12px;
+  font: inherit; cursor: pointer; color: var(--text-primary); }
+.fl-folder:hover { background: var(--surface-2); }
+.fl-folder b { display: block; font-size: 14px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fl-folder span { display: block; color: var(--muted); font-size: 11.5px; }
+.fl-folder .fl-fi { font-size: 19px; flex: none; }
+
+.fl-drop { border: 1.5px dashed var(--baseline); border-radius: 12px; padding: 10px; transition: background .12s; }
+.fl-drop.over { background: var(--accent-wash); border-color: var(--link); }
+.fl-name { display: flex; gap: 9px; align-items: baseline; }
+.fl-name b { font-weight: 650; }
+.fl-meta { color: var(--muted); font-size: 12px; }
+.fl-act { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.fl-act button { border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
+  border-radius: 7px; padding: 4px 9px; font-size: 12px; font-family: inherit; cursor: pointer; }
+.fl-act button:hover { background: var(--surface-2); color: var(--text-primary); }
+.fl-star { font-size: 14px; line-height: 1; }
+.fl-tag { display: inline-block; background: var(--surface-2); color: var(--muted); border-radius: 5px;
+  padding: 1px 6px; font-size: 10.5px; font-weight: 700; margin-left: 4px; }
+
+.fl-up { margin: 0 0 12px; }
+.fl-up-row { display: flex; gap: 10px; align-items: center; font-size: 13px; padding: 5px 0; }
+.fl-up-row .nm { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fl-up-bar { flex: none; width: 130px; height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.fl-up-bar i { display: block; height: 100%; background: var(--link); width: 0; }
+.fl-up-row.err { color: var(--bad); }
+.fl-up-row.done .fl-up-bar i { background: var(--good); }
+
+/* shared preview / dialog sheet */
+.fl-modal { position: fixed; inset: 0; z-index: 220; background: rgba(10,25,50,.55);
+  display: flex; align-items: center; justify-content: center; padding: 12px; }
+.fl-modal-in { background: var(--surface-1); border-radius: 14px; width: 100%; max-width: 940px;
+  max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
+.fl-modal-top, .fl-modal-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.fl-modal-foot { border-bottom: 0; border-top: 1px solid var(--border); }
+.fl-modal-top b { font-size: 15px; color: var(--heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fl-modal-body { padding: 12px 14px; overflow: auto; flex: 1 1 auto; }
+.fl-view { width: 100%; height: 72vh; border: 0; border-radius: 8px; background: var(--surface-2); display: block; }
+.fl-img { height: auto; max-height: 72vh; object-fit: contain; }
+.fl-audio { width: 100%; }
+.fl-acc-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px solid var(--grid); font-size: 13.5px; }
+.fl-acc-row:first-child { border-top: 0; }
+.fl-acc-row .nm { flex: 1 1 auto; }
+.fl-acc-row label { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--muted); font-weight: 650; }
+.fl-form { display: grid; gap: 9px; }
+.fl-form .ctrl { width: 100%; }
+@media (max-width: 640px) { .fl-view { height: 60vh; } .fl-hide-sm { display: none; } }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="files.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc;
+  var F = window.CadFiles;
+
+  var S = {
+    org: null, folders: [], files: [], members: {}, groups: [], favs: {},
+    tree: null, folderId: null, view: "browse", q: "", tag: "", uploads: [],
+  };
+
+  function canUpload() { return CadOrg.canDo("file.upload", "files"); }
+  function canManage() { return CadOrg.canDo("file.manage", "files"); }
+  function myMemberId() { var m = CadOrg.member(); return m ? m.id : null; }
+
+  function memberName(id) {
+    var m = S.members[id];
+    if (!m) return "—";
+    return m.display_name || m.section || "Member";
+  }
+
+  /* ── data ──────────────────────────────────────────────────────────── */
+  async function load() {
+    var org = S.org;
+    var res = await Promise.all([
+      CadOrg.rest("org_folders?org_id=eq." + org.id + "&select=*&order=name.asc&limit=1000"),
+      CadOrg.rest("org_files?org_id=eq." + org.id + "&select=*&order=created_at.desc&limit=2000"),
+      CadOrg.rest("org_members?org_id=eq." + org.id + "&select=id,display_name,section,instrument&limit=3000"),
+      CadOrg.rest("org_groups?org_id=eq." + org.id + "&select=id,name,kind&order=name.asc"),
+      CadOrg.rest("org_file_favorites?select=file_id").catch(function () { return []; }),
+    ]);
+    S.folders = res[0] || [];
+    S.files = res[1] || [];
+    S.members = {};
+    (res[2] || []).forEach(function (m) { S.members[m.id] = m; });
+    S.groups = res[3] || [];
+    S.favs = {};
+    (res[4] || []).forEach(function (f) { S.favs[f.file_id] = true; });
+    S.tree = F.buildTree(S.folders);
+  }
+
+  /* ── header ────────────────────────────────────────────────────────── */
+  function quotaHtml() {
+    var q = F.quota(S.org);
+    return '<div class="fl-quota' + (q.nearly || q.full ? " warn" : "") + '">' +
+      '<div class="fl-quota-bar"><i style="width:' + q.pct.toFixed(1) + '%"></i></div>' +
+      '<div class="fl-quota-txt">' + esc(q.label) +
+      (q.full ? " · full — remove files or upgrade to upload more"
+              : q.nearly ? " · nearly full" : "") +
+      "</div></div>";
+  }
+
+  function toolsHtml() {
+    var tags = F.allTags(S.files).slice(0, 18);
+    var views = [["browse", "Folders"], ["recent", "Recently added"], ["fav", "Favorites"]];
+    return '<div class="fl-tools">' +
+        '<span class="grow"><input class="ctrl" id="flQ" type="search" placeholder="Search names, tags, parts…" value="' + esc(S.q) + '"></span>' +
+        views.map(function (v) {
+          return '<button class="fl-chip' + (S.view === v[0] ? " on" : "") + '" data-act="view" data-v="' + v[0] + '" type="button">' + v[1] + "</button>";
+        }).join("") +
+        '<a class="fl-chip" href="music.html">🎵 Music library</a>' +
+        (canUpload()
+          ? '<button class="tab" data-act="newfolder" type="button">+ Folder</button>' +
+            (F.quota(S.org).full
+              ? '<button class="tab" type="button" disabled title="Storage is full — remove files or upgrade the plan">Storage full</button>'
+              : '<button class="tab" data-act="upload" type="button">Upload…</button>')
+          : "") +
+      "</div>" +
+      (tags.length
+        ? '<div class="fl-chips">' +
+          '<button class="fl-chip' + (S.tag ? "" : " on") + '" data-act="tag" data-t="" type="button">All tags</button>' +
+          tags.map(function (t) {
+            return '<button class="fl-chip' + (S.tag === t ? " on" : "") + '" data-act="tag" data-t="' + esc(t) + '" type="button">#' + esc(t) + "</button>";
+          }).join("") + "</div>"
+        : "");
+  }
+
+  /* ── file rows ─────────────────────────────────────────────────────── */
+  function pathLabel(f) {
+    if (!f.folder_id || !S.tree.byId[f.folder_id]) return "Workspace root";
+    return F.crumbs(S.tree, f.folder_id).map(function (x) { return x.name; }).join(" ▸ ");
+  }
+
+  function fileRow(f, showPath) {
+    var star = S.favs[f.id] ? "★" : "☆";
+    return '<tr data-fid="' + f.id + '">' +
+      '<td><div class="fl-name"><span class="fl-fi">' + F.iconFor(f) + "</span>" +
+        '<span><b>' + esc(f.name) + "</b>" +
+        (f.version > 1 ? '<span class="fl-tag">v' + f.version + "</span>" : "") +
+        (f.tags || []).slice(0, 3).map(function (t) { return '<span class="fl-tag">#' + esc(t) + "</span>"; }).join("") +
+        '<div class="fl-meta">' +
+          (showPath ? esc(pathLabel(f)) + " · " : "") +
+          esc(F.fmtSize(f.size_bytes)) + " · " + esc(F.relTime(f.updated_at || f.created_at)) +
+          " · " + esc(memberName(f.uploaded_by_member)) +
+        "</div></span></div></td>" +
+      '<td class="fl-act">' +
+        '<button class="fl-star" data-act="star" title="Favorite" type="button">' + star + "</button>" +
+        '<button data-act="preview" type="button">Open</button>' +
+        '<button data-act="download" type="button">Download</button>' +
+        (canUpload() ? '<button data-act="newver" class="fl-hide-sm" type="button">New version</button>' : "") +
+        (canManage() ? '<button data-act="rename" class="fl-hide-sm" type="button">Rename</button>' +
+                       '<button data-act="delete" type="button">Delete</button>' : "") +
+      "</td></tr>";
+  }
+
+  function listHtml(rows, showPath, emptyMsg) {
+    if (!rows.length) return '<div class="empty">' + emptyMsg + "</div>";
+    return '<table class="t"><thead><tr><th>Name</th><th style="text-align:right">Actions</th></tr></thead>' +
+      "<tbody>" + rows.map(function (f) { return fileRow(f, showPath); }).join("") + "</tbody></table>";
+  }
+
+  function filtered(rows) {
+    return rows.filter(function (f) {
+      if (S.tag && (f.tags || []).indexOf(S.tag) < 0) return false;
+      return F.matches(f, S.q);
+    });
+  }
+
+  /* ── views ─────────────────────────────────────────────────────────── */
+  function browseHtml() {
+    var crumbs = F.crumbs(S.tree, S.folderId);
+    var kids = S.tree.children(S.folderId);
+    var here = filtered(S.files.filter(function (f) {
+      return (f.folder_id || null) === (S.folderId || null);
+    }));
+    var cur = S.folderId ? S.tree.byId[S.folderId] : null;
+
+    var crumbHtml = '<div class="fl-crumbs"><button data-act="go" data-id="" type="button">All files</button>' +
+      crumbs.map(function (c) {
+        return '<span class="sep">▸</span><button data-act="go" data-id="' + c.id + '" type="button">' + esc(c.name) + "</button>";
+      }).join("") +
+      (cur && canManage()
+        ? ' <button data-act="renamefolder" data-id="' + cur.id + '" type="button">Rename</button>' +
+          '<button data-act="access" data-id="' + cur.id + '" type="button">Who can see this</button>' +
+          '<button data-act="delfolder" data-id="' + cur.id + '" type="button">Delete folder</button>'
+        : "") +
+      "</div>";
+
+    var folderHtml = kids.length
+      ? '<div class="fl-folders">' + kids.map(function (c) {
+          var n = S.files.filter(function (f) { return f.folder_id === c.id; }).length;
+          var sub = S.tree.children(c.id).length;
+          return '<button class="fl-folder" data-act="go" data-id="' + c.id + '" type="button">' +
+            '<span class="fl-fi">' + (c.kind === "music" ? "🎼" : c.kind === "audio" ? "🎧" :
+              c.kind === "video" ? "🎬" : c.kind === "visual" ? "🎯" : "📁") + "</span>" +
+            "<span><b>" + esc(c.name) + "</b><span>" +
+            (sub ? sub + " folder" + (sub === 1 ? "" : "s") + " · " : "") +
+            n + " file" + (n === 1 ? "" : "s") + "</span></span></button>";
+        }).join("") + "</div>"
+      : "";
+
+    return crumbHtml + folderHtml +
+      '<div class="fl-drop" id="flDrop">' +
+      listHtml(here, false,
+        canUpload()
+          ? "Nothing here yet — drop files anywhere in this box, or use Upload."
+          : "Nothing in this folder yet.") +
+      "</div>";
+  }
+
+  function bodyHtml() {
+    if (S.view === "recent") {
+      return listHtml(filtered(S.files).slice(0, 60), true, "No files match.");
+    }
+    if (S.view === "fav") {
+      return listHtml(filtered(S.files.filter(function (f) { return S.favs[f.id]; })), true,
+        "No favorites yet — star a file to keep it one tap away.");
+    }
+    if (S.q || S.tag) {
+      return '<div class="fl-crumbs">Searching every folder you can open</div>' +
+        listHtml(filtered(S.files), true, "Nothing matches that search.");
+    }
+    return browseHtml();
+  }
+
+  function render() {
+    var q = F.quota(S.org);
+    main.innerHTML =
+      '<div class="fl-top"><div>' +
+        '<h1 class="page">Files</h1>' +
+        '<p class="lede">Your ensemble\'s digital library — sheet music, practice tracks, drill, ' +
+        "handouts and forms. Folders can be opened up to everyone or locked to a section, " +
+        "staff room or parent group. Nothing here is public.</p></div>" +
+        quotaHtml() +
+      "</div>" +
+      (CadOrg.isWritable(S.org) ? "" :
+        '<div class="card"><div class="setnote"><b>This workspace is read-only.</b> ' +
+        "Every file stays downloadable — new uploads resume when the plan is active again.</div></div>") +
+      toolsHtml() +
+      '<div class="fl-up" id="flUp"></div>' +
+      '<div class="card" id="flBody">' + bodyHtml() + "</div>" +
+      '<p class="setsub" style="margin-top:14px;max-width:74ch">Downloads open through a private, ' +
+      "short-lived link — files are never given a public address. Your organization is responsible " +
+      "for holding the rights to the music and media it stores here.</p>" +
+      '<input type="file" id="flPick" multiple hidden>';
+
+    var qi = document.getElementById("flQ");
+    if (qi) {
+      qi.addEventListener("input", function () {
+        S.q = qi.value.trim();
+        var body = document.getElementById("flBody");
+        if (body) body.innerHTML = bodyHtml();
+        wireDrop();
+      });
+    }
+    var pick = document.getElementById("flPick");
+    if (pick) pick.addEventListener("change", function () {
+      var files = Array.prototype.slice.call(pick.files || []);
+      pick.value = "";
+      if (files.length) startUploads(files, S.folderId);
+    });
+    wireDrop();
+    renderUploads();
+  }
+
+  function wireDrop() {
+    var drop = document.getElementById("flDrop");
+    if (!drop || !canUpload()) return;
+    ["dragenter", "dragover"].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add("over"); });
+    });
+    ["dragleave", "drop"].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove("over"); });
+    });
+    drop.addEventListener("drop", function (e) {
+      var files = Array.prototype.slice.call((e.dataTransfer && e.dataTransfer.files) || []);
+      if (files.length) startUploads(files, S.folderId);
+    });
+  }
+
+  /* ── uploads ───────────────────────────────────────────────────────── */
+  function renderUploads() {
+    var host = document.getElementById("flUp");
+    if (!host) return;
+    if (!S.uploads.length) { host.innerHTML = ""; return; }
+    host.innerHTML = '<div class="card"><div class="ens-h"><h2>Uploading</h2>' +
+      '<a href="#" data-act="clearups">Clear finished</a></div>' +
+      S.uploads.map(function (u) {
+        return '<div class="fl-up-row' + (u.error ? " err" : u.done ? " done" : "") + '">' +
+          '<span class="nm">' + esc(u.name) + "</span>" +
+          '<span class="fl-meta">' + esc(u.error || (u.done ? "Uploaded" : Math.round(u.pct * 100) + "%")) + "</span>" +
+          '<span class="fl-up-bar"><i style="width:' + Math.round((u.error ? 1 : u.pct) * 100) + '%"></i></span>' +
+          "</div>";
+      }).join("") + "</div>";
+  }
+
+  async function startUploads(files, folderId) {
+    if (!canUpload()) return;
+    if (F.quota(S.org).full) {
+      S.uploads.push({ name: files.length + " file(s)", pct: 0, done: false,
+        error: "Workspace storage is full — remove files or upgrade the plan" });
+      renderUploads();
+      return;   // downloads are never affected by a full workspace
+    }
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var u = { name: file.name, pct: 0, done: false, error: null };
+      S.uploads.push(u);
+      renderUploads();
+      /* eslint-disable no-loop-func */
+      try {
+        if (!F.fits(S.org, file.size)) throw new Error("storage_quota_exceeded");
+        await F.uploadFile(S.org, folderId, file, { tags: [] }, (function (u) {
+          return function (p) { u.pct = p; renderUploads(); };
+        })(u));
+        u.done = true; u.pct = 1;
+        CadOrg.log("file.uploaded", "file", null, { name: file.name, size: file.size });
+      } catch (err) {
+        u.error = /storage_quota_exceeded/.test(err.message || "")
+          ? "Workspace storage is full"
+          : (err.message || "upload failed");
+      }
+      renderUploads();
+    }
+    await load();
+    render();
+  }
+
+  /* ── folder + access dialogs ───────────────────────────────────────── */
+  function sheet(title, bodyHtmlStr, footHtmlStr) {
+    var wrap = document.createElement("div");
+    wrap.className = "fl-modal";
+    wrap.innerHTML = '<div class="fl-modal-in"><div class="fl-modal-top"><b>' + esc(title) + "</b>" +
+      '<button class="tab" data-x="1" type="button">Close</button></div>' +
+      '<div class="fl-modal-body">' + bodyHtmlStr + "</div>" +
+      '<div class="fl-modal-foot">' + (footHtmlStr || "") + "</div></div>";
+    document.body.appendChild(wrap);
+    wrap.addEventListener("click", function (e) {
+      if (e.target === wrap || (e.target.dataset && e.target.dataset.x)) wrap.remove();
+    });
+    return wrap;
+  }
+
+  function newFolderDialog() {
+    var where = S.folderId ? S.tree.byId[S.folderId] : null;
+    var wrap = sheet("New folder" + (where ? " in " + where.name : ""),
+      '<div class="fl-form">' +
+        '<input class="ctrl" id="nfName" placeholder="Folder name" maxlength="120">' +
+        '<select class="ctrl" id="nfKind">' + F.FOLDER_KINDS.map(function (k) {
+          return '<option value="' + k[0] + '">' + k[1] + "</option>"; }).join("") + "</select>" +
+        '<p class="setsub">Music, audio and video folders also show up in the music library.</p>' +
+        '<p class="acct-msg" id="nfMsg" role="status"></p>' +
+      "</div>",
+      '<span class="setsub">Anyone in the workspace can open it until you set access.</span>' +
+      '<button class="tab" id="nfGo" type="button">Create folder</button>');
+    wrap.querySelector("#nfGo").addEventListener("click", async function () {
+      var msg = wrap.querySelector("#nfMsg");
+      var name = wrap.querySelector("#nfName").value.trim();
+      if (!name) { msg.className = "acct-msg err"; msg.textContent = "Give it a name."; return; }
+      msg.className = "acct-msg"; msg.textContent = "";
+      try {
+        await CadOrg.rest("org_folders", { method: "POST", body: {
+          org_id: S.org.id, parent_id: S.folderId || null, name: name,
+          kind: wrap.querySelector("#nfKind").value,
+          created_by_member: myMemberId(),
+        } });
+        CadOrg.log("folder.created", "folder", null, { name: name });
+        wrap.remove();
+        await load(); render();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't create that folder: " + (err.message || "unknown error");
+      }
+    });
+  }
+
+  async function accessDialog(folderId) {
+    var folder = S.tree.byId[folderId];
+    if (!folder) return;
+    var rows = [];
+    try {
+      rows = await CadOrg.rest("org_folder_access?folder_id=eq." + folderId + "&select=*");
+    } catch (e) {}
+    var byGroup = {}, byRole = {};
+    (rows || []).forEach(function (r) {
+      if (r.group_id) byGroup[r.group_id] = r;
+      else if (r.role_kind) byRole[r.role_kind] = r;
+    });
+    function row(kind, id, label, cur) {
+      return '<div class="fl-acc-row"><span class="nm">' + esc(label) + "</span>" +
+        '<label><input type="checkbox" data-k="' + kind + '" data-id="' + esc(id) + '" data-f="view"' +
+          (cur ? " checked" : "") + "> View</label>" +
+        '<label><input type="checkbox" data-k="' + kind + '" data-id="' + esc(id) + '" data-f="upload"' +
+          (cur && cur.can_upload ? " checked" : "") + "> Upload</label></div>";
+    }
+    var body = '<p class="setnote">With nothing ticked, <b>every member</b> of the workspace can open ' +
+      "this folder. Tick anything and it becomes private to exactly those groups and roles — " +
+      "sub-folders inherit the restriction. People with <i>file.manage</i> always retain access.</p>" +
+      '<h3 style="font-size:13px;margin:12px 0 4px">Groups</h3>' +
+      (S.groups.length ? S.groups.map(function (g) {
+        return row("group", g.id, g.name, byGroup[g.id]);
+      }).join("") : '<div class="setsub">No groups yet.</div>') +
+      '<h3 style="font-size:13px;margin:14px 0 4px">Role types</h3>' +
+      F.ROLE_KINDS.map(function (k) { return row("role", k[0], k[1], byRole[k[0]]); }).join("") +
+      '<p class="acct-msg" id="acMsg" role="status"></p>';
+    var wrap = sheet("Who can see " + folder.name, body,
+      '<span class="setsub">Ticking Upload also grants View.</span>' +
+      '<button class="tab" id="acSave" type="button">Save access</button>');
+
+    wrap.addEventListener("change", function (e) {
+      var t = e.target;
+      if (!t.dataset || t.dataset.f !== "upload" || !t.checked) return;
+      var view = wrap.querySelector('input[data-k="' + t.dataset.k + '"][data-id="' + t.dataset.id + '"][data-f="view"]');
+      if (view) view.checked = true;
+    });
+
+    wrap.querySelector("#acSave").addEventListener("click", async function () {
+      var msg = wrap.querySelector("#acMsg");
+      msg.className = "acct-msg"; msg.textContent = "Saving…";
+      var out = [];
+      Array.prototype.forEach.call(wrap.querySelectorAll('input[data-f="view"]'), function (v) {
+        if (!v.checked) return;
+        var up = wrap.querySelector('input[data-k="' + v.dataset.k + '"][data-id="' + v.dataset.id + '"][data-f="upload"]');
+        out.push({
+          folder_id: folderId,
+          group_id: v.dataset.k === "group" ? v.dataset.id : null,
+          role_kind: v.dataset.k === "role" ? v.dataset.id : null,
+          can_upload: !!(up && up.checked),
+        });
+      });
+      try {
+        await CadOrg.rest("org_folder_access?folder_id=eq." + folderId, { method: "DELETE" });
+        if (out.length) await CadOrg.rest("org_folder_access", { method: "POST", body: out });
+        CadOrg.log("folder.access_changed", "folder", folderId, { rules: out.length });
+        wrap.remove();
+        await load(); render();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't save: " + (err.message || "unknown error");
+      }
+    });
+  }
+
+  function versionPicker(file) {
+    var input = document.createElement("input");
+    input.type = "file";
+    input.addEventListener("change", async function () {
+      if (!input.files || !input.files[0]) return;
+      var u = { name: input.files[0].name, pct: 0, done: false, error: null };
+      S.uploads.push(u); renderUploads();
+      try {
+        await F.uploadVersion(S.org, file, input.files[0], function (p) { u.pct = p; renderUploads(); });
+        u.done = true; u.pct = 1;
+        CadOrg.log("file.version_added", "file", file.id, { version: (file.version || 1) + 1 });
+      } catch (err) {
+        u.error = /storage_quota_exceeded/.test(err.message || "")
+          ? "Workspace storage is full" : (err.message || "upload failed");
+      }
+      renderUploads();
+      await load(); render();
+    });
+    input.style.display = "none";
+    document.body.appendChild(input);
+    input.click();
+    setTimeout(function () { input.remove(); }, 60000);
+  }
+
+  async function toggleStar(file) {
+    var mid = myMemberId();
+    if (!mid) return;
+    try {
+      if (S.favs[file.id]) {
+        await CadOrg.rest("org_file_favorites?file_id=eq." + file.id + "&member_id=eq." + mid, { method: "DELETE" });
+        delete S.favs[file.id];
+      } else {
+        await CadOrg.rest("org_file_favorites", { method: "POST", body: { file_id: file.id, member_id: mid } });
+        S.favs[file.id] = true;
+      }
+      var body = document.getElementById("flBody");
+      if (body) body.innerHTML = bodyHtml();
+      wireDrop();
+    } catch (e) {}
+  }
+
+  /* ── one delegated handler for the whole page ──────────────────────── */
+  function fileOf(el) {
+    var tr = el.closest && el.closest("tr[data-fid]");
+    if (!tr) return null;
+    return S.files.filter(function (f) { return f.id === tr.dataset.fid; })[0] || null;
+  }
+
+  main.addEventListener("click", async function (e) {
+    var btn = e.target.closest && e.target.closest("[data-act]");
+    if (!btn) return;
+    var act = btn.dataset.act;
+
+    if (act === "view") { S.view = btn.dataset.v; S.q = ""; render(); return; }
+    if (act === "tag") { S.tag = btn.dataset.t || ""; render(); return; }
+    if (act === "go") {
+      e.preventDefault();
+      S.folderId = btn.dataset.id || null; S.view = "browse"; render(); return;
+    }
+    if (act === "upload") { document.getElementById("flPick").click(); return; }
+    if (act === "newfolder") { newFolderDialog(); return; }
+    if (act === "access") { accessDialog(btn.dataset.id); return; }
+    if (act === "clearups") {
+      e.preventDefault();
+      S.uploads = S.uploads.filter(function (u) { return !u.done && !u.error; });
+      renderUploads(); return;
+    }
+    if (act === "renamefolder") {
+      var fo = S.tree.byId[btn.dataset.id];
+      var nn = window.prompt("Rename folder", fo ? fo.name : "");
+      if (!nn || !nn.trim()) return;
+      try {
+        await CadOrg.rest("org_folders?id=eq." + btn.dataset.id, { method: "PATCH", body: { name: nn.trim() } });
+        await load(); render();
+      } catch (err) { window.alert("Couldn't rename: " + (err.message || "unknown error")); }
+      return;
+    }
+    if (act === "delfolder") {
+      if (!window.confirm("Delete this folder? It must be empty first.")) return;
+      try {
+        await CadOrg.rest("org_folders?id=eq." + btn.dataset.id, { method: "DELETE" });
+        CadOrg.log("folder.deleted", "folder", btn.dataset.id);
+        S.folderId = (S.tree.byId[btn.dataset.id] || {}).parent_id || null;
+        await load(); render();
+      } catch (err) {
+        window.alert(/folder_not_empty/.test(err.message || "")
+          ? "That folder still has files or sub-folders in it. Empty it first — that way nothing quietly becomes visible to the whole workspace."
+          : "Couldn't delete: " + (err.message || "unknown error"));
+      }
+      return;
+    }
+
+    var file = fileOf(btn);
+    if (!file) return;
+    if (act === "preview") { F.openPreview(file); return; }
+    if (act === "download") {
+      try { await F.download(file); }
+      catch (err) { window.alert("Couldn't open that file: " + (err.message || "unknown error")); }
+      return;
+    }
+    if (act === "star") { toggleStar(file); return; }
+    if (act === "newver") { versionPicker(file); return; }
+    if (act === "rename") {
+      var nm = window.prompt("Rename file", file.name);
+      if (!nm || !nm.trim()) return;
+      try { await F.renameFile(file, nm.trim()); await load(); render(); }
+      catch (err) { window.alert("Couldn't rename: " + (err.message || "unknown error")); }
+      return;
+    }
+    if (act === "delete") {
+      if (!window.confirm('Delete "' + file.name + '"? This cannot be undone.')) return;
+      try {
+        await F.deleteFile(file);
+        CadOrg.log("file.deleted", "file", file.id, { name: file.name });
+        await load(); render();
+      } catch (err) { window.alert("Couldn't delete: " + (err.message || "unknown error")); }
+    }
+  });
+
+  CadOrg.start({ nav: "files" }).then(async function (org) {
+    if (!org) return;
+    S.org = org;
+    try { await load(); } catch (err) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load files — ' +
+        esc(err.message || "unknown error") +
+        ". If this workspace is new, migration 0008 may not be applied yet.</div></div>";
+      return;
+    }
+    render();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billing — Cadence Ensemble</title>
+<meta name="description" content="One organization subscription covers your whole ensemble — plans, status, school invoices and purchase orders.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* Billing — layout only; colours come from app.css tokens. */
+.bil-hero { display: grid; gap: 14px; grid-template-columns: 1.3fr 1fr; align-items: start; }
+@media (max-width: 760px) { .bil-hero { grid-template-columns: 1fr; } }
+.bil-kv { display: grid; grid-template-columns: 150px 1fr; gap: 7px 12px; font-size: 14px; margin: 0; }
+.bil-kv dt { color: var(--muted); font-size: 12.5px; font-weight: 650; }
+.bil-kv dd { margin: 0; }
+.bil-bar { height: 9px; border-radius: 99px; background: var(--surface-2);
+  border: 1px solid var(--border); overflow: hidden; margin: 8px 0 4px; }
+.bil-bar i { display: block; height: 100%; background: var(--accent, #f0b429); }
+.bil-plans { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); }
+.bil-plan { border: 1px solid var(--border); border-radius: 14px; padding: 15px;
+  background: var(--surface-1); display: flex; flex-direction: column; }
+.bil-plan.on { border-color: var(--accent, #f0b429); box-shadow: 0 0 0 2px var(--accent-wash); }
+.bil-plan h3 { margin: 0 0 2px; font-size: 16px; color: var(--heading); }
+.bil-amt { font-size: 27px; font-weight: 800; color: var(--heading); line-height: 1.2; margin: 6px 0 2px; }
+.bil-amt small { font-size: 13px; font-weight: 600; color: var(--muted); }
+.bil-feat { list-style: none; padding: 0; margin: 10px 0 0; font-size: 13px; color: var(--text-secondary); }
+.bil-feat li { padding: 3px 0 3px 18px; position: relative; }
+.bil-feat li::before { content: "·"; position: absolute; left: 6px; font-weight: 800; color: var(--accent-ink); }
+.bil-field { display: block; margin: 0 0 10px; }
+.bil-field > span { display: block; font-size: 12.5px; font-weight: 650; color: var(--muted); margin-bottom: 4px; }
+.bil-field .ctrl, .bil-field textarea.ctrl { width: 100%; box-sizing: border-box; min-width: 0; }
+.bil-2 { display: grid; gap: 0 12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .bil-2 { grid-template-columns: 1fr; } }
+.bil-note { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; }
+.bil-inv { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.bil-inv th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .4px;
+  color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.bil-inv td { padding: 8px; border-bottom: 1px solid var(--grid); }
+.ppl-toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
+  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 600; z-index: 400; box-shadow: 0 4px 16px rgba(10,25,50,.3); }
+.ppl-toast.bad { background: var(--bad, #c92a2a); }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="people.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc, P = CadPeople;
+  var S = { org: null, contact: null, invoices: [], memberCount: null, tablesMissing: false };
+
+  /* Every price, storage size and member limit on this page comes from
+     CadOrg.PLANS in core.js — one configurable source, never a second copy. */
+  var ORDER = ["trial", "ensemble", "pro", "program"];
+  var BLURB = {
+    trial: "The whole product, free, long enough to run a real season's worth of rehearsals.",
+    ensemble: "Everything one ensemble needs to run its season, all year.",
+    pro: "For programs that run staff workspaces, auditions, uniforms and travel.",
+    program: "One subscription across a whole school program's ensembles.",
+  };
+  var FEATURE_LABEL = {
+    announcements: "Announcements with acknowledgments", groups: "Nested groups and sections",
+    chat: "Moderated group chat", calendar: "Shared calendar", rsvp: "RSVPs",
+    attendance: "Attendance tracking", forms: "Forms — medical, travel, sizing",
+    parents: "Parent and guardian accounts", files: "File library", music_library: "Music library",
+    competition_link: "Linked public Cadence scores", signups: "Volunteer sign-ups",
+    tasks: "Tasks", polls: "Polls", staff_workspace: "Staff-only workspace",
+    itineraries: "Trip itineraries", packing_lists: "Packing lists", assignments: "Music and drill assignments",
+    submissions: "Student submissions", equipment: "Equipment tracking", uniforms: "Uniform tracking",
+    auditions: "Auditions", advanced_permissions: "Advanced permissions",
+    advanced_reporting: "Advanced reporting", acknowledgments: "Read receipts",
+    volunteer_management: "Volunteer management", automation: "Automations",
+  };
+
+  function canBill() { return CadOrg.can("billing.manage"); }
+  function planKeyOf(org) { return org.plan || "none"; }
+
+  async function load() {
+    var org = S.org.id;
+    S.memberCount = await P.softCount("org_members?org_id=eq." + org + "&status=eq.active");
+    if (!canBill()) return;
+    try {
+      var c = await CadOrg.rest("org_billing_contacts?select=*&org_id=eq." + org);
+      S.contact = (c && c[0]) || null;
+      S.invoices = await CadOrg.rest("org_invoices?select=*&org_id=eq." + org +
+        "&order=created_at.desc&limit=50");
+    } catch (e) { S.tablesMissing = true; }
+  }
+
+  /* ── status ───────────────────────────────────────────────────────── */
+  function statusCard() {
+    var o = S.org, plan = CadOrg.planOf(o), days = CadOrg.trialDaysLeft(o);
+    var used = Number(o.storage_used_bytes) || 0, quota = Number(o.storage_quota_bytes) || 1;
+    var pct = Math.min(100, Math.round((used / quota) * 1000) / 10);
+    var mine = CadAccount.user() && o.billing_owner_user_id === CadAccount.user().id;
+    return '<div class="card"><div class="ens-h"><h2>Your subscription</h2>' +
+      '<span class="ens-tag ' + (CadOrg.isWritable(o) ? "normal" : "urgent") + '">' +
+      esc(o.status.replace("_", " ")) + "</span></div>" +
+      '<dl class="bil-kv">' +
+        "<dt>Plan</dt><dd><b>" + esc(plan.label) + "</b>" +
+          (plan.price ? " · $" + plan.price + "/year" : "") + "</dd>" +
+        "<dt>Status</dt><dd>" + esc(statusSentence(o)) + "</dd>" +
+        (o.status === "trialing"
+          ? "<dt>Trial</dt><dd>" + (days > 0 ? days + " day" + (days === 1 ? "" : "s") + " left · ends " +
+            esc(P.fmtDate(o.trial_ends_at)) : "ended " + esc(P.fmtDate(o.trial_ends_at))) + "</dd>" : "") +
+        (o.renews_at ? "<dt>Renews</dt><dd>" + esc(P.fmtDate(o.renews_at)) + "</dd>" : "") +
+        (o.grace_ends_at
+          ? "<dt>Grace ends</dt><dd>" + esc(P.fmtDate(o.grace_ends_at)) + "</dd>" : "") +
+        "<dt>Members</dt><dd>" + (S.memberCount === null ? "—" : S.memberCount) + " active" +
+          (plan.memberLimit ? " · trial limit " + plan.memberLimit : " · no member limit") + "</dd>" +
+        "<dt>Storage</dt><dd>" + esc(P.bytes(used)) + " of " + esc(P.bytes(quota)) +
+          '<div class="bil-bar"><i style="width:' + pct + '%"></i></div>' +
+          '<span class="bil-note">' + pct + "% used</span></dd>" +
+        "<dt>Billing owner</dt><dd>" + (o.billing_owner_user_id
+          ? (mine ? "You" : "Another admin on this workspace") : "Not set") +
+          (CadOrg.can("org.admin") && !mine
+            ? ' <button class="tab" type="button" id="takeOwner">Make me the billing owner</button>' : "") +
+          "</dd>" +
+      "</dl>" +
+      '<p class="bil-note"><b>Your organization pays once. Your members join.</b> ' +
+      "Every student, parent, staff member and booster in this workspace is included — " +
+      "there is no per-seat charge, ever.</p></div>";
+  }
+
+  function statusSentence(o) {
+    switch (o.status) {
+      case "trialing": return "Full access while the trial runs.";
+      case "active": return "Active — everything is unlocked.";
+      case "past_due": return "Payment didn't go through; the workspace keeps working for now.";
+      case "invoice_pending": return "Waiting on a school invoice; the workspace keeps working.";
+      case "grace_period": return "In the grace period — reactivate to avoid going read-only.";
+      case "read_only": return "Read-only. Every byte is preserved; reactivating restores writing.";
+      case "canceled": return "Canceled. Your data is kept and readable.";
+      case "expired": return "Expired. Your data is kept and readable.";
+      default: return o.status;
+    }
+  }
+
+  /* ── plan comparison ──────────────────────────────────────────────── */
+  function featuresFor(key) {
+    var p = CadOrg.PLANS[key];
+    if (!p) return [];
+    var base = CadOrg.PLANS.ensemble.features;
+    var list = p.features === "*" ? base.concat(CadOrg.PRO_FEATURES) : p.features.slice();
+    return list.map(function (f) { return FEATURE_LABEL[f] || f; });
+  }
+
+  function planCard(key) {
+    var p = CadOrg.PLANS[key], cur = planKeyOf(S.org) === key;
+    var feats = featuresFor(key);
+    var shown = key === "trial" ? feats.slice(0, 6) : feats.slice(0, 9);
+    return '<div class="bil-plan' + (cur ? " on" : "") + '">' +
+      "<h3>" + esc(p.label) + (cur ? ' <span class="ens-tag important">Current</span>' : "") + "</h3>" +
+      '<div class="bil-amt">' + (p.price ? "$" + p.price + "<small> / year</small>"
+        : key === "trial" ? "Free<small> · 60 days</small>" : "—") + "</div>" +
+      '<div class="setsub">' + esc(BLURB[key] || "") + "</div>" +
+      '<ul class="bil-feat">' +
+        "<li>" + esc(P.bytes(p.storage)) + " of storage</li>" +
+        "<li>" + (p.memberLimit ? p.memberLimit + " members" : "Unlimited members") + "</li>" +
+        (p.ensembles ? "<li>Up to " + p.ensembles + " ensembles in one program</li>" : "") +
+        shown.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") +
+        (feats.length > shown.length ? "<li>…and " + (feats.length - shown.length) + " more</li>" : "") +
+      "</ul>" +
+      '<div style="margin-top:auto;padding-top:12px">' +
+        (key === "trial" ? '<span class="bil-note">Every new workspace starts here.</span>'
+          : '<button class="tab" type="button" disabled title="Card payments are not live yet">' +
+            "Pay by card — not live yet</button>") +
+      "</div></div>";
+  }
+
+  function plansCard() {
+    return '<div class="card"><div class="ens-h"><h2>Plans</h2>' +
+      '<span class="setsub">Prices come from the plan config in core.js</span></div>' +
+      '<div class="bil-plans">' + ORDER.map(planCard).join("") + "</div>" +
+      '<p class="bil-note">Cadence Ensemble Pro adds the staff-side tools: staff workspace, ' +
+      "itineraries, packing lists, assignments and submissions, equipment and uniforms, " +
+      "auditions, advanced permissions and reporting.</p></div>";
+  }
+
+  function honestyCard() {
+    return '<div class="notice"><b>An honest note about payment.</b> ' +
+      "Cadence cannot charge a card yet. The Stripe integration is prepared — the customer id " +
+      "lives on your organization record and the plan/status vocabulary is built for it — but no " +
+      "checkout exists for organization plans, and nothing on this page will ever pretend a " +
+      "payment happened. What works today is the school route below: request an invoice or " +
+      "purchase order, and a human issues it and switches your plan on when it's paid.</div>";
+  }
+
+  /* ── billing contact + invoice request ────────────────────────────── */
+  function contactCard() {
+    var c = S.contact || {};
+    return '<div class="card"><h2>Billing contact</h2>' +
+      '<p class="setnote">Who the invoice is made out to. Schools and booster organizations ' +
+      "usually need an exact legal name and a purchase order number.</p>" +
+      '<form id="cForm"><div class="bil-2">' +
+        '<label class="bil-field"><span>Legal name on the invoice</span>' +
+          '<input class="ctrl" id="bLegal" maxlength="160" value="' + esc(c.legal_name || "") + '" ' +
+          'placeholder="Westfield HS Band Boosters, Inc."></label>' +
+        '<label class="bil-field"><span>Contact name</span>' +
+          '<input class="ctrl" id="bName" maxlength="120" value="' + esc(c.contact_name || "") + '"></label>' +
+        '<label class="bil-field"><span>Contact email</span>' +
+          '<input class="ctrl" id="bEmail" type="email" maxlength="160" value="' + esc(c.contact_email || "") + '"></label>' +
+        '<label class="bil-field"><span>Contact phone</span>' +
+          '<input class="ctrl" id="bPhone" maxlength="40" value="' + esc(c.contact_phone || "") + '"></label>' +
+        '<label class="bil-field"><span>Purchase order number</span>' +
+          '<input class="ctrl" id="bPo" maxlength="60" value="' + esc(c.po_number || "") + '"></label>' +
+        '<label class="bil-field"><span>Tax exempt id</span>' +
+          '<input class="ctrl" id="bTax" maxlength="60" value="' + esc(c.tax_exempt_id || "") + '"></label>' +
+      "</div>" +
+      '<label class="bil-field"><span>Billing address</span>' +
+        '<textarea class="ctrl" id="bAddress" rows="2" maxlength="400">' + esc(c.address || "") + "</textarea></label>" +
+      '<label class="bil-field"><span>Notes for whoever issues the invoice</span>' +
+        '<textarea class="ctrl" id="bNotes" rows="2" maxlength="400">' + esc(c.notes || "") + "</textarea></label>" +
+      '<div class="ppl-actions" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">' +
+        '<button class="tab on" type="submit">Save billing contact</button>' +
+        '<span class="acct-msg" id="bMsg" role="status"></span></div></form></div>';
+  }
+
+  function requestCard() {
+    var open = S.invoices.filter(function (i) { return i.status === "requested" || i.status === "sent"; });
+    return '<div class="card"><h2>Request a school invoice or purchase order</h2>' +
+      '<p class="setnote">Pick the plan your program wants. This records the request and saves ' +
+      "your billing contact — it does not charge anything and does not change your plan. " +
+      "A person reviews it, issues the invoice, and switches the plan on once it's paid.</p>" +
+      (open.length ? '<div class="notice" style="margin-bottom:12px">You already have ' +
+        open.length + " open request" + (open.length === 1 ? "" : "s") + " — see the history below.</div>" : "") +
+      '<form id="rForm"><div class="bil-2">' +
+        '<label class="bil-field"><span>Plan</span><select class="ctrl" id="rPlan">' +
+          ORDER.filter(function (k) { return k !== "trial"; }).map(function (k) {
+            var p = CadOrg.PLANS[k];
+            return '<option value="' + k + '">' + esc(p.label) + " — $" + p.price + "/year</option>";
+          }).join("") + "</select></label>" +
+        '<label class="bil-field"><span>Start of billing period</span>' +
+          '<input class="ctrl" id="rStart" type="date" value="' + esc(today()) + '"></label>' +
+      "</div>" +
+      '<label class="bil-field"><span>Anything the invoice needs to say</span>' +
+        '<textarea class="ctrl" id="rNote" rows="2" maxlength="400" ' +
+        'placeholder="Attn: Activities Accounting · PO to follow"></textarea></label>' +
+      '<div class="ppl-actions" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">' +
+        '<button class="tab on" type="submit">Request invoice</button>' +
+        '<span class="acct-msg" id="rMsg" role="status"></span></div></form>' +
+      '<p class="bil-note">Nothing here is a payment. An invoice is marked paid by a human, ' +
+      "after the money actually arrives.</p></div>";
+  }
+
+  function today() {
+    var d = new Date();
+    return d.toISOString().slice(0, 10);
+  }
+
+  function invoicesCard() {
+    return '<div class="card"><div class="ens-h"><h2>Invoice history</h2>' +
+      '<span class="setsub">' + S.invoices.length + " record" + (S.invoices.length === 1 ? "" : "s") + "</span></div>" +
+      (S.invoices.length
+        ? '<div style="overflow-x:auto"><table class="bil-inv"><thead><tr>' +
+          "<th>Number</th><th>Plan</th><th>Amount</th><th>Status</th><th>Period</th><th>Due</th></tr></thead><tbody>" +
+          S.invoices.map(function (i) {
+            return "<tr><td>" + esc(i.number || "—") + "</td><td>" + esc(i.plan || "—") + "</td>" +
+              "<td>" + esc(P.money(i.amount_cents, i.currency)) + "</td>" +
+              '<td><span class="ens-tag ' + (i.status === "paid" ? "normal" :
+                i.status === "void" ? "normal" : "important") + '">' + esc(i.status) + "</span></td>" +
+              "<td>" + esc(P.fmtDate(i.period_start)) + " – " + esc(P.fmtDate(i.period_end)) + "</td>" +
+              "<td>" + esc(P.fmtDate(i.due_on)) + "</td></tr>"; }).join("") +
+          "</tbody></table></div>"
+        : '<div class="empty">No invoices yet.</div>') + "</div>";
+  }
+
+  /* ── page ─────────────────────────────────────────────────────────── */
+  function render() {
+    var manage = canBill();
+    main.innerHTML =
+      '<h1 class="page">Billing</h1>' +
+      '<p class="lede">One subscription covers your whole organization. Students, parents, staff ' +
+      "and boosters all join free — you are never billed per person.</p>" +
+      '<div class="bil-hero">' + statusCard() +
+        '<div class="card"><h2>What you get</h2>' +
+        '<p class="setnote">Cadence Ensemble is the private side of Cadence: announcements, ' +
+        "groups, chat, calendar, attendance, files, music, forms and parent accounts — " +
+        "connected to your public Cadence scores.</p>" +
+        '<p class="bil-note">Trial expiry never deletes anything. A workspace that lapses goes ' +
+        "read-only: every announcement, file and record stays exactly where it is, and " +
+        "reactivating turns writing back on.</p></div>" +
+      "</div>" +
+      '<div style="margin:16px 0">' + honestyCard() + "</div>" +
+      plansCard() +
+      (manage
+        ? (S.tablesMissing
+            ? '<div class="card" style="margin-top:16px"><div class="empty">' +
+              "Billing contacts and invoices need migration 0009 — run it in Supabase.</div></div>"
+            : '<div class="ens-grid" style="margin-top:16px">' + contactCard() + requestCard() + "</div>" +
+              '<div style="margin-top:16px">' + invoicesCard() + "</div>")
+        : '<div class="card" style="margin-top:16px"><div class="empty">' +
+          "Your workspace's billing owner handles the subscription. Ask them to visit this page.</div></div>") +
+      '<p class="bil-note" style="margin-top:18px">Questions about invoicing, purchase orders or ' +
+      'multi-ensemble programs: <a href="../pro.html">Cadence for organizations →</a></p>';
+
+    var take = document.getElementById("takeOwner");
+    if (take) take.addEventListener("click", async function () {
+      try {
+        await CadOrg.rest("organizations?id=eq." + S.org.id, { method: "PATCH",
+          body: { billing_owner_user_id: CadAccount.user().id } });
+        await CadOrg.log("billing.owner_changed", "organization", S.org.id);
+        S.org.billing_owner_user_id = CadAccount.user().id;
+        P.toast("You're the billing owner now."); render();
+      } catch (err) { P.toast("Couldn't change that: " + (err.message || "error"), true); }
+    });
+
+    if (!manage || S.tablesMissing) return;
+
+    var cForm = document.getElementById("cForm");
+    if (cForm) cForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = document.getElementById("bMsg");
+      msg.className = "acct-msg"; msg.textContent = "Saving…";
+      try {
+        await saveContact();
+        msg.className = "acct-msg ok"; msg.textContent = "Saved.";
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't save: " + (err.message || "unknown error");
+      }
+    });
+
+    var rForm = document.getElementById("rForm");
+    if (rForm) rForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var msg = document.getElementById("rMsg");
+      msg.className = "acct-msg"; msg.textContent = "Sending the request…";
+      var planKey = document.getElementById("rPlan").value;
+      var plan = CadOrg.PLANS[planKey];
+      var start = document.getElementById("rStart").value || today();
+      var end = new Date(start);
+      end.setFullYear(end.getFullYear() + 1);
+      try {
+        await saveContact();
+        await CadOrg.rest("org_invoices", { method: "POST", body: {
+          org_id: S.org.id, plan: planKey,
+          amount_cents: Math.round((plan.price || 0) * 100), currency: "usd",
+          status: "requested", period_start: start, period_end: end.toISOString().slice(0, 10),
+          note: document.getElementById("rNote").value.trim() || null,
+          requested_by: CadAccount.user().id } });
+        await CadOrg.log("invoice.requested", "organization", S.org.id, { plan: planKey });
+        msg.className = "acct-msg ok";
+        msg.textContent = "Request recorded. Nothing has been charged — someone will follow up " +
+          "with an invoice for " + plan.label + ".";
+        await refresh();
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't record that request: " + (err.message || "unknown error");
+      }
+    });
+  }
+
+  async function saveContact() {
+    var body = {
+      org_id: S.org.id,
+      legal_name: val("bLegal"), contact_name: val("bName"), contact_email: val("bEmail"),
+      contact_phone: val("bPhone"), po_number: val("bPo"), tax_exempt_id: val("bTax"),
+      address: val("bAddress"), notes: val("bNotes"),
+      updated_at: new Date().toISOString(),
+    };
+    await CadOrg.rest("org_billing_contacts", { method: "POST",
+      headers: { Prefer: "resolution=merge-duplicates" }, body: body });
+    S.contact = body;
+  }
+
+  function val(id) {
+    var el = document.getElementById(id);
+    return el && el.value.trim() ? el.value.trim() : null;
+  }
+
+  async function refresh() {
+    try { await load(); } catch (e) {}
+    render();
+  }
+
+  CadOrg.start({ nav: "billing" }).then(async function (org) {
+    if (!org) return;
+    S.org = org;
+    try { await load(); } catch (e) {}
+    render();
+  });
+})();
+</script>
+</body>
+</html>

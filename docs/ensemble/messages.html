@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Messages — Cadence Ensemble</title>
+<meta name="description" content="Cadence Ensemble — organization chat: group rooms, staff rooms, direct messages, replies, reactions and moderation.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+/* Messages-local classes. Mobile first: one pane at a time, list ⇄ conversation.
+   From 860px up it becomes two panes side by side. Everything else (colors,
+   buttons, cards, chips) comes from app.css / ensemble.css. */
+/* display: rules below would otherwise beat the `hidden` attribute the
+   scripts toggle — this keeps hidden meaning hidden. */
+[hidden] { display: none !important; }
+.chatwrap {
+  display: grid; grid-template-columns: 1fr;
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  background: var(--surface-1); height: calc(100dvh - 250px); min-height: 420px;
+}
+.chatwrap[data-view="list"] .conv { display: none; }
+.chatwrap[data-view="conv"] .chatlist { display: none; }
+@media (min-width: 860px) {
+  .chatwrap { grid-template-columns: 288px 1fr; height: calc(100dvh - 260px); }
+  .chatwrap .conv, .chatwrap .chatlist { display: flex !important; }
+  .conv-back { display: none !important; }
+}
+.chatlist { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--border); }
+.chatlist-top { padding: 10px; border-bottom: 1px solid var(--grid); display: flex; gap: 6px; flex-wrap: wrap; }
+.chatlist-scroll { overflow: auto; flex: 1; padding: 6px; }
+.chatlist h4 { margin: 12px 8px 4px; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); }
+.chatrow { display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+  border: 0; background: none; font: inherit; padding: 9px 10px; border-radius: 10px;
+  cursor: pointer; color: var(--text-primary); }
+.chatrow:hover { background: var(--surface-2); }
+.chatrow.on { background: var(--accent-wash); }
+.chatrow b { font-size: 14px; font-weight: 650; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chatrow small { color: var(--muted); font-size: 12px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chatrow > span:first-child { flex: 1; min-width: 0; }
+.badge { flex: none; background: var(--bad); color: #fff; border-radius: 999px;
+  font-size: 11px; font-weight: 800; padding: 1px 7px; }
+
+.conv { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.conv-head { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border-bottom: 1px solid var(--grid); }
+.conv-head b { font-size: 15px; color: var(--heading); }
+.conv-head .setsub { margin: 0; }
+.conv-back { border: 0; background: var(--surface-2); border-radius: 9px; font: inherit;
+  cursor: pointer; padding: 5px 10px; color: var(--text-primary); }
+.conv-tools { margin-left: auto; display: flex; gap: 6px; }
+.pinstrip { padding: 8px 12px; border-bottom: 1px solid var(--grid); background: var(--surface-2); font-size: 12.5px; display: grid; gap: 5px; }
+.pinstrip b { color: var(--accent-ink); }
+.pinstrip button { border: 0; background: none; font: inherit; color: var(--link); cursor: pointer; padding: 0; text-align: left; }
+.msgs { flex: 1; overflow: auto; padding: 12px; display: flex; flex-direction: column; gap: 3px; }
+.daysep { text-align: center; color: var(--muted); font-size: 11.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .4px; margin: 14px 0 8px; }
+.msg { padding: 5px 8px; border-radius: 10px; max-width: 100%; }
+.msg:hover { background: var(--surface-2); }
+.msg.mine { background: var(--accent-wash); }
+.msg.mine:hover { background: var(--accent-wash); }
+.msg-meta { font-size: 12px; color: var(--muted); margin-bottom: 1px; }
+.msg-meta b { color: var(--heading); font-size: 13px; font-weight: 700; }
+.msg-body { font-size: 14.5px; line-height: 1.55; word-break: break-word; }
+.msg-body.gone { color: var(--muted); font-style: italic; }
+.msg-quote { border-left: 3px solid var(--baseline); padding-left: 8px; margin-bottom: 4px;
+  color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.msg-reacts { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.msg-tools { display: none; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+.msg:hover .msg-tools, .msg.open .msg-tools { display: flex; }
+.msg-tools button, .ens-react { border: 1.5px solid var(--border); background: var(--surface-1);
+  color: var(--text-secondary); border-radius: 999px; padding: 2px 9px; font: inherit;
+  font-size: 12px; cursor: pointer; }
+.msg-tools button:hover, .ens-react:hover { border-color: var(--muted); }
+.ens-react.on { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-ink); }
+.ens-mention { background: var(--accent-wash); color: var(--accent-ink); border-radius: 5px; padding: 0 3px; font-weight: 650; }
+
+.composer { border-top: 1px solid var(--grid); padding: 10px; position: relative; }
+.composer form { display: flex; gap: 8px; align-items: flex-end; }
+.composer textarea { flex: 1; min-height: 42px; max-height: 140px; resize: none; font: inherit; line-height: 1.45; }
+.replybar { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); margin-bottom: 7px; }
+.replybar button { border: 0; background: none; color: var(--bad); cursor: pointer; font: inherit; }
+.mentions { position: absolute; bottom: 100%; left: 10px; right: 10px; max-height: 190px; overflow: auto;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 11px;
+  box-shadow: 0 12px 34px rgba(10,25,50,.18); z-index: 20; }
+.mentions button { display: block; width: 100%; text-align: left; border: 0; background: none;
+  font: inherit; padding: 8px 12px; cursor: pointer; color: var(--text-primary); }
+.mentions button:hover, .mentions button.on { background: var(--accent-wash); }
+.locknote { padding: 12px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--grid); }
+.ens-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ens-people { max-height: 210px; overflow: auto; padding: 2px; }
+.ens-dim { color: var(--muted); font-weight: 500; }
+.ens-field { display: grid; gap: 6px; margin-bottom: 12px; }
+.ens-field > label { font-size: 13px; font-weight: 700; color: var(--text-secondary); }
+.ens-live { font-size: 11.5px; font-weight: 700; color: var(--muted); letter-spacing: .3px; }
+.ens-live.on { color: var(--good); }
+.reportrow { border-top: 1px solid var(--grid); padding: 10px 0; font-size: 13.5px; }
+.reportrow:first-of-type { border-top: 0; }
+.reportrow .setsub { margin: 3px 0 6px; }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="comms.js"></script>
+<script>
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc;
+  var C = window.CadComms;
+
+  var org = null, me = null, myRow = null, dir = null, live = null;
+  var chats = [], active = null, msgs = [], lastAt = {}, unread = {};
+  var replyTo = null, view = "list";
+
+  var KIND_LABEL = { org: "Organization", group: "Group rooms", staff: "Staff", dm: "Direct messages", event: "Events" };
+
+  /* ── data ─────────────────────────────────────────────────────────── */
+  async function loadChats() {
+    chats = await CadOrg.rest("chats?select=id,org_id,kind,group_id,title,created_by_member," +
+      "is_moderated,archived,created_at,members:chat_members(member_id,last_read_at,muted)" +
+      "&org_id=eq." + org.id + "&archived=eq.false&order=created_at.asc");
+    lastAt = {}; unread = {};
+    if (chats.length) {
+      var recent = await CadOrg.rest("messages?select=chat_id,created_at&chat_id=in.(" +
+        chats.map(function (c) { return c.id; }).join(",") + ")&order=created_at.desc&limit=400");
+      recent.forEach(function (m) {
+        if (!lastAt[m.chat_id]) lastAt[m.chat_id] = m.created_at;
+      });
+    }
+    chats.forEach(function (c) {
+      var mine = (c.members || []).filter(function (x) { return x.member_id === me.id; })[0];
+      c.joined = !!mine;
+      c.muted = !!(mine && mine.muted);
+      var seen = mine && mine.last_read_at;
+      unread[c.id] = !!(lastAt[c.id] && (!seen || new Date(lastAt[c.id]) > new Date(seen)));
+    });
+    return chats;
+  }
+
+  async function loadMessages(chatId) {
+    msgs = await CadOrg.rest("messages?select=id,chat_id,member_id,body,attachments,reply_to," +
+      "pinned,edited_at,deleted_at,created_at,reactions:message_reactions(member_id,emoji)" +
+      "&chat_id=eq." + chatId + "&order=created_at.asc&limit=300");
+    return msgs;
+  }
+
+  function chatTitle(c) {
+    if (c.title) return c.title;
+    if (c.kind === "org") return "Everyone";
+    if (c.kind === "staff") return "Staff room";
+    if (c.kind === "group") {
+      var g = dir.groups.filter(function (x) { return x.id === c.group_id; })[0];
+      return g ? g.name : "Group chat";
+    }
+    if (c.kind === "dm") {
+      var others = (c.members || []).filter(function (x) { return x.member_id !== me.id; });
+      return others.length ? others.map(function (x) { return C.nameOf(x.member_id); }).join(", ") : "Direct message";
+    }
+    return "Chat";
+  }
+
+  /* ── sidebar ──────────────────────────────────────────────────────── */
+  function listHtml() {
+    var canNew = C.mayCreateChat(org);
+    var pol = C.dmPolicy(org, myRow);
+    var canModerate = CadOrg.can("chat.moderate");
+    var groups = {};
+    chats.forEach(function (c) { (groups[c.kind] = groups[c.kind] || []).push(c); });
+
+    var sections = ["org", "group", "staff", "event", "dm"].filter(function (k) { return groups[k]; })
+      .map(function (k) {
+        return "<h4>" + esc(KIND_LABEL[k] || k) + "</h4>" + groups[k].map(function (c) {
+          return '<button class="chatrow' + (active && active.id === c.id ? " on" : "") +
+            '" type="button" data-chat="' + esc(c.id) + '"><span><b>' + esc(chatTitle(c)) + "</b>" +
+            "<small>" + (lastAt[c.id] ? esc(C.when(lastAt[c.id])) : "no messages yet") +
+            (c.joined ? "" : " · tap to join") + (c.muted ? " · muted" : "") + "</small></span>" +
+            (unread[c.id] ? '<span class="badge">new</span>' : "") + "</button>";
+        }).join("");
+      }).join("");
+
+    return '<aside class="chatlist">' +
+      '<div class="chatlist-top">' +
+        (canNew ? '<button class="tab" type="button" data-act="newchat">+ New chat</button>' : "") +
+        (pol.any ? '<button class="tab" type="button" data-act="newdm">+ New DM</button>' : "") +
+        (canModerate ? '<button class="tab" type="button" data-act="reports">Reports</button>' : "") +
+        (!canNew && !pol.any && !canModerate
+          ? '<span class="setsub" style="padding:4px 2px">Your organization limits who can start conversations.</span>'
+          : "") +
+      "</div>" +
+      '<div class="chatlist-scroll">' +
+        (chats.length ? sections : '<div class="empty" style="padding:24px 12px">' +
+          (canNew
+            ? "No rooms yet. Start with one for everyone, then add section rooms."
+            : "No conversations yet. Your staff will open the first room.") + "</div>") +
+      "</div></aside>";
+  }
+
+  /* ── conversation ─────────────────────────────────────────────────── */
+  function messageHtml(m, prev) {
+    var mine = m.member_id === me.id;
+    var canModerate = CadOrg.can("chat.moderate");
+    var sameRun = prev && prev.member_id === m.member_id &&
+      (new Date(m.created_at) - new Date(prev.created_at)) < 300000;
+    var counts = {};
+    (m.reactions || []).forEach(function (r) {
+      counts[r.emoji] = counts[r.emoji] || { n: 0, me: false };
+      counts[r.emoji].n++;
+      if (r.member_id === me.id) counts[r.emoji].me = true;
+    });
+    var reacts = Object.keys(counts).map(function (e) {
+      return '<button class="ens-react' + (counts[e].me ? " on" : "") + '" type="button" ' +
+        'data-act="react" data-emoji="' + e + '">' + e + " <b>" + counts[e].n + "</b></button>";
+    }).join("");
+
+    var quote = "";
+    if (m.reply_to) {
+      var src = msgs.filter(function (x) { return x.id === m.reply_to; })[0];
+      quote = '<div class="msg-quote">↩ ' + (src
+        ? esc(C.nameOf(src.member_id)) + ": " + esc(String(src.body || "").slice(0, 90))
+        : "earlier message") + "</div>";
+    }
+
+    var tools = "";
+    if (!m.deleted_at) {
+      tools += '<button type="button" data-act="reply">Reply</button>';
+      C.EMOJI.slice(0, 4).forEach(function (e) {
+        tools += '<button type="button" data-act="react" data-emoji="' + e + '">' + e + "</button>";
+      });
+      if (mine) tools += '<button type="button" data-act="editmsg">Edit</button>';
+      if (mine || canModerate) tools += '<button type="button" data-act="delmsg">Delete</button>';
+      if (canModerate) tools += '<button type="button" data-act="pinmsg">' + (m.pinned ? "Unpin" : "Pin") + "</button>";
+      if (!mine) tools += '<button type="button" data-act="report">Report</button>';
+    }
+
+    return '<div class="msg' + (mine ? " mine" : "") + '" data-msg="' + esc(m.id) + '">' +
+      (sameRun ? "" : '<div class="msg-meta"><b>' + esc(C.nameOf(m.member_id)) + "</b> " +
+        esc(C.clock(m.created_at)) + (m.pinned ? " · 📌" : "") + "</div>") +
+      quote +
+      '<div class="msg-body' + (m.deleted_at ? " gone" : "") + '">' +
+        (m.deleted_at ? "Message deleted" : C.renderBody(m.body, dir)) +
+        (m.edited_at && !m.deleted_at ? ' <span class="msg-meta">(edited)</span>' : "") +
+      "</div>" +
+      (reacts ? '<div class="msg-reacts">' + reacts + "</div>" : "") +
+      '<div class="msg-tools">' + tools + "</div></div>";
+  }
+
+  function convHtml() {
+    if (!active) {
+      return '<section class="conv"><div class="empty" style="margin:auto">' +
+        "Pick a conversation on the left." + "</div></section>";
+    }
+    var writable = CadOrg.isWritable(org);
+    var body = "";
+    var lastDay = "";
+    msgs.forEach(function (m, i) {
+      var day = C.dayLabel(m.created_at);
+      if (day !== lastDay) { body += '<div class="daysep">' + esc(day) + "</div>"; lastDay = day; }
+      body += messageHtml(m, i ? msgs[i - 1] : null);
+    });
+
+    var pinned = msgs.filter(function (m) { return m.pinned && !m.deleted_at; });
+    var memberCount = (active.members || []).length;
+
+    return '<section class="conv">' +
+      '<div class="conv-head">' +
+        '<button class="conv-back" type="button" data-act="back">←</button>' +
+        "<span><b>" + esc(chatTitle(active)) + "</b>" +
+        '<div class="setsub">' + memberCount + (memberCount === 1 ? " member" : " members") +
+          (active.kind === "dm" ? " · private" : "") +
+          (active.is_moderated ? " · moderated" : "") + "</div></span>" +
+        '<span class="conv-tools">' +
+          '<button class="tab" type="button" data-act="mute">' + (active.muted ? "Unmute" : "Mute") + "</button>" +
+        "</span>" +
+      "</div>" +
+      (pinned.length
+        ? '<div class="pinstrip"><b>📌 Pinned</b>' + pinned.map(function (m) {
+            return '<button type="button" data-act="jump" data-to="' + esc(m.id) + '">' +
+              esc(C.nameOf(m.member_id)) + ": " + esc(String(m.body || "").slice(0, 120)) + "</button>";
+          }).join("") + "</div>"
+        : "") +
+      '<div class="msgs" id="msgs">' +
+        (msgs.length ? body : '<div class="empty" style="margin:auto">No messages yet. Say something.</div>') +
+      "</div>" +
+      (!active.joined
+        ? '<div class="locknote">You\'re not in this room yet. ' +
+          '<button class="tab" type="button" data-act="join">Join conversation</button></div>'
+        : !writable
+        ? '<div class="locknote"><b>This workspace is read-only.</b> The history stays; ' +
+          'new messages are paused until the subscription is reactivated. <a href="billing.html">See plans →</a></div>'
+        : '<div class="composer">' +
+            (replyTo
+              ? '<div class="replybar">↩ Replying to <b>' + esc(C.nameOf((msgs.filter(function (m) {
+                  return m.id === replyTo; })[0] || {}).member_id)) + "</b>" +
+                '<button type="button" data-act="cancelreply">cancel</button></div>'
+              : "") +
+            '<form id="sendForm"><textarea class="ctrl" id="sendBox" rows="1" maxlength="4000" ' +
+            'placeholder="Message ' + esc(chatTitle(active)) + ' — type @ to mention someone"></textarea>' +
+            '<button class="tab on" type="submit">Send</button></form>' +
+            '<div class="mentions" id="mentions" hidden></div>' +
+          "</div>") +
+    "</section>";
+  }
+
+  /* ── render ───────────────────────────────────────────────────────── */
+  function render(keepScroll) {
+    var msgsEl = document.getElementById("msgs");
+    var atBottom = !msgsEl || (msgsEl.scrollHeight - msgsEl.scrollTop - msgsEl.clientHeight) < 80;
+    var prevTop = msgsEl ? msgsEl.scrollTop : 0;
+
+    main.innerHTML =
+      '<h1 class="page">Messages</h1>' +
+      '<p class="lede">Rooms for the whole organization, each section, staff, and one-to-one — ' +
+      'with the youth-safety rules your workspace set. <span class="ens-live" id="liveDot"></span></p>' +
+      '<div class="chatwrap" data-view="' + view + '">' + listHtml() + convHtml() + "</div>";
+
+    setLive(live && live.status);
+    var el = document.getElementById("msgs");
+    if (el) el.scrollTop = (keepScroll && !atBottom) ? prevTop : el.scrollHeight;
+    var box = document.getElementById("sendBox");
+    if (box && view === "conv") box.focus();
+    wireComposer();
+  }
+
+  function setLive(status) {
+    var dot = document.getElementById("liveDot");
+    if (!dot) return;
+    var ok = status === "SUBSCRIBED";
+    dot.className = "ens-live" + (ok ? " on" : "");
+    dot.textContent = ok ? "● live" : "";
+  }
+
+  /* ── open a chat ──────────────────────────────────────────────────── */
+  async function open(chatId) {
+    active = chats.filter(function (c) { return c.id === chatId; })[0] || null;
+    replyTo = null;
+    msgs = [];
+    view = "conv";
+    render();
+    if (!active) return;
+    try { await loadMessages(chatId); } catch (e) {}
+    render();
+    markRead();
+  }
+
+  async function markRead() {
+    if (!active || !active.joined) return;
+    unread[active.id] = false;
+    try {
+      await CadOrg.rest("chat_members?chat_id=eq." + active.id + "&member_id=eq." + me.id,
+        { method: "PATCH", body: { last_read_at: new Date().toISOString() } });
+    } catch (e) {}
+  }
+
+  /* ── composer, mentions ───────────────────────────────────────────── */
+  function wireComposer() {
+    var form = document.getElementById("sendForm");
+    if (!form) return;
+    var box = document.getElementById("sendBox");
+    var menu = document.getElementById("mentions");
+
+    box.addEventListener("input", function () {
+      box.style.height = "auto";
+      box.style.height = Math.min(140, box.scrollHeight) + "px";
+      showMentions();
+    });
+    box.addEventListener("keydown", function (e) {
+      if (!menu.hidden && (e.key === "Enter" || e.key === "Tab")) {
+        var first = menu.querySelector("button");
+        if (first) { e.preventDefault(); pickMention(first.dataset.name); return; }
+      }
+      if (e.key === "Escape") { menu.hidden = true; return; }
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+    });
+
+    function showMentions() {
+      var upto = box.value.slice(0, box.selectionStart);
+      var m = /@([\w'\- ]{0,24})$/.exec(upto);
+      if (!m) { menu.hidden = true; return; }
+      var q = m[1].trim().toLowerCase();
+      var hits = dir.members.filter(function (x) {
+        return x.status === "active" && x.id !== me.id &&
+          (!q || x.name.toLowerCase().indexOf(q) >= 0);
+      }).slice(0, 8);
+      if (!hits.length) { menu.hidden = true; return; }
+      menu.innerHTML = hits.map(function (x) {
+        return '<button type="button" data-name="' + esc(x.name) + '">' + esc(x.name) +
+          (x.section ? ' <span class="ens-dim">· ' + esc(x.section) + "</span>" : "") + "</button>";
+      }).join("");
+      menu.hidden = false;
+    }
+
+    function pickMention(name) {
+      var pos = box.selectionStart;
+      var before = box.value.slice(0, pos).replace(/@([\w'\- ]{0,24})$/, "@" + name + " ");
+      box.value = before + box.value.slice(pos);
+      menu.hidden = true;
+      box.focus();
+      box.selectionStart = box.selectionEnd = before.length;
+    }
+
+    menu.addEventListener("click", function (e) {
+      var b = e.target.closest("button");
+      if (b) pickMention(b.dataset.name);
+    });
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var text = box.value.trim();
+      if (!text || !active) return;
+      box.disabled = true;
+      try {
+        var rows = await CadOrg.rest("messages", {
+          method: "POST", headers: { Prefer: "return=representation" },
+          body: { chat_id: active.id, member_id: me.id, body: text, reply_to: replyTo || null },
+        });
+        msgs = msgs.concat(rows || []);
+        box.value = ""; replyTo = null;
+        lastAt[active.id] = new Date().toISOString();
+        render();
+      } catch (err) {
+        box.disabled = false;
+        alert(explain(err));
+      }
+    });
+  }
+
+  function explain(err) {
+    var m = (err && err.message) || "";
+    if ((err && err.status === 403) || /row-level security/i.test(m)) {
+      return "The server refused that. Usually: you're not in this room, the workspace " +
+        "is read-only, or your organization's messaging policy doesn't allow it.";
+    }
+    return "That didn't work: " + (m || "unknown error");
+  }
+
+  /* ── actions (delegated) ──────────────────────────────────────────── */
+  main.addEventListener("click", async function (e) {
+    var row = e.target.closest && e.target.closest("[data-chat]");
+    if (row) { open(row.dataset.chat); return; }
+    var btn = e.target.closest && e.target.closest("[data-act]");
+    if (!btn) return;
+    var act = btn.dataset.act;
+    var msgEl = btn.closest("[data-msg]");
+    var m = msgEl && msgs.filter(function (x) { return x.id === msgEl.dataset.msg; })[0];
+
+    try {
+      if (act === "back") { view = "list"; render(); }
+      else if (act === "newchat") newChatSheet();
+      else if (act === "newdm") newDmSheet();
+      else if (act === "reports") reportSheet();
+      else if (act === "join") {
+        await CadOrg.rest("chat_members", { method: "POST",
+          body: { chat_id: active.id, member_id: me.id } });
+        await loadChats();
+        await open(active.id);
+      } else if (act === "mute") {
+        await CadOrg.rest("chat_members?chat_id=eq." + active.id + "&member_id=eq." + me.id,
+          { method: "PATCH", body: { muted: !active.muted } });
+        active.muted = !active.muted;
+        render();
+      } else if (act === "cancelreply") { replyTo = null; render(); }
+      else if (act === "jump") {
+        var t = main.querySelector('[data-msg="' + btn.dataset.to + '"]');
+        if (t) { t.scrollIntoView({ block: "center" }); t.classList.add("open"); }
+      } else if (act === "reply" && m) { replyTo = m.id; render(); }
+      else if (act === "react" && m) {
+        var emoji = btn.dataset.emoji;
+        var had = (m.reactions || []).some(function (r) {
+          return r.member_id === me.id && r.emoji === emoji; });
+        if (had) {
+          await CadOrg.rest("message_reactions?message_id=eq." + m.id + "&member_id=eq." + me.id +
+            "&emoji=eq." + encodeURIComponent(emoji), { method: "DELETE" });
+          m.reactions = (m.reactions || []).filter(function (r) {
+            return !(r.member_id === me.id && r.emoji === emoji); });
+        } else {
+          await CadOrg.rest("message_reactions", { method: "POST",
+            headers: { Prefer: "resolution=merge-duplicates" },
+            body: { message_id: m.id, member_id: me.id, emoji: emoji } });
+          m.reactions = (m.reactions || []).concat([{ member_id: me.id, emoji: emoji }]);
+        }
+        render(true);
+      } else if (act === "editmsg" && m) {
+        var next = prompt("Edit your message", m.body);
+        if (next == null || next.trim() === m.body) return;
+        await CadOrg.rest("messages?id=eq." + m.id, { method: "PATCH",
+          body: { body: next.trim(), edited_at: new Date().toISOString() } });
+        m.body = next.trim(); m.edited_at = new Date().toISOString();
+        render(true);
+      } else if (act === "delmsg" && m) {
+        if (!confirm("Delete this message? The room will see that a message was removed.")) return;
+        await CadOrg.rest("messages?id=eq." + m.id, { method: "PATCH",
+          body: { deleted_at: new Date().toISOString(), body: "" } });
+        m.deleted_at = new Date().toISOString(); m.body = "";
+        CadOrg.log("message.deleted", "message", m.id);
+        render(true);
+      } else if (act === "pinmsg" && m) {
+        await CadOrg.rest("messages?id=eq." + m.id, { method: "PATCH", body: { pinned: !m.pinned } });
+        m.pinned = !m.pinned;
+        render(true);
+      } else if (act === "report" && m) {
+        var reason = prompt("What's wrong with this message? Staff will review it.");
+        if (reason == null) return;
+        await CadOrg.rest("message_reports", { method: "POST",
+          body: { message_id: m.id, reporter_member_id: me.id, reason: reason.trim() || null } });
+        alert("Reported. Staff can see it in the report queue.");
+      }
+    } catch (err) { alert(explain(err)); }
+  });
+
+  /* ── sheets ───────────────────────────────────────────────────────── */
+  function sheet(inner) {
+    var wrap = document.createElement("div");
+    wrap.className = "ens-sheet";
+    wrap.innerHTML = '<div class="ens-sheet-in">' + inner +
+      '<button class="tab" type="button" data-close style="margin-top:12px">Close</button></div>';
+    document.body.appendChild(wrap);
+    wrap.addEventListener("click", function (e) {
+      if (e.target === wrap || (e.target.closest && e.target.closest("[data-close]"))) wrap.remove();
+    });
+    return wrap;
+  }
+
+  function newChatSheet() {
+    var people = dir.members.filter(function (m) { return m.status === "active" && m.id !== me.id; });
+    var w = sheet("<h3>New chat</h3>" +
+      '<div class="ens-field"><label for="nName">Name</label>' +
+        '<input class="ctrl" id="nName" maxlength="80" placeholder="Battery, Parents, Prop crew…"></div>' +
+      '<div class="ens-field"><label for="nKind">Type</label><select class="ctrl" id="nKind">' +
+        '<option value="group">Group room</option>' +
+        (CadOrg.can("staff.access") ? '<option value="staff">Staff only</option>' : "") +
+        '<option value="event">Event room</option></select></div>' +
+      '<div class="ens-field"><label for="nGroup">Tie it to a group (optional)</label>' +
+        '<select class="ctrl" id="nGroup"><option value="">— none —</option>' +
+        dir.groups.map(function (g) {
+          return '<option value="' + esc(g.id) + '">' + esc(g.name) + "</option>"; }).join("") +
+        "</select></div>" +
+      '<div class="ens-field"><label>Add people</label>' +
+        '<p class="setsub">Leave empty and everyone in the tied group is added.</p>' +
+        '<div class="ens-chips ens-people" id="nPeople">' + people.map(function (m) {
+          return '<button type="button" class="classchip" data-member="' + esc(m.id) + '">' +
+            esc(m.name) + "</button>"; }).join("") + "</div></div>" +
+      '<button class="tab on" type="button" id="nGo">Create chat</button>' +
+      '<p class="acct-msg" id="nMsg" role="status"></p>');
+
+    w.querySelector("#nPeople").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-member]");
+      if (b) b.classList.toggle("on");
+    });
+    w.querySelector("#nGo").addEventListener("click", async function () {
+      var msg = w.querySelector("#nMsg");
+      msg.className = "acct-msg"; msg.style.display = "block"; msg.textContent = "Creating…";
+      var groupId = w.querySelector("#nGroup").value || null;
+      var picked = Array.prototype.map.call(w.querySelectorAll("#nPeople [data-member].on"),
+        function (b) { return b.dataset.member; });
+      if (!picked.length && groupId) picked = (dir.groupMembers[groupId] || []).slice();
+      try {
+        var rows = await CadOrg.rest("chats", { method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: { org_id: org.id, kind: w.querySelector("#nKind").value,
+                  group_id: groupId, title: w.querySelector("#nName").value.trim() || null,
+                  created_by_member: me.id } });
+        var chat = rows[0];
+        var ids = picked.filter(function (id) { return id !== me.id; }).concat([me.id]);
+        await CadOrg.rest("chat_members", { method: "POST",
+          headers: { Prefer: "resolution=merge-duplicates" },
+          body: ids.map(function (id) { return { chat_id: chat.id, member_id: id }; }) });
+        CadOrg.log("chat.created", "chat", chat.id);
+        w.remove();
+        await loadChats(); await open(chat.id);
+      } catch (err) {
+        msg.className = "acct-msg err"; msg.textContent = explain(err);
+      }
+    });
+  }
+
+  function newDmSheet() {
+    var eligible = dir.members.filter(function (m) {
+      return m.status === "active" && m.id !== me.id && C.mayDm(org, myRow, m);
+    });
+    var blocked = dir.members.filter(function (m) {
+      return m.status === "active" && m.id !== me.id && !C.mayDm(org, myRow, m);
+    }).length;
+
+    var w = sheet("<h3>New direct message</h3>" +
+      (blocked
+        ? '<p class="setsub">' + blocked + " " + (blocked === 1 ? "person is" : "people are") +
+          " not listed: your organization's youth-safety settings don't allow those private " +
+          "conversations. A director can change that in the workspace settings.</p>"
+        : "") +
+      (eligible.length
+        ? '<input class="ctrl" id="dSearch" placeholder="Search people…" style="margin-bottom:10px">' +
+          '<div class="ens-chips ens-people" id="dPeople">' + eligible.map(function (m) {
+            return '<button type="button" class="classchip" data-member="' + esc(m.id) + '" ' +
+              'data-name="' + esc(m.name.toLowerCase()) + '">' + esc(m.name) +
+              (m.section ? ' <span class="ens-dim">· ' + esc(m.section) + "</span>" : "") +
+              "</button>"; }).join("") + "</div>"
+        : '<div class="empty">There\'s nobody you\'re allowed to message privately here.</div>') +
+      '<p class="acct-msg" id="dMsg" role="status"></p>');
+
+    var search = w.querySelector("#dSearch");
+    if (search) search.addEventListener("input", function () {
+      var q = search.value.trim().toLowerCase();
+      w.querySelectorAll("#dPeople [data-member]").forEach(function (b) {
+        b.hidden = !!q && b.dataset.name.indexOf(q) < 0;
+      });
+    });
+
+    var people = w.querySelector("#dPeople");
+    if (people) people.addEventListener("click", async function (e) {
+      var b = e.target.closest("[data-member]");
+      if (!b) return;
+      var other = b.dataset.member;
+      var msg = w.querySelector("#dMsg");
+      msg.className = "acct-msg"; msg.style.display = "block"; msg.textContent = "Opening…";
+
+      var existing = chats.filter(function (c) {
+        if (c.kind !== "dm") return false;
+        var ids = (c.members || []).map(function (x) { return x.member_id; });
+        return ids.length === 2 && ids.indexOf(me.id) >= 0 && ids.indexOf(other) >= 0;
+      })[0];
+      if (existing) { w.remove(); open(existing.id); return; }
+
+      try {
+        var rows = await CadOrg.rest("chats", { method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: { org_id: org.id, kind: "dm", created_by_member: me.id, is_moderated: false } });
+        var chat = rows[0];
+        await CadOrg.rest("chat_members", { method: "POST",
+          body: [{ chat_id: chat.id, member_id: me.id }] });
+        await CadOrg.rest("chat_members", { method: "POST",
+          body: [{ chat_id: chat.id, member_id: other }] });
+        w.remove();
+        await loadChats(); await open(chat.id);
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = /row-level security/i.test((err && err.message) || "") || err.status === 403
+          ? "Your organization's messaging policy doesn't allow that private conversation."
+          : explain(err);
+      }
+    });
+  }
+
+  async function reportSheet() {
+    var w = sheet("<h3>Report queue</h3><div id=\"rBody\"><p class=\"setsub\">Loading…</p></div>");
+    var body = w.querySelector("#rBody");
+    try {
+      var rows = await CadOrg.rest("message_reports?select=id,message_id,reporter_member_id,reason," +
+        "status,created_at,message:messages(id,chat_id,member_id,body,created_at,deleted_at)" +
+        "&status=eq.open&order=created_at.desc&limit=50");
+      var chatIds = chats.map(function (c) { return c.id; });
+      rows = rows.filter(function (r) { return r.message && chatIds.indexOf(r.message.chat_id) >= 0; });
+      body.innerHTML = rows.length
+        ? rows.map(function (r) {
+            return '<div class="reportrow" data-report="' + esc(r.id) + '">' +
+              "<b>" + esc(C.nameOf(r.reporter_member_id)) + "</b> reported " +
+              "<b>" + esc(C.nameOf(r.message.member_id)) + "</b> · " + esc(C.when(r.created_at)) +
+              '<div class="setsub">' + esc(r.reason || "no reason given") + "</div>" +
+              '<div class="msg-quote">' + esc(String(r.message.body || "").slice(0, 220) ||
+                "(message already deleted)") + "</div>" +
+              '<div class="ens-chips" style="margin-top:7px">' +
+                '<button class="tab" type="button" data-r="dismiss">Dismiss</button>' +
+                '<button class="tab" type="button" data-r="remove">Delete message</button>' +
+              "</div></div>";
+          }).join("")
+        : '<div class="empty">Nothing open. Reports land here the moment someone flags a message.</div>';
+    } catch (err) {
+      body.innerHTML = '<div class="empty">' + esc(explain(err)) + "</div>";
+    }
+
+    body.addEventListener("click", async function (e) {
+      var b = e.target.closest("[data-r]");
+      if (!b) return;
+      var rowEl = b.closest("[data-report]");
+      var rid = rowEl.dataset.report;
+      try {
+        if (b.dataset.r === "remove") {
+          var rep = await CadOrg.rest("message_reports?select=message_id&id=eq." + rid);
+          await CadOrg.rest("messages?id=eq." + rep[0].message_id, { method: "PATCH",
+            body: { deleted_at: new Date().toISOString(), body: "" } });
+          await CadOrg.rest("message_reports?id=eq." + rid, { method: "PATCH",
+            body: { status: "actioned", resolved_by_member: me.id,
+                    resolved_at: new Date().toISOString() } });
+          CadOrg.log("message.moderated", "message", rep[0].message_id);
+        } else {
+          await CadOrg.rest("message_reports?id=eq." + rid, { method: "PATCH",
+            body: { status: "dismissed", resolved_by_member: me.id,
+                    resolved_at: new Date().toISOString() } });
+        }
+        rowEl.remove();
+        if (active) { await loadMessages(active.id); render(true); }
+      } catch (err) { alert(explain(err)); }
+    });
+  }
+
+  /* ── realtime ─────────────────────────────────────────────────────── */
+  var pending = null;
+  function onMessage(row) {
+    if (!row || !row.chat_id) return;
+    lastAt[row.chat_id] = row.created_at || new Date().toISOString();
+    if (active && row.chat_id === active.id) {
+      clearTimeout(pending);
+      pending = setTimeout(function () {
+        loadMessages(active.id).then(function () { render(true); markRead(); }).catch(function () {});
+      }, 220);
+    } else {
+      unread[row.chat_id] = true;
+      render(true);
+    }
+  }
+
+  /* ── boot ─────────────────────────────────────────────────────────── */
+  CadOrg.start({ nav: "messages" }).then(async function (o) {
+    if (!o) return;
+    org = o;
+    me = CadOrg.member();
+    try {
+      dir = await C.loadDirectory(org.id);
+      myRow = dir.byId[me.id] || null;
+      await loadChats();
+    } catch (err) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load messages. ' +
+        "If this workspace is new, the communication migration " +
+        "(0006_ensemble_comms.sql) may not have been applied yet.<br><br>" +
+        esc((err && err.message) || "") + "</div></div>";
+      return;
+    }
+
+    var wide = window.matchMedia("(min-width: 860px)").matches;
+    var first = chats.filter(function (c) { return c.joined; })[0] || chats[0];
+    if (wide && first) { await open(first.id); }
+    else { view = "list"; render(); }
+
+    live = C.realtime(org.id, {
+      onMessage: onMessage,
+      onMessageReaction: function () {
+        if (active) loadMessages(active.id).then(function () { render(true); }).catch(function () {});
+      },
+      onChat: function () { loadChats().then(function () { render(true); }).catch(function () {}); },
+      onStatus: setLive,
+    });
+    window.addEventListener("beforeunload", function () { live && live.close(); });
+  });
+})();
+</script>
+</body>
+</html>
