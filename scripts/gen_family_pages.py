@@ -62,7 +62,8 @@ PAGES = {
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "boa": {
-        "status": 'Real results from official Bands of America recaps.',
+        "captions": True,
+        "status": 'Real results from official BOA recaps — every season back to 1976, caption by caption.',
         "root": "..",
         "title": "Cadence BOA — Bands of America Scores & Results",
         "brand_tag": "BOA",
