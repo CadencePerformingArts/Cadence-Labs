@@ -3018,71 +3018,6 @@
   "_seen": "2026-08-08"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-mckinney/",
-  "name": "DCI McKinney",
-  "location": "McKinney, TX",
-  "date_display": "July 20, 2026",
-  "date": "2026-07-20",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Blue Stars",
-   "Carolina Crown",
-   "Crossmen",
-   "Phantom Regiment",
-   "Spirit of Atlanta",
-   "Troopers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Guardians"
-   ],
-   [
-    "8:22 PM",
-    "Zephyrus"
-   ],
-   [
-    "10:46 PM",
-    "Scores Announced"
-   ],
-   [
-    "TBD",
-    "Blue Stars"
-   ],
-   [
-    "TBD",
-    "Carolina Crown"
-   ],
-   [
-    "TBD",
-    "Crossmen"
-   ],
-   [
-    "TBD",
-    "Phantom Regiment"
-   ],
-   [
-    "TBD",
-    "Spirit of Atlanta"
-   ],
-   [
-    "TBD",
-    "Troopers"
-   ]
-  ],
-  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
-  "_seen": "2026-08-08"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -3272,64 +3207,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-08-08"
- },
- {
-  "url": "https://www.dci.org/events/2026-march-on/",
-  "name": "March On!",
-  "location": "Champlin, MN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "RCR Street Club",
-   "MBI",
-   "Govenaires",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "RCR Street Club"
-   ],
-   [
-    "7:22 PM",
-    "MBI"
-   ],
-   [
-    "7:39 PM",
-    "Govenaires"
-   ],
-   [
-    "7:56 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:13 PM",
-    "Columbians"
-   ],
-   [
-    "8:30 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:47 PM",
-    "Encore - River City Rhythm - Anoka, MN"
-   ],
-   [
-    "8:55 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-08"
  },
  {
@@ -4797,6 +4674,90 @@
   "_seen": "2026-08-08"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Spartans",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Crossmen",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spartans"
+   ],
+   [
+    "7:27 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:01 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:35 PM",
+    "Crossmen"
+   ],
+   [
+    "8:52 PM",
+    "Intermission"
+   ],
+   [
+    "9:09 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:26 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:00 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:17 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-08-08"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
   "name": "DCI Pittsburgh",
   "location": "Pittsburgh, PA",
@@ -4859,6 +4820,84 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-08-08"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-big-sounds-in-motion/",
+  "name": "Big Sounds in Motion",
+  "location": "Downingtown, PA",
+  "date_display": "August 2, 2026",
+  "date": "2026-08-02",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Sonus Brass Theater",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers",
+   "Pacific Crest",
+   "Colts",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome"
+   ],
+   [
+    "5:55 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:07 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "6:24 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:36 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "6:53 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:10 PM",
+    "Intermission"
+   ],
+   [
+    "7:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:44 PM",
+    "Colts"
+   ],
+   [
+    "8:01 PM",
+    "Carolina Crown"
+   ],
+   [
+    "8:18 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:35 PM",
+    "Encore - Reading Buccaneers - Reading, PA"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All bags may be subject to search upon entering the stadium.",
   "_seen": "2026-08-08"
  },
  {
