@@ -75,7 +75,7 @@ PDF_CACHE = ROOT / "data" / "raw" / "boa_pdf"
 PARSED_CACHE = ROOT / "data" / "parsed" / "boa_recaps"
 CAPTIONS_DIR = DOCS_BOA / "captions"
 BACKFILL_REPORT = ROOT / "data" / "boa_backfill_report.json"
-PARSE_VERSION = 2   # bump to invalidate the parsed-recap memo cache
+PARSE_VERSION = 3   # bump to invalidate the parsed-recap memo cache
 MAX_INDEX_PAGES = 40  # the archive is 22 pages today; headroom for growth
 
 # docs/boa/data/captions/ column order — same structural schema as the DCI
@@ -93,8 +93,9 @@ CAPTION_COLS = ["date", "event", "class", "corps",
 CLASS_MAP = {
     "1A": "Class A", "2A": "Class AA", "3A": "Class AAA", "4A": "Class AAAA",
     "A": "Class A", "AA": "Class AA", "AAA": "Class AAA", "AAAA": "Class AAAA",
+    "Open": "Open Class",  # the 1978-1980 MBA-era top division
 }
-CLASS_ORDER = ["Class AAAA", "Class AAA", "Class AA", "Class A"]
+CLASS_ORDER = ["Open Class", "Class AAAA", "Class AAA", "Class AA", "Class A"]
 ROUNDS = ["Prelims", "Semifinals", "Finals"]  # chronological order
 
 
@@ -217,9 +218,12 @@ DATE_RE = re.compile(r"(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,\s+([A-Z][a-z]
 # "[ \t]" (not \s) so the standalone "Bands of America" / "Print Back to Top"
 # header lines can never satisfy this across a newline.
 EVENT_NAME_RE = re.compile(r"^Bands of America[ \t]+(\S.{3,}?)(?:,\s*presented by.*)?\s*$", re.M)
-# Older recap layout: "2025 Arizona Regional Championship at Flagstaff, AZ"
-ALT_NAME_RE = re.compile(r"^(20\d{2})\s+(.{4,}?)(?:\s+at\s+.+)?\s*$")
-ALT_DATE_RE = re.compile(r"^(.*\S)\s+-\s+([A-Z][a-z]+\s+\d{1,2})\s*$")
+# Older recap layout: "2025 Arizona Regional Championship at Flagstaff, AZ";
+# the historic uploads reach back to "1982 Regional Championship at Cullowhee, NC"
+ALT_NAME_RE = re.compile(r"^((?:19|20)\d{2})\s+(.{4,}?)(?:\s+at\s+(.+?))?\s*$")
+# "<venue> - <date>" where <date> is "September 24" / "October 9, 1982" /
+# "10/26/1985" / "9/27" — parsed by _parse_datepart below
+ALT_DATE_RE = re.compile(r"^(.*\S)\s+-\s+(.+?)\s*$")
 # the round is its own line in the modern layout ("Finals"); the 2015–2022
 # generation appends "Recap" ("Semi-Finals Recap")
 ROUND_RE = re.compile(r"^\s*(Prelims|Preliminaries|Semi-?\s?Finals?|Semifinals|Finals)(?:\s+Recap)?\s*$", re.M | re.I)
@@ -232,10 +236,94 @@ ROW_RE = re.compile(
     r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){4,})\s+"
     r"(?:(?P<rating>I{1,3})\s+)?"
     r"(?:(?P<crank>\d{1,3})\s+(?P<cls>[1-4]A|A{1,4})\s+)?"
+    r"(?:(?P<prank>\d{1,3})\s+)?"  # 2018-21 prelims add a "Place in Panel"
     r"(?P<orank>\d{1,3})\s*$")
+# 1981–1996 generation: pen printed as a bare integer ("0", "1") which breaks
+# ROW_RE's float run, the name/state often has no separator ("Norwell H.S. IN"),
+# and the tail is reversed — Overall [Class PlaceInClass [Rating]], the rating
+# numeric (1..3) in 1995 and roman (I..III) in 1996.
+ROW_RE2 = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
+    r"(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+\.\d{1,3})\s+"
+    r"(?P<orank>\d{1,3})"
+    r"(?:\s+(?P<cls>[1-4]A|A{1,4})\s+(?P<crank>\d{1,3})(?:\s+(?P<nrating>[1-3]|I{1,3}))?)?\s*$")
+# 2008–2011 generation: integer pen but the MODERN tail order
+# (Rating PlaceInClass Class Overall) — the mandatory roman rating right after
+# the total is what disambiguates it from ROW_RE2's reversed tail.
+ROW_RE3 = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
+    r"(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+\.\d{1,3})\s+"
+    r"(?P<rating>I{1,3})\s+"
+    r"(?:(?P<crank>\d{1,3})\s+(?P<cls>[1-4]A|A{1,4})\s+)?"
+    r"(?P<orank>\d{1,3})\s*$")
+# 1986 Grand Nationals finals: integer pen, then just Class Overall
+ROW_RE4 = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
+    r"(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+\.\d{1,3})\s+"
+    r"(?P<cls>[1-4]A|A{1,4})\s+"
+    r"(?P<orank>\d{1,3})\s*$")
+# 1978–1980 MBA-era: all floats, tail is "<rank> <class>" where the rank is
+# Place-in-Class on some sheets and Overall on others — the header text
+# ("in Class Class" vs "Overall Class") disambiguates per sheet.
+ROW_RE5 = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
+    r"(?P<n1>\d{1,3})\s+"
+    r"(?P<cls>[1-4]A|A{1,4}|Open)\s*$")
 BLOCK_RE = re.compile(r"\s+Block\s+\S+\s+-\s+Panel\s+\d+$", re.I)
 ORDER_RE = re.compile(r"^\d{1,3}\s+(?=\S)")
 NAME_ST_RE = re.compile(r"^(.*\S)\s*(?:\s+-\s+|,\s+)([A-Z]{2})$")
+# 80s/90s sheets put the state in its own column with no separator
+NAME_ST2_RE = re.compile(r"^(.*\S)\s+([A-Z]{2})$")
+
+
+_MONTHS = {m.lower()[:3]: i + 1 for i, m in enumerate(
+    ["January", "February", "March", "April", "May", "June", "July",
+     "August", "September", "October", "November", "December"])}
+
+
+def _month_num(tok: str) -> int | None:
+    return _MONTHS.get(tok.rstrip(".").lower()[:3])
+
+
+def _parse_datepart(s: str, year_hint: int | None) -> str | None:
+    """Date part of a recap header -> ISO date. Handles every variant the
+    archive prints: 'September 24', 'Oct. 10', 'October 29th',
+    'October 9, 1982', 'November 7-8, 1981', 'October 31-November 1',
+    '10/26/1985', '9/27', '11/14/15', '10/30-31', '10/31-11/1', '10-31-11/1'.
+    Spans resolve to their last day. year_hint fills in a missing year."""
+    s = norm_space(s)
+    s = re.sub(r"^(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+", "", s)
+    s = re.sub(r"(\d)(st|nd|rd|th)\b", r"\1", s, flags=re.I)  # October 29th
+    m = re.match(r"^([A-Za-z.]+)\s+(\d{1,2})"
+                 r"(?:\s*-\s*(?:([A-Za-z.]+)\s+)?(\d{1,2}))?"
+                 r"(?:,\s*(\d{4}))?$", s)
+    if m:
+        mo = _month_num(m.group(3)) if m.group(3) else _month_num(m.group(1))
+        dy = int(m.group(4) or m.group(2))
+        yr = int(m.group(5)) if m.group(5) else year_hint
+        if mo and yr and 1 <= dy <= 31:
+            return f"{yr:04d}-{mo:02d}-{dy:02d}"
+        return None
+    m = re.match(r"^(\d{1,2})[/-](\d{1,2})"
+                 r"(?:\s*-\s*(?:(\d{1,2})/)?(\d{1,2}))?"
+                 r"(?:/(\d{2,4}))?$", s)
+    if m:
+        mo, dy = int(m.group(1)), int(m.group(2))
+        if m.group(4):
+            mo, dy = (int(m.group(3)) if m.group(3) else mo), int(m.group(4))
+        yr = int(m.group(5)) if m.group(5) else year_hint
+        if yr is not None and yr < 100:
+            yr += 1900 if yr > 50 else 2000
+        if yr and 1 <= mo <= 12 and 1 <= dy <= 31:
+            return f"{yr:04d}-{mo:02d}-{dy:02d}"
+    return None
 
 
 def norm_round(label: str) -> str:
@@ -264,6 +352,21 @@ def parse_recap(pdf_path: Path) -> dict | None:
     text = text.replace("\xad", "")
     text = re.sub(r"[‐‑‒–—−]", "-", text)
     text = re.sub(r"-{2,}", "-", text)
+    # the 2022 Grand Nationals font emits NUL for its ti/tt ligatures
+    # ("Grand Na\x00onal", "Dobyns-Benne\x00") — repair the known words, then
+    # drop any stragglers so they can't corrupt names.
+    if "\x00" in text:
+        text = (text.replace("Na\x00onal", "National")
+                    .replace("Benne\x00", "Bennett")
+                    .replace("\x00", ""))
+    # a few CompetitionSuite exports ship no ToUnicode map, so pdfplumber
+    # emits raw glyph ids: "(cid:38)(cid:82)..." — those fonts are plain
+    # ASCII shifted by 29 ((cid:38)='C', (cid:82)='o'), so decode in place.
+    if text.count("(cid:") > 50:
+        text = re.sub(r"\(cid:(\d+)\)",
+                      lambda m: chr(int(m.group(1)) + 29)
+                      if 32 <= int(m.group(1)) + 29 < 127 else " ",
+                      text)
     if len(text) < 200:
         log(f"no text layer in {pdf_path.name} — skipping")
         return None
@@ -281,29 +384,31 @@ def parse_recap(pdf_path: Path) -> dict | None:
                 venue = norm_space(lines[i - 1]) or None
                 break
     if not name or not date:
-        # older layout: "<year> <event name> at <city>" then "<venue> - <Month Day>"
-        year_hint = None
-        for ln in lines[:6]:
-            am = ALT_NAME_RE.match(norm_space(ln))
+        # older layout: "<year> <event name> at <city>" then "<venue> - <date>"
+        year_hint, city = None, None
+        for ln in lines[:8]:
+            s = norm_space(ln)
+            am = ALT_NAME_RE.match(s)
             if am and not name:
                 year_hint, name = int(am.group(1)), norm_space(am.group(2))
-            adm = ALT_DATE_RE.match(norm_space(ln))
-            if adm and not date and year_hint:
-                try:
-                    date = datetime.strptime(f"{adm.group(2)}, {year_hint}", "%B %d, %Y").strftime("%Y-%m-%d")
-                    venue = venue or norm_space(adm.group(1))
-                except ValueError:
-                    pass
-        if name and not date:
-            # 2015 Grand Nationals header: venue line, then a bare "11/14/15"
-            for ln in lines[:8]:
-                nd = NUM_DATE_RE.match(norm_space(ln))
-                if nd:
-                    mo, dy, yr = (int(g) for g in nd.groups())
-                    yr += 2000 if yr < 100 else 0
-                    if yr == (year_hint or yr):
-                        date = f"{yr:04d}-{mo:02d}-{dy:02d}"
-                        break
+                city = norm_space(am.group(3) or "").split(",")[0] or None
+                continue
+            adm = ALT_DATE_RE.match(s)
+            if adm and not date:
+                d = _parse_datepart(adm.group(2), year_hint)
+                if d:
+                    date, venue = d, venue or norm_space(adm.group(1))
+                    continue
+            nd = NUM_DATE_RE.match(s)
+            if nd and not date and name:
+                # 2015 Grand Nationals header: venue line, then bare "11/14/15"
+                d = _parse_datepart(s, year_hint)
+                if d:
+                    date = d
+        if name and city and re.fullmatch(r"(Super )?Regional Championships?", name, re.I):
+            # historic sheets title every event just "Regional Championship" —
+            # qualify with the host city so editions don't collide
+            name = f"{city} {name}"
     if name and re.search(r"grand nationals?", name, re.I):
         # the 2021 header doubles the phrase ("Grand National Championships
         # Grand National Championship at ...") — one canonical name, matching
@@ -315,18 +420,50 @@ def parse_recap(pdf_path: Path) -> dict | None:
     rows, dropped = [], 0
     cap_fails: list[str] = []
     seen = set()
+    # 1978-80 sheets end rows with "<rank> <class>": the header names that
+    # rank column either "in Class Class" or "Overall Class"
+    tail5_is_crank = bool(re.search(r"in Class\s+Class\s*$", text, re.M))
     for ln in lines:
-        m = ROW_RE.match(ln.strip())
-        if not m:
-            continue
-        nums = [float(x) for x in m.group("nums").split()]
+        s = ln.strip()
+        m = ROW_RE.match(s)
+        if m:
+            nums = [float(x) for x in m.group("nums").split()]
+            pre_raw, rating = m.group("pre"), m.group("rating")
+            cls_raw, crank, orank = m.group("cls"), m.group("crank"), m.group("orank")
+        else:
+            m2 = (ROW_RE3.match(s) or ROW_RE2.match(s) or ROW_RE4.match(s)
+                  or ROW_RE5.match(s))
+            if not m2:
+                continue
+            gd = m2.groupdict()
+            nums = [float(x) for x in m2.group("nums").split()]
+            if "pen" in gd:
+                nums += [float(gd["pen"]), float(gd["tot"])]
+            pre_raw = m2.group("pre")
+            cls_raw, crank, orank = gd.get("cls"), gd.get("crank"), gd.get("orank")
+            if "n1" in gd:  # ROW_RE5: rank meaning depends on the header
+                if tail5_is_crank:
+                    crank = gd["n1"]
+                else:
+                    orank = gd["n1"]
+            nr = gd.get("nrating") or ""
+            rating = gd.get("rating") or (nr if nr.startswith("I") else None) \
+                or {"1": "I", "2": "II", "3": "III"}.get(nr)
         sub, pen, tot = nums[-3], nums[-2], nums[-1]
         if pen > 0 and abs(sub - pen - tot) <= 0.011:
             pen = -pen  # older recaps print the deduction as a positive number
+        if (abs(sub + pen - tot) > 0.011 and len(nums) == 13
+                and abs(nums[2] + nums[5] + nums[10] - nums[-2]) <= 0.02
+                and -6.0 <= round(nums[-1] - nums[-2], 3) <= 0.011):
+            # some 2022 sheets leave the Pen column blank — the tail is then
+            # "Subtotal Total" and the caption columns vouch for the subtotal.
+            sub, tot = nums[-2], nums[-1]
+            pen = round(tot - sub, 3)
+            nums = nums[:11] + [sub, pen, tot]
         if abs(sub + pen - tot) > 0.011 or not (40.0 <= tot <= 100.0):
             dropped += 1
             continue
-        pre = BLOCK_RE.sub("", norm_space(m.group("pre")))
+        pre = BLOCK_RE.sub("", norm_space(pre_raw))
         pre = ORDER_RE.sub("", pre)  # older layout prefixes a performance order number
         if re.search(r"[A-Za-z]\d|\d[A-Za-z]", pre):
             # a very long school name overlaps the first score columns on some
@@ -337,13 +474,20 @@ def parse_recap(pdf_path: Path) -> dict | None:
             # that the two clobbered leading captions are lost for this row.
             pre = norm_space(re.sub(r"[0-9.]+", "", pre)).replace(" ,", ",")
         nm = NAME_ST_RE.match(pre)
+        if not nm:
+            # 80s/90s sheets: state column with no separator ("Norwell H.S. IN")
+            nm2 = NAME_ST2_RE.match(pre)
+            if nm2 and nm2.group(2) not in ("II", "III"):
+                nm = nm2
         band, st = (nm.group(1), nm.group(2)) if nm else (pre, "")
         if not band or (band, st) in seen:
             continue
         seen.add((band, st))
         captions = caps = None
+        n = nums
         if len(nums) == 14:
-            # every generation 2015–today prints the same 14 columns:
+            # every generation 1982–today prints the same 14 columns (the 80s
+            # call Visual "M&M Execution", same arithmetic):
             # MusInd MusEns MusAvg | VisInd VisEns VisAvg |
             # GEMus1 GEMus2 GEMusTot GEVis GETot | Subtotal Pen Total
             mi, me, mu, vi, ve, vs, g1, g2, gm, gv, ge = nums[:11]
@@ -357,13 +501,37 @@ def parse_recap(pdf_path: Path) -> dict | None:
                 caps = [mi, me, mu, vi, ve, vs, g1, g2, gm, gv, ge]
             else:
                 cap_fails.append(f"{band}{' (' + st + ')' if st else ''}")
+        elif (len(nums) == 13
+                and abs((n[0] + n[1]) / 2 - n[2]) <= 0.02 and abs(n[3] - n[4]) <= 0.02
+                and abs(n[5] + n[6] - n[7]) <= 0.02 and abs(n[7] + n[8] - n[9]) <= 0.02
+                and abs(n[2] + n[4] + n[9] - sub) <= 0.02):
+            # small-panel sheet (some 2025 regionals): one Visual judge only
+            caps = [n[0], n[1], n[2], None, n[3], n[4], n[5], n[6], n[7], n[8], n[9]]
+            captions = {"mu": n[2], "vi": n[4], "ge": n[9]}
+        elif (len(nums) == 12
+                and abs(n[0] - n[1]) <= 0.001 and abs(n[2] - n[3]) <= 0.001
+                and abs(n[4] + n[5] - n[6]) <= 0.02 and abs(n[6] + n[7] - n[8]) <= 0.02
+                and abs(n[1] + n[3] + n[8] - sub) <= 0.02):
+            # smallest panel (2025 Toledo): one Music AND one Visual judge —
+            # each caption prints judge score then an equal Tot
+            caps = [None, n[0], n[1], None, n[2], n[3], n[4], n[5], n[6], n[7], n[8]]
+            captions = {"mu": n[1], "vi": n[3], "ge": n[8]}
+        elif (len(nums) == 12
+                and abs((n[1] + n[2]) / 2 - n[3]) <= 0.02
+                and abs(n[4] + n[5] - n[6]) <= 0.02 and abs(n[6] + n[7] - n[8]) <= 0.02
+                and abs(n[0] + n[3] + n[8] - sub) <= 0.02):
+            # sheet that prints only the Music average (2017 Dallas misprint)
+            caps = [None, None, n[0], n[1], n[2], n[3], n[4], n[5], n[6], n[7], n[8]]
+            captions = {"mu": n[0], "vi": n[3], "ge": n[8]}
+        elif len(nums) in (12, 13):
+            cap_fails.append(f"{band}{' (' + st + ')' if st else ''}")
         rows.append({
             "band": band, "st": st,
-            "cls": CLASS_MAP.get(m.group("cls") or ""),
+            "cls": CLASS_MAP.get(cls_raw or ""),
             "score": round(tot, 3), "sub": round(sub, 3), "pen": round(pen, 3),
-            "rating": m.group("rating"),
-            "crank": int(m.group("crank")) if m.group("crank") else None,
-            "orank": int(m.group("orank")),
+            "rating": rating,
+            "crank": int(crank) if crank else None,
+            "orank": int(orank) if orank else None,
             "captions": captions,
             "caps": caps,
         })
@@ -879,7 +1047,7 @@ def build_captions(collected: list) -> dict:
                 seen.add(k)
                 rows_by_year.setdefault(y, []).append(
                     [rc["date"], disp_ev, cls, corps,
-                     *[round(v, 3) for v in caps],
+                     *[None if v is None else round(v, 3) for v in caps],
                      round(abs(row["pen"]), 3), round(row["score"], 3)])
             if not got_caps:
                 no_caps_sheets[y] = no_caps_sheets.get(y, 0) + 1
