@@ -34,54 +34,13 @@ FAM_BOOTSTRAP = """  // --- Cadence family config (absent on the DCI app, set by
 """
 
 SETTINGS_INJECT = """
-    if (FAM) (async () => {
-      app.querySelectorAll(".setcard").forEach(c => {
-        const t = ((c.querySelector("h2") || {}).textContent) || "";
-        if (/Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
-      });
-      let clsList = [];
-      try { clsList = sortClasses(Object.keys((await data("rankings.json")).standings || {})); } catch (e) {}
-      if (!clsList.length) return;
-      const pref = (k, dflt) => { try { const v = localStorage.getItem(NS(k)); return v == null ? dflt : v; } catch (e) { return dflt; } };
-      const setPref = (k, v) => { try { localStorage.setItem(NS(k), v); } catch (e) {} };
-      let on = null;
-      try { on = JSON.parse(pref("cad-notify-classes", "null")); } catch (e) {}
-      const onSet = new Set(Array.isArray(on) ? on.filter(c => clsList.includes(c)) : clsList);
-      const alertsOn = pref("cad-notify-on", "on") === "on";
-      const favsOnly = pref("cad-notify-scope", "all") === "favs";
-      const card = document.createElement("div");
-      card.className = "card setcard";
-      card.innerHTML = `<h2>Notifications</h2>
-        <p class="setnote">Set up exactly what you want a ping for — alerts go live automatically the moment ${esc(FAM.appName)} has a live data feed.</p>
-        <div class="setrow">
-          <div><b>Score alerts</b><div class="setsub">A ping when new scores land</div></div>
-          <button class="toggle${alertsOn ? " on" : ""}" id="famNotifyOn" aria-pressed="${alertsOn}" aria-label="Score alerts"></button>
-        </div>
-        <div class="setrow">
-          <div><b>Only my favorites</b><div class="setsub">Alert just for your ★ ${esc(TERM.plural)}</div></div>
-          <button class="toggle${favsOnly ? " on" : ""}" id="famNotifyFavs" aria-pressed="${favsOnly}" aria-label="Favorites only"></button>
-        </div>
-        <div class="setrow setrow-classes">
-          <div><b>Which classes</b><div class="setsub">Only alert me for the classes I follow</div></div>
-        </div>
-        <div class="classchips">${clsList.map(c => `<button class="classchip${onSet.has(c) ? " on" : ""}" data-ncls="${esc(c)}" aria-pressed="${onSet.has(c)}">${esc(c)}</button>`).join("")}</div>`;
-      const foot = app.querySelector(".setfoot");
-      if (foot) app.insertBefore(card, foot); else app.appendChild(card);
-      const wireToggle = (id, apply) => card.querySelector(id).addEventListener("click", e => {
-        const now = !e.currentTarget.classList.contains("on");
-        e.currentTarget.classList.toggle("on", now);
-        e.currentTarget.setAttribute("aria-pressed", String(now));
-        apply(now);
-      });
-      wireToggle("#famNotifyOn", now => setPref("cad-notify-on", now ? "on" : "off"));
-      wireToggle("#famNotifyFavs", now => setPref("cad-notify-scope", now ? "favs" : "all"));
-      card.querySelectorAll("[data-ncls]").forEach(b => b.addEventListener("click", () => {
-        const c = b.dataset.ncls;
-        if (onSet.has(c)) onSet.delete(c); else onSet.add(c);
-        b.classList.toggle("on", onSet.has(c));
-        setPref("cad-notify-classes", JSON.stringify([...onSet]));
-      }));
-    })();
+    // family pages: drop the DCI-only cards (real push + install live on the
+    // DCI page; the shared "Alerts across Cadence" card covers this app's
+    // alert preferences on every page)
+    if (FAM) app.querySelectorAll(".setcard").forEach(c => {
+      const t = ((c.querySelector("h2") || {}).textContent) || "";
+      if (/Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
+    });
 """
 
 

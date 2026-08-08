@@ -1,0 +1,66 @@
+# USBands live data ingest from the inline score tables on usbands.org
+# (modeled on boa-ingest.yml). "discover" runs the CompetitionSuite-bridge
+# probe and writes data/usbands_probe.json as an artifact; "ingest" parses the
+# season's server-rendered 'tab-scores' panes and only commits data that
+# passes validation (>=10 events, >=200 rows, scores 40..100, sequential
+# ranks); a failed run never erases anything, and the demo generator skips
+# docs/usbands once a LIVE marker exists.
+name: USBands ingest
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "discover (probe only) or ingest (write data)"
+        type: choice
+        options: [discover, ingest]
+        default: ingest
+      year:
+        description: "Season year (blank = current year)"
+        default: ""
+  schedule:
+    # Weekly during the USBands autumn season (Sep–Nov), Mondays 06:31 UTC
+    - cron: "31 6 * 9-11 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: usbands-ingest
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scraper/requirements.txt
+      - name: Run USBands scraper
+        env:
+          MODE: ${{ github.event.inputs.mode || 'ingest' }}
+          YEAR: ${{ github.event.inputs.year }}
+          PYTHONPATH: scraper
+        run: |
+          [ -n "$YEAR" ] || YEAR=$(date -u +%Y)
+          python scraper/scrape_usbands.py --$MODE --year "$YEAR" || echo "::warning::usbands $MODE did not complete cleanly — see probe artifact"
+      - name: Upload probe report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: usbands-probe
+          path: data/usbands_probe.json
+          if-no-files-found: ignore
+      - name: Commit ingested data
+        run: |
+          git config user.name "cadence-labs-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/usbands/data
+          if git diff --cached --quiet; then echo "no data changes"; exit 0; fi
+          git commit -m "USBands data ingest: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          for i in 1 2 3 4; do git push && break; git pull --rebase && sleep $((i*2)); done

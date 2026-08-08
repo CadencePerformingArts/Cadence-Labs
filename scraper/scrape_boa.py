@@ -8,7 +8,7 @@ Source design (verified):
                                                       recap PDFs (Prelims /
                                                       Semi-Finals / Finals)
 
-Two modes, modeled on scrape_wgi.py:
+Modes, modeled on scrape_wgi.py:
 
   --discover           crawl the results index, list every event and the recap
                        PDFs it links; writes data/boa_probe2.json and never
@@ -23,6 +23,26 @@ Two modes, modeled on scrape_wgi.py:
                        season is kept in a store file and every run rebuilds
                        seasons/<year>.json, corps series, records etc. across
                        all ingested years.
+  --ingest-all         walk the ENTIRE results archive (every index page, every
+                       event page, every recap PDF — the archive reaches back
+                       to 2015) and ingest every year that passes the same
+                       validation gates. Years already in the store are left
+                       untouched (pass --refresh-year Y to reparse one), so a
+                       backfill can never disturb verified seasons. The year of
+                       an event comes from the date printed inside its recap
+                       PDF — slugs are unreliable ("utah22", "northtexas").
+                       Fully resumable: HTML pages are gzip-cached by
+                       common.fetch, PDFs land in data/raw/boa_pdf/, and each
+                       parsed recap is memoised in data/parsed/boa_recaps/.
+                       Writes a per-year audit to data/boa_backfill_report.json.
+  --captions           build docs/boa/data/captions/ (index.json + <year>.json)
+                       from the per-judge caption columns of every parseable
+                       recap PDF, in exactly the schema the DCI app's Captions
+                       tab consumes (docs/data/captions/). Caption sums are
+                       reconciled against the printed subtotal; rows that fail
+                       are excluded and reported per event, never fatal.
+  --assemble           rebuild docs/boa/data/ from the existing store without
+                       touching the network.
 
 Honesty & care: HTML goes through the shared rate-limited fetch() cache; PDFs
 are fetched by a binary twin of the same polite pattern (shared rate limiter,

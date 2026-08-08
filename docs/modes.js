@@ -25,7 +25,7 @@
     { id: "wgi-winds", icon: "🎷", name: "WGI Winds", sub: "Real records · 2027 schedule", href: base + "/wgi/winds/", indent: true },
     { head: "More circuits" },
     { id: "boa", icon: "🎺", name: "Bands of America", sub: "Live · 2024–25 real seasons", href: base + "/boa/" },
-    { id: "usb", icon: "🎼", name: "US Bands", sub: "Real data loading", href: base + "/usbands/" },
+    { id: "usb", icon: "🎼", name: "US Bands", sub: "Live \u00b7 2024\u201325 real seasons", href: base + "/usbands/" },
   ];
 
   var css = [
