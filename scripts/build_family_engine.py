@@ -99,16 +99,16 @@ def main() -> None:
     js = sub_once(
         js,
         'const DATA_SUBS = [["captions", "Captions"], ["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]];',
-        'const DATA_SUBS = (FAM ? [] : [["captions", "Captions"]]).concat([["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);',
+        'const DATA_SUBS = (FAM && !FAM.captions ? [] : [["captions", "Captions"]]).concat([["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);',
         "data subs")
     js = sub_once(js, '[/^#\\/data$/, () => { location.replace("#/captions"); }],',
-                  '[/^#\\/data$/, () => { location.replace(FAM ? "#/compare" : "#/captions"); }],',
+                  '[/^#\\/data$/, () => { location.replace(FAM && !FAM.captions ? "#/compare" : "#/captions"); }],',
                   "data route")
 
     js = sub_once(
         js,
         "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => viewCaptions(m[1], st)],",
-        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => { if (FAM) { location.replace(\"#/compare\"); return; } return viewCaptions(m[1], st); }],",
+        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => { if (FAM && !FAM.captions) { location.replace(\"#/compare\"); return; } return viewCaptions(m[1], st); }],",
         "captions family redirect")
 
     # ---- terminology: user-visible strings ----
@@ -226,7 +226,7 @@ def main() -> None:
     js = sub_once(
         js,
         'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: "#/captions" };',
-        'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM ? "#/compare" : "#/captions", champions: "#/champions" };',
+        'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM && !FAM.captions ? "#/compare" : "#/captions", champions: "#/champions" };',
         "nav defaults")
     js = sub_once(
         js,

@@ -18,14 +18,15 @@
   var cur = here();
 
   var ITEMS = [
-    { id: "dci", icon: "🥁", name: "DCI", sub: "Drum corps — live scores & history", href: base + "/" },
+    { head: "Drum corps" },
+    { id: "dci", icon: "🥁", name: "DCI", sub: "Live scores & history back to 1972", href: base + "/", indent: true },
     { head: "WGI · Sport of the Arts" },
     { id: "wgi-guard", icon: "🚩", name: "WGI Color Guard", sub: "Real records · 2027 schedule", href: base + "/wgi/guard/", indent: true },
     { id: "wgi-perc", icon: "🥁", name: "WGI Percussion", sub: "Real records · 2027 schedule", href: base + "/wgi/percussion/", indent: true },
     { id: "wgi-winds", icon: "🎷", name: "WGI Winds", sub: "Real records · 2027 schedule", href: base + "/wgi/winds/", indent: true },
-    { head: "More circuits" },
-    { id: "boa", icon: "🎺", name: "Bands of America", sub: "Live · 2024–25 real seasons", href: base + "/boa/" },
-    { id: "usb", icon: "🎼", name: "US Bands", sub: "Live \u00b7 2024\u201325 real seasons", href: base + "/usbands/" },
+    { head: "Marching band" },
+    { id: "boa", icon: "🎺", name: "Bands of America", sub: "Live · 2024–25 real seasons", href: base + "/boa/", indent: true },
+    { id: "usb", icon: "🎼", name: "US Bands", sub: "Live · 2024–25 real seasons", href: base + "/usbands/", indent: true },
   ];
 
   var css = [

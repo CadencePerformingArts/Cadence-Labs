@@ -690,7 +690,7 @@
   const CAP_KEY_NOTE = "<p class='capkey'>GE General Effect · VP Visual Proficiency · VA Visual Analysis · CG Color Guard · BR Brass · MA Music Analysis · PC Percussion</p>";
 
   // pill sub-tabs inside the Data tab
-  const DATA_SUBS = (FAM ? [] : [["captions", "Captions"]]).concat([["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);
+  const DATA_SUBS = (FAM && !FAM.captions ? [] : [["captions", "Captions"]]).concat([["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);
   const dataSubNav = active => `<div class="subtabs">${DATA_SUBS.map(([k, l]) =>
     `<a href="#/${k}" class="${k === active ? "on" : ""}">${l}</a>`).join("")}</div>`;
 
@@ -1519,7 +1519,9 @@
           <div class="label">Caption Scores</div><div class="value">GE · VIS · MUS</div>
           <div class="sub">judge-by-judge breakdowns →</div></a>
       </div>
-      ${profHtml ? `<div style="margin-top:14px">${profHtml}</div>` : ""}`;
+      ${profHtml ? `<div style="margin-top:14px">${profHtml}</div>` : ""}
+      <p class="claimline">Represent ${esc(detail.name)}?
+        <a href="${(window.APP_CFG && window.APP_CFG.root) || "."}/pro.html">Claim this profile →</a></p>`;
 
     // hero action buttons — favorite (in-place rank), share, and season card
     const fb = document.getElementById("corpFav");
@@ -3930,10 +3932,10 @@
     [/^#\/events(?:\?(.*))?$/, (m, st) => viewEvents(m[1], st)],
     [/^#\/predictions$/, viewPredictions],
     [/^#\/(?:seasons|champions)$/, viewSeasons],
-    [/^#\/data$/, () => { location.replace(FAM ? "#/compare" : "#/captions"); }],
+    [/^#\/data$/, () => { location.replace(FAM && !FAM.captions ? "#/compare" : "#/captions"); }],
     [/^#\/season\/(\d{4})$/, m => { location.replace(`#/events?y=${m[1]}`); }],
     [/^#\/event\/(\d{4})\/(\d+)$/, (m, st) => viewEvent(m[1], m[2], st)],
-    [/^#\/captions(?:\?(.*))?$/, (m, st) => { if (FAM) { location.replace("#/compare"); return; } return viewCaptions(m[1], st); }],
+    [/^#\/captions(?:\?(.*))?$/, (m, st) => { if (FAM && !FAM.captions) { location.replace("#/compare"); return; } return viewCaptions(m[1], st); }],
     [/^#\/records$/, viewRecords],
     [/^#\/settings$/, viewSettings],
     [/^#\/go(?:\?(.*))?$/, m => viewGo(m[1])],
@@ -3951,7 +3953,7 @@
      Each top-level tab remembers where you last were (an open event, a
      corps, a stats sub-page with its filters-in-URL) and takes you back
      there. Tapping the tab you're already on returns to its front page. */
-  const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM ? "#/compare" : "#/captions", champions: "#/champions" };
+  const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM && !FAM.captions ? "#/compare" : "#/captions", champions: "#/champions" };
   function sectionOf(hash) {
     if (/^#\/(events|event\/|season\/|predictions)/.test(hash)) return "events";
     if (/^#\/corps/.test(hash)) return "corps";

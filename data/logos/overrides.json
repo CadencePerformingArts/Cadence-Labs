@@ -1,0 +1,100 @@
+[
+  {
+    "app": "dci",
+    "name": "Bluecoats",
+    "img": "logos/bluecoats.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bluecoats_Drum_%26_Bugle_Corps_Shield_Logo.svg",
+    "license": "Public domain (PD-textlogo)"
+  },
+  {
+    "app": "dci",
+    "name": "Carolina Crown",
+    "img": "logos/carolina-crown.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Carolina_Crown_Drum_and_Bugle_Corps_Crown_Logo.png",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "app": "dci",
+    "name": "Phantom Regiment",
+    "img": "logos/phantom-regiment.png",
+    "source": "https://commons.wikimedia.org/wiki/File:PR_Logo.png",
+    "license": "CC0 1.0"
+  },
+  {
+    "app": "dci",
+    "name": "Madison Scouts",
+    "img": "logos/madison-scouts.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Madison_Scouts_Drum_and_Bugle_Corps_old.svg",
+    "license": "Public domain (PD-shape)"
+  },
+  {
+    "app": "dci",
+    "name": "Spirit of Atlanta",
+    "img": "logos/spirit-of-atlanta.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Spirit_of_Atlanta_Logo_as_of_2013.jpg",
+    "license": "Public domain (PD-textlogo)"
+  },
+  {
+    "app": "dci",
+    "name": "Blue Devils B",
+    "img": "logos/blue-devils-b.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Alternate_Blue_Devils_logo.png",
+    "license": "Public domain (PD-textlogo)"
+  },
+  {
+    "app": "dci",
+    "name": "White Sabers",
+    "img": "logos/white-sabers.png",
+    "source": "https://commons.wikimedia.org/wiki/File:White_Sabers_Logo.jpg",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "app": "dci",
+    "name": "Columbus Saints",
+    "img": "logos/columbus-saints.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Columbus_saints_logo.png",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "app": "wgi/guard",
+    "name": "Bluecoats Indoor",
+    "img": "logos/bluecoats.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bluecoats_Drum_%26_Bugle_Corps_Shield_Logo.svg",
+    "license": "Public domain (PD-textlogo)"
+  },
+  {
+    "app": "wgi/percussion",
+    "name": "George Mason University",
+    "img": "logos/george-mason-university.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:George_Mason_University_logo.svg",
+    "license": "Public domain (PD-textlogo)"
+  },
+  {
+    "app": "wgi/percussion",
+    "name": "Bentonville HS",
+    "img": "logos/bentonville-schools.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Shield_tri-color_Bentonville_Schools.png",
+    "license": "Public domain (PD-logo)"
+  },
+  {
+    "app": "boa",
+    "name": "Marian Catholic HS (IL)",
+    "img": "logos/marian-catholic.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Marian_Catholic_High_School_(Illinois)_logo.png",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "app": "boa",
+    "name": "Bentonville HS (AR)",
+    "img": "logos/bentonville-schools.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Shield_tri-color_Bentonville_Schools.png",
+    "license": "Public domain (PD-logo)"
+  },
+  {
+    "app": "usbands",
+    "name": "North Penn HS",
+    "img": "logos/north-penn.png",
+    "source": "https://commons.wikimedia.org/wiki/File:North_Penn_School_District_logo.jpg",
+    "license": "Public domain (PD-logo)"
+  }
+]

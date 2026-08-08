@@ -72,6 +72,20 @@ DOCS_BOA = ROOT / "docs" / "boa" / "data"
 PROBE_OUT = ROOT / "data" / "boa_probe2.json"
 STORE = DOCS_BOA / "live_store.json"
 PDF_CACHE = ROOT / "data" / "raw" / "boa_pdf"
+PARSED_CACHE = ROOT / "data" / "parsed" / "boa_recaps"
+CAPTIONS_DIR = DOCS_BOA / "captions"
+BACKFILL_REPORT = ROOT / "data" / "boa_backfill_report.json"
+PARSE_VERSION = 2   # bump to invalidate the parsed-recap memo cache
+MAX_INDEX_PAGES = 40  # the archive is 22 pages today; headroom for growth
+
+# docs/boa/data/captions/ column order — same structural schema as the DCI
+# app's docs/data/captions/ (4 meta cols, caption cols, pen, tot), with keys
+# named for BOA's sheet: Music Ind/Ens/Avg, Visual Ind/Ens/Avg, GE Music 1,
+# GE Music 2, GE Music total, GE Visual, GE total. Keys the two sheets share
+# in meaning (ge1/ge2/ge/vis/mus/pen/tot) reuse the DCI spelling.
+CAPTION_COLS = ["date", "event", "class", "corps",
+                "mi", "me", "mus", "vi", "ve", "vis",
+                "ge1", "ge2", "gem", "gev", "ge", "pen", "tot"]
 
 # BOA recaps label bands 1A/2A/3A/4A (older material sometimes A/AA/AAA/AAAA);
 # map both spellings onto the app's class names (docs/boa class_order in
@@ -146,7 +160,7 @@ def event_year(slug: str) -> int | None:
     return int(m.group(1)) if m else None
 
 
-def list_events(max_pages: int = 8, *, force: bool = True) -> list[dict]:
+def list_events(max_pages: int = MAX_INDEX_PAGES, *, force: bool = True) -> list[dict]:
     """All events on the paginated results index: [{url, slug, year}]."""
     seen: dict[str, dict] = {}
     for page in range(1, max_pages + 1):
@@ -183,14 +197,16 @@ def event_pdfs(ev: dict, *, force: bool = True) -> dict:
     m = TITLE_RE.search(html)
     if m:
         title = norm_space(m.group(1))
-    pdfs = []
+    pdfs, other = [], []
     for href in dict.fromkeys(PDF_URL_RE.findall(html)):
         # results PDFs are not consistently named "recap" (e.g.
         # SATX-Finals-Saturday.pdf, NorthTexasPrelims.pdf) — accept any
         # round-ish name; the row parser validates the content anyway.
         if re.search(r"recap|prelim|semi|final", href.lower()):
             pdfs.append({"href": href, "round_guess": round_guess(href)})
-    return {"title": title, "pdfs": pdfs}
+        else:
+            other.append(href)
+    return {"title": title, "pdfs": pdfs, "other_pdfs": other}
 
 
 # ---------------------------------------------------------------------------
@@ -204,7 +220,11 @@ EVENT_NAME_RE = re.compile(r"^Bands of America[ \t]+(\S.{3,}?)(?:,\s*presented b
 # Older recap layout: "2025 Arizona Regional Championship at Flagstaff, AZ"
 ALT_NAME_RE = re.compile(r"^(20\d{2})\s+(.{4,}?)(?:\s+at\s+.+)?\s*$")
 ALT_DATE_RE = re.compile(r"^(.*\S)\s+-\s+([A-Z][a-z]+\s+\d{1,2})\s*$")
-ROUND_RE = re.compile(r"^\s*(Prelims|Preliminaries|Semi-?\s?Finals?|Semifinals|Finals)\s*$", re.M | re.I)
+# the round is its own line in the modern layout ("Finals"); the 2015–2022
+# generation appends "Recap" ("Semi-Finals Recap")
+ROUND_RE = re.compile(r"^\s*(Prelims|Preliminaries|Semi-?\s?Finals?|Semifinals|Finals)(?:\s+Recap)?\s*$", re.M | re.I)
+# 2015-era header prints the date as a bare "11/14/15" line
+NUM_DATE_RE = re.compile(r"^(\d{1,2})/(\d{1,2})/(\d{2,4})$")
 # One scored band per line:  [order-no] <name> - <ST> [Block X - Panel N]
 #   <floats...> then a tail of  [rating I..III] [class-rank class] overall-rank
 ROW_RE = re.compile(
@@ -238,6 +258,12 @@ def parse_recap(pdf_path: Path) -> dict | None:
     except Exception as e:  # noqa: BLE001
         log(f"unreadable pdf {pdf_path.name}: {e}")
         return None
+    # 2015/2016-generation PDFs render "-" as soft-hyphen + U+2010 runs
+    # ("Semi-­‐Finals", "Complex -­‐ September 24") — normalize to ASCII so
+    # every dash-sensitive regex below sees one plain hyphen.
+    text = text.replace("\xad", "")
+    text = re.sub(r"[‐‑‒–—−]", "-", text)
+    text = re.sub(r"-{2,}", "-", text)
     if len(text) < 200:
         log(f"no text layer in {pdf_path.name} — skipping")
         return None
@@ -268,10 +294,26 @@ def parse_recap(pdf_path: Path) -> dict | None:
                     venue = venue or norm_space(adm.group(1))
                 except ValueError:
                     pass
+        if name and not date:
+            # 2015 Grand Nationals header: venue line, then a bare "11/14/15"
+            for ln in lines[:8]:
+                nd = NUM_DATE_RE.match(norm_space(ln))
+                if nd:
+                    mo, dy, yr = (int(g) for g in nd.groups())
+                    yr += 2000 if yr < 100 else 0
+                    if yr == (year_hint or yr):
+                        date = f"{yr:04d}-{mo:02d}-{dy:02d}"
+                        break
+    if name and re.search(r"grand nationals?", name, re.I):
+        # the 2021 header doubles the phrase ("Grand National Championships
+        # Grand National Championship at ...") — one canonical name, matching
+        # what assemble()'s champions detection and the 2024/25 store use.
+        name = "Grand National Championships"
     rm = ROUND_RE.search(text)
     rnd = norm_round(rm.group(1)) if rm else None
 
     rows, dropped = [], 0
+    cap_fails: list[str] = []
     seen = set()
     for ln in lines:
         m = ROW_RE.match(ln.strip())
@@ -286,16 +328,35 @@ def parse_recap(pdf_path: Path) -> dict | None:
             continue
         pre = BLOCK_RE.sub("", norm_space(m.group("pre")))
         pre = ORDER_RE.sub("", pre)  # older layout prefixes a performance order number
+        if re.search(r"[A-Za-z]\d|\d[A-Za-z]", pre):
+            # a very long school name overlaps the first score columns on some
+            # 2015/16 sheets and pdfplumber interleaves the characters
+            # ("...Young Women 1Le2a.3d0ers1 0, .T2X0" = "Leaders, TX" ⨯
+            # "12.30 10.20"). The totals tail still reconciles, so keep the
+            # row: strip the interleaved digits to recover the name and accept
+            # that the two clobbered leading captions are lost for this row.
+            pre = norm_space(re.sub(r"[0-9.]+", "", pre)).replace(" ,", ",")
         nm = NAME_ST_RE.match(pre)
         band, st = (nm.group(1), nm.group(2)) if nm else (pre, "")
         if not band or (band, st) in seen:
             continue
         seen.add((band, st))
-        captions = None
+        captions = caps = None
         if len(nums) == 14:
-            mu, vi, ge = nums[2], nums[5], nums[10]
-            if abs(mu + vi + ge - sub) <= 0.02:
-                captions = {"mu": mu, "vi": vi, "ge": ge}
+            # every generation 2015–today prints the same 14 columns:
+            # MusInd MusEns MusAvg | VisInd VisEns VisAvg |
+            # GEMus1 GEMus2 GEMusTot GEVis GETot | Subtotal Pen Total
+            mi, me, mu, vi, ve, vs, g1, g2, gm, gv, ge = nums[:11]
+            if abs(mu + vs + ge - sub) <= 0.02:
+                captions = {"mu": mu, "vi": vs, "ge": ge}
+            if (abs(mu + vs + ge - sub) <= 0.02
+                    and abs((mi + me) / 2 - mu) <= 0.02
+                    and abs((vi + ve) / 2 - vs) <= 0.02
+                    and abs(g1 + g2 - gm) <= 0.02
+                    and abs(gm + gv - ge) <= 0.02):
+                caps = [mi, me, mu, vi, ve, vs, g1, g2, gm, gv, ge]
+            else:
+                cap_fails.append(f"{band}{' (' + st + ')' if st else ''}")
         rows.append({
             "band": band, "st": st,
             "cls": CLASS_MAP.get(m.group("cls") or ""),
@@ -304,12 +365,32 @@ def parse_recap(pdf_path: Path) -> dict | None:
             "crank": int(m.group("crank")) if m.group("crank") else None,
             "orank": int(m.group("orank")),
             "captions": captions,
+            "caps": caps,
         })
     if dropped:
         log(f"{pdf_path.name}: dropped {dropped} rows that did not reconcile")
     if not rows:
         return None
-    return {"name": name, "venue": venue, "date": date, "round": rnd, "rows": rows}
+    return {"name": name, "venue": venue, "date": date, "round": rnd,
+            "rows": rows, "cap_fails": cap_fails}
+
+
+def parse_recap_cached(pdf_path: Path) -> dict | None:
+    """parse_recap with an on-disk memo (data/parsed/boa_recaps/) so the
+    all-years backfill and the captions build never re-run pdfplumber over a
+    PDF that was already parsed by this PARSE_VERSION."""
+    PARSED_CACHE.mkdir(parents=True, exist_ok=True)
+    cp = PARSED_CACHE / (pdf_path.stem + ".json")
+    if cp.exists():
+        try:
+            memo = json.loads(cp.read_text())
+            if memo.get("v") == PARSE_VERSION:
+                return memo["recap"]
+        except Exception:  # noqa: BLE001
+            pass
+    rc = parse_recap(pdf_path)
+    cp.write_text(json.dumps({"v": PARSE_VERSION, "recap": rc}))
+    return rc
 
 
 # ---------------------------------------------------------------------------
@@ -317,20 +398,35 @@ def parse_recap(pdf_path: Path) -> dict | None:
 # ---------------------------------------------------------------------------
 
 def display_name(band: str, st: str) -> str:
-    n = re.sub(r"\bH\.?\s?S\.?(?=$|\s)", "HS", band)
+    # 2022 recaps spell out "High School" where every other year prints
+    # "H.S." — collapse both to "HS" so one band threads across seasons.
+    n = re.sub(r"\bHigh School\b", "HS", band, flags=re.I)
+    n = re.sub(r"\bH\.?\s?S\.?(?=$|\s)", "HS", n)
     n = norm_space(n).rstrip(",")
     return f"{n} ({st})" if st else n
 
 
-def merge_event(ev_meta: dict, recaps: list[dict]) -> dict | None:
+def merge_event(ev_meta: dict, recaps: list[dict],
+                cls_fallback: dict[tuple[str, str], str] | None = None) -> dict | None:
     """Combine an event's parsed rounds into one record:
-    {name, date, venue, url, rounds:{...}, classes:[{class, results}]}."""
+    {name, date, venue, url, rounds:{...}, classes:[{class, results}]}.
+    Two recap PDFs for the same round (Grand Nationals splits Prelims across
+    two days/panels) are unioned band-by-band, not either/or. cls_fallback
+    maps (band, st) -> class for finals-only sheets, which never print the
+    class column."""
     rounds: dict[str, dict] = {}
     for rc in recaps:
         rnd = rc["round"] or "Finals"
-        if rnd not in rounds or len(rc["rows"]) > len(rounds[rnd]["rows"]):
-            rounds[rnd] = {"date": rc["date"], "rows": rc["rows"],
-                           "name": rc["name"], "venue": rc["venue"]}
+        slot = rounds.setdefault(rnd, {"date": None, "rows": [], "name": None,
+                                       "venue": None, "_seen": set()})
+        slot["date"] = slot["date"] or rc["date"]
+        slot["name"] = slot["name"] or rc["name"]
+        slot["venue"] = slot["venue"] or rc["venue"]
+        for row in rc["rows"]:
+            k = (row["band"], row["st"])
+            if k not in slot["_seen"]:
+                slot["_seen"].add(k)
+                slot["rows"].append(row)
     if not rounds:
         return None
     # a band's identity, class and per-round scores
@@ -345,6 +441,10 @@ def merge_event(ev_meta: dict, recaps: list[dict]) -> dict | None:
             b["last"] = (ri, row)
             if row["cls"]:
                 b["cls"] = row["cls"]  # prelims/semis carry the class label
+    if cls_fallback:
+        for key, b in bands.items():
+            if not b["cls"]:
+                b["cls"] = cls_fallback.get(key)
 
     classes_out = []
     for cls in CLASS_ORDER:
@@ -619,16 +719,228 @@ def ingest(year: int) -> int:
     return 0
 
 
+# ---------------------------------------------------------------------------
+# all-years backfill + captions (both walk the same cached archive crawl)
+# ---------------------------------------------------------------------------
+
+def collect_archive(*, fresh: bool = False) -> tuple[list, dict]:
+    """Crawl every event page on the results index and parse every recap PDF.
+    Returns ([(event_meta, [recap, ...]), ...], notes). Every step is cached
+    (HTML gzip via common.fetch, PDFs in data/raw/boa_pdf/, parses memoised in
+    data/parsed/boa_recaps/), so an interrupted run resumes for free."""
+    events = list_events(force=fresh)
+    log(f"boa archive: {len(events)} event pages on the results index")
+    collected: list = []
+    notes = {"events_without_recaps": [], "pdf_fetch_failures": [],
+             "pdf_parse_failures": [], "undated_recaps": [], "unmatched_pdf_links": []}
+    for i, ev in enumerate(sorted(events, key=lambda e: e["slug"])):
+        if i and i % 25 == 0:
+            log(f"  ... {i}/{len(events)} event pages crawled")
+        info = event_pdfs(ev, force=fresh)
+        notes["unmatched_pdf_links"] += info.get("other_pdfs") or []
+        recaps = []
+        for pdf in info["pdfs"]:
+            path = fetch_pdf(pdf["href"])
+            if not path:
+                notes["pdf_fetch_failures"].append(pdf["href"])
+                continue
+            rc = parse_recap_cached(path)
+            if not rc:
+                notes["pdf_parse_failures"].append(pdf["href"])
+                continue
+            if not rc["round"]:
+                rc["round"] = pdf["round_guess"]
+            if not rc["date"]:
+                notes["undated_recaps"].append(pdf["href"])
+                continue
+            recaps.append(rc)
+        if recaps:
+            collected.append(({**ev, "title": info["title"]}, recaps))
+        else:
+            notes["events_without_recaps"].append(ev["slug"])
+    log(f"boa archive: {len(collected)} events with parseable recaps, "
+        f"{len(notes['events_without_recaps'])} without")
+    return collected, notes
+
+
+def year_class_maps(collected: list) -> dict[int, dict[tuple[str, str], str]]:
+    """(band, st) -> class per season, by majority vote over every sheet that
+    prints the class column — the fallback for finals-only sheets."""
+    votes: dict[int, dict[tuple[str, str], dict[str, int]]] = {}
+    for _, rcs in collected:
+        for rc in rcs:
+            y = int(rc["date"][:4])
+            for row in rc["rows"]:
+                if row["cls"]:
+                    v = votes.setdefault(y, {}).setdefault((row["band"], row["st"]), {})
+                    v[row["cls"]] = v.get(row["cls"], 0) + 1
+    return {y: {k: max(cnt, key=cnt.get) for k, cnt in m.items()}
+            for y, m in votes.items()}
+
+
+def ingest_all(collected: list, refresh_years: set[int]) -> dict:
+    """Merge every archive year into the store. Years already in the store are
+    NEVER touched (unless named in refresh_years), so verified seasons survive
+    any backfill. Per-year validation gates match ingest(); a failing year is
+    reported, not fatal."""
+    per_year: dict[int, list] = {}
+    for ev_meta, rcs in collected:
+        byyear: dict[int, list] = {}
+        for rc in rcs:
+            byyear.setdefault(int(rc["date"][:4]), []).append(rc)
+        for y, group in byyear.items():
+            per_year.setdefault(y, []).append((ev_meta, group))
+    cls_maps = year_class_maps(collected)
+
+    store = {"years": {}}
+    if STORE.exists():
+        try:
+            store = json.loads(STORE.read_text())
+        except Exception:  # noqa: BLE001
+            pass
+    store.setdefault("years", {})
+
+    report: dict[str, dict] = {}
+    for year in sorted(per_year):
+        merged, seen_keys, dups, skipped = [], set(), [], []
+        for ev_meta, rcs in sorted(per_year[year], key=lambda t: t[0]["slug"]):
+            m = merge_event(ev_meta, rcs, cls_fallback=cls_maps.get(year, {}))
+            if not (m and m["date"]):
+                skipped.append(ev_meta["slug"])
+                continue
+            key = (m["date"], (m["name"] or "").lower())
+            if key in seen_keys:  # the same edition published under two slugs
+                dups.append(ev_meta["slug"])
+                continue
+            seen_keys.add(key)
+            merged.append(m)
+        merged.sort(key=lambda e: e["date"])
+        n_rows = sum(len(c["results"]) for e in merged for c in e["classes"])
+        bad = [r["score"] for e in merged for c in e["classes"] for r in c["results"]
+               if not (40.0 <= r["score"] <= 100.0)]
+        info = {"events": len(merged), "rows": n_rows,
+                "skipped_events": skipped, "duplicate_pages": dups,
+                "out_of_range_scores": len(bad)}
+        if str(year) in store["years"] and year not in refresh_years:
+            info["status"] = "kept-existing-store"
+        elif len(merged) < 2 or n_rows < 30 or bad:
+            info["status"] = "validation-failed"
+            log(f"boa ingest-all {year}: validation FAILED ({len(merged)} events, "
+                f"{n_rows} rows, {len(bad)} out-of-range) — year not ingested")
+        else:
+            info["status"] = "ingested"
+            store["years"][str(year)] = merged
+        log(f"boa ingest-all {year}: {info['status']} — {info['events']} events, "
+            f"{info['rows']} rows" + (f"; skipped {skipped}" if skipped else ""))
+        report[str(year)] = info
+
+    updated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    store["updated"] = updated
+    DOCS_BOA.mkdir(parents=True, exist_ok=True)
+    STORE.write_text(json.dumps(store))
+    assemble(store, updated)
+    return report
+
+
+def build_captions(collected: list) -> dict:
+    """docs/boa/data/captions/ in exactly the DCI app's schema: index.json
+    {seasons:[{year,rows}], cols:[...]} plus one flat row-array file per year.
+    One row = one band's judged sheet for one round of one event. Only rows
+    whose caption arithmetic reconciles are published; failures are returned
+    per event for the report."""
+    cls_maps = year_class_maps(collected)
+    rows_by_year: dict[int, list] = {}
+    seen: set = set()
+    fails: list[dict] = []
+    unclassed: dict[int, int] = {}
+    no_caps_sheets: dict[int, int] = {}
+    for ev_meta, rcs in collected:
+        for rc in rcs:
+            y = int(rc["date"][:4])
+            evname = rc["name"] or ev_meta.get("title") or ev_meta["slug"]
+            disp_ev = f"{evname} — {rc['round']}"
+            if rc.get("cap_fails"):
+                fails.append({"year": y, "date": rc["date"], "event": disp_ev,
+                              "bands": rc["cap_fails"]})
+            got_caps = False
+            for row in rc["rows"]:
+                caps = row.get("caps")
+                if not caps:
+                    continue
+                got_caps = True
+                cls = row["cls"] or cls_maps.get(y, {}).get((row["band"], row["st"]))
+                if not cls:
+                    unclassed[y] = unclassed.get(y, 0) + 1
+                    continue
+                corps = display_name(row["band"], row["st"])
+                k = (rc["date"], disp_ev, corps)
+                if k in seen:
+                    continue
+                seen.add(k)
+                rows_by_year.setdefault(y, []).append(
+                    [rc["date"], disp_ev, cls, corps,
+                     *[round(v, 3) for v in caps],
+                     round(abs(row["pen"]), 3), round(row["score"], 3)])
+            if not got_caps:
+                no_caps_sheets[y] = no_caps_sheets.get(y, 0) + 1
+
+    CAPTIONS_DIR.mkdir(parents=True, exist_ok=True)
+    for y, rows in sorted(rows_by_year.items()):
+        rows.sort(key=lambda r: (r[0], r[1], -r[-1]))
+        (CAPTIONS_DIR / f"{y}.json").write_text(json.dumps(rows))
+    (CAPTIONS_DIR / "index.json").write_text(json.dumps({
+        "seasons": [{"year": y, "rows": len(rows_by_year[y])}
+                    for y in sorted(rows_by_year)],
+        "cols": CAPTION_COLS,
+    }))
+    log(f"boa captions: {sum(len(r) for r in rows_by_year.values())} rows across "
+        f"{len(rows_by_year)} seasons -> {CAPTIONS_DIR}"
+        + (f"; {len(fails)} sheets with reconciliation failures" if fails else ""))
+    return {"rows": {str(y): len(rows_by_year[y]) for y in sorted(rows_by_year)},
+            "reconciliation_failures": fails,
+            "rows_without_class": {str(y): n for y, n in sorted(unclassed.items())},
+            "sheets_without_captions": {str(y): n for y, n in sorted(no_caps_sheets.items())}}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--discover", action="store_true")
     ap.add_argument("--ingest", action="store_true")
+    ap.add_argument("--ingest-all", action="store_true",
+                    help="backfill every archive year (existing store years untouched)")
+    ap.add_argument("--captions", action="store_true",
+                    help="build docs/boa/data/captions/ from every parseable recap")
+    ap.add_argument("--assemble", action="store_true",
+                    help="rebuild docs/boa/data/ from the existing store, no network")
+    ap.add_argument("--fresh", action="store_true",
+                    help="refetch index/event HTML instead of trusting the cache")
+    ap.add_argument("--refresh-year", type=int, action="append", default=[],
+                    help="with --ingest-all: reparse this year even if stored")
     ap.add_argument("--year", type=int, default=datetime.now().year)
     args = ap.parse_args()
     if args.discover:
         return discover(args.year)
     if args.ingest:
         return ingest(args.year)
+    if args.ingest_all or args.captions:
+        collected, notes = collect_archive(fresh=args.fresh)
+        report = {"generated": datetime.now(timezone.utc).isoformat(), "notes": notes}
+        if args.ingest_all:
+            report["years"] = ingest_all(collected, set(args.refresh_year))
+        if args.captions:
+            report["captions"] = build_captions(collected)
+        BACKFILL_REPORT.parent.mkdir(parents=True, exist_ok=True)
+        BACKFILL_REPORT.write_text(json.dumps(report, indent=1))
+        log(f"boa backfill report -> {BACKFILL_REPORT}")
+        return 0
+    if args.assemble:
+        if not STORE.exists():
+            log("boa --assemble: no store to assemble")
+            return 1
+        store = json.loads(STORE.read_text())
+        assemble(store, store.get("updated")
+                 or datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"))
+        return 0
     ap.print_help()
     return 2
 

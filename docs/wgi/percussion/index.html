@@ -17,7 +17,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;
 var name=localStorage.getItem("cad-corps-theme"),css=localStorage.getItem("cad-corps-css");
 if(name&&css){var s=document.createElement("style");s.id="corpsTheme";s.textContent=css;document.head.appendChild(s);
 r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));}})();</script>
-<link rel="stylesheet" href="../../app.css?v=f3d5fa57">
+<link rel="stylesheet" href="../../app.css?v=2d20fc8e">
 <link rel="stylesheet" href="../../family/family.css?v=22b01b47">
 <style>:root { --fam-accent: #7c3aed; }</style>
 </head>
@@ -59,7 +59,7 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
 
 <div id="tooltip" class="tooltip" hidden></div>
 <script>
-window.APP_CFG = {"appName": "Cadence WGI Percussion", "root": "../..", "ns": "wgi-perc:", "classOrder": ["Independent World", "Independent Open", "Scholastic World", "Scholastic Open", "Scholastic Concert World"], "combinable": [], "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"}, "eventsTitle": "Shows", "scoreNote": null, "siteUrl": "https://lukebesel.github.io/Cadence-Labs/wgi/percussion", "siteLabel": "lukebesel.github.io/Cadence-Labs"};
+window.APP_CFG = {"appName": "Cadence WGI Percussion", "root": "../..", "captions": false, "ns": "wgi-perc:", "classOrder": ["Independent World", "Independent Open", "Scholastic World", "Scholastic Open", "Scholastic Concert World"], "combinable": [], "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"}, "eventsTitle": "Shows", "scoreNote": null, "siteUrl": "https://lukebesel.github.io/Cadence-Labs/wgi/percussion", "siteLabel": "lukebesel.github.io/Cadence-Labs"};
 window.CadTheme = (function () {
   var root = document.documentElement;
   function effective() {
@@ -98,7 +98,7 @@ window.CadTheme = (function () {
 </script>
 <script src="../../charts.js?v=9f6f15e1"></script>
 <script src="../../family/wrapped.js?v=097fbab5"></script>
-<script src="../../family/app.js?v=e7e88b3c"></script>
-<script src="../../modes.js?v=31920db0" data-base="../.."></script>
+<script src="../../family/app.js?v=54adfdf0"></script>
+<script src="../../modes.js?v=3a1d3120" data-base="../.."></script>
 </body>
 </html>
