@@ -188,6 +188,7 @@ def parse_upcoming(html: str) -> list[dict]:
     j = html.find('id="schedules"')
     if i < 0 or j < 0:
         return []
+    j = html.rfind("<a", i, j)            # don't keep the next section's half-open anchor
     seg = html[i:j]
     heads = list(_SITE_HDR.finditer(seg))
     out = []
