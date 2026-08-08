@@ -1,5 +1,49 @@
 [
  {
+  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
+  "name": "DCI Tour Preview",
+  "location": "Muncie, IN",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Cincinnati Tradition",
+   "The Cavaliers",
+   "Carolina Crown",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:15 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:45 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:15 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:45 PM",
+    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-08-08"
+ },
+ {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -228,6 +272,63 @@
    ],
    [
     "10:01 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-08"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-corps-encore/",
+  "name": "Corps Encore",
+  "location": "Ogden, UT",
+  "date_display": "June 28, 2026",
+  "date": "2026-06-28",
+  "lineup": [
+   "Crosstown Big Band",
+   "Genesis",
+   "Troopers",
+   "Blue Devils",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:35 PM",
+    "Crosstown Big Band"
+   ],
+   [
+    "8:00 PM",
+    "Genesis"
+   ],
+   [
+    "8:23 PM",
+    "Troopers"
+   ],
+   [
+    "8:46 PM",
+    "Intermission"
+   ],
+   [
+    "9:00 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:23 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:41 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "9:48 PM",
     "Scores Announced"
    ]
   ],
