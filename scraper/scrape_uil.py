@@ -85,6 +85,7 @@ def city_key(c: str) -> str:
     c = norm_space(c or "").lower().strip(" ,.")
     c = re.sub(r",?\s*(tx|texas)\b.*$", "", c)
     c = re.sub(r"[^a-z ]+", " ", c)
+    c = re.sub(r"\b(c?isd)\b", " ", c)   # 'Eagle Pass ISD' city strings
     c = norm_space(c)
     for a, b in _CITY_ABBR:
         if c.startswith(a):
@@ -172,8 +173,32 @@ def fetch_region_year(year: int, *, force: bool = False) -> list[dict]:
         for k in ("Score 1", "Score 2", "Score 3"):
             v = (r.get(k) or "").strip().rstrip("*")
             judges.append(int(v) if v.isdigit() and 1 <= int(v) <= 5 else None)
+        # a trailing parenthetical in the School field is a district tag
+        # ('Wagner (Judson ISD)'), not part of the name
+        school = norm_space(re.sub(r"\s*\([^)]*\)\s*$", "", school)) or school
+        school = norm_space(re.sub(r"\s*-?\s*Bands?\s*$", "", school, flags=re.I))
+        if school.lower() in ("undefined", "null", "test"):
+            dropped["junk school name"] += 1
+            continue
+        # a district entered as the school ('hearne isd') is that town's HS
+        m = re.match(r"(?i)^(.*?)\s*c?isd$", school)
+        if m and m.group(1):
+            base = m.group(1)
+            school = (base.title() if base == base.lower() else base) + " HS"
+        city = norm_space(r.get("City") or "").strip(" ,.")
+        # 'Abilene HS, Abilene' — the school field's comma tail is the school's
+        # own city (the City column sometimes holds the CONTEST city instead)
+        m = re.match(r"^(.+?\bHS)\s*,\s*(.+)$", school)
+        if m:
+            school, city = norm_space(m.group(1)), norm_space(m.group(2)).strip(" ,.")
+        else:
+            # no-comma city tail: '... HS Brownsville' with City=Brownsville
+            tail = city.lower()
+            if tail and school.lower().endswith(" " + tail) and \
+                    school[: -len(tail) - 1].rstrip().lower().endswith("hs"):
+                school = norm_space(school[: -len(tail) - 1])
         rows.append({
-            "school": school, "city": norm_space(r.get("City") or "").strip(" ,."),
+            "school": school, "city": city,
             "region": int(region), "conf": conf,
             "nv": is_nonvarsity(r.get("Classification") or ""),
             "nv_letter": (r.get("NV") or "").strip() if is_nonvarsity(r.get("Classification") or "") else "",
@@ -272,6 +297,50 @@ def fetch_smbc_current(*, force: bool = False) -> tuple[int | None, list[dict]]:
 # identity registry — (school, city-cluster) across every season
 # ---------------------------------------------------------------------------
 
+# A name-suffix merge ('Winston Churchill HS' -> 'Churchill HS') is WRONG when
+# the prefix marks a genuinely different school: directional siblings (North
+# Forney HS is not Forney HS), Lake Travis HS vs Travis HS, charter systems
+# (Life School Waxahachie), combined entries. Prefixes containing these tokens
+# never merge. Every other same-city suffix pair in the data was verified to
+# be one school (person forenames, own-city prefixes, 'ED:'-style area codes).
+MERGE_BLACKLIST = {"north", "south", "east", "west", "lake", "life", "permian",
+                   "manor", "clark", "veterans", "memorial", "new", "old",
+                   "early", "college", "junior", "senior"}
+
+
+def build_skey_aliases(region_keys: dict[str, set], all_keys: set) -> dict[str, str]:
+    """school-key -> canonical school-key. b merges into a when b ends with
+    ' a', the prefix is not blacklisted, and the evidence lines up: they share
+    a city, the prefix IS one of a's cities ('San Antonio Reagan HS'), or the
+    prefix is bare initials and a has a single unambiguous home."""
+    alias: dict[str, str] = {}
+    bases = sorted(region_keys, key=len)
+    for b in sorted(all_keys, key=len, reverse=True):
+        for a in bases:
+            if a == b or not b.endswith(" " + a):
+                continue
+            toks = b[: -(len(a) + 1)].split()
+            if not toks or any(t in MERGE_BLACKLIST for t in toks):
+                continue
+            a_cities = {c for c in region_keys.get(a, set()) if c}
+            b_cities = {c for c in region_keys.get(b, set()) if c}
+            pk = city_key(" ".join(toks))
+            if (b_cities & a_cities) \
+                    or (pk and any(c.startswith(pk) or pk.startswith(c) for c in a_cities)) \
+                    or (all(len(t) == 1 for t in toks) and len(a_cities) == 1):
+                alias[b] = a
+                break
+
+    def root(k: str) -> str:
+        seen = set()
+        while k in alias and k not in seen:
+            seen.add(k)
+            k = alias[k]
+        return k
+
+    return {k: root(k) for k in alias}
+
+
 class Registry:
     """Threads every appearance to one band identity. Clusters are city-key
     based ('Ft. Worth'/'Fort Worth' merge; genuinely different cities split),
@@ -281,18 +350,43 @@ class Registry:
     def __init__(self):
         self.idents: dict[tuple, dict] = {}          # key -> identity record
         self.by_school: dict[str, list] = defaultdict(list)
+        self.alias: dict[str, str] = {}              # school-key merges
 
     @staticmethod
-    def skey(school: str) -> str:
-        return school.casefold()
+    def raw_skey(school: str) -> str:
+        k = norm_space(re.sub(r"[^a-z0-9 ]+", " ", school.casefold()))
+        return k[:-3] if k.endswith(" hs") else k   # 'Clemens' == 'Clemens HS'
+
+    def skey(self, school: str) -> str:
+        k = self.raw_skey(school)
+        return self.alias.get(k, k)
+
+    @staticmethod
+    def _near(a: str, b: str) -> bool:
+        """One-typo city keys ('winnie'/'winnei') merge; short keys never do."""
+        la, lb = len(a), len(b)
+        if abs(la - lb) > 1 or min(la, lb) < 5:
+            return False
+        if la == lb:
+            diff = [i for i, (x, y) in enumerate(zip(a, b)) if x != y]
+            return len(diff) == 1 or (len(diff) == 2 and diff[1] == diff[0] + 1
+                                      and a[diff[0]] == b[diff[1]] and a[diff[1]] == b[diff[0]])
+        if la > lb:
+            a, b, la, lb = b, a, lb, la
+        i = 0
+        while i < la and a[i] == b[i]:
+            i += 1
+        return a[i:] == b[i + 1:]
 
     def _cluster(self, sk: str, ck: str, create: bool = True):
         """Find (or open) the school's city cluster matching city-key ck."""
         clusters = self.by_school[sk]
-        if ck:
-            for cl in clusters:
-                if cl["ck"] and (cl["ck"].startswith(ck) or ck.startswith(cl["ck"])):
-                    return cl
+        for cl in clusters:
+            if cl["ck"] == ck:
+                return cl
+            if ck and cl["ck"] and (cl["ck"].startswith(ck) or ck.startswith(cl["ck"])
+                                    or self._near(ck, cl["ck"])):
+                return cl
         if not create:
             return None
         cl = {"ck": ck, "cities": Counter(), "names": Counter(), "regions": set()}
@@ -300,32 +394,32 @@ class Registry:
         return cl
 
     def add_region_row(self, r: dict) -> None:
-        sk = self.skey(r["school"])
-        cl = self._cluster(sk, city_key(r["city"]))
-        if r["city"]:
-            cl["cities"][r["city"]] += 1
+        """Pass 1: teach the registry this school's city footprint. Blank
+        cities open no cluster — they resolve against the named ones later."""
+        ck = city_key(r["city"])
+        if not ck:
+            return
+        cl = self._cluster(self.skey(r["school"]), ck)
+        cl["cities"][r["city"]] += 1
         cl["names"][r["school"]] += 1
-        cl["regions"].add((r["date"][:4], r["region"]))
-        r["_cluster"] = id(cl)
+        cl["regions"].add(r["region"])
 
     def resolve_region_row(self, r: dict):
         """After all rows are added: blank-city rows join the cluster whose
         region footprint matches, else the school's biggest cluster."""
         sk = self.skey(r["school"])
-        if city_key(r["city"]):
-            cl = self._cluster(sk, city_key(r["city"]))
+        ck = city_key(r["city"])
+        if ck:
+            cl = self._cluster(sk, ck)
         else:
             named = [c for c in self.by_school[sk] if c["ck"]]
-            cl = None
-            for c in named:
-                if any(rg == r["region"] for _y, rg in c["regions"]):
-                    cl = c
-                    break
+            cl = next((c for c in named if r["region"] in c["regions"]), None)
             if cl is None:
-                pool = named or self.by_school[sk]
-                cl = max(pool, key=lambda c: sum(c["names"].values())) if pool \
+                cl = max(named, key=lambda c: sum(c["names"].values())) if named \
                     else self._cluster(sk, "")
-        cl["names"][r["school"]] += 0
+        cl["names"][r["school"]] += 1
+        if r["city"]:
+            cl["cities"][r["city"]] += 1
         return self._ident(sk, cl, r["nv"], r["nv_letter"])
 
     def resolve_state_row(self, r: dict):
@@ -336,9 +430,22 @@ class Registry:
             named = [c for c in self.by_school[sk] if c["ck"]]
             if len(named) == 1:
                 cl = named[0]
-            elif len(named) > 1 and r.get("district"):
-                cl = self._cluster(sk, "isd" + city_key(r["district"]))
-                cl["cities"][r["district"]] += 1
+            elif len(named) > 1:
+                # 'Austin HS (Austin ISD)' — try the district's own city name,
+                # then the school's own name ('The Woodlands HS' -> the
+                # woodlands), before opening a district-keyed cluster
+                dk = city_key(re.sub(r"\b(C?ISD|Independent|Consolidated|School|District)\b",
+                                     " ", r.get("district") or "", flags=re.I))
+                nk = city_key(re.sub(r"\bHS\b", " ", r["school"]))
+                for k in (dk, nk):
+                    if k:
+                        cl = next((c for c in named if c["ck"].startswith(k)
+                                   or k.startswith(c["ck"])), None)
+                    if cl is not None:
+                        break
+                if cl is None and r.get("district"):
+                    cl = self._cluster(sk, "isd" + city_key(r["district"]))
+                    cl["cities"][r["district"]] += 1
         if cl is None:
             cl = self._cluster(sk, ck)
             if r.get("city"):
@@ -347,10 +454,11 @@ class Registry:
         return self._ident(sk, cl, False, "")
 
     def _ident(self, sk: str, cl: dict, nv: bool, nv_letter: str):
-        key = (sk, id(cl), "nv" + nv_letter if nv else "")
+        letter = "" if nv_letter in ("", "A") else nv_letter  # 'NV A' == the NV band
+        key = (sk, id(cl), "nv" + letter if nv else "")
         if key not in self.idents:
             self.idents[key] = {"sk": sk, "cluster": cl, "nv": nv,
-                                "nv_letter": nv_letter, "key": key}
+                                "nv_letter": letter, "key": key}
         return self.idents[key]
 
     def finalize(self) -> None:
@@ -362,10 +470,16 @@ class Registry:
         for key in sorted(self.idents, key=lambda k: (k[0], str(k[1]), k[2])):
             ident = self.idents[key]
             cl = ident["cluster"]
-            school = cl["names"].most_common(1)[0][0] if cl["names"] else ident["sk"]
+            variants = cl["names"]
+            hs = Counter({n: c for n, c in variants.items() if re.search(r"\bHS\b", n)})
+            school = (hs or variants).most_common(1)[0][0] if variants else ident["sk"]
             name = school
             if ident["sk"] in multi and cl["cities"]:
-                name += f" ({title_if_shouty(cl['cities'].most_common(1)[0][0])})"
+                city = norm_space(cl["cities"].most_common(1)[0][0]).strip(" ,.")
+                city = re.sub(r",?\s*\d{5}(-\d{4})?\s*$", "", city)      # zip tails
+                city = re.sub(r",?\s*(TX|Texas)\.?\s*$", "", city, flags=re.I)
+                city = norm_space(re.sub(r"\s*\bC?ISD\b\s*$", "", city)).strip(" ,.") or city
+                name += f" ({title_if_shouty(city)})"
             if ident["nv"]:
                 name += f" (NV{' ' + ident['nv_letter'] if ident['nv_letter'] else ''})"
             slug = base = slugify(name)
@@ -381,24 +495,38 @@ class Registry:
 # event building
 # ---------------------------------------------------------------------------
 
-def build_region_events(rows: list[dict], reg: Registry, year: int) -> list[dict]:
+def build_region_events(rows: list[dict], year: int) -> list[dict]:
     """Group one season's rows into (region, contest, date) events; classes are
     conferences 6A..1A; place is the rating-then-name order (ratings carry the
-    real result)."""
+    real result). Rows must already carry their resolved, finalized ident."""
+    def self_consistent(rating: int, judges: list) -> bool:
+        """UIL's final rating is the majority of the three judges."""
+        return sum(1 for j in judges if j == rating) >= 2
+
     events: dict[tuple, dict] = {}
-    dup = 0
+    dup = conflicts = 0
     for r in rows:
-        ident = reg.resolve_region_row(r)
+        ident = r["ident"]
         k = (r["region"], r["contest"], r["date"])
         ev = events.setdefault(k, {"region": r["region"], "contest": r["contest"],
                                    "date": r["date"], "classes": {}})
         cls = ev["classes"].setdefault(r["conf"], {})
-        if ident["key"] in cls:            # same band listed twice in one event
-            dup += 1
+        cur = cls.get(ident["key"])
+        if cur is not None:                # same band listed twice in one event
+            dup += 1                       # (2007-08 Region 12 double-entry)
+            if cur["rating"] != r["rating"]:
+                conflicts += 1
+                # keep whichever row's final agrees with its own judge majority
+                if self_consistent(r["rating"], r["judges"]) and \
+                        not self_consistent(cur["rating"], cur["judges"]):
+                    cls[ident["key"]] = {"ident": ident, "rating": r["rating"],
+                                         "judges": r["judges"]}
             continue
         cls[ident["key"]] = {"ident": ident, "rating": r["rating"], "judges": r["judges"]}
     if dup:
-        log(f"  uil {year}: {dup} duplicate band rows within an event dropped")
+        log(f"  uil {year}: {dup} duplicate band rows within an event dropped"
+            + (f" ({conflicts} with conflicting ratings — kept the self-consistent row)"
+               if conflicts else ""))
     out = []
     for (region, contest, date), ev in sorted(events.items(), key=lambda kv: (kv[0][2], kv[0][0])):
         classes = []
@@ -436,14 +564,15 @@ def seq_ok(places: list[int]) -> bool:
     return bool(places) and places[0] == 1
 
 
-def build_state_events(state_rows: list[dict], reg: Registry, notes: list[str]) -> dict[int, list[dict]]:
+def build_state_events(state_rows: list[dict], notes: list[str]) -> dict[int, list[dict]]:
     """State rows (archives + live page) -> per-year Prelims/Finals events.
     Places are the published ordinals (real ties kept — e.g. the 2011 4A
     co-champions); groups whose ordinals fail standard competition ranking
-    are demoted to unplaced rather than reordered."""
+    are demoted to unplaced rather than reordered. Rows must already carry
+    their resolved, finalized ident."""
     by_year: dict[int, dict[str, dict[str, list]]] = defaultdict(lambda: defaultdict(dict))
     for r in state_rows:
-        ident = reg.resolve_state_row(r)
+        ident = r["ident"]
         rnd = "Finals" if r["round"].lower().startswith("final") else "Prelims"
         cls = by_year[r["year"]][rnd].setdefault(r["conf"], {})
         if ident["key"] in cls:
@@ -471,9 +600,10 @@ def build_state_events(state_rows: list[dict], reg: Registry, notes: list[str]) 
                     placed = []
                 results = [{"place": e["place"], "corps": e["ident"]["name"], "score": None,
                             "placement": e["place"]} for e in placed]
+                # demoted rows keep their published ordinal in `placement` —
+                # it is real published data — but carry no display rank
                 results += [{"place": None, "corps": e["ident"]["name"], "score": None,
-                             "placement": e.get("demoted") and None or e["place"]}
-                            for e in unplaced]
+                             "placement": e["place"]} for e in unplaced]
                 if results:
                     classes.append({"class": conf, "results": results})
             if not classes:
@@ -700,9 +830,6 @@ def ingest(*, refresh: bool = False) -> int:
         rows = fetch_region_year(year, force=force)
         if rows:
             region_by_year[year] = rows
-    for rows in region_by_year.values():
-        for r in rows:
-            reg.add_region_row(r)
 
     # state layers (identity threading works off the region clusters)
     archives = fetch_archives()
@@ -713,31 +840,41 @@ def ingest(*, refresh: bool = False) -> int:
         state_rows += page_rows
         log(f"uil: SMBC live page adds season {page_year} ({len(page_rows)} state rows)")
 
+    # school-name variant merges must exist before any identity is minted
+    region_keys: dict[str, set] = defaultdict(set)
+    for rows in region_by_year.values():
+        for r in rows:
+            region_keys[Registry.raw_skey(r["school"])].add(city_key(r["city"]))
+    all_keys = set(region_keys) | {Registry.raw_skey(r["school"]) for r in state_rows}
+    reg.alias = build_skey_aliases(region_keys, all_keys)
+    log(f"uil: {len(reg.alias)} school-name variants merged "
+        f"({len(all_keys)} distinct raw school keys)")
+    for rows in region_by_year.values():
+        for r in rows:
+            reg.add_region_row(r)
+
     if len(region_by_year) < 15 or len(archives) < 3000:
         log(f"uil ingest FAILED: only {len(region_by_year)} region seasons / "
             f"{len(archives)} archive rows — refusing to write")
         return 1
 
-    # pass 2: build events (state first so its identities can bind to clusters)
-    state_events = build_state_events(state_rows, reg, notes)
+    # pass 2: resolve every row to an identity, THEN name the identities, THEN
+    # build events (builders read the finalized display names)
+    for rows in region_by_year.values():
+        for r in rows:
+            r["ident"] = reg.resolve_region_row(r)
+    for r in state_rows:
+        r["ident"] = reg.resolve_state_row(r)
+    reg.finalize()
+
+    state_events = build_state_events(state_rows, notes)
     season_files: dict[int, list] = defaultdict(list)
     for year, rows in sorted(region_by_year.items()):
-        season_files[year].extend(build_region_events(rows, reg, year))
+        season_files[year].extend(build_region_events(rows, year))
     for year, evs in state_events.items():
         season_files[year].extend(evs)
     for year in season_files:
         season_files[year].sort(key=lambda e: (e["date"] or "", e["name"]))
-    reg.finalize()
-    # registry names were assigned after event construction on purpose: events
-    # hold ident dicts' final names only if we wrote them post-finalize — so
-    # rewrite corps fields now that display names exist
-    # (build_* stored final names already via ident["name"]; finalize() must
-    # therefore run before builds — guard against ordering bugs:)
-    for evs in season_files.values():
-        for ev in evs:
-            for c in ev["classes"]:
-                for r in c["results"]:
-                    assert isinstance(r["corps"], str) and r["corps"], "unnamed band"
 
     # champions: Finals place 1 (co-champions kept — 2011 4A)
     champions: dict[str, dict] = {}
