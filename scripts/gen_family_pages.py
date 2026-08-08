@@ -162,6 +162,7 @@ def page(key: str, c: dict) -> str:
     v_app_css, v_fam_css = v("app.css"), v("family/family.css")
     v_charts, v_wrapped = v("charts.js"), v("family/wrapped.js")
     v_engine, v_modes = v("family/app.js"), v("modes.js")
+    v_sbvend, v_sbcfg, v_acct = v("vendor/supabase.min.js"), v("supabase.js"), v("account.js")
     nav = c["nav"]
     et = c.get("extra_tab")
     extra_tab_html = (
@@ -240,6 +241,9 @@ window.APP_CFG = {json.dumps(cfg)};
   addEventListener("appinstalled", function () {{ btn.hidden = true; }});
 }})();
 </script>
+<script src="{r}/vendor/supabase.min.js{v_sbvend}"></script>
+<script src="{r}/supabase.js{v_sbcfg}"></script>
+<script src="{r}/account.js{v_acct}"></script>
 <script src="{r}/charts.js{v_charts}"></script>
 <script src="{r}/family/wrapped.js{v_wrapped}"></script>
 <script src="{r}/family/app.js{v_engine}"></script>

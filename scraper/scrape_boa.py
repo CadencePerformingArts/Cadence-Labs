@@ -75,7 +75,7 @@ PDF_CACHE = ROOT / "data" / "raw" / "boa_pdf"
 PARSED_CACHE = ROOT / "data" / "parsed" / "boa_recaps"
 CAPTIONS_DIR = DOCS_BOA / "captions"
 BACKFILL_REPORT = ROOT / "data" / "boa_backfill_report.json"
-PARSE_VERSION = 4   # bump to invalidate the parsed-recap memo cache
+PARSE_VERSION = 5   # bump to invalidate the parsed-recap memo cache
 MAX_INDEX_PAGES = 40  # the archive is 22 pages today; headroom for growth
 
 # docs/boa/data/captions/ column order — same structural schema as the DCI
@@ -207,7 +207,7 @@ def event_pdfs(ev: dict, *, force: bool = True) -> dict:
         # "2003.10.18txarp", "1991.classA", "1985whitewater") — accept every
         # linked PDF except obvious non-results; the row parser validates the
         # content anyway, so a stray program booklet just parses to nothing.
-        if re.search(r"schedule|program|map|press|itinerar|ticket|patron|handbook|logo",
+        if re.search(r"schedule|program|press|itinerar|ticket|patron|handbook|logo",
                      href.lower()):
             other.append(href)
         else:
@@ -231,7 +231,7 @@ ALT_NAME_RE = re.compile(r"^((?:19|20)\d{2})\s+(.{4,}?)(?:\s+at\s+(.+?))?\s*$")
 ALT_DATE_RE = re.compile(r"^(.*\S)\s+-\s+(.+?)\s*$")
 # the round is its own line in the modern layout ("Finals"); the 2015–2022
 # generation appends "Recap" ("Semi-Finals Recap")
-ROUND_RE = re.compile(r"^\s*(?:Class\s+\S+\s+)?(Prelims|Preliminaries|Semi-?\s?Finals?|Semifinals|Finals)(?:\s+Recap)?(?:\s+Panel\s+\d+)?\s*$", re.M | re.I)
+ROUND_RE = re.compile(r"^\s*(?:Class\s+\S+\s+)?(Prelims|Preliminaries|Semi-?\s?Finals?|Semifinals|Finals)(?:\s+\d{1,2})?(?:\s+Recap)?(?:\s+Panel\s+\d+)?\s*$", re.M | re.I)
 # 2015-era header prints the date as a bare "11/14/15" line
 NUM_DATE_RE = re.compile(r"^(\d{1,2})/(\d{1,2})/(\d{2,4})$")
 # One scored band per line:  [order-no] <name> - <ST> [Block X - Panel N]
@@ -262,7 +262,7 @@ ROW_RE2 = re.compile(
     r"(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
     r"(?P<tot>-?\d+\.\d{1,3})\s+"
     r"(?P<orank>\d{1,3})"
-    r"(?:\s+(?P<cls>[1-4]A|A{1,4})\s+(?P<crank>\d{1,3})(?:\s+(?P<nrating>[1-3]|I{1,3}))?)?\s*$")
+    r"(?:\s+(?P<cls>[1-4]A|A{1,4})(?:\s+(?P<crank>\d{1,3})(?:\s+(?P<nrating>[1-3]|I{1,3}))?)?)?\s*$")
 # 2008–2011 generation: integer pen but the MODERN tail order
 # (Rating PlaceInClass Class Overall) — the mandatory roman rating right after
 # the total is what disambiguates it from ROW_RE2's reversed tail.
@@ -297,6 +297,34 @@ ROW_RE6 = re.compile(
     r"(?P<cls>[1-4]A|A{1,4}|Open)\s+"
     r"(?P<crank>\d{1,3})\s+"
     r"(?P<orank>\d{1,3})\s*$")
+# 1997–2000 prelims: tail is "Overall InClass Rating Class"
+ROW_RE7 = re.compile(
+    r"^(?P<pre>.+?)\s+"
+    r"(?P<nums>-?\d+\.\d{1,3}(?:\s+-?\d+\.\d{1,3}){9,})\s+"
+    r"(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+\.\d{1,3})\s+"
+    r"(?P<orank>\d{1,3})\s+"
+    r"(?P<crank>\d{1,3})\s+"
+    r"(?P<rating>I{1,3})\s+"
+    r"(?P<cls>[1-4]A|A{1,4}|Open)\s*$")
+# some 1998–2000 sheets print bare-integer scores ("13", "26") which break
+# every float-run pattern above — these two demand EXACTLY the 12 score
+# columns plus pen/total so the int/float mix stays unambiguous, and the
+# subtotal+pen=total gate downstream rejects any residual misalignment.
+_N12 = r"(?P<nums>(?:-?\d+(?:\.\d{1,3})?\s+){11}-?\d+(?:\.\d{1,3})?)"
+ROW_RE8 = re.compile(  # prelims tail "Overall InClass Rating Class"
+    r"^(?P<pre>.+?)\s+" + _N12 +
+    r"\s+(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<orank>\d{1,3})\s+"
+    r"(?P<crank>\d{1,3})\s+"
+    r"(?P<nrating>I{1,3}|[1-3])\s+"
+    r"(?P<cls>[1-4]A|A{1,4}|Open)\s*$")
+ROW_RE9 = re.compile(  # finals tail: bare Overall
+    r"^(?P<pre>.+?)\s+" + _N12 +
+    r"\s+(?P<pen>-?\d+(?:\.\d{1,3})?)\s+"
+    r"(?P<tot>-?\d+\.\d{1,3})\s+"
+    r"(?P<orank>\d{1,3})\s*$")
 BLOCK_RE = re.compile(r"\s+Block\s+\S+\s+-\s+Panel\s+\d+$", re.I)
 ORDER_RE = re.compile(r"^\d{1,3}\s+(?=\S)")
 NAME_ST_RE = re.compile(r"^(.*\S)\s*(?:\s+-\s+|,\s+)([A-Z]{2})$")
@@ -310,7 +338,10 @@ _MONTHS = {m.lower()[:3]: i + 1 for i, m in enumerate(
 
 
 def _month_num(tok: str) -> int | None:
-    return _MONTHS.get(tok.rstrip(".").lower()[:3])
+    t = tok.rstrip(".").lower()[:3]
+    if t == "nev":  # "Nevember" typo on the 2010 St. George sheet
+        t = "nov"
+    return _MONTHS.get(t)
 
 
 def _parse_datepart(s: str, year_hint: int | None) -> str | None:
@@ -323,7 +354,7 @@ def _parse_datepart(s: str, year_hint: int | None) -> str | None:
     s = re.sub(r"^(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+", "", s)
     s = re.sub(r"(\d)(st|nd|rd|th)\b", r"\1", s, flags=re.I)  # October 29th
     m = re.match(r"^([A-Za-z.]+)\s+(\d{1,2})"
-                 r"(?:\s*-\s*(?:([A-Za-z.]+)\s+)?(\d{1,2}))?"
+                 r"(?:\s*(?:-|and|&)\s*(?:([A-Za-z.]+)\s+)?(\d{1,2}))?"  # "22 and 23", "19 & 20"
                  r"(?:,\s*(\d{4}))?$", s)
     if m:
         mo = _month_num(m.group(3)) if m.group(3) else _month_num(m.group(1))
@@ -332,14 +363,14 @@ def _parse_datepart(s: str, year_hint: int | None) -> str | None:
         if mo and yr and 1 <= dy <= 31:
             return f"{yr:04d}-{mo:02d}-{dy:02d}"
         return None
-    m = re.match(r"^(\d{1,2})\s+([A-Za-z.]+)$", s)  # "31 October"
+    m = re.match(r"^(\d{1,2})[-\s]([A-Za-z.]+)$", s)  # "31 October", "31-October"
     if m and _month_num(m.group(2)):
         yr, mo, dy = year_hint, _month_num(m.group(2)), int(m.group(1))
         if yr and 1 <= dy <= 31:
             return f"{yr:04d}-{mo:02d}-{dy:02d}"
-    m = re.match(r"^(\d{1,2})[/-](\d{1,2})"
+    m = re.match(r"^(\d{1,2})[/.-](\d{1,2})"
                  r"(?:\s*-\s*(?:(\d{1,2})/)?(\d{1,2}))?"
-                 r"(?:/(\d{2,4}))?$", s)
+                 r"(?:[/.](\d{2,4}))?$", s)
     if m:
         mo, dy = int(m.group(1)), int(m.group(2))
         if m.group(4):
@@ -377,6 +408,7 @@ def parse_recap(pdf_path: Path) -> dict | None:
     # every dash-sensitive regex below sees one plain hyphen.
     text = text.replace("\xad", "")
     text = re.sub(r"[‐‑‒–—−]", "-", text)
+    text = re.sub(r"\s+[•·]\s+", " - ", text)  # 2001 headers separate with bullets
     text = re.sub(r"-{2,}", "-", text)
     # the 2022 Grand Nationals font emits NUL for its ti/tt ligatures
     # ("Grand Na\x00onal", "Dobyns-Benne\x00") — repair the known words, then
@@ -438,6 +470,14 @@ def parse_recap(pdf_path: Path) -> dict | None:
             # Championship" — qualify with the host city so editions and
             # same-season siblings don't collide
             name = f"{city} {name}"
+    if not date:
+        # last resort: a dotted date in the upload's own filename
+        # ("2001.10.6nvp.pdf" — some 2001 sheets print no date at all)
+        fm = re.search(r"((?:19|20)\d{2})\.(\d{1,2})\.(\d{1,2})", pdf_path.name)
+        if fm:
+            y, mo, dy = (int(g) for g in fm.groups())
+            if 1 <= mo <= 12 and 1 <= dy <= 31:
+                date = f"{y:04d}-{mo:02d}-{dy:02d}"
     if name and re.search(r"grand nationals?", name, re.I):
         # the 2021 header doubles the phrase ("Grand National Championships
         # Grand National Championship at ...") — one canonical name, matching
@@ -461,7 +501,8 @@ def parse_recap(pdf_path: Path) -> dict | None:
             cls_raw, crank, orank = m.group("cls"), m.group("crank"), m.group("orank")
         else:
             m2 = (ROW_RE3.match(s) or ROW_RE2.match(s) or ROW_RE4.match(s)
-                  or ROW_RE5.match(s) or ROW_RE6.match(s))
+                  or ROW_RE5.match(s) or ROW_RE6.match(s) or ROW_RE7.match(s)
+                  or ROW_RE8.match(s) or ROW_RE9.match(s))
             if not m2:
                 continue
             gd = m2.groupdict()

@@ -3479,6 +3479,12 @@
     app.innerHTML = h`
       <h1 class="page">Settings</h1>
 
+      ${(window.CadAccount && window.CadAccount.enabled) ? `
+      <div class="card setcard" id="acctCard">
+        <h2>Cadence account</h2>
+        <div id="acctBody"></div>
+      </div>` : ""}
+
       ${(window.CadInstall && !window.CadInstall.standalone()) ? `
       <div class="card setcard" id="installCard">
         <h2>📲 Add to Home Screen</h2>
@@ -3565,6 +3571,54 @@
 
       <p class="setfoot">Preferences are saved on this device. Created by Lucas Besel.</p>`;
     if (stale()) return;
+
+    // account — sign-in card; repaints on auth changes
+    function paintAcct() {
+      const body = document.getElementById("acctBody");
+      if (!body || !window.CadAccount) return;
+      const u = CadAccount.user();
+      if (!u) {
+        body.innerHTML = `
+          <p class="setnote">One account for every Cadence app — your ★ favorites and alert
+            settings follow you to any device. No password: we email you a sign-in link.</p>
+          <form class="acct-form" id="acctForm">
+            <input class="ctrl" type="email" id="acctEmail" placeholder="you@example.com"
+              autocomplete="email" required>
+            <button class="tab" type="submit">Email me a sign-in link</button>
+          </form>
+          <p class="acct-msg" id="acctMsg" role="status"></p>`;
+        const form = document.getElementById("acctForm");
+        form.addEventListener("submit", e => {
+          e.preventDefault();
+          const msg = document.getElementById("acctMsg");
+          const email = document.getElementById("acctEmail").value;
+          msg.className = "acct-msg"; msg.textContent = "Sending…";
+          CadAccount.signIn(email).then(() => {
+            msg.className = "acct-msg ok";
+            msg.textContent = "Link sent — open the email on this device to finish signing in.";
+          }).catch(err => {
+            msg.className = "acct-msg err";
+            msg.textContent = "Couldn't send the link" + (err && err.message ? ` — ${err.message}` : "") + ". Try again in a minute.";
+          });
+        });
+      } else {
+        const plus = CadAccount.plusStatus();
+        const plusLine = plus && (plus.status === "active" || plus.status === "beta")
+          ? `<div class="setsub">🎖️ Cadence+ ${plus.status === "beta" ? "beta " : ""}member</div>` : "";
+        body.innerHTML = `
+          <div class="setrow">
+            <div><b>${esc(u.email || "Signed in")}</b>
+              <div class="setsub">Favorites &amp; alert settings sync across every Cadence app</div>${plusLine}</div>
+            <button class="tab" id="acctOut" type="button">Sign out</button>
+          </div>`;
+        document.getElementById("acctOut").addEventListener("click", () => CadAccount.signOut());
+      }
+    }
+    paintAcct();
+    if (window.CadAccount && !viewSettings._acctHooked) {
+      viewSettings._acctHooked = true; // one global listener; repaints only when the card exists
+      CadAccount.onChange(() => paintAcct());
+    }
 
     // appearance
     app.querySelectorAll("[data-theme-set]").forEach(b => b.addEventListener("click", () => {
