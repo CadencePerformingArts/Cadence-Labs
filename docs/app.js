@@ -3977,6 +3977,7 @@
     if (fab) fab.hidden = /^#\/ask$/.test(hash); // hide the shortcut on its own page
     document.querySelectorAll("#nav a").forEach(a => {
       const r = a.dataset.route;
+      if (!r || !NAV_DEFAULT[r]) return; // plain links (My Cadence) aren't routes
       a.setAttribute("href", r === sec ? NAV_DEFAULT[r]
         : (sessionStorage.getItem("cad-last-" + r) || NAV_DEFAULT[r]));
     });
