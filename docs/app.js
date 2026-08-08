@@ -1495,7 +1495,9 @@
           <div class="label">Caption Scores</div><div class="value">GE · VIS · MUS</div>
           <div class="sub">judge-by-judge breakdowns →</div></a>
       </div>
-      ${profHtml ? `<div style="margin-top:14px">${profHtml}</div>` : ""}`;
+      ${profHtml ? `<div style="margin-top:14px">${profHtml}</div>` : ""}
+      <p class="claimline">Represent ${esc(detail.name)}?
+        <a href="${(window.APP_CFG && window.APP_CFG.root) || "."}/pro.html">Claim this profile →</a></p>`;
 
     // hero action buttons — favorite (in-place rank), share, and season card
     const fb = document.getElementById("corpFav");

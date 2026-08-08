@@ -60,6 +60,10 @@
     monthly: 1.99,
     annual: 9.99,
     annualNote: "best value",
+    /* organization products (docs/pro.html) — presentation only until billing lands */
+    ensemblePro: 149,
+    eventProMin: 49,
+    eventProMax: 199,
   };
 
   window.CadPlus = {
