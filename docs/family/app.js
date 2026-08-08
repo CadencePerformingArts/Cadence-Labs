@@ -1533,7 +1533,14 @@
       </div>
       ${profHtml ? `<div style="margin-top:14px">${profHtml}</div>` : ""}
       <p class="claimline">Represent ${esc(detail.name)}?
-        <a href="${(window.APP_CFG && window.APP_CFG.root) || "."}/pro.html">Claim this profile →</a></p>`;
+        <a href="${window.CadEnsembles ? CadEnsembles.claimUrl(CadEnsembles.appKey(), detail.name) : ((window.APP_CFG && window.APP_CFG.root) || ".") + "/pro.html"}">Claim this profile →</a></p>`;
+    // official content published by the ensemble itself (Ensemble Pro)
+    if (window.CadEnsembles) {
+      const om = document.createElement("div");
+      om.style.marginTop = "14px";
+      mount().appendChild(om);
+      CadEnsembles.mountOfficial(om, CadEnsembles.appKey(), detail.name);
+    }
 
     // hero action buttons — favorite (in-place rank), share, and season card
     const fb = document.getElementById("corpFav");

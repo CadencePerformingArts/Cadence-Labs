@@ -26,8 +26,25 @@
   .pro-price { font-size: 28px; font-weight: 800; color: var(--heading); margin: 14px 0 2px; }
   .pro-price small { font-size: 13px; font-weight: 600; color: var(--muted); }
   .claim-form { display: flex; flex-direction: column; gap: 9px; margin-top: 12px; }
-  .claim-form .ctrl { font-size: 14px; }
+  .claim-form .ctrl { font-size: 14px; min-width: 0; width: 100%; box-sizing: border-box; }
+  .claim-form textarea.ctrl { font-family: inherit; resize: vertical; min-height: 74px; }
   .claim-form .tab { font-weight: 700; align-self: flex-start; padding: 9px 20px; }
+  .claim-target { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 13px;
+    border-radius: 11px; background: var(--accent-wash); border: 1px solid rgba(240,180,41,0.5); font-size: 14px; }
+  .claim-target b { color: var(--accent-ink); }
+  .claim-msg { margin: 10px 0 0; font-size: 13.5px; font-weight: 600; display: none; }
+  .claim-msg.ok { display: block; color: var(--good); }
+  .claim-msg.err { display: block; color: var(--bad); }
+  .st-badge { display: inline-block; border-radius: 6px; padding: 2px 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .5px; }
+  .st-pending { background: var(--surface-2); color: var(--muted); }
+  .st-approved { background: rgba(47, 158, 68, .14); color: #2f9e44; }
+  .st-rejected { background: rgba(201, 42, 42, .12); color: var(--bad); }
+  .myclaim { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 11px 0; border-top: 1px solid var(--border); font-size: 14px; flex-wrap: wrap; }
+  .myclaim:first-of-type { border-top: 0; }
+  .myclaim .mc-sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  .myclaim .mc-right { display: flex; align-items: center; gap: 10px; flex: none; }
+  .myclaim .mc-right a { font-size: 12.5px; font-weight: 650; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -50,6 +67,37 @@
     <p>Fans already follow your scores here. Ensemble Pro and Event Pro let your
        organization own its Cadence pages — the profile, the story, the schedule,
        the recruiting pipeline.</p>
+  </div>
+
+  <!-- Claim flow: appears when this page is opened from an ensemble page
+       (?claim=<appKey>|<name>). Signed-in users file a real claim; signed-out
+       users are pointed at Settings to sign in first. -->
+  <div class="card" id="claimFlow" hidden style="max-width:620px;margin:22px auto 0">
+    <h2>Claim this profile</h2>
+    <div class="claim-target" id="claimTarget"></div>
+    <div id="claimSignedOut" hidden>
+      <p class="fam-note" style="margin:12px 0 0"><b>Sign in first.</b> Claims attach to your
+        Cadence account so you can manage the profile once it's approved. Open any Cadence app
+        → <b>Settings → Cadence account</b>, sign in with your email, then come back to this
+        link. No account? Use the claim list below and we'll take it from there.</p>
+    </div>
+    <form class="claim-form" id="proClaimForm" hidden>
+      <input class="ctrl" id="pcRole" placeholder="Your role (director, staff, admin…)" required maxlength="120">
+      <textarea class="ctrl" id="pcMsg" placeholder="How can we verify you? An email from the ensemble's official domain, a staff page listing you, a note from the director… (optional but speeds things up)" maxlength="2000"></textarea>
+      <button class="tab" type="submit" id="pcSubmit">Submit claim →</button>
+      <p class="fam-note" style="margin:0">Claims are verified by a human before approval —
+        pages only ever go to the organizations they belong to.</p>
+    </form>
+    <p class="claim-msg" id="claimMsg" role="status"></p>
+  </div>
+
+  <!-- Live status of the signed-in user's claims -->
+  <div class="card" id="myClaims" hidden style="max-width:620px;margin:22px auto 0">
+    <h2>Your claims</h2>
+    <div id="myClaimsList"></div>
+    <p class="fam-note" style="margin:10px 0 0">Approved ensemble claims unlock the
+      <a href="ensemble-admin.html"><b>Ensemble Admin</b></a> dashboard, where you manage
+      your official profile.</p>
   </div>
 
   <div class="pro-cols">
@@ -90,7 +138,8 @@
     <h2>Get on the claim list</h2>
     <p class="fam-note" style="margin:0 0 4px">Claiming opens with verification, so pages only ever go to the
       organizations they belong to. Tell us who you are and we'll reach out when your page is ready to claim —
-      this sends a plain email, nothing more.</p>
+      this sends a plain email, nothing more. (Have a Cadence account? Open your ensemble's page in any
+      Cadence app and tap “Claim this profile” to file a tracked claim instead.)</p>
     <form class="claim-form" id="claimForm">
       <input class="ctrl" id="claimOrg" placeholder="Ensemble or event name" required>
       <input class="ctrl" id="claimRole" placeholder="Your role (director, staff, organizer…)" required>
@@ -99,9 +148,9 @@
   </div>
 
   <div class="notice" style="max-width:620px;margin:16px auto 0">
-    <b>An honest note:</b> organization tools aren't live yet and nothing here takes payment.
-    This page exists so directors and organizers can raise their hands early. Fan-facing scores
-    stay free either way.
+    <b>An honest note:</b> organization tools are just getting started and nothing here takes
+    payment. Ensemble claims are reviewed by a real person before any page changes hands.
+    Fan-facing scores stay free either way.
   </div>
 
   <p class="fam-note" style="text-align:center;margin:26px 0 8px">
@@ -113,6 +162,10 @@
   <div class="credit">Created by Lucas Besel · Cadence is an unofficial fan project</div>
 </footer>
 
+<script src="vendor/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="account.js"></script>
+<script src="ensembles.js"></script>
 <script src="plus.js"></script>
 <script>
 (function () {
@@ -132,6 +185,140 @@
       + "&body=" + encodeURIComponent("Organization: " + org + "\nRole: " + role
         + "\n\n(Sent from the Cadence claim list page)");
   });
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+  /* ---- real claim flow: ?claim=<appKey>|<name> ---- */
+  var CE = window.CadEnsembles;
+  var ACC = window.CadAccount;
+  if (!CE || !CE.enabled || !ACC || !ACC.enabled) return;
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  var target = null; // { appKey, name }
+  try {
+    var raw = new URLSearchParams(location.search).get("claim");
+    if (raw && raw.indexOf("|") > -1) {
+      var i = raw.indexOf("|");
+      target = { appKey: raw.slice(0, i), name: raw.slice(i + 1) };
+      if (!target.name) target = null;
+    }
+  } catch (e) {}
+
+  var flow = document.getElementById("claimFlow");
+  var signedOut = document.getElementById("claimSignedOut");
+  var form = document.getElementById("proClaimForm");
+  var msg = document.getElementById("claimMsg");
+  var myCard = document.getElementById("myClaims");
+  var myList = document.getElementById("myClaimsList");
+
+  if (target) {
+    flow.hidden = false;
+    document.getElementById("claimTarget").innerHTML =
+      "<span>🎽</span><span><b>" + esc(target.name) + "</b> · " + esc(CE.appLabel(target.appKey)) + "</span>";
+  }
+
+  var STATUS = {
+    pending: '<span class="st-badge st-pending">PENDING REVIEW</span>',
+    approved: '<span class="st-badge st-approved">APPROVED</span>',
+    rejected: '<span class="st-badge st-rejected">NOT APPROVED</span>',
+  };
+
+  function loadClaims() {
+    if (!ACC.user()) { myCard.hidden = true; return; }
+    CE.rest("claims?select=id,kind,app_key,target_name,claimant_role,status,created_at,reviewer_note&order=created_at.desc")
+      .then(function (rows) {
+        rows = rows || [];
+        if (!rows.length) { myCard.hidden = true; return; }
+        myCard.hidden = false;
+        myList.innerHTML = rows.map(function (c) {
+          var d = new Date(c.created_at);
+          var ds = isNaN(d) ? "" : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+          return '<div class="myclaim"><div style="min-width:0"><b>' + esc(c.target_name) + "</b>" +
+            '<div class="mc-sub">' + esc(CE.appLabel(c.app_key)) + " · " + esc(c.kind) +
+            (c.claimant_role ? " · " + esc(c.claimant_role) : "") + (ds ? " · filed " + esc(ds) : "") +
+            (c.status === "rejected" && c.reviewer_note ? " · " + esc(c.reviewer_note) : "") + "</div></div>" +
+            '<div class="mc-right">' + (STATUS[c.status] || esc(c.status)) +
+            (c.status === "approved" && c.kind === "ensemble"
+              ? ' <a href="ensemble-admin.html">Manage →</a>' : "") + "</div></div>";
+        }).join("");
+      })
+      .catch(function () { /* offline — leave the card as-is */ });
+  }
+
+  function alreadyClaimed(rowsPromiseTarget) {
+    // small nicety: if a claim for this exact target already exists, say so
+    return CE.rest("claims?select=id,status&kind=eq.ensemble&app_key=eq." +
+        encodeURIComponent(rowsPromiseTarget.appKey) + "&target_name=eq." + encodeURIComponent(rowsPromiseTarget.name))
+      .then(function (rows) { return (rows && rows[0]) || null; })
+      .catch(function () { return null; });
+  }
+
+  function paint() {
+    var u = ACC.user();
+    if (target) {
+      signedOut.hidden = !!u;
+      form.hidden = !u;
+      if (u) {
+        alreadyClaimed(target).then(function (existing) {
+          if (!existing) return;
+          if (existing.status === "rejected") {
+            // a rejected claim can be re-filed with better verification
+            msg.className = "claim-msg err";
+            msg.textContent = "An earlier claim for this profile wasn't approved — include stronger verification if you file again.";
+            return;
+          }
+          form.hidden = true;
+          msg.className = "claim-msg ok";
+          msg.textContent = existing.status === "approved"
+            ? "You already manage this profile — open Ensemble Admin below."
+            : "You've already filed this claim — it's waiting for review.";
+        });
+      }
+    }
+    loadClaims();
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var u = ACC.user();
+    if (!u || !target) return;
+    var role = document.getElementById("pcRole").value.trim();
+    if (!role) return;
+    var btn = document.getElementById("pcSubmit");
+    btn.disabled = true; btn.textContent = "Submitting…";
+    CE.rest("claims", {
+      method: "POST",
+      headers: { Prefer: "return=representation" },
+      body: [{
+        user_id: u.id,
+        kind: "ensemble",
+        app_key: target.appKey,
+        target_name: target.name,
+        claimant_role: role,
+        message: document.getElementById("pcMsg").value.trim() || null,
+      }],
+    }).then(function () {
+      form.hidden = true;
+      msg.className = "claim-msg ok";
+      msg.textContent = "Claim filed — we'll verify it and you'll see it flip to approved right here. 🎉";
+      loadClaims();
+    }).catch(function (err) {
+      msg.className = "claim-msg err";
+      msg.textContent = "Couldn't file the claim (" + (err && err.message || "network error") + "). Try again, or use the claim list below.";
+    }).finally(function () {
+      btn.disabled = false; btn.textContent = "Submit claim →";
+    });
+  });
+
+  ACC.onChange(paint);
+  paint();
 })();
 </script>
 </body>
