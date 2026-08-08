@@ -17,13 +17,20 @@
   }
   var cur = here();
 
+  var WGI_KIDS = [
+    { id: "wgi-guard", icon: "🚩", name: "Color Guard", href: base + "/wgi/guard/" },
+    { id: "wgi-perc", icon: "🥁", name: "Percussion", href: base + "/wgi/percussion/" },
+    { id: "wgi-winds", icon: "🎷", name: "Winds", href: base + "/wgi/winds/" },
+  ];
+  var wgiCur = null;
+  for (var wk = 0; wk < WGI_KIDS.length; wk++) if (WGI_KIDS[wk].id === cur) wgiCur = WGI_KIDS[wk];
   var ITEMS = [
     { head: "Drum corps" },
     { id: "dci", icon: "🥁", name: "DCI", sub: "Live scores & history back to 1972", href: base + "/", indent: true },
-    { head: "WGI · Sport of the Arts" },
-    { id: "wgi-guard", icon: "🚩", name: "WGI Color Guard", sub: "Real records · 2027 schedule", href: base + "/wgi/guard/", indent: true },
-    { id: "wgi-perc", icon: "🥁", name: "WGI Percussion", sub: "Real records · 2027 schedule", href: base + "/wgi/percussion/", indent: true },
-    { id: "wgi-winds", icon: "🎷", name: "WGI Winds", sub: "Real records · 2027 schedule", href: base + "/wgi/winds/", indent: true },
+    { head: "Winter · indoor" },
+    { group: "wgi", icon: "🎭", name: "WGI", indent: true,
+      sub: wgiCur ? "Sport of the Arts — " + wgiCur.name : "Sport of the Arts — pick an activity",
+      kids: WGI_KIDS },
     { head: "Marching band" },
     { id: "boa", icon: "🎺", name: "Bands of America", sub: "Live · 2024–25 real seasons", href: base + "/boa/", indent: true },
     { id: "usb", icon: "🎼", name: "US Bands", sub: "Live · 2024–25 real seasons", href: base + "/usbands/", indent: true },
@@ -48,6 +55,13 @@
     "#cadModeMenu .cm-on b:after{content:' ✓';color:var(--accent,#d97706)}",
     "#cadModeMenu .cm-all{border-top:1px solid var(--grid,#e4e9f1);margin-top:5px;",
     "padding-top:9px;font-size:13px;font-weight:650;color:var(--link,#1c5fa8)}",
+    "#cadModeMenu .cm-grp{display:flex;align-items:center;gap:11px;width:100%;text-align:left;",
+    "padding:8px 12px;border:0;border-radius:10px;background:none;color:inherit;font:inherit;cursor:pointer}",
+    "#cadModeMenu .cm-grp:hover{background:var(--surface-2,#eef1f6)}",
+    "#cadModeMenu .cm-grp.cm-ind{padding-left:22px}",
+    "#cadModeMenu .cm-caret2{margin-left:auto;font-size:11px;color:var(--muted,#74808f);transition:transform .15s}",
+    "#cadModeMenu .cm-grp[aria-expanded=true] .cm-caret2{transform:rotate(90deg)}",
+    "#cadModeMenu .cm-kids{margin-left:34px;border-left:2px solid var(--grid,#e4e9f1);padding-left:4px}",
     ".brand{position:relative}",
     ".brand .cm-caret{font-size:9px;opacity:.75;margin-left:4px}",
   ].join("");
@@ -65,12 +79,33 @@
       if (a.head) return '<div class="cm-h">' + a.head + "</div>";
       var inner = '<span class="cm-ic">' + a.icon + '</span><span><b>' + a.name + "</b>" +
         '<span class="cm-sub">' + a.sub + "</span></span>";
+      if (a.kids) { // collapsible group (WGI) — one row, activities on tap
+        var open = a.kids.some(function (k) { return k.id === cur; });
+        return '<button type="button" class="cm-grp' + (open ? " cm-on" : "") + (a.indent ? " cm-ind" : "") +
+          '" data-grp="' + a.group + '" aria-expanded="' + open + '">' + inner +
+          '<span class="cm-caret2">▸</span></button>' +
+          '<div class="cm-kids" data-kids="' + a.group + '"' + (open ? "" : " hidden") + ">" +
+          a.kids.map(function (k) {
+            return '<a href="' + k.href + '" class="' + (k.id === cur ? "cm-on" : "") + '">' +
+              '<span class="cm-ic">' + k.icon + '</span><span><b>' + k.name + "</b></span></a>";
+          }).join("") + "</div>";
+      }
       var cls = (a.id === cur ? "cm-on" : "") + (a.indent ? " cm-ind" : "");
       return '<a href="' + a.href + '" class="' + cls + '">' + inner + "</a>";
     }).join("") +
     '<a class="cm-all" href="' + base + '/plus.html">✨ Cadence+ — go beyond the scores →</a>' +
     '<a class="cm-all" href="' + base + '/modes.html">About the Cadence family →</a>';
   document.body.appendChild(menu);
+
+  menu.addEventListener("click", function (e) {
+    var g = e.target.closest ? e.target.closest(".cm-grp") : null;
+    if (!g) return;
+    var kids = menu.querySelector('[data-kids="' + g.getAttribute("data-grp") + '"]');
+    if (!kids) return;
+    var open = kids.hidden;
+    kids.hidden = !open;
+    g.setAttribute("aria-expanded", String(open));
+  });
 
   var brand = document.querySelector(".brand");
   if (!brand) return;

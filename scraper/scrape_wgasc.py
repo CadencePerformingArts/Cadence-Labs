@@ -336,6 +336,8 @@ def ingest_season(year: int, *, captions: bool = True) -> list[dict] | None:
         classes = []
         for cls in sorted(ev["cls_map"], key=lambda c: CLASS_RANK[c]):
             ranked = sorted(ev["cls_map"][cls].items(), key=lambda kv: (-kv[1], kv[0]))
+            if not ranked:
+                continue
             classes.append({"class": cls, "results": [
                 {"place": i + 1, "corps": n, "score": s} for i, (n, s) in enumerate(ranked)]})
             n_rows += len(ranked)
