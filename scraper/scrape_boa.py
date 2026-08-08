@@ -405,9 +405,12 @@ def parse_recap(pdf_path: Path) -> dict | None:
                 d = _parse_datepart(s, year_hint)
                 if d:
                     date = d
-        if name and city and re.fullmatch(r"(Super )?Regional Championships?", name, re.I):
-            # historic sheets title every event just "Regional Championship" —
-            # qualify with the host city so editions don't collide
+        if name and city and re.fullmatch(
+                r"(?:(?:Southern|Northern|Eastern|Western|Central)\s+)?(?:Super\s+)?Regional Championships?",
+                name, re.I) and city.lower() not in name.lower():
+            # historic sheets title every event just "(Southern) Regional
+            # Championship" — qualify with the host city so editions and
+            # same-season siblings don't collide
             name = f"{city} {name}"
     if name and re.search(r"grand nationals?", name, re.I):
         # the 2021 header doubles the phrase ("Grand National Championships
@@ -946,11 +949,14 @@ def year_class_maps(collected: list) -> dict[int, dict[tuple[str, str], str]]:
             for y, m in votes.items()}
 
 
-def ingest_all(collected: list, refresh_years: set[int]) -> dict:
+def ingest_all(collected: list, refresh_years: set[int],
+               min_events: int = 2, min_rows: int = 30) -> dict:
     """Merge every archive year into the store. Years already in the store are
     NEVER touched (unless named in refresh_years), so verified seasons survive
-    any backfill. Per-year validation gates match ingest(); a failing year is
-    reported, not fatal."""
+    any backfill. Per-year validation gates match ingest() by default —
+    min_events/min_rows let a backfill of the thin 1970s/80s archive keep a
+    single-event season whose rows all reconciled; a failing year is reported,
+    not fatal."""
     per_year: dict[int, list] = {}
     for ev_meta, rcs in collected:
         byyear: dict[int, list] = {}
@@ -991,7 +997,7 @@ def ingest_all(collected: list, refresh_years: set[int]) -> dict:
                 "out_of_range_scores": len(bad)}
         if str(year) in store["years"] and year not in refresh_years:
             info["status"] = "kept-existing-store"
-        elif len(merged) < 2 or n_rows < 30 or bad:
+        elif len(merged) < min_events or n_rows < min_rows or bad:
             info["status"] = "validation-failed"
             log(f"boa ingest-all {year}: validation FAILED ({len(merged)} events, "
                 f"{n_rows} rows, {len(bad)} out-of-range) — year not ingested")
@@ -1084,6 +1090,10 @@ def main() -> int:
                     help="refetch index/event HTML instead of trusting the cache")
     ap.add_argument("--refresh-year", type=int, action="append", default=[],
                     help="with --ingest-all: reparse this year even if stored")
+    ap.add_argument("--min-events", type=int, default=2,
+                    help="with --ingest-all: per-year gate, minimum events")
+    ap.add_argument("--min-rows", type=int, default=30,
+                    help="with --ingest-all: per-year gate, minimum result rows")
     ap.add_argument("--year", type=int, default=datetime.now().year)
     args = ap.parse_args()
     if args.discover:
@@ -1094,7 +1104,8 @@ def main() -> int:
         collected, notes = collect_archive(fresh=args.fresh)
         report = {"generated": datetime.now(timezone.utc).isoformat(), "notes": notes}
         if args.ingest_all:
-            report["years"] = ingest_all(collected, set(args.refresh_year))
+            report["years"] = ingest_all(collected, set(args.refresh_year),
+                                         min_events=args.min_events, min_rows=args.min_rows)
         if args.captions:
             report["captions"] = build_captions(collected)
         BACKFILL_REPORT.parent.mkdir(parents=True, exist_ok=True)

@@ -181,7 +181,7 @@ _EQ_SET = {"e", "ea", "equipment", "equipment analysis"}
 _MV_SET = {"m", "ma", "movement", "movement analysis"}
 _DSG_SET = {"da", "design", "design analysis"}
 
-_SECT = re.compile(r"<a name='round_([0-9a-f-]{36})'")
+_SECT = re.compile(r"<a name='(?:round|division)_([0-9a-f-]{36})'")
 _TR = re.compile(r"<tr\b.*?</tr>", re.S)
 _CELL = re.compile(r"<td\b([^>]*)>(.*?)</td>", re.S)
 # unit row: name cell + location cell (location text may be blank), both
@@ -334,9 +334,10 @@ def parse_competition(comp: dict, year: int, *, force: bool = False,
         cls = norm_class(rname)
         if not cls:
             continue
-        rguid = (rnd.get("roundGuid") or rnd.get("divisionGuid") or "").lower()
-        if rguid:
-            round_cls[rguid] = cls
+        for key in ("roundGuid", "divisionGuid"):
+            rguid = (rnd.get(key) or "").lower()
+            if rguid:
+                round_cls[rguid] = cls
         for p in rnd.get("performances") or []:
             unit = display_name(p.get("name") or "")
             score = p.get("score")
