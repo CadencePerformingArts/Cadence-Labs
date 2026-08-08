@@ -64,6 +64,10 @@
     ensemblePro: 149,
     eventProMin: 49,
     eventProMax: 199,
+    /* Stripe-hosted checkout links; null = that plan isn't purchasable yet and
+       its button stays disabled. testMode flags the sandbox banner. */
+    links: { monthly: null, annual: null, portal: null },
+    testMode: true,
   };
 
   window.CadPlus = {
