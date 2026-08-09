@@ -44,6 +44,19 @@
   "_seen": "2026-08-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
+  "name": "Santa Clara Vanguard Showcase",
+  "location": "Moscow, ID",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Columbians",
+   "Gems",
+   "Santa Clara Vanguard"
+  ],
+  "_seen": "2026-08-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -317,6 +330,61 @@
    [
     "9:48 PM",
     "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
+  "name": "Drums Along the Columbia",
+  "location": "Kennewick, WA",
+  "date_display": "June 29, 2026",
+  "date": "2026-06-29",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "The Battalion",
+   "Columbians",
+   "Seattle Cascades",
+   "Santa Clara Vanguard",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:58 PM",
+    "Impulse"
+   ],
+   [
+    "8:16 PM",
+    "The Battalion"
+   ],
+   [
+    "8:34 PM",
+    "Columbians"
+   ],
+   [
+    "8:52 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:10 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:17 PM",
+    "Event Concludes"
+   ],
+   [
+    "",
+    "Gates Open"
    ]
   ],
   "_seen": "2026-08-09"
@@ -2548,6 +2616,61 @@
   "_seen": "2026-08-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
+  "_seen": "2026-08-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southwestern-championship/",
   "name": "DCI Southwestern Championship",
   "location": "San Antonio, TX",
@@ -4592,85 +4715,6 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-08-09"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-michigan/",
-  "name": "DCI Michigan",
-  "location": "Allendale, MI",
-  "date_display": "July 31, 2026",
-  "date": "2026-07-31",
-  "lineup": [
-   "Northern Lights",
-   "Memphis Blues",
-   "Heat Wave",
-   "Les Stentors",
-   "Colt Cadets",
-   "Raiders",
-   "River City Rhythm",
-   "7th Regiment",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Northern Lights"
-   ],
-   [
-    "7:57 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:14 PM",
-    "Heat Wave"
-   ],
-   [
-    "8:31 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:48 PM",
-    "Colt Cadets"
-   ],
-   [
-    "9:05 PM",
-    "Raiders"
-   ],
-   [
-    "9:22 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:39 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:56 PM",
-    "Gold"
-   ],
-   [
-    "10:13 PM",
-    "The Battalion"
-   ],
-   [
-    "10:30 PM",
-    "Encore - Northern Lights - Grand Rapids, MI"
-   ],
-   [
-    "10:38 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-08-09"
  },
  {
