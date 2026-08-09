@@ -686,6 +686,55 @@
   "_seen": "2026-08-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-rotary-music-festival/",
+  "name": "Rotary Music Festival",
+  "location": "Cedarburg, WI",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Eclipse",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Eclipse"
+   ],
+   [
+    "7:58 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:16 PM",
+    "The Cavaliers"
+   ],
+   [
+    "8:39 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:02 PM",
+    "Encore - Madison Scouts - Madison, WI"
+   ],
+   [
+    "9:04 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-08-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-capital-classic/",
   "name": "DCI Capital Classic",
   "location": "Sacramento, CA",
