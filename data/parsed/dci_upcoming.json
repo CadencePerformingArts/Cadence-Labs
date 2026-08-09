@@ -44,89 +44,6 @@
   "_seen": "2026-08-09"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-08-09"
- },
- {
-  "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
-  "name": "Barnum Festival: Champions on Parade",
-  "location": "Shelton, CT",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "North Star",
-   "Crusaders Senior",
-   "Hawthorne Caballeros Alumni",
-   "CT Alumni",
-   "7th Regiment",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros",
-   "Bushwackers",
-   "Hurricanes"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "North Star"
-   ],
-   [
-    "6:58 PM",
-    "Crusaders Senior"
-   ],
-   [
-    "7:16 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "7:34 PM",
-    "CT Alumni"
-   ],
-   [
-    "7:52 PM",
-    "7th Regiment"
-   ],
-   [
-    "8:10 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:28 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "8:46 PM",
-    "Bushwackers"
-   ],
-   [
-    "9:04 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-09"
- },
- {
   "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
   "name": "Bluecoats Opening Night Community Celebration",
   "location": "Alliance, OH",
@@ -1379,6 +1296,80 @@
   "_seen": "2026-08-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-gold-showcase/",
+  "name": "Gold Showcase",
+  "location": "Santa Clarita, CA",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Blue Devils C",
+   "Golden Empire",
+   "Blue Devils B",
+   "The Academy",
+   "Pacific Crest",
+   "Blue Devils",
+   "Santa Clara Vanguard",
+   "Gold",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:17 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:34 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:51 PM",
+    "The Academy"
+   ],
+   [
+    "7:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:25 PM",
+    "Intermission"
+   ],
+   [
+    "7:55 PM",
+    "Blue Devils"
+   ],
+   [
+    "8:12 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:29 PM",
+    "Gold"
+   ],
+   [
+    "8:46 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-08-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
   "name": "Cavalcade of Brass",
   "location": "Lisle, IL",
@@ -1526,6 +1517,90 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-08-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
   "_seen": "2026-08-09"
  },
  {
@@ -2455,61 +2530,6 @@
    ]
   ],
   "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
-  "_seen": "2026-08-09"
- },
- {
-  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
-  "name": "Sounds by the Seaport",
-  "location": "New London, CT",
-  "date_display": "July 17, 2026",
-  "date": "2026-07-17",
-  "lineup": [
-   "Eastern Connecticut Symphony Orchestra",
-   "CT Alumni",
-   "Les Stentors",
-   "Hurricanes",
-   "7th Regiment",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:05 PM",
-    "Eastern Connecticut Symphony Orchestra"
-   ],
-   [
-    "7:20 PM",
-    "CT Alumni"
-   ],
-   [
-    "7:45 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:15 PM",
-    "Hall of Fame Recipients & Age-Out Recognition"
-   ],
-   [
-    "8:40 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:00 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:30 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
   "_seen": "2026-08-09"
  },
  {
