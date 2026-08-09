@@ -686,55 +686,6 @@
   "_seen": "2026-08-09"
  },
  {
-  "url": "https://www.dci.org/events/2026-rotary-music-festival/",
-  "name": "Rotary Music Festival",
-  "location": "Cedarburg, WI",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Eclipse",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Eclipse"
-   ],
-   [
-    "7:58 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:16 PM",
-    "The Cavaliers"
-   ],
-   [
-    "8:39 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:02 PM",
-    "Encore - Madison Scouts - Madison, WI"
-   ],
-   [
-    "9:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-08-09"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-capital-classic/",
   "name": "DCI Capital Classic",
   "location": "Sacramento, CA",
@@ -4127,6 +4078,83 @@
    ]
   ],
   "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
+  "name": "Summer Music Games in Cincinnati",
+  "location": "Mason, OH",
+  "date_display": "July 27, 2026",
+  "date": "2026-07-27",
+  "lineup": [
+   "Columbus Saints",
+   "Cincinnati Tradition",
+   "Colt Cadets",
+   "River City Rhythm",
+   "Seattle Cascades",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:15 PM",
+    "Columbus Saints"
+   ],
+   [
+    "7:32 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "7:49 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:06 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:23 PM",
+    "Intermission"
+   ],
+   [
+    "8:43 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:00 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:17 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:34 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:51 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:08 PM",
+    "Encore - TBD"
+   ],
+   [
+    "10:16 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-09"
  },
  {
