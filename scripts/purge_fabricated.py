@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 APPS = ["wgi/guard", "wgi/percussion", "wgi/winds", "boa", "usbands",
-        "uil", "issma", "wgasc", "tcgc", "ffcc", ""]
+        "uil", "wgasc", "tcgc", "ffcc", ""]
 
 
 def load(p):

@@ -3350,7 +3350,6 @@
     { name: "Bands of America", path: "boa", ns: "boa:" },
     { name: "US Bands", path: "usbands", ns: "usb:" },
     { name: "UIL Texas", path: "uil", ns: "uil:" },
-    { name: "ISSMA", path: "issma", ns: "issma:" },
     { name: "WGASC", path: "wgasc", ns: "wgasc:" },
     { name: "TCGC", path: "tcgc", ns: "tcgc:" },
     { name: "FFCC", path: "ffcc", ns: "ffcc:" },

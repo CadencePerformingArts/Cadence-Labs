@@ -31,7 +31,6 @@ APPS = [
     ("boa",            "boa/data",            "event"),
     ("usbands",        "usbands/data",        "trend"),
     ("uil",            "uil/data",            "rating"),
-    ("issma",          "issma/data",          "placement"),
     ("wgasc",          "wgasc/data",          "trend"),
     ("tcgc",           "tcgc/data",           "trend"),
     ("ffcc",           "ffcc/data",           "trend"),
