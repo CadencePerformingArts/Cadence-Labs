@@ -633,59 +633,6 @@
   "_seen": "2026-08-10"
  },
  {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-08-10"
- },
- {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -4270,6 +4217,75 @@
   "_seen": "2026-08-10"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-annapolis/",
+  "name": "DCI Annapolis",
+  "location": "Annapolis, MD",
+  "date_display": "July 28, 2026",
+  "date": "2026-07-28",
+  "lineup": [
+   "Raiders",
+   "Spartans",
+   "Pacific Crest",
+   "Blue Knights",
+   "Troopers",
+   "Colts",
+   "Boston Crusaders",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome"
+   ],
+   [
+    "6:40 PM",
+    "Raiders"
+   ],
+   [
+    "6:57 PM",
+    "Spartans"
+   ],
+   [
+    "7:14 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:31 PM",
+    "Blue Knights"
+   ],
+   [
+    "7:48 PM",
+    "Intermission"
+   ],
+   [
+    "8:05 PM",
+    "Troopers"
+   ],
+   [
+    "8:22 PM",
+    "Colts"
+   ],
+   [
+    "8:39 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:56 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:21 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-10"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-huntington/",
   "name": "DCI Huntington",
   "location": "Huntington, WV",
@@ -4478,6 +4494,85 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-08-10"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-marion-open/",
+  "name": "The Marion Open",
+  "location": "Marion, OH",
+  "date_display": "July 30, 2026",
+  "date": "2026-07-30",
+  "lineup": [
+   "Cincinnati Tradition",
+   "Memphis Blues",
+   "Heat Wave",
+   "Raiders",
+   "Colt Cadets",
+   "Les Stentors",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "7:27 PM",
+    "Memphis Blues"
+   ],
+   [
+    "7:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:01 PM",
+    "Raiders"
+   ],
+   [
+    "8:18 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Les Stentors"
+   ],
+   [
+    "9:09 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Gold"
+   ],
+   [
+    "10:00 PM",
+    "The Battalion"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
   "_seen": "2026-08-10"
  },
  {
