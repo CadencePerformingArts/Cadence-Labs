@@ -633,6 +633,59 @@
   "_seen": "2026-08-10"
  },
  {
+  "url": "https://www.dci.org/events/2026-preview-of-champions/",
+  "name": "Preview of Champions",
+  "location": "Nashua, NH",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Boston Crusaders",
+   "Spartans",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome"
+   ],
+   [
+    "8:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:35 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:00 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:55 PM",
+    "Spartans"
+   ],
+   [
+    "10:20 PM",
+    "Encore - Spartans - Nashua, NH"
+   ],
+   [
+    "10:45 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-08-10"
+ },
+ {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -2345,76 +2398,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy in effect for this event.",
-  "_seen": "2026-08-10"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-central-texas/",
-  "name": "DCI Central Texas",
-  "location": "Killeen, TX",
-  "date_display": "July 16, 2026",
-  "date": "2026-07-16",
-  "lineup": [
-   "Sky Ryders",
-   "Arsenal",
-   "Gold",
-   "Genesis",
-   "Music City",
-   "Pacific Crest",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Sky Ryders"
-   ],
-   [
-    "8:42 PM",
-    "Arsenal"
-   ],
-   [
-    "8:59 PM",
-    "Gold"
-   ],
-   [
-    "9:16 PM",
-    "Genesis"
-   ],
-   [
-    "9:33 PM",
-    "Music City"
-   ],
-   [
-    "9:50 PM",
-    "Pacific Crest"
-   ],
-   [
-    "10:07 PM",
-    "Madison Scouts"
-   ],
-   [
-    "10:24 PM",
-    "Colts"
-   ],
-   [
-    "10:41 PM",
-    "Blue Knights"
-   ],
-   [
-    "11:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-10"
  },
  {
