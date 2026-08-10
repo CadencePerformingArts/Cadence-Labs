@@ -44,7 +44,6 @@
     { key: "boa",       ns: "boa:",       name: "Bands of America", tag: "BOA",    icon: "🎺", path: "boa/",            term: "bands" },
     { key: "usb",       ns: "usb:",       name: "US Bands",         tag: "USB",    icon: "🎼", path: "usbands/",        term: "bands" },
     { key: "uil",       ns: "uil:",       name: "UIL Texas",        tag: "UIL",    icon: "🤠", path: "uil/",            term: "bands" },
-    { key: "issma",     ns: "issma:",     name: "ISSMA",            tag: "ISSMA",  icon: "🏵", path: "issma/",          term: "bands" },
     { key: "wgasc",     ns: "wgasc:",     name: "WGASC",            tag: "WGASC",  icon: "🌟", path: "wgasc/",          term: "guards" },
     { key: "tcgc",      ns: "tcgc:",      name: "TCGC",             tag: "TCGC",   icon: "🤠", path: "tcgc/",           term: "guards" },
     { key: "ffcc",      ns: "ffcc:",      name: "FFCC",             tag: "FFCC",   icon: "🌴", path: "ffcc/",           term: "groups" },
