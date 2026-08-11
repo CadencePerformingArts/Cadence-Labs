@@ -4207,6 +4207,69 @@
   "_seen": "2026-08-11"
  },
  {
+  "url": "https://www.dci.org/events/2026-brass-at-the-beach/",
+  "name": "Brass at the Beach",
+  "location": "Myrtle Beach, SC",
+  "date_display": "July 28, 2026",
+  "date": "2026-07-28",
+  "lineup": [
+   "Music City",
+   "The Academy",
+   "Spirit of Atlanta",
+   "Crossmen",
+   "Blue Stars",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:10 PM",
+    "Music City"
+   ],
+   [
+    "7:27 PM",
+    "The Academy"
+   ],
+   [
+    "7:44 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:01 PM",
+    "Crossmen"
+   ],
+   [
+    "8:18 PM",
+    "Intermission"
+   ],
+   [
+    "8:35 PM",
+    "Blue Stars"
+   ],
+   [
+    "8:52 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:09 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "9:17 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-11"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-annapolis/",
   "name": "DCI Annapolis",
   "location": "Annapolis, MD",
