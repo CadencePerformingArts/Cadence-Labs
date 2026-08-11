@@ -1,8 +1,8 @@
 {
  "https://www.dci.org/scores/final-scores/2026-dci-2026-big-loud-live/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-finals/": "HTTP 200, body 175174B",
- "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-prelims/": "HTTP 200, body 176460B",
- "https://www.dci.org/scores/final-scores/2026-dci-world-championship-finals/": "HTTP 200, body 174936B",
+ "https://www.dci.org/scores/final-scores/2026-dci-all-age-world-championship-prelims/": "HTTP 403, body 139B",
+ "https://www.dci.org/scores/final-scores/2026-dci-world-championship-finals/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-dci-world-championship-semifinals/": "HTTP 200, body 183231B",
  "https://www.dci.org/scores/final-scores/2026-shining-a-light-on-music-education/": "HTTP 403, body 139B",
  "https://www.dci.org/scores/final-scores/2026-soundsport-international-music-food-festival/": "HTTP 403, body 139B"
