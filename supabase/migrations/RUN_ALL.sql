@@ -3106,9 +3106,14 @@ create policy favs_own on public.org_file_favorites for all to authenticated
 -- a short-lived signed URL per download/preview.
 -- ═══════════════════════════════════════════════════════════════════════
 
-insert into storage.buckets (id, name, public, file_size_limit)
-values ('ensemble', 'ensemble', false, 524288000)   -- 500 MB per object
-on conflict (id) do nothing;
+do $$
+begin
+  insert into storage.buckets (id, name, public, file_size_limit)
+  values ('ensemble', 'ensemble', false, 524288000)   -- 500 MB per object
+  on conflict (id) do nothing;
+exception when insufficient_privilege or undefined_table then
+  raise notice 'Cadence: could not create the ensemble storage bucket from SQL — create it in Dashboard → Storage (name: ensemble, Public: OFF).';
+end $$;
 
 -- path parsers. They do exactly (storage.foldername(name))[n]::uuid, but
 -- return null instead of raising when a key is malformed or the segment is
@@ -3189,27 +3194,39 @@ grant execute on function public.can_write_ensemble_object(text) to authenticate
 grant execute on function public.can_delete_ensemble_object(text) to authenticated;
 
 -- ── policies on storage.objects ───────────────────────────────────────
--- If this block errors with "must be owner of table objects", run the four
--- CREATE POLICY statements from Dashboard → Storage → Policies instead
--- (New policy → For full customization), pasting the same expressions.
-alter table storage.objects enable row level security;
+-- Supabase hosts storage.objects under a role the SQL editor usually cannot
+-- alter, so these statements are attempted and skipped rather than allowed to
+-- abort the whole migration. If they are skipped, finish in the dashboard:
+--   Storage → Policies → bucket `ensemble` → New policy → For full
+--   customization, and create four policies for role `authenticated` using
+--   the same expressions shown below. The helper functions they call are
+--   already created above, so it is pure copy-paste.
+do $$
+begin
+  execute 'alter table storage.objects enable row level security';
 
-drop policy if exists ensemble_objects_read on storage.objects;
-create policy ensemble_objects_read on storage.objects for select to authenticated
-  using (bucket_id = 'ensemble' and public.can_read_ensemble_object(name));
+  execute 'drop policy if exists ensemble_objects_read on storage.objects';
+  execute $p$create policy ensemble_objects_read on storage.objects for select to authenticated
+    using (bucket_id = 'ensemble' and public.can_read_ensemble_object(name))$p$;
 
-drop policy if exists ensemble_objects_insert on storage.objects;
-create policy ensemble_objects_insert on storage.objects for insert to authenticated
-  with check (bucket_id = 'ensemble' and public.can_write_ensemble_object(name));
+  execute 'drop policy if exists ensemble_objects_insert on storage.objects';
+  execute $p$create policy ensemble_objects_insert on storage.objects for insert to authenticated
+    with check (bucket_id = 'ensemble' and public.can_write_ensemble_object(name))$p$;
 
-drop policy if exists ensemble_objects_update on storage.objects;
-create policy ensemble_objects_update on storage.objects for update to authenticated
-  using (bucket_id = 'ensemble' and public.can_write_ensemble_object(name))
-  with check (bucket_id = 'ensemble' and public.can_write_ensemble_object(name));
+  execute 'drop policy if exists ensemble_objects_update on storage.objects';
+  execute $p$create policy ensemble_objects_update on storage.objects for update to authenticated
+    using (bucket_id = 'ensemble' and public.can_write_ensemble_object(name))
+    with check (bucket_id = 'ensemble' and public.can_write_ensemble_object(name))$p$;
 
-drop policy if exists ensemble_objects_delete on storage.objects;
-create policy ensemble_objects_delete on storage.objects for delete to authenticated
-  using (bucket_id = 'ensemble' and public.can_delete_ensemble_object(name));
+  execute 'drop policy if exists ensemble_objects_delete on storage.objects';
+  execute $p$create policy ensemble_objects_delete on storage.objects for delete to authenticated
+    using (bucket_id = 'ensemble' and public.can_delete_ensemble_object(name))$p$;
+
+  raise notice 'Cadence: storage.objects policies applied.';
+exception
+  when insufficient_privilege or undefined_table then
+    raise notice 'Cadence: could not alter storage.objects from the SQL editor (%). Everything else applied — finish the four file-access policies in Dashboard → Storage → Policies. Until then, file uploads/downloads stay locked.', sqlerrm;
+end $$;
 
 -- ═══ Owner workflow queries ═══════════════════════════════════════════
 -- Confirm the bucket is private (this must print f):
