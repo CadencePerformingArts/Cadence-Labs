@@ -390,6 +390,69 @@
   "_seen": "2026-08-14"
  },
  {
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
+  "name": "Northwest Youth Music Games Seattle",
+  "location": "Seattle, WA",
+  "date_display": "June 30, 2026",
+  "date": "2026-06-30",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:45 PM",
+    "Intermission"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:52 PM",
+    "Impulse"
+   ],
+   [
+    "8:07 PM",
+    "Columbians"
+   ],
+   [
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-08-14"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
   "name": "Drums Across Nebraska",
   "location": "Omaha, NE",
@@ -3077,138 +3140,6 @@
    ]
   ],
   "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-14"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
-  "name": "DCI Southern Mississippi",
-  "location": "Hattiesburg, MS",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Crossmen"
-   ],
-   [
-    "7:57 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:14 PM",
-    "Troopers"
-   ],
-   [
-    "8:31 PM",
-    "Intermission"
-   ],
-   [
-    "8:48 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:05 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:22 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-14"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
-  "name": "Drums on the Ohio",
-  "location": "Evansville, IN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "Colts",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Gold"
-   ],
-   [
-    "7:27 PM",
-    "The Battalion"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:18 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:05 PM",
-    "Colts"
-   ],
-   [
-    "9:22 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:39 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:56 PM",
-    "Encore - Phantom Regiment - Rockford, IL"
-   ],
-   [
-    "10:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-08-14"
  },
  {
