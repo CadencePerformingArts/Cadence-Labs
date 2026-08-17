@@ -26,7 +26,7 @@
   @media (max-width: 760px) { .plus-cols { grid-template-columns: 1fr; } }
   .plus-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   .plus-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 14px; line-height: 1.45; }
-  .plus-list .p-ic { font-size: 19px; flex: none; width: 26px; text-align: center; }
+  .plus-list .p-ic { color: var(--link); flex: none; width: 26px; text-align: center; }
   .plus-list b { display: block; font-size: 14px; }
   .plus-list .p-sub { color: var(--muted); font-size: 12.5px; line-height: 1.5; }
   .price-grid { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; max-width: 560px; margin: 22px auto 0; }
@@ -79,15 +79,15 @@
     <div class="card">
       <h2><span class="fam-badge fam-live">FREE FOREVER</span></h2>
       <ul class="plus-list" style="margin-top:12px">
-        <li><span class="p-ic">📡</span><span><b>Live scores</b>
+        <li><span class="p-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px"><path d="M12 19h.01M7.6 15.5a6 6 0 0 1 8.8 0M4.8 12a10 10 0 0 1 14.4 0"/></svg></span><span><b>Live scores</b>
           <span class="p-sub">Every published score, the moment it lands — all circuits, all classes.</span></span></li>
-        <li><span class="p-ic">🗓️</span><span><b>Schedules</b>
+        <li><span class="p-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px"><path d="M4.5 5.5h15v14h-15zM4.5 10h15M9 3.5v3.5M15 3.5v3.5"/></svg></span><span><b>Schedules</b>
           <span class="p-sub">Every show, lineup and start time for the whole season.</span></span></li>
-        <li><span class="p-ic">🏁</span><span><b>Standings</b>
+        <li><span class="p-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px"><path d="M5 21V4M5 4h12l-2.5 3.5L17 11H5"/></svg></span><span><b>Standings</b>
           <span class="p-sub">Current season standings with basic score deltas.</span></span></li>
-        <li><span class="p-ic">🏆</span><span><b>Champions</b>
+        <li><span class="p-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7"/></svg></span><span><b>Champions</b>
           <span class="p-sub">Every champion, every year, every circuit.</span></span></li>
-        <li><span class="p-ic">🥁</span><span><b>Basic profiles</b>
+        <li><span class="p-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px"><path d="M4 5h16v14H4zM4 9.5h16M8 13h5"/></svg></span><span><b>Basic profiles</b>
           <span class="p-sub">Corps and ensemble pages with history and season results.</span></span></li>
       </ul>
       <p class="fam-note" style="margin-top:14px">No trials, no teasers, no paywalled scores. This is the deal, forever.</p>
@@ -101,7 +101,7 @@
 
   <div class="price-grid">
     <div class="card price-card">
-      <div class="fam-ic">🎟️</div>
+      <div class="fam-ic" style="color:var(--link)"><svg viewBox='0 0 24 24' width='24' height='24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M4 8a2 2 0 0 0 2 2 2 2 0 0 1 0 4 2 2 0 0 0-2 2v2h16v-2a2 2 0 0 1-2-2 2 2 0 0 1 2-2V8h-16zM13 8v8'/></svg></div>
       <h2>Monthly</h2>
       <div class="p-amt" id="priceMonthly"><small>&nbsp;</small></div>
       <span class="fam-badge fam-soon" id="badgeMonthly" style="margin-top:8px">COMING SOON</span>
@@ -109,7 +109,7 @@
       <button class="tab" type="button" id="soonMonthly" disabled>Not on sale yet</button>
     </div>
     <div class="card price-card">
-      <div class="fam-ic">🏅</div>
+      <div class="fam-ic" style="color:var(--link)"><svg viewBox='0 0 24 24' width='24' height='24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 11.5 10 20l2-1.2L14 20l-2-8.5'/></svg></div>
       <h2>Annual · <span id="priceAnnualNote">best value</span></h2>
       <div class="p-amt" id="priceAnnual"><small>&nbsp;</small></div>
       <span class="fam-badge fam-soon" id="badgeAnnual" style="margin-top:8px">COMING SOON</span>
@@ -127,7 +127,7 @@
     <h2>I have a code</h2>
     <p class="fam-note" style="margin:0 0 10px">Beta testers: enter the invite code you were sent and Cadence+ unlocks on this device.</p>
     <div class="plus-active" id="plusActive">
-      <span style="font-size:19px">🎖️</span>
+      <span style="color:var(--accent-ink)"><svg viewBox='0 0 24 24' width='19' height='19' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 11.5 10 20l2-1.2L14 20l-2-8.5'/></svg></span>
       <span><b>Cadence+ is active on this device.</b>
         <span class="p-since" id="plusSince"></span></span>
       <button class="p-off" id="plusOff" type="button">Remove from this device</button>
@@ -212,8 +212,8 @@
     }
     el.textContent = !u
       ? "Tip: sign in first (any app → Settings → Cadence account) so your purchase attaches to your account on every device."
-      : (p && p.status === "active") ? "🎖️ Cadence+ is active on this account — thank you!"
-      : (p && p.status === "beta") ? "🎖️ You have Cadence+ beta access on this account."
+      : (p && p.status === "active") ? "Cadence+ is active on this account — thank you!"
+      : (p && p.status === "beta") ? "You have Cadence+ beta access on this account."
       : "Signed in as " + (u.email || "your account") + " — a purchase will attach here automatically.";
   }
   paintMember();
@@ -238,7 +238,7 @@
     var ok = CadPlus.activate(input.value);
     msg.className = "code-msg " + (ok ? "ok" : "err");
     msg.textContent = ok
-      ? "Welcome to Cadence+ — everything is unlocked on this device. 🎉"
+      ? "Welcome to Cadence+ — everything is unlocked on this device."
       : "That code doesn't look right — codes look like CAD-XXXX-XXXX. Check for typos and try again.";
     if (ok) input.value = "";
   });

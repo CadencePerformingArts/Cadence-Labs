@@ -489,7 +489,7 @@
         + `<td class="pr-you">${corpsLink(corps)}${tick}</td>`
         + `<td class="pr-real">${real ? corpsLink(real) + sv : "—"}</td></tr>`;
     }).join("");
-    return h`<div class="pr-head">🎯 Your call: <b>${s.pct}%</b> <span class="kicker">${s.exact}/${s.n} exact · ${s.pts}/${s.max} pts</span></div>
+    return h`<div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Your call: <b>${s.pct}%</b> <span class="kicker">${s.exact}/${s.n} exact · ${s.pts}/${s.max} pts</span></div>
       <table class="t pr-table"><thead><tr><th class="num">#</th><th>Your pick</th><th>Actual finish</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
 
@@ -508,7 +508,7 @@
     let lineup = (ev.lineup || []).filter(c => wcCorps.has(c));
     if (lineup.length < 2) lineup = (ev.lineup || []).slice();   // early-season fallback
     if (lineup.length < 2) {
-      container.innerHTML = `<div class="predict"><div class="pr-head">🎯 Call the finish</div>`
+      container.innerHTML = `<div class="predict"><div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Call the finish</div>`
         + `<div class="pr-empty">Opens once the lineup is posted.</div></div>`;
       return;
     }
@@ -519,12 +519,12 @@
       const rest = lineup.filter(c => !draft.includes(c));
       if (locked) {
         container.innerHTML = h`<div class="predict">
-          <div class="pr-head">🎯 Your call is in <span class="kicker">edit anytime until scores post</span></div>
+          <div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Your call is in <span class="kicker">edit anytime until scores post</span></div>
           <ol class="pr-list locked">${draft.map(c => `<li>${corpsLink(c)}</li>`).join("")}</ol>
           <div class="pr-actions"><button class="tab" data-act="edit">Edit pick</button></div></div>`;
       } else {
         container.innerHTML = h`<div class="predict">
-          <div class="pr-head">🎯 Call the finish <span class="kicker">tap them in the order you think they'll place</span></div>
+          <div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Call the finish <span class="kicker">tap them in the order you think they'll place</span></div>
           <ol class="pr-list">${draft.map((c, i) => `<li><button class="pr-pick" data-drop="${i}">${esc(c)}<span class="pr-x">✕</span></button></li>`).join("")
             || '<li class="pr-hint">Tap a corps below to start ranking…</li>'}</ol>
           ${rest.length ? `<div class="pr-pool">${rest.map(c => `<button class="pr-chip" data-add="${esc(c)}">${esc(c)}</button>`).join("")}</div>` : ""}
@@ -558,7 +558,7 @@
     const all = PREDS.all();
     const keys = Object.keys(all);
     app.innerHTML = h`<div class="crumbs"><a href="#/events">Shows</a> / My Calls</div>
-      <h1 class="page">My Calls 🎯</h1>`;
+      <h1 class="page">My Calls</h1>`;
     if (!keys.length) {
       app.innerHTML += `<div class="card"><div class="empty">You haven't called a show yet — open an upcoming show in <a href="#/events">Shows</a> and tap “Call the finish.”</div></div>`;
       return;
@@ -1204,7 +1204,7 @@
       noticeEl.innerHTML = "";
       if (!corpsSel.length || !yearsSel.length) {
         chartEl.innerHTML = `<div class='empty' style="padding:52px 16px">
-          <div style="font-size:30px" aria-hidden="true">📈</div>
+          <div aria-hidden="true" style="color:var(--baseline)"><svg viewBox='0 0 24 24' width='34' height='34' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M5 20V12M12 20V5M19 20v-6M3 20h18'/></svg></div>
           <div style="font-weight:650;color:var(--text-primary);margin:8px 0 4px">Pick corps to compare — this season is already selected</div>
           Select as many corps as you like — each corps-season draws its own line,<br>
           and its row below expands into the full show-by-show log.</div>`;
@@ -1360,7 +1360,7 @@
     else {
       const favs = FAVS.list().filter(n => bySlug.has(slugOf(n)));
       document.getElementById("corpsDetail").innerHTML = h`<div class="card" style="text-align:center;padding:44px 20px">
-        <div style="font-size:34px" aria-hidden="true">🥁</div>
+        <div aria-hidden="true" style="color:var(--baseline)"><svg viewBox='0 0 24 24' width='38' height='38' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg></div>
         <h2 style="margin:10px 0 6px">Pick a corps</h2>
         <div style="color:var(--muted);font-size:14px;max-width:44ch;margin:0 auto">Choose any corps above to see season charts, the full performance log, and championship titles — back to 1972.</div>
         ${favs.length ? `<div style="margin-top:14px;font-size:15px">${favs.map(n => corpsLink(n)).join(" · ")}</div>` : ""}
@@ -1841,7 +1841,7 @@
       const mapLink = (ev.location
         ? `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0"><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((ev.name || "") + " " + ev.location)}" target="_blank" rel="noopener">Venue map ↗</a></p>`
         : "") + (ev.url
-        ? `<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0"><a href="${encodeURI(ev.url)}" target="_blank" rel="noopener">🎒 Venue info — bag policy, tickets, parking ↗</a></p>`
+        ? `<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0"><a href="${encodeURI(ev.url)}" target="_blank" rel="noopener"> Venue info — bag policy, tickets, parking ↗</a></p>`
         : "");
       if (ev.schedule && ev.schedule.length) {
         // show the viewer their own clock; note the venue's zone when it differs
@@ -1870,7 +1870,7 @@
     }
     // full page / caption sheet is the most-wanted jump — sit it up top, right
     // of the first class heading, so it's the first thing you see and tap
-    const fullLink = `<a href="#/event/${year}/${i}" class="evfull">${ev.has_recap ? "🏆 Captions & full page →" : "Full event page →"}</a>`;
+    const fullLink = `<a href="#/event/${year}/${i}" class="evfull">${ev.has_recap ? "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> Captions & full page →" : "Full event page →"}</a>`;
     return h`
       ${(ev.classes || []).map((c, ci) => h`
         <h3 class="evcls evcls-row">${esc(c.label || c.class)} <span class="kicker">${c.results.length} corps</span>${ci === 0 ? fullLink : ""}</h3>
@@ -2013,7 +2013,7 @@
       if (p && ord.length) graded.push(scorePred(p.order, ord).pct);
     });
     const recordStrip = graded.length
-      ? `<a class="pr-record" href="#/predictions">🎯 Your calls · ${graded.length} show${graded.length > 1 ? "s" : ""} · `
+      ? `<a class="pr-record" href="#/predictions"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Your calls · ${graded.length} show${graded.length > 1 ? "s" : ""} · `
         + `avg ${Math.round(graded.reduce((a, b) => a + b, 0) / graded.length)}% · best ${Math.max(...graded)}% <span class="pr-record-go">See all →</span></a>`
       : "";
 
@@ -2280,7 +2280,7 @@
       }
     }
     const winStrip = winChips.length
-      ? `<div class="capwins" title="Caption winners on this sheet">🏆 ${winChips.join("")}</div>` : "";
+      ? `<div class="capwins" title="Caption winners on this sheet"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> ${winChips.join("")}</div>` : "";
     // heavier rule where a caption group starts, so the blocks read at a glance
     const gb = new Set(groups.map(g => g.first));
     gb.add(iSub);
@@ -2377,7 +2377,7 @@
         return names.length ? `<span${k === "ge" ? ' class="cw-main"' : ""}><b>${esc(label)}</b> ${esc([...new Set(names)].join(" & "))}</span>` : "";
       }).join("");
       return h`<h3 class="evcls" style="margin-top:14px">Caption Breakdown <span class="kicker">verified against the official recap · gold marks the caption winner · tap a column to sort</span></h3>
-        ${winChips ? `<div class="capwins">🏆 ${winChips}</div>` : ""}
+        ${winChips ? `<div class="capwins"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> ${winChips}</div>` : ""}
         <div class="tscroll"><table class="t sticky1 capsort"><thead><tr><th>Corps</th>${CAP_HEAD.map(([k, l]) => `<th class="num" data-sort="${k}">${l}</th>`).join("")}</tr></thead><tbody class="evcap" data-ci="${ci}">
         ${rows.map(r => `<tr><td>${corpsLink(r[CIDX.corps])}</td>${CAP_HEAD.map(([k]) => {
           const v = r[CIDX[k]];
@@ -2624,7 +2624,7 @@
         const names = [...new Set(sheet.filter(r => r[i] != null && r[i] === best[k] && best[k] > 0).map(r => r[iCorps()]))];
         return names.length ? `<span${k === "ge" ? ' class="cw-main"' : ""}><b>${esc(label)}</b> ${esc(names.join(" & "))}</span>` : "";
       }).join("");
-      body.innerHTML = `${winChips ? `<div class="capwins">🏆 ${winChips}</div>` : ""}<div class="tscroll"><table class="t sticky1 showcmp"><thead><tr><th>Corps</th>${HEAD.map(([k, l]) =>
+      body.innerHTML = `${winChips ? `<div class="capwins"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> ${winChips}</div>` : ""}<div class="tscroll"><table class="t sticky1 showcmp"><thead><tr><th>Corps</th>${HEAD.map(([k, l]) =>
           `<th class="num" data-c="${cols.indexOf(k)}">${l}</th>`).join("")}</tr></thead><tbody>
         ${sheet.map(r => `<tr><td>${corpsLink(r[iCorps()])}</td>${HEAD.map(([k]) => {
           const i = cols.indexOf(k);
@@ -3410,7 +3410,7 @@
       <p class="setnote">One place for every Cadence app — pick exactly what you want a ping for.
       Preferences apply the moment each app's alert feed goes live.</p>`
       + apps.map(a => {
-        if (a.ns === "") return `<a class="famapp-link" href="${dciHref}">🥁 <b>Cadence DCI</b>
+        if (a.ns === "") return `<a class="famapp-link" href="${dciHref}"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg> <b>Cadence DCI</b>
           <span class="setsub">Push alerts live — manage them in the DCI app</span><span class="famapp-go">→</span></a>`;
         const open = a.ns === curNs;
         const on = pref(a.ns, "cad-notify-on", "on") === "on";
@@ -3532,7 +3532,7 @@
 
       ${(window.CadInstall && !window.CadInstall.standalone()) ? `
       <div class="card setcard" id="installCard">
-        <h2>📲 Add to Home Screen</h2>
+        <h2><svg viewBox='0 0 24 24' width='18' height='18' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M8 3h8v18H8zM11 18.5h2'/></svg> Add to Home Screen</h2>
         <p class="setnote">Install Cadence like a real app — full screen, works offline, and it's how you get score alerts on iPhone.</p>
         <button class="tab" id="installOpen" type="button" style="font-weight:800;padding:11px 20px;font-size:14.5px">Show me how →</button>
       </div>` : ""}
@@ -3649,7 +3649,7 @@
       } else {
         const plus = CadAccount.plusStatus();
         const plusLine = plus && (plus.status === "active" || plus.status === "beta")
-          ? `<div class="setsub">🎖️ Cadence+ ${plus.status === "beta" ? "beta " : ""}member</div>` : "";
+          ? `<div class="setsub"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 11.5 10 20l2-1.2L14 20l-2-8.5'/></svg> Cadence+ ${plus.status === "beta" ? "beta " : ""}member</div>` : "";
         body.innerHTML = `
           <div class="setrow">
             <div><b>${esc(u.email || "Signed in")}</b>
@@ -4034,7 +4034,7 @@
           console.error(e);
           app.innerHTML = firstBuildPending
             ? `<div class="card" style="text-align:center;padding:48px 20px">
-                 <div style="font-size:40px;margin-bottom:10px">🥁</div>
+                 <div style="margin-bottom:10px;color:var(--baseline)"><svg viewBox='0 0 24 24' width='42' height='42' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg></div>
                  <h2 style="margin:0 0 8px">First Data Build in Progress</h2>
                  <p style="color:var(--text-secondary);max-width:52ch;margin:0 auto">Scores are being pulled from DCI.org right now. This page fills in automatically when it finishes.</p>
                </div>`
@@ -4145,7 +4145,7 @@
       if (toast) return;
       toast = document.createElement("button");
       toast.id = "liveToast";
-      toast.innerHTML = "🥁 New scores just landed — <b>tap to refresh</b>";
+      toast.innerHTML = "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg> New scores just landed — <b>tap to refresh</b>";
       toast.onclick = () => {
         cache.clear();
         seedRankings(seed);

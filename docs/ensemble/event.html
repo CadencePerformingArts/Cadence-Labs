@@ -240,7 +240,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<div class="ops-card-tags"><span class="ens-tag important">' + esc(k.icon + " " + k.label) + "</span>" +
         (ev.rsvp_required ? '<span class="ens-tag normal">RSVP required</span>' : "") +
         (ev.attendance_required ? '<span class="ens-tag normal">Attendance taken</span>' : "") +
-        (ev.public_event_key ? '<span class="ens-tag important">🏆 Cadence show</span>' : "") +
+        (ev.public_event_key ? '<span class="ens-tag important"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7"/></svg> Cadence show</span>' : "") +
       "</div>" +
       '<div class="ops-hero-meta">' +
         "<div><b>" + esc(O.fmtDayLong(ev.starts_at)) + "</b> · " + esc(O.fmtWhen(ev)) +
@@ -260,11 +260,11 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         ? '<div class="ops-attach">' + att.map(function (a) {
             var name = (a && (a.name || a.label)) || "Attachment";
             var href = (a && (a.url || a.href)) || "files.html";
-            return '<a href="' + esc(href) + '">📎 ' + esc(name) + "</a>";
+            return '<a href="' + esc(href) + '"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M8 12.5 15 5.5a3 3 0 0 1 4.2 4.2l-8.5 8.5a5 5 0 0 1-7-7l8-8"/></svg> ' + esc(name) + "</a>";
           }).join("") + "</div>"
         : "") +
       '<div class="ops-row-btn">' +
-        '<a class="tab" href="messages.html?event=' + esc(ev.id) + '">💬 Event chat</a>' +
+        '<a class="tab" href="messages.html?event=' + esc(ev.id) + '"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M5 5.5h14v9.5H9.5L5 19z"/></svg> Event chat</a>' +
         '<a class="tab" href="calendar.html">← All events</a>' +
       "</div></div>";
   }

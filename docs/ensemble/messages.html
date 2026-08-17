@@ -248,7 +248,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 
     return '<div class="msg' + (mine ? " mine" : "") + '" data-msg="' + esc(m.id) + '">' +
       (sameRun ? "" : '<div class="msg-meta"><b>' + esc(C.nameOf(m.member_id)) + "</b> " +
-        esc(C.clock(m.created_at)) + (m.pinned ? " · 📌" : "") + "</div>") +
+        esc(C.clock(m.created_at)) + (m.pinned ? " · pinned" : "") + "</div>") +
       quote +
       '<div class="msg-body' + (m.deleted_at ? " gone" : "") + '">' +
         (m.deleted_at ? "Message deleted" : C.renderBody(m.body, dir)) +
@@ -287,7 +287,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         "</span>" +
       "</div>" +
       (pinned.length
-        ? '<div class="pinstrip"><b>📌 Pinned</b>' + pinned.map(function (m) {
+        ? '<div class="pinstrip"><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M12 21v-6M8 4h8l-1 6.5 2.5 2.5H6.5L9 10.5z"/></svg> Pinned</b>' + pinned.map(function (m) {
             return '<button type="button" data-act="jump" data-to="' + esc(m.id) + '">' +
               esc(C.nameOf(m.member_id)) + ": " + esc(String(m.body || "").slice(0, 120)) + "</button>";
           }).join("") + "</div>"

@@ -160,7 +160,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         views.map(function (v) {
           return '<button class="fl-chip' + (S.view === v[0] ? " on" : "") + '" data-act="view" data-v="' + v[0] + '" type="button">' + v[1] + "</button>";
         }).join("") +
-        '<a class="fl-chip" href="music.html">🎵 Music library</a>' +
+        '<a class="fl-chip" href="music.html"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px"><path d="M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z"/></svg> Music library</a>' +
         (canUpload()
           ? '<button class="tab" data-act="newfolder" type="button">+ Folder</button>' +
             (F.quota(S.org).full
@@ -243,8 +243,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           var n = S.files.filter(function (f) { return f.folder_id === c.id; }).length;
           var sub = S.tree.children(c.id).length;
           return '<button class="fl-folder" data-act="go" data-id="' + c.id + '" type="button">' +
-            '<span class="fl-fi">' + (c.kind === "music" ? "🎼" : c.kind === "audio" ? "🎧" :
-              c.kind === "video" ? "🎬" : c.kind === "visual" ? "🎯" : "📁") + "</span>" +
+            '<span class="fl-fi">' + (c.kind === "music" ? "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z'/></svg>" : c.kind === "audio" ? "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v6H4zM17 14h3v6h-3z'/></svg>" :
+              c.kind === "video" ? "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 4h16v16H4zM8 4v16M16 4v16M4 9h4M4 15h4M16 9h4M16 15h4'/></svg>" : c.kind === "visual" ? "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg>" : "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 7.5h5.5l1.8 2H20v9H4z'/></svg>") + "</span>" +
             "<span><b>" + esc(c.name) + "</b><span>" +
             (sub ? sub + " folder" + (sub === 1 ? "" : "s") + " · " : "") +
             n + " file" + (n === 1 ? "" : "s") + "</span></span></button>";

@@ -51,8 +51,8 @@ var m=document.querySelector('meta[name="theme-color"]'),bar=localStorage.getIte
 </main>
 
 <footer class="foot">
-  <div><a href="#" id="installBtn" hidden><b>📲 Get the App</b> — install on this device (iPhone needs this for score alerts)</a></div>
-  <div><a href="#" id="pushBtn"><b>🔔 Score alerts</b> — get a ping when scores drop</a></div>
+  <div><a href="#" id="installBtn" hidden><b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M8 3h8v18H8zM11 18.5h2'/></svg> Get the App</b> — install on this device (iPhone needs this for score alerts)</a></div>
+  <div><a href="#" id="pushBtn"><b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — get a ping when scores drop</a></div>
   <div>Scores from <a href="https://www.dci.org/scores" rel="noopener">DCI.org</a> · refreshed several times an hour · minute-by-minute on show nights</div>
   <div><a href="#/suggestions"><b>Suggestions</b> — tell us what to build next →</a></div>
   <div class="credit">Created by Lucas Besel</div>
@@ -236,10 +236,10 @@ window.CadAsk = (function () {
   if (!btn || !window.CadPush) return;
   async function paint() {
     var s = await CadPush.status();
-    btn.innerHTML = s === "on" ? "<b>🔕 Score alerts on</b> — tap to turn off"
-      : s === "ios-install" ? "<b>🔔 Score alerts</b> — on iPhone, install the app first · tap for steps"
-      : s === "unsupported" ? "<b>🔔 Score alerts</b> — not supported in this browser"
-      : "<b>🔔 Score alerts</b> — get a ping when scores drop";
+    btn.innerHTML = s === "on" ? "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5c0-1 .3-2 .8-2.8M18 16v-5a6 6 0 0 0-9.5-4.9M4.5 18.5h15M10 21h4M4 4l16 16'/></svg> Score alerts on</b> — tap to turn off"
+      : s === "ios-install" ? "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — on iPhone, install the app first · tap for steps"
+      : s === "unsupported" ? "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — not supported in this browser"
+      : "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — get a ping when scores drop";
   }
   CadPush.onChange(paint);
   btn.addEventListener("click", async function (e) {
@@ -247,7 +247,7 @@ window.CadAsk = (function () {
     var s = await CadPush.status();
     if (s === "on") { await CadPush.disable(); await paint(); return; }
     var r = await CadPush.enable();
-    if (r && r.ok && r.test) btn.innerHTML = "<b>✅ Alerts on!</b> — test ping in ~15 s, lock your screen or go home to see it";
+    if (r && r.ok && r.test) btn.innerHTML = "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M5 13l4 4L19 7'/></svg> Alerts on!</b> — test ping in ~15 s, lock your screen or go home to see it";
     else if (r && r.reason) alert(r.reason);
     setTimeout(paint, 20000);
   });

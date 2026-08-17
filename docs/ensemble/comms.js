@@ -202,7 +202,7 @@
     if (p.priority === "urgent") tags += '<span class="ens-tag urgent">Urgent</span>';
     else if (p.priority === "important") tags += '<span class="ens-tag important">Important</span>';
     if (p.kind === "announcement" && p.priority === "normal") tags += '<span class="ens-tag normal">Announcement</span>';
-    if (p.pinned) tags += '<span class="ens-tag important">📌 Pinned</span>';
+    if (p.pinned) tags += '<span class="ens-tag important">Pinned</span>';
     if (scheduled) tags += '<span class="ens-tag normal">Scheduled ' + esc(when(p.publish_at)) + "</span>";
     if (p.archived) tags += '<span class="ens-tag normal">Archived</span>';
 
@@ -287,7 +287,7 @@
       '<div class="ens-postbody">' + renderBody(p.body, dir) + "</div>" +
       (ackBar ? '<div class="ens-ackwrap">' + ackBar + "</div>" : "") +
       '<div class="ens-reactrow">' + reactHtml +
-        '<button class="ens-react" type="button" data-act="togglecomments">💬 ' +
+        '<button class="ens-react" type="button" data-act="togglecomments"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M5 5.5h14v9.5H9.5L5 19z"/></svg> ' +
           (comments.length || "Comment") + "</button>" +
         (canEdit
           ? '<span class="ens-admin">' +

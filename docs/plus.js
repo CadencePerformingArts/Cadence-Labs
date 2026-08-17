@@ -37,19 +37,19 @@
   /* What Plus includes — the one list every surface renders from, so the
      upgrade page and a future Settings card can never drift apart. */
   var FEATURES = [
-    { id: "captions", icon: "🎼", name: "Caption breakdowns",
+    { id: "captions", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z'/></svg>", name: "Caption breakdowns",
       desc: "Judge-by-judge recap breakdowns — GE, visual and music sub-scores for every show." },
-    { id: "alerts", icon: "🔔", name: "Fully custom score alerts",
+    { id: "alerts", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg>", name: "Fully custom score alerts",
       desc: "Per-caption, per-rival and threshold alerts on your schedule — not just “scores posted.”" },
-    { id: "stats", icon: "📈", name: "Advanced stats & caption analysis",
+    { id: "stats", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M5 20V12M12 20V5M19 20v-6M3 20h18'/></svg>", name: "Advanced stats & caption analysis",
       desc: "Caption-level trends, judge-by-judge recap breakdowns and head-to-head analytics." },
-    { id: "compare", icon: "⚖️", name: "Unlimited compare",
+    { id: "compare", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 4v16M7 7 4 13a3.2 3.2 0 0 0 6 0zM17 7l-3 6a3.2 3.2 0 0 0 6 0zM7 7h10M8.5 20h7'/></svg>", name: "Unlimited compare",
       desc: "Compare any number of corps and ensembles, across any seasons, in every Cadence app." },
-    { id: "archive", icon: "🗄️", name: "Full historical archive & export",
+    { id: "archive", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 5h16v4H4zM6 9v10h12V9M10 13h4'/></svg>", name: "Full historical archive & export",
       desc: "Deep-query every published score back to 1972 and export the database for your own projects." },
-    { id: "early", icon: "🚀", name: "Early features",
+    { id: "early", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 3c3 1.5 5 5 5 9l2.5 3-3.5.5-2 3.5-2-2.5h-2l-2 2.5-2-3.5L2.5 15 5 12c0-4 2-7.5 5-9zM12 10h.01'/></svg>", name: "Early features",
       desc: "New modes, new tools and new circuits land for Plus members first." },
-    { id: "badge", icon: "🎖️", name: "Supporter badge",
+    { id: "badge", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 11.5 10 20l2-1.2L14 20l-2-8.5'/></svg>", name: "Supporter badge",
       desc: "A badge on your profile — and the warm glow of keeping Cadence independent and ad-free." },
   ];
 

@@ -35,12 +35,26 @@
   };
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+  /* stroke icons in the app's shared visual language — no emoji */
+  function sic(d) {
+    return '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ' +
+      'style="vertical-align:-2px"><path d="' + d + '"/></svg>';
+  }
+  var IC = {
+    scores: "M5 20V12M12 20V5M19 20v-6M3 20h18",                       // bar chart
+    guard:  "M6 21V3.5M6 4h11l-2.5 3.5L17 11H6",                       // flag
+    perc:   "M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5",
+    winds:  "M7 4v11.5M7 4l4 1v3L7 7M7 15.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM13 8c2 1 5 4 4 8-.6 2.4-2.8 4-5 4",
+    space:  "M4 6h7v12H4zM13 6h7v7h-7zM13 17h7",                       // workspace panes
+  };
+
   /* ── the family — namespaces match each app's APP_CFG.ns exactly ─────── */
   var APPS = [
-    { key: "dci",       ns: "",           name: "DCI",              tag: "DCI",    icon: "🥁", path: "./",              term: "corps" },
-    { key: "wgi-guard", ns: "wgi-guard:", name: "WGI Color Guard",  tag: "WGI CG", icon: "🚩", path: "wgi/guard/",      term: "guards" },
-    { key: "wgi-perc",  ns: "wgi-perc:",  name: "WGI Percussion",   tag: "WGI Pc", icon: "🥁", path: "wgi/percussion/", term: "ensembles" },
-    { key: "wgi-winds", ns: "wgi-winds:", name: "WGI Winds",        tag: "WGI Wd", icon: "🎷", path: "wgi/winds/",      term: "ensembles" },
+    { key: "dci",       ns: "",           name: "DCI",              tag: "DCI",    icon: sic(IC.perc),  path: "./",              term: "corps" },
+    { key: "wgi-guard", ns: "wgi-guard:", name: "WGI Color Guard",  tag: "WGI CG", icon: sic(IC.guard), path: "wgi/guard/",      term: "guards" },
+    { key: "wgi-perc",  ns: "wgi-perc:",  name: "WGI Percussion",   tag: "WGI Pc", icon: sic(IC.perc),  path: "wgi/percussion/", term: "ensembles" },
+    { key: "wgi-winds", ns: "wgi-winds:", name: "WGI Winds",        tag: "WGI Wd", icon: sic(IC.winds), path: "wgi/winds/",      term: "ensembles" },
   ];
 
   function favsOf(a) {
@@ -235,12 +249,16 @@
 
   function onboardingHtml(user) {
     return '<div class="my-sides" style="margin-bottom:14px">' +
-      '<div class="card"><div class="my-side-ic">📣</div><h2>The scoreboards</h2>' +
-      '<p class="setnote" style="margin-bottom:8px">Eleven free apps — DCI, WGI, Bands of America and more. ' +
-      "Star the groups you care about and this page turns into your season: their next shows, " +
-      "latest scores and ranking moves, all circuits together.</p>" +
+      '<div class="card"><div class="my-side-ic">' +
+      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--link)" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + IC.scores + '"/></svg></div><h2>The scoreboards</h2>' +
+      '<p class="setnote" style="margin-bottom:8px">DCI and WGI, free — live scores, standings and ' +
+      "history. Star the groups you care about and this page turns into your season: their next shows, " +
+      "latest scores and ranking moves, together.</p>" +
       '<a class="tab" href="./">Browse the scoreboards →</a></div>' +
-      '<div class="card" style="border-left:4px solid var(--priv)"><div class="my-side-ic">🎽</div><h2>Your workspace</h2>' +
+      '<div class="card" style="border-left:4px solid var(--priv)"><div class="my-side-ic">' +
+      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--link)" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + IC.space + '"/></svg></div><h2>Your workspace</h2>' +
       '<p class="setnote" style="margin-bottom:8px">Cadence Ensemble is the private side — your organization\'s ' +
       "announcements, calendar, files and members, visible only to your group. Marching in an ensemble, " +
       "or running one? That lives here too.</p>" +
@@ -357,10 +375,10 @@
     return "<b>" + MONTHS[d.getMonth()] + " " + d.getDate() + "</b><small>" +
       esc(d.toLocaleDateString(undefined, { weekday: "short" })) + "</small>";
   }
-  function orgBadge(org) { return '<span class="privbadge">🔒 ' + esc(org.name) + "</span>"; }
+  function orgBadge(org) { return '<span class="privbadge"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg> ' + esc(org.name) + "</span>"; }
 
   function privateHtml(data, user) {
-    var head = '<div class="secdiv my-priv-div"><span class="lock">🔒</span> Your workspaces · private</div>';
+    var head = '<div class="secdiv my-priv-div"><span class="lock"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg></span> Your workspaces · private</div>';
     if (!data) { // signed out — the private half still exists, honestly
       return '<div class="my-priv">' + head +
         '<div class="my-grid"><div class="card"><h2>Sign in to see your workspaces</h2>' +
@@ -430,7 +448,7 @@
 
     var wsChips = '<div class="my-chips">' + data.orgs.map(function (w) {
       return '<a class="my-chip on" style="border-color:var(--priv);background:var(--priv-wash);color:var(--priv);text-decoration:none" ' +
-        'href="ensemble/home.html?org=' + encodeURIComponent(w.m.org.id) + '">🎽 ' + esc(w.m.org.name) +
+        'href="ensemble/home.html?org=' + encodeURIComponent(w.m.org.id) + '">' + sic(IC.space) + " " + esc(w.m.org.name) +
         ' <span class="n" style="color:var(--priv)">' + esc((w.m.role && w.m.role.name) || "Member") + "</span></a>";
     }).join("") + "</div>";
 
@@ -444,7 +462,9 @@
   }
 
   function inviteCardHtml() {
-    return '<div class="card"><div class="my-invite"><span class="ic">🎽</span><div>' +
+    return '<div class="card"><div class="my-invite"><span class="ic" style="color:var(--priv)">' +
+      '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h7v12H4zM13 6h7v7h-7zM13 17h7"/></svg></span><div>' +
       "<h2>Run your ensemble on Cadence</h2>" +
       '<p class="setnote" style="margin:4px 0 0">A private workspace for your organization — announcements, ' +
       "calendar with RSVPs, files and members, in the same app your fans already use.</p>" +

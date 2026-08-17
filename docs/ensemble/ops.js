@@ -151,16 +151,16 @@
   /* ═══ event vocabulary ════════════════════════════════════════════════ */
 
   var KINDS = [
-    { key: "rehearsal",   label: "Rehearsal",   icon: "🎯" },
-    { key: "sectional",   label: "Sectional",   icon: "🎵" },
-    { key: "competition", label: "Competition", icon: "🏆" },
-    { key: "performance", label: "Performance", icon: "🎪" },
-    { key: "game",        label: "Football game", icon: "🏈" },
-    { key: "camp",        label: "Camp",        icon: "⛺" },
-    { key: "meeting",     label: "Meeting",     icon: "🗓" },
-    { key: "fundraiser",  label: "Fundraiser",  icon: "💛" },
-    { key: "travel",      label: "Travel",      icon: "🚌" },
-    { key: "audition",    label: "Audition",    icon: "🎧" },
+    { key: "rehearsal",   label: "Rehearsal",   icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg>" },
+    { key: "sectional",   label: "Sectional",   icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z'/></svg>" },
+    { key: "competition", label: "Competition", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg>" },
+    { key: "performance", label: "Performance", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 5h7v7a3.5 3.5 0 0 1-7 0zM13 9h7v7a3.5 3.5 0 0 1-7 0zM6 8h.01M9 8h.01M15 12h.01M18 12h.01'/></svg>" },
+    { key: "game",        label: "Football game", icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 5c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7zM12 5v14M6 8.5c3 2 9 2 12 0M6 15.5c3-2 9-2 12 0'/></svg>" },
+    { key: "camp",        label: "Camp",        icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 4 3 19h6l3-5.5L15 19h6zM3 19h18'/></svg>" },
+    { key: "meeting",     label: "Meeting",     icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4.5 5.5h15v14h-15zM4.5 10h15M9 3.5v3.5M15 3.5v3.5'/></svg>" },
+    { key: "fundraiser",  label: "Fundraiser",  icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 20s-7-4.5-8.7-9A4.8 4.8 0 0 1 12 7a4.8 4.8 0 0 1 8.7 4c-1.7 4.5-8.7 9-8.7 9z'/></svg>" },
+    { key: "travel",      label: "Travel",      icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M5 4h14v12H5zM5 12h14M8 19.5h.01M16 19.5h.01M5 16v3.5h3V16M16 16v3.5h3V16'/></svg>" },
+    { key: "audition",    label: "Audition",    icon: "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M9 4h6v8a3 3 0 0 1-6 0zM6 11a6 6 0 0 0 12 0M12 17v3.5M9 20.5h6'/></svg>" },
     { key: "other",       label: "Other",       icon: "•" },
   ];
   var KIND_BY = {};
@@ -225,7 +225,7 @@
     var counts = rsvpCounts(ev);
     var mine = opts.memberId ? myRsvp(ev, opts.memberId) : null;
     var comp = ev.public_event_key
-      ? '<span class="ens-tag important" title="Linked to a Cadence competition">🏆 Cadence show</span>'
+      ? '<span class="ens-tag important" title="Linked to a Cadence competition"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7"/></svg> Cadence show</span>'
       : "";
     var flags = [];
     if (ev.rsvp_required) flags.push("RSVP required");
@@ -618,7 +618,7 @@
           return;
         }
         linkBox.innerHTML = link.key
-          ? '<div class="ops-showrow"><b>🏆 ' + esc(link.name || link.key) + "</b>" +
+          ? '<div class="ops-showrow"><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7"/></svg> ' + esc(link.name || link.key) + "</b>" +
             "<span>" + esc(link.date || "") + " · official results will appear on this event</span></div>" +
             '<button class="tab" type="button" id="eUnlink">Remove link</button>'
           : '<button class="tab" type="button" id="ePick">+ Add a Cadence competition</button>' +
