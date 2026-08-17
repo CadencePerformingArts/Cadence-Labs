@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Youth Safety (Draft) — Cadence</title>
+<meta name="description" content="Draft youth-safety page for Cadence Ensemble: database-enforced messaging rules for minors, moderation, reporting, guardian links, and organization responsibilities.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;})();</script>
+<link rel="stylesheet" href="../app.css">
+<style>
+  .legal { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; line-height: 1.6; }
+  .legal h1 { font-size: clamp(26px, 5vw, 34px); margin: 18px 0 4px; }
+  .legal .updated { color: var(--muted); font-size: 13px; margin: 0 0 18px; }
+  .legal h2 { font-size: 19px; margin: 30px 0 8px; }
+  .legal h3 { font-size: 15.5px; margin: 20px 0 6px; }
+  .legal p, .legal li { font-size: 14.5px; }
+  .legal ul { padding-left: 22px; }
+  .legal li { margin: 5px 0; }
+  .draft-banner {
+    background: var(--accent-wash); border: 1.5px solid rgba(240,180,41,0.65);
+    border-radius: 11px; padding: 13px 15px; font-size: 14.5px; font-weight: 600;
+    margin: 6px 0 4px;
+  }
+  .placeholder-note { color: var(--muted); font-size: 13px; font-style: italic; }
+  .legal-nav { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--surface-2);
+    font-size: 13.5px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence</span>
+  </a>
+</header>
+
+<main class="legal">
+  <div class="draft-banner" role="note">
+    DRAFT — this document has not had legal review and is not yet in effect.
+    Cadence will publish final terms before charging any organization.
+  </div>
+
+  <h1>Youth Safety &amp; Organization Responsibility</h1>
+  <p class="updated">Draft · last edited August 2026 · not yet in effect</p>
+
+  <p>Cadence Ensemble is built for marching-arts programs, and most programs
+    include minors. This page describes the safety mechanics that actually
+    exist in the product today — enforced by the database, not by hiding
+    buttons — and where responsibility sits between the organization and
+    Cadence.</p>
+
+  <h2>Who is responsible for what</h2>
+  <ul>
+    <li><b>The organization</b> controls its workspace: who is invited, who is
+      marked as a minor, which adults hold staff roles, which safety settings
+      are on, and how reports are handled. For its workspace data, the
+      organization is the controller. Organizations remain responsible for
+      following their own youth-protection obligations — school district
+      policies, circuit rules, and applicable law.</li>
+    <li><b>Cadence</b> is the platform. It provides the enforcement machinery
+      described below, keeps the safety rules on by default, and stores the
+      organization's data under the organization's settings. Cadence does not
+      run background checks on anyone, does not verify who is an adult, and
+      does not proactively monitor private conversations.</li>
+  </ul>
+
+  <h2>How messaging restrictions actually work</h2>
+  <p>The rules below are enforced by row-level security and triggers inside
+    the database. A modified app, a script, or a direct API call hits the same
+    wall as the official interface.</p>
+
+  <h3>Private conversations involving minors are off by default</h3>
+  <ul>
+    <li>Each organization has two settings: <code>student_dms</code> (may two
+      minors hold a private conversation) and <code>student_staff_dms</code>
+      (may a minor and a staff member hold one). Both default to <b>off</b>;
+      an organization must deliberately turn them on.</li>
+    <li>When either person in a would-be private conversation is a minor, the
+      database checks the relevant setting before anyone can be added to the
+      conversation. Two adults may always message each other.</li>
+    <li>Only members whose role is <i>owner</i> or <i>staff</i> count as
+      supervised adults for the staff rule. Parents, boosters, and volunteers
+      deliberately do not — a volunteer adult does not get a private channel
+      to a student just by being an adult in the workspace.</li>
+  </ul>
+
+  <h3>The rules follow the people, not the label</h3>
+  <ul>
+    <li>The pair rules apply to <b>any two-person conversation created by an
+      ordinary member, whatever it is called</b>. Renaming a direct message a
+      "group chat" does not exempt it: conversations not created by someone
+      holding the staff-level chat-creation permission are treated as direct
+      messages by the database, regardless of their declared kind.</li>
+    <li>Removing people cannot create a forbidden pair either: if members
+      leave a non-exempt conversation until only two remain, the database
+      re-checks that remaining pair and blocks the removal if those two are
+      not allowed a private conversation.</li>
+  </ul>
+
+  <h3>Moderated rooms</h3>
+  <ul>
+    <li>Sanctioned rooms — org-wide, group, staff, and event chats set up
+      under staff permission — are moderated spaces. Members with the
+      moderation permission can see any conversation in their organization,
+      so reported content can always be reviewed and acted on.</li>
+    <li>Moderators can pin, soft-delete, and remove messages; deletions leave
+      the thread legible rather than silently rewriting history.</li>
+  </ul>
+
+  <h3>Reporting</h3>
+  <ul>
+    <li>Any member can report a message. Reports go into a moderation queue
+      visible to the organization's moderators, with a status trail (open,
+      reviewing, actioned, dismissed).</li>
+    <li>Reports are never deleted — only resolved — so there is always a
+      record of what was raised and what was done about it.</li>
+  </ul>
+
+  <h3>Guardian links</h3>
+  <ul>
+    <li>Organizations link parents and guardians to their own students in the
+      database. A guardian sees their own child's information — including form
+      responses such as medical forms — and no other student's.</li>
+    <li>A student may have several linked guardians, and a guardian several
+      students; the link is explicit, per-student, and set by the
+      organization.</li>
+  </ul>
+
+  <h3>Audit log</h3>
+  <ul>
+    <li>Sensitive administrative actions — role changes, permission-relevant
+      changes, and similar — are written to a per-organization audit log with
+      the acting user and timestamp, so an organization can answer "who
+      changed this, and when."</li>
+  </ul>
+
+  <h2>What organizations must still do</h2>
+  <ul>
+    <li>Mark minors as minors when adding members — the pair rules key off
+      that flag.</li>
+    <li>Grant staff roles only to vetted, authorized adults, and review the
+      role list periodically.</li>
+    <li>Decide deliberately whether to enable <code>student_dms</code> or
+      <code>student_staff_dms</code>, consistent with the organization's own
+      policies. Cadence ships them off.</li>
+    <li>Link guardians to students so families see what they should.</li>
+    <li>Watch the report queue and act on it. Cadence surfaces reports; the
+      organization's moderators resolve them.</li>
+    <li>Follow the organization's own legal and policy obligations for
+      supervising communication with minors. Cadence's mechanics support
+      common two-adult and no-private-contact policies but do not replace
+      them.</li>
+  </ul>
+
+  <h2>Honest limits</h2>
+  <ul>
+    <li>Cadence cannot stop people from communicating outside Cadence.</li>
+    <li>Cadence relies on the organization to say who is a minor and who is
+      staff; the database enforces the rules over what the organization has
+      declared.</li>
+    <li>Cadence does not claim compliance with any law governing minors'
+      data or online safety. The design intent — data minimization, guardian
+      involvement, organization-controlled access enforced by database
+      permissions — is described here plainly, and formal legal review of
+      these mechanics is a required step before launch and before any
+      organization is charged.</li>
+  </ul>
+
+  <h2>Reporting a safety concern to Cadence</h2>
+  <p>Safety concerns about the platform itself — a rule not working as
+    described here, or conduct an organization will not address — can be sent
+    to the contact address published on the Cadence site. If someone is in
+    danger, contact local emergency services first.</p>
+  <p class="placeholder-note">Owner to-do: no contact address exists yet. One
+    must be set up and published on the site before this page is
+    finalized.</p>
+
+  <nav class="legal-nav" aria-label="Legal pages">
+    <a href="terms.html">Terms of Service</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <b>Youth Safety</b>
+    <a href="data.html">Data Practices</a>
+    <a href="../">Cadence home</a>
+  </nav>
+</main>
+
+<footer class="foot">
+  <div class="credit">Created by Lucas Besel · Cadence is an unofficial fan project</div>
+</footer>
+</body>
+</html>

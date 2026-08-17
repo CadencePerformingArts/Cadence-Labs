@@ -13,7 +13,7 @@ environment (edge functions / CI secrets).
 
 ## Layout
 
-Migrations are ordered and append-only (`0001` … `0013`). Never edit an
+Migrations are ordered and append-only (`0001` … `0015`). Never edit an
 applied migration — correct it with a new one.
 
 - `0001_accounts_foundation.sql` — profiles, favorites, preferences,

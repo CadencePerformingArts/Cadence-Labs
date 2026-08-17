@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Practices (Draft) — Cadence</title>
+<meta name="description" content="Draft data-practices page for Cadence: what is collected and where it lives, export and deletion, how public competition data is sourced, and non-affiliation with any circuit.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;})();</script>
+<link rel="stylesheet" href="../app.css">
+<style>
+  .legal { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; line-height: 1.6; }
+  .legal h1 { font-size: clamp(26px, 5vw, 34px); margin: 18px 0 4px; }
+  .legal .updated { color: var(--muted); font-size: 13px; margin: 0 0 18px; }
+  .legal h2 { font-size: 19px; margin: 30px 0 8px; }
+  .legal p, .legal li { font-size: 14.5px; }
+  .legal ul { padding-left: 22px; }
+  .legal li { margin: 5px 0; }
+  .draft-banner {
+    background: var(--accent-wash); border: 1.5px solid rgba(240,180,41,0.65);
+    border-radius: 11px; padding: 13px 15px; font-size: 14.5px; font-weight: 600;
+    margin: 6px 0 4px;
+  }
+  .placeholder-note { color: var(--muted); font-size: 13px; font-style: italic; }
+  .legal-nav { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--surface-2);
+    font-size: 13.5px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence</span>
+  </a>
+</header>
+
+<main class="legal">
+  <div class="draft-banner" role="note">
+    DRAFT — this document has not had legal review and is not yet in effect.
+    Cadence will publish final terms before charging any organization.
+  </div>
+
+  <h1>Data Practices</h1>
+  <p class="updated">Draft · last edited August 2026 · not yet in effect</p>
+
+  <p>This page is the plain inventory: what Cadence collects, where it lives,
+    how to get it out or deleted, and how the public competition data on the
+    scoreboards is sourced. The <a href="privacy.html">Privacy Policy</a>
+    covers the same ground in policy form.</p>
+
+  <h2>What is collected</h2>
+  <ul>
+    <li><b>Usage analytics — self-owned, no third parties.</b> Cadence records
+      its own page-view and action events in its own database. There are no
+      third-party trackers, analytics scripts, or pixels anywhere on the site.
+      When a signed-in user generates an event, the <code>user_id</code> on
+      that event is stamped <b>server-side</b> by a database trigger from the
+      authenticated session — the client cannot set or spoof it, and
+      signed-out events carry no user identity.</li>
+    <li><b>Account email.</b> The one piece of personal data a Cadence account
+      requires. Used for magic-link sign-in and notifications.</li>
+    <li><b>Workspace content.</b> Everything an organization puts into its
+      Cadence Ensemble workspace — posts, messages, calendar and attendance,
+      form responses, drill — stored in Supabase (hosted Postgres) with
+      row-level security: the database itself decides which member may read
+      which row, based on the organization's roles and settings.</li>
+    <li><b>Uploaded files.</b> Stored in a private Supabase storage bucket.
+      Nothing uploaded is ever public: files are reachable only through
+      short-lived signed URLs minted for a signed-in member whose database
+      permissions allow them to read that file.</li>
+  </ul>
+
+  <h2>Export</h2>
+  <p>An organization can request an export of its workspace data —
+    announcements, messages, calendar, attendance, form responses, file
+    inventory — via the contact address published on the Cadence site. Export
+    is intended to be available regardless of subscription state; an expired
+    workspace is read-only, not hostage.</p>
+
+  <h2>Deletion and the recovery period</h2>
+  <ul>
+    <li>Any person can request deletion of their account and personal data;
+      an organization can request deletion of its entire workspace.</li>
+    <li>Deletion requests are honored, with a <b>recovery period</b> before
+      permanent removal so that a mistaken or malicious request (for example,
+      from a compromised email inbox) can be reversed. After the recovery
+      period, the data is permanently removed, including from routine
+      backups as they expire.</li>
+    <li>Inside a workspace, day-to-day "delete" actions are deliberately soft
+      (archived posts, soft-deleted messages) so organizations keep their own
+      history; that is separate from a true deletion request, which removes
+      data from Cadence entirely.</li>
+    <li>The exact length of the recovery period will be fixed in the final
+      version of these documents.</li>
+  </ul>
+
+  <h2>Public competition data</h2>
+  <ul>
+    <li>The scores, schedules, and results on Cadence scoreboards are factual
+      competition data gathered from the circuits' own official public
+      sources, then verified before publication. Cadence never fabricates,
+      estimates, or extrapolates a score — if a number is not published, it is
+      not on Cadence.</li>
+    <li>Corrections and takedown requests from circuits, event partners, or
+      rights holders are honored; send them to the contact address published
+      on the Cadence site.</li>
+    <li>The circuit's own publication is always the authoritative record;
+      Cadence is a convenient mirror with history and statistics.</li>
+  </ul>
+
+  <h2>Non-affiliation</h2>
+  <p>Cadence is an independent, unofficial project. It is <b>not affiliated
+    with, endorsed by, or sponsored by</b> Drum Corps International (DCI),
+    Winter Guard International (WGI), Bands of America, UIL, or any other
+    circuit, league, or event organizer. Circuit and event names appear on
+    Cadence solely to identify which public competition results are being
+    shown.</p>
+
+  <h2>Contact</h2>
+  <p>Export requests, deletion requests, corrections, and takedown notices go
+    to the contact address published on the Cadence site.</p>
+  <p class="placeholder-note">Owner to-do: no contact address exists yet. One
+    must be set up and published on the site before this page is
+    finalized.</p>
+
+  <nav class="legal-nav" aria-label="Legal pages">
+    <a href="terms.html">Terms of Service</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="youth-safety.html">Youth Safety</a>
+    <b>Data Practices</b>
+    <a href="../">Cadence home</a>
+  </nav>
+</main>
+
+<footer class="foot">
+  <div class="credit">Created by Lucas Besel · Cadence is an unofficial fan project</div>
+</footer>
+</body>
+</html>

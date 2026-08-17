@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy (Draft) — Cadence</title>
+<meta name="description" content="Draft Privacy Policy for Cadence: what is collected, why, where it lives, and how to get it exported or deleted. No ads, no sale of data, no third-party trackers.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;})();</script>
+<link rel="stylesheet" href="../app.css">
+<style>
+  .legal { max-width: 720px; margin: 0 auto; padding: 24px 16px 40px; line-height: 1.6; }
+  .legal h1 { font-size: clamp(26px, 5vw, 34px); margin: 18px 0 4px; }
+  .legal .updated { color: var(--muted); font-size: 13px; margin: 0 0 18px; }
+  .legal h2 { font-size: 19px; margin: 30px 0 8px; }
+  .legal p, .legal li { font-size: 14.5px; }
+  .legal ul { padding-left: 22px; }
+  .legal li { margin: 5px 0; }
+  .draft-banner {
+    background: var(--accent-wash); border: 1.5px solid rgba(240,180,41,0.65);
+    border-radius: 11px; padding: 13px 15px; font-size: 14.5px; font-weight: 600;
+    margin: 6px 0 4px;
+  }
+  .placeholder-note { color: var(--muted); font-size: 13px; font-style: italic; }
+  .legal-nav { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--surface-2);
+    font-size: 13.5px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../">
+    <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+        <line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>
+        <line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/>
+      </g>
+    </svg>
+    <span>Cadence</span>
+  </a>
+</header>
+
+<main class="legal">
+  <div class="draft-banner" role="note">
+    DRAFT — this document has not had legal review and is not yet in effect.
+    Cadence will publish final terms before charging any organization.
+  </div>
+
+  <h1>Privacy Policy</h1>
+  <p class="updated">Draft · last edited August 2026 · not yet in effect</p>
+
+  <h2>The short version</h2>
+  <ul>
+    <li>No advertising, ever.</li>
+    <li>No sale or sharing of personal data with data brokers or advertisers,
+      ever.</li>
+    <li>No third-party trackers, analytics scripts, or tracking pixels on any
+      Cadence page. The only analytics are Cadence's own, stored in Cadence's
+      own database.</li>
+    <li>You can read every public scoreboard without an account and without
+      being individually identified.</li>
+  </ul>
+
+  <h2>What Cadence collects, and why</h2>
+  <ul>
+    <li><b>Account email address.</b> Collected when you create an account.
+      Used to sign you in (see below), to attach your workspace memberships to
+      you, and to deliver notifications your organization sends. Cadence
+      accounts are optional for scoreboards and required for Ensemble
+      workspaces.</li>
+    <li><b>First-party usage analytics.</b> Cadence records simple usage
+      events (a page view, an action, a session identifier) in its own
+      database to understand what is used and what is broken. There is no
+      third-party analytics service involved. When you are signed in, the
+      event's user identity is stamped <b>server-side by the database</b> from
+      your authenticated session — the browser cannot claim to be someone
+      else, and signed-out events carry no user identity at all.</li>
+    <li><b>Workspace content.</b> Whatever your organization and its members
+      put into their workspace: posts, messages, calendar events, attendance,
+      files, form responses (which can include medical information the
+      organization requests), and drill. Cadence stores and serves this
+      content on the organization's behalf; the organization controls who in
+      the workspace can see what.</li>
+  </ul>
+  <p>Cadence collects nothing else. There is no location tracking, no contact
+    upload, no behavioral profiling.</p>
+
+  <h2>Sign-in without passwords</h2>
+  <p>Cadence uses magic-link email authentication: to sign in, you receive a
+    one-time link or code at your email address. Cadence never stores a
+    password, so a password of yours can never leak from Cadence.</p>
+
+  <h2>Where data lives</h2>
+  <p>Account data, workspace content, and analytics are stored in Supabase
+    (a hosted Postgres database and file-storage service). Two properties of
+    that setup matter for privacy:</p>
+  <ul>
+    <li><b>Row-level security.</b> Who can read which row of workspace data is
+      enforced by rules inside the database itself, keyed to the signed-in
+      user and the organization's settings — not by application code deciding
+      what to show. Sensitive categories, such as medical form responses, have
+      deliberately narrow rules (the submitter, their linked guardians, and
+      staff the organization has granted access).</li>
+    <li><b>Private file storage.</b> Uploaded files live in a private storage
+      bucket with no public URLs. Files are served only through short-lived
+      signed URLs minted for a signed-in member whose database permissions
+      allow them to see that file.</li>
+  </ul>
+
+  <h2>Retention</h2>
+  <ul>
+    <li>Workspace content is kept for the life of the workspace. If a trial or
+      subscription lapses, the workspace becomes read-only but its content is
+      preserved — nothing is deleted because of a billing state.</li>
+    <li>Analytics events are operational data and may be aggregated or pruned
+      over time; they are never enriched with outside data.</li>
+    <li>Deleted content and deleted accounts pass through a recovery period
+      before being permanently removed, as described on the
+      <a href="data.html">data practices page</a>.</li>
+  </ul>
+
+  <h2>Export and deletion</h2>
+  <p>Organizations can request an export of their workspace data, and any
+    person can request deletion of their account and personal data, via the
+    contact address published on the Cadence site. Deletion requests are
+    honored with a recovery period to protect against mistakes and account
+    takeover. Details are on the <a href="data.html">data practices
+    page</a>.</p>
+
+  <h2>Children's data</h2>
+  <p>Minors use Cadence Ensemble only through an organization that invites
+    them — Cadence does not market to children or offer them standalone
+    accounts. The design intent for minors' data is:</p>
+  <ul>
+    <li><b>Data minimization.</b> Cadence itself requires only an email
+      address; everything else about a young member exists because their
+      organization chose to collect it for its own operations.</li>
+    <li><b>Guardian involvement.</b> Organizations link parents and guardians
+      to their own students in the database, so a guardian can see their own
+      child's information — including form responses — and nothing else.</li>
+    <li><b>Organization-controlled access.</b> Who may contact or see
+      information about a minor is governed by the organization's settings and
+      enforced by database-level permission rules, described on the
+      <a href="youth-safety.html">youth safety page</a>.</li>
+  </ul>
+  <p>Cadence does not claim compliance with any children's-privacy or
+    education-privacy law. Formal legal review of how these laws apply to
+    Cadence, and any changes that review requires, is a mandatory step before
+    launch and before any organization is charged.</p>
+
+  <h2>Medical information</h2>
+  <p>Organizations may use Cadence forms to collect medical information
+    (allergies, medications, emergency contacts) from their members. Cadence's
+    design intent is that this data is visible only to the submitter, their
+    linked guardians, and the staff roles the organization explicitly grants
+    access — enforced in the database, not just the interface. Cadence does
+    not claim compliance with any health-privacy law; formal review is a
+    required pre-launch step.</p>
+
+  <h2>Who can see your data</h2>
+  <ul>
+    <li>Your organization's members, according to the roles and settings your
+      organization configures.</li>
+    <li>Cadence's operator, only as needed to run the service, investigate
+      abuse, or comply with law.</li>
+    <li>Supabase, as the infrastructure provider hosting the database and
+      files.</li>
+    <li>No one else. There are no advertisers, brokers, or "partners".</li>
+  </ul>
+
+  <h2>Changes and contact</h2>
+  <p>This draft may change without notice until final terms take effect;
+    material changes after that will be announced to workspace administrators.
+    Privacy questions and requests go to the contact address published on the
+    Cadence site.</p>
+  <p class="placeholder-note">Owner to-do: no contact address exists yet. One
+    must be set up and published on the site before this policy is
+    finalized.</p>
+
+  <nav class="legal-nav" aria-label="Legal pages">
+    <a href="terms.html">Terms of Service</a>
+    <b>Privacy Policy</b>
+    <a href="youth-safety.html">Youth Safety</a>
+    <a href="data.html">Data Practices</a>
+    <a href="../">Cadence home</a>
+  </nav>
+</main>
+
+<footer class="foot">
+  <div class="credit">Created by Lucas Besel · Cadence is an unofficial fan project</div>
+</footer>
+</body>
+</html>

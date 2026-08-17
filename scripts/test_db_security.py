@@ -472,6 +472,57 @@ def tests():
         "NOTIF: an invite with an email enqueues one email notification"
         if got2 and int(got2) == 1 else f"NOTIF: invite enqueued {got2} email rows")
 
+    # ── platform admin (0015) ─────────────────────────────────────────
+    # non-admins are refused everywhere, even org owners
+    must_fail("PADMIN: org owner cannot list claims", U["a_owner"],
+              "select * from public.padmin_list_claims('pending')" if False else
+              "select case when count(*)>0 then 1/0 else 1 end from public.padmin_list_claims('pending')")
+    must_raise("PADMIN: org owner cannot set a plan", U["a_owner"],
+              f"select public.padmin_set_plan('{ORG_A}', 'program')")
+    must_raise("PADMIN: org owner cannot mark invoices paid", U["a_owner"],
+              f"select public.padmin_mark_invoice_paid('{uuid.uuid4()}')")
+    # promote a persona to platform admin (superuser scaffolding, as the
+    # dashboard owner would do it once)
+    padmin_uid = str(uuid.uuid4())
+    psql(f"insert into auth.users (id, email) values ('{padmin_uid}', 'owner@cadence.local')")
+    psql(f"insert into public.profiles (id, role) values ('{padmin_uid}', 'platform_admin') "
+         f"on conflict (id) do update set role='platform_admin'")
+    # file a claim as a normal user, then review it as the admin
+    run_as(U["a_member2"],
+           f"insert into public.claims (user_id, kind, app_key, target_name, claimant_role) "
+           f"values ('{U['a_member2']}', 'ensemble', 'dci', 'Test Corps', 'Director')")
+    claim_id = psql("select id from public.claims where target_name='Test Corps'")
+    must_work("PADMIN: admin lists pending claims", padmin_uid,
+              "select count(*) from public.padmin_list_claims('pending')")
+    must_work("PADMIN: admin approves a claim", padmin_uid,
+              f"select public.padmin_review_claim('{claim_id}', 'approved', null)")
+    got = psql(f"select status from public.claims where id='{claim_id}'")
+    (PASS if got == "approved" else FAIL).append(
+        "PADMIN: claim status updated" if got == "approved" else f"PADMIN: claim status={got}")
+    # invoice flow: request -> issue -> paid activates the plan atomically
+    inv_id = psql(f"insert into public.org_invoices (org_id, plan, requested_by) "
+                  f"values ('{ORG_A}', 'ensemble', '{U['a_owner']}') returning id")
+    must_work("PADMIN: admin issues the invoice", padmin_uid,
+              f"select public.padmin_issue_invoice('{inv_id}', 'CAD-TEST-1', 14900, current_date + 30)")
+    must_work("PADMIN: admin marks it paid", padmin_uid,
+              f"select public.padmin_mark_invoice_paid('{inv_id}')")
+    got = psql(f"select plan || '/' || status from public.organizations where id='{ORG_A}'")
+    (PASS if got == "ensemble/active" else FAIL).append(
+        "PADMIN: paid invoice activated the plan in the same transaction"
+        if got == "ensemble/active" else f"PADMIN: org plan/status={got}")
+    must_work("PADMIN: idempotent re-mark paid", padmin_uid,
+              f"select public.padmin_mark_invoice_paid('{inv_id}')")
+    # audit exists and only the admin can read it
+    audits = psql("select count(*) from public.platform_audit_log")
+    (PASS if int(audits) >= 3 else FAIL).append(
+        "PADMIN: actions audited" if int(audits) >= 3 else f"PADMIN: only {audits} audit rows")
+    must_fail("PADMIN: org owner cannot read the platform audit log", U["a_owner"],
+              "select case when count(*)>0 then 1/0 else 1 end from public.platform_audit_log")
+    must_work("PADMIN: health snapshot works for the admin", padmin_uid,
+              "select public.padmin_health()")
+    must_work("PADMIN: subscription sweep runs and audits", padmin_uid,
+              "select public.padmin_sweep_subscriptions()")
+
     # ── read-only org enforcement ─────────────────────────────────────
     must_fail("RO: expired org rejects new posts", U["c_owner"],
               f"insert into public.posts (org_id, author_member_id, title, body) "

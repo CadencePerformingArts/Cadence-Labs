@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Platform — Cadence</title>
+<meta name="description" content="Cadence platform administration — claims, organizations, invoices, health.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0a3f6b">
+<meta name="robots" content="noindex">
+<link rel="icon" href="icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="app.css">
+<style>
+/* Platform admin — dense, plain, operational. Tokens from app.css. */
+main { max-width: 1080px; margin: 0 auto; padding: 18px; }
+.pa-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 16px; }
+.pa-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 18px; }
+.pa-stat { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.pa-stat b { display: block; font-size: 26px; font-weight: 800; color: var(--heading); }
+.pa-stat span { font-size: 12px; color: var(--muted); font-weight: 650; }
+.pa-stat.warn b { color: var(--bad, #c92a2a); }
+table.pa { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.pa th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .4px;
+  color: var(--muted); padding: 7px 8px; border-bottom: 1px solid var(--border); }
+table.pa td { padding: 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+table.pa .num { text-align: right; font-variant-numeric: tabular-nums; }
+.pa-act { display: flex; gap: 5px; flex-wrap: wrap; }
+.pa-act button { border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
+  border-radius: 7px; padding: 4px 10px; font-size: 12px; font-family: inherit; cursor: pointer; }
+.pa-act button:hover { background: var(--surface-2); color: var(--text-primary); }
+.pa-act button.good { border-color: var(--good); color: var(--good); }
+.pa-act button.bad { border-color: var(--bad); color: var(--bad); }
+.pa-note { font-size: 12.5px; color: var(--muted); margin: 8px 0 14px; }
+.pa-wrap { overflow-x: auto; }
+.pa-msg { font-size: 13px; font-weight: 650; margin: 8px 0; }
+.pa-msg.ok { color: var(--good); } .pa-msg.err { color: var(--bad); }
+.pa-badge { display: inline-block; border-radius: 6px; padding: 1px 7px; font-size: 10.5px;
+  font-weight: 800; text-transform: uppercase; background: var(--surface-2); color: var(--muted); }
+.pa-badge.on { background: var(--accent-wash); color: var(--accent-ink); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./"><svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true">
+    <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
+    <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+    <line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>
+    <line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/></g></svg>
+    <span>Cadence · Platform</span></a>
+</header>
+<main id="main"><div class="loading">Loading…</div></main>
+
+<script src="vendor/supabase.min.js"></script>
+<script src="supabase.js"></script>
+<script src="account.js"></script>
+<script>
+/* Platform administration. Nothing here holds special credentials — the
+   owner signs in like any user, and every RPC re-checks
+   profiles.role = 'platform_admin' inside the database (migration 0015).
+   A non-admin who finds this page gets empty results and refusals. */
+(function () {
+  "use strict";
+  var main = document.getElementById("main");
+  var cfg = window.CAD_SUPABASE;
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+
+  function token() {
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (/^sb-.*-auth-token$/.test(k)) {
+          var v = JSON.parse(localStorage.getItem(k));
+          return (v && (v.access_token || (v.currentSession && v.currentSession.access_token))) || null;
+        }
+      }
+    } catch (e) {}
+    return null;
+  }
+  async function rpc(fn, args) {
+    var res = await fetch(cfg.url + "/rest/v1/rpc/" + fn, {
+      method: "POST",
+      headers: { apikey: cfg.publishableKey, Authorization: "Bearer " + token(),
+                 "Content-Type": "application/json" },
+      body: JSON.stringify(args || {}),
+    });
+    var text = await res.text();
+    if (!res.ok) {
+      var msg = text; try { msg = JSON.parse(text).message || text; } catch (e) {}
+      throw new Error(msg);
+    }
+    return text ? JSON.parse(text) : null;
+  }
+
+  var tab = "health";
+  function fmtDate(x) { return x ? new Date(x).toLocaleDateString() : "—"; }
+  function usd(c) { return c == null ? "—" : "$" + (c / 100).toFixed(2); }
+
+  function msg(text, ok) {
+    var el = document.getElementById("paMsg");
+    if (el) { el.className = "pa-msg " + (ok ? "ok" : "err"); el.textContent = text; }
+  }
+
+  async function render() {
+    var health;
+    try { health = await rpc("padmin_health"); }
+    catch (e) { health = null; }
+    if (!health) {
+      main.innerHTML = '<div class="card" style="max-width:520px;margin:40px auto;text-align:center">' +
+        "<h2>Platform administration</h2>" +
+        '<p class="setsub">This page is for the Cadence platform owner. Sign in with the ' +
+        "owner account (Settings → Account on the main app), then reload. If you are signed " +
+        "in and still see this, the account does not have the platform role.</p></div>";
+      return;
+    }
+    var tabs = [["health", "Health"], ["claims", "Claims"], ["orgs", "Organizations"], ["invoices", "Invoices"]];
+    var html = '<h1 class="page">Platform</h1><div class="pa-tabs">' +
+      tabs.map(function (t) {
+        return '<button class="tab' + (tab === t[0] ? " on" : "") + '" data-tab="' + t[0] + '">' + t[1] + "</button>";
+      }).join("") + '</div><div class="pa-msg" id="paMsg" role="status"></div><div id="paBody"></div>';
+    main.innerHTML = html;
+    main.querySelectorAll("[data-tab]").forEach(function (b) {
+      b.addEventListener("click", function () { tab = b.dataset.tab; render(); });
+    });
+    var body = document.getElementById("paBody");
+
+    if (tab === "health") {
+      var H = health;
+      body.innerHTML = '<div class="pa-grid">' +
+        stat(H.pending_claims, "Claims awaiting review", H.pending_claims > 0) +
+        stat(H.invoices_awaiting, "Invoices open", H.invoices_awaiting > 0) +
+        stat(H.trials_expiring_14d, "Trials ending in 14 days", false) +
+        stat(H.read_only_orgs, "Read-only workspaces", false) +
+        stat(H.notifications_failed, "Failed notifications", H.notifications_failed > 0) +
+        stat(H.notifications_pending, "Notifications queued", false) +
+        stat(H.orgs, "Organizations", false) +
+        "</div>" +
+        '<div class="pa-act"><button id="sweep">Run subscription sweep</button></div>' +
+        '<p class="pa-note">The sweep moves expired trials and lapsed grace periods to read-only — ' +
+        "the nightly job the runbook used to describe. Idempotent; audited.</p>";
+      document.getElementById("sweep").addEventListener("click", async function () {
+        try { var r = await rpc("padmin_sweep_subscriptions");
+              msg("Swept: " + r.trials_expired + " trials, " + r.grace_expired + " grace periods.", true); }
+        catch (e) { msg(e.message, false); }
+      });
+    }
+
+    if (tab === "claims") {
+      var claims = await rpc("padmin_list_claims", { p_status: "pending" }).catch(function () { return []; });
+      body.innerHTML = claims.length
+        ? '<div class="pa-wrap"><table class="pa"><tr><th>When</th><th>App</th><th>Ensemble</th>' +
+          "<th>Claimant</th><th>Message</th><th></th></tr>" +
+          claims.map(function (c) {
+            return "<tr><td>" + fmtDate(c.created_at) + "</td><td>" + esc(c.app_key || "dci") +
+              "</td><td><b>" + esc(c.target_name) + "</b></td><td>" + esc(c.claimant_email || "") +
+              '<br><span class="pa-badge">' + esc(c.claimant_role) + "</span></td><td>" +
+              esc(c.message || "") + '</td><td><div class="pa-act">' +
+              '<button class="good" data-approve="' + c.id + '">Approve</button>' +
+              '<button class="bad" data-reject="' + c.id + '">Reject</button></div></td></tr>';
+          }).join("") + "</table></div>"
+        : '<div class="card"><div class="empty">No claims waiting. New ones appear the moment someone files them.</div></div>';
+      body.addEventListener("click", async function (e) {
+        var a = e.target.dataset && e.target.dataset.approve, r = e.target.dataset && e.target.dataset.reject;
+        if (!a && !r) return;
+        var note = r ? (prompt("Reason (sent to no one, kept for your records):") || null) : null;
+        try {
+          await rpc("padmin_review_claim", { p_claim: a || r, p_action: a ? "approved" : "rejected", p_note: note });
+          msg(a ? "Approved — their editing unlocks immediately." : "Rejected.", true);
+          render();
+        } catch (err) { msg(err.message, false); }
+      });
+    }
+
+    if (tab === "orgs") {
+      var orgs = await rpc("padmin_list_orgs").catch(function () { return []; });
+      body.innerHTML = '<div class="pa-wrap"><table class="pa"><tr><th>Organization</th><th>Plan</th>' +
+        "<th>Status</th><th>Trial ends</th><th>Renews</th><th class=\"num\">Members</th>" +
+        "<th class=\"num\">Storage</th><th></th></tr>" +
+        orgs.map(function (o) {
+          return "<tr><td><b>" + esc(o.name) + "</b><br><span class=\"pa-badge\">" + esc(o.slug) + "</span></td>" +
+            "<td>" + esc(o.plan || "—") + "</td><td>" + esc(o.status) + "</td>" +
+            "<td>" + fmtDate(o.trial_ends_at) + "</td><td>" + fmtDate(o.renews_at) + "</td>" +
+            '<td class="num">' + o.members + '</td><td class="num">' +
+            (o.storage_used_bytes / 1048576).toFixed(0) + " / " +
+            (o.storage_quota_bytes / 1073741824).toFixed(0) + " GB</td>" +
+            '<td><div class="pa-act">' +
+            '<button data-extend="' + o.id + '">+30d trial</button>' +
+            '<button data-plan="' + o.id + '">Activate plan…</button></div></td></tr>';
+        }).join("") + "</table></div>" +
+        '<p class="pa-note">“Activate plan” is for invoice/PO customers — card payments will flow through ' +
+        "Stripe automatically once live. Both paths are audited.</p>";
+      body.addEventListener("click", async function (e) {
+        var ext = e.target.dataset && e.target.dataset.extend, pl = e.target.dataset && e.target.dataset.plan;
+        if (!ext && !pl) return;
+        try {
+          if (ext) { await rpc("padmin_extend_trial", { p_org: ext, p_days: 30 }); msg("Trial extended 30 days.", true); }
+          else {
+            var plan = prompt("Plan to activate: ensemble / pro / program");
+            if (!plan) return;
+            await rpc("padmin_set_plan", { p_org: pl, p_plan: plan.trim().toLowerCase() });
+            msg("Plan activated for one year.", true);
+          }
+          render();
+        } catch (err) { msg(err.message, false); }
+      });
+    }
+
+    if (tab === "invoices") {
+      var inv = await rpc("padmin_list_invoices").catch(function () { return []; });
+      body.innerHTML = inv.length
+        ? '<div class="pa-wrap"><table class="pa"><tr><th>Org</th><th>Number</th><th>Plan</th>' +
+          '<th class="num">Amount</th><th>Status</th><th>Due</th><th></th></tr>' +
+          inv.map(function (i) {
+            return "<tr><td><b>" + esc(i.org_name) + "</b></td><td>" + esc(i.number || "—") +
+              "</td><td>" + esc(i.plan || "—") + '</td><td class="num">' + usd(i.amount_cents) +
+              "</td><td>" + esc(i.status) + "</td><td>" + fmtDate(i.due_on) +
+              '</td><td><div class="pa-act">' +
+              (i.status === "requested" ? '<button data-issue="' + i.id + '">Issue…</button>' : "") +
+              (i.status !== "paid" && i.status !== "void" ? '<button class="good" data-paid="' + i.id + '">Mark paid</button>' : "") +
+              "</div></td></tr>";
+          }).join("") + "</table></div>" +
+          '<p class="pa-note">Marking an invoice paid activates its plan in the same database transaction.</p>'
+        : '<div class="card"><div class="empty">No invoices. Requests from workspace billing pages land here.</div></div>';
+      body.addEventListener("click", async function (e) {
+        var iss = e.target.dataset && e.target.dataset.issue, paid = e.target.dataset && e.target.dataset.paid;
+        if (!iss && !paid) return;
+        try {
+          if (iss) {
+            var num = prompt("Invoice number (e.g. CAD-2026-0007):"); if (!num) return;
+            var amt = prompt("Amount in dollars (e.g. 149):"); if (!amt) return;
+            await rpc("padmin_issue_invoice", { p_invoice: iss, p_number: num.trim(),
+              p_amount_cents: Math.round(parseFloat(amt) * 100),
+              p_due: new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10) });
+            msg("Issued (net 30). Send it however you invoice today.", true);
+          } else {
+            await rpc("padmin_mark_invoice_paid", { p_invoice: paid });
+            msg("Paid — plan activated.", true);
+          }
+          render();
+        } catch (err) { msg(err.message, false); }
+      });
+    }
+  }
+
+  function stat(n, label, warn) {
+    return '<div class="pa-stat' + (warn ? " warn" : "") + '"><b>' + (n == null ? "—" : n) +
+      "</b><span>" + label + "</span></div>";
+  }
+
+  function boot() {
+    if (!cfg) { main.innerHTML = '<div class="card"><div class="empty">Accounts are not configured.</div></div>'; return; }
+    if (window.CadAccount && !CadAccount.ready()) {
+      CadAccount.onChange(function () { render(); });
+      setTimeout(render, 2500);
+    } else render();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
