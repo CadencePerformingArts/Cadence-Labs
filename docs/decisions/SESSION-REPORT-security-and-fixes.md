@@ -335,3 +335,15 @@ worker 12/12 · monorepo vitest 27/27 · workflow-name guard clean.**
    listed in their headers, and add the webhook endpoint. Test cards only;
    nothing charges for real until you swap live keys — a step this repo
    deliberately cannot do.
+
+- `2056258f9` — **The last gaps.** Bug #21 fixed for real (placement-marker
+  encoding in the derived engine; 8/8 fixture tests against the built
+  engine); notification channels made real — a Resend email adapter (invites
+  send the moment RESEND_API_KEY + NOTIFY_FROM_EMAIL exist) and user-linked
+  workspace web-push with a JWT-verified /subscribe-user registration
+  endpoint on the relay (19/19 provider tests, 5 adversarial JWT checks);
+  workspace sheets got focus trapping, Escape, focus restore, and
+  aria-modal. Remaining by design: the family-engine replacement (the brief
+  made it conditional and it cannot be completed safely here), app stores /
+  more circuits / Cadence+ launch (the brief's own defer list), and the
+  owner-side activations documented above.
