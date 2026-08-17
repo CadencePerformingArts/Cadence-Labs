@@ -182,6 +182,8 @@
                  ico: "M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z" },
     drill:     { label: "Drill", href: "drill.html",
                  ico: "M3.5 5.5h17v13h-17zM12 5.5v13M7.5 10.5h.01M12 13.5h.01M16.5 8.5h.01M16.5 15h.01M7.5 15.5h.01" },
+    forms:     { label: "Forms", href: "forms.html", sec: true,
+                 ico: "M6 3.5h9l3 3v14H6zM15 3.5v3h3M9 12h6M9 15.5h6M9 8.5h3" },
     members:   { label: "Members", href: "members.html", sec: true,
                  ico: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3.8 19.5c.4-3 2.7-4.8 5.2-4.8s4.8 1.8 5.2 4.8M16 11a2.6 2.6 0 1 0-1.2-4.9M16.6 14.9c2 .3 3.5 1.9 3.9 4.1" },
     admin:     { label: "Admin", href: "admin.html", sec: true,

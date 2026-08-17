@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forms — Cadence Ensemble</title>
+<meta name="description" content="Fill in the forms your organization needs — permissions, medical, sizing, travel.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+<style>
+.fm-list { display: grid; gap: 10px; max-width: 720px; }
+.fm-row { display: flex; gap: 12px; align-items: center; width: 100%; text-align: left;
+  border: 1px solid var(--border); background: var(--surface-1); border-radius: 12px;
+  padding: 13px 14px; font: inherit; cursor: pointer; color: var(--text-primary); }
+.fm-row:hover { background: var(--surface-2); }
+.fm-row b { display: block; font-size: 14.5px; }
+.fm-row .sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.fm-state { margin-left: auto; flex: none; border-radius: 999px; padding: 3px 10px;
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .4px; }
+.fm-state.todo { background: var(--accent-wash); color: var(--accent-ink); }
+.fm-state.done { background: rgba(43,138,62,.14); color: var(--good); }
+.fm-state.closed { background: var(--surface-2); color: var(--muted); }
+.fm-fill { max-width: 720px; }
+.fm-field { margin-bottom: 14px; }
+.fm-field > label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+.fm-field .req { color: var(--bad); }
+.fm-field .help { display: block; font-weight: 500; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.fm-field .ctrl, .fm-field textarea.ctrl { width: 100%; }
+.fm-field textarea.ctrl { min-height: 90px; }
+.fm-check { display: flex; gap: 9px; align-items: flex-start; font-size: 14px; }
+.fm-check input { margin-top: 3px; width: 17px; height: 17px; }
+.fm-err { color: var(--bad); font-size: 12.5px; margin-top: 4px; display: none; }
+.fm-field.bad .fm-err { display: block; }
+.fm-field.bad .ctrl { border-color: var(--bad); }
+.fm-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 18px; }
+</style>
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script>
+/* Member form fill-in. The builder and the submissions viewer live in
+   Admin; this is the other half — the screen a member (or a guardian, for
+   their student) actually fills in. RLS does the real enforcement:
+   visibility (org/groups), one submission per member (upsert), sensitive
+   forms readable only by student.info staff. */
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc;
+  var org = null, me = null, forms = [], subs = {}, open = null;
+
+  function fmtDay(iso) {
+    if (!iso) return "";
+    try { return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
+    catch (e) { return ""; }
+  }
+  function isClosed(f) {
+    return !f.is_open || (f.closes_at && new Date(f.closes_at) < new Date());
+  }
+
+  async function load() {
+    var res = await Promise.all([
+      CadOrg.rest("org_forms?select=*,fields:org_form_fields(*)&org_id=eq." + org.id +
+        "&order=created_at.desc&limit=100"),
+      CadOrg.rest("org_form_submissions?select=id,form_id,data,updated_at&member_id=eq." +
+        (me ? me.id : "00000000-0000-0000-0000-000000000000")),
+    ]);
+    forms = res[0] || [];
+    subs = {};
+    (res[1] || []).forEach(function (s) { subs[s.form_id] = s; });
+  }
+
+  function listView() {
+    document.title = "Forms — Cadence Ensemble";
+    var todo = forms.filter(function (f) { return !isClosed(f) && !subs[f.id]; });
+    var done = forms.filter(function (f) { return subs[f.id]; });
+    var closed = forms.filter(function (f) { return isClosed(f) && !subs[f.id]; });
+    function row(f) {
+      var state = subs[f.id] ? "done" : isClosed(f) ? "closed" : "todo";
+      var label = state === "done" ? "Submitted" : state === "closed" ? "Closed" : "Needs you";
+      return '<button class="fm-row" data-form="' + f.id + '"' +
+        (state === "closed" ? " disabled" : "") + ">" +
+        "<span><b>" + esc(f.title) + "</b>" +
+        '<span class="sub">' + esc(f.kind) +
+        (f.closes_at ? " · closes " + fmtDay(f.closes_at) : "") +
+        (subs[f.id] ? " · updated " + fmtDay(subs[f.id].updated_at) : "") + "</span></span>" +
+        '<span class="fm-state ' + state + '">' + label + "</span></button>";
+    }
+    main.innerHTML = '<h1 class="page">Forms</h1>' +
+      '<p class="lede">What ' + esc(org.name) + " needs from you. Submitted forms can be " +
+      "updated until they close.</p>" +
+      (forms.length
+        ? '<div class="fm-list">' + todo.map(row).join("") + done.map(row).join("") +
+          closed.map(row).join("") + "</div>"
+        : '<div class="card"><div class="empty">No forms yet. When your staff publishes one, it appears here.</div></div>');
+    main.querySelectorAll("[data-form]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        open = forms.filter(function (f) { return f.id === b.dataset.form; })[0];
+        fillView();
+      });
+    });
+  }
+
+  function fieldHtml(fd, val) {
+    var req = fd.required ? ' <span class="req" aria-hidden="true">*</span>' : "";
+    var help = fd.help ? '<span class="help">' + esc(fd.help) + "</span>" : "";
+    var id = "f_" + fd.id;
+    var head = '<div class="fm-field" data-field="' + fd.id + '" data-required="' + !!fd.required +
+      '" data-type="' + esc(fd.field_type) + '"><label for="' + id + '">' + esc(fd.label) + req + help + "</label>";
+    var tail = '<div class="fm-err">This one is required.</div></div>';
+    var v = val == null ? "" : val;
+    switch (fd.field_type) {
+      case "longtext":
+        return head + '<textarea class="ctrl" id="' + id + '">' + esc(v) + "</textarea>" + tail;
+      case "number":
+        return head + '<input class="ctrl" id="' + id + '" type="number" value="' + esc(v) + '">' + tail;
+      case "date":
+        return head + '<input class="ctrl" id="' + id + '" type="date" value="' + esc(v) + '">' + tail;
+      case "select":
+        return head + '<select class="ctrl" id="' + id + '"><option value="">—</option>' +
+          (fd.options || []).map(function (o) {
+            return '<option' + (String(v) === o ? " selected" : "") + ">" + esc(o) + "</option>";
+          }).join("") + "</select>" + tail;
+      case "multiselect":
+        var picked = Array.isArray(val) ? val : [];
+        return head + (fd.options || []).map(function (o) {
+          return '<label class="fm-check"><input type="checkbox" value="' + esc(o) + '"' +
+            (picked.indexOf(o) >= 0 ? " checked" : "") + "><span>" + esc(o) + "</span></label>";
+        }).join("") + tail;
+      case "checkbox":
+        return head + '<label class="fm-check"><input type="checkbox" id="' + id + '"' +
+          (val === true ? " checked" : "") + "><span>Yes</span></label>" + tail;
+      case "signature":
+        return head + '<input class="ctrl" id="' + id + '" placeholder="Type your full name" value="' + esc(v) + '">' +
+          '<span class="help">Typing your name here acts as your signature on this form.</span>' + tail;
+      case "file":
+        return head + '<span class="help">File answers aren\'t supported in this form yet — ' +
+          "your staff will collect this one directly.</span>" + tail;
+      default:
+        return head + '<input class="ctrl" id="' + id + '" value="' + esc(v) + '">' + tail;
+    }
+  }
+
+  function collect() {
+    var data = {}, firstBad = null;
+    (open.fields || []).forEach(function (fd) {
+      var wrap = main.querySelector('[data-field="' + fd.id + '"]');
+      if (!wrap) return;
+      var v = null;
+      if (fd.field_type === "multiselect") {
+        v = [].slice.call(wrap.querySelectorAll("input:checked")).map(function (i) { return i.value; });
+      } else if (fd.field_type === "checkbox") {
+        var cb = wrap.querySelector("input"); v = !!(cb && cb.checked);
+      } else if (fd.field_type === "file") {
+        v = null;
+      } else {
+        var el = wrap.querySelector(".ctrl"); v = el ? el.value.trim() : "";
+      }
+      var missing = fd.required && (v == null || v === "" ||
+        (Array.isArray(v) && !v.length) || (fd.field_type === "checkbox" && v !== true));
+      wrap.classList.toggle("bad", !!missing);
+      if (missing && !firstBad) firstBad = wrap;
+      if (fd.field_type !== "file") data[fd.id] = v;
+    });
+    return { data: data, firstBad: firstBad };
+  }
+
+  function fillView() {
+    document.title = open.title + " — Forms";
+    var sub = subs[open.id];
+    var closed = isClosed(open);
+    var vals = (sub && sub.data) || {};
+    var fields = (open.fields || []).slice().sort(function (a, b) { return (a.sort || 0) - (b.sort || 0); });
+    main.innerHTML = '<div class="fm-fill">' +
+      '<a href="#" id="fmBack" class="ens-back">← All forms</a>' +
+      '<h1 class="page">' + esc(open.title) + "</h1>" +
+      (open.description ? '<p class="lede">' + esc(open.description) + "</p>" : "") +
+      (open.is_sensitive
+        ? '<p class="bil-note" style="margin-bottom:14px">This form contains protected information. ' +
+          "Only staff your organization has explicitly given access see the answers.</p>" : "") +
+      (closed ? '<div class="ens-strip warn" style="border-radius:10px;margin-bottom:14px">This form is closed.</div>' : "") +
+      '<form id="fmForm">' + fields.map(function (fd) { return fieldHtml(fd, vals[fd.id]); }).join("") +
+      '<div class="fm-actions">' +
+        (!closed ? '<button class="tab on" type="submit">' + (sub ? "Update my answers" : "Submit") + "</button>" : "") +
+        '<span class="acct-msg" id="fmMsg" role="status">' +
+        (sub ? "Submitted " + fmtDay(sub.updated_at) + " — you can update until it closes." : "") +
+        "</span></div></form></div>";
+    document.getElementById("fmBack").addEventListener("click", function (e) {
+      e.preventDefault(); open = null; listView();
+    });
+    var form = document.getElementById("fmForm");
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      if (closed) return;
+      var got = collect();
+      var msg = document.getElementById("fmMsg");
+      if (got.firstBad) {
+        got.firstBad.scrollIntoView({ behavior: "smooth", block: "center" });
+        msg.className = "acct-msg err"; msg.textContent = "A required answer is missing.";
+        return;
+      }
+      msg.className = "acct-msg"; msg.textContent = "Saving…";
+      try {
+        var payload = { form_id: open.id, org_id: org.id, member_id: me.id,
+                        submitted_by_user: (CadAccount.user() || {}).id, data: got.data };
+        await CadOrg.rest("org_form_submissions?on_conflict=form_id,member_id", {
+          method: "POST",
+          headers: { Prefer: "resolution=merge-duplicates,return=representation" },
+          body: payload,
+        });
+        await load();
+        msg.className = "acct-msg ok"; msg.textContent = "Saved. You can update it until the form closes.";
+      } catch (err) {
+        msg.className = "acct-msg err";
+        msg.textContent = "Couldn't save — " + ((err && err.message) || "try again") + ".";
+      }
+    });
+  }
+
+  CadOrg.start({ nav: "forms" }).then(async function (o) {
+    if (!o) return;
+    org = o; me = CadOrg.member();
+    try { await load(); } catch (e) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load forms — ' +
+        esc((e && e.message) || "") + "</div></div>";
+      return;
+    }
+    var want = null;
+    try { want = new URLSearchParams(location.search).get("form"); } catch (e) {}
+    if (want) { open = forms.filter(function (f) { return f.id === want; })[0] || null; }
+    if (open) fillView(); else listView();
+  });
+})();
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
  * provider adapters. Runs server-side with the Supabase SERVICE ROLE — never
  * in the browser. It is written dependency-injected: `runOnce` takes a db
  * client and a set of providers, so the whole thing is unit-testable with
- * deterministic fakes and no network (see notify-worker.test.js).
+ * deterministic fakes and no network (see notify-worker.check.js).
  *
  * Guarantees:
  *   • idempotent — the queue's dedupe index means a row is enqueued once;

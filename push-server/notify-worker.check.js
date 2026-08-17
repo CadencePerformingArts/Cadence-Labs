@@ -1,6 +1,6 @@
 /* Tests for the notification worker — deterministic, no network.
  *
- *   node push-server/notify-worker.test.js
+ *   node push-server/notify-worker.check.js
  *
  * A fake in-memory queue stands in for the Supabase RPCs, so we can prove
  * the delivery contract exactly: sends once, retries with backoff, dead-

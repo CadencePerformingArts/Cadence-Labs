@@ -131,7 +131,7 @@ stubbed "unconfigured" and skip cleanly until keys land).
 
 ```
 python3 scripts/test_db_security.py     → PASS 45   (fresh apply + additive upgrade + 7 notification checks)
-node    push-server/notify-worker.test.js → PASS 12
+node    push-server/notify-worker.check.js → PASS 12
 node    scripts/test_p1_fixes.js         → PASS 19
 python3 scripts/check_workflow_names.py  → 3 watched workflows, all present
 python3 scripts/gen_sql_bundles.py       → RUN_ALL 14 migrations, RUN_ENSEMBLE 10

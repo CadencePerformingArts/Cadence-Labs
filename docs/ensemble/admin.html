@@ -96,6 +96,68 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   function canMembers() { return CadOrg.canDo("member.manage"); }
   function canForms() { return CadOrg.canDo("form.manage"); }
 
+  /* ── data export: the workspace's records, as plain CSV. Reads run under
+     the caller's own RLS, so an export can never contain a row the person
+     couldn't already see on screen. ───────────────────────────────────── */
+  function csvCell(v) {
+    var s = v == null ? "" : String(v);
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+  function downloadCsv(name, header, rows) {
+    var body = [header].concat(rows).map(function (r) {
+      return r.map(csvCell).join(",");
+    }).join("\r\n");
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob(["﻿" + body], { type: "text/csv" }));
+    a.download = name;
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+  }
+  async function exportCsv(kind, btn) {
+    var org = S.org, orig = btn.textContent;
+    btn.disabled = true; btn.textContent = "Exporting…";
+    try {
+      if (kind === "roster") {
+        var ms = await CadOrg.rest("org_members?select=display_name,section,instrument," +
+          "leadership_title,grad_year,status,joined_at,role:org_roles(name)&org_id=eq." + org.id +
+          "&order=display_name.asc&limit=5000");
+        downloadCsv("roster.csv",
+          ["Name", "Role", "Section", "Instrument", "Title", "Grad year", "Status", "Joined"],
+          ms.map(function (m) {
+            return [m.display_name, m.role && m.role.name, m.section, m.instrument,
+                    m.leadership_title, m.grad_year, m.status,
+                    (m.joined_at || "").slice(0, 10)];
+          }));
+      } else if (kind === "attendance") {
+        var at = await CadOrg.rest("org_attendance?select=status,note,recorded_at," +
+          "member:org_members!org_attendance_member_id_fkey(display_name)," +
+          "ev:org_events!inner(org_id,title,starts_at)&ev.org_id=eq." + org.id +
+          "&order=recorded_at.desc&limit=10000");
+        downloadCsv("attendance.csv",
+          ["Event", "Event date", "Member", "Status", "Note", "Recorded"],
+          at.map(function (r) {
+            return [r.ev && r.ev.title, r.ev && (r.ev.starts_at || "").slice(0, 10),
+                    r.member && r.member.display_name, r.status, r.note,
+                    (r.recorded_at || "").slice(0, 10)];
+          }));
+      } else if (kind === "posts") {
+        var ps = await CadOrg.rest("posts?select=title,body,priority,pinned,requires_ack," +
+          "created_at,author:org_members(display_name)&org_id=eq." + org.id +
+          "&order=created_at.desc&limit=5000");
+        downloadCsv("announcements.csv",
+          ["Date", "Title", "Body", "Priority", "Pinned", "Requires ack", "Author"],
+          ps.map(function (p) {
+            return [(p.created_at || "").slice(0, 10), p.title, p.body, p.priority,
+                    p.pinned, p.requires_ack, p.author && p.author.display_name];
+          }));
+      }
+    } catch (e) {
+      alert("Export failed — " + ((e && e.message) || "try again") + ".");
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  }
+
   /* ── counts. Everything is a HEAD-style exact count (Prefer: count=exact,
      Range 0-0) so no dashboard ever downloads a table. Tables other phases
      own may not exist yet — softCount turns that into "—". ─────────────── */
@@ -204,6 +266,15 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         "the screen that owns it will fill this in.</p></div>" +
 
       '<div class="ens-grid" style="margin-top:14px">' +
+        '<div class="card"><div class="ens-h"><h2>Your data, yours to take</h2></div>' +
+          '<div class="ens-quick">' +
+            '<button class="tab" type="button" data-export="roster">Roster CSV</button>' +
+            '<button class="tab" type="button" data-export="attendance">Attendance CSV</button>' +
+            '<button class="tab" type="button" data-export="posts">Announcements CSV</button>' +
+          "</div>" +
+          '<p class="adm-note">Everything your workspace owns, downloadable any time — leaving ' +
+          "Cadence never means losing your records. Drill dot books print from the drill " +
+          "viewer; files download from the library.</p></div>" +
         '<div class="card"><div class="ens-h"><h2>Quick actions</h2></div>' +
           '<div class="ens-quick">' + quick.map(function (q) {
             return '<a class="tab" href="' + q[1] + '">' + esc(q[0]) + "</a>"; }).join("") +
@@ -589,6 +660,9 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         try { history.replaceState(null, "", "#" + S.tab); } catch (e) {}
         render();
       });
+    });
+    main.querySelectorAll("[data-export]").forEach(function (b) {
+      b.addEventListener("click", function () { exportCsv(b.dataset.export, b); });
     });
 
     wireRequests(main.querySelector("#paneRequests"));

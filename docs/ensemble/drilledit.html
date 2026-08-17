@@ -97,6 +97,24 @@
     var el = document.getElementById("drillSave");
     if (el) { el.textContent = t; el.className = "drill-save" + (isDirty ? " dirty" : ""); }
   }
+  // ── data-loss protection ─────────────────────────────────────────────
+  // 1. every successful save also snapshots locally, so a dead connection
+  //    or crashed tab never loses the last known-good state
+  // 2. before writing, compare the show row's updated_at with what we
+  //    loaded — if another editor saved since, warn instead of silently
+  //    overwriting their work
+  var lastSeenStamp = null;   // drill_shows.updated_at as of our last read
+  function snapshotLocal() {
+    try { localStorage.setItem("cad-drill-recover:" + SHOW_ID,
+      JSON.stringify({ at: Date.now(), show: show })); } catch (e) {}
+  }
+  async function remoteStamp() {
+    try {
+      var rows = await CadOrg.rest("drill_shows?id=eq." + SHOW_ID + "&select=updated_at");
+      return rows && rows[0] ? rows[0].updated_at : null;
+    } catch (e) { return null; }
+  }
+
   async function doSave() {
     if (LOCAL) {
       D.saveDraft(show);
@@ -106,6 +124,22 @@
     if (saving) { queueSave(); return; }
     saving = true;
     try {
+      // conflict check: has someone else saved since we loaded?
+      var stamp = await remoteStamp();
+      if (stamp && lastSeenStamp && stamp !== lastSeenStamp) {
+        saving = false;
+        snapshotLocal();
+        if (confirm("Someone else saved this show while you were editing " +
+            "(another device or staff member). OK = overwrite with YOUR version " +
+            "(your copy is also backed up in this browser). Cancel = reload " +
+            "theirs — your unsaved edits stay backed up locally.")) {
+          lastSeenStamp = stamp;   // proceed, deliberately, exactly once
+        } else {
+          location.reload();
+          return;
+        }
+        saving = true;
+      }
       if (dirty.meta) {
         await CadOrg.rest("drill_shows?id=eq." + SHOW_ID, { method: "PATCH", body: {
           title: show.title, field_type: show.field_type, tempo: show.tempo } });

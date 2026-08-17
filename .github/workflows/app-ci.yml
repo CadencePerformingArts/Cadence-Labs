@@ -8,6 +8,11 @@ on:
       - "apps/**"
       - "packages/**"
       - "supabase/**"
+      - "docs/*.js"
+      - "docs/ensemble/**"
+      - "push-server/**"
+      - "scripts/*.js"
+      - "scripts/check_workflow_names.py"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/app-ci.yml"
@@ -17,6 +22,11 @@ on:
       - "apps/**"
       - "packages/**"
       - "supabase/**"
+      - "docs/*.js"
+      - "docs/ensemble/**"
+      - "push-server/**"
+      - "scripts/*.js"
+      - "scripts/check_workflow_names.py"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/app-ci.yml"
@@ -50,3 +60,30 @@ jobs:
       - name: Expo config is valid
         run: npx expo config --type public > /dev/null
         working-directory: apps/cadence
+
+  # The shipped site + tooling layer: fast, dependency-free node/python
+  # suites (the DB security suite needs a disposable PostgreSQL, so it
+  # stays a developer/agent gate — see supabase/README.md).
+  site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Every shipped script parses
+        run: |
+          for f in docs/*.js docs/ensemble/*.js docs/family/*.js; do
+            node -e "new Function(require('fs').readFileSync('$f','utf8'))" || exit 1
+          done
+      - name: P1 regression guards
+        run: node scripts/test_p1_fixes.js
+      - name: Preference-sync merge rules
+        run: node scripts/test_sync_merge.js
+      - name: Stripe billing core (signed fixtures)
+        run: node scripts/test_stripe_core.js
+      - name: Notification worker contract
+        run: node push-server/notify-worker.check.js
+      - name: Watched workflow names exist
+        run: python3 scripts/check_workflow_names.py

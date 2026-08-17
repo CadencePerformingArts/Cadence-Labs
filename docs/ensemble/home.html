@@ -115,9 +115,12 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       tryGet("org_files?select=id,name,created_at&org_id=eq." + org.id + "&order=created_at.desc&limit=5"),
       tryGet("org_event_rsvps?select=event_id&member_id=eq." + (member.id || "00000000-0000-0000-0000-000000000000")),
       tryGet("post_acks?select=post_id&member_id=eq." + (member.id || "00000000-0000-0000-0000-000000000000")),
+      tryGet("org_forms?select=id,title,closes_at,is_open&org_id=eq." + org.id + "&is_open=is.true&limit=25"),
+      tryGet("org_form_submissions?select=form_id&member_id=eq." + (member.id || "00000000-0000-0000-0000-000000000000")),
     ]);
     var events = results[0] || [], posts = results[1] || [], groups = results[2] || [],
         files = results[3] || [], rsvps = results[4] || [], acks = results[5] || [];
+    var openForms = results[6] || [], mySubs = results[7] || [];
 
     // the setup checklist needs two counts the dashboard doesn't otherwise
     // load — fetched only when it could actually render
@@ -156,6 +159,16 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         actions.push('<a class="ens-item" href="feed.html#post-' + p.id + '" style="text-decoration:none">' +
           '<span class="ens-when">Read</span><span><b>' + esc(p.title || "Announcement") + "</b>" +
           '<span class="ens-sub">acknowledgment required</span></span></a>');
+      }
+    });
+    var subbed = {}; mySubs.forEach(function (s) { subbed[s.form_id] = true; });
+    openForms.forEach(function (f) {
+      var closed = f.closes_at && new Date(f.closes_at) < new Date();
+      if (!subbed[f.id] && !closed) {
+        actions.push('<a class="ens-item" href="forms.html?form=' + f.id + '" style="text-decoration:none">' +
+          '<span class="ens-when">Form</span><span><b>' + esc(f.title) + "</b>" +
+          '<span class="ens-sub">needs your answers' +
+          (f.closes_at ? " · closes " + fmtDay(f.closes_at) : "") + "</span></span></a>");
       }
     });
 
