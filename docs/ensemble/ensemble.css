@@ -36,8 +36,12 @@
 .ens-tab:hover { background: var(--surface-2); color: var(--text-primary); text-decoration: none; }
 .ens-tab.on { background: var(--navy); color: #fff; }
 .ens-tab.on svg { opacity: 1; }
+.ens-tab.ens-more { border: 0; background: none; cursor: pointer; font: inherit; }
+/* desktop has room for every section — the More button is a phone thing */
+@media (min-width: 641px) { .ens-tab.ens-more { display: none; } }
 /* phones: the rail becomes a bottom dock — same look and reach as the
-   public app's tab bar, so thumbs never have to relearn anything */
+   public app's tab bar. Five thumb targets: the daily four plus More;
+   the folded sections (.sec) live one tap away in the More sheet. */
 @media (max-width: 640px) {
   .ens-tabs {
     position: fixed; top: auto; bottom: 0; left: 0; right: 0; z-index: 90;
@@ -47,10 +51,11 @@
     border-bottom: 0; border-top: 1px solid rgba(255,255,255,0.09);
     box-shadow: 0 -6px 24px rgba(8,20,40,0.28);
     padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
-    gap: 0;
+    gap: 0; overflow-x: hidden;
   }
+  .ens-tab.sec { display: none; }
   .ens-tab {
-    flex: 1 0 64px; flex-direction: column; gap: 4px; padding: 7px 2px;
+    flex: 1 0 0; flex-direction: column; gap: 4px; padding: 7px 2px;
     font-size: 11px; border-radius: 13px; color: rgba(255,255,255,0.85);
   }
   .ens-tab svg { width: 22px; height: 22px; }

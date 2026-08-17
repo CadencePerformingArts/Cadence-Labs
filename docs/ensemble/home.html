@@ -60,6 +60,47 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       (href ? '<a href="' + href + '">' + linkLabel + "</a>" : "") + "</div>" + body + "</div>";
   }
 
+  /* ── the director's first ten minutes ─────────────────────────────────
+     A checklist derived from what actually exists — steps complete
+     themselves the moment the real thing happens, never by being clicked.
+     Admin-only, dismissible per workspace, gone for good once done. */
+  var SETUP_KEY = function (org) { return "cad-setup-hide:" + org.id; };
+  function setupDismissed(org) {
+    try { return !!localStorage.getItem(SETUP_KEY(org)); } catch (e) { return true; }
+  }
+  async function setupSteps(org, counts) {
+    var steps = [
+      { done: counts.members > 1, href: "members.html", label: "Invite your first members",
+        why: "Codes and links live under Members.", perm: "member.manage" },
+      { done: counts.posts > 0, href: "feed.html", label: "Post your first announcement",
+        why: "It lands on every member's Home.", perm: "announce.create" },
+      { done: counts.events > 0, href: "calendar.html", label: "Put a rehearsal on the calendar",
+        why: "RSVPs and attendance hang off events.", perm: "event.create" },
+      { done: counts.files > 0, href: "files.html", label: "Upload your first file or music",
+        why: "Parts and packets, one place.", perm: "file.upload" },
+      { done: counts.drills > 0, href: "drill.html", label: "Start a drill show",
+        why: "Chart it here; every member gets a dot book.", perm: "drill.manage" },
+    ].filter(function (s) { return CadOrg.canDo(s.perm); });
+    return steps;
+  }
+  function setupCard(org, steps) {
+    var open = steps.filter(function (s) { return !s.done; });
+    if (!open.length) return "";
+    return '<div class="card" id="setupCard"><div class="ens-h">' +
+      "<h2>Set up " + esc(org.name) + "</h2>" +
+      '<button class="tab" type="button" id="setupHide" style="font-size:12px">Dismiss</button></div>' +
+      steps.map(function (s) {
+        return '<a class="ens-item" href="' + s.href + '" style="text-decoration:none' +
+          (s.done ? ";opacity:.55" : "") + '">' +
+          '<span class="ens-when">' + (s.done
+            ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--good)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>'
+            : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--muted)" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg>') +
+          "</span><span><b" + (s.done ? ' style="text-decoration:line-through"' : "") + ">" +
+          s.label + "</b>" + (s.done ? "" : '<span class="ens-sub">' + s.why + "</span>") +
+          "</span></a>";
+      }).join("") + "</div>";
+  }
+
   async function render(org) {
     var member = CadOrg.member() || {};
     var nowIso = new Date().toISOString();
@@ -77,6 +118,22 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     ]);
     var events = results[0] || [], posts = results[1] || [], groups = results[2] || [],
         files = results[3] || [], rsvps = results[4] || [], acks = results[5] || [];
+
+    // the setup checklist needs two counts the dashboard doesn't otherwise
+    // load — fetched only when it could actually render
+    var setupHtml = "";
+    if (CadOrg.can("member.manage") && !setupDismissed(org)) {
+      var extra = await Promise.all([
+        tryGet("org_members?select=id&org_id=eq." + org.id + "&status=eq.active&limit=3"),
+        tryGet("drill_shows?select=id&org_id=eq." + org.id + "&limit=1"),
+      ]);
+      var steps = await setupSteps(org, {
+        members: (extra[0] || []).length,
+        posts: posts.length, events: events.length, files: files.length,
+        drills: (extra[1] || []).length,
+      });
+      setupHtml = setupCard(org, steps);
+    }
 
     var rsvped = {}; rsvps.forEach(function (r) { rsvped[r.event_id] = true; });
     var acked = {}; acks.forEach(function (a) { acked[a.post_id] = true; });
@@ -113,7 +170,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<h1 class="page">' + esc(org.name) +
         ' <span class="kicker">· ' + esc((CadOrg.role() || {}).name || "Member") + "</span></h1>" +
       (quick ? '<div class="ens-quick" style="margin-bottom:16px">' + quick + "</div>" : "") +
-      '<div class="ens-grid">' +
+      setupHtml +
+      '<div class="ens-grid"' + (setupHtml ? ' style="margin-top:14px"' : "") + ">" +
 
       section("Today", "calendar.html", "Calendar →",
         today.length
@@ -169,6 +227,13 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           : '<div class="empty">No files yet.</div>') +
 
       "</div>";
+
+    var hide = document.getElementById("setupHide");
+    if (hide) hide.addEventListener("click", function () {
+      try { localStorage.setItem(SETUP_KEY(org), "1"); } catch (e) {}
+      var card = document.getElementById("setupCard");
+      if (card) card.remove();
+    });
   }
 
   CadOrg.start({ nav: "home" }).then(function (org) {

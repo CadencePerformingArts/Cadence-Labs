@@ -163,46 +163,64 @@
   /* Tabs, done properly. The workspace list is the front door; once you are
      inside a group, its sections live in one modern rail under the top bar —
      horizontally scrollable on phones, always showing where you are. */
+  /* Nine equal destinations don't fit a phone. The four a member reaches
+     for daily (plus More) make the dock; everything else lives one tap away
+     in the More sheet. Desktop has the room, so it keeps the full rail —
+     `sec: true` marks the sections that fold into More on phones. */
   var SECTIONS = {
     home:      { label: "Home", href: "home.html",
                  ico: "M4 11.5 12 4l8 7.5M6.5 10v9.5h11V10" },
-    feed:      { label: "Announcements", href: "feed.html",
+    feed:      { label: "Announcements", href: "feed.html", sec: true,
                  ico: "M4 10v4h3l7 4V6l-7 4H4zM17.5 9.5a4 4 0 0 1 0 5" },
     calendar:  { label: "Calendar", href: "calendar.html",
                  ico: "M4.5 5.5h15v14h-15zM4.5 10h15M9 3.5v3.5M15 3.5v3.5" },
     messages:  { label: "Messages", href: "messages.html",
                  ico: "M5 5.5h14v9.5H9.5L5 19z" },
-    files:     { label: "Files", href: "files.html",
+    files:     { label: "Files", href: "files.html", sec: true,
                  ico: "M4 7.5h5.5l1.8 2H20v9H4z" },
-    music:     { label: "Music", href: "music.html",
+    music:     { label: "Music", href: "music.html", sec: true,
                  ico: "M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z" },
     drill:     { label: "Drill", href: "drill.html",
                  ico: "M3.5 5.5h17v13h-17zM12 5.5v13M7.5 10.5h.01M12 13.5h.01M16.5 8.5h.01M16.5 15h.01M7.5 15.5h.01" },
-    members:   { label: "Members", href: "members.html",
+    members:   { label: "Members", href: "members.html", sec: true,
                  ico: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3.8 19.5c.4-3 2.7-4.8 5.2-4.8s4.8 1.8 5.2 4.8M16 11a2.6 2.6 0 1 0-1.2-4.9M16.6 14.9c2 .3 3.5 1.9 3.9 4.1" },
-    admin:     { label: "Admin", href: "admin.html",
+    admin:     { label: "Admin", href: "admin.html", sec: true,
                  ico: "M12 14.8a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6zM19 12a7 7 0 0 0-.2-1.6l2-1.5-1.8-3-2.3.9A7 7 0 0 0 14 5l-.4-2.4h-3.4L9.9 5a7 7 0 0 0-2.7 1.6L4.9 5.9l-1.8 3 2 1.5a7 7 0 0 0 0 3.2l-2 1.5 1.8 3 2.3-.9a7 7 0 0 0 2.7 1.6l.4 2.4h3.4l.4-2.4a7 7 0 0 0 2.7-1.6l2.3.9 1.8-3-2-1.5c.1-.5.2-1 .2-1.6z" },
     // subpages highlight their parent tab
     billing:   { parent: "admin", label: "Billing", href: "billing.html" },
     event:     { parent: "calendar", label: "Event", href: "event.html" },
   };
 
+  function sectionVisible(k) {
+    if (k === "admin") return can("org.admin") || can("member.manage");
+    return true;
+  }
+
   function shellHtml(active) {
     var org = state.org;
     var sec = SECTIONS[active] || SECTIONS.home;
     var lit = sec.parent || (SECTIONS[active] ? active : "home");
+    var moreLit = !!(SECTIONS[lit] && SECTIONS[lit].sec);   // active page lives in More
     var tabs = "";
     if (org) {
       tabs = Object.keys(SECTIONS).map(function (k) {
         var s = SECTIONS[k];
         if (s.parent) return "";                       // subpages don't get tabs
-        if (k === "admin" && !(can("org.admin") || can("member.manage"))) return "";
-        return '<a class="ens-tab' + (k === lit ? " on" : "") + '" href="' + s.href + '"' +
+        if (!sectionVisible(k)) return "";
+        return '<a class="ens-tab' + (s.sec ? " sec" : "") + (k === lit ? " on" : "") +
+          '" href="' + s.href + '"' +
           (k === lit ? ' aria-current="page"' : "") + ">" +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
           'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + s.ico + '"/></svg>' +
           "<span>" + s.label + "</span></a>";
       }).join("");
+      // phones: the folded sections live one tap away behind More
+      tabs += '<button class="ens-tab ens-more' + (moreLit ? " on" : "") + '" type="button" ' +
+        'id="ensMoreBtn" aria-haspopup="dialog" aria-label="More sections">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"/></svg>' +
+        "<span>More</span></button>";
     }
     return '' +
       '<header class="topbar ens-top">' +
@@ -251,6 +269,39 @@
     host.innerHTML = shellHtml(active);
     var pick = document.getElementById("ensOrgPick");
     if (pick) pick.addEventListener("click", function () { openSwitcher(); });
+    var more = document.getElementById("ensMoreBtn");
+    if (more) more.addEventListener("click", function () { openMoreSheet(active); });
+  }
+
+  // the phone dock's fifth tab: everything that folded out of the dock,
+  // one tap away, in the same sheet language as the workspace switcher
+  function openMoreSheet(active) {
+    var sec = SECTIONS[active] || SECTIONS.home;
+    var lit = sec.parent || active;
+    var wrap = document.createElement("div");
+    wrap.className = "ens-sheet";
+    wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-label", "More sections");
+    wrap.innerHTML = '<div class="ens-sheet-in"><h3>More</h3>' +
+      Object.keys(SECTIONS).map(function (k) {
+        var s = SECTIONS[k];
+        if (s.parent || !s.sec || !sectionVisible(k)) return "";
+        return '<a class="ens-sheet-row' + (k === lit ? " on" : "") + '" href="' + s.href + '">' +
+          '<b style="display:inline-flex;align-items:center;gap:9px">' +
+          '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" ' +
+          'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="' + s.ico + '"/></svg>' + s.label + "</b></a>";
+      }).join("") +
+      (can("billing.manage") || can("org.admin")
+        ? '<a class="ens-sheet-row" href="billing.html"><b>Plan &amp; billing</b></a>' : "") +
+      '<button class="tab" id="ensMoreClose" type="button" style="margin-top:12px">Close</button></div>';
+    document.body.appendChild(wrap);
+    function close() { wrap.remove(); document.removeEventListener("keydown", onKey); }
+    function onKey(e) { if (e.key === "Escape") close(); }
+    document.addEventListener("keydown", onKey);
+    wrap.addEventListener("click", function (e) {
+      if (e.target === wrap || e.target.id === "ensMoreClose") close();
+    });
   }
 
   function openSwitcher() {
