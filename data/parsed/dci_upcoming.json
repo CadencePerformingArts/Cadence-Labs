@@ -127,81 +127,6 @@
   "_seen": "2026-08-17"
  },
  {
-  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
-  "name": "Bluecoats Opening Night Community Celebration",
-  "location": "Alliance, OH",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Columbus Saints",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Eclipse",
-   "EN-CORPS by EN-RICH-MENT",
-   "Bluecoats Alumni Legacy Arc",
-   "Rhythm IN BLUE",
-   "The Bluecoats",
-   "The Blue Way Summer Arts Camp",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "5:15 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "6:25 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "6:40 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "6:55 PM",
-    "Eclipse"
-   ],
-   [
-    "7:10 PM",
-    "EN-CORPS by EN-RICH-MENT"
-   ],
-   [
-    "7:25 PM",
-    "Bluecoats Alumni Legacy Arc"
-   ],
-   [
-    "7:40 PM",
-    "Rhythm IN BLUE"
-   ],
-   [
-    "7:55 PM",
-    "The Bluecoats"
-   ],
-   [
-    "8:18 PM",
-    "The Blue Way Summer Arts Camp"
-   ],
-   [
-    "8:28 PM",
-    "Encore - Bluecoats - Canton, OH"
-   ],
-   [
-    "8:53 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy in effect for this event",
-  "_seen": "2026-08-17"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -1192,6 +1117,131 @@
    ]
   ],
   "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
+  "_seen": "2026-08-17"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-celebration-in-brass/",
+  "name": "Celebration in Brass",
+  "location": "Des Moines, IA",
+  "date_display": "July 8, 2026",
+  "date": "2026-07-08",
+  "lineup": [
+   "Colt Cadets",
+   "River City Rhythm",
+   "Genesis",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "The Cavaliers",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:27 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:44 PM",
+    "Genesis"
+   ],
+   [
+    "8:01 PM",
+    "Crossmen"
+   ],
+   [
+    "8:18 PM",
+    "Intermission"
+   ],
+   [
+    "8:38 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:55 PM",
+    "Troopers"
+   ],
+   [
+    "9:12 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:29 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:46 PM",
+    "Colts"
+   ],
+   [
+    "10:03 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-17"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-across-america/",
+  "name": "Drums Across America",
+  "location": "Newnan, GA",
+  "date_display": "July 8, 2026",
+  "date": "2026-07-08",
+  "lineup": [
+   "Atlanta CV",
+   "Music City",
+   "Spirit of Atlanta",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:02 PM",
+    "Music City"
+   ],
+   [
+    "8:24 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:42 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:04 PM",
+    "Encore - Spirit of Atlanta - Atlanta, GA"
+   ],
+   [
+    "9:12 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-17"
  },
  {
@@ -3289,70 +3339,6 @@
    ]
   ],
   "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-17"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
-  "name": "DCI Middle Tennessee",
-  "location": "Murfreesboro, TN",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Music City",
-   "Spirit of Atlanta",
-   "Colts",
-   "Carolina Crown",
-   "Bluecoats",
-   "Blue Devils",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Music City"
-   ],
-   [
-    "7:58 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:16 PM",
-    "Colts"
-   ],
-   [
-    "8:34 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:10 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:28 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:46 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:11 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
   "_seen": "2026-08-17"
  },
  {
