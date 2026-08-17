@@ -241,7 +241,7 @@
         "</div>" +
         '<div class="ops-card-body">' +
           '<a class="ops-card-title" href="event.html?id=' + esc(ev.id) + '">' + esc(ev.title) + "</a>" +
-          '<div class="ops-card-meta">' + esc(k.icon + " " + k.label) + " · " + esc(fmtWhen(ev)) +
+          '<div class="ops-card-meta">' + k.icon + " " + esc(k.label) + " · " + esc(fmtWhen(ev)) +
             (ev.location ? " · " + esc(ev.location) : "") + "</div>" +
           (targets.length
             ? '<div class="ops-card-meta">For: ' + esc(targets.join(", ")) + "</div>"
@@ -568,7 +568,7 @@
       '<div class="ops-f2"><div class="ops-f"><label for="eKind">Kind</label>' +
         '<select class="ctrl" id="eKind">' + KINDS.map(function (k) {
           return '<option value="' + k.key + '"' + (ev && ev.kind === k.key ? " selected" : "") +
-            ">" + esc(k.icon + " " + k.label) + "</option>"; }).join("") + "</select></div>" +
+            ">" + esc(k.label) + "</option>"; }).join("") + "</select></div>" +
         '<div class="ops-f"><label for="eSeason">Season</label>' +
         '<select class="ctrl" id="eSeason"><option value="">—</option>' + seasons.map(function (s) {
           var on = ev ? ev.season_id === s.id : s.is_current;

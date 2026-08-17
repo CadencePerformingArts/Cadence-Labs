@@ -224,3 +224,12 @@ body.ens.drill-full main { flex: 1; min-height: 0; max-width: none; padding: 0 !
 .dtool.m-sets, .dtool.m-insp { display: none; }
 @media (max-width: 900px) { .dtool.m-insp { display: inline-flex; } }
 @media (max-width: 620px) { .dtool.m-sets { display: inline-flex; } }
+
+/* deep-link focus pulse: a Home link to a specific post or file lands here */
+@keyframes ens-flash-kf {
+  0% { box-shadow: 0 0 0 0 var(--accent-wash); background: var(--accent-wash); }
+  100% { box-shadow: 0 0 0 0 transparent; background: transparent; }
+}
+.ens-flash { animation: ens-flash-kf 1.8s ease-out; }
+tr.ens-flash > td { background: var(--accent-wash); transition: background 1.8s ease-out; }
+@media (prefers-reduced-motion: reduce) { .ens-flash { animation: none; } }

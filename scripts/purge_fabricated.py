@@ -23,6 +23,9 @@ APPS = ["wgi/guard", "wgi/percussion", "wgi/winds", "boa", "usbands",
         "uil", "wgasc", "tcgc", "ffcc", ""]
 
 
+DRY = False  # --dry-run: compute everything, write nothing
+
+
 def load(p):
     try:
         return json.loads(p.read_text())
@@ -31,8 +34,16 @@ def load(p):
 
 
 def dump(p, obj):
+    if DRY:
+        return
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(obj, ensure_ascii=False))
+
+
+def rmtree(p):
+    if DRY:
+        return
+    shutil.rmtree(p)
 
 
 def purge_app(key, rebuild=False):
@@ -59,7 +70,8 @@ def purge_app(key, rebuild=False):
             kept_years.append(int(f.stem))
             removed_files.append(f"{f.stem} (partial)")
         else:
-            f.unlink()
+            if not DRY:
+                f.unlink()
             removed_files.append(f.stem)
 
     if not removed_files and not rebuild:
@@ -118,16 +130,21 @@ def purge_app(key, rebuild=False):
                         "first": None, "last": None, "seasons": 0,
                         "best": None, "n": 0, "series": []})
         dump(d / "corps_index.json", idx)
-        # per-ensemble files carried fabricated performance logs
+        # per-ensemble files carried fabricated performance logs. The key is
+        # "performances" (matching build_data.py:359) — clearing "perfs"/"series"
+        # left the fabricated log in place and added junk keys.
         for f in (d / "corps").glob("*.json") if (d / "corps").exists() else []:
             cur = load(f) or {}
-            cur["perfs"] = []
-            cur["series"] = []
+            cur["performances"] = []
+            cur.pop("perfs", None)
+            cur.pop("series", None)
             dump(f, cur)
         db = d / "db"
         if db.exists():
-            shutil.rmtree(db)
-        dump(d / "db" / "index.json", {"decades": [], "rows": 0})
+            rmtree(db)
+        # db/index.json is a list of {decade, rows} (build_data.py:384), not a
+        # dict — an empty database is an empty list
+        dump(d / "db" / "index.json", [])
 
     # only rewrite meta when this app actually changed — untouched apps (DCI
     # especially, whose meta.json is owned by the live-scores job) must not be
@@ -152,7 +169,11 @@ def main():
     # --rebuild also refreshes apps that are already clean but have no score
     # feed, so their ensemble lists track real champions and schedules
     rebuild = "--rebuild" in sys.argv
+    global DRY
+    DRY = "--dry-run" in sys.argv or "-n" in sys.argv
     results = [r for r in (purge_app(k, rebuild) for k in APPS) if r]
+    if DRY:
+        print("DRY RUN — no files were written. Re-run without --dry-run to apply.\n")
     if not results:
         print("no fabricated data found — nothing to purge")
         return

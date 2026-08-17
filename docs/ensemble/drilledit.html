@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Drill Designer — Cadence</title>
 <meta name="description" content="Write marching drill in the browser: sets, forms, playback and dot books.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="icon" href="../icons/icon-192.png">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;})();</script>
@@ -809,7 +809,7 @@
       'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
   }
   function layout() {
-    var back = LOCAL ? "drill.html" : "drill.html";
+    var back = LOCAL ? "../../" : "drill.html";
     main.innerHTML =
       '<div class="drill-app">' +
         '<div class="drill-bar">' +
@@ -936,10 +936,27 @@
 
   async function boot() {
     if (LOCAL) {
-      if (window.CadOrg && CadOrg.mountShell) { /* shell handled below */ }
+      // the sketchpad works with no account; give it a minimal top shell so
+      // there's a brand and a clear way out, then the designer fills the rest
+      var shell = document.getElementById("ensShell");
+      if (shell) {
+        shell.innerHTML =
+          '<header class="topbar ens-top"><a class="brand" href="../../" title="Cadence">' +
+          '<svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true">' +
+          '<rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>' +
+          '<g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">' +
+          '<line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>' +
+          '<line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/></g></svg>' +
+          '<span>Cadence Drill</span></a>' +
+          '<span class="ens-topline">Practice sketchpad · saved in this browser</span></header>';
+      }
       show = D.loadDraft() || D.newShow("My first drill", "hs");
       document.title = show.title + " — Drill Designer";
       layout();
+      // a pending autosave shouldn't be lost if they close the tab mid-edit
+      window.addEventListener("beforeunload", function (e) {
+        if (saveTimer) { try { D.saveDraft(show); } catch (x) {} }
+      });
       return;
     }
     var org = await CadOrg.start({ nav: "drill" });

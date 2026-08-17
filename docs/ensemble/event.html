@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Event — Cadence Ensemble</title>
 <meta name="description" content="A single Cadence Ensemble event — details, RSVPs, itinerary, packing list, volunteer signups, attendance and the official competition result.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="icon" href="../icons/icon-192.png">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
@@ -167,7 +167,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   }
   function canTakeAttendance() { return CadOrg.canDo("attendance.edit", "attendance"); }
   function canSeeAttendance() { return CadOrg.can("attendance.view") || canTakeAttendance(); }
-  function canManageSignups() { return CadOrg.canDo("signup.manage", "volunteer_management"); }
+  function canManageSignups() { return CadOrg.canDo("signup.manage", "signups"); }
 
   /* ── data ─────────────────────────────────────────────────────────── */
   async function load() {
@@ -237,7 +237,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         '<div class="ops-head-r">' +
           (canEdit() ? '<button class="tab" type="button" id="edit">Edit</button>' : "") +
         "</div></div>" +
-      '<div class="ops-card-tags"><span class="ens-tag important">' + esc(k.icon + " " + k.label) + "</span>" +
+      '<div class="ops-card-tags"><span class="ens-tag important">' + k.icon + " " + esc(k.label) + "</span>" +
         (ev.rsvp_required ? '<span class="ens-tag normal">RSVP required</span>' : "") +
         (ev.attendance_required ? '<span class="ens-tag normal">Attendance taken</span>' : "") +
         (ev.public_event_key ? '<span class="ens-tag important"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7"/></svg> Cadence show</span>' : "") +
@@ -415,7 +415,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   }
 
   function signupsCard() {
-    var gate = O.gate(org, "volunteer_management");
+    var gate = O.gate(org, "signups");
     var body;
     if (!signups.length) {
       body = '<div class="empty">No signups for this event.</div>';

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Messages — Cadence Ensemble</title>
 <meta name="description" content="Cadence Ensemble — organization chat: group rooms, staff rooms, direct messages, replies, reactions and moderation.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="icon" href="../icons/icon-192.png">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
@@ -736,6 +736,25 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         "If this workspace is new, the communication migration " +
         "(0006_ensemble_comms.sql) may not have been applied yet.<br><br>" +
         esc((err && err.message) || "") + "</div></div>";
+      return;
+    }
+
+    // arriving from an event's "Event chat" button? open (or create) that
+    // room via the guarded RPC, then fall through to the normal view
+    var wantEvent = null;
+    try { wantEvent = new URLSearchParams(location.search).get("event"); } catch (e) {}
+    if (wantEvent) {
+      try {
+        var chatId = await CadOrg.rpc("open_event_chat", { p_event: wantEvent });
+        await loadChats();
+        if (chatId) { await open(chatId); }
+      } catch (err) {
+        // event not visible / deleted / read-only — show the list with a note
+        view = "list"; render();
+        alert(/not_allowed/.test((err && err.message) || "")
+          ? "This event's chat isn't available to you."
+          : "Couldn't open the event chat" + (err && err.message ? " — " + err.message : "") + ".");
+      }
       return;
     }
 

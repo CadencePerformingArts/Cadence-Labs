@@ -2,7 +2,10 @@ name: Publish CI status
 
 on:
   workflow_run:
-    workflows: ["Full historical backfill", "Daily update", "Deploy site"]
+    # These MUST match the `name:` of real workflow files. A drift guard
+    # (scripts/check_workflow_names.py, run in App CI) fails the build if a
+    # watched workflow is renamed without updating this list.
+    workflows: ["Full historical backfill", "Data update", "Deploy site"]
     types: [completed]
 
 permissions:

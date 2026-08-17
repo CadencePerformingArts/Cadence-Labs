@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Feed — Cadence Ensemble</title>
 <meta name="description" content="Cadence Ensemble — announcements and the organization feed: priority, targeting, acknowledgments, comments and reactions.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="icon" href="../icons/icon-192.png">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
@@ -243,6 +243,21 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
     wireFilters();
     wireComposer();
     setLive(live && live.status);
+    focusFromHash();
+  }
+
+  // a Home "important post" link arrives as #post-<id>; find that card,
+  // bring it into view and pulse it so the eye lands on the right one
+  function focusFromHash() {
+    var m = /^#post-(.+)$/.exec(location.hash || "");
+    if (!m) return;
+    var el = main.querySelector('[data-post="' + (window.CSS && CSS.escape ? CSS.escape(m[1]) : m[1]) + '"]');
+    if (!el) return;
+    setTimeout(function () {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add("ens-flash");
+      setTimeout(function () { el.classList.remove("ens-flash"); }, 1800);
+    }, 60);
   }
 
   function setLive(status) {

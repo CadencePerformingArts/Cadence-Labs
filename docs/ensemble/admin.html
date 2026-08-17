@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin — Cadence Ensemble</title>
 <meta name="description" content="The director's control room: what needs attention today, access requests, roles and permissions, seasons and the audit log.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="icon" href="../icons/icon-192.png">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
@@ -121,14 +121,15 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       "org_events?org_id=eq." + org + "&starts_at=gte." + now,
       "org_calendar_events?org_id=eq." + org + "&starts_at=gte." + now,
     ]);
-    c.acks = await firstCount([
-      "org_post_acks?org_id=eq." + org + "&acknowledged_at=is.null",
-      "org_acknowledgments?org_id=eq." + org + "&acknowledged_at=is.null",
-    ]);
-    c.attendance = await firstCount([
-      "org_attendance?org_id=eq." + org + "&status=in.(absent,unexcused,no_show)",
-      "org_event_attendance?org_id=eq." + org + "&status=in.(absent,unexcused)",
-    ]);
+    // announcements still requiring acknowledgment — the real signal an
+    // admin wants (posts.requires_ack on the actual posts table)
+    c.acks = await P.softCount(
+      "posts?org_id=eq." + org + "&requires_ack=is.true&archived=is.false");
+    // org_attendance has no org_id (keyed by event+member), so scope it
+    // through an inner join on the event; count concerning statuses only
+    c.attendance = await P.softCount(
+      "org_attendance?select=event_id,ev:org_events!inner(org_id)&ev.org_id=eq." + org +
+      "&status=in.(absent,late)", "event_id,ev:org_events!inner(org_id)");
     S.counts = c;
   }
 
@@ -193,7 +194,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         '<span class="setsub">' + esc(CadOrg.planOf(S.org).label) + " · " + esc(S.org.status) + "</span></div>" +
         '<div class="adm-tiles">' +
           tile("members.html", c.members, "Active members") +
-          tile("feed.html", c.acks, "Unread acknowledgments", true) +
+          tile("feed.html", c.acks, "Awaiting acknowledgment", true) +
           tile("calendar.html", c.events, "Upcoming events") +
           tile("admin.html#forms", c.forms, "Open forms") +
           tile("calendar.html", c.attendance, "Attendance alerts", true) +

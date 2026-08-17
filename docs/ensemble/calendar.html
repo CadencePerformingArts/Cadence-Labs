@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calendar — Cadence Ensemble</title>
 <meta name="description" content="Your organization's private calendar — rehearsals, competitions, games and travel, with RSVPs, targeting by group and real Cadence competition links.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="icon" href="../icons/icon-192.png">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
@@ -207,7 +207,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<select class="ctrl" id="fKind"><option value="">All kinds</option>' +
         O.KINDS.map(function (k) {
           return '<option value="' + k.key + '"' + (filter.kind === k.key ? " selected" : "") +
-            ">" + esc(k.icon + " " + k.label) + "</option>";
+            ">" + esc(k.label) + "</option>";
         }).join("") + "</select>" +
       '<select class="ctrl" id="fGroup"><option value="">All groups</option>' +
         groups.map(function (g) {

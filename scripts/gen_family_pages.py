@@ -260,7 +260,7 @@ def page(key: str, c: dict) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{c["title"]}</title>
 <meta name="description" content="{c["app_name"]} — part of the Cadence scoreboard family. {c.get("status", "")}">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="{r}/icons/icon-192.png">

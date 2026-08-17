@@ -10,7 +10,7 @@ with one account, one design system and one navigation shell:
 4. 🎤 **Competitive A Cappella** (ICCA / ICHSA / The Open)
 5. 🎭 **Show Choir**
 
-**Try it in a browser:** https://cadenceperformingarts.github.io/Cadence-Labs/app/
+**Try it in a browser:** https://cadenceperformingarts.github.io/Cadence-Labs/
 **Legacy DCI dashboard:** https://cadenceperformingarts.github.io/Cadence-Labs/
 
 WGI, BOA, A Cappella and Show Choir currently run on clearly-labeled

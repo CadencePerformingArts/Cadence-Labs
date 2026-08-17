@@ -63,12 +63,13 @@ acceptable at scale, which is what phase 2 fixes. Keep the sandbox note on
 ## Phase 2 — Supabase auth + entitlements table + Stripe webhook
 
 Real accounts, server-validated entitlement. **The schema already exists**:
-`supabase/migrations/0001_core_schema.sql` and
-`supabase/migrations/0002_users_and_rls.sql` — see the `entitlements` table
-in 0002: `(user_id, entitlement 'cadence_plus', active, expires_at, store
-'stripe' | 'sandbox' | …, updated_at)`, with RLS so a user can read only
-their own row and **only the service role writes**. The client is never
-trusted to assert entitlement.
+`supabase/migrations/0001_accounts_foundation.sql` (the `plus_entitlements`
+table) and `0002_stripe_fulfillment.sql` (the `plus_pending` parking table
+for payments that arrive before an account exists). `plus_entitlements` is
+`(user_id, status 'none'|'beta'|'active'|'canceled', …)` with RLS so a user
+reads only their own row and **only the service role writes**. The client is
+never trusted to assert entitlement — the Stripe webhook that flips the row
+is still to be built (see the honest note below).
 
 Flow: fan signs in (Supabase auth) → checkout via Stripe (now a Checkout
 Session created with the user's id in `client_reference_id`) → Stripe

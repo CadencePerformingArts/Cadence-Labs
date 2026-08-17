@@ -28,12 +28,20 @@
   const LIVE = (() => {
     let cache = null, cacheAt = 0;
     const etToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
-    function slotMs(dateISO, timeStr) {
+    // convert a venue-local wall-clock slot to a UTC instant. The venue's
+    // IANA zone (from its state) gives the correct offset for that date —
+    // handling DST and Central/Mountain/Pacific venues, not a hardcoded
+    // EDT=UTC-4. tz defaults to Eastern, DCI's most common zone. This is the
+    // same conversion localizeVenueTime uses, so the LIVE window and the
+    // displayed time never disagree.
+    function slotMs(dateISO, timeStr, tz) {
       const m = /(\d{1,2}):(\d{2})\s*([ap])\.?m/i.exec(String(timeStr || ""));
       if (!m) return null;
       let h = (+m[1]) % 12; if (/p/i.test(m[3])) h += 12;
       const [y, mo, d] = dateISO.split("-").map(Number);
-      return Date.UTC(y, mo - 1, d, h + 4, +m[2]); // ET slot → UTC (EDT = UTC-4)
+      const zone = tz || "America/New_York";
+      let utc = Date.UTC(y, mo - 1, d, h, +m[2]);
+      return utc - tzOffsetMin(zone, new Date(utc)) * 60000;
     }
     async function refresh(force) {
       const now = Date.now();
@@ -60,16 +68,17 @@
         // per-corps pills used on the scoreboard / corps pages
         const realSlots = ev.schedule.filter(p => p && lineup.has(p[1]) && !NON_CORPS.test(p[1]));
         const realCorps = new Set(realSlots.map(p => p[1]));
+        const evTz = venueZone(ev.location);
         // the instant every performing corps has a score the whole show is done —
         // corps AND logistics rows all go dark, wherever the clock sits
         if (realCorps.size && (scoredByShow[ev.name] || 0) >= realCorps.size) { complete.add(ev.name); return; }
         realSlots.forEach(pair => {
-          const t = slotMs(ev.date, pair[0]); if (t == null) return;
+          const t = slotMs(ev.date, pair[0], evTz); if (t == null) return;
           if (now >= t - LIVE_PAD && now <= t + LIVE_PAD && !scoredToday.has(pair[1])) corpsLive.add(pair[1]);
         });
         // the show stays live across its whole schedule — first slot to last,
         // logistics rows included — until it completes above
-        const times = ev.schedule.map(p => slotMs(ev.date, p[0])).filter(t => t != null);
+        const times = ev.schedule.map(p => slotMs(ev.date, p[0], evTz)).filter(t => t != null);
         if (times.length) {
           const first = Math.min(...times), last = Math.max(...times);
           if (now >= first - LIVE_PAD && now <= last + LIVE_PAD) showLive.add(ev.name);
@@ -87,8 +96,8 @@
       scored: n => !!(cache && cache.scored.has(n)),
       // is a specific schedule slot inside its ±15-min live window right now?
       // (corps and logistics rows alike — the caller gates on show-completeness)
-      slotLiveAt: (dateISO, timeStr) => {
-        const t = slotMs(dateISO, timeStr);
+      slotLiveAt: (dateISO, timeStr, tz) => {
+        const t = slotMs(dateISO, timeStr, tz);
         return t != null && Date.now() >= t - LIVE_PAD && Date.now() <= t + LIVE_PAD;
       },
       today: () => cache && cache.today,
@@ -726,7 +735,9 @@
         .forEach(t => { if (!seen.has(t[0])) { seen.add(t[0]); trend.push(t); } });
       const prev = trend.length > 1 ? trend[trend.length - 2][1] : null;
       const hi = g.reduce((m, r) => (r.high != null && r.high > (m.high ?? -Infinity)) ? r : m, g[0]);
-      return { ...latest, trend,
+      // prev_score must come from the merged trend too, so the Biggest Move
+      // card's "prev → score" line agrees with the delta computed here
+      return { ...latest, trend, prev_score: prev,
         delta: prev != null ? +(latest.score - prev).toFixed(3) : null,
         high: hi.high, high_event: hi.high_event, high_date: hi.high_date };
     }).sort((a, b) => (b.score ?? -Infinity) - (a.score ?? -Infinity) || a.corps.localeCompare(b.corps))
@@ -3345,7 +3356,7 @@
   }
 
   /* ============ SUGGESTIONS ============ */
-  const SUGGEST_REPO = "LukeBesel/DCI-Tracker";
+  const SUGGEST_REPO = "CadencePerformingArts/Cadence-Labs";
   const PALETTE_BAR = ["#0a3f6b", "#16233d", "#7c3aed", "#0f7b3d", "#b91c1c", "#0e7490",
     "#c2410c", "#4338ca", "#701a75", "#92400e", "#1d4ed8", "#334155"];
   const PALETTE_ACC = ["#f0b429", "#fbbf24", "#38bdf8", "#f472b6", "#34d399", "#fb923c",
@@ -3516,7 +3527,6 @@
       + corpsLogo(n, 24) + `<span class="corpsrow-name">${esc(n)}</span>`
       + (corpsHasLogo(n) ? `<span class="corpsrow-sw" style="${twoTone(n)}"></span>` : "") + `</button>`;
     const scope = (window.CadPush && CadPush.scope()) || "all";
-    const predsOn = (() => { try { return (localStorage.getItem("cad-notify-preds") || "on") === "on"; } catch (e) { return true; } })();
     const selClasses = (window.CadPush && CadPush.classes) ? CadPush.classes() : null; // null = all
     const CLASS_OPTS = ["World Class", "Open Class", "All-Age"];
     const clsOn = c => !selClasses || selClasses.includes(c);
@@ -3607,10 +3617,6 @@
         </div>
         <div class="classchips" id="classChips">
           ${CLASS_OPTS.map(c => `<button class="classchip${clsOn(c) ? " on" : ""}" data-cls="${esc(c)}" aria-pressed="${clsOn(c)}">${esc(c)}</button>`).join("")}
-        </div>
-        <div class="setrow">
-          <div><b>Prediction results</b><div class="setsub">Nudge me to check my Call the Finish score after a show posts</div></div>
-          <button class="toggle${predsOn ? " on" : ""}" id="predsToggle" aria-pressed="${predsOn}" aria-label="Prediction reminders"></button>
         </div>
       </div>
 
@@ -3810,12 +3816,6 @@
       const next = scopeToggle.classList.toggle("on") ? "favs" : "all";
       scopeToggle.setAttribute("aria-pressed", next === "favs");
       if (window.CadPush) CadPush.setScope(next);
-    });
-    const predsToggle = document.getElementById("predsToggle");
-    if (predsToggle) predsToggle.addEventListener("click", () => {
-      const on = predsToggle.classList.toggle("on");
-      predsToggle.setAttribute("aria-pressed", on);
-      try { localStorage.setItem("cad-notify-preds", on ? "on" : "off"); } catch (e) {}
     });
     const clsChips = [...app.querySelectorAll("#classChips .classchip")];
     clsChips.forEach(ch => ch.addEventListener("click", () => {
@@ -4223,7 +4223,10 @@
     async function refreshShowFlag() {
       try {
         const up = await data("upcoming.json");
-        const day = ms => new Date(ms).toISOString().slice(0, 10);
+        // "today" and "last night" in Eastern (DCI's home clock), not UTC —
+        // between 8pm ET and midnight ET a UTC date is already tomorrow, which
+        // would drop tonight's show off the fast-poll list while it's still on
+        const day = ms => new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date(ms));
         const now = Date.now();
         const days = new Set([day(now), day(now - 864e5)]);
         showActive = (up || []).some(e => days.has(e.date));

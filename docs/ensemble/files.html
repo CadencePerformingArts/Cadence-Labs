@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Files — Cadence Ensemble</title>
 <meta name="description" content="Your ensemble's digital library — sheet music, recordings, drill, forms and handouts, organized in folders only the right people can open.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="icon" href="../icons/icon-192.png">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
@@ -313,6 +313,20 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     });
     wireDrop();
     renderUploads();
+    focusFromHash();
+  }
+
+  // Home "recent files" links arrive as #file-<id>; surface that row
+  function focusFromHash() {
+    var m = /^#file-(.+)$/.exec(location.hash || "");
+    if (!m) return;
+    var el = main.querySelector('tr[data-fid="' + (window.CSS && CSS.escape ? CSS.escape(m[1]) : m[1]) + '"]');
+    if (!el) return;
+    setTimeout(function () {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add("ens-flash");
+      setTimeout(function () { el.classList.remove("ens-flash"); }, 1800);
+    }, 60);
   }
 
   function wireDrop() {

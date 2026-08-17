@@ -48,6 +48,7 @@
     { title: "Groups & operations", perms: [
       ["group.create", "Create groups"],
       ["group.manage", "Manage group membership"],
+      ["drill.manage", "Design drill and assign dots"],
       ["form.manage", "Create forms and read submissions"],
       ["signup.manage", "Manage volunteer sign-ups"],
       ["task.manage", "Assign and manage tasks"],
@@ -104,14 +105,19 @@
     return null;
   }
 
-  async function count(path) {
+  // count rows matching a PostgREST path. Most tables count on their id
+  // column; pass `sel` when a table has no id (composite PK) or when an
+  // embedded !inner join is needed to scope the count.
+  async function count(path, sel) {
     var cfg = window.CAD_SUPABASE;
     if (!cfg) return null;
     var t = authToken();
     var headers = { apikey: cfg.publishableKey, Prefer: "count=exact", Range: "0-0" };
     if (t) headers.Authorization = "Bearer " + t;
-    var sep = path.indexOf("?") >= 0 ? "&" : "?";
-    var res = await fetch(cfg.url + "/rest/v1/" + path + sep + "select=id", { headers: headers });
+    var hasSelect = /[?&]select=/.test(path);
+    var url = cfg.url + "/rest/v1/" + path;
+    if (!hasSelect) url += (path.indexOf("?") >= 0 ? "&" : "?") + "select=" + (sel || "id");
+    var res = await fetch(url, { headers: headers });
     if (!res.ok) throw new Error("count failed " + res.status);
     var cr = res.headers.get("content-range") || "";
     var n = parseInt(cr.split("/")[1], 10);
@@ -120,8 +126,8 @@
 
   /* count(), but a missing table or a blocked read renders as "—" instead of
      breaking a dashboard built from tables other phases still owe us. */
-  async function softCount(path) {
-    try { return await count(path); } catch (e) { return null; }
+  async function softCount(path, sel) {
+    try { return await count(path, sel); } catch (e) { return null; }
   }
 
   /* ── formatting ───────────────────────────────────────────────────────── */
