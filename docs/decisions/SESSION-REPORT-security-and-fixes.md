@@ -240,3 +240,35 @@ touched anyway.
 
 Everything above builds cleanly on the security and notification foundations
 laid this session.
+
+---
+
+## Continuation checkpoint (second work block)
+
+Completed since the report above, each verified and committed:
+
+- `0a96a2722` — **#15 preference sync**: last-writer-wins with tombstones
+  (deletions propagate, nothing resurrects), favorites off union-merge,
+  relational mirror upsert-then-prune. `scripts/test_sync_merge.js` 23/23.
+- `665e8293d` — **P3**: phone dock = Home/Calendar/Messages/Drill/More
+  (More sheet holds Announcements/Files/Music/Members/Admin/Billing,
+  permission-gated, Escape/backdrop close; desktop keeps the full rail);
+  director setup checklist on workspace Home (auto-derived from real data,
+  permission-aware, dismissible); fan starter hint (`docs/starter.js`,
+  standalone, self-retiring). Browser-verified at 390px and 1200px.
+- `41feafadd` — **P5F/P4A**: expired champ.js removed (+ SW shell, cache
+  → v23); installed app renamed 'Cadence DCI' (no customer-facing
+  'Cadence Labs' remains).
+
+Suites at checkpoint: db security 45/45 · worker 12/12 · P1 guards 19/19 ·
+sync 23/23 · workflow-names clean · pages clean at 390px. Working tree
+clean, everything pushed to `claude/github-ai-coding-setup-gk88x9`.
+
+**Exact next task:** P4B canonical app registry (`docs/registry.js`: one
+authority for ids/names/paths/namespaces/board/status; adopt in modes.js,
+my.js — which today ignores 6 circuits' favorites — analytics.js,
+ensembles.js; migrate legacy localStorage keys losslessly). Then P6
+platform admin (service-role RPCs gated on `profiles.role='platform_admin'`
+for claims/plans/invoices), then P7 Stripe test-mode org billing (edge
+function code + signed-fixture webhook tests; nothing deployed). Deferred
+items and blockers are unchanged from sections 12–13.
