@@ -85,5 +85,9 @@ jobs:
         run: node scripts/test_stripe_core.js
       - name: Notification worker contract
         run: node push-server/notify-worker.check.js
+      - name: Notification channel providers
+        run: node push-server/notify-providers.check.js
+      - name: UIL rating vs placement rendering
+        run: node scripts/test_uil_rendering.js
       - name: Watched workflow names exist
         run: python3 scripts/check_workflow_names.py

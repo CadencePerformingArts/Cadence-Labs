@@ -38,7 +38,15 @@ FAM_BOOTSTRAP = """  // --- Cadence family config (absent on the DCI app, set by
   const normKind = o => {
     if (Array.isArray(o)) { for (const x of o) normKind(x); return o; }
     if (o && typeof o === "object") {
-      if (o.score == null && (o.rating != null || o.placement != null)) o.score = o.rating != null ? o.rating : o.placement;
+      // A ratings circuit (UIL) also has placement rows (State finals). A
+      // placement 3 must never render as Division III, so placements inside
+      // a ratings circuit ride in the score channel offset by +1000 — an
+      // unambiguous marker (ratings are 1-5) that score3 decodes back to an
+      // ordinal. Pure-placement circuits keep the plain value.
+      if (o.score == null && (o.rating != null || o.placement != null))
+        o.score = o.rating != null ? o.rating
+          : RES_KIND === "rating" ? 1000 + o.placement
+          : o.placement;
       for (const k in o) normKind(o[k]);
     }
     return o;
@@ -121,11 +129,13 @@ def main() -> None:
     }).then(j => (RES_KIND ? normKind(j) : j));''',
         "ratings normalize")
 
-    # score3 renders ratings as roman numerals, placements as ordinals
+    # score3 renders ratings as roman numerals, placements as ordinals. In a
+    # ratings circuit, values >= 1000 are normKind's placement marker (UIL
+    # State finals) and decode to an ordinal \u2014 never a Division numeral.
     js = sub_once(
         js,
         'const score3 = v => v == null ? "\u2014" : (+v).toFixed(3);',
-        'const score3 = v => v == null ? "\u2014" : RES_KIND === "rating" ? (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v)) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);',
+        'const score3 = v => v == null ? "\u2014" : RES_KIND === "rating" ? (v >= 1000 ? ORD(v - 1000) : (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v))) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);',
         "score3 kinds")
 
     # Alternate scoreboards. DCI's standings board assumes corps meet each

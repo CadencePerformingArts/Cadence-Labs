@@ -21,7 +21,15 @@
   const normKind = o => {
     if (Array.isArray(o)) { for (const x of o) normKind(x); return o; }
     if (o && typeof o === "object") {
-      if (o.score == null && (o.rating != null || o.placement != null)) o.score = o.rating != null ? o.rating : o.placement;
+      // A ratings circuit (UIL) also has placement rows (State finals). A
+      // placement 3 must never render as Division III, so placements inside
+      // a ratings circuit ride in the score channel offset by +1000 — an
+      // unambiguous marker (ratings are 1-5) that score3 decodes back to an
+      // ordinal. Pure-placement circuits keep the plain value.
+      if (o.score == null && (o.rating != null || o.placement != null))
+        o.score = o.rating != null ? o.rating
+          : RES_KIND === "rating" ? 1000 + o.placement
+          : o.placement;
       for (const k in o) normKind(o[k]);
     }
     return o;
@@ -131,7 +139,7 @@
   })();
   const LIVE_BADGE = '<span class="pill live" title="Performing now — scores landing"><span class="livedot"></span>LIVE</span>';
 
-  const score3 = v => v == null ? "—" : RES_KIND === "rating" ? (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v)) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);
+  const score3 = v => v == null ? "—" : RES_KIND === "rating" ? (v >= 1000 ? ORD(v - 1000) : (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v))) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);
   const h = (strings, ...vals) => strings.map((s, i) => s + (vals[i] == null ? "" : vals[i])).join("");
 
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

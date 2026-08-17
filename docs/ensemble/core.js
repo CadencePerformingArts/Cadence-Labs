@@ -275,6 +275,35 @@
     if (more) more.addEventListener("click", function () { openMoreSheet(active); });
   }
 
+  /* keyboard accessibility for every sheet: focus moves in, Tab cycles
+     inside, Escape closes, and focus returns to whatever opened it */
+  function trapSheet(wrap, onClose) {
+    var opener = document.activeElement;
+    function focusables() {
+      return [].slice.call(wrap.querySelectorAll(
+        'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'));
+    }
+    function close() {
+      wrap.remove();
+      document.removeEventListener("keydown", onKey, true);
+      if (opener && opener.focus) { try { opener.focus(); } catch (e) {} }
+      if (onClose) onClose();
+    }
+    function onKey(e) {
+      if (e.key === "Escape") { e.preventDefault(); close(); return; }
+      if (e.key !== "Tab") return;
+      var f = focusables();
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    document.addEventListener("keydown", onKey, true);
+    var f = focusables();
+    if (f.length) setTimeout(function () { f[0].focus(); }, 0);
+    return close;
+  }
+
   // the phone dock's fifth tab: everything that folded out of the dock,
   // one tap away, in the same sheet language as the workspace switcher
   function openMoreSheet(active) {
@@ -283,6 +312,7 @@
     var wrap = document.createElement("div");
     wrap.className = "ens-sheet";
     wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-modal", "true");
     wrap.setAttribute("aria-label", "More sections");
     wrap.innerHTML = '<div class="ens-sheet-in"><h3>More</h3>' +
       Object.keys(SECTIONS).map(function (k) {
@@ -298,9 +328,7 @@
         ? '<a class="ens-sheet-row" href="billing.html"><b>Plan &amp; billing</b></a>' : "") +
       '<button class="tab" id="ensMoreClose" type="button" style="margin-top:12px">Close</button></div>';
     document.body.appendChild(wrap);
-    function close() { wrap.remove(); document.removeEventListener("keydown", onKey); }
-    function onKey(e) { if (e.key === "Escape") close(); }
-    document.addEventListener("keydown", onKey);
+    var close = trapSheet(wrap);
     wrap.addEventListener("click", function (e) {
       if (e.target === wrap || e.target.id === "ensMoreClose") close();
     });
@@ -309,6 +337,9 @@
   function openSwitcher() {
     var wrap = document.createElement("div");
     wrap.className = "ens-sheet";
+    wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-modal", "true");
+    wrap.setAttribute("aria-label", "Your workspaces");
     wrap.innerHTML = '<div class="ens-sheet-in"><h3>Your workspaces</h3>' +
       (state.orgs || []).map(function (r) {
         return '<button class="ens-sheet-row' + (state.org && r.org.id === state.org.id ? " on" : "") +
@@ -318,8 +349,9 @@
       '<a class="ens-sheet-row" href="index.html"><b>+ New or join a workspace</b></a>' +
       '<button class="tab" id="ensSheetClose" type="button" style="margin-top:12px">Close</button></div>';
     document.body.appendChild(wrap);
+    var close = trapSheet(wrap);
     wrap.addEventListener("click", function (e) {
-      if (e.target === wrap || e.target.id === "ensSheetClose") { wrap.remove(); return; }
+      if (e.target === wrap || e.target.id === "ensSheetClose") { close(); return; }
       var row = e.target.closest && e.target.closest("[data-id]");
       if (row) { pick(row.dataset.id); location.reload(); }
     });

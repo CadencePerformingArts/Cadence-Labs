@@ -401,6 +401,28 @@ http.createServer(async (req, res) => {
     if (json.endpoint) { subs.delete(json.endpoint); saveSubs(); }
     return send(res, 200, { ok: true, subscribers: subs.size });
   }
+  // user-linked push registration for WORKSPACE notifications. The claimed
+  // identity is never trusted: the Supabase access token is verified with
+  // the project's JWT secret (SUPABASE_JWT_SECRET, server-only) and the
+  // user id comes from the token, not the body. Without the secret the
+  // endpoint declines honestly.
+  if (req.method === "POST" && (url.pathname === "/subscribe-user" || url.pathname === "/unsubscribe-user")) {
+    const jwtSecret = process.env.SUPABASE_JWT_SECRET;
+    if (!jwtSecret) return send(res, 503, { error: "workspace push not configured" });
+    const auth = (req.headers.authorization || "").replace(/^Bearer\s+/i, "");
+    const { verifySupabaseJwt, userSubsStore } = await import("./notify-providers.js");
+    const userId = verifySupabaseJwt(auth, jwtSecret);
+    if (!userId) return send(res, 401, { error: "invalid token" });
+    const store = userSubsStore(DATA_DIR);
+    if (url.pathname === "/subscribe-user") {
+      const sub = json.subscription;
+      if (!sub || !sub.endpoint) return send(res, 400, { error: "subscription required" });
+      store.add(userId, sub);
+    } else if (json.endpoint) {
+      store.remove(userId, json.endpoint);
+    }
+    return send(res, 200, { ok: true });
+  }
   if (req.method === "POST" && url.pathname === "/test") {
     const entry = json.endpoint && subs.get(json.endpoint);
     if (!entry) return send(res, 404, { error: "not subscribed" });
@@ -479,15 +501,24 @@ http.createServer(async (req, res) => {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return; // notifications not enabled on this deployment
-  const { runOnce, supabaseDb, fakeProviders } = await import("./notify-worker.js");
+  const { runOnce, supabaseDb } = await import("./notify-worker.js");
+  const { emailProvider, workspacePushProvider } = await import("./notify-providers.js");
   const db = supabaseDb(fetch, url, key);
-  // in-app is always deliverable (it's just the queue row the client reads);
-  // push/email are wired as real providers when their config lands. Until
-  // then they are marked unconfigured and skipped, not failed.
+  // in-app is always deliverable (it's just the queue row the client reads).
+  // Email turns on the moment RESEND_API_KEY + NOTIFY_FROM_EMAIL are set;
+  // workspace push turns on when members have registered a user-linked
+  // subscription (POST /subscribe-user, JWT-verified). Unconfigured
+  // channels are skipped cleanly, never failed.
   const providers = {
     inapp: { configured: true, async send() { return {}; } },
-    push: { configured: false },
-    email: { configured: false },
+    push: workspacePushProvider({
+      webpush, dataDir: DATA_DIR, sbUrl: url, serviceKey: key, fetchImpl: fetch,
+    }),
+    email: emailProvider({
+      fetchImpl: fetch,
+      apiKey: process.env.RESEND_API_KEY,
+      from: process.env.NOTIFY_FROM_EMAIL,
+    }),
   };
   const NOTIFY_MS = +(process.env.NOTIFY_POLL_SECONDS || 30) * 1000;
   async function drain() {
