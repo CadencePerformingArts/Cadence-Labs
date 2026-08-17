@@ -181,8 +181,10 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       "</ul>" +
       '<div style="margin-top:auto;padding-top:12px">' +
         (key === "trial" ? '<span class="bil-note">Every new workspace starts here.</span>'
-          : '<button class="tab" type="button" disabled title="Card payments are not live yet">' +
-            "Pay by card — not live yet</button>") +
+          : (CadOrg.canDo("billing.manage")
+              ? '<button class="tab" type="button" data-checkout="' + key + '">Pay by card</button>'
+              : '<button class="tab" type="button" disabled title="Only billing managers can start checkout">' +
+                "Pay by card</button>")) +
       "</div></div>";
   }
 
@@ -197,11 +199,51 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 
   function honestyCard() {
     return '<div class="notice"><b>An honest note about payment.</b> ' +
-      "Cadence cannot charge a card yet. The Stripe integration is prepared — the customer id " +
-      "lives on your organization record and the plan/status vocabulary is built for it — but no " +
-      "checkout exists for organization plans, and nothing on this page will ever pretend a " +
-      "payment happened. What works today is the school route below: request an invoice or " +
-      "purchase order, and a human issues it and switches your plan on when it's paid.</div>";
+      "Card checkout is built and runs in Stripe TEST MODE only — until the owner switches it " +
+      "live, no real card is ever charged, and if checkout isn't switched on at all the button " +
+      "says so instead of pretending. Nothing on this page will ever fake a payment. The school " +
+      "route below always works: request an invoice or purchase order, and a human issues it " +
+      "and switches your plan on when it's paid.</div>";
+  }
+
+  /* ── card checkout: the browser only asks our server-side function to
+     create a Stripe session; billing authority is re-checked inside the
+     database, and the plan flips only when Stripe's signed webhook says
+     payment happened. Undeployed/unconfigured degrades honestly. ─────── */
+  async function startCheckout(plan, btn) {
+    var cfg = window.CAD_SUPABASE;
+    var orig = btn.textContent;
+    btn.disabled = true; btn.textContent = "Opening checkout…";
+    try {
+      var t = null;
+      try {
+        for (var i = 0; i < localStorage.length; i++) {
+          var k = localStorage.key(i);
+          if (/^sb-.*-auth-token$/.test(k)) {
+            var v = JSON.parse(localStorage.getItem(k));
+            t = (v && (v.access_token || (v.currentSession && v.currentSession.access_token))) || null;
+          }
+        }
+      } catch (e) {}
+      var res = await fetch(cfg.url + "/functions/v1/stripe-checkout", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + t, "Content-Type": "application/json",
+                   apikey: cfg.publishableKey },
+        body: JSON.stringify({ org_id: S.org.id, plan: plan }),
+      });
+      var out = null; try { out = await res.json(); } catch (e) {}
+      if (res.ok && out && out.url) { location.href = out.url; return; }
+      var why = out && out.error;
+      alert(why === "billing_not_configured" || res.status === 404 || res.status === 503
+        ? "Card payments aren't switched on yet — the invoice route below works today."
+        : why === "billing_manage_required"
+        ? "Only billing managers can start checkout for this workspace."
+        : "Couldn't start checkout" + (why ? " — " + why : "") + ". The invoice route below always works.");
+    } catch (e) {
+      alert("Couldn't reach checkout — the invoice route below always works.");
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
   }
 
   /* ── billing contact + invoice request ────────────────────────────── */
@@ -311,6 +353,10 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           "Your workspace's billing owner handles the subscription. Ask them to visit this page.</div></div>") +
       '<p class="bil-note" style="margin-top:18px">Questions about invoicing, purchase orders or ' +
       'multi-ensemble programs: <a href="../pro.html">Cadence for organizations →</a></p>';
+
+    main.querySelectorAll("[data-checkout]").forEach(function (b) {
+      b.addEventListener("click", function () { startCheckout(b.dataset.checkout, b); });
+    });
 
     var take = document.getElementById("takeOwner");
     if (take) take.addEventListener("click", async function () {
