@@ -6,7 +6,7 @@ Push to every subscriber the moment new DCI scores land. Subscribers with
 
 ## Deploy on Railway (~3 minutes)
 
-1. Go to [railway.app](https://railway.app) → **New Project → Deploy from GitHub repo** → pick `LukeBesel/Cadence-Labs`.
+1. Go to [railway.app](https://railway.app) → **New Project → Deploy from GitHub repo** → pick `CadencePerformingArts/Cadence-Labs`.
 2. In the service settings, set **Root Directory** to `push-server`. Railway detects Node and runs `npm start` automatically.
 3. (Recommended) **Settings → Volumes → Add volume**, mount path anywhere (e.g. `/data`) — this keeps the VAPID keys and subscriber list across redeploys. Without a volume, set `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` env vars once (the values are printed by the first boot log) so keys never rotate.
 4. **Settings → Networking → Generate Domain.** The app expects
@@ -20,7 +20,7 @@ That's it. `GET /` shows a status JSON (subscriber count, last check, pushes sen
 
 | var | default | purpose |
 | --- | --- | --- |
-| `SITE_URL` | `https://lukebesel.github.io/Cadence-Labs/` | site to watch |
+| `SITE_URL` | `https://cadenceperformingarts.github.io/Cadence-Labs/` | site to watch |
 | `POLL_SECONDS` | `120` | how often to check for new scores |
 | `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | auto-generated | pin push identity |
 | `VAPID_SUBJECT` | `mailto:lucasbesel41@gmail.com` | Web Push contact |

@@ -425,6 +425,53 @@ def tests():
     must_fail("ISO: anon reads any workspace", None,
               "select case when count(*)>0 then 1/0 else 1 end from public.organizations", role="anon")
 
+    # ── notifications (0014) ──────────────────────────────────────────
+    # an ack-required post enqueues in-app rows for the audience via trigger
+    ok_post, post_out = run_as(director,
+        f"insert into public.posts (org_id, author_member_id, title, body, requires_ack, priority) "
+        f"values ('{ORG_A}', '{MEM['a_director']}', 'Read me', 'body', true, 'important') returning id",
+        )
+    if ok_post:
+        pid = post_out.splitlines()[0]
+        # the student should have an in-app notification queued
+        got = psql(f"select count(*) from public.org_notifications where type='ack_post' "
+                   f"and recipient_member_id='{MEM['a_student']}' and channel='inapp'")
+        (PASS if got and int(got) >= 1 else FAIL).append(
+            "NOTIF: ack-required post enqueues an in-app notification for the audience"
+            if got and int(got) >= 1 else f"NOTIF: ack post enqueued {got} rows for student")
+    else:
+        FAIL.append("NOTIF: could not create ack post: " + post_out[:80])
+
+    # a recipient reads only their own in-app notifications
+    must_fail("NOTIF: member cannot read another member's notifications", U["a_member2"],
+              "select case when count(*)>0 then 1/0 else 1 end from public.org_notifications "
+              f"where recipient_member_id='{MEM['a_student']}'")
+    # a recipient cannot forge a notification (no insert policy)
+    must_fail("NOTIF: member cannot insert a notification", student,
+              f"insert into public.org_notifications (org_id, recipient_member_id, type, channel, dedupe_key) "
+              f"values ('{ORG_A}', '{MEM['a_student']}', 'ack_post', 'inapp', 'forged')")
+    # a recipient may mark their own row read but not change its status
+    nid = psql(f"select id from public.org_notifications where recipient_member_id='{MEM['a_student']}' "
+               f"and channel='inapp' limit 1")
+    if nid:
+        must_work("NOTIF: recipient marks their own notification read", student,
+                  f"update public.org_notifications set read_at=now() where id='{nid}'")
+        must_raise("NOTIF: recipient cannot change status", student,
+                  f"update public.org_notifications set status='sent' where id='{nid}'")
+    # the worker surface is service-role only
+    must_fail("NOTIF: authenticated cannot claim the queue", director,
+              "select public.claim_notifications(10)")
+
+    # an invite with an email enqueues an email notification
+    icode = "INV" + uuid.uuid4().hex[:8].upper()
+    run_as(director, f"insert into public.org_invites (org_id, code, email, max_uses, created_by) "
+                     f"values ('{ORG_A}', '{icode}', 'newkid@example.com', 5, '{U['a_director']}')")
+    got2 = psql("select count(*) from public.org_notifications where type='invite' "
+                "and channel='email' and recipient_email='newkid@example.com'")
+    (PASS if got2 and int(got2) == 1 else FAIL).append(
+        "NOTIF: an invite with an email enqueues one email notification"
+        if got2 and int(got2) == 1 else f"NOTIF: invite enqueued {got2} email rows")
+
     # ── read-only org enforcement ─────────────────────────────────────
     must_fail("RO: expired org rejects new posts", U["c_owner"],
               f"insert into public.posts (org_id, author_member_id, title, body) "

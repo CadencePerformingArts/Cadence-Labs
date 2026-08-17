@@ -13,7 +13,7 @@ import path from "node:path";
 import webpush from "web-push";
 
 const VERSION = 15; // bump on every behavior change — /status shows what's really deployed
-const SITE = process.env.SITE_URL || "https://lukebesel.github.io/Cadence-Labs/";
+const SITE = process.env.SITE_URL || "https://cadenceperformingarts.github.io/Cadence-Labs/";
 const PORT = process.env.PORT || 8787;
 const POLL_MS = +(process.env.POLL_SECONDS || 60) * 1000;
 const DATA_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH || "./data";
@@ -369,7 +369,7 @@ http.createServer(async (req, res) => {
       const up = await fetch(target, {
         redirect: "follow",
         signal: AbortSignal.timeout(25000),
-        headers: { "user-agent": "cadence-relay/1 (+https://github.com/LukeBesel/Cadence-Labs)" },
+        headers: { "user-agent": "cadence-relay/1 (+https://github.com/CadencePerformingArts/Cadence-Labs)" },
       });
       const text = await up.text();
       status.lastRelay = `${new Date().toISOString()} ${up.status} ${target.pathname}`;
@@ -468,3 +468,34 @@ http.createServer(async (req, res) => {
     try { send(res, 500, { error: "internal" }); } catch (e2) {}
   }
 }).listen(PORT, () => console.log(`cadence-push on :${PORT} — watching ${SITE}`));
+
+/* ── workspace notification drain (opt-in, inert without config) ────────
+   Drains the org_notifications queue (migration 0014) through the worker.
+   Runs ONLY when a service-role key is present, so an existing score-push
+   deployment is unaffected until the owner sets these env vars. Push and
+   email providers are wired here as they are configured; unconfigured
+   channels are skipped cleanly, never retried forever. */
+(async () => {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return; // notifications not enabled on this deployment
+  const { runOnce, supabaseDb, fakeProviders } = await import("./notify-worker.js");
+  const db = supabaseDb(fetch, url, key);
+  // in-app is always deliverable (it's just the queue row the client reads);
+  // push/email are wired as real providers when their config lands. Until
+  // then they are marked unconfigured and skipped, not failed.
+  const providers = {
+    inapp: { configured: true, async send() { return {}; } },
+    push: { configured: false },
+    email: { configured: false },
+  };
+  const NOTIFY_MS = +(process.env.NOTIFY_POLL_SECONDS || 30) * 1000;
+  async function drain() {
+    try {
+      const r = await runOnce({ db, providers, siteUrl: SITE });
+      if (r.sent || r.failed) console.log("notify drain:", JSON.stringify(r));
+    } catch (e) { console.error("notify drain failed:", e.message); }
+  }
+  setInterval(drain, NOTIFY_MS);
+  console.log(`notification worker on — draining every ${NOTIFY_MS / 1000}s`);
+})();

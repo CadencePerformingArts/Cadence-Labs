@@ -19,8 +19,27 @@ policies, zero errors).
 | 5 | `supabase/migrations/0007_ensemble_ops.sql` | events, RSVP, attendance, itineraries, packing lists, signups, tasks, polls |
 | 6 | `supabase/migrations/0008_ensemble_files.sql` | folders, files, music metadata, storage bucket + policies |
 | 7 | `supabase/migrations/0009_ensemble_people.sql` | guardians, forms, billing contacts, invoices |
+| 8 | `supabase/migrations/0010_harden_grants.sql` | advisor-pass grant hardening |
+| 9 | `supabase/migrations/0011_drill.sql` | drill shows / performers / sets + dot claims |
+| 10 | `supabase/migrations/0012_security_hardening.sql` | **security fixes — closes seven workspace vulnerabilities (see below)** |
+| 11 | `supabase/migrations/0013_event_chats.sql` | event chat rooms |
+| 12 | `supabase/migrations/0014_notifications.sql` | notification queue + enqueue triggers + worker RPCs |
 
 If files 3 and 4 were already applied earlier, skip them — the rest still run.
+
+**Faster path:** instead of pasting each file, paste the generated bundle
+`supabase/migrations/RUN_ENSEMBLE.sql` (everything from 0005 on) or
+`RUN_ALL.sql` (everything). Each runs as one transaction, so a mistake rolls
+back cleanly.
+
+**0012 is the important one if you have an existing workspace database.** It
+closes seven vulnerabilities found in an adversarial audit — most seriously,
+a member being able to promote themselves to Owner. It is additive (it does
+not rewrite any applied migration) and was verified applying onto the prior
+schema. Apply it before inviting anyone you don't fully trust. The full
+attack list and the tests that prove each fix are in
+`scripts/test_db_security.py` — run `python3 scripts/test_db_security.py`
+against a scratch database (never production) to see 45/45 checks pass.
 
 **One possible snag, in file 6 only.** The last block creates the private
 `ensemble` storage bucket and its access policies. Some projects don't let the
