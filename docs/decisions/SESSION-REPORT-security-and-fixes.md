@@ -272,3 +272,66 @@ platform admin (service-role RPCs gated on `profiles.role='platform_admin'`
 for claims/plans/invoices), then P7 Stripe test-mode org billing (edge
 function code + signed-fixture webhook tests; nothing deployed). Deferred
 items and blockers are unchanged from sections 12–13.
+
+
+---
+
+## Completion block (third work session): the remaining priorities
+
+All commits on `claude/github-ai-coding-setup-gk88x9`; nothing merged,
+deployed, or applied to production. Suite totals at the end of this block:
+**DB security 59/59 · Stripe core 18/18 · sync 23/23 · P1 guards 19/19 ·
+worker 12/12 · monorepo vitest 27/27 · workflow-name guard clean.**
+
+- `f5ab38d40` — **App registry (P4B).** `docs/registry.js` is the one
+  authority for all ten apps; my.js (six circuits' favorites now surface in
+  My Cadence — browser-verified), ensembles.js, modes.js and the family
+  template consume it. ISSMA's dead entry removed.
+- `fe51c54d0` — **Platform admin (P6).** Migration 0015: platform_admin-
+  gated SECURITY DEFINER RPCs (claims review, org list, plan activation,
+  trial extension, invoice issue/paid-with-atomic-activation, health,
+  subscription sweep) + an immutable platform audit log org admins cannot
+  read. `docs/admin-platform.html` is the UI; the owner signs in normally
+  and the database is the authority. 14 new adversarial checks. Also:
+  `docs/legal/` draft terms/privacy/youth-safety/data pages (DRAFT-bannered,
+  no compliance claims, no invented contact), `docs/OWNER-RUNBOOK.md`, and
+  a truthful `README.md`.
+- `bf79e8a3f` — **Stripe org billing, test mode (P7).** Two edge functions
+  (code complete, NOT deployed): server-side checkout with in-database
+  billing.manage verification, and a raw-body signature-verified webhook
+  with a stripe_events idempotency ledger (0016). The state machine and
+  signature check are a shared pure module tested from Node with signed
+  fixtures (18/18). billing.html's card button calls the function and
+  degrades honestly when checkout isn't switched on; invoice/PO unchanged.
+- `1cd1cfc56` — **P8 + green CI.** Member form fill-in (forms.html: every
+  field type, required validation, guardian-aware via RLS, editable until
+  close, Home "waiting on you" + nav integration); drill data-loss
+  protection (local snapshot on save, updated_at conflict detection with
+  an explicit choice instead of silent overwrite); Admin data export
+  (roster/attendance/announcements CSV under the exporter's own RLS). CI:
+  the App CI failure the owner saw was vitest collecting the worker test
+  by filename — renamed to `.check.js`, and App CI gained a path-aware
+  `site` job running every repo suite plus a parse check of all shipped
+  scripts.
+
+### Still deferred, with reasons (unchanged in kind)
+- **#21 UIL placement rendering** in secondary engine views — needs the
+  shared-engine refactor; UIL is unlisted and its primary board is correct.
+- **Family-engine replacement (5E)** — explicitly conditional in the brief;
+  the asserted-transform system stays, now covered by the parse gate in CI.
+- **Real push/email providers** for workspace notifications — stubbed
+  "unconfigured, skipped" until the owner picks providers and sets keys.
+- **Formal accessibility/performance audits and a11y sweeps** beyond the
+  overflow/console/reduced-motion checks done page-by-page; **more
+  circuits, stores, Cadence+ launch, Event Pro** — out of scope by the
+  brief's own defer list.
+
+### Owner actions (delta from section 11)
+1. Apply **0015 and 0016** after 0012–0014 (or re-paste RUN_ENSEMBLE.sql).
+2. Grant yourself the platform role (one UPDATE, in OWNER-RUNBOOK.md) and
+   use **admin-platform.html** instead of the SQL runbooks.
+3. When ready for test-mode card checkout: create the three test prices in
+   Stripe, `supabase functions deploy` the two functions, set the secrets
+   listed in their headers, and add the webhook endpoint. Test cards only;
+   nothing charges for real until you swap live keys — a step this repo
+   deliberately cannot do.

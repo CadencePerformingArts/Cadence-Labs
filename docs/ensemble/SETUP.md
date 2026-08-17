@@ -24,6 +24,8 @@ policies, zero errors).
 | 10 | `supabase/migrations/0012_security_hardening.sql` | **security fixes — closes seven workspace vulnerabilities (see below)** |
 | 11 | `supabase/migrations/0013_event_chats.sql` | event chat rooms |
 | 12 | `supabase/migrations/0014_notifications.sql` | notification queue + enqueue triggers + worker RPCs |
+| 13 | `supabase/migrations/0015_platform_admin.sql` | platform-admin RPCs + audit (powers admin-platform.html) |
+| 14 | `supabase/migrations/0016_stripe_events.sql` | Stripe webhook idempotency ledger |
 
 If files 3 and 4 were already applied earlier, skip them — the rest still run.
 
@@ -39,7 +41,7 @@ not rewrite any applied migration) and was verified applying onto the prior
 schema. Apply it before inviting anyone you don't fully trust. The full
 attack list and the tests that prove each fix are in
 `scripts/test_db_security.py` — run `python3 scripts/test_db_security.py`
-against a scratch database (never production) to see 45/45 checks pass.
+against a scratch database (never production) to see every check pass (59 as of 0016).
 
 **One possible snag, in file 6 only.** The last block creates the private
 `ensemble` storage bucket and its access policies. Some projects don't let the
@@ -88,9 +90,11 @@ database, not just the interface.
 ## Billing status, honestly
 
 Plans and the school-invoice/purchase-order path are built and the pricing is
-configurable in one place (`docs/ensemble/core.js` → `PLANS`). **No card can
-be charged yet** — organization checkout still needs its Stripe wiring
-(products/prices per plan, an org-scoped Checkout Session created server-side,
-a webhook that writes plan/status, and a Billing Portal link). Plan fields are
-deliberately locked against client writes, so only that billing system can
-grant a plan.
+configurable in one place (`docs/ensemble/core.js` → `PLANS`). **Card
+checkout is built but not switched on** — the server-side Checkout Session
+and signature-verified webhook exist as edge functions
+(`supabase/functions/stripe-checkout`, `stripe-webhook`) that you deploy
+with TEST-mode keys when ready; until then the card button says so honestly
+and the invoice path (now driven from `admin-platform.html`) is the working
+route. Plan fields stay locked against client writes, so only the webhook
+(service role) or the platform-admin RPCs can grant a plan.
