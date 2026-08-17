@@ -328,9 +328,12 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       e.preventDefault();
       var msg = el.querySelector("#mMsg");
       msg.className = "acct-msg"; msg.textContent = "Saving…";
+      // role changes go through the guarded RPC (audited, self-promotion
+      // blocked, last-admin protected) — a raw PATCH of role_id is refused
+      // by the database on purpose. Everything else is an ordinary update.
+      var newRole = el.querySelector("#eRole").value;
       var body = {
         display_name: el.querySelector("#eName").value.trim() || null,
-        role_id: el.querySelector("#eRole").value,
         section: el.querySelector("#eSection").value.trim() || null,
         instrument: el.querySelector("#eInstrument").value.trim() || null,
         leadership_title: el.querySelector("#eTitle").value.trim() || null,
@@ -339,6 +342,9 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         is_minor: el.querySelector("#eMinor").value === "true",
       };
       try {
+        if (newRole && newRole !== m.role_id) {
+          await CadOrg.rpc("set_member_role", { p_member: m.id, p_role: newRole });
+        }
         await CadOrg.rest("org_members?id=eq." + m.id, { method: "PATCH", body: body });
         await CadOrg.log("member.updated", "member", m.id, { fields: Object.keys(body) });
         msg.className = "acct-msg ok"; msg.textContent = "Saved.";

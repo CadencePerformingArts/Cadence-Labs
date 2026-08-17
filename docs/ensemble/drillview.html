@@ -124,11 +124,23 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     return show.performers.find(function (p) { return p.id === me; }) || null;
   }
   function setMe(id, persist) {
+    var prev = me;
     me = id || null;
     try { localStorage.setItem(MY_KEY(), me || ""); } catch (e) {}
-    if (persist && !LOCAL && window.CadOrg && CadOrg.member()) {
-      // remember on the roster too, so it follows you to any device
-      CadOrg.rpc("claim_drill_dot", { p_performer: me }).catch(function () {});
+    if (persist && me && !LOCAL && window.CadOrg && CadOrg.member()) {
+      // remember on the roster too, so it follows you to any device. If the
+      // dot is already someone else's, the database refuses the claim — say
+      // so and fall back to the previous selection instead of failing quietly
+      CadOrg.rpc("claim_drill_dot", { p_performer: me }).catch(function (e) {
+        if (/dot_taken/.test((e && e.message) || "")) {
+          me = prev;
+          try { localStorage.setItem(MY_KEY(), me || ""); } catch (x) {}
+          var pk = document.getElementById("dvWho");
+          if (pk) pk.value = me || "";
+          alert("That dot is already claimed by another member. Ask your drill staff to reassign it if it should be yours.");
+          renderSide(); renderBook(); paint();
+        }
+      });
     }
     renderSide(); renderBook(); paint();
   }

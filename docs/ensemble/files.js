@@ -215,6 +215,11 @@
       var rows = await CadOrg.rest("org_files", {
         method: "POST", headers: { Prefer: "return=representation" }, body: body,
       });
+      // reconcile the recorded size against the object that actually landed
+      // in the bucket — the client's file.size is only a preflight estimate,
+      // and the database refuses direct edits to size_bytes. Best-effort:
+      // the estimate stands if the object metadata isn't ready yet.
+      CadOrg.rpc("sync_file_size", { p_file: rows[0].id }).catch(function () {});
       // keep the local org object's counter in step with the trigger
       if (org) org.storage_used_bytes = (Number(org.storage_used_bytes) || 0) + file.size;
       return rows[0];
