@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drill — Cadence</title>
+<meta name="description" content="Watch your show's drill and read your own dot book.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading the show…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="drill.js"></script>
+<script>
+/* The member side of Cadence Drill: watch the show move, find your dot,
+   and read your dot book — every set, in marching language, printable.
+   Directors design in the editor; this page is for everyone else. */
+(function () {
+  "use strict";
+  var D = window.CadDrill;
+  var qs = new URLSearchParams(location.search);
+  var LOCAL = qs.get("local") === "1";
+  var SHOW_ID = qs.get("show");
+  var main = document.getElementById("ensMain");
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  };
+
+  var show = null, perfRows = null;   // perfRows: raw DB rows (with member_id)
+  var cur = 0, me = null;             // me = my performer id
+  var canvas, ctx, view;
+  var playing = false, playT = 0, playRaf = 0, lastTs = 0;
+
+  function field() { return D.FIELDS[show.field_type] || D.FIELDS.hs; }
+  var MY_KEY = function () { return "cad-drill-me-" + (SHOW_ID || "local"); };
+
+  /* ── canvas ─────────────────────────────────────────────────────────── */
+  function paint() {
+    if (!ctx) return;
+    ctx = D.sizeCanvas(canvas);
+    ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    D.drawField(ctx, view, field(), {});
+    var dots = show.sets[cur].dots;
+    if (playing) {
+      var pl = playbackPos(playT);
+      dots = pl.dots;
+      var el = document.getElementById("dvCount");
+      if (el) el.textContent = "Set " + (pl.si + 1) + " · ct " + pl.count + "/" + Math.max(1, show.sets[pl.si].counts | 0);
+    }
+    D.drawDots(ctx, view, show.performers, dots, { labels: view.k > 5, highlight: me });
+  }
+  function fitView() {
+    view = D.makeView(canvas, field());
+    paint();
+    requestAnimationFrame(function () { view = D.makeView(canvas, field()); paint(); });
+  }
+
+  /* ── playback (same math as the editor) ─────────────────────────────── */
+  function timelineTotal() {
+    var total = 0;
+    for (var i = 1; i < show.sets.length; i++) total += Math.max(1, show.sets[i].counts | 0) + (show.sets[i].hold | 0);
+    return Math.max(1, total);
+  }
+  function playbackPos(t) {
+    var acc = 0;
+    for (var i = 1; i < show.sets.length; i++) {
+      var c = Math.max(1, show.sets[i].counts | 0), h = show.sets[i].hold | 0;
+      if (t <= acc + c) {
+        return { si: i, count: Math.max(1, Math.ceil(t - acc)),
+                 dots: D.lerpDots(show.sets[i - 1].dots, show.sets[i].dots, (t - acc) / c) };
+      }
+      acc += c;
+      if (t <= acc + h) return { si: i, count: c, dots: show.sets[i].dots };
+      acc += h;
+    }
+    var last = show.sets[show.sets.length - 1];
+    return { si: show.sets.length - 1, count: Math.max(1, last.counts | 0), dots: last.dots };
+  }
+  function tick(ts) {
+    if (!playing) return;
+    if (lastTs) {
+      var bpm = show.sets[Math.max(1, cur)].tempo || show.tempo || 120;
+      playT += (ts - lastTs) / 1000 * (bpm / 60);
+      var bar = document.getElementById("dvScrub");
+      if (bar) bar.value = String(Math.min(timelineTotal(), playT));
+      if (playT >= timelineTotal()) stopPlay();
+    }
+    lastTs = ts;
+    paint();
+    if (playing) playRaf = requestAnimationFrame(tick);
+  }
+  function startPlay() {
+    if (show.sets.length < 2) return;
+    playing = true; lastTs = 0;
+    if (playT >= timelineTotal() - 0.01) playT = 0;
+    document.getElementById("dvPlay").textContent = "❚❚";
+    playRaf = requestAnimationFrame(tick);
+  }
+  function stopPlay() {
+    playing = false; cancelAnimationFrame(playRaf);
+    var b = document.getElementById("dvPlay");
+    if (b) b.textContent = "▶";
+    paint();
+  }
+
+  /* ── my dot ─────────────────────────────────────────────────────────── */
+  function myPerformer() {
+    return show.performers.find(function (p) { return p.id === me; }) || null;
+  }
+  function setMe(id, persist) {
+    me = id || null;
+    try { localStorage.setItem(MY_KEY(), me || ""); } catch (e) {}
+    if (persist && !LOCAL && window.CadOrg && CadOrg.member()) {
+      // remember on the roster too, so it follows you to any device
+      CadOrg.rpc("claim_drill_dot", { p_performer: me }).catch(function () {});
+    }
+    renderSide(); renderBook(); paint();
+  }
+
+  function renderSide() {
+    var host = document.getElementById("dvSide");
+    if (!host) return;
+    var s = show.sets[cur];
+    var f = field();
+    var p = myPerformer();
+    var options = '<option value="">Who are you?</option>' +
+      show.performers.map(function (x) {
+        return '<option value="' + x.id + '"' + (x.id === me ? " selected" : "") + ">" +
+          esc(x.label) + (x.section ? " · " + esc(x.section) : "") + "</option>";
+      }).join("");
+    var body = "";
+    if (p && s.dots[p.id]) {
+      var c = D.coordText(s.dots[p.id], f);
+      var cue = "";
+      if (cur > 0 && show.sets[cur - 1].dots[p.id]) {
+        cue = D.moveText(show.sets[cur - 1].dots[p.id], s.dots[p.id], Math.max(1, s.counts | 0), f);
+      }
+      body =
+        '<div class="big">' + esc(c.x) + "<br>" + esc(c.y) + "</div>" +
+        (cue ? '<div class="cue"><b>Getting here:</b> ' + esc(cue) + "</div>" : "") +
+        (s.notes ? '<div class="cue">' + esc(s.notes) + "</div>" : "");
+    } else if (p) {
+      body = '<div class="empty">You have no spot in this set.</div>';
+    } else {
+      body = '<p class="hint" style="color:var(--muted);font-size:13px;line-height:1.55">Pick your dot ID and ' +
+        "every set shows exactly where you stand, in marching terms. Your director assigns the IDs.</p>";
+    }
+    host.innerHTML =
+      '<div class="card dv-card">' +
+        '<h2 style="margin-bottom:8px">My dot</h2>' +
+        '<select class="ctrl" id="dvWho" style="width:100%;margin-bottom:10px" aria-label="Select your dot">' + options + "</select>" +
+        body +
+      "</div>";
+    var sel = document.getElementById("dvWho");
+    sel.addEventListener("change", function () { setMe(this.value || null, true); });
+  }
+
+  /* ── the dot book ───────────────────────────────────────────────────── */
+  function renderBook() {
+    var host = document.getElementById("dvBook");
+    if (!host) return;
+    var p = myPerformer();
+    if (!p) { host.innerHTML = ""; return; }
+    var f = field();
+    var cards = show.sets.map(function (s, i) {
+      var pos = s.dots[p.id];
+      if (!pos) return "";
+      var c = D.coordText(pos, f);
+      var mv = "";
+      if (i > 0 && show.sets[i - 1].dots[p.id]) {
+        mv = D.moveText(show.sets[i - 1].dots[p.id], pos, Math.max(1, s.counts | 0), f);
+      }
+      return '<div class="dot-card">' +
+        '<div class="n">Set ' + (i + 1) + (s.name ? " <span>· " + esc(s.name) + "</span>" : "") +
+          (i > 0 ? ' <span style="float:right">' + (s.counts | 0) + " cts" + (s.hold ? " + hold " + s.hold : "") + "</span>" : "") + "</div>" +
+        "<p>" + esc(c.x) + "<br>" + esc(c.y) + "</p>" +
+        (mv ? '<p class="mv">' + esc(mv) + "</p>" : "") +
+        (s.notes ? '<p style="color:var(--muted)">' + esc(s.notes) + "</p>" : "") +
+      "</div>";
+    }).join("");
+    host.innerHTML =
+      '<div class="card" style="margin-top:14px">' +
+        '<div class="ens-h"><h2>Dot book — ' + esc(p.label) + (p.section ? " · " + esc(p.section) : "") + "</h2>" +
+        '<button type="button" class="tab noprint" id="dvPrint">Print</button></div>' +
+        '<div class="dot-cards">' + cards + "</div>" +
+      "</div>";
+    document.getElementById("dvPrint").addEventListener("click", function () { window.print(); });
+  }
+
+  function selectSet(i) {
+    stopPlay();
+    cur = Math.max(0, Math.min(show.sets.length - 1, i));
+    var lbl = document.getElementById("dvSetLbl");
+    if (lbl) lbl.textContent = "Set " + (cur + 1) + " of " + show.sets.length +
+      (show.sets[cur].name ? " · " + show.sets[cur].name : "");
+    // park the scrub bar at this set's arrival
+    var t = 0;
+    for (var i2 = 1; i2 <= cur; i2++) t += Math.max(1, show.sets[i2].counts | 0) + (show.sets[i2].hold | 0);
+    playT = t;
+    var bar = document.getElementById("dvScrub");
+    if (bar) bar.value = String(t);
+    renderSide(); paint();
+  }
+
+  /* ── layout ─────────────────────────────────────────────────────────── */
+  function layout() {
+    document.title = show.title + " — Drill";
+    main.innerHTML =
+      '<h1 class="page">' + esc(show.title) +
+        ' <span class="kicker">· ' + esc(field().name) + " · " + show.performers.length + " performers</span></h1>" +
+      '<div class="dv-wrap">' +
+        "<div>" +
+          '<div class="dv-stage card" style="padding:0"><canvas id="dvCanvas"></canvas></div>' +
+          '<div class="dv-controls" style="display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap">' +
+            '<button type="button" class="tab" id="dvPrev" aria-label="Previous set">⏮</button>' +
+            '<button type="button" class="tab" id="dvPlay" aria-label="Play">▶</button>' +
+            '<button type="button" class="tab" id="dvNext" aria-label="Next set">⏭</button>' +
+            '<input type="range" id="dvScrub" min="0" max="1" step="0.25" value="0" style="flex:1;min-width:120px" aria-label="Timeline">' +
+            '<span class="drill-count" id="dvCount"></span>' +
+          "</div>" +
+          '<div style="margin-top:6px;color:var(--muted);font-size:13px;font-weight:650" id="dvSetLbl"></div>' +
+        "</div>" +
+        '<div id="dvSide"></div>' +
+      "</div>" +
+      '<div id="dvBook"></div>';
+
+    canvas = document.getElementById("dvCanvas");
+    ctx = canvas.getContext("2d");
+    fitView();
+    document.getElementById("dvScrub").max = String(timelineTotal());
+    document.getElementById("dvPrev").addEventListener("click", function () { selectSet(cur - 1); });
+    document.getElementById("dvNext").addEventListener("click", function () { selectSet(cur + 1); });
+    document.getElementById("dvPlay").addEventListener("click", function () { playing ? stopPlay() : startPlay(); });
+    document.getElementById("dvScrub").addEventListener("input", function () {
+      stopPlay(); playT = +this.value;
+      playing = true; paint(); playing = false;
+      var pl = playbackPos(playT);
+      cur = pl.si;
+      document.getElementById("dvSetLbl").textContent = "Set " + (pl.si + 1) + " of " + show.sets.length;
+      renderSide();
+    });
+    window.addEventListener("resize", fitView);
+    selectSet(0);
+    renderBook();
+  }
+
+  /* ── boot ───────────────────────────────────────────────────────────── */
+  async function boot() {
+    if (LOCAL) {
+      show = D.loadDraft();
+      if (!show) {
+        main.innerHTML = '<div class="card"><div class="empty">No local drill draft yet. ' +
+          '<a href="drilledit.html?local=1">Open the designer</a> to start one.</div></div>';
+        return;
+      }
+      try { me = localStorage.getItem(MY_KEY()) || null; } catch (e) {}
+      layout();
+      return;
+    }
+    var org = await CadOrg.start({ nav: "drill" });
+    if (!org) return;
+    try {
+      var rows = await CadOrg.rest("drill_shows?select=*&id=eq." + SHOW_ID);
+      if (!rows.length) throw new Error("not found");
+      var meta = rows[0];
+      perfRows = await CadOrg.rest("drill_performers?select=*&show_id=eq." + SHOW_ID + "&order=sort.asc,label.asc");
+      var sets = await CadOrg.rest("drill_sets?select=*&show_id=eq." + SHOW_ID + "&order=idx.asc");
+      show = { title: meta.title, field_type: meta.field_type, tempo: meta.tempo,
+               performers: perfRows, sets: sets };
+    } catch (e) {
+      main.innerHTML = '<div class="card"><div class="empty">Couldn\'t open that show. ' +
+        '<a href="drill.html">Back to drill</a></div></div>';
+      return;
+    }
+    if (!show.sets.length) {
+      main.innerHTML = '<div class="card"><div class="empty">This show has no sets yet' +
+        (CadOrg.canDo("drill.manage") ? ' — <a href="drilledit.html?show=' + esc(SHOW_ID) + '">open it in the designer</a>.' : ". Check back soon.") +
+        "</div></div>";
+      return;
+    }
+    // whose dot am I? roster claim wins, then this browser's memory
+    var mine = CadOrg.member() && perfRows.find(function (r) { return r.member_id === CadOrg.member().id; });
+    if (mine) me = mine.id;
+    else { try { me = localStorage.getItem(MY_KEY()) || null; } catch (e) {} }
+    if (me && !show.performers.some(function (p) { return p.id === me; })) me = null;
+    layout();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

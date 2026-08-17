@@ -779,9 +779,6 @@
   }
   function maybeAutoShow() {
     try { if (sessionStorage.getItem("cad-rc-session")) return; } catch (e) {}
-    // a brand-new visitor is still being asked which half of Cadence they
-    // want; a modal on top of that question is the wrong first impression
-    if (!lget("cad-mode")) return;
     // the auto-popup shows ONCE, ever — after that, recaps live in the calendar
     if (lget("cad-rc-autoseen")) return;
     var year = +todayET().slice(0, 4);

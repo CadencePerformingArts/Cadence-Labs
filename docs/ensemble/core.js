@@ -160,31 +160,50 @@
      Same topbar/nav language as public Cadence, tuned for operations:
      a workspace switcher in place of the app switcher, and a section nav
      that becomes a bottom bar on phones. */
-  /* Drill-down, not tabs. A workspace has too many rooms for a tab bar, and a
-     persistent bar makes every screen feel like a settings panel. Instead:
-     the workspace list is the hub, its home is the map, and each section is a
-     page you enter and back out of — one obvious way up at all times. */
+  /* Tabs, done properly. The workspace list is the front door; once you are
+     inside a group, its sections live in one modern rail under the top bar —
+     horizontally scrollable on phones, always showing where you are. */
   var SECTIONS = {
-    home:      { label: "Workspace", href: "home.html" },
-    feed:      { label: "Announcements", href: "feed.html" },
-    calendar:  { label: "Calendar", href: "calendar.html" },
-    messages:  { label: "Messages", href: "messages.html" },
-    files:     { label: "Files", href: "files.html" },
-    music:     { label: "Music", href: "music.html" },
-    members:   { label: "Members", href: "members.html" },
-    admin:     { label: "Admin", href: "admin.html" },
-    billing:   { label: "Billing", href: "billing.html" },
-    event:     { label: "Event", href: "event.html" },
+    home:      { label: "Home", href: "home.html",
+                 ico: "M4 11.5 12 4l8 7.5M6.5 10v9.5h11V10" },
+    feed:      { label: "Announcements", href: "feed.html",
+                 ico: "M4 10v4h3l7 4V6l-7 4H4zM17.5 9.5a4 4 0 0 1 0 5" },
+    calendar:  { label: "Calendar", href: "calendar.html",
+                 ico: "M4.5 5.5h15v14h-15zM4.5 10h15M9 3.5v3.5M15 3.5v3.5" },
+    messages:  { label: "Messages", href: "messages.html",
+                 ico: "M5 5.5h14v9.5H9.5L5 19z" },
+    files:     { label: "Files", href: "files.html",
+                 ico: "M4 7.5h5.5l1.8 2H20v9H4z" },
+    music:     { label: "Music", href: "music.html",
+                 ico: "M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z" },
+    drill:     { label: "Drill", href: "drill.html",
+                 ico: "M3.5 5.5h17v13h-17zM12 5.5v13M7.5 10.5h.01M12 13.5h.01M16.5 8.5h.01M16.5 15h.01M7.5 15.5h.01" },
+    members:   { label: "Members", href: "members.html",
+                 ico: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3.8 19.5c.4-3 2.7-4.8 5.2-4.8s4.8 1.8 5.2 4.8M16 11a2.6 2.6 0 1 0-1.2-4.9M16.6 14.9c2 .3 3.5 1.9 3.9 4.1" },
+    admin:     { label: "Admin", href: "admin.html",
+                 ico: "M12 14.8a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6zM19 12a7 7 0 0 0-.2-1.6l2-1.5-1.8-3-2.3.9A7 7 0 0 0 14 5l-.4-2.4h-3.4L9.9 5a7 7 0 0 0-2.7 1.6L4.9 5.9l-1.8 3 2 1.5a7 7 0 0 0 0 3.2l-2 1.5 1.8 3 2.3-.9a7 7 0 0 0 2.7 1.6l.4 2.4h3.4l.4-2.4a7 7 0 0 0 2.7-1.6l2.3.9 1.8-3-2-1.5c.1-.5.2-1 .2-1.6z" },
+    // subpages highlight their parent tab
+    billing:   { parent: "admin", label: "Billing", href: "billing.html" },
+    event:     { parent: "calendar", label: "Event", href: "event.html" },
   };
 
   function shellHtml(active) {
     var org = state.org;
     var sec = SECTIONS[active] || SECTIONS.home;
-    var onHome = active === "home" || !org;
-    // one step up: sections go back to the workspace, the workspace goes back
-    // to the list of workspaces
-    var upHref = onHome ? "index.html" : "home.html";
-    var upLabel = onHome ? "All workspaces" : (org ? org.name : "Workspace");
+    var lit = sec.parent || (SECTIONS[active] ? active : "home");
+    var tabs = "";
+    if (org) {
+      tabs = Object.keys(SECTIONS).map(function (k) {
+        var s = SECTIONS[k];
+        if (s.parent) return "";                       // subpages don't get tabs
+        if (k === "admin" && !(can("org.admin") || can("member.manage"))) return "";
+        return '<a class="ens-tab' + (k === lit ? " on" : "") + '" href="' + s.href + '"' +
+          (k === lit ? ' aria-current="page"' : "") + ">" +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+          'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + s.ico + '"/></svg>' +
+          "<span>" + s.label + "</span></a>";
+      }).join("");
+    }
     return '' +
       '<header class="topbar ens-top">' +
         '<a class="brand" href="../" title="Cadence scoreboards">' +
@@ -197,11 +216,7 @@
         (org ? '<button class="ens-orgpick" id="ensOrgPick" type="button">' +
           "<b>" + esc(org.name) + "</b><span class=\"ens-caret\">▾</span></button>" : "") +
       "</header>" +
-      (org || !onHome ? '<div class="ens-up"><a class="ens-back" href="' + upHref + '">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
-        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>' +
-        esc(upLabel) + "</a>" +
-        (onHome ? "" : '<span class="ens-where">' + esc(sec.label) + "</span>") + "</div>" : "") +
+      (tabs ? '<nav class="ens-tabs" aria-label="Workspace sections">' + tabs + "</nav>" : "") +
       (org ? statusStripHtml(org) : "");
   }
 
@@ -234,7 +249,6 @@
     var host = document.getElementById("ensShell");
     if (!host) return;
     host.innerHTML = shellHtml(active);
-    if (window.CadMode && CadMode.mount) CadMode.mount(); // scores ⇄ my group
     var pick = document.getElementById("ensOrgPick");
     if (pick) pick.addEventListener("click", function () { openSwitcher(); });
   }

@@ -23,7 +23,6 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <script src="../supabase.js"></script>
 <script src="../account.js"></script>
 <script src="../analytics.js"></script>
-<script src="../mode.js" data-base=".."></script>
 <script src="core.js"></script>
 <script>
 /* The workspace dashboard: what's happening today, what needs a response,
@@ -106,44 +105,14 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     var quick = "";
     if (CadOrg.canDo("announce.create")) quick += '<a class="tab" href="feed.html">Post announcement</a>';
     if (CadOrg.canDo("event.create")) quick += '<a class="tab" href="calendar.html">Create event</a>';
+    if (CadOrg.canDo("drill.manage")) quick += '<a class="tab" href="drill.html">Chart drill</a>';
     if (CadOrg.canDo("file.upload")) quick += '<a class="tab" href="files.html">Upload files</a>';
     if (CadOrg.can("member.manage")) quick += '<a class="tab" href="members.html">Invite members</a>';
-
-    // the rooms of this workspace — the way in, now that there's no tab bar
-    var ico = {
-      feed: "M4 6h16M4 12h16M4 18h10",
-      calendar: "M4 5h16v15H4zM4 10h16M9 3v4M15 3v4",
-      messages: "M5 5h14v10H9l-4 4z",
-      files: "M4 7h6l2 2h8v10H4z",
-      music: "M9 18V5l10-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm10-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
-      members: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M3 20c0-3 2.5-5 5-5s5 2 5 5M16 11a3 3 0 1 0 0-6M15.5 15c2 0 5.5 1.5 5.5 5",
-      admin: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6M4.6 15a2 2 0 1 1 0-4M19.4 15a2 2 0 1 0 0-4",
-    };
-    function room(key, href, title, blurb, count) {
-      return '<a class="ens-room" href="' + href + '">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" ' +
-        'stroke-linecap="round" stroke-linejoin="round"><path d="' + ico[key] + '"/></svg>' +
-        "<span style=\"flex:1;min-width:0\"><b>" + title + "</b><span>" + blurb + "</span></span>" +
-        (count ? '<span class="ens-count">' + count + "</span>" : "") + "</a>";
-    }
-    var rooms =
-      room("feed", "feed.html", "Announcements", "Posts, acknowledgments and comments",
-           important.length || "") +
-      room("calendar", "calendar.html", "Calendar", "Rehearsals, shows and RSVPs",
-           events.length || "") +
-      room("messages", "messages.html", "Messages", "Section, staff and direct chat", "") +
-      room("files", "files.html", "Files", "Music, drill, forms and travel docs", files.length || "") +
-      room("music", "music.html", "Music library", "Parts and practice tracks by show", "") +
-      room("members", "members.html", "Members", "Roster, groups, guardians and invites", "") +
-      (CadOrg.can("org.admin") || CadOrg.can("member.manage")
-        ? room("admin", "admin.html", "Admin", "Requests, roles, seasons, forms and audit", "")
-        : "");
 
     main.innerHTML =
       '<h1 class="page">' + esc(org.name) +
         ' <span class="kicker">· ' + esc((CadOrg.role() || {}).name || "Member") + "</span></h1>" +
       (quick ? '<div class="ens-quick" style="margin-bottom:16px">' + quick + "</div>" : "") +
-      '<div class="ens-rooms" style="margin-bottom:20px">' + rooms + "</div>" +
       '<div class="ens-grid">' +
 
       section("Today", "calendar.html", "Calendar →",
