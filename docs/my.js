@@ -49,13 +49,22 @@
     space:  "M4 6h7v12H4zM13 6h7v7h-7zM13 17h7",                       // workspace panes
   };
 
-  /* ── the family — namespaces match each app's APP_CFG.ns exactly ─────── */
-  var APPS = [
-    { key: "dci",       ns: "",           name: "DCI",              tag: "DCI",    icon: sic(IC.perc),  path: "./",              term: "corps" },
-    { key: "wgi-guard", ns: "wgi-guard:", name: "WGI Color Guard",  tag: "WGI CG", icon: sic(IC.guard), path: "wgi/guard/",      term: "guards" },
-    { key: "wgi-perc",  ns: "wgi-perc:",  name: "WGI Percussion",   tag: "WGI Pc", icon: sic(IC.perc),  path: "wgi/percussion/", term: "ensembles" },
-    { key: "wgi-winds", ns: "wgi-winds:", name: "WGI Winds",        tag: "WGI Wd", icon: sic(IC.winds), path: "wgi/winds/",      term: "ensembles" },
-  ];
+  /* ── the family, from the one registry — EVERY deployed app, listed or
+     not, so a star placed on BOA or UIL shows up here too. Icons stay
+     local (they're this page's visual language); everything else comes
+     from docs/registry.js. Falls back to the core four if the registry
+     script is missing. ─────────────────────────────────────────────── */
+  var APP_ICON = { dci: IC.scores, "wgi-guard": IC.guard, "wgi-perc": IC.perc, "wgi-winds": IC.winds };
+  var APPS = (window.CAD_REGISTRY ? CAD_REGISTRY.apps : [
+    { id: "dci", ns: "", name: "DCI", short: "DCI", path: "", term: "corps" },
+    { id: "wgi-guard", ns: "wgi-guard:", name: "WGI Color Guard", short: "WGI CG", path: "wgi/guard/", term: "guards" },
+    { id: "wgi-perc", ns: "wgi-perc:", name: "WGI Percussion", short: "WGI Pc", path: "wgi/percussion/", term: "ensembles" },
+    { id: "wgi-winds", ns: "wgi-winds:", name: "WGI Winds", short: "WGI Wd", path: "wgi/winds/", term: "ensembles" },
+  ]).map(function (a) {
+    return { key: a.id, ns: a.ns, name: a.name, tag: a.short,
+             icon: sic(APP_ICON[a.id] || IC.scores),
+             path: a.path === "" ? "./" : a.path, term: a.term };
+  });
 
   function favsOf(a) {
     try { var v = JSON.parse(localStorage.getItem(a.ns + "cad-favs") || "[]"); return Array.isArray(v) ? v : []; }

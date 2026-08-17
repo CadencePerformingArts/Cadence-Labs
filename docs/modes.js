@@ -8,11 +8,12 @@
   var base = (script && script.getAttribute("data-base")) || ".";
   var path = location.pathname;
   function here() {
+    // the registry knows every deployed app (listed or not), so DCI is
+    // never falsely marked current on an unlisted circuit's page
+    if (window.CAD_REGISTRY) return CAD_REGISTRY.byPath(path).id;
     if (path.indexOf("/wgi/guard") >= 0) return "wgi-guard";
     if (path.indexOf("/wgi/percussion") >= 0) return "wgi-perc";
     if (path.indexOf("/wgi/winds") >= 0) return "wgi-winds";
-    // deployed-but-unlisted circuits: identify them so DCI is not falsely
-    // marked current when you are actually on one of these apps
     var UNLISTED = ["boa", "usbands", "uil", "wgasc", "tcgc", "ffcc"];
     for (var i = 0; i < UNLISTED.length; i++) {
       if (path.indexOf("/" + UNLISTED[i] + "/") >= 0) return UNLISTED[i];

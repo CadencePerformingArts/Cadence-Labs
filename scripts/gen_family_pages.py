@@ -245,6 +245,7 @@ def page(key: str, c: dict) -> str:
     v_sbvend, v_sbcfg, v_acct = v("vendor/supabase.min.js"), v("supabase.js"), v("account.js")
     v_metrics = v("analytics.js")
     v_ens = v("ensembles.js")
+    v_reg = v("registry.js")
     v_board = v("family/board.js")
     nav = c["nav"]
     et = c.get("extra_tab")
@@ -329,6 +330,7 @@ window.APP_CFG = {json.dumps(cfg)};
 <script src="{r}/supabase.js{v_sbcfg}"></script>
 <script src="{r}/account.js{v_acct}"></script>
 <script src="{r}/analytics.js{v_metrics}"></script>
+<script src="{r}/registry.js{v_reg}"></script>
 <script src="{r}/ensembles.js{v_ens}"></script>
 <script src="{r}/charts.js{v_charts}"></script>
 <script src="{r}/family/wrapped.js{v_wrapped}"></script>

@@ -23,17 +23,28 @@
   var cache = {};      // "appKey|name" -> Promise<row|null>
   var client = null;
 
-  /* ---- app keys: docs/<key>/ folders, '' is DCI at the root ---- */
-  var NS_TO_KEY = {
-    "": "", "wgi-guard:": "wgi/guard", "wgi-perc:": "wgi/percussion",
-    "wgi-winds:": "wgi/winds", "boa:": "boa", "usb:": "usbands", "uil:": "uil",
-    "issma:": "issma", "wgasc:": "wgasc", "tcgc:": "tcgc", "ffcc:": "ffcc",
-  };
-  var KEY_LABEL = {
-    "": "DCI", "wgi/guard": "WGI Color Guard", "wgi/percussion": "WGI Percussion",
-    "wgi/winds": "WGI Winds", "boa": "BOA", "usbands": "US Bands", "uil": "UIL Texas",
-    "issma": "ISSMA", "wgasc": "WGASC", "tcgc": "TCGC", "ffcc": "FFCC",
-  };
+  /* ---- app keys: docs/<key>/ folders, '' is DCI at the root. Built from
+     the one registry (docs/registry.js) when present; the inline fallback
+     keeps a registry-less page working. ISSMA is retired and gone. ---- */
+  var NS_TO_KEY = {}, KEY_LABEL = {};
+  if (window.CAD_REGISTRY) {
+    CAD_REGISTRY.apps.forEach(function (a) {
+      var key = CAD_REGISTRY.folderKey(a);
+      NS_TO_KEY[a.ns] = key;
+      KEY_LABEL[key] = a.name;
+    });
+  } else {
+    NS_TO_KEY = {
+      "": "", "wgi-guard:": "wgi/guard", "wgi-perc:": "wgi/percussion",
+      "wgi-winds:": "wgi/winds", "boa:": "boa", "usb:": "usbands", "uil:": "uil",
+      "wgasc:": "wgasc", "tcgc:": "tcgc", "ffcc:": "ffcc",
+    };
+    KEY_LABEL = {
+      "": "DCI", "wgi/guard": "WGI Color Guard", "wgi/percussion": "WGI Percussion",
+      "wgi/winds": "WGI Winds", "boa": "Bands of America", "usbands": "US Bands",
+      "uil": "UIL Texas", "wgasc": "WGASC", "tcgc": "TCGC", "ffcc": "FFCC",
+    };
+  }
 
   function appKey() {
     var ns = (window.APP_CFG && window.APP_CFG.ns) || "";
