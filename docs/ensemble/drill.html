@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drill — Cadence Ensemble</title>
+<meta name="description" content="Your organization's drill: shows, sets and dot books.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+</head>
+<body class="ens">
+<div id="ensShell"></div>
+<main id="ensMain" class="viz-root">
+  <div class="loading">Loading…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script>
+/* The drill library: every show this workspace has charted. Directors
+   design; members open their dot books. Writing drill takes the
+   drill.manage permission — reading it just takes being in the group. */
+(function () {
+  "use strict";
+  var main = document.getElementById("ensMain");
+  var esc = CadOrg.esc;
+
+  function fmtDay(iso) {
+    try { return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }); }
+    catch (e) { return ""; }
+  }
+
+  async function render(org) {
+    var canWrite = CadOrg.canDo("drill.manage");
+    var shows = [];
+    var missing = false;
+    try {
+      shows = await CadOrg.rest("drill_shows?select=id,title,field_type,tempo,updated_at,archived&org_id=eq." + org.id +
+        "&archived=is.false&order=updated_at.desc") || [];
+    } catch (e) { missing = true; }
+
+    var rows = shows.map(function (s) {
+      var kind = ({ hs: "High school field", college: "College field", pro: "Pro field", indoor: "Indoor floor" })[s.field_type] || s.field_type;
+      return '<div class="ens-item">' +
+        '<span class="ens-when">' + fmtDay(s.updated_at) + "</span>" +
+        '<a style="flex:1;text-decoration:none;color:inherit" href="' +
+          (canWrite ? "drilledit.html" : "drillview.html") + "?show=" + s.id + '"><b>' + esc(s.title) + "</b>" +
+        '<span class="ens-sub" style="display:block">' + kind + " · " + s.tempo + " bpm</span></a>" +
+        (canWrite ? '<a class="tab" style="flex:none" href="drillview.html?show=' + s.id + '">Dot book</a>' : "") +
+        "</div>";
+    }).join("");
+
+    main.innerHTML =
+      '<h1 class="page">Drill</h1>' +
+      (canWrite
+        ? '<div class="ens-quick" style="margin-bottom:16px"><button type="button" class="tab" id="drNew">New show</button>' +
+          '<a class="tab" href="drilledit.html?local=1">Practice sketchpad</a></div>'
+        : "") +
+      '<div class="card">' +
+        '<div class="ens-h"><h2>Shows</h2></div>' +
+        (missing
+          ? '<div class="empty">Drill isn\'t set up in this workspace\'s database yet. ' +
+            "An admin can apply the latest Cadence migrations to turn it on.</div>"
+          : rows ||
+            '<div class="empty">' +
+            (canWrite
+              ? "No shows yet. <b>New show</b> starts a blank field — sets, forms, playback and printable dot books are all built in."
+              : "No drill has been published yet. When your director charts the show here, you’ll open it and see exactly where you stand in every set.") +
+            "</div>") +
+      "</div>";
+
+    var btn = document.getElementById("drNew");
+    if (btn) btn.addEventListener("click", async function () {
+      var title = prompt("Name the show (you can rename it any time):", "");
+      if (title == null) return;
+      btn.disabled = true;
+      try {
+        var made = await CadOrg.rest("drill_shows", {
+          method: "POST",
+          headers: { Prefer: "return=representation" },
+          body: { org_id: org.id, title: title.trim() || "Untitled show" },
+        });
+        location.href = "drilledit.html?show=" + made[0].id;
+      } catch (e) {
+        btn.disabled = false;
+        alert("Couldn't create the show" + (e && e.message ? " — " + e.message : "") + ".");
+      }
+    });
+  }
+
+  CadOrg.start({ nav: "drill" }).then(function (org) { if (org) render(org); });
+})();
+</script>
+</body>
+</html>

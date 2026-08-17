@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drill Designer — Cadence</title>
+<meta name="description" content="Write marching drill in the browser: sets, forms, playback and dot books.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0a3f6b">
+<link rel="icon" href="../icons/icon-192.png">
+<script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;})();</script>
+<link rel="stylesheet" href="../app.css">
+<link rel="stylesheet" href="ensemble.css">
+</head>
+<body class="ens drill-full">
+<div id="ensShell"></div>
+<main id="ensMain">
+  <div class="loading">Loading the designer…</div>
+</main>
+
+<script src="../vendor/supabase.min.js"></script>
+<script src="../supabase.js"></script>
+<script src="../account.js"></script>
+<script src="../analytics.js"></script>
+<script src="core.js"></script>
+<script src="drill.js"></script>
+<script>
+/* The drill designer. One screen, four regions: toolbar, sets rail, the
+   field, and an inspector. Works two ways:
+     ?show=<uuid>  — a workspace show, autosaved to the database
+     ?local=1      — a private draft in this browser, no account needed
+   Directors sketch on the field; every change lands in undo history and
+   the autosave queue. The same engine that draws this field prints the
+   dot books, so what you design is exactly what members read. */
+(function () {
+  "use strict";
+  var D = window.CadDrill;
+  var qs = new URLSearchParams(location.search);
+  var LOCAL = qs.get("local") === "1" || !qs.get("show");
+  var SHOW_ID = qs.get("show");
+  var main = document.getElementById("ensMain");
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  };
+
+  /* ── state ──────────────────────────────────────────────────────────── */
+  var show = null;          // the whole production
+  var cur = 0;              // current set index
+  var sel = {};             // selected performer ids
+  var tool = "select";
+  var opts = { labels: true, ghosts: true, grid: true };
+  var undoStack = [], redoStack = [];
+  var dirty = { meta: false, sets: {}, perfAdd: {}, perfDel: {}, perfMod: {}, setAdd: {}, setDel: {} };
+  var saveTimer = null, saving = false;
+  var view = null, canvas = null, ctx = null;
+  var playing = false, playT = 0, playRaf = 0, lastTs = 0;
+  var drag = null;          // active pointer interaction
+  var hover = null;
+
+  function field() { return D.FIELDS[show.field_type] || D.FIELDS.hs; }
+  function set() { return show.sets[cur]; }
+  function selIds() { return Object.keys(sel).filter(function (k) { return sel[k]; }); }
+  function selectedOrAll() {
+    var ids = selIds();
+    return ids.length ? ids : show.performers.map(function (p) { return p.id; });
+  }
+
+  /* ── undo ───────────────────────────────────────────────────────────── */
+  function snapshot() { return JSON.stringify({ performers: show.performers, sets: show.sets }); }
+  function pushUndo() {
+    undoStack.push(snapshot());
+    if (undoStack.length > 80) undoStack.shift();
+    redoStack.length = 0;
+  }
+  function restore(snap) {
+    var s = JSON.parse(snap);
+    show.performers = s.performers; show.sets = s.sets;
+    if (cur >= show.sets.length) cur = show.sets.length - 1;
+    // everything might have changed; save it all
+    show.sets.forEach(function (st) { dirty.sets[st.id] = true; });
+    dirty.meta = true;
+    queueSave(); renderSets(); renderInspector(); paint();
+  }
+  function undo() { if (undoStack.length) { redoStack.push(snapshot()); restore(undoStack.pop()); } }
+  function redo() { if (redoStack.length) { undoStack.push(snapshot()); restore(redoStack.pop()); } }
+
+  /* ── persistence ────────────────────────────────────────────────────── */
+  function markSet(id) { dirty.sets[id] = true; queueSave(); }
+  function queueSave() {
+    setSaveNote("Unsaved changes…", true);
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(doSave, LOCAL ? 400 : 1600);
+  }
+  function setSaveNote(t, isDirty) {
+    var el = document.getElementById("drillSave");
+    if (el) { el.textContent = t; el.className = "drill-save" + (isDirty ? " dirty" : ""); }
+  }
+  async function doSave() {
+    if (LOCAL) {
+      D.saveDraft(show);
+      setSaveNote("Saved in this browser", false);
+      return;
+    }
+    if (saving) { queueSave(); return; }
+    saving = true;
+    try {
+      if (dirty.meta) {
+        await CadOrg.rest("drill_shows?id=eq." + SHOW_ID, { method: "PATCH", body: {
+          title: show.title, field_type: show.field_type, tempo: show.tempo } });
+        dirty.meta = false;
+      }
+      for (var pid in dirty.perfDel) {
+        await CadOrg.rest("drill_performers?id=eq." + pid, { method: "DELETE" });
+        delete dirty.perfDel[pid];
+      }
+      var adds = Object.keys(dirty.perfAdd);
+      if (adds.length) {
+        await CadOrg.rest("drill_performers", { method: "POST", body: adds.map(function (id) {
+          var p = show.performers.find(function (x) { return x.id === id; });
+          return { id: p.id, show_id: SHOW_ID, label: p.label, section: p.section,
+                   symbol: p.symbol, color: p.color, sort: p.sort || 0 };
+        }) });
+        dirty.perfAdd = {};
+      }
+      for (var mid in dirty.perfMod) {
+        var mp = show.performers.find(function (x) { return x.id === mid; });
+        if (mp) await CadOrg.rest("drill_performers?id=eq." + mid, { method: "PATCH", body: {
+          label: mp.label, section: mp.section, symbol: mp.symbol, color: mp.color, sort: mp.sort || 0 } });
+        delete dirty.perfMod[mid];
+      }
+      for (var sid in dirty.setDel) {
+        await CadOrg.rest("drill_sets?id=eq." + sid, { method: "DELETE" });
+        delete dirty.setDel[sid];
+      }
+      for (var i = 0; i < show.sets.length; i++) {
+        var st = show.sets[i];
+        var body = { idx: i, name: st.name, counts: st.counts, hold: st.hold || 0,
+                     tempo: st.tempo || null, notes: st.notes || "", dots: st.dots };
+        if (dirty.setAdd[st.id]) {
+          body.id = st.id; body.show_id = SHOW_ID;
+          await CadOrg.rest("drill_sets", { method: "POST", body: body });
+          delete dirty.setAdd[st.id]; delete dirty.sets[st.id];
+        } else if (dirty.sets[st.id]) {
+          await CadOrg.rest("drill_sets?id=eq." + st.id, { method: "PATCH", body: body });
+          delete dirty.sets[st.id];
+        }
+      }
+      setSaveNote("All changes saved", false);
+    } catch (e) {
+      setSaveNote("Couldn’t save — retrying…", true);
+      clearTimeout(saveTimer); saveTimer = setTimeout(doSave, 4000);
+    }
+    saving = false;
+  }
+
+  /* ── rendering ──────────────────────────────────────────────────────── */
+  function paint() {
+    if (!ctx) return;
+    ctx = D.sizeCanvas(canvas);
+    ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    D.drawField(ctx, view, field(), { grid: opts.grid });
+    var dots = set().dots;
+    var ghosts = (opts.ghosts && cur > 0 && !playing) ? show.sets[cur - 1].dots : null;
+    if (playing || drag && drag.preview) dots = drag && drag.preview ? drag.preview : dots;
+    if (playing) {
+      var pl = playbackPos(playT);
+      dots = pl.dots;
+      ghosts = null;
+      setCountNote("Set " + (pl.si + 1) + (show.sets[pl.si].name ? " · " + show.sets[pl.si].name : "") +
+        " · ct " + pl.count + "/" + Math.max(1, show.sets[pl.si].counts | 0));
+    }
+    D.drawDots(ctx, view, show.performers, dots, {
+      labels: opts.labels, ghosts: ghosts, selection: sel,
+    });
+    if (drag && drag.marquee) {
+      ctx.save();
+      ctx.strokeStyle = "#ffd43b"; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.4;
+      ctx.strokeRect(drag.x0, drag.y0, drag.x1 - drag.x0, drag.y1 - drag.y0);
+      ctx.restore();
+    }
+    if (drag && drag.guide) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(255,212,59,0.9)"; ctx.lineWidth = 1.6; ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      drag.guide.forEach(function (p, i) {
+        var q = view.toPx(p);
+        i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]);
+      });
+      ctx.stroke(); ctx.restore();
+    }
+    renderHud();
+  }
+
+  function renderHud() {
+    var el = document.getElementById("drillHud");
+    if (!el) return;
+    var f = field();
+    var ids = selIds();
+    var focus = (drag && drag.kind === "move" && ids.length === 1) ? ids[0]
+      : (ids.length === 1 ? ids[0] : hover);
+    if (focus) {
+      var p = show.performers.find(function (x) { return x.id === focus; });
+      var pos = set().dots[focus];
+      if (p && pos) {
+        var c = D.coordText(pos, f);
+        var mv = "";
+        if (cur > 0) {
+          var prev = show.sets[cur - 1].dots[focus];
+          if (prev) mv = "<br>" + esc(D.moveText(prev, pos, Math.max(1, set().counts | 0), f));
+        }
+        el.innerHTML = "<b>" + esc(p.label) + "</b> · " + esc(c.x) + " · " + esc(c.y) + mv;
+        el.hidden = false;
+        return;
+      }
+    }
+    if (ids.length > 1) { el.innerHTML = "<b>" + ids.length + "</b> performers selected"; el.hidden = false; return; }
+    el.hidden = true;
+  }
+
+  function setCountNote(t) {
+    var el = document.getElementById("drillCount");
+    if (el) el.textContent = t;
+  }
+
+  function renderSets() {
+    var host = document.getElementById("drillSets");
+    if (!host) return;
+    host.innerHTML = show.sets.map(function (s, i) {
+      return '<button type="button" class="dset' + (i === cur ? " on" : "") + '" data-i="' + i + '">' +
+        '<span class="dset-n">' + (i + 1) + "</span><span style=\"flex:1;min-width:0\"><b>" +
+        esc(s.name || "Set " + (i + 1)) + "</b><span>" +
+        (i === 0 ? "opening set" : (s.counts | 0) + " counts") +
+        (s.hold ? " · hold " + s.hold : "") + "</span></span></button>";
+    }).join("") +
+    '<button type="button" class="tab" id="drillAddSet" style="width:100%;margin-top:8px">+ Add set</button>';
+  }
+
+  function symChip(sym, color) {
+    return '<svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">' +
+      (sym === "square" ? '<rect x="4" y="4" width="12" height="12" fill="' + color + '"/>' :
+       sym === "triangle" ? '<path d="M10 3l8 14H2z" fill="' + color + '"/>' :
+       sym === "x" ? '<path d="M4 4l12 12M16 4L4 16" stroke="' + color + '" stroke-width="3"/>' :
+       sym === "star" ? '<path d="M10 2l2.4 5 5.4.7-4 3.8 1 5.4L10 14.3 5.2 16.9l1-5.4-4-3.8L7.6 7z" fill="' + color + '"/>' :
+       '<circle cx="10" cy="10" r="7" fill="' + color + '"/>') + "</svg>";
+  }
+
+  function renderInspector() {
+    var host = document.getElementById("drillInsp");
+    if (!host) return;
+    var s = set();
+    var ids = selIds();
+    var sections = {};
+    show.performers.forEach(function (p) {
+      (sections[p.section || "Ensemble"] = sections[p.section || "Ensemble"] || []).push(p);
+    });
+    var sectionRows = Object.keys(sections).map(function (name) {
+      var list = sections[name];
+      return '<div class="row"><label>' + symChip(list[0].symbol, list[0].color) + " " + esc(name) +
+        ' <span style="color:var(--muted)">· ' + list.length + "</span></label>" +
+        '<button type="button" class="dtool" data-selsec="' + esc(name) + '" title="Select this section">Select</button></div>';
+    }).join("");
+
+    host.innerHTML =
+      "<h3>This set</h3>" +
+      '<div class="row"><label>Name</label><input class="ctrl wide" id="setName" value="' + esc(s.name || "") + '" style="width:120px"></div>' +
+      (cur > 0 ? '<div class="row"><label>Counts to get here</label><input class="ctrl" id="setCounts" type="number" min="1" max="512" value="' + (s.counts | 0) + "\"></div>" : "") +
+      '<div class="row"><label>Hold counts</label><input class="ctrl" id="setHold" type="number" min="0" max="512" value="' + (s.hold | 0) + '"></div>' +
+      '<div class="row"><label>Notes</label></div>' +
+      '<textarea class="ctrl wide" id="setNotes" rows="2" placeholder="Staging notes…">' + esc(s.notes || "") + "</textarea>" +
+      '<div class="ens-quick" style="margin:8px 0 14px">' +
+        '<button type="button" class="tab" id="setDup">Duplicate</button>' +
+        '<button type="button" class="tab" id="setUp" ' + (cur === 0 ? "disabled" : "") + ">↑</button>" +
+        '<button type="button" class="tab" id="setDown" ' + (cur === show.sets.length - 1 ? "disabled" : "") + ">↓</button>" +
+        (show.sets.length > 1 ? '<button type="button" class="tab" id="setDel" style="color:var(--bad)">Delete</button>' : "") +
+      "</div>" +
+
+      "<h3>Selection</h3>" +
+      (ids.length
+        ? '<p class="hint">' + ids.length + " selected. Drag to move; arrows nudge (Shift = 4 steps)." +
+          "</p>" +
+          '<div class="ens-quick" style="margin-bottom:14px">' +
+          '<button type="button" class="tab" id="selLine">Even line</button>' +
+          '<button type="button" class="tab" id="selRotL">⟲ 15°</button>' +
+          '<button type="button" class="tab" id="selRotR">⟳ 15°</button>' +
+          '<button type="button" class="tab" id="selMirror">Mirror</button>' +
+          '<button type="button" class="tab" id="selClear">Clear</button>' +
+          "</div>"
+        : '<p class="hint">Click a dot to select it; drag on grass for a box. Shift-click adds. ' +
+          "With a selection, the form tools reshape those performers.</p>") +
+
+      "<h3>Performers <span style=\"color:var(--muted)\">· " + show.performers.length + "</span></h3>" +
+      sectionRows +
+      '<div class="hint" style="margin-top:8px">Add a rank:</div>' +
+      '<div class="row"><label>Section</label><input class="ctrl" id="rankSec" placeholder="Trumpets" style="width:110px"></div>' +
+      '<div class="row"><label>Label prefix</label><input class="ctrl" id="rankPrefix" placeholder="T" style="width:64px" maxlength="4"></div>' +
+      '<div class="row"><label>How many</label><input class="ctrl" id="rankN" type="number" min="1" max="64" value="8"></div>' +
+      '<div class="row"><label>Symbol</label><select class="ctrl" id="rankSym">' +
+        '<option value="circle">● circle</option><option value="square">■ square</option>' +
+        '<option value="triangle">▲ triangle</option><option value="x">✕ x</option><option value="star">★ star</option></select></div>' +
+      '<div class="row"><label>Color</label><input class="ctrl" id="rankColor" type="color" value="#1971c2" style="padding:2px;height:32px"></div>' +
+      '<button type="button" class="tab" id="rankAdd" style="width:100%">Add performers</button>';
+
+    wireInspector();
+  }
+
+  function wireInspector() {
+    var s = set();
+    function on(id, ev, fn) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener(ev, fn);
+    }
+    on("setName", "change", function () { pushUndo(); s.name = this.value; markSet(s.id); renderSets(); });
+    on("setCounts", "change", function () { pushUndo(); s.counts = Math.max(1, +this.value | 0); markSet(s.id); renderSets(); });
+    on("setHold", "change", function () { pushUndo(); s.hold = Math.max(0, +this.value | 0); markSet(s.id); renderSets(); });
+    on("setNotes", "change", function () { pushUndo(); s.notes = this.value; markSet(s.id); });
+    on("setDup", "click", function () { duplicateSet(); });
+    on("setDel", "click", function () { deleteSet(); });
+    on("setUp", "click", function () { moveSet(-1); });
+    on("setDown", "click", function () { moveSet(1); });
+    on("selLine", "click", function () { evenLine(); });
+    on("selRotL", "click", function () { rotateSel(-Math.PI / 12); });
+    on("selRotR", "click", function () { rotateSel(Math.PI / 12); });
+    on("selMirror", "click", function () { mirrorSel(); });
+    on("selClear", "click", function () { sel = {}; renderInspector(); paint(); });
+    on("rankAdd", "click", function () { addRank(); });
+    document.querySelectorAll("[data-selsec]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        sel = {};
+        show.performers.forEach(function (p) {
+          if ((p.section || "Ensemble") === b.dataset.selsec) sel[p.id] = true;
+        });
+        renderInspector(); paint();
+      });
+    });
+  }
+
+  /* ── set operations ─────────────────────────────────────────────────── */
+  function selectSet(i) {
+    cur = Math.max(0, Math.min(show.sets.length - 1, i));
+    stopPlay(); renderSets(); renderInspector(); paint();
+  }
+  function addSet() {
+    pushUndo();
+    var prev = set();
+    var ns = { id: D.uid(), idx: show.sets.length, name: "", counts: 16, hold: 0, notes: "",
+               dots: D.cloneDots(prev.dots) };
+    show.sets.push(ns);
+    dirty.setAdd[ns.id] = true; queueSave();
+    selectSet(show.sets.length - 1);
+  }
+  function duplicateSet() {
+    pushUndo();
+    var s = set();
+    var ns = { id: D.uid(), idx: cur + 1, name: s.name ? s.name + " copy" : "", counts: s.counts || 16,
+               hold: s.hold || 0, notes: s.notes || "", dots: D.cloneDots(s.dots) };
+    show.sets.splice(cur + 1, 0, ns);
+    dirty.setAdd[ns.id] = true;
+    show.sets.forEach(function (st) { dirty.sets[st.id] = true; }); // idx shift
+    queueSave(); selectSet(cur + 1);
+  }
+  function deleteSet() {
+    if (show.sets.length < 2) return;
+    if (!confirm("Delete this set? Performers keep their spots in every other set.")) return;
+    pushUndo();
+    var s = show.sets.splice(cur, 1)[0];
+    if (!dirty.setAdd[s.id]) dirty.setDel[s.id] = true;
+    delete dirty.setAdd[s.id]; delete dirty.sets[s.id];
+    show.sets.forEach(function (st) { dirty.sets[st.id] = true; });
+    queueSave(); selectSet(Math.max(0, cur - 1));
+  }
+  function moveSet(dir) {
+    var j = cur + dir;
+    if (j < 0 || j >= show.sets.length) return;
+    pushUndo();
+    var t = show.sets[cur]; show.sets[cur] = show.sets[j]; show.sets[j] = t;
+    show.sets.forEach(function (st) { dirty.sets[st.id] = true; });
+    queueSave(); selectSet(j);
+  }
+
+  /* ── performer operations ───────────────────────────────────────────── */
+  function addRank() {
+    var secEl = document.getElementById("rankSec"), preEl = document.getElementById("rankPrefix");
+    var nEl = document.getElementById("rankN"), symEl = document.getElementById("rankSym"),
+        colEl = document.getElementById("rankColor");
+    var section = (secEl.value || "Ensemble").trim();
+    var prefix = (preEl.value || section.slice(0, 1).toUpperCase() || "P").trim();
+    var n = Math.max(1, Math.min(64, +nEl.value | 0));
+    pushUndo();
+    var existing = {};
+    show.performers.forEach(function (p) { existing[p.label] = true; });
+    var f = field();
+    // stage the new rank on an open line near the front so they're findable
+    var y = Math.min(f.yMax - 4, (f.kind === "floor" ? 6 : 12));
+    var start = -(n - 1); // 2-step interval centered on the 50
+    var num = 1;
+    for (var i = 0; i < n; i++) {
+      while (existing[prefix + num]) num++;
+      var p = { id: D.uid(), label: prefix + num, section: section,
+                symbol: symEl.value, color: colEl.value, sort: show.performers.length };
+      existing[p.label] = true; num++;
+      show.performers.push(p);
+      dirty.perfAdd[p.id] = true;
+      var pos = [start + i * 2, y];
+      // a performer exists in every set; they hold this spot until staged
+      show.sets.forEach(function (st) { st.dots[p.id] = pos.slice(); dirty.sets[st.id] = true; });
+    }
+    queueSave(); renderInspector(); paint();
+  }
+  function deleteSelected() {
+    var ids = selIds();
+    if (!ids.length) return;
+    if (!confirm("Remove " + ids.length + " performer" + (ids.length === 1 ? "" : "s") + " from the whole show?")) return;
+    pushUndo();
+    ids.forEach(function (id) {
+      show.performers = show.performers.filter(function (p) { return p.id !== id; });
+      show.sets.forEach(function (st) { delete st.dots[id]; dirty.sets[st.id] = true; });
+      if (dirty.perfAdd[id]) delete dirty.perfAdd[id];
+      else dirty.perfDel[id] = true;
+      delete sel[id];
+    });
+    queueSave(); renderInspector(); paint();
+  }
+
+  /* ── selection transforms ───────────────────────────────────────────── */
+  function applyPositions(ids, pts) {
+    var dots = set().dots;
+    ids.forEach(function (id, i) { if (pts[i]) dots[id] = [snap(pts[i][0]), snap(pts[i][1])]; });
+    markSet(set().id); paint();
+  }
+  function orderedByX(ids) {
+    var dots = set().dots;
+    return ids.slice().sort(function (a, b) { return dots[a][0] - dots[b][0] || dots[a][1] - dots[b][1]; });
+  }
+  function evenLine() {
+    var ids = orderedByX(selIds());
+    if (ids.length < 2) return;
+    pushUndo();
+    var dots = set().dots;
+    var a = dots[ids[0]], b = dots[ids[ids.length - 1]];
+    applyPositions(ids, D.onLine(a, b, ids.length));
+  }
+  function rotateSel(angle) {
+    var ids = selIds();
+    if (ids.length < 2) return;
+    pushUndo();
+    var dots = set().dots;
+    var pts = ids.map(function (id) { return dots[id]; });
+    applyPositions(ids, D.rotatePts(pts, D.centroid(pts), angle));
+  }
+  function mirrorSel() {
+    var ids = selIds();
+    if (ids.length < 2) return;
+    pushUndo();
+    var dots = set().dots;
+    var pts = ids.map(function (id) { return dots[id]; });
+    var c = D.centroid(pts);
+    applyPositions(ids, pts.map(function (p) { return [2 * c[0] - p[0], p[1]]; }));
+  }
+  function nudge(dx, dy) {
+    var ids = selIds();
+    if (!ids.length) return;
+    pushUndo();
+    var dots = set().dots;
+    ids.forEach(function (id) { dots[id] = [dots[id][0] + dx, dots[id][1] + dy]; });
+    markSet(set().id); paint();
+  }
+  function snap(v) { return opts.grid ? Math.round(v * 2) / 2 : Math.round(v * 8) / 8; }
+
+  /* ── playback ───────────────────────────────────────────────────────── */
+  function timelineTotal() {
+    var total = 0;
+    for (var i = 1; i < show.sets.length; i++) total += Math.max(1, show.sets[i].counts | 0) + (show.sets[i].hold | 0);
+    return Math.max(1, total);
+  }
+  function playbackPos(t) {
+    // t in counts across the whole show
+    var acc = 0;
+    for (var i = 1; i < show.sets.length; i++) {
+      var c = Math.max(1, show.sets[i].counts | 0), h = show.sets[i].hold | 0;
+      if (t <= acc + c) {
+        var k = (t - acc) / c;
+        return { si: i, count: Math.max(1, Math.ceil(t - acc)),
+                 dots: D.lerpDots(show.sets[i - 1].dots, show.sets[i].dots, k) };
+      }
+      acc += c;
+      if (t <= acc + h) return { si: i, count: c, dots: show.sets[i].dots };
+      acc += h;
+    }
+    var last = show.sets[show.sets.length - 1];
+    return { si: show.sets.length - 1, count: Math.max(1, last.counts | 0), dots: last.dots };
+  }
+  function tick(ts) {
+    if (!playing) return;
+    if (lastTs) {
+      var bpm = set().tempo || show.tempo || 120;
+      playT += (ts - lastTs) / 1000 * (bpm / 60);
+      var total = timelineTotal();
+      var bar = document.getElementById("drillScrub");
+      if (bar) bar.value = String(Math.min(total, playT));
+      if (playT >= total) { stopPlay(); playT = total; }
+    }
+    lastTs = ts;
+    paint();
+    if (playing) playRaf = requestAnimationFrame(tick);
+  }
+  function startPlay() {
+    if (show.sets.length < 2) return;
+    playing = true; lastTs = 0;
+    var total = timelineTotal();
+    if (playT >= total - 0.01) playT = 0;
+    document.getElementById("drillPlayBtn").textContent = "❚❚";
+    playRaf = requestAnimationFrame(tick);
+  }
+  function stopPlay() {
+    playing = false;
+    cancelAnimationFrame(playRaf);
+    var b = document.getElementById("drillPlayBtn");
+    if (b) b.textContent = "▶";
+    setCountNote("Set " + (cur + 1) + " of " + show.sets.length);
+    paint();
+  }
+
+  /* ── canvas interaction ─────────────────────────────────────────────── */
+  function hitDot(px, py) {
+    var dots = set().dots;
+    var r = Math.max(6, view.k * 0.62 + 4);
+    var best = null, bd = 1e9;
+    show.performers.forEach(function (p) {
+      var pos = dots[p.id];
+      if (!pos) return;
+      var q = view.toPx(pos);
+      var d = Math.hypot(q[0] - px, q[1] - py);
+      if (d < r && d < bd) { best = p.id; bd = d; }
+    });
+    return best;
+  }
+
+  function wireCanvas() {
+    var pointers = {};
+    canvas.addEventListener("pointerdown", function (e) {
+      canvas.setPointerCapture(e.pointerId);
+      pointers[e.pointerId] = [e.offsetX, e.offsetY];
+      if (Object.keys(pointers).length === 2) { drag = { kind: "pinch" }; return; }
+      if (playing) return;
+      var px = e.offsetX, py = e.offsetY;
+      if (e.button === 1 || drag && drag.kind === "panwait" || spaceHeld) {
+        drag = { kind: "pan", x: px, y: py }; return;
+      }
+      var stepPt = view.toStep(px, py);
+      if (tool === "select") {
+        var hit = hitDot(px, py);
+        if (hit) {
+          if (e.shiftKey) sel[hit] = !sel[hit];
+          else if (!sel[hit]) { sel = {}; sel[hit] = true; }
+          pushUndo();
+          drag = { kind: "move", start: stepPt,
+                   orig: D.cloneDots(set().dots), moved: false };
+        } else {
+          if (!e.shiftKey) sel = {};
+          drag = { kind: "marquee", x0: px, y0: py, x1: px, y1: py, marquee: true };
+        }
+        renderInspector(); paint();
+      } else if (tool === "line" || tool === "circle" || tool === "block") {
+        pushUndo();
+        drag = { kind: tool, a: stepPt, b: stepPt, orig: D.cloneDots(set().dots) };
+      } else if (tool === "arc") {
+        if (drag && drag.kind === "arc-bulge") return; // click commits in pointerup
+        pushUndo();
+        drag = { kind: "arc", a: stepPt, b: stepPt, orig: D.cloneDots(set().dots) };
+      }
+    });
+
+    canvas.addEventListener("pointermove", function (e) {
+      var px = e.offsetX, py = e.offsetY;
+      if (pointers[e.pointerId]) pointers[e.pointerId] = [px, py];
+      if (drag && drag.kind === "pinch") {
+        var ks = Object.keys(pointers);
+        if (ks.length === 2) { /* two-finger: pan by average movement */ }
+        return;
+      }
+      if (!drag) {
+        var h = hitDot(px, py);
+        if (h !== hover) { hover = h; renderHud(); }
+        return;
+      }
+      var stepPt = view.toStep(px, py);
+      if (drag.kind === "pan") {
+        view.ox += px - drag.x; view.oy += py - drag.y;
+        drag.x = px; drag.y = py; paint(); return;
+      }
+      if (drag.kind === "move") {
+        var dx = stepPt[0] - drag.start[0], dy = stepPt[1] - drag.start[1];
+        var dots = set().dots;
+        var moved = false;
+        selIds().forEach(function (id) {
+          var o = drag.orig[id];
+          if (o) { dots[id] = [snap(o[0] + dx), snap(o[1] + dy)]; moved = true; }
+        });
+        drag.moved = drag.moved || moved;
+        paint(); return;
+      }
+      if (drag.kind === "marquee") { drag.x1 = px; drag.y1 = py; paint(); return; }
+      if (drag.kind === "line") {
+        drag.b = stepPt;
+        var ids = orderedByX(selectedOrAll());
+        drag.ids = ids;
+        drag.guide = [drag.a, drag.b];
+        previewPositions(ids, D.onLine(drag.a, drag.b, ids.length));
+        return;
+      }
+      if (drag.kind === "arc" || drag.kind === "arc-bulge") {
+        if (drag.kind === "arc") drag.b = stepPt;
+        else drag.bulge = stepPt;
+        previewArc(); return;
+      }
+      if (drag.kind === "circle") {
+        drag.b = stepPt;
+        var r = D.dist(drag.a, drag.b);
+        var ids2 = selectedOrAll();
+        drag.guide = D.onCircle(drag.a, r, 48).concat([D.onCircle(drag.a, r, 48)[0]]);
+        previewPositions(ids2, D.onCircle(drag.a, r, ids2.length));
+        return;
+      }
+      if (drag.kind === "block") {
+        drag.b = stepPt;
+        var ids3 = selectedOrAll();
+        var w = Math.abs(drag.b[0] - drag.a[0]), hgt = Math.abs(drag.b[1] - drag.a[1]);
+        var x0 = Math.min(drag.a[0], drag.b[0]), y0 = Math.min(drag.a[1], drag.b[1]);
+        var cols = Math.max(1, Math.round(Math.sqrt(ids3.length * (w || 1) / (hgt || 1))));
+        var rows = Math.ceil(ids3.length / cols);
+        drag.guide = [[x0, y0], [x0 + w, y0], [x0 + w, y0 + hgt], [x0, y0 + hgt], [x0, y0]];
+        previewPositions(ids3, D.onBlock([x0, y0], cols, rows,
+          cols > 1 ? w / (cols - 1) : 0, rows > 1 ? hgt / (rows - 1) : 0, ids3.length));
+        return;
+      }
+    });
+
+    canvas.addEventListener("pointerup", function (e) {
+      delete pointers[e.pointerId];
+      if (!drag) return;
+      if (drag.kind === "pinch") { drag = null; return; }
+      if (drag.kind === "pan") { drag = null; return; }
+      if (drag.kind === "move") {
+        if (drag.moved) markSet(set().id);
+        else undoStack.pop(); // click without movement — no edit happened
+        drag = null; renderHud(); paint(); return;
+      }
+      if (drag.kind === "marquee") {
+        var x0 = Math.min(drag.x0, drag.x1), x1 = Math.max(drag.x0, drag.x1);
+        var y0 = Math.min(drag.y0, drag.y1), y1 = Math.max(drag.y0, drag.y1);
+        if (x1 - x0 > 6 || y1 - y0 > 6) {
+          var dots = set().dots;
+          show.performers.forEach(function (p) {
+            var pos = dots[p.id];
+            if (!pos) return;
+            var q = view.toPx(pos);
+            if (q[0] >= x0 && q[0] <= x1 && q[1] >= y0 && q[1] <= y1) sel[p.id] = true;
+          });
+        }
+        drag = null; renderInspector(); paint(); return;
+      }
+      if (drag.kind === "arc") {
+        // chord drawn; second phase sets the bend. Click again to commit.
+        if (D.dist(drag.a, drag.b) < 1) { restoreOrig(); drag = null; paint(); return; }
+        drag.kind = "arc-bulge"; drag.bulge = drag.b.slice();
+        return;
+      }
+      if (drag.kind === "arc-bulge") {
+        markSet(set().id); drag = null; paint(); return;
+      }
+      if (drag.kind === "line" || drag.kind === "circle" || drag.kind === "block") {
+        if (D.dist(drag.a, drag.b) < 1) restoreOrig();
+        else markSet(set().id);
+        drag = null; paint(); return;
+      }
+      drag = null; paint();
+    });
+
+    canvas.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      var k0 = view.k;
+      var k1 = Math.max(1.6, Math.min(30, k0 * (e.deltaY < 0 ? 1.12 : 0.9)));
+      // zoom around the cursor
+      view.ox = e.offsetX - (e.offsetX - view.ox) * (k1 / k0);
+      view.oy = e.offsetY - (e.offsetY - view.oy) * (k1 / k0);
+      view.k = k1;
+      paint();
+    }, { passive: false });
+
+    canvas.addEventListener("dblclick", function () { fitView(); });
+  }
+
+  function previewPositions(ids, pts) {
+    var dots = set().dots;
+    ids.forEach(function (id, i) { if (pts[i]) dots[id] = [snap(pts[i][0]), snap(pts[i][1])]; });
+    paint();
+  }
+  function previewArc() {
+    var ids = orderedByX(selectedOrAll());
+    var a = drag.a, b = drag.b;
+    var chordLen = D.dist(a, b);
+    if (chordLen < 0.5) return;
+    var bulgePt = drag.bulge || b;
+    // perpendicular distance from the bulge point to the chord decides the arc
+    var mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+    var nx = -(b[1] - a[1]) / chordLen, ny = (b[0] - a[0]) / chordLen;
+    var h = (bulgePt[0] - mx) * nx + (bulgePt[1] - my) * ny;
+    if (Math.abs(h) < 0.3) { drag.guide = [a, b]; previewPositions(ids, D.onLine(a, b, ids.length)); return; }
+    var r = (chordLen * chordLen / 4 + h * h) / (2 * Math.abs(h));
+    var cx = mx + nx * (h > 0 ? h - r : h + r), cy = my + ny * (h > 0 ? h - r : h + r);
+    var a0 = Math.atan2(a[1] - cy, a[0] - cx), a1 = Math.atan2(b[1] - cy, b[0] - cx);
+    // take the arc that passes through the bulge side
+    if (h > 0 && a1 < a0) a1 += 2 * Math.PI;
+    if (h < 0 && a1 > a0) a1 -= 2 * Math.PI;
+    drag.guide = D.onArc([cx, cy], r, a0, a1, 40);
+    previewPositions(ids, D.onArc([cx, cy], r, a0, a1, ids.length));
+  }
+  function restoreOrig() {
+    if (drag && drag.orig) { set().dots = drag.orig; }
+  }
+
+  function fitView() {
+    view = D.makeView(canvas, field());
+    paint();
+    // layout can settle a frame later (fonts, rails, dvh) — fit again then
+    requestAnimationFrame(function () {
+      var v2 = D.makeView(canvas, field());
+      if (Math.abs(v2.k - view.k) > 0.01 || Math.abs(v2.ox - view.ox) > 1) { view = v2; paint(); }
+    });
+  }
+
+  /* ── keyboard ───────────────────────────────────────────────────────── */
+  var spaceHeld = false;
+  function wireKeys() {
+    document.addEventListener("keydown", function (e) {
+      var inField = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+      if (e.key === " " && !inField) { spaceHeld = true; }
+      if (inField) return;
+      var mod = e.ctrlKey || e.metaKey;
+      if (mod && e.key.toLowerCase() === "z" && !e.shiftKey) { e.preventDefault(); undo(); return; }
+      if (mod && (e.key.toLowerCase() === "y" || (e.key.toLowerCase() === "z" && e.shiftKey))) { e.preventDefault(); redo(); return; }
+      if (mod && e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        show.performers.forEach(function (p) { sel[p.id] = true; });
+        renderInspector(); paint(); return;
+      }
+      var step = e.shiftKey ? 4 : (e.altKey ? 0.25 : 1);
+      if (e.key === "ArrowLeft") { e.preventDefault(); nudge(-step, 0); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); nudge(step, 0); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); nudge(0, -step); }
+      else if (e.key === "ArrowDown") { e.preventDefault(); nudge(0, step); }
+      else if (e.key === "Escape") {
+        if (drag) { restoreOrig(); drag = null; paint(); }
+        else { sel = {}; renderInspector(); paint(); }
+      }
+      else if (e.key === "Delete" || e.key === "Backspace") { e.preventDefault(); deleteSelected(); }
+      else if (e.key === "[") selectSet(cur - 1);
+      else if (e.key === "]") selectSet(cur + 1);
+      else if (!mod) {
+        var t = { v: "select", l: "line", a: "arc", c: "circle", b: "block" }[e.key.toLowerCase()];
+        if (t) setTool(t);
+        else if (e.key.toLowerCase() === "g") { opts.ghosts = !opts.ghosts; syncToolbar(); paint(); }
+        else if (e.key === " ") { e.preventDefault(); playing ? stopPlay() : startPlay(); }
+      }
+    });
+    document.addEventListener("keyup", function (e) { if (e.key === " ") spaceHeld = false; });
+  }
+
+  function setTool(t) { tool = t; syncToolbar(); }
+  function syncToolbar() {
+    document.querySelectorAll("[data-tool]").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.tool === tool);
+    });
+    ["labels", "ghosts", "grid"].forEach(function (k) {
+      var b = document.getElementById("opt-" + k);
+      if (b) b.classList.toggle("on", !!opts[k]);
+    });
+  }
+
+  /* ── analysis ───────────────────────────────────────────────────────── */
+  function analyze() {
+    var hits = D.findCollisions(show, 1.25);
+    var byPair = {};
+    hits.forEach(function (h) {
+      var k = h.set + ":" + [h.a, h.b].sort().join("-");
+      if (!byPair[k]) byPair[k] = h;
+    });
+    var list = Object.keys(byPair).map(function (k) { return byPair[k]; });
+    var name = function (id) {
+      var p = show.performers.find(function (x) { return x.id === id; });
+      return p ? p.label : "?";
+    };
+    if (!list.length) {
+      alert("No collisions found — no two performers come within 1.25 steps of each other during any transition.");
+      return;
+    }
+    alert("Possible collisions (closer than 1.25 steps mid-move):\n\n" +
+      list.slice(0, 20).map(function (h) {
+        return "Into set " + (h.set + 1) + ", count " + h.count + ": " +
+          name(h.a) + " and " + name(h.b) + " (" + h.d + " steps)";
+      }).join("\n") + (list.length > 20 ? "\n…and " + (list.length - 20) + " more" : ""));
+  }
+
+  /* ── shell ──────────────────────────────────────────────────────────── */
+  function icon(d) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
+  }
+  function layout() {
+    var back = LOCAL ? "drill.html" : "drill.html";
+    main.innerHTML =
+      '<div class="drill-app">' +
+        '<div class="drill-bar">' +
+          '<a class="dtool" href="' + back + '" title="Back to drill library">' + icon("M15 19l-7-7 7-7") + "</a>" +
+          '<input class="drill-title" id="drillTitle" value="' + esc(show.title) + '" aria-label="Show title">' +
+          '<span class="sep"></span>' +
+          '<button type="button" class="dtool" data-tool="select" title="Select and move (V)">' + icon("M5 3l14 8-6.5 1.5L9 19z") + "</button>" +
+          '<button type="button" class="dtool" data-tool="line" title="Line tool (L)">' + icon("M4 19L20 5M4 19h.01M20 5h.01") + "</button>" +
+          '<button type="button" class="dtool" data-tool="arc" title="Arc tool (A)">' + icon("M4 18a11 11 0 0 1 16 0M4 18h.01M20 18h.01") + "</button>" +
+          '<button type="button" class="dtool" data-tool="circle" title="Circle tool (C)">' + icon("M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z") + "</button>" +
+          '<button type="button" class="dtool" data-tool="block" title="Block tool (B)">' + icon("M4 5h16v14H4zM4 12h16M9.3 5v14M14.7 5v14") + "</button>" +
+          '<span class="sep"></span>' +
+          '<button type="button" class="dtool" id="btnUndo" title="Undo (Ctrl+Z)">' + icon("M8 5L3 10l5 5M3 10h11a6 6 0 0 1 0 12h-3") + "</button>" +
+          '<button type="button" class="dtool" id="btnRedo" title="Redo (Ctrl+Y)">' + icon("M16 5l5 5-5 5M21 10H10a6 6 0 0 0 0 12h3") + "</button>" +
+          '<span class="sep"></span>' +
+          '<button type="button" class="dtool" id="opt-labels" title="Show labels">' + icon("M5 7h14M5 12h14M5 17h8") + "</button>" +
+          '<button type="button" class="dtool" id="opt-ghosts" title="Show previous set (G)">' + icon("M12 5c5 0 8 4.5 9 7-1 2.5-4 7-9 7s-8-4.5-9-7c1-2.5 4-7 9-7zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z") + "</button>" +
+          '<button type="button" class="dtool" id="opt-grid" title="Snap to half steps">' + icon("M4 4h16v16H4zM4 9.3h16M4 14.7h16M9.3 4v16M14.7 4v16") + "</button>" +
+          '<span class="sep"></span>' +
+          '<button type="button" class="dtool" id="btnAnalyze" title="Check for collisions">' + icon("M12 3l9 17H3zM12 10v4M12 17.6h.01") + "</button>" +
+          '<select class="ctrl" id="fieldSel" title="Field type" style="padding:5px 26px 5px 8px;font-size:12.5px">' +
+            Object.keys(D.FIELDS).map(function (k) {
+              return '<option value="' + k + '"' + (k === show.field_type ? " selected" : "") + ">" +
+                D.FIELDS[k].name + "</option>";
+            }).join("") + "</select>" +
+          '<span class="spacer"></span>' +
+          '<button type="button" class="dtool m-sets" id="btnSheetSets" title="Sets">' + icon("M5 6h14M5 12h14M5 18h9") + "<span>Sets</span></button>" +
+          '<button type="button" class="dtool m-insp" id="btnSheetInsp" title="Edit panel">' + icon("M4 21v-6M4 11V3M12 21v-10M12 7V3M20 21v-4M20 13V3M2 15h4M10 9h4M18 17h4") + "<span>Edit</span></button>" +
+          '<span class="drill-save" id="drillSave">' + (LOCAL ? "Local draft — stays in this browser" : "") + "</span>" +
+        "</div>" +
+        '<div class="drill-main">' +
+          '<div class="drill-sets" id="drillSets"></div>' +
+          '<div class="drill-stage" id="drillStage"><canvas id="drillCanvas"></canvas>' +
+            '<div class="drill-hud" id="drillHud" hidden></div></div>' +
+          '<div class="drill-insp" id="drillInsp"></div>' +
+        "</div>" +
+        '<div class="drill-play">' +
+          '<button type="button" class="dtool" id="btnPrevSet" title="Previous set ([)">' + icon("M17 19l-7-7 7-7M7 5v14") + "</button>" +
+          '<button type="button" class="dtool" id="drillPlayBtn" title="Play (Space)" style="font-size:15px">▶</button>' +
+          '<button type="button" class="dtool" id="btnNextSet" title="Next set (])">' + icon("M7 5l7 7-7 7M17 5v14") + "</button>" +
+          '<input type="range" id="drillScrub" min="0" max="100" step="0.25" value="0" aria-label="Timeline">' +
+          '<span class="drill-count" id="drillCount"></span>' +
+          '<label style="font-size:12px;color:var(--muted);font-weight:650">BPM ' +
+            '<input class="ctrl" id="drillBpm" type="number" min="40" max="300" value="' + (show.tempo || 120) + '" style="width:64px;padding:4px 6px"></label>' +
+        "</div>" +
+      "</div>";
+
+    canvas = document.getElementById("drillCanvas");
+    ctx = canvas.getContext("2d");
+    fitView();
+    renderSets(); renderInspector(); syncToolbar();
+    setCountNote("Set 1 of " + show.sets.length);
+    document.getElementById("drillScrub").max = String(timelineTotal());
+
+    document.getElementById("drillSets").addEventListener("click", function (e) {
+      var add = e.target.closest && e.target.closest("#drillAddSet");
+      if (add) { addSet(); return; }
+      var b = e.target.closest && e.target.closest("[data-i]");
+      if (b) selectSet(+b.dataset.i);
+    });
+    document.getElementById("drillTitle").addEventListener("change", function () {
+      show.title = this.value || "Untitled show"; dirty.meta = true; queueSave();
+    });
+    document.getElementById("fieldSel").addEventListener("change", function () {
+      pushUndo(); show.field_type = this.value; dirty.meta = true; queueSave(); fitView();
+    });
+    document.getElementById("drillBpm").addEventListener("change", function () {
+      show.tempo = Math.max(40, Math.min(300, +this.value | 0)); dirty.meta = true; queueSave();
+    });
+    document.querySelectorAll("[data-tool]").forEach(function (b) {
+      b.addEventListener("click", function () { setTool(b.dataset.tool); });
+    });
+    document.getElementById("btnUndo").addEventListener("click", undo);
+    document.getElementById("btnRedo").addEventListener("click", redo);
+    document.getElementById("btnAnalyze").addEventListener("click", analyze);
+    ["labels", "ghosts", "grid"].forEach(function (k) {
+      document.getElementById("opt-" + k).addEventListener("click", function () {
+        opts[k] = !opts[k]; syncToolbar(); paint();
+      });
+    });
+    document.getElementById("btnPrevSet").addEventListener("click", function () { selectSet(cur - 1); });
+    document.getElementById("btnNextSet").addEventListener("click", function () { selectSet(cur + 1); });
+    document.getElementById("drillPlayBtn").addEventListener("click", function () {
+      playing ? stopPlay() : startPlay();
+    });
+    document.getElementById("drillScrub").addEventListener("input", function () {
+      stopPlay(); playing = true; playT = +this.value; paint(); playing = false;
+      var pl = playbackPos(playT);
+      setCountNote("Set " + (pl.si + 1) + " · ct " + pl.count + "/" + Math.max(1, show.sets[pl.si].counts | 0));
+    });
+
+    // phone: the rails live behind two toolbar buttons; tapping the field closes them
+    var setsEl = document.getElementById("drillSets");
+    var inspEl = document.getElementById("drillInsp");
+    document.getElementById("btnSheetSets").addEventListener("click", function () {
+      inspEl.classList.remove("open"); setsEl.classList.toggle("open");
+    });
+    document.getElementById("btnSheetInsp").addEventListener("click", function () {
+      setsEl.classList.remove("open"); inspEl.classList.toggle("open");
+    });
+    canvas.addEventListener("pointerdown", function () {
+      setsEl.classList.remove("open"); inspEl.classList.remove("open");
+    });
+
+    wireCanvas(); wireKeys();
+    window.addEventListener("resize", function () { fitView(); });
+  }
+
+  /* ── boot ───────────────────────────────────────────────────────────── */
+  async function loadOrgShow() {
+    var rows = await CadOrg.rest("drill_shows?select=*&id=eq." + SHOW_ID);
+    if (!rows || !rows.length) throw new Error("show not found");
+    var meta = rows[0];
+    var perfs = await CadOrg.rest("drill_performers?select=*&show_id=eq." + SHOW_ID + "&order=sort.asc,label.asc");
+    var sets = await CadOrg.rest("drill_sets?select=*&show_id=eq." + SHOW_ID + "&order=idx.asc");
+    if (!sets.length) {
+      var first = { id: D.uid(), idx: 0, name: "Set 1", counts: 0, hold: 0, notes: "", dots: {} };
+      sets = [first];
+      dirty.setAdd[first.id] = true;
+    }
+    return { title: meta.title, field_type: meta.field_type, tempo: meta.tempo,
+             performers: perfs, sets: sets };
+  }
+
+  async function boot() {
+    if (LOCAL) {
+      if (window.CadOrg && CadOrg.mountShell) { /* shell handled below */ }
+      show = D.loadDraft() || D.newShow("My first drill", "hs");
+      document.title = show.title + " — Drill Designer";
+      layout();
+      return;
+    }
+    var org = await CadOrg.start({ nav: "drill" });
+    if (!org) return;
+    if (!CadOrg.canDo("drill.manage")) {
+      location.replace("drillview.html?show=" + encodeURIComponent(SHOW_ID));
+      return;
+    }
+    try {
+      show = await loadOrgShow();
+    } catch (e) {
+      main.innerHTML = '<div class="card" style="margin:24px"><div class="empty">Couldn\'t open that show. ' +
+        '<a href="drill.html">Back to the drill library</a></div></div>';
+      return;
+    }
+    document.title = show.title + " — Drill Designer";
+    layout();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
