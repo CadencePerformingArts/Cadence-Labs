@@ -104,7 +104,7 @@
     }).join("") +
     '<a class="cm-all" href="' + base + '/ensemble/">🎽 My Ensembles — your organization workspace →</a>' +
     '<a class="cm-all" href="' + base + '/plus.html">✨ Cadence+ — go beyond the scores →</a>' +
-    '<a class="cm-all" href="' + base + '/modes.html">About the Cadence family →</a>';
+    '<a class="cm-all" href="' + base + '/my.html">⭐ My Cadence — your favorites in one place →</a>';
   document.body.appendChild(menu);
 
   menu.addEventListener("click", function (e) {

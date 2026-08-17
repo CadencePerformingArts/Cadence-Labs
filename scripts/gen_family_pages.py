@@ -288,7 +288,7 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
     <a href="#/corps" data-route="corps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 5l10 4M17 5L7 9"/><rect x="4" y="9" width="16" height="9" rx="2"/><path d="M4 12.5h16"/></svg><span>{nav[2]}</span></a>
     <a href="#/data" data-route="data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg><span>{nav[3]}</span></a>
   {extra_tab_html}
-    <a href="{r}/my.html" class="navmy" title="My Cadence — your favorites and your ensemble workspaces"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h7v12H4zM13 6h7v7h-7z"/><path d="M13 17h7"/></svg><span>My</span></a>
+    <a href="{r}/ensemble/" class="navmy" title="Your workspaces — the private side of Cadence"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h7v12H4zM13 6h7v7h-7z"/><path d="M13 17h7"/></svg><span>Workspace</span></a>
   </nav>
   <a id="settingsBtn" href="#/settings" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 6.087a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.019.382c-.115.043-.283.031-.45-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></a>
   <div class="updated" id="updated" title="Data status"></div>
@@ -300,7 +300,7 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
 
 <footer class="foot">
   <div><a href="#" id="installBtn" hidden><b>📲 Get the App</b> — install {c["app_name"]} on this device</a></div>
-  <div>Part of the <a href="{r}/modes.html"><b>Cadence family</b></a> — tap the Cadence logo to switch apps</div>
+  <div>Part of <b>Cadence</b> — tap the Cadence logo to switch apps</div>
   <div>{c.get("status", "")} {c["credit"]}</div>
   <div class="credit">Created by Lucas Besel</div>
 </footer>
