@@ -1882,6 +1882,44 @@
 
   const MONTH_FULL = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+  /* Official DCI news above the schedule: headline cards, plus an
+     auditions/camps list the moment corps announce them. The data is the
+     dci.org feed, refreshed by the cron — nothing here is hand-entered,
+     and the family apps (no news.json in their data) simply skip it. */
+  async function renderNewsRail() {
+    const mount = document.getElementById("newsMount");
+    if (!mount || (typeof FAM !== "undefined" && FAM)) return;
+    let news;
+    try { news = await data("news.json"); } catch (e) { return; }
+    if (!news || !news.items || !news.items.length || !document.getElementById("newsMount")) return;
+    const fmt = d => {
+      try { return new Date(d + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
+      catch (e) { return ""; }
+    };
+    const cards = news.items.slice(0, 8).map(n =>
+      `<a class="newscard" href="${esc(n.url)}" target="_blank" rel="noopener">
+        ${n.image ? `<img src="${esc(n.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+        <span class="newscard-in"><time>${fmt(n.date)}</time><b>${esc(n.title)}</b></span>
+      </a>`).join("");
+    const camps = news.items.filter(n => (n.tags || []).includes("auditions")).slice(0, 4);
+    mount.innerHTML = `
+      <div class="card" style="margin-bottom:14px">
+        <div class="ens-h" style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px">
+          <h2 style="margin:0">Latest from DCI</h2>
+          <a href="${esc(news.source.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:650">All news →</a>
+        </div>
+        <div class="newsrail">${cards}</div>
+        ${camps.length ? `
+        <div class="newscamps">
+          <h3>Auditions &amp; camps</h3>
+          ${camps.map(n => `<a href="${esc(n.url)}" target="_blank" rel="noopener">
+            <span class="newstag">Auditions</span><span>${esc(n.title)}</span>
+            <time>${fmt(n.date)}</time></a>`).join("")}
+          <p class="newsnote">Announcements straight from DCI and the corps — dates and details live in each article.</p>
+        </div>` : ""}
+      </div>`;
+  }
+
   async function viewEvents(qs, stale) {
     setNav("events");
     const meta = await data("meta.json");
@@ -1891,11 +1929,13 @@
     let year = +params.y && years.includes(+params.y) ? +params.y : years[0];
     app.innerHTML = `
       <h1 class="page">Shows <span class="kicker" id="evCount"></span></h1>
+      <div id="newsMount"></div>
       <div class="filters" style="justify-content:space-between;align-items:center">
         <div id="evYearSel"></div>
         <button class="tab" id="fToggle" aria-expanded="false">Filters ▾</button>
       </div>
       <div id="seasonMount"><div class="loading">Loading…</div></div>`;
+    renderNewsRail();
     let gen = 0;
     async function load() {
       const g = ++gen;

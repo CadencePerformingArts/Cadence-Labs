@@ -977,6 +977,15 @@ def build_upcoming():
     write_json("upcoming.json", rows[:60])
 
 
+def build_news():
+    """docs/data/news.json from data/parsed/dci_news.json (official DCI RSS,
+    fetched by scripts/fetch_dci_news.py): headline cards plus the
+    auditions/camps tags the Shows page surfaces."""
+    p = PARSED / "dci_news.json"
+    if p.exists():
+        write_json("news.json", json.loads(p.read_text()))
+
+
 def main():
     # wipe output dir so removed features never leave stale files behind
     if OUT.exists():
@@ -992,6 +1001,7 @@ def main():
     build_recaps(events)
     build_records(events)
     build_upcoming()
+    build_news()
 
     # corps profiles (Wikipedia lead + infobox), when the scraper has run
     prof_p = PARSED / "corps_profiles.json"
