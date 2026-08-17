@@ -16,29 +16,40 @@
 .ens-topline { margin-left: auto; color: rgba(255,255,255,0.72); font-size: 12.5px; font-weight: 600; }
 .ens-topline:hover { color: #fff; }
 
-/* section nav — bottom bar on phones */
-.ens-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
-  display: flex; background: var(--surface-1); border-top: 1px solid var(--border);
-  padding: 4px 2px calc(4px + env(safe-area-inset-bottom));
+/* one step up — the only navigation chrome a section page needs */
+.ens-up {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  max-width: 1180px; margin: 0 auto; padding: 10px 18px 0;
 }
-.ens-nav-a {
-  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 7px 2px; color: var(--muted); font-size: 10.5px; font-weight: 650;
-  text-decoration: none; border-radius: 9px; min-width: 0;
+.ens-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--link); font-size: 13.5px; font-weight: 650;
+  padding: 6px 10px 6px 4px; border-radius: 9px; margin-left: -4px;
 }
-.ens-nav-a svg { width: 21px; height: 21px; }
-.ens-nav-a.on { color: var(--link); }
-.ens-nav-a:hover { text-decoration: none; background: var(--surface-2); }
-body.ens { padding-bottom: 68px; }
-@media (min-width: 800px) {
-  .ens-nav {
-    position: static; border-top: 0; border-bottom: 1px solid var(--border);
-    padding: 6px 14px; gap: 4px; max-width: 1180px; margin: 0 auto;
-  }
-  .ens-nav-a { flex: none; flex-direction: row; gap: 8px; font-size: 14px; padding: 9px 14px; }
-  .ens-nav-a.on { background: var(--accent-wash); }
-  body.ens { padding-bottom: 0; }
+.ens-back svg { width: 17px; height: 17px; }
+.ens-back:hover { background: var(--surface-2); text-decoration: none; }
+.ens-where {
+  color: var(--muted); font-size: 12px; font-weight: 700;
+  letter-spacing: .7px; text-transform: uppercase;
+}
+.ens-where::before { content: "/"; margin-right: 10px; color: var(--baseline); }
+body.ens { padding-bottom: 0; }
+
+/* workspace home: the map of the place */
+.ens-rooms { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.ens-room {
+  display: flex; gap: 13px; align-items: flex-start; padding: 15px;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(22,35,61,0.06); color: var(--text-primary);
+  text-decoration: none;
+}
+.ens-room:hover { text-decoration: none; border-color: var(--baseline); transform: translateY(-1px); }
+.ens-room svg { width: 22px; height: 22px; flex: none; color: var(--link); margin-top: 1px; }
+.ens-room b { display: block; font-size: 15px; font-weight: 700; color: var(--heading); }
+.ens-room span { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.45; margin-top: 2px; }
+.ens-room .ens-count {
+  margin-left: auto; flex: none; background: var(--accent-wash); color: var(--accent-ink);
+  border-radius: 999px; padding: 1px 9px; font-size: 11.5px; font-weight: 800;
 }
 
 /* subscription / trial strip */

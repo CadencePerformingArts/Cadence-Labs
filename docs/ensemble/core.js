@@ -160,41 +160,48 @@
      Same topbar/nav language as public Cadence, tuned for operations:
      a workspace switcher in place of the app switcher, and a section nav
      that becomes a bottom bar on phones. */
-  var NAV = [
-    { key: "home", label: "Home", href: "./", icon: "M4 11.5 12 5l8 6.5M6 10.5V19h12v-8.5" },
-    { key: "feed", label: "Feed", href: "feed.html", icon: "M4 6h16M4 12h16M4 18h10" },
-    { key: "calendar", label: "Calendar", href: "calendar.html", icon: "M4 5h16v15H4zM4 10h16M9 3v4M15 3v4" },
-    { key: "messages", label: "Messages", href: "messages.html", icon: "M5 5h14v10H9l-4 4z" },
-    { key: "files", label: "Files", href: "files.html", icon: "M4 7h6l2 2h8v10H4z" },
-    { key: "members", label: "Members", href: "members.html", icon: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M3 20c0-3 2.5-5 5-5s5 2 5 5M16 11a3 3 0 1 0 0-6M15.5 15c2 0 5.5 1.5 5.5 5" },
-  ];
+  /* Drill-down, not tabs. A workspace has too many rooms for a tab bar, and a
+     persistent bar makes every screen feel like a settings panel. Instead:
+     the workspace list is the hub, its home is the map, and each section is a
+     page you enter and back out of — one obvious way up at all times. */
+  var SECTIONS = {
+    home:      { label: "Workspace", href: "home.html" },
+    feed:      { label: "Announcements", href: "feed.html" },
+    calendar:  { label: "Calendar", href: "calendar.html" },
+    messages:  { label: "Messages", href: "messages.html" },
+    files:     { label: "Files", href: "files.html" },
+    music:     { label: "Music", href: "music.html" },
+    members:   { label: "Members", href: "members.html" },
+    admin:     { label: "Admin", href: "admin.html" },
+    billing:   { label: "Billing", href: "billing.html" },
+    event:     { label: "Event", href: "event.html" },
+  };
 
   function shellHtml(active) {
     var org = state.org;
-    var items = NAV.map(function (n) {
-      return '<a href="' + n.href + '" class="ens-nav-a' + (n.key === active ? " on" : "") + '">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="' + n.icon + '"/></svg>' +
-        "<span>" + n.label + "</span></a>";
-    }).join("");
-    var admin = can("org.admin") || can("member.manage")
-      ? '<a href="admin.html" class="ens-nav-a' + (active === "admin" ? " on" : "") + '">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4.6 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 11.5 4a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 19.4 11a2 2 0 1 1 0 4"/></svg><span>Admin</span></a>'
-      : "";
+    var sec = SECTIONS[active] || SECTIONS.home;
+    var onHome = active === "home" || !org;
+    // one step up: sections go back to the workspace, the workspace goes back
+    // to the list of workspaces
+    var upHref = onHome ? "index.html" : "home.html";
+    var upLabel = onHome ? "All workspaces" : (org ? org.name : "Workspace");
     return '' +
       '<header class="topbar ens-top">' +
-        '<a class="brand" href="../modes.html" title="Public Cadence">' +
+        '<a class="brand" href="../" title="Cadence scoreboards">' +
           '<svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">' +
           '<rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>' +
           '<g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">' +
           '<line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>' +
           '<line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/></g></svg>' +
           "<span>Cadence</span></a>" +
-        '<button class="ens-orgpick" id="ensOrgPick" type="button">' +
-          "<b>" + esc(org ? org.name : "Choose a workspace") + "</b>" +
-          '<span class="ens-caret">▾</span></button>' +
-        '<a class="ens-topline" href="../">Public Cadence →</a>' +
+        (org ? '<button class="ens-orgpick" id="ensOrgPick" type="button">' +
+          "<b>" + esc(org.name) + "</b><span class=\"ens-caret\">▾</span></button>" : "") +
       "</header>" +
-      '<nav class="ens-nav">' + items + admin + "</nav>" +
+      (org || !onHome ? '<div class="ens-up"><a class="ens-back" href="' + upHref + '">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>' +
+        esc(upLabel) + "</a>" +
+        (onHome ? "" : '<span class="ens-where">' + esc(sec.label) + "</span>") + "</div>" : "") +
       (org ? statusStripHtml(org) : "");
   }
 

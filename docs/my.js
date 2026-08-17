@@ -245,7 +245,7 @@
       '<p class="setnote" style="margin-bottom:8px">Eleven free apps — DCI, WGI, Bands of America and more. ' +
       "Star the groups you care about and this page turns into your season: their next shows, " +
       "latest scores and ranking moves, all circuits together.</p>" +
-      '<a class="tab" href="modes.html">Browse the apps →</a></div>' +
+      '<a class="tab" href="./">Browse the scoreboards →</a></div>' +
       '<div class="card" style="border-left:4px solid var(--priv)"><div class="my-side-ic">🎽</div><h2>Your workspace</h2>' +
       '<p class="setnote" style="margin-bottom:8px">Cadence Ensemble is the private side — your organization\'s ' +
       "announcements, calendar, files and members, visible only to your group. Marching in an ensemble, " +
