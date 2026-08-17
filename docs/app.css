@@ -932,3 +932,37 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
   width: 1px; background: rgba(255,255,255,0.22);
 }
 @media (max-width: 560px) { #nav a.navmy::before { display: none; } }
+
+/* DCI news rail on the Shows page */
+.newsrail {
+  display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; padding-bottom: 4px; scroll-snap-type: x proximity;
+}
+.newscard {
+  flex: 0 0 232px; scroll-snap-align: start; display: flex; flex-direction: column;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  background: var(--surface-1); color: inherit; text-decoration: none;
+}
+.newscard:hover { text-decoration: none; border-color: var(--baseline); }
+.newscard img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface-2); }
+.newscard-in { display: block; padding: 9px 11px 11px; }
+.newscard time { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
+.newscard b {
+  font-size: 13px; line-height: 1.4; font-weight: 650; color: var(--text-primary);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.newscamps { margin-top: 12px; border-top: 1px solid var(--grid); padding-top: 10px; }
+.newscamps h3 { margin: 0 0 6px; font-size: 13px; font-weight: 700; color: var(--heading); }
+.newscamps a {
+  display: flex; align-items: center; gap: 9px; padding: 7px 2px;
+  color: inherit; text-decoration: none; font-size: 13.5px; border-radius: 8px;
+}
+.newscamps a:hover { background: var(--surface-2); }
+.newscamps a > span:nth-child(2) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.newscamps time { flex: none; color: var(--muted); font-size: 12px; font-weight: 650; }
+.newstag {
+  flex: none; background: var(--accent-wash); color: var(--accent-ink);
+  border-radius: 6px; padding: 2px 7px; font-size: 10.5px; font-weight: 800;
+  letter-spacing: .4px; text-transform: uppercase;
+}
+.newsnote { margin: 6px 0 0; font-size: 11.5px; color: var(--muted); }
