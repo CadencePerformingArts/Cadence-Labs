@@ -246,6 +246,7 @@ def page(key: str, c: dict) -> str:
     v_metrics = v("analytics.js")
     v_ens = v("ensembles.js")
     v_board = v("family/board.js")
+    v_mode = v("mode.js")
     nav = c["nav"]
     et = c.get("extra_tab")
     extra_tab_html = (
@@ -334,6 +335,7 @@ window.APP_CFG = {json.dumps(cfg)};
 <script src="{r}/family/wrapped.js{v_wrapped}"></script>
 <script src="{r}/family/board.js{v_board}"></script>
 <script src="{r}/family/app.js{v_engine}"></script>
+<script src="{r}/mode.js{v_mode}" data-base="{r}"></script>
 <script src="{r}/modes.js{v_modes}" data-base="{r}"></script>
 </body>
 </html>

@@ -234,6 +234,7 @@
     var host = document.getElementById("ensShell");
     if (!host) return;
     host.innerHTML = shellHtml(active);
+    if (window.CadMode && CadMode.mount) CadMode.mount(); // scores ⇄ my group
     var pick = document.getElementById("ensOrgPick");
     if (pick) pick.addEventListener("click", function () { openSwitcher(); });
   }
@@ -272,6 +273,7 @@
       });
     }
     if (!window.CadAccount || !CadAccount.user()) {
+      mountShell(opts.nav || "home"); // brand + the way back to Scores, even signed out
       gate('<div class="card" style="max-width:520px;margin:24px auto">' +
         "<h2>Sign in to Cadence</h2>" +
         '<p class="setnote">Cadence Ensemble is your organization\'s private workspace. ' +

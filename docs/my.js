@@ -1,7 +1,7 @@
 /* My Cadence — the personalized home for the whole Cadence family.
    One page, two halves that share one account:
 
-   PUBLIC — favorites starred in any of the 11 scoreboard apps (each app keeps
+   PUBLIC — favorites starred in any scoreboard app (each app keeps
    its own "<ns>cad-favs" list in localStorage; account.js mirrors them to the
    signed-in account). This page reads every namespace, fetches static JSON
    only for the circuits the user actually follows (rankings.json +
@@ -41,12 +41,6 @@
     { key: "wgi-guard", ns: "wgi-guard:", name: "WGI Color Guard",  tag: "WGI CG", icon: "🚩", path: "wgi/guard/",      term: "guards" },
     { key: "wgi-perc",  ns: "wgi-perc:",  name: "WGI Percussion",   tag: "WGI Pc", icon: "🥁", path: "wgi/percussion/", term: "ensembles" },
     { key: "wgi-winds", ns: "wgi-winds:", name: "WGI Winds",        tag: "WGI Wd", icon: "🎷", path: "wgi/winds/",      term: "ensembles" },
-    { key: "boa",       ns: "boa:",       name: "Bands of America", tag: "BOA",    icon: "🎺", path: "boa/",            term: "bands" },
-    { key: "usb",       ns: "usb:",       name: "US Bands",         tag: "USB",    icon: "🎼", path: "usbands/",        term: "bands" },
-    { key: "uil",       ns: "uil:",       name: "UIL Texas",        tag: "UIL",    icon: "🤠", path: "uil/",            term: "bands" },
-    { key: "wgasc",     ns: "wgasc:",     name: "WGASC",            tag: "WGASC",  icon: "🌟", path: "wgasc/",          term: "guards" },
-    { key: "tcgc",      ns: "tcgc:",      name: "TCGC",             tag: "TCGC",   icon: "🤠", path: "tcgc/",           term: "guards" },
-    { key: "ffcc",      ns: "ffcc:",      name: "FFCC",             tag: "FFCC",   icon: "🌴", path: "ffcc/",           term: "groups" },
   ];
 
   function favsOf(a) {
