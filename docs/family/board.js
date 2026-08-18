@@ -1204,7 +1204,7 @@
         openly published: the championship record and the official event schedule.
         Score coverage is pending permission from WGI.
       </div>
-      ${champYears.length ? `<div class="bd-tiles" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+      ${champYears.length ? `<div class="bd-tiles">
         <div class="tile"><div class="label">Championship seasons</div><div class="value">${champYears.length}</div><div class="sub">${champYears[0]}–${latestYear}</div></div>
         <div class="tile"><div class="label">Classes contested</div><div class="value">${allClasses.length}</div><div class="sub">at World Championships</div></div>
         <div class="tile"><div class="label">Titles on record</div><div class="value">${totalTitles}</div><div class="sub">gold medals awarded</div></div>
