@@ -523,6 +523,31 @@ def tests():
     must_work("PADMIN: subscription sweep runs and audits", padmin_uid,
               "select public.padmin_sweep_subscriptions()")
 
+    # ── unattended sweep (0018) ───────────────────────────────────────
+    # the timer-callable helper must be unreachable from any browser role
+    must_fail("SWEEP: authenticated cannot call sweep_subscriptions_auto", director,
+              "select public.sweep_subscriptions_auto()")
+    must_fail("SWEEP: anon cannot call sweep_subscriptions_auto", None,
+              "select public.sweep_subscriptions_auto()", role="anon")
+    # a failed card leaves an org past_due with a grace deadline; once that
+    # deadline passes the workspace must stop being writable (0015 only ever
+    # expired 'grace_period', so past_due orgs stayed writable forever)
+    psql(f"update public.organizations set status='past_due', "
+         f"grace_ends_at = now() - interval '1 day' where id='{ORG_C}'")
+    got = psql("select public.sweep_subscriptions_auto()->>'past_due_expired'")
+    (PASS if got == "1" else FAIL).append(
+        "SWEEP: expired past_due org swept" if got == "1"
+        else f"SWEEP: past_due_expired={got}, expected 1")
+    got = psql(f"select status from public.organizations where id='{ORG_C}'")
+    (PASS if got == "read_only" else FAIL).append(
+        "SWEEP: past_due org past its grace date is now read_only" if got == "read_only"
+        else f"SWEEP: org C status={got}")
+    got = psql("select count(*) from public.platform_audit_log "
+               "where action='subscriptions.swept' and actor_user_id is null")
+    (PASS if int(got) >= 1 else FAIL).append(
+        "SWEEP: an unattended sweep audits with no actor" if int(got) >= 1
+        else "SWEEP: unattended sweep left no audit row")
+
     # ── read-only org enforcement ─────────────────────────────────────
     must_fail("RO: expired org rejects new posts", U["c_owner"],
               f"insert into public.posts (org_id, author_member_id, title, body) "

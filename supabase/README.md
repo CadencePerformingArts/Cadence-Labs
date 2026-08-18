@@ -13,7 +13,7 @@ environment (edge functions / CI secrets).
 
 ## Layout
 
-Migrations are ordered and append-only (`0001` … `0015`). Never edit an
+Migrations are ordered and append-only (`0001` … `0018`). Never edit an
 applied migration — correct it with a new one.
 
 - `0001_accounts_foundation.sql` — profiles, favorites, preferences,
@@ -39,6 +39,20 @@ applied migration — correct it with a new one.
   atomicity, drill-dot ownership, youth-safety-by-participant, analytics
   identity) plus the 0006 grant-drift repair
 - `0013_event_chats.sql` — links a chat to an event, `open_event_chat` RPC
+- `0014_notifications.sql` — the workspace notification queue, the enqueue
+  triggers, and the service-role worker RPCs that drain it
+- `0015_platform_admin.sql` — the platform-admin RPCs and audit log behind
+  `docs/admin-platform.html`
+- `0016_stripe_events.sql` — the webhook's event-id idempotency ledger
+  (RLS on, no policies: service role only)
+- `0017_storage_policies.sql` — the four `ensemble` bucket object policies,
+  standalone and re-runnable for projects where `0008`'s guarded block was
+  skipped
+- `0018_auto_sweep.sql` — `sweep_subscriptions_auto()`, the timer-callable
+  trial/grace sweep (revoked from `anon`/`authenticated`, granted to
+  `service_role`), scheduled hourly with pg_cron where available. Also
+  closes the `past_due` gap: a failed card left an org writable forever,
+  because `0015` only ever expired `grace_period`.
 
 `RUN_ALL.sql` and `RUN_ENSEMBLE.sql` are **generated** paste-and-run bundles
 (one transaction each). Regenerate them after adding a migration:

@@ -1,11 +1,13 @@
 # Cadence Ensemble — turning it on
 
-**Status: the database is live and fully migrated.** Migrations 0001-0017
+**Status: the database is live and fully migrated.** Migrations 0001-0018
 are applied to the production Supabase project, the private `ensemble`
-storage bucket has its four access policies, and the owner account holds the
-platform-admin role. Nothing in this section is outstanding — it is kept as
-the reference for rebuilding a project from scratch (or setting up a staging
-copy). Skip to "Then: run a real rehearsal through it" to start using it.
+storage bucket has its four access policies, the owner account holds the
+platform-admin role, and an hourly pg_cron job expires trials and grace
+periods without anyone pressing a button. Nothing in this section is
+outstanding — it is kept as the reference for rebuilding a project from
+scratch (or setting up a staging copy). Skip to "Then: run a real rehearsal
+through it" to start using it.
 
 ## 1. Apply the database migrations (required)
 
@@ -31,6 +33,7 @@ policies, zero errors).
 | 13 | `supabase/migrations/0015_platform_admin.sql` | platform-admin RPCs + audit (powers admin-platform.html) |
 | 14 | `supabase/migrations/0016_stripe_events.sql` | Stripe webhook idempotency ledger |
 | 15 | `supabase/migrations/0017_storage_policies.sql` | the four `ensemble` bucket policies, standalone + re-runnable |
+| 16 | `supabase/migrations/0018_auto_sweep.sql` | unattended trial/grace sweep (hourly via pg_cron) + the `past_due` expiry gap |
 
 If files 3 and 4 were already applied earlier, skip them — the rest still run.
 
@@ -46,7 +49,7 @@ not rewrite any applied migration) and was verified applying onto the prior
 schema. Apply it before inviting anyone you don't fully trust. The full
 attack list and the tests that prove each fix are in
 `scripts/test_db_security.py` — run `python3 scripts/test_db_security.py`
-against a scratch database (never production) to see every check pass (59 as of 0016).
+against a scratch database (never production) to see every check pass (64 as of 0018).
 
 **One possible snag, in file 6 only — already resolved on production.** The
 last block creates the private `ensemble` storage bucket and its access
@@ -65,11 +68,13 @@ or do this by hand:
 The helper functions that those policies call always create fine, so this is
 copy-paste, not rework.
 
-## 2. Realtime (recommended, 30 seconds)
+## 2. Realtime — DONE (kept for reference)
 
-Chat and the live feed use Postgres change streams. File 4 tries to enable
-them; confirm with Database → **Replication** → `supabase_realtime` and make
-sure `messages` and `posts` are included.
+Chat and the live feed use Postgres change streams. File 4 enables them, and
+on this project it worked: the `supabase_realtime` publication carries
+`messages`, `posts`, `post_acks`, `post_comments`, `post_reactions` and
+`message_reactions`. On a new project, confirm with Database →
+**Replication** → `supabase_realtime`.
 
 ---
 
@@ -100,10 +105,16 @@ database, not just the interface.
 
 Plans and the school-invoice/purchase-order path are built and the pricing is
 configurable in one place (`docs/ensemble/core.js` → `PLANS`). **Card
-checkout is built but not switched on** — the server-side Checkout Session
-and signature-verified webhook exist as edge functions
-(`supabase/functions/stripe-checkout`, `stripe-webhook`) that you deploy
-with TEST-mode keys when ready; until then the card button says so honestly
-and the invoice path (now driven from `admin-platform.html`) is the working
-route. Plan fields stay locked against client writes, so only the webhook
-(service role) or the platform-admin RPCs can grant a plan.
+checkout is deployed but deliberately inert** — both edge functions are live
+on the project (`stripe-checkout`, `stripe-webhook`), and both refuse to do
+anything until the owner supplies test-mode Stripe secrets. `stripe-checkout`
+answers `503 billing_not_configured` without `STRIPE_SECRET_KEY`;
+`stripe-webhook` rejects every request whose Stripe signature does not
+verify, with no fallback. The invoice path (driven from
+`admin-platform.html`) is the working route today. Plan fields stay locked
+against client writes, so only the webhook (service role) or the
+platform-admin RPCs can grant a plan.
+
+Turning card checkout on is a short, owner-only job — it needs a Stripe
+account, which no agent should create products in on your behalf. See
+"Switching card billing on (test mode first)" in `docs/OWNER-RUNBOOK.md`.

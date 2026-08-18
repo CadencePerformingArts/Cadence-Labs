@@ -32,12 +32,15 @@ for public repositories, and the Supabase project fits its free tier.
 email/push providers, and Stripe's per-transaction fees once billing is
 live. Nothing in this repository purchases anything automatically.
 
-## Current status (2026-08-17)
+## Current status (2026-08-18)
 
-Migrations **0001-0017 are applied** to the live project, storage policies
+Migrations **0001-0018 are applied** to the live project, storage policies
 included, and your account holds the platform-admin role — so
-`admin-platform.html` works for you right now. The section below is the
-reference for future migrations and for standing up a staging copy.
+`admin-platform.html` works for you right now. Trials and grace periods now
+expire **on their own**, hourly, without anyone opening the admin page. Both
+Stripe edge functions are deployed and deliberately inert until you supply
+test-mode keys. The section below is the reference for future migrations and
+for standing up a staging copy.
 
 ## Applying database migrations safely
 
@@ -65,7 +68,7 @@ after being applied — mistakes are fixed by a new numbered file.
    proves the security rules by replaying real attacks — but it boots its
    own disposable scratch database to do it. **Never point it (or any
    test) at the production project.** Ask a developer or agent to run it
-   after any migration change; the expected result is all checks passing (59 as of migration 0015).
+   after any migration change; the expected result is all checks passing (64 as of migration 0018).
 
 ## Storage policies — DONE (kept for reference)
 
@@ -151,6 +154,87 @@ Stripe) is the only way a plan is granted.
 of `0005_ensemble_core.sql` — one `update` sets a new `trial_ends_at`.
 Expired trials go read-only; nothing is ever deleted.
 
+## Trials and grace periods expire by themselves now
+
+You no longer have to remember to press "Run sweep". An hourly database job
+(`cadence-subscription-sweep`, at :17 past every hour) moves workspaces whose
+time is up into read-only:
+
+- a trial past `trial_ends_at`,
+- a workspace past `grace_ends_at` in `grace_period`,
+- **and** a workspace left `past_due` by a failed card once its 14-day grace
+  window closes — that last one never used to happen at all, so a workspace
+  whose payment failed stayed fully writable indefinitely.
+
+Read-only means exactly what it always meant: nothing is deleted, everything
+stays readable, and writing resumes the moment a plan is active again. The
+button on `admin-platform.html` still works and now runs the same code.
+
+To check the job is alive: Supabase → SQL Editor →
+`select * from cron.job_run_details order by start_time desc limit 5;`
+
+## Switching card billing on (test mode first)
+
+Both edge functions are **already deployed** to your project and are safe as
+they stand: `stripe-checkout` answers `503 billing_not_configured` while
+`STRIPE_SECRET_KEY` is unset, and `stripe-webhook` rejects any request whose
+Stripe signature does not verify — there is no fallback path around the
+signature. So nothing can be charged and nothing can be granted today.
+
+One thing changed underneath you, and you should know about it: the
+`stripe-webhook` function that had been sitting on the project since August
+6th was from an older generation of Cadence. It fulfilled "Cadence Plus"
+entitlements (a product with zero subscribers), and — more importantly — if
+signature verification failed it *fell back* to re-fetching the event from
+Stripe by id and processing it anyway, which is precisely the replay
+protection a signature exists to provide. It has been replaced by the
+version in this repository, which verifies or refuses, full stop, and records
+every event id so a redelivery is a no-op. The previous source is preserved
+in `docs/decisions/` if it ever needs to come back.
+
+The remaining steps need **your** Stripe account, which is why no agent did
+them for you: the price IDs only mean something inside the account whose
+secret key you paste, so they cannot be created ahead of time on your behalf.
+
+1. **Stripe dashboard → make sure the Test mode toggle is ON.** Everything
+   below happens in test mode. No real card is ever charged in test mode.
+2. **Products → Add product**, three times, each a *recurring, yearly* price:
+   - `Cadence Ensemble` — $149.00 / year
+   - `Cadence Ensemble Pro` — $299.00 / year
+   - `Cadence Program` — $499.00 / year
+   (These match `docs/ensemble/core.js` → `PLANS`. If you change a price,
+   change it in both places or the site will advertise the wrong number.)
+   Copy each price's `price_…` id.
+3. **Developers → Webhooks → Add endpoint**, pointing at
+   `https://srpqgbkodcrroobuksty.supabase.co/functions/v1/stripe-webhook`,
+   subscribed to exactly these events: `checkout.session.completed`,
+   `customer.subscription.created`, `customer.subscription.updated`,
+   `customer.subscription.deleted`, `invoice.paid`,
+   `invoice.payment_failed`. Copy the endpoint's signing secret (`whsec_…`).
+4. **Supabase → Edge Functions → Secrets**, set these six. They live only on
+   the server; none of them ever belongs in the repository or a web page:
+
+   | Secret | Value |
+   |---|---|
+   | `STRIPE_SECRET_KEY` | your **test** key, `sk_test_…` |
+   | `STRIPE_WEBHOOK_SECRET` | the `whsec_…` from step 3 |
+   | `STRIPE_PRICE_ENSEMBLE` | the $149 price id |
+   | `STRIPE_PRICE_PRO` | the $299 price id |
+   | `STRIPE_PRICE_PROGRAM` | the $499 price id |
+   | `SITE_URL` | `https://cadenceperformingarts.github.io/Cadence-Labs` |
+
+   A `STRIPE_WEBHOOK_SECRET` left over from an older Cadence generation is
+   already set on the project — replace it with the one from step 3, or the
+   webhook will reject your real deliveries.
+5. **Test it end to end** with Stripe's test card `4242 4242 4242 4242`, any
+   future expiry, any CVC. Buy a plan from a trial workspace's billing page.
+   Then confirm the grant actually came from the database, not the browser:
+   the workspace's plan changed, `select * from public.stripe_events;` has
+   the event id, and `platform_audit_log` has a `stripe.*` row.
+6. **Only after that**, and only when you decide to, repeat steps 1-4 with
+   live-mode values. Nothing in this repository can do that for you, and
+   nothing should until the legal documents have had a real review.
+
 ## If scores stop updating
 
 The pipeline is three workflows in the repository's **Actions** tab on
@@ -200,11 +284,10 @@ notifications and share links quietly break:
 The honest launch checklist. Billing is **not live today** — no card can
 be charged — and each line below must be true before that changes:
 
-1. **Migrations applied to production** through 0014, after a backup —
-   0012 (security) especially. Security suite run by a developer/agent
-   against a scratch database (59 checks as of migration 0015).
+1. **Migrations applied to production** — done through 0018, and the
+   security suite passes 64 checks against a scratch database.
 2. **Storage policies confirmed** (section above) so workspace files are
-   actually private.
+   actually private. — done.
 3. **Legal documents reviewed.** Drafts now exist at `docs/legal/`
    (terms, privacy, youth safety, data practices) — every one carries a
    DRAFT banner and none is in effect. Have a real person with legal
@@ -216,9 +299,10 @@ be charged — and each line below must be true before that changes:
    (`lucasbesel41@gmail.com`); decide what support address you will
    actually watch and publish it on the site.
 5. **Stripe live keys server-side only.** The checkout and webhook code is
-   not built yet (it is the next scoped priority). When it lands, live
-   keys go in server environments (Supabase edge-function secrets /
-   Railway variables) — never in the repository or a web page.
+   built, tested against signed fixtures, and deployed — see "Switching card
+   billing on" above. Test mode must work end to end before live keys are
+   created, and live keys go in server environments (Supabase edge-function
+   secrets / Railway variables) — never in the repository or a web page.
 6. **Lock down the powerful accounts.** Turn on multi-factor
    authentication for your GitHub account and your Supabase dashboard
    login, and for the platform-admin account once that surface exists —
