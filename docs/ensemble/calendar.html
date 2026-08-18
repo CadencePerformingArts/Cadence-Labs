@@ -358,6 +358,19 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   }
 
   /* ── create / edit ────────────────────────────────────────────────── */
+  /* A project that has not applied 0019 simply has no publish_event: the
+     event is saved either way, so that one case is tolerated in silence.
+     Every other failure means an RSVP request that reached nobody while the
+     author watched the event appear on the calendar, which is the failure
+     0019 exists to prevent — so it is said out loud, and with an alert
+     rather than a toast, because a toast is gone in two seconds. */
+  function noSuchFunction(err) {
+    var code = err && err.body && err.body.code;
+    var m = (err && err.message) || "";
+    return code === "PGRST202" || code === "42883" ||
+      /schema cache|does not exist/i.test(m);
+  }
+
   function openForm(ev, defaultDay) {
     return O.eventForm({
       org: org, groups: groups, seasons: seasons, bridge: bridge,
@@ -366,10 +379,18 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
            RSVP notification is released here — once the audience has
            settled. Enqueueing while the target rows were still missing read
            as "the whole organization" and sent a sectional's title to
-           everybody (0019_notification_release.sql). A database without
-           0019 has no publish_event; the event is already saved either way. */
-        if (id) { try { await CadOrg.rpc("publish_event", { p_event: id }); } catch (e) {} }
+           everybody (0019_notification_release.sql). */
+        var pubErr = null;
+        if (id) {
+          try { await CadOrg.rpc("publish_event", { p_event: id }); }
+          catch (e) { if (!noSuchFunction(e)) pubErr = e; }
+        }
         await load(); render();
+        if (pubErr) {
+          alert("Saved — but the RSVP notification did NOT go out, so nobody has " +
+            "been asked to respond yet. Open the event and save it again to send it. (" +
+            ((pubErr && pubErr.message) || "unknown error") + ")");
+        }
       },
     }, ev, defaultDay);
   }

@@ -181,7 +181,21 @@ end $$;
 revoke execute on function public.register_notification_release(text, uuid, uuid, timestamptz)
   from public, anon, authenticated;
 
-create or replace function public.release_due_notifications()
+-- p_org null drains EVERY workspace: that is the pg_cron sweep and the
+-- worker's batch, neither of which belongs to a tenant. publish_post() and
+-- publish_event() pass their own org instead, so a director publishing an
+-- announcement does release work for their own workspace and for nobody
+-- else's. Nothing ever crossed the boundary when this was global — the
+-- ledger is RLS-dark and each enqueue resolves its own audience — so this is
+-- fairness and cost, not confidentiality: one busy organization should not
+-- spend a quiet one's publish latency draining its backlog.
+--
+-- Deliberately ONE function with a defaulted argument and not a pair:
+-- PostgreSQL cannot resolve release_due_notifications() when a zero-argument
+-- function and a defaulted one-argument function both exist, so the old
+-- zero-argument signature is dropped rather than kept alongside.
+drop function if exists public.release_due_notifications();
+create or replace function public.release_due_notifications(p_org uuid default null)
 returns int language plpgsql security definer set search_path = public as $$
 declare
   r record;
@@ -190,6 +204,7 @@ begin
   for r in
     select subject_kind, subject_id from public.notification_releases
      where released_at is null and release_at <= now()
+       and (p_org is null or org_id = p_org)
      order by release_at
      for update skip locked
   loop
@@ -204,15 +219,15 @@ begin
   end loop;
   return n;
 end $$;
-revoke execute on function public.release_due_notifications()
+revoke execute on function public.release_due_notifications(uuid)
   from public, anon, authenticated;
-grant execute on function public.release_due_notifications() to service_role;
+grant execute on function public.release_due_notifications(uuid) to service_role;
 
 -- ── 5. the client-facing publication step ──────────────────────────────
 -- Called by docs/ensemble/feed.html once the post_targets rows exist. It is
--- idempotent, and it flushes anything else that has come due while it is
--- here — which is what makes a scheduled announcement go out even on a
--- project where pg_cron is unavailable and the worker is idle.
+-- idempotent, and it flushes anything else in THIS workspace that has come
+-- due while it is here — which is what makes a scheduled announcement go out
+-- even on a project where pg_cron is unavailable and the worker is idle.
 create or replace function public.publish_post(p_post uuid)
 returns int language plpgsql security definer set search_path = public as $$
 declare p record;
@@ -225,7 +240,7 @@ begin
 
   -- a post scheduled for next week becomes due then, not now
   perform public.register_notification_release('post', p.id, p.org_id, p.publish_at);
-  perform public.release_due_notifications();
+  perform public.release_due_notifications(p.org_id);   -- this workspace only
   return (select count(*)::int from public.org_notifications
            where channel = 'inapp' and dedupe_key like 'ack:' || p.id || ':%');
 end $$;
@@ -244,7 +259,7 @@ begin
   if e.rsvp_required is not true then return 0; end if;
 
   perform public.register_notification_release('event', e.id, e.org_id, now());
-  perform public.release_due_notifications();
+  perform public.release_due_notifications(e.org_id);   -- this workspace only
   return (select count(*)::int from public.org_notifications
            where channel = 'inapp' and dedupe_key like 'rsvp:' || e.id || ':%');
 end $$;
@@ -302,25 +317,52 @@ begin
         limit greatest(1, least(p_limit, 200)))
     returning n.*;
 end $$;
+-- CREATE OR REPLACE preserves the grants a function already has, and a stock
+-- Supabase project hands service_role EXECUTE through a default privilege —
+-- which is why the worker keeps draining the queue in production without
+-- this line. Say it anyway. The house style is explicit grants (0018, and
+-- release_due_notifications above); a scratch database, a self-hosted
+-- restore or a project whose default privileges were tightened has no such
+-- gift; and leaning on an implicit default for the queue drain is precisely
+-- the drift 0012 had to repair across fifteen functions.
+grant execute on function public.claim_notifications(int) to service_role;
 
 -- ── 9. the Trial card promises 5 GB; the column handed out 1 GiB ───────
 alter table public.organizations
   alter column storage_quota_bytes set default 5368709120;   -- 5 GiB
 
+-- A default only reaches workspaces created from here on. Lift any existing
+-- one still sitting on 0005's 1 GiB while on the free trial — the same
+-- shortfall, just already handed out. Guarded on the exact old value and on
+-- the trial plan, so a quota somebody chose (0015 padmin_set_plan gives paid
+-- plans 10/25/50 GiB) is never overwritten and a re-run is a no-op.
+--
+-- organizations_guard_billing (0005, replaced by 0012) refuses quota writes
+-- from 'authenticated' and 'anon' so no org admin can PATCH themselves more
+-- storage. A migration runs as the schema owner, not as a browser role, so
+-- this UPDATE passes the guard as written — nothing is disabled, spoofed or
+-- worked around, and the guard is still refusing directors on the other side
+-- of it (see the 0C checks in scripts/test_db_security.py).
+update public.organizations
+   set storage_quota_bytes = 5368709120
+ where storage_quota_bytes = 1073741824
+   and plan = 'trial';
+
 comment on column public.organizations.storage_quota_bytes is
   '5 GiB by default — the storage the Trial plan advertises in '
   'docs/ensemble/core.js PLANS. 0005 defaulted to 1 GiB, which quietly '
-  'undersold every new workspace. There are zero organizations in this '
-  'project when 0019 is applied, so no existing workspace is affected; '
-  'paid plans set their own quota (0015 padmin_set_plan).';
+  'undersold every new workspace; 0019 raised the default and lifted any '
+  'trial workspace still holding that old value. Paid plans set their own '
+  'quota (0015 padmin_set_plan), which nothing here overwrites.';
 
 -- ── 10. schedule the release sweep, where the platform allows ──────────
 -- Guarded exactly like 0017's storage block and 0018's tail: this file also
 -- rides inside the single-transaction RUN_ALL / RUN_ENSEMBLE bundles, and
 -- pg_cron is a hosted-platform privilege a scratch database or a restricted
 -- SQL role will not have. Where it fails, releases still happen — every
--- publish_post() call and every claim_notifications() batch drains what is
--- due — this just makes a scheduled announcement punctual to the minute.
+-- publish_post() call drains what is due in its own workspace and every
+-- claim_notifications() batch drains every workspace — this just makes a
+-- scheduled announcement punctual to the minute in a silent organization.
 do $$
 begin
   execute 'create extension if not exists pg_cron';

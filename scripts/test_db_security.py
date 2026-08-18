@@ -222,6 +222,29 @@ def verify_0019_upgrade():
                            capture_output=True, text=True)
         if r.returncode:
             raise SystemExit(f"prior migration {os.path.basename(f)} failed: {r.stderr[-800:]}")
+
+    # Two workspaces that already exist on the day 0019 is pasted in, both
+    # holding 0005's 1 GiB. 0019 must lift the one on the free trial (it was
+    # sold 5 GB) and must not touch the one whose quota the billing system
+    # set — the WHERE clause is the whole safety of that backfill.
+    legacy_uid = str(uuid.uuid4())
+    psql(f"insert into auth.users (id, email) values ('{legacy_uid}', 'legacy@test.local')",
+         db="cad_prior19")
+    for slug in ("legacy-trial", "legacy-paid"):
+        psql(f"insert into public.organizations (name, slug, created_by) "
+             f"values ('{slug}', '{slug}', '{legacy_uid}')", db="cad_prior19")
+    # plan is a billing field behind organizations_guard_billing (0005,
+    # replaced by 0012): browser roles cannot write it. This scaffolding
+    # announces itself as the billing role the way the Stripe webhook does,
+    # so the fixture holds whichever version of the guard is in place
+    psql("set request.jwt.claims = '{\"role\":\"service_role\"}'; "
+         "update public.organizations set plan = 'ensemble' where slug = 'legacy-paid'",
+         db="cad_prior19")
+    before = psql("select count(*) from public.organizations "
+                  "where storage_quota_bytes = 1073741824", db="cad_prior19")
+    if before != "2":
+        FAIL.append(f"ADDITIVE: legacy quota fixture is wrong — {before}/2 orgs on 1 GiB")
+
     r = subprocess.run(["psql", "-h", str(WORK), "-p", PORT, "-U", "postgres",
                         "-d", "cad_prior19", "-v", "ON_ERROR_STOP=1",
                         "-qf", str(ROOT / "supabase/migrations/0019_notification_release.sql")],
@@ -239,6 +262,23 @@ def verify_0019_upgrade():
     (PASS if got == "0/1" else FAIL).append(
         "ADDITIVE: the post INSERT trigger is retired and the event trigger is deferred"
         if got == "0/1" else f"ADDITIVE: triggers after 0019 = {got}, wanted 0/1")
+    # the quota backfill: lift the trial workspace, leave the paid one alone
+    got = psql("select storage_quota_bytes from public.organizations where slug='legacy-trial'",
+               db="cad_prior19")
+    (PASS if got == "5368709120" else FAIL).append(
+        "QUOTA: an existing trial workspace is lifted off the old 1 GiB default"
+        if got == "5368709120" else f"QUOTA: legacy trial workspace quota = {got}, wanted 5368709120")
+    got = psql("select storage_quota_bytes from public.organizations where slug='legacy-paid'",
+               db="cad_prior19")
+    (PASS if got == "1073741824" else FAIL).append(
+        "QUOTA: a quota the billing system set is left exactly as it was"
+        if got == "1073741824" else f"QUOTA: paid workspace quota rewritten to {got}")
+    # the backfill did not have to switch the billing guard off to do it
+    got = psql("select tgenabled from pg_trigger where tgname='organizations_guard_billing'",
+               db="cad_prior19")
+    (PASS if got == "O" else FAIL).append(
+        "QUOTA: the billing guard is untouched by the backfill"
+        if got == "O" else f"QUOTA: organizations_guard_billing left in state '{got}', wanted 'O'")
 
 
 U = {k: str(uuid.uuid4()) for k in
@@ -507,6 +547,13 @@ def tests():
     # the worker surface is service-role only
     must_fail("NOTIF: authenticated cannot claim the queue", director,
               "select public.claim_notifications(10)")
+    # …and the role that IS the worker can still drain it. 0019 CREATE OR
+    # REPLACEs claim_notifications so it releases due rows first; a stock
+    # Supabase project hands service_role EXECUTE through a default privilege
+    # this scratch database does not have, so without an explicit grant the
+    # harness and production disagree about the one call the queue depends on.
+    must_work("NOTIF: the worker role can claim the queue", None,
+              "select count(*) from public.claim_notifications(5)", role="service_role")
 
     # an invite with an email enqueues an email notification
     icode = "INV" + uuid.uuid4().hex[:8].upper()
@@ -579,6 +626,7 @@ def tests():
 
     # events: org_event_create writes the event and its targets in ONE
     # transaction, so the deferred trigger sees the real audience at COMMIT
+    eid = lid = None
     ok, out = run_as(director,
         f"select public.org_event_create(jsonb_build_object("
         f"'org_id', '{ORG_A}'::text, 'title', 'Brass sectional', 'kind', 'rehearsal', "
@@ -656,6 +704,32 @@ def tests():
             if n == 1 else f"REL: urgent post enqueued {n} rows for the muted member")
     psql(f"delete from public.org_notification_prefs where member_id='{MEM['a_student']}'")
 
+    # a publisher drains the releases of their OWN workspace and nobody
+    # else's: publish_post/publish_event pass their org id to
+    # release_due_notifications, whose global form is service_role only. Give
+    # Org B a release that is already due, then publish in Org A.
+    bpid = psql(f"insert into public.posts (org_id, author_member_id, title, body, "
+                f"requires_ack, priority) values ('{ORG_B}', '{MEM['b_owner']}', "
+                f"'Org B business', 'body', true, 'important') returning id")
+    psql(f"select public.register_notification_release('post', '{bpid}', '{ORG_B}', now())")
+    if tpid:
+        run_as(director, f"select public.publish_post('{tpid}')")
+    held_b = psql(f"select released_at is null from public.notification_releases "
+                  f"where subject_id='{bpid}'")
+    (PASS if held_b == "t" else FAIL).append(
+        "REL: publishing in one workspace does not drain another workspace's releases"
+        if held_b == "t"
+        else f"REL: an Org A publish released Org B's row (still held = {held_b})")
+    # …and that row really was drainable, so the check above is not vacuous
+    psql("select public.release_due_notifications()")
+    drained_b = psql(f"select released_at is not null from public.notification_releases "
+                     f"where subject_id='{bpid}'")
+    notified_b = acked(bpid, MEM["b_member"])
+    (PASS if drained_b == "t" and notified_b == 1 else FAIL).append(
+        "REL: the global sweep still drains every workspace"
+        if drained_b == "t" and notified_b == 1
+        else f"REL: global sweep left Org B released={drained_b}, notified={notified_b}")
+
     # the release machinery is server-side only
     must_fail("REL: authenticated cannot drain the release queue", director,
               "select public.release_due_notifications()")
@@ -668,10 +742,30 @@ def tests():
     (PASS if (not ok) or seen == "0" else FAIL).append(
         "REL: the release ledger is invisible to every client"
         if (not ok) or seen == "0" else f"REL: a client can read {seen} release rows")
-    must_raise("REL: a member cannot publish someone else's announcement", U["a_member2"],
-               f"select public.publish_post('{tpid}')")
-    must_raise("REL: a member cannot publish an event they cannot manage", U["a_member2"],
+    # These two must hit the PERMISSION branch, not the not-found branch.
+    # publish_post/publish_event look the row up first and raise
+    # 'post_not_found' / 'event_not_found' before can_edit_post() or
+    # can_manage_event() is ever consulted, so a made-up uuid here would keep
+    # passing with the permission check deleted outright — i.e. with any
+    # signed-in user able to flush any organization's notifications.
+    # a_member2 holds 'leadership' (promoted in 0A): announce.view but no
+    # announce.edit, no event.create, no event.edit, and they authored
+    # neither row, so can_edit_post/can_manage_event are both false for them.
+    if tpid:
+        must_raise("REL: a member cannot publish someone else's announcement", U["a_member2"],
+                   f"select public.publish_post('{tpid}')")
+    else:
+        FAIL.append("REL: no post available to test the publish_post permission check")
+    if eid:
+        must_raise("REL: a member cannot publish an event they cannot manage", U["a_member2"],
+                   f"select public.publish_event('{eid}')")
+    else:
+        FAIL.append("REL: no event available to test the publish_event permission check")
+    # the not-found branch is worth its own check — but only as its own
+    must_raise("REL: publish_event refuses an id that does not exist", U["a_member2"],
                f"select public.publish_event('{uuid.uuid4()}')")
+    must_raise("REL: publish_post refuses an id that does not exist", director,
+               f"select public.publish_post('{uuid.uuid4()}')")
 
     # ── storage quota default (0019) ──────────────────────────────────
     # the Trial card in core.js advertises 5 GB; 0005 handed out 1 GiB

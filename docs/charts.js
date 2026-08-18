@@ -443,5 +443,11 @@
     el("circle", { cx: X(last), cy: Y(values[last]), r: 2.5, fill: color || "#c3c2b7" }, svg);
   }
 
-  window.CCViz = { lineChart, barChart, sparkline, PALETTE, esc, showTip, hideTip };
+  // lineColor and fitWidth are exported because app.js draws the ordinal
+  // ratings/placement ladder itself (a closed 1-5 domain cannot share
+  // lineChart's numeric tick chooser). Anything drawing a chart outside this
+  // file still has to lift dark-mode colors off the floor and size its
+  // viewBox from the real container, and reimplementing either is how the
+  // two paths drift apart.
+  window.CCViz = { lineChart, barChart, sparkline, PALETTE, esc, showTip, hideTip, lineColor, fitWidth };
 })();

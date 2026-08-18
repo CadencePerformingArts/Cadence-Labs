@@ -17,8 +17,16 @@
 //
 // SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are injected by the platform.
 // Test-mode first: use whsec_/price_ values from test mode until launch.
+//
+// WHAT THE STATUSES MEAN in Stripe's delivery log: 200 = applied, or a
+// genuine duplicate of something already applied. 409 = another delivery of
+// that event holds the claim right now; Stripe's retry is expected and will
+// take the claim over once it goes stale. 500 = the application failed and
+// must be retried. Only 2xx ends the retries, so nothing that still needs a
+// delivery is ever answered 2xx.
 
-import { verifyStripeSignature, applyStripeEvent } from "../_shared/stripe-core.js";
+import { verifyStripeSignature, applyStripeEvent, makeEventLedger, statusForResult }
+  from "../_shared/stripe-core.js";
 
 const SB_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -46,48 +54,19 @@ async function rest(path: string, init: RequestInit) {
   return res;
 }
 
-// An event id is claimed as `pending:<type>` and rewritten to `<type>` once
-// its handler succeeds, so the ledger row says which of the two it is with
-// the columns 0016 already has. A claim whose run died mid-flight (the
-// isolate was killed between claiming and releasing) can be retaken once it
-// is older than this — Stripe keeps retrying for days, so a stranded claim
-// still gets applied instead of being swallowed as a duplicate forever.
-const STALE_CLAIM_MS = 10 * 60 * 1000;
-const PENDING = "pending:";
-
-async function eventRow(id: string) {
-  const res = await fetch(
-    `${SB_URL}/rest/v1/stripe_events?id=eq.${encodeURIComponent(id)}&select=type,received_at`,
-    { headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` } });
-  const rows = await res.json();
-  return rows[0] ?? null;
-}
+// The claim ledger (recordEvent / markApplied / releaseEvent) lives in
+// _shared/stripe-core.js so scripts/test_stripe_core.js can drive the real
+// implementation against a stub PostgREST: the `pending:` prefix, the 409
+// read-back and the stale-claim arithmetic are the riskiest lines here, and
+// they are worth more than a hand-written imitation in a test.
+const ledger = makeEventLedger({
+  url: SB_URL, key: SERVICE_KEY, fetch: (u: string, i?: RequestInit) => fetch(u, i),
+});
 
 const db = {
-  async recordEvent(id: string, type: string) {
-    // unique PK makes this the idempotency gate: 409 = already claimed
-    const res = await rest("stripe_events", {
-      method: "POST",
-      body: JSON.stringify({ id, type: PENDING + type }),
-    });
-    if (res.status !== 409) return true;
-    const row = await eventRow(id);
-    // applied is final; a live claim belongs to a delivery still running
-    if (!row || !String(row.type).startsWith(PENDING)) return false;
-    if (Date.now() - Date.parse(row.received_at) < STALE_CLAIM_MS) return false;
-    await rest(`stripe_events?id=eq.${encodeURIComponent(id)}`, {
-      method: "PATCH", body: JSON.stringify({ received_at: new Date().toISOString() }) });
-    return true;
-  },
-  async markApplied(id: string, type: string) {
-    await rest(`stripe_events?id=eq.${encodeURIComponent(id)}`, {
-      method: "PATCH", body: JSON.stringify({ type }) });
-  },
-  async releaseEvent(id: string) {
-    // the type filter makes this incapable of dropping an APPLIED row
-    await rest(`stripe_events?id=eq.${encodeURIComponent(id)}&type=like.${PENDING}*`, {
-      method: "DELETE" });
-  },
+  recordEvent: ledger.recordEvent,
+  markApplied: ledger.markApplied,
+  releaseEvent: ledger.releaseEvent,
   async orgByCustomer(cus: string | null) {
     if (!cus) return null;
     const res = await fetch(
@@ -133,11 +112,17 @@ Deno.serve(async (req) => {
 
   try {
     const out = await applyStripeEvent(evt, db, PRICES);
+    // statusForResult, not a hardcoded 200: an event whose claim is held by a
+    // delivery still in flight must NOT be acknowledged as delivered, or the
+    // retries stop and nothing ever revisits the pending row
     return new Response(JSON.stringify(out), {
-      status: 200, headers: { "Content-Type": "application/json" } });
+      status: statusForResult(out), headers: { "Content-Type": "application/json" } });
   } catch (e) {
-    // 500 makes Stripe retry — the failed claim was released first, so the
-    // retry is applied instead of being swallowed as a duplicate
+    // 500 makes Stripe retry. A handler that threw released its claim first,
+    // so the retry applies instead of being swallowed as a duplicate; a
+    // handler that applied but could not mark the claim keeps its `pending:`
+    // row, and the retry after STALE_CLAIM_MS re-applies the same absolute
+    // state and marks it. Either way the ledger converges on the truth.
     return new Response(`error: ${(e as Error).message}`, { status: 500 });
   }
 });

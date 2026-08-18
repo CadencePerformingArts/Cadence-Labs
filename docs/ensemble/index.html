@@ -52,8 +52,12 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
      real state change (it burns a use and enrols the signed-in account), so
      a link forwarded to the wrong group chat, or prefetched by a mail
      client, must not quietly sign someone into a workspace. One tap on
-     "Join workspace" is the consent. */
-  var INVITE_KEY = "cad-pending-invite", INVITE_TTL = 7 * 864e5; // 7 days
+     "Join workspace" is the consent, and nothing on this page is focused
+     for you — a stray Enter or Space must never accept an invitation. */
+  var INVITE_KEY = "cad-pending-invite";
+  /* A parked code only has to outlive one magic-link round trip, and the
+     link itself expires in about an hour, so the park does too. */
+  var INVITE_TTL = 60 * 6e4; // 1 hour
 
   function inviteFromUrl(search) {
     var q;
@@ -61,27 +65,57 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     return String(q.get("invite") || q.get("join") || "").trim();
   }
 
+  function normEmail(v) { return String(v == null ? "" : v).trim().toLowerCase(); }
+
   /* Signing in bounces through a magic link, and account.js sends the user
      back to location.pathname with the query string stripped — so park the
-     code for that round trip and consume it once. The stamp keeps a code
-     from a link that was never redeemed out of the box weeks later. */
-  function parkInvite(code) {
-    try { localStorage.setItem(INVITE_KEY, JSON.stringify({ code: code, at: Date.now() })); } catch (e) {}
+     code for that round trip and consume it once.
+
+     An invite code is a bearer token: whoever holds it can burn a use and
+     enrol themselves. So the park is stamped with the address the sign-in
+     link was mailed to, and handed back only to a session signed in as that
+     same address. On a family laptop, a code one person left parked is
+     never quietly loaded into the next person's box. */
+  function parkInvite(code, email) {
+    var who = normEmail(email);
+    if (!code || !who) return;
+    try {
+      localStorage.setItem(INVITE_KEY,
+        JSON.stringify({ code: code, at: Date.now(), email: who }));
+    } catch (e) {}
   }
 
-  function takeParkedInvite() {
+  function takeParkedInvite(email) {
     var raw = null;
     try { raw = localStorage.getItem(INVITE_KEY); localStorage.removeItem(INVITE_KEY); } catch (e) {}
     if (!raw) return "";
+    var who = normEmail(email);
     try {
       var v = JSON.parse(raw);
-      return v && v.code && Date.now() - (v.at || 0) < INVITE_TTL ? String(v.code) : "";
+      if (!v || !v.code) return "";
+      if (Date.now() - (v.at || 0) >= INVITE_TTL) return "";      // link is dead by now
+      if (!who || normEmail(v.email) !== who) return "";          // not the person who asked
+      return String(v.code);
     } catch (e) { return ""; }
   }
 
   // read at boot, before the sign-in gate can take the page over
   var pendingInvite = inviteFromUrl(location.search);
-  if (pendingInvite) parkInvite(pendingInvite);
+
+  /* Signed out with an invite in hand: core.js has mounted its magic-link
+     gate. Park the code against whatever address they ask the link to be
+     sent to, so it comes back to them and to nobody else on this browser.
+     If the gate ever stops using these ids the park simply never happens —
+     the code box just starts empty (scripts/test_invite_links.js watches
+     core.js for exactly that drift). */
+  function parkOnSignIn() {
+    var f = document.getElementById("ensSignIn");
+    if (!f) return;
+    f.addEventListener("submit", function () {
+      var input = document.getElementById("ensEmail");
+      parkInvite(pendingInvite, input && input.value);
+    });
+  }
 
   function card(r) {
     var o = r.org, days = CadOrg.trialDaysLeft(o);
@@ -95,27 +129,57 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       (r.section ? " · " + esc(r.section) : "") + "</div></a>";
   }
 
+  /* ── open communities ─────────────────────────────────────────────────
+     Every other workspace is private by construction: you need a code
+     somebody handed you. That leaves a first-time visitor with nothing to
+     look at and no way to learn what a workspace even is. A community
+     (0020_public_communities.sql) is one anybody may join with a single
+     tap, so the answer to "what is this?" is a button rather than a
+     paragraph. Projects that have not applied 0020 simply render nothing
+     here — never a button that cannot work. */
+  var communities = [];
+
+  async function loadCommunities() {
+    try {
+      var rows = await CadOrg.rpc("list_public_orgs");
+      var mine = {};
+      CadOrg.orgs().forEach(function (r) { if (r.org) mine[r.org.id] = 1; });
+      communities = (rows || []).filter(function (c) { return !mine[c.id]; });
+    } catch (e) { communities = []; }      // 0020 not applied: no communities
+  }
+
+  function communityCard(c) {
+    return '<div class="card"><div class="ens-h"><h2>' + esc(c.name) + "</h2>" +
+      '<span class="ens-tag normal">Open to all</span></div>' +
+      '<p class="setnote">' + esc(c.blurb || "An open Cadence community.") +
+      (c.members ? " · " + c.members + (c.members === 1 ? " member" : " members") : "") + "</p>" +
+      '<button class="tab" type="button" data-join-public="' + esc(c.id) + '">Join</button>' +
+      '<p class="acct-msg" data-join-msg="' + esc(c.id) + '" role="status"></p></div>';
+  }
+
   function render() {
     var orgs = CadOrg.orgs();
     main.innerHTML =
       '<h1 class="page">My Ensembles</h1>' +
-      '<p class="lede">Your organizations\' private home base — announcements, groups, chat, ' +
-      "calendar, files and day-to-day operations. Separate from your public Cadence profile, " +
-      "and visible only to approved members.</p>" +
       (orgs.length
-        ? '<div class="ens-grid">' + orgs.map(card).join("") + "</div>"
-        : '<div class="card"><div class="empty">You\'re not in a workspace yet. ' +
-          "Join one with an invite code, or start one below.</div></div>") +
-      '<div class="ens-grid" style="margin-top:18px">' +
+        ? '<p class="lede">Your organizations\' private home base — announcements, groups, ' +
+          "chat, calendar, files and day-to-day operations.</p>" +
+          '<div class="ens-grid">' + orgs.map(card).join("") + "</div>" +
+          '<h2 class="page" style="font-size:18px;margin:26px 0 10px">Join another</h2>'
+        : '<p class="lede">A workspace is where an organization runs its season — ' +
+          "announcements, calendar, files, attendance. You are not in one yet.</p>") +
+      '<div class="ens-grid">' +
+        communities.map(communityCard).join("") +
         '<div class="card"><h2>Join with a code</h2>' +
-          '<p class="setnote">Directors hand these out — a code, a link, or a QR at the first rehearsal.</p>' +
+          '<p class="setnote">Your director hands these out — a code, a link, or a QR at the ' +
+          "first rehearsal.</p>" +
           '<form class="acct-form" id="joinForm"><input class="ctrl" id="joinCode" placeholder="Invite code" ' +
           'autocapitalize="characters" autocomplete="off" required>' +
           '<button class="tab" type="submit">Join workspace</button></form>' +
           '<p class="acct-msg" id="joinMsg" role="status"></p></div>' +
         '<div class="card"><h2>Start a workspace</h2>' +
-          '<p class="setnote">Free for 60 days with everything unlocked — enough to run a real ' +
-          "season's worth of rehearsals before deciding.</p>" +
+          '<p class="setnote">For directors and staff. Free for 60 days with everything ' +
+          "unlocked — a real season's worth of rehearsals before you decide.</p>" +
           '<form class="acct-form" id="newForm">' +
           '<input class="ctrl" id="newName" placeholder="Organization name" required maxlength="120">' +
           '<select class="ctrl" id="newType">' + TYPES.map(function (t) {
@@ -126,6 +190,23 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<p class="fam-note" style="color:var(--muted);font-size:12.5px;margin-top:18px">' +
       "Cadence Ensemble is the private side of Cadence. Your public scores, rankings and " +
       'ensemble profile live over in <a href="../">public Cadence</a>.</p>';
+
+    main.querySelectorAll("[data-join-public]").forEach(function (btn) {
+      btn.addEventListener("click", async function () {
+        var id = btn.dataset.joinPublic;
+        var msg = main.querySelector('[data-join-msg="' + id + '"]');
+        btn.disabled = true;
+        msg.className = "acct-msg"; msg.textContent = "Joining…";
+        try {
+          var orgId = await CadOrg.rpc("join_public_org", { p_org: id });
+          location.href = "home.html?org=" + orgId;
+        } catch (err) {
+          btn.disabled = false;
+          msg.className = "acct-msg err";
+          msg.textContent = "Couldn't join: " + (err.message || "unknown error");
+        }
+      });
+    });
 
     document.getElementById("joinForm").addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -166,24 +247,31 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       }
     });
 
-    // came in on an invite link — fill the box, say so, and put the Join
-    // button under their finger. The tap is still theirs to make.
-    var code = takeParkedInvite() || pendingInvite;
+    /* Came in on an invite link — fill the box and say so. Always consume
+       the park, even when the live URL already carried a code, so a stale
+       one can never surface on a later visit. Nothing is focused: the only
+       way to redeem is to deliberately choose "Join workspace". */
+    var u = CadAccount.user();
+    var parked = takeParkedInvite(u && u.email);
+    var code = pendingInvite || parked;
     if (code) {
       document.getElementById("joinCode").value = code;
       var jm = document.getElementById("joinMsg");
       jm.className = "acct-msg ok";
-      jm.textContent = "You've been invited — your code is filled in below. " +
+      // #joinMsg sits under the form, so the box it describes is above it
+      jm.textContent = "You've been invited — your code is in the box above. " +
         "Choose Join workspace to accept it.";
-      var btn = document.querySelector("#joinForm button");
-      if (btn) { try { btn.focus(); } catch (e) {} }
     }
   }
 
   CadOrg.start({ nav: "home", allowNoOrg: true }).then(function () {
-    if (!CadAccount || !CadAccount.user()) return; // sign-in gate already rendered
+    if (!CadAccount || !CadAccount.user()) { // sign-in gate already rendered
+      if (pendingInvite) parkOnSignIn();
+      return;
+    }
     CadOrg.mountShell("home");
-    render();
+    render();                    // paint immediately; communities are a bonus
+    loadCommunities().then(function () { if (communities.length) render(); });
   });
 })();
 </script>

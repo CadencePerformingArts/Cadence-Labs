@@ -121,16 +121,34 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
     try { return new URLSearchParams(location.search).get("group"); } catch (e) { return null; }
   }
 
+  /* Did this post reach anybody in the group we are filtered to? A target
+     row names a group, a role kind ("Staff", "Parents" — C.readTargets emits
+     those) or one person, and post_audience() / can_see_post() honour all
+     three. Looking only at group_id hid a Parents- or Staff-targeted urgent
+     announcement from the very screen Home's group chip links to, even
+     though the member reading it had been notified about it. */
+  function reachesGroup(p, ids) {
+    var t = p.targets || [];
+    if (!t.length) return true;                    // the whole organization
+    return t.some(function (x) {
+      if (x.group_id) return x.group_id === group.id;
+      if (x.member_id) return ids.indexOf(x.member_id) >= 0;
+      if (x.role_kind) {
+        return ids.some(function (id) {
+          var m = dir.byId[id];
+          return !!(m && m.status === "active" && m.role && m.role.kind === x.role_kind);
+        });
+      }
+      return false;
+    });
+  }
+
   function visible() {
     var now = Date.now();
+    var ids = group ? (dir.groupMembers[group.id] || []) : null;
     return posts.filter(function (p) {
       var scheduled = p.publish_at && new Date(p.publish_at).getTime() > now;
-      if (group) {
-        // an untargeted post goes to the whole organization, so it reaches
-        // this group too — same rule the calendar's group filter uses
-        var t = p.targets || [];
-        if (t.length && !t.some(function (x) { return x.group_id === group.id; })) return false;
-      }
+      if (group && !reachesGroup(p, ids)) return false;
       if (filter === "archived") return p.archived;
       if (p.archived) return false;
       if (filter === "scheduled") return scheduled;
@@ -249,8 +267,9 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
       }).join("") + "</div>" +
       (group
         ? '<div class="ens-strip" style="border-radius:10px;margin:2px 0 4px;max-width:760px">' +
-          "Showing <b>" + esc(group.name) + "</b> — what that group was sent, plus " +
-          'everything sent to the whole organization.<a href="feed.html">Show everything</a></div>'
+          "Showing <b>" + esc(group.name) + "</b> — everything sent to that group, " +
+          "to anyone in it by name or by role, and to the whole organization." +
+          '<a href="feed.html">Show everything</a></div>'
         : "") +
       '<div class="ens-feedwrap">' +
         composerHtml() +
@@ -341,9 +360,14 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
             }),
           });
         }
-        await publish(post.id);
+        // the post is written; a publish that fails must not also swallow the
+        // refresh, so it is carried past render() and said out loud there —
+        // render() replaces the composer, message node and all
+        var pubErr = null;
+        try { await publish(post.id); } catch (e2) { pubErr = e2; }
         CadOrg.log("post.created", "post", post.id, { priority: post.priority });
         await load(); render();
+        if (pubErr) alert(explain(pubErr));
       } catch (err) {
         msg.className = "acct-msg err";
         msg.textContent = explain(err);
@@ -354,15 +378,40 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
   /* Notifications are enqueued HERE, not by the insert — the targets above
      are a second request, and a post with no target rows yet reads as one
      addressed to the whole organization (0019_notification_release.sql).
-     The post itself is already saved, and a scheduled one goes out on its
-     own publish_at, so a database that has not applied 0019 must not turn
-     this into a failed post. */
+
+     A project that has not applied 0019 has no publish_post at all; the post
+     is saved either way and a scheduled one still goes out on its own
+     publish_at, so that one case is tolerated in silence. Nothing else is:
+     not_permitted, a dropped connection or a 5xx here means an announcement
+     that notified NOBODY while its author watched it land in the feed —
+     exactly the failure this whole migration exists to prevent. */
+  function noSuchFunction(err) {
+    var code = err && err.body && err.body.code;
+    var m = (err && err.message) || "";
+    return code === "PGRST202" ||          // PostgREST: not in the schema cache
+      code === "42883" ||                  // Postgres: undefined_function
+      /schema cache|does not exist/i.test(m);
+  }
+
   async function publish(id) {
-    try { await CadOrg.rpc("publish_post", { p_post: id }); } catch (e) {}
+    try {
+      await CadOrg.rpc("publish_post", { p_post: id });
+    } catch (err) {
+      if (noSuchFunction(err)) return;     // 0019 not applied on this project
+      // "use strict": tagging a primitive would throw and lose the real cause
+      var e = (err && typeof err === "object") ? err : new Error(String(err));
+      e.publishFailed = true;
+      throw e;
+    }
   }
 
   function explain(err) {
     var m = (err && err.message) || "";
+    if (err && err.publishFailed) {
+      return "Saved — but the notification did NOT go out, so nobody has been " +
+        "told about this yet. Edit the post and press Save again to send it. (" +
+        (m || "unknown error") + ")";
+    }
     if (err && err.status === 403 || /row-level security|violates row-level/i.test(m)) {
       return "The server refused that — usually a permission you don't have " +
         "(urgent priority, or acknowledgments on a plan that doesn't include them), " +
@@ -546,10 +595,31 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
                    role_kind: t.role_kind || null, member_id: t.member_id || null };
         }) });
       }
-      await publish(post.id);
+      /* The edit is already committed by here — the PATCH and the target
+         rewrite both landed. publish() can still throw (it surfaces a real
+         failure now rather than swallowing everything), and letting that
+         abort the reload would leave the editor open over a stale `posts`
+         array: press Cancel and the card repaints the PRE-EDIT title and
+         body after a message that said "Saved". Realtime cannot repair it
+         either — refreshSoon() returns early while `editing` is set, so the
+         author's own change event was already dropped.
+
+         So reload first, always. On success the editor closes as before. On
+         a publish failure it stays open — over fresh data now — because that
+         is the only place on this screen with somewhere to put the message,
+         and the author needs to know the post saved but nobody was told. */
       CadOrg.log("post.edited", "post", post.id);
-      editing = null;
-      await load(); render();
+      var pubErr = null;
+      try { await publish(post.id); } catch (e) { pubErr = e; }
+      await load();
+      if (!pubErr) { editing = null; render(); return; }
+      render();   // editing is still set, so this repaints the editor
+      var again = document.querySelector('[data-editmsg]');
+      if (again) {
+        again.className = "acct-msg err"; again.style.display = "block";
+        again.textContent = "Saved — but the notification didn't go out: " + explain(pubErr);
+      }
+      return;
     } catch (err) {
       msg.className = "acct-msg err";
       msg.textContent = explain(err);

@@ -87,7 +87,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   var main = document.getElementById("ensMain");
   var esc = CadOrg.esc, P = CadPeople;
   var S = {
-    org: null, tab: "dashboard", roles: [], seasons: [], groups: [],
+    org: null, ready: false, tab: "dashboard", roles: [], seasons: [], groups: [],
     requests: [], audit: [], forms: [], counts: {}, recentFiles: null,
     auditFilter: { action: "", since: "" },
   };
@@ -530,7 +530,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   /* ── forms ────────────────────────────────────────────────────────── */
   var FIELD_TYPES = [["text", "Short text"], ["longtext", "Long text"], ["number", "Number"],
     ["date", "Date"], ["select", "Choose one"], ["multiselect", "Choose several"],
-    ["checkbox", "Checkbox"], ["file", "File upload"], ["signature", "Signature"]];
+    ["checkbox", "Checkbox"], ["file", "File — collected off-form"], ["signature", "Signature"]];
   var FORM_KINDS = [["general", "General"], ["medical", "Medical"], ["travel", "Travel"],
     ["sizing", "Sizing"], ["volunteer", "Volunteer"], ["audition", "Audition"], ["survey", "Survey"]];
 
@@ -586,10 +586,16 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
               '<select class="ctrl" id="fGroups" multiple size="4">' + S.groups.map(function (g) {
                 return '<option value="' + esc(g.id) + '">' + esc(g.name) + "</option>"; }).join("") +
               "</select></label>" +
-              '<p class="ppl-warn" style="margin-top:0">Select nothing and the whole organization ' +
-              "sees it. Otherwise only members of the groups you pick — and their guardians — do.</p>"
+              '<p class="ppl-warn" style="margin-top:0">Select nothing and every member sees it. ' +
+              "Otherwise it reaches the groups you pick and their guardians — plus staff holding " +
+              "<code>form.manage</code>, who can see every form here however it is targeted.</p>"
             : "") +
-          "<h4>Fields</h4><div id=\"fFields\"></div>" +
+          "<h4>Fields</h4>" +
+          '<p class="setnote">Every type here draws a real control on the member\'s screen except ' +
+          "<b>File — collected off-form</b>: attachments aren't wired to storage yet, so that one " +
+          "shows members a note saying you'll collect the file another way, and can't be marked " +
+          "required.</p>" +
+          "<div id=\"fFields\"></div>" +
           '<button class="tab" type="button" id="fAddField">+ Add field</button>' +
           '<div class="ppl-actions"><button class="tab on" type="submit">Create form</button>' +
           '<span class="acct-msg" id="fMsg" role="status"></span></div></form>' +
@@ -608,7 +614,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<button class="tab" type="button" data-f="remove">×</button></div>';
   }
 
-  /* A "File upload" field renders no control on the member fill-in screen —
+  /* A file field renders no control on the member fill-in screen —
      attachments aren't wired to storage yet — so a required one would make
      the whole form permanently unsubmittable for every member. Until uploads
      land, file answers are collected off-form and cannot be required. */
@@ -704,14 +710,24 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
      admin.html#tab. A same-document fragment link never reloads the page,
      so reading the hash once at boot left them changing the URL and nothing
      else. One listener routes them — and the back button with them. Tab
-     buttons use replaceState, which fires nothing, so this never doubles up. */
+     buttons use replaceState, which fires nothing, so this never doubles up.
+
+     Two things the first version of this got wrong. Going BACK to the
+     hashless entry is the common case (the tab buttons replaceState a hash
+     in, so the entry you arrived on is usually the only one without one):
+     an unrecognised or empty hash has to mean "dashboard", not "leave
+     whatever pane is on screen and let the URL lie". And the listener may
+     only paint once the page is actually open to this person — S.org is
+     set before the permission check and on the load()-failure path, so
+     it is not that signal; S.ready is, and nothing sets it until both. */
   function tabFromHash() {
     var hash = (location.hash || "").replace("#", "");
     return TABS.some(function (t) { return t[0] === hash; }) ? hash : null;
   }
   window.addEventListener("hashchange", function () {
-    var t = tabFromHash();
-    if (!t || !S.org || t === S.tab) return;
+    if (!S.ready) return;
+    var t = tabFromHash() || "dashboard";
+    if (t === S.tab) return;
     S.tab = t;
     render();
     window.scrollTo(0, 0);
@@ -964,6 +980,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         "If this is a fresh install, migrations 0005 and 0009 may not be applied yet.</div></div>";
       return;
     }
+    S.ready = true;   // only now may a hash change paint the Admin shell
     render();
   });
 })();

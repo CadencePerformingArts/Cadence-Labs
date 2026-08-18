@@ -415,6 +415,34 @@
     if (n && n.type === "rsvp") return "event.html?id=" + encodeURIComponent(p.event_id || "");
     return "home.html";               // a type this build doesn't know yet
   }
+  /* Is that link this very page? Only the fragment may differ: a different
+     query string ("event.html?id=e2" from event.html?id=e1) is a real
+     navigation, a different fragment is not. */
+  function samePageAs(href) {
+    var s = String(href == null ? "" : href);
+    var cut = s.indexOf("#");
+    var target = cut < 0 ? s : s.slice(0, cut);
+    var here = String((location.pathname || "").split("/").pop() || "") +
+               String(location.search || "");
+    return !!target && target === here;
+  }
+
+  /* Follow a notification's link — including when it points at the page you
+     are already on. "feed.html#post-x" tapped ON feed.html is a same-document
+     fragment change: the browser fires no navigation, so nothing re-renders
+     and the card never gets brought into view. feed.html reads the hash only
+     from inside render(), and nothing under /ensemble/ listens for hashchange
+     except admin.html — and the member an acknowledgment-required
+     announcement is aimed at is exactly the person already on the feed. So
+     put the fragment in place and reload: the page routes it on the way up. */
+  function notifGo(href) {
+    if (!samePageAs(href)) { location.href = href; return "assign"; }
+    var cut = String(href).indexOf("#");
+    if (cut >= 0 && location.hash !== href.slice(cut)) location.hash = href.slice(cut);
+    location.reload();
+    return "reload";
+  }
+
   function notifLine(n) {
     if (n.type === "ack_post") return "Needs your acknowledgment";
     if (n.type === "rsvp") return "Please RSVP";
@@ -470,14 +498,23 @@
 
   /* read_at is the ONLY column a recipient may write — guard_notification_update()
      in 0014 raises 'notification_readonly' on anything else. Keep both bodies
-     below exactly one key wide. */
+     below exactly one key wide.
+
+     The badge is reconciled against the list, never decremented blind: a row
+     that was not on the list (a double tap, a sheet left open while another
+     device read it, a row already dismissed) must not move the number, or
+     three unread become one after two taps on the same notification. */
   async function markRead(id) {
     await rest("org_notifications?id=eq." + encodeURIComponent(id), {
       method: "PATCH", headers: { Prefer: "return=minimal" },
       body: { read_at: new Date().toISOString() },
     });
-    notif.rows = (notif.rows || []).filter(function (r) { return r.id !== id; });
-    setUnread(notif.count - 1);
+    var rows = notif.rows;
+    if (!rows) return notif.count;          // never loaded — nothing to reconcile with
+    var kept = rows.filter(function (r) { return r.id !== id; });
+    if (kept.length === rows.length) return notif.count;   // it was already off the list
+    notif.rows = kept;
+    return setUnread(kept.length);
   }
 
   async function markAllRead() {
@@ -490,7 +527,7 @@
     setUnread(0);
   }
 
-  function notifSheetHtml() {
+  function notifSheetHtml(note) {
     var rows = notif.rows || [];
     var body;
     if (notif.err) {
@@ -509,6 +546,8 @@
       }).join("");
     }
     return '<div class="ens-sheet-in"><h3>Notifications</h3>' + body +
+      '<p class="ens-prefmsg' + (note && note.bad ? " bad" : "") +
+        '" id="ensNotifMsg" role="status">' + esc(note ? note.text : "") + "</p>" +
       '<div class="ens-notif-acts">' +
         (rows.length ? '<button class="tab" id="ensNotifAll" type="button">Mark all read</button>' : "") +
         '<button class="tab" id="ensNotifPrefs" type="button">Settings</button>' +
@@ -526,23 +565,35 @@
       '<div class="empty" style="padding:26px 8px">Loading…</div></div>';
     document.body.appendChild(wrap);
     var close = trapSheet(wrap);
+    var note = null;
     function paint() {
-      wrap.innerHTML = notifSheetHtml();
+      wrap.innerHTML = notifSheetHtml(note);
       var f = wrap.querySelector("a, button");
       if (f && document.activeElement === document.body) f.focus();
     }
+    /* a sheet that redraws the same rows after a failed action looks like it
+       ignored the tap — say what happened, the way settings does */
+    function say(text, bad) { note = text ? { text: text, bad: !!bad } : null; paint(); }
     loadNotifs().then(paint, paint);
     wrap.addEventListener("click", function (e) {
       if (e.target === wrap || e.target.id === "ensNotifClose") { close(); return; }
-      if (e.target.id === "ensNotifAll") { markAllRead().then(paint, paint); return; }
+      if (e.target.id === "ensNotifAll") {
+        say("Marking all read…");
+        markAllRead().then(function () { say(""); }, function () {
+          say("Couldn't mark those read just now — they're all still here.", true);
+        });
+        return;
+      }
       if (e.target.id === "ensNotifPrefs") { close(); openPrefsSheet(); return; }
       var row = e.target.closest && e.target.closest("[data-notif]");
       if (!row) return;
       e.preventDefault();
       var href = row.getAttribute("href");
       // dismiss first, but a failed PATCH must never strand someone on a
-      // sheet — the deep link is the point of the notification
-      function go() { location.href = href; }
+      // sheet — the deep link is the point of the notification. Take the
+      // sheet down before following it: the row is spent either way, and
+      // when the link is this very page there is no unload to remove it.
+      function go() { close(); notifGo(href); }
       markRead(row.getAttribute("data-notif")).then(go, go);
     });
   }
@@ -563,7 +614,19 @@
      any other channel. On a database still short of it the insert is
      refused, so that row is offered optimistically and folds away with a
      plain note — nobody should meet a raw exception over a column
-     constraint they cannot see. */
+     constraint they cannot see.
+
+     Only channels something actually asks about are offered. 'email' is a
+     legal value of the column and always has been, but no delivery path
+     ever calls should_notify(..., 'email', ...): 0014 and 0019 ask about
+     'inapp' and 'push', and the single email the workspace sends —
+     notify_invite() — is addressed to a person who is not a member yet, so
+     no per-member row could gate it even in principle. A control that
+     changes nothing is a lie told politely, so email gets a sentence of
+     explanation instead of a switch. Add the row back the day something
+     consults it. Push is likewise honest about its reach: 0019's
+     enqueue_event_notifications() queues RSVPs 'inapp' only, so the push
+     level governs acknowledgment-required announcements alone. */
   var LEVELS = [
     ["all", "Everything"],
     ["important", "Important and urgent"],
@@ -571,10 +634,17 @@
     ["none", "Mute"],
   ];
   var CHANNELS = [
-    ["inapp", "In the workspace"],
-    ["push", "Push notifications"],
-    ["email", "Email"],
+    ["inapp", "In the workspace",
+     "The bell on every page — acknowledgment requests and RSVP requests."],
+    ["push", "Push notifications",
+     "Your phone and desktop. Acknowledgment-required announcements only; " +
+     "RSVP requests are in-app."],
   ];
+  /* what the workspace does about email, said once, where the row used to be */
+  var EMAIL_NOTE = "Cadence sends members no email about announcements or " +
+    "events, so there is nothing here to set for it. The one email the " +
+    "workspace sends is the invitation to join it, and that goes out before " +
+    "the person it reaches is a member with settings at all.";
   var prefsOff = {};   // channels this database refused, for this session
 
   async function loadPrefs() {
@@ -612,7 +682,8 @@
       "your notification settings just now.</div>"
       : CHANNELS.map(function (c) {
           if (prefsOff[c[0]]) return "";
-          return '<label class="ens-prefrow"><b>' + c[1] + "</b>" +
+          return '<label class="ens-prefrow"><span class="ens-preflab"><b>' + c[1] + "</b>" +
+            '<span class="ens-prefhint">' + c[2] + "</span></span>" +
             '<select class="ctrl" data-ch="' + c[0] + '">' +
             LEVELS.map(function (l) {
               return '<option value="' + l[0] + '"' +
@@ -624,6 +695,8 @@
       '<p class="setnote" style="margin:0 0 10px">Choose how much this workspace ' +
       "may interrupt you. Urgent announcements always get through — that is the " +
       "one rule the workspace will not bend.</p>" + rows +
+      (failed ? "" : '<p class="ens-prefhint" style="margin:10px 2px 0">' +
+        EMAIL_NOTE + "</p>") +
       '<p class="ens-prefmsg" id="ensPrefMsg" role="status"></p>' +
       '<div class="ens-notif-acts">' +
         (failed ? "" : '<button class="tab" id="ensPrefMute" type="button">Mute this workspace</button>') +
@@ -673,7 +746,8 @@
         }
       }
       paint();
-      if (done) msg("Muted. Urgent announcements still reach you.");
+      // every channel above, and no claim about the one that isn't there
+      if (done) msg("Muted every channel above. Urgent announcements still reach you.");
       else msg("This workspace's database doesn't accept those settings yet.", true);
     }
 
@@ -684,7 +758,9 @@
       msg("Saving…");
       savePref(ch, lvl).then(function () {
         cur[ch] = lvl;
-        msg(lvl === "none" ? "Muted. Urgent announcements still reach you." : "Saved.");
+        msg(lvl === "none"
+          ? "“" + label(ch) + "” muted. Urgent announcements still reach you."
+          : "Saved.");
       }, function (err) {
         if (channelRejected(err)) {
           prefsOff[ch] = true; paint();
@@ -724,6 +800,8 @@
       ".ens-prefrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 2px;}",
       ".ens-prefrow b{font-size:14px;font-weight:650;}",
       ".ens-prefrow select{flex:0 1 190px;min-width:0;}",
+      ".ens-preflab{display:flex;flex-direction:column;gap:2px;min-width:0;}",
+      ".ens-prefhint{font-size:12px;line-height:1.45;color:var(--muted);}",
       ".ens-prefmsg{min-height:18px;margin:8px 2px 0;font-size:12.5px;color:var(--muted);}",
       ".ens-prefmsg.bad{color:var(--bad);}",
     ].join("\n");
@@ -803,8 +881,10 @@
     // the pieces scripts/test_notify_ui.js drives directly
     _notif: {
       query: notifQuery, markAllPath: notifAllPath, link: notifLink,
+      samePage: samePageAs, go: notifGo,
       setUnread: setUnread, load: loadNotifs, markRead: markRead,
       markAllRead: markAllRead, savePref: savePref, rejected: channelRejected,
+      channels: function () { return CHANNELS.map(function (c) { return c[0]; }); },
       state: notif,
     },
   };

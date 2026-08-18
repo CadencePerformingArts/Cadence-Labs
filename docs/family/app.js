@@ -160,6 +160,93 @@
   // value's scale reads off the value itself — the two never share an axis
   const isPlaced = v => resultsKind() === "rating" && v >= 1000;
 
+  /* ---- charting an ordinal result scale ----------------------------------
+     A rating is one of five whole divisions and a placement is a whole
+     finish: there is no Division 2.5 and no 0th place. CCViz.lineChart picks
+     its own gridlines off the PADDED numeric range of whatever happens to be
+     on screen, so handing it score3 as the tick formatter rounds those
+     fractions onto numerals — a season of a single Division I show pads to
+     ±1 and prints the axis "0 · I · I · II · II": a division that does not
+     exist, plus the same numeral twice on two different gridlines. So these
+     circuits do not use lineChart at all. The axis here IS the scale: whole
+     steps, the full domain every time (so one show and five show the same
+     ladder), and the best value on top because 1 beats 5. */
+  function scaleTicks(vals) {
+    // ratings are a closed 1–5 domain; placements run 1st down to the deepest
+    // finish on screen (thinned to whole steps once there are more than six)
+    if (resultsKind() === "rating" && !vals.some(isPlaced)) return [1, 2, 3, 4, 5];
+    const off = resultsKind() === "rating" ? 1000 : 0;   // placement marker
+    const worst = Math.max(5, ...vals.map(v => v - off));
+    const step = Math.ceil((worst - 1) / 5);
+    const ticks = [];
+    for (let n = 1; n < worst; n += step) ticks.push(n + off);
+    ticks.push(worst + off);
+    return ticks;
+  }
+  function ratingChart(container, opts) {
+    /* Colors and width come from charts.js, not from here. The SVG is sized
+       `width:100%` and scaled by its viewBox, so a hardcoded 860 on a 320px
+       phone renders 11px axis text at 4px — illegible, on the surface most
+       of this audience actually uses. And every band color on a ratings
+       circuit comes from EXT_PALETTE, all sixteen of which sit below the
+       luminance floor charts.js lifts colors off in dark mode. Both were
+       already solved once; reusing them is what stops the two chart paths
+       drifting apart again. */
+    const tint = window.CCViz.lineColor || (c => c);
+    const series = (opts.series || []).map((s, i) => ({
+      name: s.name || "", color: tint(s.color || PALETTE[i % PALETTE.length]), dash: s.dash || "",
+      points: (s.points || []).filter(p => p.y != null).slice().sort((a, b) => a.x - b.x),
+    })).filter(s => s.points.length);
+    const pts = series.flatMap(s => s.points);
+    if (!pts.length) { container.innerHTML = '<div class="empty">No data yet.</div>'; return; }
+    const ticks = scaleTicks(pts.map(p => p.y));
+    const yLo = ticks[0], yHi = ticks[ticks.length - 1];
+    const W = window.CCViz.fitWidth ? window.CCViz.fitWidth(container) : 860;
+    const H = opts.height || 260;
+    const m = { top: 16, right: 26, bottom: 26, left: 54 };
+    const iw = W - m.left - m.right, ih = H - m.top - m.bottom;
+    const xMin = Math.min(...pts.map(p => p.x)), xMax = Math.max(...pts.map(p => p.x));
+    const X = v => xMax === xMin ? m.left + iw / 2 : m.left + (v - xMin) / (xMax - xMin) * iw;
+    const Y = v => m.top + (v - yLo) / (yHi - yLo) * ih;   // 1 (best) at the top
+    const xFmt = opts.xFmt || (v => String(Math.round(v)));
+    const LAB = "fill:var(--ch-label);font-size:11px";
+    let g = "";
+    for (const tv of ticks) {
+      const y = Y(tv).toFixed(1);
+      g += `<line x1="${m.left}" x2="${W - m.right}" y1="${y}" y2="${y}" style="stroke:var(--ch-grid);stroke-width:1"></line>`
+        + `<text x="${m.left - 8}" y="${(Y(tv) + 4).toFixed(1)}" text-anchor="end" style="${LAB}">${esc(score3(tv))}</text>`;
+    }
+    g += `<line x1="${m.left}" x2="${W - m.right}" y1="${m.top + ih}" y2="${m.top + ih}" style="stroke:var(--ch-base);stroke-width:1"></line>`;
+    // x labels come off the real points — a ratings season is a handful of
+    // contests, so each one gets named instead of interpolated
+    const xs = [...new Set(pts.map(p => p.x))].sort((a, b) => a - b);
+    const every = Math.ceil(xs.length / 8);
+    xs.forEach((xv, i) => {
+      if (i % every !== 0 && i !== xs.length - 1) return;
+      g += `<text x="${X(xv).toFixed(1)}" y="${H - 8}" text-anchor="middle" style="${LAB}">${esc(xFmt(xv))}</text>`;
+    });
+    for (const s of series) {
+      if (s.points.length > 1) {
+        const d = s.points.map((p, j) => (j ? "L" : "M") + X(p.x).toFixed(1) + " " + Y(p.y).toFixed(1)).join(" ");
+        g += `<path d="${d}" fill="none" stroke="${esc(s.color)}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"${s.dash ? ` stroke-dasharray="${esc(s.dash)}"` : ""}></path>`;
+      }
+      // every result gets its own marker: with one or two shows a season the
+      // dots ARE the chart, and each carries its own label for hover/tap
+      for (const p of s.points)
+        g += `<circle cx="${X(p.x).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="4.5" fill="${esc(s.color)}" style="stroke:var(--ch-halo);stroke-width:2">`
+          + `<title>${esc((s.name ? s.name + " · " : "") + xFmt(p.x) + " · " + score3(p.y))}</title></circle>`;
+    }
+    container.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`
+      + (series.length >= 2 && !opts.noLegend
+        ? `<div class="legend">${series.map(s => `<span class="key"><span class="swatch-line" style="background:${s.dash
+          ? `repeating-linear-gradient(90deg, ${esc(s.color)} 0 4px, transparent 4px 7px)` : esc(s.color)}"></span>${esc(s.name)}</span>`).join("")}</div>`
+        : "");
+  }
+  // one entry point for every results chart: point scores keep CCViz's line
+  // chart, ordinal scales get the ladder above
+  const scoreChart = (container, opts) =>
+    (resultsKind() ? ratingChart : lineChart)(container, opts);
+
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   function fmtDate(iso) {
     if (!iso) return "";
@@ -1320,12 +1407,16 @@
           const evs = seasons[yi];
           if (!evs) continue;
           const pts = [];
+          // results this band-season has on the OTHER scale, counted per row:
+          // the expansion below only lists what is charted, so each row has to
+          // say what it is leaving out rather than leaning on a global notice
+          let rowOff = 0;
           for (const ev of evs) {
             if (!ev.date) continue;
             for (const c of ev.classes || []) {
               for (const r of c.results || []) {
                 if (!(r.corps === name && r.score)) continue;
-                if (twoScales && (isPlaced(r.score) ? "placement" : "rating") !== scaleSel) { offScale++; continue; }
+                if (twoScales && (isPlaced(r.score) ? "placement" : "rating") !== scaleSel) { offScale++; rowOff++; continue; }
                 pts.push({ x: dayOfSeason(ev.date), y: r.score, ev: ev.name, d: ev.date });
               }
             }
@@ -1353,6 +1444,7 @@
             high: hiPt.y,
             firstTip: tipOf(pts[0]), latestTip: tipOf(pts[pts.length - 1]), highTip: tipOf(hiPt),
             gain: (lowerIsBetter() ? -drift : drift).toFixed(lowerIsBetter() ? 0 : 2),
+            off: rowOff,
           });
         }
         if (truncated) break;
@@ -1371,18 +1463,26 @@
         tableEl.innerHTML = "";
         return;
       }
-      lineChart(chartEl, { linearX: true, series, height: 360, xFmt: dayLabel,
-        yFmt: resultsKind() ? score3 : v => v.toFixed(1) });
+      scoreChart(chartEl, { linearX: true, series, height: 360, xFmt: dayLabel,
+        yFmt: v => v.toFixed(1) });
       summary.sort((a, b) => b.year - a.year
         || (lowerIsBetter() ? (a.latest || 0) - (b.latest || 0) : (b.latest || 0) - (a.latest || 0)));
-      // each corps-season row expands into its full show-by-show log
+      // Each row expands into the shows behind it. On a ratings circuit the
+      // chart — and therefore the expansion — holds one scale at a time, so
+      // the promise names the scale instead of claiming "every show", and a
+      // row with results on the other scale says so in its own detail table.
+      const scaleName = k => k === "rating" ? "region rating" : "State placement";
+      const otherName = scaleName(scaleSel === "rating" ? "placement" : "rating");
+      const rowTitle = twoScales
+        ? `Tap for every ${scaleName(scaleSel)} that season`
+        : "Tap for every show that season";
       tableEl.innerHTML = `
         <div class="tscroll"><table class="t"><thead><tr><th style="width:26px"></th><th>${TERM_TH}</th><th class="num">Season</th><th class="num m-hide">First</th><th class="num">Latest / Final</th><th class="num m-hide">${lowerIsBetter() ? "Best" : "High"}</th><th class="num">${lowerIsBetter() ? "Improved" : "Gain"}</th></tr></thead><tbody id="cmpRows">
-        ${summary.map((s, si) => h`<tr class="rowlink cmpsum" data-si="${si}" title="Tap for every show that season">
+        ${summary.map((s, si) => h`<tr class="rowlink cmpsum" data-si="${si}" title="${esc(rowTitle)}">
           <td class="cmpcaret" style="color:var(--muted)">▸</td>
           <td>${corpsLink(s.corps)}</td><td class="num">${s.year}</td><td class="num m-hide" data-tip="${esc(s.firstTip)}">${score3(s.first)}</td><td class="num score" data-tip="${esc(s.latestTip)}">${score3(s.latest)}</td><td class="num m-hide" data-tip="${esc(s.highTip)}">${score3(s.high)}</td><td class="num">${s.gain > 0 ? "+" : ""}${s.gain}</td></tr>
         <tr class="cmpdet hid"><td></td><td colspan="6" style="padding:0 8px 12px">
-          <table class="t" style="font-size:13px">${s.list.map(p => `<tr><td style="color:var(--muted);white-space:nowrap;width:70px">${fmtDate(p.d)}</td><td>${esc(p.ev)}</td><td class="num score">${score3(p.y)}</td></tr>`).join("")}</table>
+          <table class="t" style="font-size:13px">${s.list.map(p => `<tr><td style="color:var(--muted);white-space:nowrap;width:70px">${fmtDate(p.d)}</td><td>${esc(p.ev)}</td><td class="num score">${score3(p.y)}</td></tr>`).join("")}${s.off ? `<tr><td colspan="3" class="kicker" style="padding-top:6px">+ ${s.off} ${otherName}${s.off > 1 ? "s" : ""} this season — switch <b>Results</b> above to list ${s.off > 1 ? "them" : "it"}.</td></tr>` : ""}</table>
         </td></tr>`).join("")}
         </tbody></table></div>`;
       tableEl.querySelectorAll("tr.cmpsum").forEach(tr => tr.onclick = e => {
@@ -1530,9 +1630,13 @@
     // The line charts plot the rating scale only; the log below still lists
     // every State row, and score3 spells both out in their own notation.
     const chartPts = ps => ps.filter(p => p.s && p.d && !isPlaced(p.s));
-    const chartYFmt = resultsKind() ? score3 : v => v.toFixed(1);
+    // point scores only — scoreChart hands an ordinal circuit to ratingChart,
+    // which labels its axis from the scale itself instead of a tick formatter
+    const chartYFmt = v => v.toFixed(1);
     const scoreNoun = resultsKind() === "rating" ? "rating"
       : resultsKind() === "placement" ? "placement" : "score";
+    const bestNoun = scoreNoun === "rating" ? "Best Rating"
+      : scoreNoun === "placement" ? "Best Placement" : "Top Score";
     // the plain page title is replaced by the "wrapped"-style hero below
     const pt = document.getElementById("corpsPageTitle");
     if (pt) pt.hidden = true;
@@ -1619,9 +1723,9 @@
         <div class="tile click" id="tileTitles" role="button" title="The full record book">
           <div class="label">Titles</div><div class="value">${titles.length}</div>
           <div class="sub">${esc(titles.length <= 6 ? titles.join(" · ") || "—" : titles.slice(-3).join(" · ") + ` · +${titles.length - 3} more`)} →</div></div>
-        <a class="tile click" href="#/captions?corps=${encodeURIComponent(detail.name)}">
+        ${hasCaptions() ? `<a class="tile click" href="#/captions?corps=${encodeURIComponent(detail.name)}">
           <div class="label">Caption Scores</div><div class="value">GE · VIS · MUS</div>
-          <div class="sub">judge-by-judge breakdowns →</div></a>
+          <div class="sub">judge-by-judge breakdowns →</div></a>` : ""}
       </div>
       ${profHtml ? `<div style="margin-top:14px">${profHtml}</div>` : ""}
       <p class="claimline">Represent ${esc(detail.name)}?
@@ -1663,18 +1767,54 @@
       if (subEl) subEl.textContent = agg ? `${yr} season · by the numbers` : `${years.length} season${years.length > 1 ? "s" : ""} on record`;
       if (!statsEl) return;
       const cell = (v, l, id) => `<div class="corpshero-stat"${id ? ` id="${id}"` : ""}><div class="b"></div><div class="v">${v}</div><div class="l">${l}</div></div>`;
-      statsEl.innerHTML = agg
-        ? cell(score3(agg.high), lowerIsBetter() ? "Season best" : "Season high")
-          + cell("…", "Class rank", "heroRank")
-          + cell((agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(lowerIsBetter() ? 0 : 2),
-            lowerIsBetter() ? "Improved by" : "Points gained")
-          + cell(agg.shows, "Shows")
-        : cell(bestPerf ? score3(bestPerf.s) : "—", lowerIsBetter() ? "Best " + scoreNoun : "Best score")
-          + cell(titles.length, "Titles")
-          + cell(perfs.length, "Performances")
-          + cell(years.length, "Seasons");
+      /* Four tiles, and every one of them has to be able to say something.
+         On a ratings circuit two of the point-score tiles cannot:
+           · "Class rank" is computed by CadWrapped.standing, which ranks on
+             point scores this circuit never publishes — it returns null on
+             every band, so the tile could only ever fall back to a rounded
+             season average printed as a Roman numeral.
+           · "Improved by" and "Shows" need more than one rated result, and
+             20,343 of the 20,362 UIL band-seasons on file have exactly one
+             — so both would read "+0" and "1" on essentially every profile.
+         Same standard as the Share button: better no tile than a dead one.
+         The season contributes what it actually knows and career facts fill
+         the rest, so the grid is always four wide. */
+      const tiles = [];
+      if (agg) {
+        tiles.push([score3(agg.high), lowerIsBetter() ? "Season best" : "Season high"]);
+        if (!resultsKind()) {
+          tiles.push(["…", "Class rank", "heroRank"]);
+          tiles.push([(agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(2), "Points gained"]);
+          tiles.push([agg.shows, "Shows"]);
+        } else {
+          // the championship result is on the other scale, so seasonAgg drops
+          // it — but it is the one number a State-qualifying season is about.
+          // The FINISH is the last one of the weekend, not the best of them:
+          // a band can place 9th in prelims and 10th in finals.
+          const placed = (byYear.get(yr) || []).filter(p => p.s != null && isPlaced(p.s))
+            .slice().sort((a, b) => (a.d || "").localeCompare(b.d || ""));
+          if (placed.length) tiles.push([score3(placed[placed.length - 1].s), "State finish"]);
+          if (agg.shows > 1) {
+            tiles.push([(agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(0), "Improved by"]);
+            tiles.push([agg.shows, "Rated shows"]);
+          }
+        }
+      } else {
+        tiles.push([bestPerf ? score3(bestPerf.s) : "—", lowerIsBetter() ? "Best " + scoreNoun : "Best score"]);
+      }
+      /* The filler tiles are CAREER figures and the heading above them says
+         "<year> season · by the numbers", so they must say so themselves —
+         "19 / Seasons" under a 2025 header reads as a season figure and is
+         wrong by a factor of twenty. Labelling them is the fix rather than
+         dropping them, because the grid is four wide at every breakpoint. */
+      for (const t of [[titles.length, "Titles, career"], [perfs.length, "Shows, career"],
+                       [years.length, "Seasons on record"]]) {
+        if (tiles.length >= 4) break;
+        tiles.push(t);
+      }
+      statsEl.innerHTML = tiles.slice(0, 4).map(t => cell(t[0], t[1], t[2])).join("");
       // current standing needs every corps in the class — fill it once it loads
-      if (agg && window.CadWrapped && window.CadWrapped.standing) {
+      if (agg && !resultsKind() && window.CadWrapped && window.CadWrapped.standing) {
         window.CadWrapped.standing(detail.name, yr).then(st => {
           const tile = document.getElementById("heroRank");
           if (!tile || (selYears().slice(-1)[0] || years[years.length - 1]) !== yr) return;
@@ -1705,7 +1845,7 @@
         title.innerHTML = `${yv} Season Progression <span class="sub">${scoreNoun} by date · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
         const pts = chartPts(byYear.get(yv) || [])
           .map(p => ({ x: dayOfSeason(p.d), y: p.s })).sort((a, b) => a.x - b.x);
-        lineChart(document.getElementById("corpsChart"), {
+        scoreChart(document.getElementById("corpsChart"), {
           linearX: true, series: [{ name: String(yv), points: pts, color: corpsColor(detail.name) }],
           height: 260, xFmt: dayLabel, yFmt: chartYFmt,
         });
@@ -1721,7 +1861,7 @@
         })).filter(sr => sr.points.length);
         if (series.length) {
           title.innerHTML = `Season Progression — ${sel[0]}–${sel[sel.length - 1]} <span class="sub">one line per season · <a href="#/compare?c=${slug}&y=${cmpYears}">compare vs other ${TERM.plural} →</a></span>`;
-          lineChart(document.getElementById("corpsChart"), {
+          scoreChart(document.getElementById("corpsChart"), {
             linearX: true, series,
             height: 260, xFmt: dayLabel, yFmt: chartYFmt,
           });
@@ -1732,7 +1872,7 @@
       // so years the corps didn't march show as real gaps and an in-progress
       // season sits as its own point instead of dragging the line
       const range = sel.length ? `${sel[0]}–${sel[sel.length - 1]}` : "";
-      title.innerHTML = `${scoreNoun === "rating" ? "Best Rating" : scoreNoun === "placement" ? "Best Placement" : "Top Score"} by Year${range ? ` — ${range}` : ""} <span class="sub">gaps = seasons not yet in the database · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
+      title.innerHTML = `${bestNoun} by Year${range ? ` — ${range}` : ""} <span class="sub">gaps = seasons not yet in the database · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
       const ptsAll = years.map((y, i) => ({ x: y, y: bestByYear[i] }))
         .filter(p => p.y && !isPlaced(p.y) && (!sel.length || yearSet.has(String(p.x))));
       const segs = [];
@@ -1742,10 +1882,10 @@
         cur.push(p);
       }
       if (cur.length) segs.push(cur);
-      lineChart(document.getElementById("corpsChart"), {
+      scoreChart(document.getElementById("corpsChart"), {
         linearX: true, noLegend: true,
-        series: segs.map(pts => ({ name: "Top score", points: pts, color: corpsColor(detail.name) })),
-        height: 260, yFmt: resultsKind() ? score3 : v => v.toFixed(0), xFmt: v => String(Math.round(v)),
+        series: segs.map(pts => ({ name: bestNoun, points: pts, color: corpsColor(detail.name) })),
+        height: 260, yFmt: v => v.toFixed(0), xFmt: v => String(Math.round(v)),
       });
     }
 
@@ -1909,7 +2049,11 @@
       if (pts.length >= 3) {
         wrap.hidden = false;
         document.getElementById("champChartSub").textContent = `${champCls} title score by season`;
-        lineChart(document.getElementById("champChart"), {
+        // through the shared entry point like every other results chart: a
+        // circuit that publishes ordinals instead of points must not get a
+        // tick chooser working on a padded numeric range (today no ratings
+        // circuit records a champion score, so this only ever picks lineChart)
+        scoreChart(document.getElementById("champChart"), {
           linearX: true, noLegend: true,
           series: segs.map(sg => ({ name: "Winning score", points: sg, color: "#d97706" })),
           height: 240, yFmt: v => v.toFixed(1), xFmt: v => String(Math.round(v)),
@@ -3265,9 +3409,13 @@
       if (mb) mb.onclick = () => { shown += 100; render(); };
       document.querySelectorAll("#dbtable th").forEach(th => th.onclick = () => {
         const c = +th.dataset.c;
-        DB.sort = DB.sort[0] === c
-          ? [c, -DB.sort[1]]
-          : [c, c === 0 || c === cfg.dateIdx || cfg.scoreCols.includes(c) ? -1 : 1];
+        // first click on a column puts the best row first: newest for dates
+        // and seasons, highest for point scores — but LOWEST where 1 beats 5,
+        // so a Rating column opens on Division I, not Division V
+        const first = c === 0 || c === cfg.dateIdx ? -1
+          : cfg.scoreCols.includes(c) ? (lowerIsBetter() ? 1 : -1)
+          : 1;
+        DB.sort = DB.sort[0] === c ? [c, -DB.sort[1]] : [c, first];
         apply();
       });
     }
