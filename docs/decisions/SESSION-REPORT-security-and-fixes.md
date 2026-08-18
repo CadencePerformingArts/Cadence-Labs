@@ -1,9 +1,11 @@
 # Session report — security, functional fixes, notification spine
 
-Branch: `claude/github-ai-coding-setup-gk88x9`. Nothing was deployed, merged
-to `main`, or applied to production. All work is on the feature branch with
-a clean rollback path (additive migrations only). Owner deployment steps are
-in section 11.
+Branch: `claude/github-ai-coding-setup-gk88x9`. Not merged to `main` and not
+deployed to the site. **The database migrations WERE applied to the live
+Supabase project on 2026-08-17 at the owner's explicit instruction** — see
+"Production application" at the end of this document for exactly what was
+run and verified. Everything else remains on the feature branch with a clean
+rollback path (additive migrations only).
 
 ## 1. Executive outcome
 
@@ -347,3 +349,89 @@ worker 12/12 · monorepo vitest 27/27 · workflow-name guard clean.**
   made it conditional and it cannot be completed safely here), app stores /
   more circuits / Cadence+ launch (the brief's own defer list), and the
   owner-side activations documented above.
+
+
+---
+
+## Production application (2026-08-17)
+
+Applied to the live project `srpqgbkodcrroobuksty` ("Cadence Labs",
+Postgres 17) at the owner's explicit instruction, via the Supabase
+management API. Pre-flight state: 61 tables, RLS on all 61, 149 policies,
+**0 organizations and 1 user** — i.e. no real workspace data existed, which
+made this the lowest-risk possible moment to apply.
+
+| Migration | Result |
+|---|---|
+| `0012_security_hardening` | applied |
+| `0013_event_chats` | applied |
+| `0014_notifications` | applied |
+| `0015_platform_admin` | applied |
+| `0016_stripe_events` | applied |
+| `0017_storage_policies` | applied (see below) |
+
+Post-state: **64 tables, RLS enabled on all 64, 152 policies**, 8 new RPCs
+present, and the 15 grant-drift helper functions confirmed executable by
+`authenticated` again.
+
+**Verified against production, not just locally:**
+
+- The role-escalation attack was replayed inside a rolled-back transaction:
+  a member demoted to `member` attempted (1) a raw PATCH of their own
+  `role_id` to Owner and (2) self-promotion through `set_member_role()`.
+  **Both were blocked**; the role was unchanged; the transaction rolled back
+  and left no rows (organizations still 0).
+  *(A first attempt reported a false "regression" — the test promoted the
+  org creator, who the seed trigger already makes Owner, so `role_id` never
+  actually changed and there was nothing to block. The corrected test starts
+  from a genuinely lower role.)*
+- As a signed-in stranger, all five privileged RPCs (`padmin_sweep_subscriptions`,
+  `padmin_set_plan`, `padmin_mark_invoice_paid`, `prune_stripe_events`,
+  `claim_notifications`) **raised**, and every admin read surface returned
+  empty/null (`padmin_health` null; claims, orgs, platform audit log and
+  `stripe_events` all 0 rows).
+- Supabase security advisors: **no findings introduced by this work.** The
+  one ERROR (`org_directory` is a SECURITY DEFINER view) is pre-existing and
+  deliberate — see the note below. The 71 WARNs are the RLS-helper pattern,
+  also pre-existing and required.
+
+**The storage blocker is finally cleared.** The `ensemble` bucket existed and
+was correctly private (500 MB), but had **zero policies** on
+`storage.objects` — RLS on with nothing allowed, so every file upload and
+download was denied. 0008's guarded block had been skipped on this project
+because the SQL editor's role cannot alter that table. The management API
+*can*, so the four policies are now applied and verified (read/insert/update/
+delete, all `authenticated`, all scoped to `bucket_id = 'ensemble'` plus the
+path-ownership helpers). `0017_storage_policies.sql` records this in the repo
+so the state is reproducible — itself exception-guarded, because it also
+rides inside the single-transaction bundles.
+
+The owner's account (`lucasbesel41@gmail.com`) was granted
+`profiles.role = 'platform_admin'`, so **admin-platform.html is live** for
+them and refuses everyone else.
+
+### Two accepted, pre-existing advisor findings
+
+1. **`org_directory` SECURITY DEFINER view (ERROR).** This is the
+   "find and join your workspace" directory. It deliberately bypasses the
+   `organizations` RLS so a *non-member* can see groups that opted in, and it
+   exposes only seven non-sensitive columns (`id, name, slug, org_type,
+   public_app_key, public_ensemble_name, accepting_requests`) for rows where
+   `directory_visible` is true. `anon` cannot read it at all. The alternative
+   — a table-level RLS policy — would expose **every** column of those rows,
+   including `plan`, `status`, `stripe_customer_id` and storage counters. The
+   definer view is the *safer* of the two designs, so it stays.
+2. **71 × "SECURITY DEFINER function executable by authenticated" (WARN).**
+   These are the RLS policy helpers. A policy is evaluated with the caller's
+   privileges, so they *must* be executable by `authenticated` — revoking
+   them is precisely the 0006 grant-drift bug that had silently broken chat,
+   post visibility and DM safety in production. Each one answers only about
+   the caller (`auth.uid()`), so direct RPC calls leak nothing. The
+   textbook-cleaner fix (move helpers to a non-exposed schema) is a
+   71-function refactor across every migration and is filed, not attempted.
+
+### What is still owner-only
+Nothing about the database. The remaining items are external services: the
+notification env vars on the relay, the Stripe test deploy, legal review of
+the `docs/legal/` drafts, and enabling MFA on the platform-admin account
+(Supabase → Authentication) before real money is involved.

@@ -32,6 +32,13 @@ for public repositories, and the Supabase project fits its free tier.
 email/push providers, and Stripe's per-transaction fees once billing is
 live. Nothing in this repository purchases anything automatically.
 
+## Current status (2026-08-17)
+
+Migrations **0001-0017 are applied** to the live project, storage policies
+included, and your account holds the platform-admin role — so
+`admin-platform.html` works for you right now. The section below is the
+reference for future migrations and for standing up a staging copy.
+
 ## Applying database migrations safely
 
 A *migration* is a numbered SQL file in `supabase/migrations/` that

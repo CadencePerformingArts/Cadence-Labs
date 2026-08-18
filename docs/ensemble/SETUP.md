@@ -1,7 +1,11 @@
 # Cadence Ensemble — turning it on
 
-Everything is built and merged. Two things stand between here and a working
-workspace, and both are yours to click.
+**Status: the database is live and fully migrated.** Migrations 0001-0017
+are applied to the production Supabase project, the private `ensemble`
+storage bucket has its four access policies, and the owner account holds the
+platform-admin role. Nothing in this section is outstanding — it is kept as
+the reference for rebuilding a project from scratch (or setting up a staging
+copy). Skip to "Then: run a real rehearsal through it" to start using it.
 
 ## 1. Apply the database migrations (required)
 
@@ -26,6 +30,7 @@ policies, zero errors).
 | 12 | `supabase/migrations/0014_notifications.sql` | notification queue + enqueue triggers + worker RPCs |
 | 13 | `supabase/migrations/0015_platform_admin.sql` | platform-admin RPCs + audit (powers admin-platform.html) |
 | 14 | `supabase/migrations/0016_stripe_events.sql` | Stripe webhook idempotency ledger |
+| 15 | `supabase/migrations/0017_storage_policies.sql` | the four `ensemble` bucket policies, standalone + re-runnable |
 
 If files 3 and 4 were already applied earlier, skip them — the rest still run.
 
@@ -43,10 +48,14 @@ attack list and the tests that prove each fix are in
 `scripts/test_db_security.py` — run `python3 scripts/test_db_security.py`
 against a scratch database (never production) to see every check pass (59 as of 0016).
 
-**One possible snag, in file 6 only.** The last block creates the private
-`ensemble` storage bucket and its access policies. Some projects don't let the
-SQL editor alter `storage.objects`; if you see *"must be owner of table
-objects"*, do this instead:
+**One possible snag, in file 6 only — already resolved on production.** The
+last block creates the private `ensemble` storage bucket and its access
+policies. Some projects don't let the SQL editor alter `storage.objects`;
+that is exactly what happened here, which is why `0017_storage_policies.sql`
+exists as a standalone re-runnable file (apply it through the Supabase
+MCP/management API, which does have the privilege). If you ever see
+*"must be owner of table objects"* on a new project, either run 0017 that way
+or do this by hand:
 
 1. Storage → **New bucket** → name `ensemble`, **Public = OFF**, size limit 500 MB.
 2. Storage → **Policies** → bucket `ensemble` → New policy → "For full
