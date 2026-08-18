@@ -579,6 +579,77 @@ section("2027 rollover: a new season appears with zero code changes", async (bro
   await ctx.close();
 });
 
+
+/* Runtime layout — the class of bug that only a real browser finds, and that
+   nothing else in this repo guards. Every one of these has already shipped
+   once: an inline grid-template-columns that beat the phone breakpoint and
+   clipped the WGI tiles to "Championshi"; `display: grid` on a class the
+   scripts toggle with the hidden attribute, which rendered a whole profile
+   editor underneath a signed-out page; and `#evlist > .card` matching every
+   event row, so the Shows tab stayed one column at 1280 on all four apps. */
+const APPS = ["", "wgi/guard/", "wgi/percussion/", "wgi/winds/"];
+
+section("no page scrolls horizontally, on any app, at either width", async (browser, base) => {
+  for (const app of APPS) {
+    for (const viewport of [PHONE, DESKTOP]) {
+      const { ctx, page } = await ctxPage(browser, base, { viewport });
+      for (const r of ["#/", "#/events", "#/corps", "#/stats"]) {
+        await page.goto(`${base}/${app}${r}`, { waitUntil: "domcontentloaded" });
+        await page.waitForTimeout(900);
+        const over = await page.evaluate(() =>
+          document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        if (over > 1) bad(`/${app}${r} @${viewport.width}: page scrolls ${over}px horizontally`);
+      }
+      await ctx.close();
+    }
+  }
+});
+
+section("the hidden attribute actually hides", async (browser, base) => {
+  // an author `display` beats the UA sheet's [hidden] rule, so a grid/flex
+  // class silently un-hides anything the scripts toggle
+  for (const app of APPS) {
+    const { ctx, page } = await ctxPage(browser, base, { viewport: DESKTOP });
+    await page.goto(`${base}/${app}#/`, { waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(900);
+    const shown = await page.evaluate(() =>
+      [...document.querySelectorAll("[hidden]")]
+        .filter(el => getComputedStyle(el).display !== "none")
+        .map(el => el.tagName.toLowerCase() + "." + (String(el.className) || "?").slice(0, 40)));
+    if (shown.length) bad(`/${app}: ${shown.length} [hidden] element(s) still rendering: ${shown.slice(0, 3).join(", ")}`);
+    await ctx.close();
+  }
+});
+
+section("desktop layouts engage at 1280", async (browser, base) => {
+  const { ctx, page } = await ctxPage(browser, base, { viewport: DESKTOP });
+  const cols = async (sel) => page.evaluate((s) => {
+    const el = document.querySelector(s);
+    return el ? getComputedStyle(el).gridTemplateColumns : null;
+  }, sel);
+  const multi = (v) => !!v && v.trim().split(/\s+/).length > 1;
+
+  await page.goto(`${base}/#/`, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(1200);
+  if (!multi(await cols(".rk-grid"))) bad("scoreboard .rk-grid is a single column at 1280");
+
+  await page.goto(`${base}/#/events`, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(1200);
+  if (!multi(await cols("#evlist"))) bad("#evlist is a single column at 1280");
+  // …and the rows must actually sit in those tracks rather than spanning both
+  const spanned = await page.evaluate(() => {
+    const rows = [...document.querySelectorAll("#evlist .evrow")];
+    return rows.filter(r => getComputedStyle(r).gridColumnStart === "1" &&
+                            getComputedStyle(r).gridColumnEnd === "-1").length;
+  });
+  if (spanned > 0) bad(`#evlist: ${spanned} event row(s) span both columns, so Shows renders one-up`);
+
+  await page.goto(`${base}/#/corps/bluecoats`, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(1200);
+  if (!multi(await cols("#corpsDetail"))) bad("#corpsDetail is a single column at 1280");
+  await ctx.close();
+});
+
 // ---------------------------------------------------------------------------
 (async () => {
   const { srv, port } = await start();

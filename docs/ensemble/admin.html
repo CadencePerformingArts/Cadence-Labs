@@ -13,7 +13,12 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="../app.css">
 <link rel="stylesheet" href="ensemble.css">
 <style>
-/* Admin — layout only; colours come from app.css tokens. */
+/* Admin — page layout only. The rows, the drawer, the permission fieldset
+   and the toast are shared with members.html and live in ensemble.css;
+   colours are app.css tokens.
+
+   Desktop shape: every tab here is "a list of things" beside "the form that
+   makes another one", which is exactly what .dsk2.w75 is for. */
 .adm-tiles { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .adm-tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 13px;
   padding: 13px 14px; text-decoration: none; display: block; color: inherit; }
@@ -22,44 +27,6 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .adm-tile span { font-size: 12.5px; color: var(--muted); font-weight: 650; }
 .adm-tile.alert b { color: var(--bad, #c92a2a); }
 .adm-note { font-size: 12.5px; color: var(--muted); margin: 8px 2px 0; }
-.ppl-drawer { position: fixed; inset: 0; z-index: 210; background: rgba(10,25,50,.45);
-  display: flex; align-items: flex-end; justify-content: center; }
-.ppl-drawer-in { position: relative; background: var(--surface-1); width: 100%; max-width: 620px;
-  border-radius: 16px 16px 0 0; padding: 20px; max-height: 88vh; overflow: auto; }
-@media (min-width: 700px) { .ppl-drawer { align-items: center; } .ppl-drawer-in { border-radius: 16px; } }
-.ppl-x { position: absolute; top: 10px; right: 12px; border: 0; background: none; cursor: pointer;
-  font-size: 25px; line-height: 1; color: var(--muted); padding: 4px 8px; }
-.ppl-drawer-in h3 { margin: 0 0 4px; font-size: 19px; color: var(--heading); }
-.ppl-drawer-in h4 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase;
-  letter-spacing: .5px; color: var(--muted); }
-.ppl-field { display: block; margin: 0 0 10px; }
-.ppl-field > span { display: block; font-size: 12.5px; font-weight: 650; color: var(--muted); margin-bottom: 4px; }
-.ppl-field .ctrl { width: 100%; box-sizing: border-box; min-width: 0; }
-.ppl-2 { display: grid; gap: 0 12px; grid-template-columns: 1fr 1fr; }
-@media (max-width: 520px) { .ppl-2 { grid-template-columns: 1fr; } }
-.ppl-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
-.ppl-perms { border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; margin: 0 0 10px; }
-.ppl-perms legend { font-size: 12px; font-weight: 800; text-transform: uppercase;
-  letter-spacing: .5px; color: var(--muted); padding: 0 4px; }
-.ppl-perm { display: flex; gap: 9px; align-items: flex-start; padding: 5px 0; font-size: 13.5px; }
-.ppl-perm.implied { opacity: .55; }
-.ppl-perm code { font-family: var(--mono); font-size: 12px; }
-.ppl-perm-d { display: block; color: var(--muted); font-size: 12px; }
-.ppl-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
-  background: none; border: 0; font: inherit; cursor: pointer; color: var(--text-primary);
-  padding: 9px 10px; border-radius: 11px; }
-.ppl-row:hover { background: var(--surface-2); }
-.ppl-main { flex: 1; min-width: 0; }
-.ppl-main b { display: block; font-size: 14.5px; font-weight: 650; }
-.ppl-sub { display: block; color: var(--muted); font-size: 12.5px; margin-top: 1px; }
-.ppl-list { display: grid; gap: 2px; }
-.ppl-toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
-  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px;
-  font-size: 13.5px; font-weight: 600; z-index: 400; box-shadow: 0 4px 16px rgba(10,25,50,.3); }
-.ppl-toast.bad { background: var(--bad, #c92a2a); }
-.ppl-warn { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
-.ppl-pane { display: none; }
-.ppl-pane.on { display: block; }
 .adm-log { display: grid; gap: 0; }
 .adm-log-row { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--grid); font-size: 13.5px; }
 .adm-log-row:first-child { border-top: 0; }
@@ -314,7 +281,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
                     esc(P.relTime(f.created_at)) + "</div></div></div>"; }).join("")
               : '<div class="empty">No files uploaded yet.</div>') + "</div>" +
 
-        '<div class="card" style="grid-column:1/-1"><div class="ens-h"><h2>Recent admin activity</h2>' +
+        '<div class="card span2"><div class="ens-h"><h2>Recent admin activity</h2>' +
           '<a href="admin.html#audit">Full audit log →</a></div>' +
           (S.audit.length ? '<div class="adm-log">' + S.audit.slice(0, 8).map(auditRowHtml).join("") + "</div>"
             : '<div class="empty">Nothing logged yet.</div>') + "</div>" +
@@ -338,7 +305,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     }
     var pending = S.requests.filter(function (r) { return r.status === "pending"; });
     var done = S.requests.filter(function (r) { return r.status !== "pending"; }).slice(0, 20);
-    return '<div class="card"><div class="ens-h"><h2>Pending requests</h2>' +
+    return '<div class="dsk2 w75">' +
+      '<div class="card"><div class="ens-h"><h2>Pending requests</h2>' +
         '<span class="setsub">' + pending.length + " waiting</span></div>" +
         '<p class="setnote">Approving a request creates that person\'s member row with the role ' +
         "you choose. Nothing can arrive here yet: no screen in Cadence lets someone ask to " +
@@ -357,12 +325,12 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
               '<button class="tab" type="button" data-reject="' + esc(r.id) + '">Reject</button>' +
             "</div></div></div>"; }).join("")
           : '<div class="empty">No one is waiting.</div>') + "</div>" +
-      '<div class="card" style="margin-top:14px"><h2>Recently reviewed</h2>' +
+      '<div class="card"><h2>Recently reviewed</h2>' +
         (done.length ? done.map(function (r) {
           return '<div class="ens-item"><div style="flex:1"><b>' + esc(r.status) + "</b>" +
             '<div class="ens-sub">' + esc(r.reviewer_note || "") + " · " +
             esc(P.fmtDate(r.reviewed_at || r.created_at)) + "</div></div></div>"; }).join("")
-          : '<div class="empty">Nothing reviewed yet.</div>') + "</div>";
+          : '<div class="empty">Nothing reviewed yet.</div>') + "</div></div>";
   }
 
   function defaultRoleId() {
@@ -391,7 +359,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     if (!canMembers()) {
       return '<div class="card"><div class="empty">Editing roles needs <code>member.manage</code>.</div></div>';
     }
-    return '<div class="card"><div class="ens-h"><h2>Roles &amp; permissions</h2>' +
+    return '<div class="dsk2 w75">' +
+      '<div class="card"><div class="ens-h"><h2>Roles &amp; permissions</h2>' +
         '<span class="setsub">' + S.roles.length + " roles</span></div>" +
         '<p class="setnote">Every role is editable, including the seeded ones. Add your own — ' +
         "Battery Staff, Prop Crew, Hospitality — and give each exactly the permissions it needs.</p>" +
@@ -404,13 +373,13 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
             "</span></span>" +
             (r.is_system ? '<span class="ens-tag normal">Default</span>' : "") + "</button>";
         }).join("") + "</div></div>" +
-      '<div class="card" style="margin-top:14px"><h2>New role</h2>' +
+      '<div class="card"><h2>New role</h2>' +
         '<form class="acct-form" id="roleForm">' +
           '<input class="ctrl" id="roleName" placeholder="Role name (Battery Staff)" required maxlength="60">' +
           '<select class="ctrl" id="roleKind">' + P.ROLE_KINDS.map(function (k) {
             return '<option value="' + k[0] + '">' + k[1] + "</option>"; }).join("") + "</select>" +
           '<button class="tab on" type="submit">Create role</button></form>' +
-        '<p class="acct-msg" id="roleMsg" role="status"></p></div>';
+        '<p class="acct-msg" id="roleMsg" role="status"></p></div></div>';
   }
 
   function openRole(id) {
@@ -470,7 +439,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     if (!isAdmin()) {
       return '<div class="card"><div class="empty">Season management needs <code>org.admin</code>.</div></div>';
     }
-    return '<div class="card"><div class="ens-h"><h2>Seasons</h2></div>' +
+    return '<div class="dsk2 w75">' +
+      '<div class="card"><div class="ens-h"><h2>Seasons</h2></div>' +
         '<p class="setnote">Organizations run year after year. Nothing is deleted when a season ' +
         "ends — archive it and start the next one.</p>" +
         (S.seasons.length ? S.seasons.map(function (s) {
@@ -486,7 +456,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
                 : '<button class="tab" type="button" data-archive="' + esc(s.id) + '">Archive</button>') +
             "</div></div>"; }).join("")
           : '<div class="empty">No seasons yet.</div>') + "</div>" +
-      '<div class="card" style="margin-top:14px"><h2>Start a new season</h2>' +
+      '<div class="card"><h2>Start a new season</h2>' +
         '<form class="acct-form" id="seasonForm">' +
           '<input class="ctrl" id="sName" placeholder="2027 Marching Season" required maxlength="80">' +
           '<input class="ctrl" id="sStart" type="date" aria-label="Season start">' +
@@ -498,7 +468,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           '<button class="tab on" type="submit">Create season</button></form>' +
         '<p class="acct-msg" id="sMsg" role="status"></p>' +
         '<p class="ppl-warn">Roles and permissions are organization-wide, so they carry over ' +
-        "automatically — only groups belong to a season.</p></div>";
+        "automatically — only groups belong to a season.</p></div></div>";
   }
 
   async function copyGroupsToSeason(fromSeasonId, toSeasonId) {
@@ -555,7 +525,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     if (!canForms()) {
       return '<div class="card"><div class="empty">Creating forms needs <code>form.manage</code>.</div></div>';
     }
-    return '<div class="card"><div class="ens-h"><h2>Forms</h2>' +
+    return '<div class="dsk2 w75">' +
+      '<div class="card"><div class="ens-h"><h2>Forms</h2>' +
         '<span class="setsub">' + S.forms.length + " total</span></div>" +
         (S.forms.length ? S.forms.map(function (f) {
           return '<div class="ens-item"><div style="flex:1;min-width:0"><b>' + esc(f.title) + "</b>" +
@@ -566,7 +537,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
             (f.closes_at ? " · closes " + esc(P.fmtDate(f.closes_at)) : "") + "</div></div>" +
             '<button class="tab" type="button" data-form="' + esc(f.id) + '">Submissions</button></div>';
         }).join("") : '<div class="empty">No forms yet.</div>') + "</div>" +
-      '<div class="card" style="margin-top:14px"><h2>New form</h2>' +
+      '<div class="card"><h2>New form</h2>' +
         '<p class="setnote">Medical forms are marked sensitive automatically: their submissions ' +
         "are readable only by staff holding both <code>form.manage</code> and <code>student.info</code>, " +
         "plus the person who submitted and their guardians.</p>" +
@@ -600,7 +571,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           '<div class="ppl-actions"><button class="tab on" type="submit">Create form</button>' +
           '<span class="acct-msg" id="fMsg" role="status"></span></div></form>' +
         '<p class="ppl-warn">Members fill these in on their Forms tab: an open form appears ' +
-        "there the moment you create it, and their answers land in the submissions view here.</p></div>";
+        "there the moment you create it, and their answers land in the submissions view here.</p></div></div>";
   }
 
   function fieldRowHtml() {

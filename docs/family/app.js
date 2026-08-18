@@ -21,6 +21,12 @@
   // Database dataset, the per-event recap fetch — is gated on this, so a
   // captionless app never shows a control that leads nowhere.
   const CAPS = !FAM || !!FAM.captions;
+  // Each screen says once, plainly, what this app's data does NOT cover —
+  // an app with no in-season scores must explain the empty column rather
+  // than just look broken. One sentence per screen, from the instance
+  // config; the DCI app has full coverage and renders none of them.
+  const NOTE = k => (FAM && FAM.notes && FAM.notes[k]) || "";
+  const noteHtml = k => NOTE(k) ? `<div class="notice">${esc(NOTE(k))}</div>` : "";
 
 
   async function data(path) {
@@ -1305,13 +1311,183 @@
   // 322 corps) doesn't rebuild the whole season each time
   const archiveBoards = new Map();
   const archiveClassPick = new Map();   // year -> classes picked, this visit only
+
+  /* ---- year-range prose for the gaps in a championship record ---- */
+  function champGapNote(years) {
+    if (years.length < 2) return "";
+    const have = new Set(years), miss = [];
+    for (let y = Math.min(...years); y <= Math.max(...years); y++) if (!have.has(y)) miss.push(y);
+    if (!miss.length) return "";
+    const runs = [];
+    miss.forEach(y => {
+      const last = runs[runs.length - 1];
+      if (last && y === last[1] + 1) last[1] = y; else runs.push([y, y]);
+    });
+    return "no championships " + runs.map(r => r[0] === r[1] ? String(r[0])
+      : `${r[0]}–${String(r[1]).slice(-2)}`).join(", ");
+  }
+
+  async function champBoard(qs, stale, rk) {
+    const winners = rk.winners || {};
+    const classes = sortClasses(Object.keys(winners).filter(c => (winners[c] || []).length));
+    const allYears = [...new Set(classes.flatMap(c => winners[c].map(w => +w[0])))].sort((a, b) => b - a);
+    if (!classes.length || !allYears.length) {
+      app.innerHTML = `<h1 class="page">Championships</h1>${noteHtml("board")}`
+        + `<div class="card"><div class="empty">The championship record builds with the next data run.</div></div>`;
+      return;
+    }
+    await ensureLogos();
+    if (stale()) return;
+    const latest = allYears.includes(+rk.season) ? +rk.season : allYears[0];
+    const asked = +parseHashQuery(qs).y;
+    const year = allYears.includes(asked) ? asked : latest;
+    const gapNote = champGapNote(allYears);
+
+    // which classes the chart draws — remembered per app, like the DCI board's
+    // class picker. Never empty: clearing it falls back to every class.
+    let saved = [];
+    try {
+      const s = JSON.parse(localStorage.getItem(NS("dt-champcls")) || "[]");
+      if (Array.isArray(s)) saved = s.filter(c => classes.includes(c));
+    } catch (e) {}
+    const chartSet = new Set(saved.length ? saved : classes);
+
+    app.innerHTML = h`
+      <h1 class="page">${yearPickerHtml(year)} Championships</h1>
+      ${noteHtml("board")}
+      <div class="rk-grid">
+        <div class="card rk-trend">
+          <h2>Winning Score by Season <span class="sub keep" id="champChartSub"></span></h2>
+          <div class="filters" style="margin:2px 0 8px"><div id="champClsSel"></div></div>
+          <div class="chartwrap" id="champChart"></div>
+        </div>
+        <div class="card rk-stand">
+          <h2 id="champStandTitle"></h2>
+          <div id="champStandings"></div>
+        </div>
+        <div class="card rk-move" id="champMove"></div>
+        <div class="card rk-battle" id="champDyn"></div>
+      </div>`;
+    wireYearPicker(allYears, year, y => { location.hash = y === latest ? "#/" : `#/?y=${y}`; });
+
+    /* ---- the standings: this season's championships, one row per class ---- */
+    const rows = classes.map(cls => {
+      const w = (winners[cls] || []).find(x => +x[0] === year);
+      if (!w) return null;
+      const mine = (winners[cls] || []).filter(x => x[1] === w[1]).map(x => +x[0]).sort((a, b) => a - b);
+      const prior = mine.filter(y => y < year);
+      return { cls, corps: w[1], score: w[2], nth: mine.filter(y => y <= year).length,
+        titles: mine.length, prev: prior.length ? prior[prior.length - 1] : null };
+    }).filter(Boolean);
+    document.getElementById("champStandTitle").innerHTML =
+      `${esc(String(year))} World Championships <span class="sub keep">${rows.length} title${rows.length === 1 ? "" : "s"} awarded`
+      + `${FAVS.list().length ? " · your favorites are starred" : ""}</span>`;
+    document.getElementById("champStandings").innerHTML = rows.length ? `
+      <div class="tscroll"><table class="t standings"><thead><tr><th>Class</th><th>Champion</th>
+        <th class="num">Score</th><th class="num m-hide">Title #</th><th class="m-hide">Previously</th></tr></thead><tbody>
+      ${rows.map(r => `<tr${FAVS.has(r.corps) ? ' class="favrow"' : ""}>
+        <td><span class="pill">${esc(r.cls)}</span></td>
+        <td><span class="corpscell">${corpsLogo(r.corps, 26)}<span class="corpscell-body">
+          <span class="corpscell-name">${corpsLink(r.corps)}</span></span></span></td>
+        <td class="num score">${score3(r.score)}</td>
+        <td class="num m-hide" style="color:var(--muted)">${r.nth} of ${r.titles}</td>
+        <td class="m-hide" style="color:var(--muted)">${r.prev ? "won " + r.prev : "first title"}</td>
+      </tr>`).join("")}</tbody></table></div>`
+      : `<div class="empty">No championships on record for ${esc(String(year))}.</div>`;
+
+    /* ---- the chart: every winning score this circuit has published ---- */
+    function drawChart() {
+      const el = document.getElementById("champChart");
+      if (!el) return;
+      const picked = sortClasses([...chartSet]);
+      const pts = picked.reduce((n, c) => n + winners[c].filter(w => w[2] != null).length, 0);
+      document.getElementById("champChartSub").textContent =
+        `${pts} title score${pts === 1 ? "" : "s"} · ${allYears[allYears.length - 1]}–${allYears[0]}`
+        + (gapNote ? ` · ${gapNote}` : "");
+      lineChart(el, {
+        linearX: true,
+        series: picked.map(cls => ({
+          name: cls, color: PALETTE[classes.indexOf(cls) % PALETTE.length],
+          points: winners[cls].filter(w => w[2] != null).map(w => ({ x: +w[0], y: w[2] })),
+        })),
+        height: 340, xFmt: v => String(Math.round(v)), yFmt: v => v.toFixed(1),
+      });
+    }
+
+    /* ---- biggest move: THIS season's winning score against the previous
+           championship in the same class. Not every class is contested every
+           year (and none was in 2020–21), so the card names both seasons
+           rather than implying they are adjacent. ---- */
+    function drawMove() {
+      const moves = [];
+      classes.filter(c => chartSet.has(c)).forEach(cls => {
+        const ws = winners[cls].filter(w => w[2] != null).slice().sort((a, b) => a[0] - b[0]);
+        const i = ws.findIndex(w => +w[0] === year);
+        if (i < 1) return;
+        const now = ws[i], before = ws[i - 1];
+        moves.push({ cls, corps: now[1], y1: +before[0], y2: +now[0],
+          s1: before[2], s2: now[2], d: +(now[2] - before[2]).toFixed(3) });
+      });
+      moves.sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
+      const j = moves[0];
+      // the CLASS leads, not the champion: the previous score usually belongs
+      // to a different ensemble, and putting this year's winner's name above
+      // both numbers read as one ensemble's improvement
+      document.getElementById("champMove").innerHTML = j ? h`
+        <h2>Biggest Move <span class="sub">winning score vs the previous championship</span></h2>
+        <div style="font-size:20px;font-weight:650">${esc(j.cls)}</div>
+        <div style="color:var(--text-secondary)">${score3(j.s1)} <span class="kicker">${j.y1}</span> →
+          <b>${score3(j.s2)}</b> <span class="kicker">${j.y2}</span> ${deltaHtml(j.d)}</div>
+        <div style="margin-top:6px;font-size:13px">Taken by ${corpsLink(j.corps)}</div>
+        ${moves.slice(1, 3).map(m => `<div style="font-size:13px;margin-top:6px">${esc(m.cls)} ${deltaHtml(m.d)} <span class="kicker">${esc(m.corps)}</span></div>`).join("")}`
+        : `<h2>Biggest Move</h2><div class='empty'>No earlier championship in these classes to measure ${esc(String(year))} against.</div>`;
+    }
+
+    /* ---- dynasties: most titles in the charted classes ---- */
+    function drawDyn() {
+      const picked = new Set(chartSet);
+      const by = new Map();
+      classes.filter(c => picked.has(c)).forEach(cls => winners[cls].forEach(w => {
+        const t = by.get(w[1]) || { corps: w[1], n: 0, last: 0 };
+        t.n++; t.last = Math.max(t.last, +w[0]);
+        by.set(w[1], t);
+      }));
+      const top = [...by.values()].sort((a, b) => b.n - a.n || b.last - a.last).slice(0, 4)
+        .filter(t => t.n > 1);
+      document.getElementById("champDyn").innerHTML = top.length ? `
+        <h2>Dynasties <span class="sub">most titles in these classes</span></h2>
+        <table class="t">${top.map((t, i) => `<tr${FAVS.has(t.corps) ? ' class="favrow"' : ""}>
+          <td class="rank">${i + 1}</td><td>${corpsLink(t.corps)}</td>
+          <td class="num score">${t.n}</td><td class="num kicker">${t.last}</td></tr>`).join("")}</table>
+        <div style="margin-top:8px;font-size:13px"><a href="#/records">The full record book →</a></div>`
+        : "<h2>Dynasties</h2><div class='empty'>Nobody has won these classes twice yet.</div>";
+    }
+
+    multiSelect(document.getElementById("champClsSel"), {
+      label: "Pick classes to chart…",
+      summary: () => chartSet.size === classes.length ? "All classes" : null,
+      bulk: true,
+      options: classes.map(c => ({ value: c, label: c, hint: `${winners[c].length} titles` })),
+      selected: chartSet,
+      onChange: () => {
+        if (!chartSet.size) classes.forEach(c => chartSet.add(c));
+        try { localStorage.setItem(NS("dt-champcls"), JSON.stringify([...chartSet])); } catch (e) {}
+        drawChart(); drawMove(); drawDyn();
+      },
+    });
+    drawChart();
+    drawMove();
+    drawDyn();
+  }
+
   async function viewRankings(qs, stale) {
     setNav("rankings");
-    if (FAM && FAM.board && FAM.board !== "trend" && window.CadBoard) {
-      return CadBoard.render({
-        app, data, stale, shape: FAM.board, cfg: FAM,
-        helpers: { esc, h, score3, corpsLink, corpsLogo, sortClasses, fmtDate2, FAVS, ensureLogos },
-      });
+    if (FAM) {
+      // the dataset says which board it can support: a circuit with no
+      // in-season score feed ships kind:"championship" and charts its titles
+      const rkc = await data("rankings.json").catch(() => null);
+      if (stale()) return;
+      if (rkc && rkc.kind === "championship") return champBoard(qs, stale, rkc);
     }
     const meta = await data("meta.json");
     if (stale()) return;
@@ -1569,7 +1745,8 @@
     const [meta, idx] = await Promise.all([
       data("meta.json"), data("corps_index.json")]);
     if (stale()) return;
-    const allYears = meta.seasons.map(s => s.year).sort((a, b) => b - a);
+    const allYears = [...new Set(meta.seasons.map(s => s.year).concat(
+      FAM ? idx.flatMap(c => (c.series || []).map(sr => sr[0])) : []))].sort((a, b) => b - a);
     const bySlug = new Map(idx.map(c => [c.slug, c]));
     const classList = sortClasses([...new Set(idx.map(corpsClass))]);
     const savedCls = localStorage.getItem(NS("dt-corpsclass"));
@@ -1629,6 +1806,7 @@
     app.innerHTML = `
       ${dataSubNav("compare")}
       <h1 class="page">Compare <span class="kicker">· any ${TERM.singular}, any seasons</span></h1>
+      ${noteHtml("compare")}
       <div class="card">
         <h2>Score Progression <span class="sub">pick several ${TERM.plural} and seasons — every ${TERM.singular}-season gets its own line</span></h2>
         <div class="filters" style="margin-bottom:10px">
@@ -1811,6 +1989,7 @@
 
     app.innerHTML = `
       <h1 class="page" id="corpsPageTitle">${cap1(TERM.singular === "corps" ? "corps" : TERM.plural)}</h1>
+      ${noteHtml("corps")}
       <div class="filters">
         <div id="cpCls"></div>
         <div id="cpCorps"></div>
@@ -1899,10 +2078,15 @@
     byYear.forEach(ps => {
       const ordered = ps.filter(p => p.s != null).slice()
         .sort((a, b) => (a.d || "").localeCompare(b.d || ""));
-      ordered.forEach((p, i) => deltaByPerf.set(p, i === 0 ? 0 : +(p.s - ordered[i - 1].s).toFixed(3)));
+      ordered.forEach((p, i) => deltaByPerf.set(p,
+        i === 0 ? (ordered.length > 1 ? 0 : null) : +(p.s - ordered[i - 1].s).toFixed(3)));
     });
     const cmpYears = years.slice(-3).reverse().join(",");
 
+    // does this app publish performance DATES? Without them there is no
+    // within-season progression to chart or summarise — the career view is
+    // the only honest one.
+    const DATED = perfs.some(p => p.d);
     const bestPerf = scored.length ? scored.reduce((m, p) => p.s > m.s ? p : m, scored[0]) : null;
     // the plain page title is replaced by the "wrapped"-style hero below
     const pt = document.getElementById("corpsPageTitle");
@@ -1976,8 +2160,9 @@
       <div class="filters corps-filters"><div id="yearSel2"></div></div>
       <div class="card corps-chart"><h2 id="corpsChartTitle"></h2><div class="chartwrap" id="corpsChart"></div></div>
       <div class="card corps-perf" style="margin-top:14px"><h2 id="perfTitle">Performance Log</h2>
+        ${NOTE("profile") ? `<p class="kicker" style="margin:0 0 8px">${esc(NOTE("profile"))}</p>` : ""}
         <div id="perfTable"></div></div>
-      <div class="card corps-champs" style="margin-top:14px"><h2>Championships <span class="sub">each year's last score & championship finish</span></h2>
+      <div class="card corps-champs" style="margin-top:14px"><h2>Championships <span class="sub">${FAM && !DATED ? "every title, and the class it was won in" : "each year's last score &amp; championship finish"}</span></h2>
         <div id="corpChampTable"></div></div>
       <div class="grid cols-tiles corps-tiles" style="margin-top:14px">
         <div class="tile click" id="tilePerfs" role="button" title="Open the full performance log">
@@ -2013,7 +2198,7 @@
     // the hero's season tiles follow the focus year (the latest selected season)
     function renderHero() {
       const yr = selYears().slice(-1)[0] || years[years.length - 1];
-      const agg = seasonAgg(yr);
+      const agg = DATED ? seasonAgg(yr) : null;
       const subEl = document.getElementById("heroSub");
       const statsEl = document.getElementById("heroStats");
       if (subEl) subEl.textContent = agg ? `${yr} season · by the numbers` : `${years.length} season${years.length === 1 ? "" : "s"} on record`;
@@ -2026,8 +2211,9 @@
           + cell(agg.shows, "Shows")
         : cell(bestPerf ? score3(bestPerf.s) : "—", "Best score")
           + cell(titles.length, "Titles")
-          + cell(perfs.length, "Performances")
-          + cell(years.length, "Seasons");
+          + (FAM && titles.length === perfs.length
+            ? cell(years[0] ?? "—", "First title") + cell(years[years.length - 1] ?? "—", "Latest title")
+            : cell(perfs.length, "Performances") + cell(years.length, "Seasons"));
       // current standing needs every corps in the class — fill it once it loads
       if (agg && window.CadWrapped && window.CadWrapped.standing) {
         window.CadWrapped.standing(detail.name, yr).then(st => {
@@ -2043,7 +2229,7 @@
     // full season show-by-show, several show top score per year. Default to
     // the corps' most recent season (the current year for an active corps) so
     // clicking in from the scoreboard lands on this season, not all-time.
-    const yearSet = new Set(years.length ? [String(years[years.length - 1])] : []);
+    const yearSet = new Set(years.length && DATED ? [String(years[years.length - 1])] : []);
     const msYears = multiSelect(document.getElementById("yearSel2"), {
       label: "All years", searchable: years.length > 15, bulk: true, bulkAll: false,
       presets: [{ label: "Past 5", values: () => years.slice(-5).map(String) }],
@@ -2055,7 +2241,7 @@
     function renderChart() {
       const sel = selYears();
       const title = document.getElementById("corpsChartTitle");
-      if (sel.length === 1) {
+      if (sel.length === 1 && DATED) {
         const yv = sel[0];
         title.innerHTML = `${yv} Season Progression <span class="sub">score by date · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
         const pts = (byYear.get(yv) || []).filter(p => p.s && p.d)
@@ -2068,7 +2254,7 @@
       }
       // a handful of chosen seasons: overlay each season's full progression,
       // one color per year, on a shared season-day axis
-      if (sel.length > 1 && sel.length <= 8) {
+      if (sel.length > 1 && sel.length <= 8 && DATED) {
         const series = sel.map(yv => ({
           name: String(yv), color: PALETTE[yv % PALETTE.length],
           points: (byYear.get(yv) || []).filter(p => p.s && p.d)
@@ -2087,13 +2273,13 @@
       // so years the corps didn't march show as real gaps and an in-progress
       // season sits as its own point instead of dragging the line
       const range = sel.length ? `${sel[0]}–${sel[sel.length - 1]}` : "";
-      title.innerHTML = `Top Score by Year${range ? ` — ${range}` : ""} <span class="sub">gaps = seasons not yet in the database · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
+      title.innerHTML = `${FAM && !DATED ? "Title Score by Season" : "Top Score by Year"}${range ? ` — ${range}` : ""} <span class="sub">${FAM && !DATED ? "one point per title — a gap is a season they did not win" : "gaps = seasons not yet in the database"} · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
       const ptsAll = years.map((y, i) => ({ x: y, y: bestByYear[i] }))
         .filter(p => p.y && (!sel.length || yearSet.has(String(p.x))));
       const segs = [];
       let cur = [];
       for (const p of ptsAll) {
-        if (cur.length && p.x - cur[cur.length - 1].x > 1) { segs.push(cur); cur = []; }
+        if (DATED && cur.length && p.x - cur[cur.length - 1].x > 1) { segs.push(cur); cur = []; }
         cur.push(p);
       }
       if (cur.length) segs.push(cur);
@@ -2112,13 +2298,13 @@
       const list = perfs.filter(p => !sel.length || yearSet.has(String(p.y)))
         .sort((a, b) => (b.d || "").localeCompare(a.d || "") || b.y - a.y);
       document.getElementById("perfTable").innerHTML = `<div class="tscroll"><table class="t">
-        <thead><tr><th>Date</th><th>Event</th><th class="m-hide">Class</th><th class="num">Place</th><th class="num">Score</th><th class="num" title="Change from this ${TERM.singular}'s previous show that season">vs prev</th></tr></thead>
-        <tbody id="perfRows">${list.length ? "" : `<tr><td colspan="6" class="empty">No performances on record${selNote ? " for " + esc(selNote) : ""}.</td></tr>`}${list.slice(0, 600).map(p => h`<tr>
+        <thead><tr><th>Date</th><th>Event</th><th class="m-hide">Class</th><th class="num">Place</th><th class="num">Score</th>${!DATED ? "" : `<th class="num" title="Change from this ${TERM.singular}'s previous show that season">vs prev</th>`}</tr></thead>
+        <tbody id="perfRows">${list.length ? "" : `<tr><td colspan="${DATED ? 6 : 5}" class="empty">No performances on record${selNote ? " for " + esc(selNote) : ""}.</td></tr>`}${list.slice(0, 600).map(p => h`<tr>
           <td style="color:var(--muted);white-space:nowrap">${fmtDate2(p.d, p.y)}</td>
           <td>${esc(p.ev || "")}</td>
           <td class="m-hide"><span class="pill">${esc(p.cls || "")}</span></td>
           <td class="num">${p.p ?? "—"}</td><td class="num score">${score3(p.s)}</td>
-          <td class="num">${p.s == null ? '<span class="delta flat">—</span>' : deltaHtml(deltaByPerf.get(p))}</td></tr>`).join("")}</tbody></table></div>`;
+          ${!DATED ? "" : `<td class="num">${p.s == null ? '<span class="delta flat">—</span>' : deltaHtml(deltaByPerf.get(p))}</td>`}</tr>`).join("")}</tbody></table></div>`;
       collapseRows(document.getElementById("perfRows"), 3, "performances");
     }
 
@@ -2143,7 +2329,7 @@
         <tbody id="corpChampRows">${rows.length ? "" : '<tr><td colspan="3" class="empty">No championship results on record.</td></tr>'}${rows.map(r => h`<tr>
           <td><a href="#/season/${r.y}"><b>${r.y}</b></a></td>
           <td class="num score">${score3(r.last.s)}</td>
-          <td>${r.fin ? h`<b>${ordinal(r.fin.p)}</b> <span class="kicker">· ${roundOf(r.fin.ev || "")}${r.fin.cls ? ` · ${esc(r.fin.cls)}` : ""}</span>` : '<span style="color:var(--muted)">—</span>'}</td>
+          <td>${r.fin ? h`<b>${ordinal(r.fin.p)}</b> <span class="kicker">${[roundOf(r.fin.ev || ""), r.fin.cls].filter(Boolean).map(x => " · " + esc(x)).join("")}</span>` : '<span style="color:var(--muted)">—</span>'}</td>
         </tr>`).join("")}</tbody></table></div>`;
       collapseRows(document.getElementById("corpChampRows"), 3, "years");
     }
@@ -2183,7 +2369,12 @@
     const [meta, champs] = await Promise.all([
       data("meta.json"), data("champions.json").catch(() => ({}))]);
     if (stale()) return;
-    const years = meta.seasons.slice().sort((a, b) => b.year - a.year);
+    const years = meta.seasons.slice();
+    if (FAM) {
+      const have = new Set(years.map(s => s.year));
+      Object.keys(champs || {}).forEach(y => { if (!have.has(+y)) years.push({ year: +y }); });
+    }
+    years.sort((a, b) => b.year - a.year);
     // COVID years appear as labeled rows inside the era they interrupt
     const yrNums = years.map(s => s.year);
     [2020, 2021].forEach(cy => {
@@ -2197,7 +2388,7 @@
       <div class="card"><h2>Past Champions <span class="sub" id="champSub"></span></h2>
       <div class="filters" style="margin-bottom:8px"><div id="champCls"></div></div>
       <div class="tscroll"><table class="t" id="champT"></table></div>
-      <p style="color:var(--muted);font-size:12.5px;margin:10px 2px 0">Tap a year for that season — every show, every score, full recaps.</p>
+      <p style="color:var(--muted);font-size:12.5px;margin:10px 2px 0">${FAM ? "Tap a year for that season's championships." : "Tap a year for that season — every show, every score, full recaps."}</p>
       <div id="champChartWrap" hidden style="margin-top:16px">
         <h2>Winning Score by Year <span class="sub" id="champChartSub"></span></h2>
         <div class="chartwrap" id="champChart"></div>
@@ -2267,18 +2458,19 @@
       document.getElementById("champT").innerHTML = `
         <thead><tr><th>Year</th><th>Champion</th><th class="num">Score</th></tr></thead><tbody id="champRows">
         ${rowsList.map(r => {
-          if (r.covid) return `<tr><td style="color:var(--muted)">${r.y}</td><td colspan="2" style="color:var(--muted)">COVID-19 — ${r.y === 2020 ? "season canceled, no championships" : "no championships held"}</td></tr>`;
+          if (r.covid) return `<tr><td style="color:var(--muted)">${r.y}</td><td colspan="2" style="color:var(--muted)">COVID-19 — ${FAM ? "no championship on record" : r.y === 2020 ? "season canceled, no championships" : "no championships held"}</td></tr>`;
           const label = r.w
             ? `<b>${esc(r.w.corps)}</b>`
             : (r.y === currentYear
-              ? "<span style='color:var(--muted)'>season in progress…</span>"
+              ? (FAM ? "<span style='color:var(--muted)'>scheduled · no results published</span>" : "<span style='color:var(--muted)'>season in progress…</span>")
               : "<span style='color:var(--muted)'>—</span>");
-          return `<tr class="rowlink" data-y="${r.y}"><td><a href="#/season/${r.y}"><b>${r.y}</b></a>${r.events ? ` <span class="kicker">${r.events} events</span>` : ""}</td><td>${label}</td><td class="num score">${r.w && r.w.score ? score3(r.w.score) : "—"}</td></tr>`;
+          const jump = !FAM || r.w ? `#/season/${r.y}` : r.events ? `#/events?y=${r.y}` : "";
+          return `<tr${jump ? ` class="rowlink" data-h="${jump}"` : ""}><td>${jump ? `<a href="${jump}"><b>${r.y}</b></a>` : `<b>${r.y}</b>`}${r.events ? ` <span class="kicker">${r.events} events</span>` : ""}</td><td>${label}</td><td class="num score">${r.w && r.w.score ? score3(r.w.score) : "—"}</td></tr>`;
         }).join("")}</tbody>`;
-      document.querySelectorAll("#champRows tr[data-y]").forEach(tr => {
+      document.querySelectorAll("#champRows tr[data-h]").forEach(tr => {
         tr.onclick = e => {
           if (e.target.closest("a")) return;
-          location.hash = `#/season/${tr.dataset.y}`;
+          location.hash = tr.dataset.h;
         };
       });
       collapseRows(document.getElementById("champRows"), 5, "seasons");
@@ -2446,6 +2638,7 @@
     let year = +params.y && years.includes(+params.y) ? +params.y : years[0];
     app.innerHTML = `
       <h1 class="page">${FAM ? FAM.eventsTitle : "Shows"} ${yearPickerHtml(year)} <span class="kicker" id="evCount"></span></h1>
+      ${noteHtml("events")}
       <div class="filters" style="justify-content:flex-end">
         <button class="tab" id="fToggle" aria-expanded="false">Filters ▾</button>
       </div>
@@ -3609,6 +3802,7 @@
   async function viewDatabase(_m, stale) {
     setNav("data");
     app.innerHTML = `${dataSubNav("database")}<h1 class="page">Database <span id="dbcount" class="kicker"></span></h1>
+      ${noteHtml("database")}
       <div class="filters" id="dbFilters">
         <div id="dbSet"></div>
         <div id="dbCorps"></div>
@@ -3716,7 +3910,7 @@
 
     function cellHtml(r, i) {
       if (i === 0) return `<td class="num m-hide" style="text-align:left">${r[0]}</td>`;
-      if (i === cfg.dateIdx) return `<td style="color:var(--muted);white-space:nowrap">${fmtDate2(r[i])}</td>`;
+      if (i === cfg.dateIdx) return `<td style="color:var(--muted);white-space:nowrap">${fmtDate2(r[i], FAM ? r[0] : null)}</td>`;
       if (i === cfg.corpsIdx) return `<td>${corpsLink(r[i])}</td>`;
       if (i === cfg.clsIdx) return `<td class="m-hide"><span class="pill">${esc(r[i] || "")}</span></td>`;
       if (i === cfg.evIdx) return `<td>${esc(r[i] || "")}</td>`;
@@ -3794,6 +3988,7 @@
     app.innerHTML = `
       ${dataSubNav("records")}
       <h1 class="page">Records <span class="kicker">· the all-time book</span></h1>
+      ${noteHtml("records")}
       <div class="filters">
         <div id="recCls"></div>
         <div id="recEra"></div>
@@ -3970,13 +4165,43 @@
       </tbody></table></div>` : emptyNote;
 
       const finalsSpan = champYears.length ? `${champYears[0]}–${champYears[champYears.length - 1]}` : "";
+
+      // longest span from a first title to a latest one, and the longest wait
+      // between two consecutive titles — both counted straight off the years
+      // in `titleBy`, which the era and corps filters have already narrowed
+      const spans = [...titleBy.entries()].map(([n, t]) => ({ corps: n, n: t.n,
+        first: t.years[0], last: t.years[t.years.length - 1],
+        span: t.years[t.years.length - 1] - t.years[0] }))
+        .filter(s => s.n > 1).sort((a, b) => b.span - a.span || b.n - a.n);
+      const spansHtml = spans.length ? `<div class="tscroll"><table class="t"><thead><tr>
+          <th>${TERM_TH}</th><th class="num">Span</th><th class="num m-hide">Titles</th><th>First – Last</th></tr></thead><tbody id="recSpans">
+        ${spans.map(s => `<tr><td>${corpsLink(s.corps)}</td><td class="num score">${s.span} yr${s.span === 1 ? "" : "s"}</td>
+          <td class="num m-hide">${s.n}</td><td class="kicker">${s.first}–${s.last}</td></tr>`).join("")}
+      </tbody></table></div>` : emptyNote;
+      const gaps = [];
+      titleBy.forEach((t, n) => {
+        for (let i = 1; i < t.years.length; i++)
+          gaps.push({ corps: n, from: t.years[i - 1], to: t.years[i], gap: t.years[i] - t.years[i - 1] });
+      });
+      gaps.sort((a, b) => b.gap - a.gap || b.to - a.to);
+      const gapsHtml = gaps.length ? `<div class="tscroll"><table class="t"><thead><tr>
+          <th>${TERM_TH}</th><th class="num">Wait</th><th>Between</th></tr></thead><tbody id="recGaps">
+        ${gaps.map(g => `<tr><td>${corpsLink(g.corps)}</td><td class="num score">${g.gap} yr${g.gap === 1 ? "" : "s"}</td>
+          <td class="kicker">${g.from} → ${g.to}</td></tr>`).join("")}
+      </tbody></table></div>` : emptyNote;
       document.getElementById("recBody").innerHTML = `
-        ${card("Highest Scores Ever", "the best single performances on record", topHtml)}
+        ${card(FAM ? "Highest Winning Scores" : "Highest Scores Ever",
+          FAM ? "the best championship-winning scores on record" : "the best single performances on record", topHtml)}
         <div class="grid cols-2" style="margin-top:14px">
           ${card("Championship Titles", finalsSpan, titlesHtml)}
           ${card("Dynasties", "back-to-back champions", streaksHtml)}
         </div>
-        <div class="card" style="margin-top:14px">
+        ${FAM ? `<div class="grid cols-2" style="margin-top:14px">
+          ${card("Longest Title Span", "first title to latest", spansHtml)}
+          ${card("Longest Wait Between Titles", "consecutive titles, years apart", gapsHtml)}
+        </div>
+        <div style="margin-top:14px">${card("Biggest One-Season Leaps", "winning score vs the year before", leapsHtml)}</div>`
+        : `<div class="card" style="margin-top:14px">
           <h2>Finals Margins <span class="sub">champion vs runner-up on the last night</span></h2>
           <div class="filters" style="margin:2px 0 8px">
             <button class="tab${marginMode === "closest" ? " on" : ""}" data-mm="closest">Closest ever</button>
@@ -3987,9 +4212,10 @@
         <div class="grid cols-2" style="margin-top:14px">
           ${card("Biggest One-Season Leaps", "season best vs the year before", leapsHtml)}
           ${card("Most Finals Made", "championship-finals appearances", appsHtml)}
-        </div>`;
+        </div>`}`;
 
-      ["recTop", "recTitles", "recStreaks", "recMargins", "recLeaps", "recApps"].forEach(id => {
+      ["recTop", "recTitles", "recStreaks", "recMargins", "recLeaps", "recApps",
+        "recSpans", "recGaps"].forEach(id => {
         const el = document.getElementById(id);
         if (el) collapseRows(el, 5, "rows");
       });
@@ -4017,14 +4243,18 @@
       const rk = await data("rankings.json");
       if (stale()) return;
       const st = rk.standings || {};
-      ["World Class", "Open Class", "All-Age"].forEach(c => (st[c] && st[c].rows || []).forEach(r => r.corps && all.push(r.corps)));
+      (FAM ? CLASS_ORDER : ["World Class", "Open Class", "All-Age"])
+        .forEach(c => (st[c] && st[c].rows || []).forEach(r => r.corps && all.push(r.corps)));
     } catch (e) {}
-    Object.keys(CORPS_THEME).forEach(n => all.push(n));
+    if (!FAM) Object.keys(CORPS_THEME).forEach(n => all.push(n));
+    // a family app has no CORPS_THEME to seed from, so its own roster is
+    // the list — the whole index, not just this season's champions
+    if (FAM) { try { (await data("corps_index.json") || []).forEach(r => r.name && all.push(r.name)); } catch (e) {} }
     if (curCorps) all.push(curCorps);
     all = [...new Set(all)].sort((a, b) => a.localeCompare(b));
     await ensureLogos(); // so the picker can show each corps' real logo
     if (stale()) return;
-    const featured = THEME_FEATURED.filter(n => all.includes(n) || CORPS_THEME[n]);
+    const featured = FAM ? [] : THEME_FEATURED.filter(n => all.includes(n) || CORPS_THEME[n]);
     const fontSize = (() => { try { return localStorage.getItem("cad-fontsize") || "1"; } catch (e) { return "1"; } })();
     const custInit = currentCustom() || ["#0a3f6b", "#f0b429"]; // Cadence navy + gold to start
 
@@ -4404,7 +4634,9 @@
         <p class="abouttxt">Cadence is a free scores dashboard for Drum Corps International (DCI)
           competition: live season standings, judge-level caption recaps, corps histories, and
           complete published results back to 1972. It covers DCI's World Class, Open Class, and
-          All-Age divisions. It does not currently cover other circuits.</p>
+          All-Age divisions. Cadence also publishes the WGI Color Guard, Percussion and Winds
+          championship record — every World Champion and winning score — since WGI releases
+          in-season scores only through its directors-only portal.</p>
         <p class="abouttxt"><b>Cadence is an independent fan project.</b> It is not affiliated with,
           sponsored by, or endorsed by Drum Corps International, CompetitionSuite, or any corps.
           All corps names and event names belong to their respective organizations.</p>
@@ -4501,7 +4733,7 @@
     // legacy name for the same hub; keep both redirecting forever so old
     // shared links never break.
     [/^#\/(?:stats|data)$/, () => { location.replace(CAPS ? "#/captions" : "#/compare"); }],
-    [/^#\/season\/(\d{4})$/, m => { location.replace(`#/events?y=${m[1]}`); }],
+    [/^#\/season\/(\d{4})$/, m => { location.replace(FAM ? `#/?y=${m[1]}` : `#/events?y=${m[1]}`); }],
     [/^#\/event\/(\d{4})\/(\d+)(?:\?(.*))?$/, (m, st) => viewEvent(m[1], m[2], st, m[3])],
     [/^#\/captions(?:\?(.*))?$/, (m, st) => { if (!CAPS) { location.replace("#/compare"); return; } return viewCaptions(m[1], st); }],
     [/^#\/records$/, viewRecords],

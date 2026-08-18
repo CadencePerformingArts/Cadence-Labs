@@ -13,7 +13,15 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="../app.css">
 <link rel="stylesheet" href="ensemble.css">
 <style>
-.fm-list { display: grid; gap: 10px; max-width: 720px; }
+/* Forms. The list is a set of cards, so it takes the same shape the public
+   shows list (#evlist) takes: two per row from 700px up.
+
+   The form itself deliberately does NOT: filling in a form is reading and
+   typing, and a 1144px-wide text input is worse than a 720px one. That cap
+   is a measure, not a leftover phone layout. */
+.fm-list { display: grid; gap: 10px; }
+.fm-list > * { min-width: 0; }
+@media (min-width: 700px) { .fm-list { grid-template-columns: 1fr 1fr; } }
 .fm-row { display: flex; gap: 12px; align-items: center; width: 100%; text-align: left;
   border: 1px solid var(--border); background: var(--surface-1); border-radius: 12px;
   padding: 13px 14px; font: inherit; cursor: pointer; color: var(--text-primary); }
@@ -197,7 +205,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<h1 class="page">' + esc(open.title) + "</h1>" +
       (open.description ? '<p class="lede">' + esc(open.description) + "</p>" : "") +
       (open.is_sensitive
-        ? '<p class="bil-note" style="margin-bottom:14px">This form contains protected information. ' +
+        ? '<p class="setnote">This form contains protected information. ' +
           "Only staff your organization has explicitly given access see the answers.</p>" : "") +
       (closed ? '<div class="ens-strip warn" style="border-radius:10px;margin-bottom:14px">This form is closed.</div>' : "") +
       '<form id="fmForm">' + fields.map(function (fd) { return fieldHtml(fd, vals[fd.id]); }).join("") +

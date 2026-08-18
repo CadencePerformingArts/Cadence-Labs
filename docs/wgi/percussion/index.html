@@ -17,7 +17,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;
 var name=localStorage.getItem("cad-corps-theme"),css=localStorage.getItem("cad-corps-css");
 if(name&&css){var s=document.createElement("style");s.id="corpsTheme";s.textContent=css;document.head.appendChild(s);
 r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));}})();</script>
-<link rel="stylesheet" href="../../app.css?v=7ba357a3">
+<link rel="stylesheet" href="../../app.css?v=287aaab7">
 <link rel="stylesheet" href="../../family/family.css?v=22b01b47">
 <style>:root { --fam-accent: #7c3aed; }</style>
 </head>
@@ -59,7 +59,7 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
 
 <div id="tooltip" class="tooltip" hidden></div>
 <script>
-window.APP_CFG = {"appName": "Cadence WGI Percussion", "root": "../..", "captions": false, "board": "history", "ns": "wgi-perc:", "classOrder": ["Independent World", "Independent Open", "Scholastic World", "Scholastic Open", "Scholastic Concert World"], "combinable": [], "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"}, "eventsTitle": "Shows", "siteUrl": "https://cadenceperformingarts.github.io/Cadence-Labs/wgi/percussion", "siteLabel": "cadenceperformingarts.github.io/Cadence-Labs"};
+window.APP_CFG = {"appName": "Cadence WGI Percussion", "root": "../..", "captions": false, "ns": "wgi-perc:", "classOrder": ["Independent World", "Independent Open", "Independent A", "Scholastic World", "Scholastic Open", "Scholastic A"], "combinable": [], "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"}, "notes": {"board": "WGI publishes in-season scores only through its directors-only portal, so this board is the championship record \u2014 every World Champion and winning score. Score coverage is pending permission from WGI.", "events": "Schedule only: dates, sites and links exactly as WGI published them. In-season results run through WGI's directors-only portal, so no scores appear here.", "corps": "Every ensemble here is a WGI World Champion \u2014 the public record covers title winners, not full class results.", "compare": "Each point is a championship-winning score: WGI publishes no in-season scores, so a season an ensemble did not win has no point.", "records": "WGI publishes each class's champion, not the full finals sheet \u2014 so runner-up margins and finals appearances are not in this book.", "database": "Every row is a World Championship title. WGI's in-season scores are not published, so nothing else is in the dataset.", "profile": "Championship titles only, and the published record carries no dates \u2014 WGI's in-season scores are not public."}, "eventsTitle": "Shows", "siteUrl": "https://cadenceperformingarts.github.io/Cadence-Labs/wgi/percussion", "siteLabel": "cadenceperformingarts.github.io/Cadence-Labs"};
 window.CadTheme = (function () {
   var root = document.documentElement;
   function effective() {
@@ -101,14 +101,13 @@ window.CadTheme = (function () {
 <script src="../../supabase.js?v=93347d5e"></script>
 <script src="../../account.js?v=a5c461ee"></script>
 <script src="../../analytics.js?v=e058461a"></script>
-<script src="../../registry.js?v=85906834"></script>
+<script src="../../registry.js?v=399e5378"></script>
 <script src="../../ensembles.js?v=ce66ad2e"></script>
 <script src="../../charts.js?v=ac299863"></script>
 <script src="../../lib/live-core.js?v=8377d253"></script>
 <script src="../../lib/season-utils.js?v=eb83ff3e"></script>
 <script src="../../family/wrapped.js?v=91647811"></script>
-<script src="../../family/board.js?v=485852f8"></script>
-<script src="../../family/app.js?v=c10dd867"></script>
+<script src="../../family/app.js?v=9e5a1d02"></script>
 <script src="../../modes.js?v=45a93cb2" data-base="../.."></script>
 </body>
 </html>

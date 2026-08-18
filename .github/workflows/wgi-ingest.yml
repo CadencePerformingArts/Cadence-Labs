@@ -5,9 +5,12 @@
 # failed run never erases anything.
 #
 # WGI publishes live scores only through its directors-only portal, so until
-# access is granted the apps ship the championship record plus the official
-# schedule (see docs/family/BOARD-CONTRACT.md). This job is what turns that
-# on the day the feed opens.
+# access is granted the apps run on the championship record — every view is
+# derived from it by scripts/build_wgi_datasets.py — plus the official
+# schedule (see docs/family/BOARD-CONTRACT.md). This job is what turns the
+# real feed on the day it opens: once seasons/<year>.json carries scored
+# results, build_wgi_datasets.py stands down (refusal_reason) and
+# gen_family_data.py re-derives everything from the fuller data instead.
 name: WGI ingest
 
 on:
@@ -60,8 +63,12 @@ jobs:
           # CompetitionSuite serves HTML-escaped ensemble names, and the app's
           # router only resolves slugOf() slugs — this pass decodes the names,
           # re-derives corps_index + the per-ensemble logs from the season
-          # files, and gives every indexed ensemble a profile file.
+          # files, and gives every indexed ensemble a profile file. It also
+          # picks the derivation source: champion record until real per-show
+          # results land, season files afterwards.
           python3 scripts/gen_family_data.py
+          # every derived row must still trace back to a real published result
+          node scripts/test_wgi_datasets.js
       - name: Upload probe report
         if: always()
         uses: actions/upload-artifact@v4

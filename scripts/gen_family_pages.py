@@ -12,10 +12,37 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 
+# WGI's class hierarchy, most competitive first. The classes an app actually
+# offers are read out of its champions.json (see class_order() below) so a page
+# can never advertise a class its data has never crowned a champion in — the
+# hardcoded lists this replaced had invented one ("Scholastic Concert World")
+# and were missing three that the record does hold.
+WGI_CLASS_ORDER = [
+    "Independent World", "Independent Open", "Independent A",
+    "Scholastic World", "Scholastic Open", "Scholastic A",
+]
+
+# What each screen does NOT have, in one plain sentence. WGI publishes live
+# scores only through a directors-only portal, so these apps carry its
+# championship record and its published schedule — and say so, per screen,
+# rather than showing an empty column and letting the reader guess.
+WGI_NOTES = {
+    "board": "WGI publishes in-season scores only through its directors-only portal, so this board is the championship record — every World Champion and winning score. Score coverage is pending permission from WGI.",
+    "events": "Schedule only: dates, sites and links exactly as WGI published them. In-season results run through WGI's directors-only portal, so no scores appear here.",
+    "corps": "Every ensemble here is a WGI World Champion — the public record covers title winners, not full class results.",
+    "compare": "Each point is a championship-winning score: WGI publishes no in-season scores, so a season an ensemble did not win has no point.",
+    "records": "WGI publishes each class's champion, not the full finals sheet — so runner-up margins and finals appearances are not in this book.",
+    "database": "Every row is a World Championship title. WGI's in-season scores are not published, so nothing else is in the dataset.",
+    "profile": "Championship titles only, and the published record carries no dates — WGI's in-season scores are not public.",
+}
+
+WGI_STATUS = ("Every WGI champion on record plus the official 2027 schedule. WGI publishes live "
+              "scores through its directors' portal, so Cadence carries no season scores — we've "
+              "asked for access.")
+
 PAGES = {
     "wgi/guard": {
-        "board": "history",
-        "status": 'Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors\' portal, so Cadence carries no season scores — we\'ve asked for access.',
+        "status": WGI_STATUS,
         "root": "../..",
         "title": "Cadence WGI — Color Guard Scores & Standings",
         "brand_tag": "WGI",
@@ -27,12 +54,11 @@ PAGES = {
         "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
-        "class_order": ["Independent World", "Independent Open", "Independent A", "Scholastic World", "Scholastic Open", "Scholastic A"],
+        "notes": WGI_NOTES,
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "wgi/percussion": {
-        "board": "history",
-        "status": 'Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors\' portal, so Cadence carries no season scores — we\'ve asked for access.',
+        "status": WGI_STATUS,
         "root": "../..",
         "title": "Cadence WGI — Percussion Scores & Standings",
         "brand_tag": "WGI",
@@ -44,12 +70,11 @@ PAGES = {
         "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
-        "class_order": ["Independent World", "Independent Open", "Scholastic World", "Scholastic Open", "Scholastic Concert World"],
+        "notes": WGI_NOTES,
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
     "wgi/winds": {
-        "board": "history",
-        "status": 'Every WGI champion on record plus the official 2027 schedule. WGI publishes live scores through its directors\' portal, so Cadence carries no season scores — we\'ve asked for access.',
+        "status": WGI_STATUS,
         "root": "../..",
         "title": "Cadence WGI — Winds Scores & Standings",
         "brand_tag": "WGI",
@@ -61,10 +86,25 @@ PAGES = {
         "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
         "events_title": "Shows",
         "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
-        "class_order": ["Independent World", "Independent Open", "Scholastic World"],
+        "notes": WGI_NOTES,
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
 }
+
+
+def class_order(key: str, c: dict) -> list:
+    """The classes this app competes, read from its own championship record."""
+    if c.get("class_order"):
+        return c["class_order"]
+    champs = DOCS / key / "data" / "champions.json"
+    if not champs.exists():
+        return []
+    found = set()
+    for by_cls in json.loads(champs.read_text()).values():
+        if isinstance(by_cls, dict):
+            found.update(by_cls.keys())
+    return sorted(found, key=lambda n: (WGI_CLASS_ORDER.index(n) if n in WGI_CLASS_ORDER else 99, n))
+
 
 def v(rel: str) -> str:
     """Content-hash version tag for an asset under docs/, for cache busting."""
@@ -118,13 +158,13 @@ def page(key: str, c: dict) -> str:
         # corps-profile tile, the Database dataset, the per-event recap
         # fetch) is hidden rather than left to dead-end
         "captions": c.get("captions", False),
-        # "trend" is the DCI board; anything else renders through
-        # docs/family/board.js — see docs/family/BOARD-CONTRACT.md
-        "board": c.get("board", "trend"),
         "ns": c["ns"],
-        "classOrder": c["class_order"],
+        "classOrder": class_order(key, c),
         "combinable": [],
         "terms": c["terms"],
+        # one honest sentence per screen about what this app's data does NOT
+        # cover — rendered by the engine's noteHtml(), never more than once
+        "notes": c.get("notes", {}),
         "eventsTitle": c["events_title"],
         "siteUrl": f"https://cadenceperformingarts.github.io/Cadence-Labs/{key}",
         "siteLabel": "cadenceperformingarts.github.io/Cadence-Labs",
@@ -139,7 +179,6 @@ def page(key: str, c: dict) -> str:
     v_metrics = v("analytics.js")
     v_ens = v("ensembles.js")
     v_reg = v("registry.js")
-    v_board = v("family/board.js")
     # shared runtime the engine hard-depends on: window.CadConfig (relay +
     # feature switches) and the pure modules window.CadLiveCore /
     # window.CadSeasonUtils, which app.js dereferences at eval time. Miss
@@ -228,7 +267,6 @@ window.APP_CFG = {json.dumps(cfg)};
 <script src="{r}/lib/live-core.js{v_livecore}"></script>
 <script src="{r}/lib/season-utils.js{v_seasonutils}"></script>
 <script src="{r}/family/wrapped.js{v_wrapped}"></script>
-<script src="{r}/family/board.js{v_board}"></script>
 <script src="{r}/family/app.js{v_engine}"></script>
 <script src="{r}/modes.js{v_modes}" data-base="{r}"></script>
 </body>

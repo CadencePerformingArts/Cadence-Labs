@@ -1,0 +1,7 @@
+corps_index.json, corps/*.json, records.json, rankings.json and db/*
+are derived from champions.json by scripts/build_wgi_datasets.py.
+236 championship titles · 152 ensembles · 6 classes · 1978–2026
+No dates: the published record carries none, so every derived date is null.
+scripts/purge_fabricated.py --rebuild resets these files to the empty
+state (it predates this derivation and only counts season results);
+re-run this script, or gen_family_data.py, to rebuild them.

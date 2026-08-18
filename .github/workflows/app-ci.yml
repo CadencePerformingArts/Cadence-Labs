@@ -173,5 +173,9 @@ jobs:
       # direction. It passes, and it guards how a corps' home class is derived.
       - name: A corps has one class, and it is the one it competes in
         run: node scripts/test_class_accuracy.js
+      - name: Every WGI row traces back to the championship record
+        run: node scripts/test_wgi_datasets.js
+      - name: Workspace design guards
+        run: node scripts/test_workspace_design.js
       - name: Watched workflow names exist
         run: python3 scripts/check_workflow_names.py

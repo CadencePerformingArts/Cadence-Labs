@@ -123,7 +123,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       ? '<span class="ens-tag important">Trial · ' + (days > 0 ? days + "d left" : "expired") + "</span>"
       : CadOrg.isWritable(o) ? '<span class="ens-tag normal">' + esc(CadOrg.planOf(o).label) + "</span>"
       : '<span class="ens-tag urgent">Read-only</span>';
-    return '<a class="card" style="text-decoration:none;display:block" href="home.html?org=' + o.id + '">' +
+    return '<a class="card ens-orgcard" href="home.html?org=' + o.id + '">' +
       '<div class="ens-h"><h2>' + esc(o.name) + "</h2>" + badge + "</div>" +
       '<div class="setsub">' + esc((r.role && r.role.name) || "Member") +
       (r.section ? " · " + esc(r.section) : "") + "</div></a>";
@@ -165,7 +165,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         ? '<p class="lede">Your organizations\' private home base — announcements, groups, ' +
           "chat, calendar, files and day-to-day operations.</p>" +
           '<div class="ens-grid">' + orgs.map(card).join("") + "</div>" +
-          '<h2 class="page" style="font-size:18px;margin:26px 0 10px">Join another</h2>'
+          '<h2 class="ens-subhead">Join another</h2>'
         : '<p class="lede">A workspace is where an organization runs its season — ' +
           "announcements, calendar, files, attendance. You are not in one yet.</p>") +
       '<div class="ens-grid">' +
@@ -187,9 +187,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           '<button class="tab" type="submit">Create workspace →</button></form>' +
           '<p class="acct-msg" id="newMsg" role="status"></p></div>' +
       "</div>" +
-      '<p class="fam-note" style="color:var(--muted);font-size:12.5px;margin-top:18px">' +
-      "Cadence Ensemble is the private side of Cadence. Your public scores, rankings and " +
-      'ensemble profile live over in <a href="../">public Cadence</a>.</p>';
+      '<p class="ens-foot">Cadence Ensemble is the private side of Cadence. Your public ' +
+      'scores, rankings and ensemble profile live over in <a href="../">public Cadence</a>.</p>';
 
     main.querySelectorAll("[data-join-public]").forEach(function (btn) {
       btn.addEventListener("click", async function () {

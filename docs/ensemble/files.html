@@ -13,7 +13,28 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="../app.css">
 <link rel="stylesheet" href="ensemble.css">
 <style>
-/* Files & music library — page-local styling on top of app.css tokens. */
+/* Files — page layout only. The chips, tags, star and the preview sheet are
+   shared with music.html and live in ensemble.css; tokens come from app.css.
+
+   Desktop shape: browsing a folder is a two-pane job, so the subfolders
+   become a rail and the files in this folder take the rest of the width.
+   The breadcrumb spans both. Recently-added, Favorites and search results
+   have no folder rail, so the table simply takes the whole card (.solo). */
+.fl-browse { display: grid; gap: 12px; }
+.fl-browse > * { min-width: 0; }
+@media (min-width: 700px) {
+  .fl-browse {
+    grid-template-columns: minmax(190px, 3fr) 9fr;
+    grid-template-areas: "crumbs crumbs" "folders files";
+    align-items: start;
+  }
+  .fl-browse.solo { grid-template-columns: 1fr; grid-template-areas: "crumbs" "files"; }
+  .fl-browse > .fl-crumbs { grid-area: crumbs; margin: 0; }
+  .fl-browse > .fl-side { grid-area: folders; }
+  .fl-browse > .fl-drop { grid-area: files; }
+  /* in a rail the folders stack instead of tiling */
+  .fl-side .fl-folders { grid-template-columns: 1fr; margin: 0; }
+}
 .fl-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; margin-bottom: 14px; }
 .fl-quota { min-width: 240px; flex: 1 1 260px; max-width: 420px; }
 .fl-quota-bar { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; border: 1px solid var(--border); }
@@ -25,12 +46,6 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .fl-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
 .fl-tools .grow { flex: 1 1 200px; min-width: 0; }
 .fl-tools input.ctrl { min-width: 0; width: 100%; }
-.fl-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
-.fl-chip { border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
-  border-radius: 999px; padding: 5px 12px; font-size: 12.5px; font-family: inherit; cursor: pointer; font-weight: 650; }
-.fl-chip:hover { background: var(--surface-2); color: var(--text-primary); }
-.fl-chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
-
 .fl-crumbs { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 13px; margin: 0 0 10px; color: var(--muted); }
 .fl-crumbs button { border: 0; background: none; font: inherit; color: var(--link); cursor: pointer; padding: 2px 3px; font-weight: 650; }
 .fl-crumbs span.sep { opacity: .55; }
@@ -53,9 +68,6 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .fl-act button { border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
   border-radius: 7px; padding: 4px 9px; font-size: 12px; font-family: inherit; cursor: pointer; }
 .fl-act button:hover { background: var(--surface-2); color: var(--text-primary); }
-.fl-star { font-size: 14px; line-height: 1; }
-.fl-tag { display: inline-block; background: var(--surface-2); color: var(--muted); border-radius: 5px;
-  padding: 1px 6px; font-size: 10.5px; font-weight: 700; margin-left: 4px; }
 
 .fl-up { margin: 0 0 12px; }
 .fl-up-row { display: flex; gap: 10px; align-items: center; font-size: 13px; padding: 5px 0; }
@@ -65,26 +77,13 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .fl-up-row.err { color: var(--bad); }
 .fl-up-row.done .fl-up-bar i { background: var(--good); }
 
-/* shared preview / dialog sheet */
-.fl-modal { position: fixed; inset: 0; z-index: 220; background: rgba(10,25,50,.55);
-  display: flex; align-items: center; justify-content: center; padding: 12px; }
-.fl-modal-in { background: var(--surface-1); border-radius: 14px; width: 100%; max-width: 940px;
-  max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
-.fl-modal-top, .fl-modal-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 12px 14px; border-bottom: 1px solid var(--border); }
-.fl-modal-foot { border-bottom: 0; border-top: 1px solid var(--border); }
-.fl-modal-top b { font-size: 15px; color: var(--heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.fl-modal-body { padding: 12px 14px; overflow: auto; flex: 1 1 auto; }
-.fl-view { width: 100%; height: 72vh; border: 0; border-radius: 8px; background: var(--surface-2); display: block; }
-.fl-img { height: auto; max-height: 72vh; object-fit: contain; }
-.fl-audio { width: 100%; }
+/* who-can-see rows inside the shared preview sheet (the sheet itself is in
+   ensemble.css — files.html and music.html both open it) */
 .fl-acc-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-top: 1px solid var(--grid); font-size: 13.5px; }
 .fl-acc-row:first-child { border-top: 0; }
 .fl-acc-row .nm { flex: 1 1 auto; }
 .fl-acc-row label { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--muted); font-weight: 650; }
-.fl-form { display: grid; gap: 9px; }
-.fl-form .ctrl { width: 100%; }
-@media (max-width: 640px) { .fl-view { height: 60vh; } .fl-hide-sm { display: none; } }
+@media (max-width: 640px) { .fl-hide-sm { display: none; } }
 </style>
 </head>
 <body class="ens">
@@ -251,13 +250,14 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         }).join("") + "</div>"
       : "";
 
-    return crumbHtml + folderHtml +
+    return '<div class="fl-browse' + (folderHtml ? "" : " solo") + '">' + crumbHtml +
+      (folderHtml ? '<div class="fl-side">' + folderHtml + "</div>" : "") +
       '<div class="fl-drop" id="flDrop">' +
       listHtml(here, false,
         canUpload()
           ? "Nothing here yet — drop files anywhere in this box, or use Upload."
           : "Nothing in this folder yet.") +
-      "</div>";
+      "</div></div>";
   }
 
   function bodyHtml() {

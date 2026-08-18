@@ -55,8 +55,8 @@ var m=document.querySelector('meta[name="theme-color"]'),bar=localStorage.getIte
   font-weight: 800; color: #f0b429; }
 .my-title { font-size: clamp(26px, 6vw, 38px); font-weight: 900; line-height: 1.05; margin: 4px 0 0; }
 .my-sub { margin-top: 6px; font-size: 13.5px; color: rgba(255,255,255,.72); font-weight: 600; max-width: 62ch; }
-.my-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
-@media (max-width: 640px) { .my-stats { grid-template-columns: repeat(2, 1fr); } }
+.my-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
+@media (min-width: 700px) { .my-stats { grid-template-columns: repeat(4, 1fr); } }
 .my-stat { background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.15);
   border-radius: 14px; padding: 11px 13px 10px; }
 .my-stat .b { width: 24px; height: 4px; border-radius: 2px; background: #f0b429; margin-bottom: 8px; }
@@ -100,8 +100,10 @@ a.my-item:hover + .my-item { border-top-color: transparent; }
 .my-chip.on .n { color: var(--accent-ink); }
 
 /* the two-sides explainer (signed-out / empty onboarding) */
-.my-sides { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
-@media (max-width: 760px) { .my-sides { grid-template-columns: 1fr; } }
+/* mobile first, turning at the 700px the rest of Cadence turns at */
+.my-sides { display: grid; gap: 14px; }
+.my-sides > * { min-width: 0; }
+@media (min-width: 700px) { .my-sides { grid-template-columns: 1fr 1fr; } }
 .my-side-ic { font-size: 30px; }
 .my-sides .card h2 { margin-top: 6px; }
 

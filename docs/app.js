@@ -4308,7 +4308,9 @@
         <p class="abouttxt">Cadence is a free scores dashboard for Drum Corps International (DCI)
           competition: live season standings, judge-level caption recaps, corps histories, and
           complete published results back to 1972. It covers DCI's World Class, Open Class, and
-          All-Age divisions. It does not currently cover other circuits.</p>
+          All-Age divisions. Cadence also publishes the WGI Color Guard, Percussion and Winds
+          championship record — every World Champion and winning score — since WGI releases
+          in-season scores only through its directors-only portal.</p>
         <p class="abouttxt"><b>Cadence is an independent fan project.</b> It is not affiliated with,
           sponsored by, or endorsed by Drum Corps International, CompetitionSuite, or any corps.
           All corps names and event names belong to their respective organizations.</p>

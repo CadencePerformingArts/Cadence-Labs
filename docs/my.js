@@ -390,7 +390,7 @@
   function orgBadge(org) { return '<span class="privbadge"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg> ' + esc(org.name) + "</span>"; }
 
   function privateHtml(data, user) {
-    var head = '<div class="secdiv my-priv-div"><span class="lock"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg></span> Your workspaces · private</div>';
+    var head = '<div class="secdiv"><span class="lock"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg></span> Your workspaces · private</div>';
     if (!data) { // signed out — the private half still exists, honestly
       return '<div class="my-priv">' + head +
         '<div class="my-grid"><div class="card"><h2>Sign in to see your workspaces</h2>' +

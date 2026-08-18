@@ -21,8 +21,11 @@
   .st-approved { background: rgba(47, 158, 68, .14); color: #2f9e44; }
   .st-rejected { background: rgba(201, 42, 42, .12); color: var(--bad); }
   .adm-wrap { max-width: 1060px; margin: 0 auto; }
-  .adm-cols { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-top: 14px; align-items: start; }
-  @media (max-width: 900px) { .adm-cols { grid-template-columns: 1fr; } }
+  /* the editor and its live preview, side by side — .dsk2's shape, turning
+     at the 700px the rest of Cadence turns at instead of 900 */
+  .adm-cols { display: grid; gap: 14px; margin-top: 14px; align-items: start; }
+  .adm-cols > * { min-width: 0; }
+  @media (min-width: 700px) { .adm-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
   .adm-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
   .signin-form { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
   .signin-form .ctrl { flex: 1 1 220px; font-size: 14px; }
@@ -32,8 +35,9 @@
   .adm-form label:first-of-type { margin-top: 0; }
   .adm-form .ctrl { width: 100%; min-width: 0; box-sizing: border-box; font-size: 14px; }
   .adm-form textarea.ctrl { font-family: inherit; resize: vertical; min-height: 70px; }
-  .adm-two { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
-  @media (max-width: 480px) { .adm-two { grid-template-columns: 1fr; } }
+  .adm-two { display: grid; gap: 8px; }
+  .adm-two > * { min-width: 0; }
+  @media (min-width: 480px) { .adm-two { grid-template-columns: 1fr 1fr; } }
   .adm-sec { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
   .adm-sec > h3 { margin: 0; font-size: 13px; font-weight: 700; color: var(--heading); }
   .adm-sec > .fam-note { margin: 3px 0 0; }

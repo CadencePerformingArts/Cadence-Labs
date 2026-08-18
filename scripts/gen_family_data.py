@@ -154,6 +154,26 @@ def performance_logs(data_dir: Path) -> dict:
     return logs
 
 
+def normalise_profiles(d: Path) -> None:
+    """profiles: keyed by the app slug, no invented history."""
+    profs = load(d / "profiles.json") or {}
+    out = {}
+    for key, p in profs.items():
+        if not isinstance(p, dict):
+            continue
+        title = clean_text(str(p.get("title") or key))
+        p = dict(p)
+        p["title"] = title
+        if FABRICATED_SUMMARY.search(str(p.get("summary") or "")):
+            p.pop("summary", None)
+        # a profile that is nothing but a generated monogram still earns its
+        # place: corpsLogo() reads `img` for every avatar in the app
+        if p:
+            out[slug_of(title)] = p
+    if out != profs:
+        dump(d / "profiles.json", out)
+
+
 def normalise(app: str) -> None:
     d = DOCS / app / "data"
     if not d.exists():
@@ -193,6 +213,20 @@ def normalise(app: str) -> None:
         dump(d / "db" / "index.json", [])
 
     # ---- 4. corps_index + per-ensemble logs, both derived from the seasons ----
+    # …unless this app has no season results at all and does have a real
+    # championship record, in which case scripts/build_wgi_datasets.py owns
+    # these files and derives them from that record instead. Exactly one
+    # writer per tree: it refuses the moment a richer ingest lands (see
+    # build_wgi_datasets.refusal_reason), and this branch takes over again.
+    import build_wgi_datasets as bwd
+    if bwd.refusal_reason(d) is None:
+        r = bwd.build_app(app)
+        print(f"{app}: {touched} files cleaned · derived from the championship record "
+              f"({r['titles']} titles · {r['ensembles']} ensembles · {r['classes']} classes, "
+              f"{len(r['changed'])} file(s) written)")
+        normalise_profiles(d)
+        return
+
     # Slug parity matters as much as the numbers: the router only matches
     # [a-z0-9-]+, so an index slug the app's slugOf() would never produce
     # ("arlington-hs-(ny)") is a link that cannot resolve.
@@ -237,25 +271,7 @@ def normalise(app: str) -> None:
             f.unlink()
             removed += 1
 
-    # ---- 6. profiles: keyed by the app slug, no invented history ----
-    profs = load(d / "profiles.json") or {}
-    out = {}
-    dropped = 0
-    for key, p in profs.items():
-        if not isinstance(p, dict):
-            continue
-        title = clean_text(str(p.get("title") or key))
-        p = dict(p)
-        p["title"] = title
-        if FABRICATED_SUMMARY.search(str(p.get("summary") or "")):
-            p.pop("summary", None)
-            dropped += 1
-        # a profile that is nothing but a generated monogram still earns its
-        # place: corpsLogo() reads `img` for every avatar in the app
-        if p:
-            out[slug_of(title)] = p
-    if out != profs:
-        dump(d / "profiles.json", out)
+    normalise_profiles(d)
 
     print(f"{app}: {len(idx)} ensembles · {touched} files cleaned · "
           f"{written} logs written, {removed} stale removed · "

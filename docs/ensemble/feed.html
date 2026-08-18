@@ -19,7 +19,23 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 /* several blocks below set display:, which would otherwise beat the `hidden`
    attribute the scripts toggle — this keeps hidden meaning hidden. */
 [hidden] { display: none !important; }
-.ens-feedwrap { display: grid; gap: 14px; max-width: 760px; }
+
+/* Desktop shape: the announcements keep a readable measure in the wide
+   track and the tools — filters, then the composer — sit in a rail beside
+   them, the way #corpsDetail puts the identity block next to the chart.
+   Named areas, so the phone order (filters, composer, then the feed)
+   is exactly what it always was underneath. */
+.feed-grid { display: grid; gap: 14px; }
+.feed-grid > * { min-width: 0; }
+.feed-side { display: grid; gap: 14px; align-content: start; }
+.feed-side > * { min-width: 0; }   /* the composer's selects are wider than a phone */
+@media (min-width: 700px) {
+  .feed-grid { grid-template-columns: 7fr 5fr; grid-template-areas: "list side"; align-items: start; }
+  .feed-list { grid-area: list; }
+  .feed-side { grid-area: side; }
+}
+.ens-feedwrap { display: grid; gap: 14px; }
+.ens-feedwrap > * { min-width: 0; }   /* a grid track floors at its content otherwise */
 .ens-filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 2px; }
 .ens-mini { padding: 5px 10px; font-size: 12.5px; }
 .ens-tags { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }
@@ -261,19 +277,23 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
       '<h1 class="page">Feed</h1>' +
       '<p class="lede">Announcements and everyday news for ' + esc(org.name) +
       ". Targeted, prioritized, and acknowledged — so nobody can say they didn't hear it.</p>" +
-      '<div class="ens-filters">' + tabs.map(function (t) {
-        return '<button class="tab' + (filter === t[0] ? " on" : "") + '" type="button" data-filter="' +
-          t[0] + '">' + t[1] + "</button>";
-      }).join("") + "</div>" +
       (group
-        ? '<div class="ens-strip" style="border-radius:10px;margin:2px 0 4px;max-width:760px">' +
+        ? '<div class="ens-strip" style="border-radius:10px;margin:2px 0 10px">' +
           "Showing <b>" + esc(group.name) + "</b> — everything sent to that group, " +
           "to anyone in it by name or by role, and to the whole organization." +
           '<a href="feed.html">Show everything</a></div>'
         : "") +
-      '<div class="ens-feedwrap">' +
-        composerHtml() +
-        (list.length ? list.map(function (p) { return C.postHtml(p, ctx); }).join("") : emptyHtml()) +
+      '<div class="feed-grid">' +
+        '<div class="feed-side">' +
+          '<div class="ens-filters">' + tabs.map(function (t) {
+            return '<button class="tab' + (filter === t[0] ? " on" : "") + '" type="button" data-filter="' +
+              t[0] + '">' + t[1] + "</button>";
+          }).join("") + "</div>" +
+          composerHtml() +
+        "</div>" +
+        '<div class="feed-list"><div class="ens-feedwrap">' +
+          (list.length ? list.map(function (p) { return C.postHtml(p, ctx); }).join("") : emptyHtml()) +
+        "</div></div>" +
       "</div>";
 
     wireFilters();
