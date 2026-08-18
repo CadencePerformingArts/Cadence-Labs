@@ -43,10 +43,15 @@ FAM_BOOTSTRAP = """  // --- Cadence family config (absent on the DCI app, set by
       // a ratings circuit ride in the score channel offset by +1000 — an
       // unambiguous marker (ratings are 1-5) that score3 decodes back to an
       // ordinal. Pure-placement circuits keep the plain value.
-      if (o.score == null && (o.rating != null || o.placement != null))
-        o.score = o.rating != null ? o.rating
+      // Two row shapes carry that channel: event and scoreboard rows call it
+      // `score`, corps-profile performances call it `s`. Filling only `score`
+      // left every profile blank, so fill whichever key the row really has.
+      if (o.score == null && o.s == null && (o.rating != null || o.placement != null)) {
+        const v = o.rating != null ? o.rating
           : RES_KIND === "rating" ? 1000 + o.placement
           : o.placement;
+        if ("s" in o) o.s = v; else o.score = v;
+      }
       for (const k in o) normKind(o[k]);
     }
     return o;
@@ -128,6 +133,15 @@ def main() -> None:
       return r.json();
     }).then(j => (RES_KIND ? normKind(j) : j));''',
         "ratings normalize")
+
+    # the DCI app hardcodes "points, and captions exist"; the derived engine
+    # reads both off the instance config, so the shared views (compare,
+    # database, records, corps profile) can sort and label a ratings circuit
+    # the right way round
+    js = sub_once(js, "  function resultsKind() { return null; }",
+                  "  function resultsKind() { return RES_KIND; }", "results kind hook")
+    js = sub_once(js, "  function hasCaptions() { return true; }",
+                  "  function hasCaptions() { return !FAM || !!FAM.captions; }", "captions hook")
 
     # score3 renders ratings as roman numerals, placements as ordinals. In a
     # ratings circuit, values >= 1000 are normKind's placement marker (UIL

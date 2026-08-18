@@ -77,6 +77,31 @@ jobs:
           for f in docs/*.js docs/ensemble/*.js docs/family/*.js; do
             node -e "new Function(require('fs').readFileSync('$f','utf8'))" || exit 1
           done
+      # Whole screens live in inline <script> blocks (the join page, billing,
+      # admin, the platform console). Globbing .js alone let a syntax error in
+      # any of them ship green.
+      - name: Every inline page script parses
+        run: |
+          node -e '
+            const fs = require("fs"), path = require("path");
+            const dirs = ["docs", "docs/ensemble", "docs/legal"];
+            const re = /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g;
+            let files = 0, blocks = 0;
+            for (const d of dirs) {
+              if (!fs.existsSync(d)) continue;
+              for (const f of fs.readdirSync(d).filter((n) => n.endsWith(".html"))) {
+                const p = path.join(d, f), html = fs.readFileSync(p, "utf8");
+                files++;
+                let m; re.lastIndex = 0;
+                while ((m = re.exec(html))) {
+                  blocks++;
+                  try { new Function(m[1]); }
+                  catch (e) { console.error(p + ": " + e.message); process.exit(1); }
+                }
+              }
+            }
+            console.log(files + " pages, " + blocks + " inline blocks parse");
+          '
       - name: P1 regression guards
         run: node scripts/test_p1_fixes.js
       - name: Preference-sync merge rules
@@ -89,5 +114,11 @@ jobs:
         run: node push-server/notify-providers.check.js
       - name: UIL rating vs placement rendering
         run: node scripts/test_uil_rendering.js
+      - name: Invite deep links survive the whole path
+        run: node scripts/test_invite_links.js
+      - name: In-app notification reader contract
+        run: node scripts/test_notify_ui.js
+      - name: Workspace navigation and honest copy
+        run: node scripts/test_workspace_ux.js
       - name: Watched workflow names exist
         run: python3 scripts/check_workflow_names.py

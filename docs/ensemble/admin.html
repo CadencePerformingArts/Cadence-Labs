@@ -241,17 +241,36 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       "<b>" + n(value) + "</b><span>" + esc(label) + "</span></a>";
   }
 
+  /* Billing has no tab of its own: core.js files it under Admin, and the
+     More sheet that carries its link is a phone-only control. Admin is
+     where a director already is, so this is billing's desktop front door —
+     the number is what a director actually wants to know at a glance. */
+  function canBilling() { return CadOrg.can("billing.manage") || CadOrg.can("org.admin"); }
+
+  function billingTile() {
+    var o = S.org, plan = CadOrg.planOf(o), days = CadOrg.trialDaysLeft(o);
+    var trial = o.status === "trialing" && days !== null;
+    var big = trial ? String(days) : plan.price ? "$" + plan.price : "—";
+    var label = trial ? "Trial days left · billing"
+      : plan.label + " · " + String(o.status || "").replace("_", " ");
+    return tile("billing.html", big, label, !CadOrg.isWritable(o));
+  }
+
   function dashboardHtml() {
     var c = S.counts;
+    // Polls and Tasks are sold on the plan cards and have schema in 0007, but
+    // no screen builds one yet, so neither gets a quick action — a shortcut
+    // to a feature that isn't there is worse than no shortcut. They come back
+    // when the surfaces do.
     var quick = [
       ["Post announcement", "feed.html"],
       ["Create event", "calendar.html"],
       ["Upload file", "files.html"],
       ["Add member", "members.html#invites"],
       ["Create group", "members.html#groups"],
-      ["Create poll", "feed.html"],
       ["Create form", "admin.html#forms"],
     ];
+    if (canBilling()) quick.push(["Plan & billing", "billing.html"]);
     return '<div class="card"><div class="ens-h"><h2>Today</h2>' +
         '<span class="setsub">' + esc(CadOrg.planOf(S.org).label) + " · " + esc(S.org.status) + "</span></div>" +
         '<div class="adm-tiles">' +
@@ -261,6 +280,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           tile("admin.html#forms", c.forms, "Open forms") +
           tile("calendar.html", c.attendance, "Attendance alerts", true) +
           tile("admin.html#requests", c.requests, "Pending access requests", true) +
+          (canBilling() ? billingTile() : "") +
         "</div>" +
         '<p class="adm-note">A dash means that part of the workspace hasn\'t been set up yet — ' +
         "the screen that owns it will fill this in.</p></div>" +
@@ -320,8 +340,10 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     var done = S.requests.filter(function (r) { return r.status !== "pending"; }).slice(0, 20);
     return '<div class="card"><div class="ens-h"><h2>Pending requests</h2>' +
         '<span class="setsub">' + pending.length + " waiting</span></div>" +
-        '<p class="setnote">People find your workspace from your public Cadence profile and ask ' +
-        "to join. Approving creates their member row with the role you choose.</p>" +
+        '<p class="setnote">Approving a request creates that person\'s member row with the role ' +
+        "you choose. Nothing can arrive here yet: no screen in Cadence lets someone ask to " +
+        'join a workspace, so the way in today is an invite — <a href="members.html#invites">' +
+        "send a code or a link</a>. This list starts filling the moment request-to-join ships.</p>" +
         (pending.length ? pending.map(function (r) {
           return '<div class="ens-item" data-req="' + esc(r.id) + '"><div style="flex:1;min-width:0">' +
             "<b>" + esc(r.requested_kind || "member") + " request</b>" +
@@ -512,6 +534,19 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   var FORM_KINDS = [["general", "General"], ["medical", "Medical"], ["travel", "Travel"],
     ["sizing", "Sizing"], ["volunteer", "Volunteer"], ["audition", "Audition"], ["survey", "Survey"]];
 
+  /* target_group_ids (0009) narrows a form to groups; empty means the whole
+     organization. RLS enforces it in org_form_visible() — this is only the
+     control that fills it in. */
+  function targetLabel(f) {
+    var ids = f.target_group_ids || [];
+    if (!ids.length) return "everyone";
+    if (ids.length > 3) return ids.length + " groups";
+    return ids.map(function (id) {
+      var g = S.groups.filter(function (x) { return x.id === id; })[0];
+      return g ? g.name : "a group";
+    }).join(", ");
+  }
+
   function formsHtml() {
     if (S.forms === null) {
       return '<div class="card"><div class="empty">Forms need migration 0009 — run it in ' +
@@ -526,7 +561,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           return '<div class="ens-item"><div style="flex:1;min-width:0"><b>' + esc(f.title) + "</b>" +
             (f.is_sensitive ? ' <span class="ens-tag urgent">Sensitive</span>' : "") +
             (f.is_open ? "" : ' <span class="ens-tag normal">Closed</span>') +
-            '<div class="ens-sub">' + esc(f.kind) + " · created " + esc(P.fmtDate(f.created_at)) +
+            '<div class="ens-sub">' + esc(f.kind) + " · " + esc(targetLabel(f)) +
+            " · created " + esc(P.fmtDate(f.created_at)) +
             (f.closes_at ? " · closes " + esc(P.fmtDate(f.closes_at)) : "") + "</div></div>" +
             '<button class="tab" type="button" data-form="' + esc(f.id) + '">Submissions</button></div>';
         }).join("") : '<div class="empty">No forms yet.</div>') + "</div>" +
@@ -545,12 +581,20 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           '<label class="ppl-field"><span>Sensitive (medical / protected)</span>' +
             '<select class="ctrl" id="fSensitive"><option value="false">No</option>' +
             '<option value="true">Yes — restrict to student.info</option></select></label></div>' +
+          (S.groups.length
+            ? '<label class="ppl-field"><span>Who sees it</span>' +
+              '<select class="ctrl" id="fGroups" multiple size="4">' + S.groups.map(function (g) {
+                return '<option value="' + esc(g.id) + '">' + esc(g.name) + "</option>"; }).join("") +
+              "</select></label>" +
+              '<p class="ppl-warn" style="margin-top:0">Select nothing and the whole organization ' +
+              "sees it. Otherwise only members of the groups you pick — and their guardians — do.</p>"
+            : "") +
           "<h4>Fields</h4><div id=\"fFields\"></div>" +
           '<button class="tab" type="button" id="fAddField">+ Add field</button>' +
           '<div class="ppl-actions"><button class="tab on" type="submit">Create form</button>' +
           '<span class="acct-msg" id="fMsg" role="status"></span></div></form>' +
-        '<p class="ppl-warn">The member-facing fill-in screen ships with the forms phase; ' +
-        "what you build here is stored and readable through the submissions view.</p></div>";
+        '<p class="ppl-warn">Members fill these in on their Forms tab: an open form appears ' +
+        "there the moment you create it, and their answers land in the submissions view here.</p></div>";
   }
 
   function fieldRowHtml() {
@@ -559,9 +603,26 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<select class="ctrl" data-f="type">' + FIELD_TYPES.map(function (t) {
         return '<option value="' + t[0] + '">' + t[1] + "</option>"; }).join("") + "</select>" +
       '<input class="ctrl" data-f="options" placeholder="Options, comma separated">' +
-      '<label style="display:flex;gap:6px;align-items:center;font-size:12.5px">' +
+      '<label style="display:flex;gap:6px;align-items:center;font-size:12.5px" data-f="reqlabel">' +
       '<input type="checkbox" data-f="required"> Required</label>' +
       '<button class="tab" type="button" data-f="remove">×</button></div>';
+  }
+
+  /* A "File upload" field renders no control on the member fill-in screen —
+     attachments aren't wired to storage yet — so a required one would make
+     the whole form permanently unsubmittable for every member. Until uploads
+     land, file answers are collected off-form and cannot be required. */
+  function syncFieldRow(row) {
+    if (!row) return;
+    var isFile = row.querySelector('[data-f="type"]').value === "file";
+    var req = row.querySelector('[data-f="required"]');
+    var lab = row.querySelector('[data-f="reqlabel"]');
+    if (isFile) req.checked = false;
+    req.disabled = isFile;
+    if (lab) {
+      lab.style.opacity = isFile ? ".5" : "";
+      lab.title = isFile ? "File answers are collected off-form, so they can't be required." : "";
+    }
   }
 
   async function openFormSubmissions(id) {
@@ -638,6 +699,23 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   /* ── page ─────────────────────────────────────────────────────────── */
   var TABS = [["dashboard", "Dashboard"], ["requests", "Requests"], ["roles", "Roles"],
     ["seasons", "Seasons"], ["forms", "Forms"], ["audit", "Audit log"]];
+
+  /* The dashboard tiles and quick actions are ordinary links to
+     admin.html#tab. A same-document fragment link never reloads the page,
+     so reading the hash once at boot left them changing the URL and nothing
+     else. One listener routes them — and the back button with them. Tab
+     buttons use replaceState, which fires nothing, so this never doubles up. */
+  function tabFromHash() {
+    var hash = (location.hash || "").replace("#", "");
+    return TABS.some(function (t) { return t[0] === hash; }) ? hash : null;
+  }
+  window.addEventListener("hashchange", function () {
+    var t = tabFromHash();
+    if (!t || !S.org || t === S.tab) return;
+    S.tab = t;
+    render();
+    window.scrollTo(0, 0);
+  });
 
   function render() {
     main.innerHTML =
@@ -801,6 +879,11 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
           e.target.closest(".adm-fieldrow").remove();
         }
       });
+      fields.addEventListener("change", function (e) {
+        if (e.target.dataset && e.target.dataset.f === "type") {
+          syncFieldRow(e.target.closest(".adm-fieldrow"));
+        }
+      });
     }
     var kind = root.querySelector("#fKind");
     if (kind) kind.addEventListener("change", function () {
@@ -813,6 +896,11 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       var msg = root.querySelector("#fMsg");
       msg.className = "acct-msg"; msg.textContent = "Creating…";
       var me = CadOrg.member();
+      var groupSel = root.querySelector("#fGroups");
+      var targets = groupSel
+        ? Array.prototype.slice.call(groupSel.querySelectorAll("option:checked"))
+            .map(function (o) { return o.value; })
+        : [];
       try {
         var rows = await CadOrg.rest("org_forms", { method: "POST",
           headers: { Prefer: "return=representation" },
@@ -820,6 +908,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
             title: root.querySelector("#fTitle").value.trim(),
             description: root.querySelector("#fDesc").value.trim() || null,
             kind: root.querySelector("#fKind").value,
+            target_group_ids: targets,
             is_sensitive: root.querySelector("#fSensitive").value === "true",
             closes_at: root.querySelector("#fCloses").value
               ? new Date(root.querySelector("#fCloses").value).toISOString() : null,
@@ -829,10 +918,13 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
             var label = r.querySelector('[data-f="label"]').value.trim();
             if (!label) return null;
             var opts = r.querySelector('[data-f="options"]').value.trim();
+            var type = r.querySelector('[data-f="type"]').value;
             return { form_id: rows[0].id, label: label,
-              field_type: r.querySelector('[data-f="type"]').value,
+              field_type: type,
               options: opts ? opts.split(",").map(function (s) { return s.trim(); }).filter(Boolean) : [],
-              required: r.querySelector('[data-f="required"]').checked, sort: (i + 1) * 10 };
+              // a required file field can never be answered — see syncFieldRow
+              required: r.querySelector('[data-f="required"]').checked && type !== "file",
+              sort: (i + 1) * 10 };
           }).filter(Boolean);
         if (defs.length) await CadOrg.rest("org_form_fields", { method: "POST", body: defs });
         await CadOrg.log("form.created", "form", rows[0].id,
@@ -865,8 +957,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         "This area is for directors and staff who manage the roster.</div></div>";
       return;
     }
-    var hash = (location.hash || "").replace("#", "");
-    if (TABS.some(function (t) { return t[0] === hash; })) S.tab = hash;
+    var hash = tabFromHash();
+    if (hash) S.tab = hash;
     try { await load(); } catch (e) {
       main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load the admin data. ' +
         "If this is a fresh install, migrations 0005 and 0009 may not be applied yet.</div></div>";

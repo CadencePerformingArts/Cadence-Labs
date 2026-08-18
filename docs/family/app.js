@@ -26,10 +26,15 @@
       // a ratings circuit ride in the score channel offset by +1000 — an
       // unambiguous marker (ratings are 1-5) that score3 decodes back to an
       // ordinal. Pure-placement circuits keep the plain value.
-      if (o.score == null && (o.rating != null || o.placement != null))
-        o.score = o.rating != null ? o.rating
+      // Two row shapes carry that channel: event and scoreboard rows call it
+      // `score`, corps-profile performances call it `s`. Filling only `score`
+      // left every profile blank, so fill whichever key the row really has.
+      if (o.score == null && o.s == null && (o.rating != null || o.placement != null)) {
+        const v = o.rating != null ? o.rating
           : RES_KIND === "rating" ? 1000 + o.placement
           : o.placement;
+        if ("s" in o) o.s = v; else o.score = v;
+      }
       for (const k in o) normKind(o[k]);
     }
     return o;
@@ -141,6 +146,19 @@
 
   const score3 = v => v == null ? "—" : RES_KIND === "rating" ? (v >= 1000 ? ORD(v - 1000) : (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v))) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);
   const h = (strings, ...vals) => strings.map((s, i) => s + (vals[i] == null ? "" : vals[i])).join("");
+
+  /* Circuits that publish Division ratings or ordinal placements instead of
+     point scores (UIL), and instances that ship no caption sheets, are family
+     concerns — scripts/build_family_engine.py rewrites both bodies for the
+     derived engine. The DCI app always scores in points, always has captions. */
+  function resultsKind() { return RES_KIND; }
+  function hasCaptions() { return !FAM || !!FAM.captions; }
+  // a rating or a placement is a golf score: 1 beats 5
+  const lowerIsBetter = () => resultsKind() === "rating" || resultsKind() === "placement";
+  const bestOf = vals => vals.length ? (lowerIsBetter() ? Math.min(...vals) : Math.max(...vals)) : null;
+  // inside a ratings circuit normKind rides State placements at 1000+, so a
+  // value's scale reads off the value itself — the two never share an axis
+  const isPlaced = v => resultsKind() === "rating" && v >= 1000;
 
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   function fmtDate(iso) {
@@ -1203,6 +1221,7 @@
           <div id="fClass"></div>
           <div id="corpsSel"></div>
           <div id="yearSel"></div>
+          ${resultsKind() === "rating" ? '<div id="cmpKind"></div>' : ""}
           <button class="tab" id="clearSel" title="Reset selection">Clear</button>
         </div>
         <div id="cmpNotice"></div>
@@ -1243,6 +1262,19 @@
       selected: yearSet,
       onChange: v => { yearsSel = v.map(Number).sort((a, b) => b - a); persist(); draw(); },
     });
+    // A ratings circuit publishes two scales in the same season — Division
+    // ratings (1–5) at region contests, ordinal State placements (which
+    // normKind rides at 1000+) at the championships. On one axis they made
+    // the chart unreadable and Gain print "+1030.00", so each scale gets its
+    // own view and the notice below says how much is on the other one.
+    const twoScales = resultsKind() === "rating";
+    let scaleSel = "rating";
+    if (twoScales) singleSelect(document.getElementById("cmpKind"), {
+      label: "Results",
+      options: [{ value: "rating", label: "Division ratings" }, { value: "placement", label: "State placements" }],
+      value: scaleSel,
+      onChange: v => { scaleSel = v || "rating"; draw(); },
+    });
     document.getElementById("clearSel").onclick = () => {
       corpsSet.clear(); yearSet.clear();
       corpsSel = [];
@@ -1280,7 +1312,7 @@
       if (gen !== drawGen || stale()) return; // selection changed or view left while loading
       const multiCorps = corps.length > 1, multiYears = years.length > 1;
       const series = [], summary = [];
-      let combos = 0, truncated = false;
+      let combos = 0, truncated = false, offScale = 0;
       for (let ci = 0; ci < corps.length; ci++) {
         const name = bySlug.get(corps[ci]).name;
         for (let yi = 0; yi < years.length; yi++) {
@@ -1292,7 +1324,9 @@
             if (!ev.date) continue;
             for (const c of ev.classes || []) {
               for (const r of c.results || []) {
-                if (r.corps === name && r.score) pts.push({ x: dayOfSeason(ev.date), y: r.score, ev: ev.name, d: ev.date });
+                if (!(r.corps === name && r.score)) continue;
+                if (twoScales && (isPlaced(r.score) ? "placement" : "rating") !== scaleSel) { offScale++; continue; }
+                pts.push({ x: dayOfSeason(ev.date), y: r.score, ev: ev.name, d: ev.date });
               }
             }
           }
@@ -1308,14 +1342,17 @@
             dash: multiCorps && multiYears ? YEAR_DASHES[years[yi] % YEAR_DASHES.length] : "",
           });
           const scores = pts.map(p => p.y);
-          const hiPt = pts.reduce((m, p) => p.y > m.y ? p : m, pts[0]);
+          const hiPt = pts.reduce((m, p) => (lowerIsBetter() ? p.y < m.y : p.y > m.y) ? p : m, pts[0]);
           const tipOf = p => `${score3(p.y)} — ${p.ev} · ${fmtDateY(p.d)}`;
+          // where 1 beats 5, an improvement is a DROP — the column keeps
+          // meaning "how much better did they get", and divisions are whole
+          const drift = scores[scores.length - 1] - scores[0];
           summary.push({
             corps: name, year: years[yi], shows: pts.length, list: pts,
             first: scores[0], latest: scores[scores.length - 1],
             high: hiPt.y,
             firstTip: tipOf(pts[0]), latestTip: tipOf(pts[pts.length - 1]), highTip: tipOf(hiPt),
-            gain: (scores[scores.length - 1] - scores[0]).toFixed(2),
+            gain: (lowerIsBetter() ? -drift : drift).toFixed(lowerIsBetter() ? 0 : 2),
           });
         }
         if (truncated) break;
@@ -1323,16 +1360,24 @@
       if (truncated) {
         noticeEl.innerHTML = `<div class="notice" style="margin-bottom:10px">Showing the first ${MAX_SERIES} ${TERM.singular}-season lines — trim the selection for a cleaner read.</div>`;
       }
+      if (twoScales && offScale) {
+        const other = scaleSel === "rating" ? "State placement" : "region rating";
+        noticeEl.innerHTML += `<div class="notice" style="margin-bottom:10px">${offScale} ${other} result${offScale > 1 ? "s" : ""} in this selection sit on the other scale — switch <b>Results</b> to chart them.</div>`;
+      }
       if (!series.length) {
-        chartEl.innerHTML = "<div class='empty'>No scored shows for this selection — try other seasons.</div>";
+        chartEl.innerHTML = twoScales && offScale
+          ? `<div class='empty'>Nothing on this scale for the selection — every result here is ${scaleSel === "rating" ? "a State placement" : "a region rating"}. Switch <b>Results</b> above.</div>`
+          : "<div class='empty'>No scored shows for this selection — try other seasons.</div>";
         tableEl.innerHTML = "";
         return;
       }
-      lineChart(chartEl, { linearX: true, series, height: 360, xFmt: dayLabel, yFmt: v => v.toFixed(1) });
-      summary.sort((a, b) => b.year - a.year || (b.latest || 0) - (a.latest || 0));
+      lineChart(chartEl, { linearX: true, series, height: 360, xFmt: dayLabel,
+        yFmt: resultsKind() ? score3 : v => v.toFixed(1) });
+      summary.sort((a, b) => b.year - a.year
+        || (lowerIsBetter() ? (a.latest || 0) - (b.latest || 0) : (b.latest || 0) - (a.latest || 0)));
       // each corps-season row expands into its full show-by-show log
       tableEl.innerHTML = `
-        <div class="tscroll"><table class="t"><thead><tr><th style="width:26px"></th><th>${TERM_TH}</th><th class="num">Season</th><th class="num m-hide">First</th><th class="num">Latest / Final</th><th class="num m-hide">High</th><th class="num">Gain</th></tr></thead><tbody id="cmpRows">
+        <div class="tscroll"><table class="t"><thead><tr><th style="width:26px"></th><th>${TERM_TH}</th><th class="num">Season</th><th class="num m-hide">First</th><th class="num">Latest / Final</th><th class="num m-hide">${lowerIsBetter() ? "Best" : "High"}</th><th class="num">${lowerIsBetter() ? "Improved" : "Gain"}</th></tr></thead><tbody id="cmpRows">
         ${summary.map((s, si) => h`<tr class="rowlink cmpsum" data-si="${si}" title="Tap for every show that season">
           <td class="cmpcaret" style="color:var(--muted)">▸</td>
           <td>${corpsLink(s.corps)}</td><td class="num">${s.year}</td><td class="num m-hide" data-tip="${esc(s.firstTip)}">${score3(s.first)}</td><td class="num score" data-tip="${esc(s.latestTip)}">${score3(s.latest)}</td><td class="num m-hide" data-tip="${esc(s.highTip)}">${score3(s.high)}</td><td class="num">${s.gain > 0 ? "+" : ""}${s.gain}</td></tr>
@@ -1455,21 +1500,39 @@
     const byYear = new Map();
     perfs.forEach(p => { (byYear.get(p.y) || byYear.set(p.y, []).get(p.y)).push(p); });
     const years = [...byYear.keys()].sort();
-    const bestByYear = years.map(y => Math.max(0, ...byYear.get(y).map(p => p.s || 0)) || null);
+    const bestByYear = years.map(y => bestOf(byYear.get(y).map(p => p.s).filter(v => v != null)));
     const scored = perfs.filter(p => p.s);
     // show-over-show score change within each season — the first scored show of
     // a season is the baseline (0.0), every later show is measured vs the one
     // before it (same idea as the scoreboard's "vs prev" column). Keyed by the
     // perf object so the log can look each one up.
+    // In a ratings circuit the two scales never subtract: a State placement
+    // minus a region rating is a meaningless ±1000, and a rating that rose is
+    // a rating that got worse, so the sign flips to keep ▲ meaning "better".
     const deltaByPerf = new Map();
     byYear.forEach(ps => {
       const ordered = ps.filter(p => p.s != null).slice()
         .sort((a, b) => (a.d || "").localeCompare(b.d || ""));
-      ordered.forEach((p, i) => deltaByPerf.set(p, i === 0 ? 0 : +(p.s - ordered[i - 1].s).toFixed(3)));
+      ordered.forEach((p, i) => {
+        if (i === 0) { deltaByPerf.set(p, 0); return; }
+        const prev = ordered[i - 1];
+        if (isPlaced(p.s) !== isPlaced(prev.s)) return;   // never subtract across scales
+        deltaByPerf.set(p, +(lowerIsBetter() ? prev.s - p.s : p.s - prev.s).toFixed(3));
+      });
     });
     const cmpYears = years.slice(-3).reverse().join(",");
 
-    const bestPerf = scored.length ? scored.reduce((m, p) => p.s > m.s ? p : m, scored[0]) : null;
+    const bestPerf = scored.length
+      ? scored.reduce((m, p) => (lowerIsBetter() ? p.s < m.s : p.s > m.s) ? p : m, scored[0])
+      : null;
+    // A ratings circuit publishes two scales in one season — Division ratings
+    // at region contests, State placements (riding at 1000+) at the champs.
+    // The line charts plot the rating scale only; the log below still lists
+    // every State row, and score3 spells both out in their own notation.
+    const chartPts = ps => ps.filter(p => p.s && p.d && !isPlaced(p.s));
+    const chartYFmt = resultsKind() ? score3 : v => v.toFixed(1);
+    const scoreNoun = resultsKind() === "rating" ? "rating"
+      : resultsKind() === "placement" ? "placement" : "score";
     // the plain page title is replaced by the "wrapped"-style hero below
     const pt = document.getElementById("corpsPageTitle");
     if (pt) pt.hidden = true;
@@ -1489,15 +1552,19 @@
       const s = ["th", "st", "nd", "rd"], v = n % 100;
       return n + (s[(v - 20) % 10] || s[v] || s[0]);
     };
-    // season stats for the focus year — the same four the share card shows
+    // season stats for the focus year — the same four the share card shows.
+    // A ratings circuit averages ratings only: a State placement riding at
+    // 1000+ would swamp the mean, and "gained" is a drop in rating there.
     function seasonAgg(yr) {
-      const ps = (byYear.get(yr) || []).filter(p => p.s != null)
+      const all = (byYear.get(yr) || []).filter(p => p.s != null)
         .slice().sort((a, b) => (a.d || "").localeCompare(b.d || ""));
+      const ps = resultsKind() === "rating" ? all.filter(p => !isPlaced(p.s)) : all;
       if (!ps.length) return null;
       const sc = ps.map(p => p.s);
+      const drift = sc[sc.length - 1] - sc[0];
       return {
-        high: Math.max(...sc), avg: sc.reduce((a, b) => a + b, 0) / sc.length,
-        gained: +(sc[sc.length - 1] - sc[0]).toFixed(3), shows: ps.length,
+        high: bestOf(sc), avg: sc.reduce((a, b) => a + b, 0) / sc.length,
+        gained: +(lowerIsBetter() ? -drift : drift).toFixed(3), shows: ps.length,
       };
     }
     const heroHtml = h`
@@ -1513,7 +1580,7 @@
         <div class="corpshero-stats" id="heroStats"></div>
         <div class="corpshero-actions">
           <button id="corpFav" class="ch-btn${FAVS.has(detail.name) ? " on" : ""}">${favLabel()}</button>
-          <button id="corpCard" class="ch-btn" title="Share this ${TERM.singular}'s season card">${SHARE_SVG} Share</button>
+          ${resultsKind() ? "" : `<button id="corpCard" class="ch-btn" title="Share this ${TERM.singular}'s season card">${SHARE_SVG} Share</button>`}
         </div>
       </div>`;
     // profile card: who this corps is, straight from Wikipedia
@@ -1547,7 +1614,7 @@
           <div class="label">Performances</div><div class="value">${perfs.length}</div>
           <div class="sub">${years.length} seasons · see every show →</div></div>
         <div class="tile click" id="tileBest" role="button" title="Jump to that season">
-          <div class="label">Best score</div><div class="value">${bestPerf ? score3(bestPerf.s) : "—"}</div>
+          <div class="label">${lowerIsBetter() ? "Best " + scoreNoun : "Best score"}</div><div class="value">${bestPerf ? score3(bestPerf.s) : "—"}</div>
           <div class="sub">${bestPerf ? esc(`${bestPerf.ev || ""} · ${bestPerf.y}`) + " →" : ""}</div></div>
         <div class="tile click" id="tileTitles" role="button" title="The full record book">
           <div class="label">Titles</div><div class="value">${titles.length}</div>
@@ -1574,6 +1641,11 @@
       fb.classList.toggle("on", FAVS.has(detail.name));
       fb.textContent = favLabel();
     };
+    // No Share button on a ratings/placement circuit: the season card is built
+    // from point scores (season high, average, points gained, a score
+    // sparkline) that UIL simply does not publish, so CadWrapped.seasonCard
+    // found nothing and the button did nothing. Better no button than a dead
+    // one — the log and the charts above carry the season instead.
     const cardBtn = document.getElementById("corpCard");
     if (cardBtn) cardBtn.onclick = async () => {
       if (!window.CadWrapped) return;
@@ -1592,11 +1664,12 @@
       if (!statsEl) return;
       const cell = (v, l, id) => `<div class="corpshero-stat"${id ? ` id="${id}"` : ""}><div class="b"></div><div class="v">${v}</div><div class="l">${l}</div></div>`;
       statsEl.innerHTML = agg
-        ? cell(score3(agg.high), "Season high")
+        ? cell(score3(agg.high), lowerIsBetter() ? "Season best" : "Season high")
           + cell("…", "Class rank", "heroRank")
-          + cell((agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(2), "Points gained")
+          + cell((agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(lowerIsBetter() ? 0 : 2),
+            lowerIsBetter() ? "Improved by" : "Points gained")
           + cell(agg.shows, "Shows")
-        : cell(bestPerf ? score3(bestPerf.s) : "—", "Best score")
+        : cell(bestPerf ? score3(bestPerf.s) : "—", lowerIsBetter() ? "Best " + scoreNoun : "Best score")
           + cell(titles.length, "Titles")
           + cell(perfs.length, "Performances")
           + cell(years.length, "Seasons");
@@ -1629,12 +1702,12 @@
       const title = document.getElementById("corpsChartTitle");
       if (sel.length === 1) {
         const yv = sel[0];
-        title.innerHTML = `${yv} Season Progression <span class="sub">score by date · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
-        const pts = (byYear.get(yv) || []).filter(p => p.s && p.d)
+        title.innerHTML = `${yv} Season Progression <span class="sub">${scoreNoun} by date · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
+        const pts = chartPts(byYear.get(yv) || [])
           .map(p => ({ x: dayOfSeason(p.d), y: p.s })).sort((a, b) => a.x - b.x);
         lineChart(document.getElementById("corpsChart"), {
           linearX: true, series: [{ name: String(yv), points: pts, color: corpsColor(detail.name) }],
-          height: 260, xFmt: dayLabel, yFmt: v => v.toFixed(1),
+          height: 260, xFmt: dayLabel, yFmt: chartYFmt,
         });
         return;
       }
@@ -1643,14 +1716,14 @@
       if (sel.length > 1 && sel.length <= 8) {
         const series = sel.map(yv => ({
           name: String(yv), color: PALETTE[yv % PALETTE.length],
-          points: (byYear.get(yv) || []).filter(p => p.s && p.d)
+          points: chartPts(byYear.get(yv) || [])
             .map(p => ({ x: dayOfSeason(p.d), y: p.s })).sort((a, b) => a.x - b.x),
         })).filter(sr => sr.points.length);
         if (series.length) {
           title.innerHTML = `Season Progression — ${sel[0]}–${sel[sel.length - 1]} <span class="sub">one line per season · <a href="#/compare?c=${slug}&y=${cmpYears}">compare vs other ${TERM.plural} →</a></span>`;
           lineChart(document.getElementById("corpsChart"), {
             linearX: true, series,
-            height: 260, xFmt: dayLabel, yFmt: v => v.toFixed(1),
+            height: 260, xFmt: dayLabel, yFmt: chartYFmt,
           });
           return;
         }
@@ -1659,9 +1732,9 @@
       // so years the corps didn't march show as real gaps and an in-progress
       // season sits as its own point instead of dragging the line
       const range = sel.length ? `${sel[0]}–${sel[sel.length - 1]}` : "";
-      title.innerHTML = `Top Score by Year${range ? ` — ${range}` : ""} <span class="sub">gaps = seasons not yet in the database · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
+      title.innerHTML = `${scoreNoun === "rating" ? "Best Rating" : scoreNoun === "placement" ? "Best Placement" : "Top Score"} by Year${range ? ` — ${range}` : ""} <span class="sub">gaps = seasons not yet in the database · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
       const ptsAll = years.map((y, i) => ({ x: y, y: bestByYear[i] }))
-        .filter(p => p.y && (!sel.length || yearSet.has(String(p.x))));
+        .filter(p => p.y && !isPlaced(p.y) && (!sel.length || yearSet.has(String(p.x))));
       const segs = [];
       let cur = [];
       for (const p of ptsAll) {
@@ -1672,7 +1745,7 @@
       lineChart(document.getElementById("corpsChart"), {
         linearX: true, noLegend: true,
         series: segs.map(pts => ({ name: "Top score", points: pts, color: corpsColor(detail.name) })),
-        height: 260, yFmt: v => v.toFixed(0), xFmt: v => String(Math.round(v)),
+        height: 260, yFmt: resultsKind() ? score3 : v => v.toFixed(0), xFmt: v => String(Math.round(v)),
       });
     }
 
@@ -3040,7 +3113,7 @@
     setNav("data");
     app.innerHTML = `${dataSubNav("database")}<h1 class="page">Database <span id="dbcount" class="kicker"></span></h1>
       <div class="filters" id="dbFilters">
-        <div id="dbSet"></div>
+        ${hasCaptions() ? '<div id="dbSet"></div>' : ""}
         <div id="dbCorps"></div>
         <div id="dbYears"></div>
         <div id="fcls"></div>
@@ -3052,6 +3125,9 @@
 
     let setKey = "scores";
     let cfg = DB_SETS[setKey];
+    // display column -> index into the raw row. Identity everywhere except a
+    // ratings circuit's Scores set, which swaps in a trailing column.
+    let colIx = cfg.cols.map((_, i) => i);
     const CHUNK0 = 10;
     let shown = CHUNK0;
     let rows = [];
@@ -3063,9 +3139,14 @@
 
     let fclsVal = "";
     let ssFcls = null;
-    const ssSet = singleSelect(document.getElementById("dbSet"), {
+    // only offer datasets this app actually ships — a circuit with no caption
+    // sheets could never show anything but a build-pending message, and one
+    // dataset needs no picker at all
+    const dbSets = Object.entries(DB_SETS).filter(([k]) => k !== "captions" || hasCaptions());
+    const dbSetEl = document.getElementById("dbSet");
+    if (dbSetEl && dbSets.length > 1) singleSelect(dbSetEl, {
       label: "Dataset",
-      options: Object.entries(DB_SETS).map(([k, v]) => ({ value: k, label: v.label })),
+      options: dbSets.map(([k, v]) => ({ value: k, label: v.label })),
       value: setKey,
       onChange: v => { setKey = v; initDataset(); },
     });
@@ -3074,6 +3155,7 @@
       const gen = ++dbGen;
       document.getElementById("dbtable").innerHTML = "<div class='loading'>Loading…</div>";
       cfg = DB_SETS[setKey];
+      colIx = cfg.cols.map((_, i) => i);
       let got;
       try { got = await cfg.load(); }
       catch (e) {
@@ -3083,6 +3165,18 @@
       }
       if (stale() || gen !== dbGen || !document.getElementById("dbtable")) return;
       rows = got;
+      // A ratings circuit publishes no point scores: its perf rows carry a
+      // null Score and the real result — the Division rating — in a trailing
+      // column the DCI column list never knew about. Show the column the rows
+      // actually have (the CSV export follows the same list).
+      if (setKey === "scores" && resultsKind() && rows.length && rows[0].length > cfg.cols.length) {
+        const extra = rows[0].length - 1;
+        cfg = Object.assign({}, cfg, {
+          cols: cfg.cols.slice(0, -1).concat(resultsKind() === "rating" ? "Rating" : "Placement"),
+          scoreCols: [extra],
+        });
+        colIx = colIx.slice(0, -1).concat(extra);
+      }
       DB.sort = [cfg.dateIdx, -1];   // freshest shows first
       corpsSet.clear(); yearSet.clear();
       document.getElementById("fq").value = "";
@@ -3163,9 +3257,9 @@
       const more = filtered.length - shown;
       document.getElementById("dbtable").innerHTML =
         `<div class="tscroll dense"><table class="t"><thead><tr>${cfg.cols.map((c, i) =>
-          `<th style="cursor:pointer;user-select:none" class="${i === 0 || i === cfg.clsIdx ? "m-hide" : ""}" data-c="${i}">${c}${i === ci ? (dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("")}</tr></thead><tbody>
+          `<th style="cursor:pointer;user-select:none" class="${colIx[i] === 0 || colIx[i] === cfg.clsIdx ? "m-hide" : ""}" data-c="${colIx[i]}">${c}${colIx[i] === ci ? (dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("")}</tr></thead><tbody>
         ${filtered.slice(0, shown).map(r =>
-          `<tr>${cfg.cols.map((c, i) => cellHtml(r, i)).join("")}</tr>`).join("")}</tbody></table></div>` +
+          `<tr>${cfg.cols.map((c, i) => cellHtml(r, colIx[i])).join("")}</tr>`).join("")}</tbody></table></div>` +
         (more > 0 ? `<div class="expandwrap"><button class="tab" id="dbMore">Show ${Math.min(100, more).toLocaleString()} more ▾ <span class="kicker">(${(shown).toLocaleString()} of ${filtered.length.toLocaleString()})</span></button></div>` : "");
       const mb = document.getElementById("dbMore");
       if (mb) mb.onclick = () => { shown += 100; render(); };
@@ -3190,7 +3284,7 @@
     document.getElementById("csv").onclick = () => {
       const lines = [cfg.cols.join(",")].concat(filtered.map(r =>
         cfg.cols.map((c, i) => {
-          const v = r[i];
+          const v = r[colIx[i]];
           return v == null ? "" : /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
         }).join(",")));
       const blob = new Blob([lines.join("\n")], { type: "text/csv" });
@@ -3361,21 +3455,25 @@
         ${margins.map(g => `<tr><td>${yearLink(g.y)}</td><td><b>${esc(g.c1)}</b></td><td class="num score">${score3(g.s1)}</td><td>${esc(g.c2)}</td><td class="num m-hide">${score3(g.s2)}</td><td class="num" style="font-weight:650">${g.m.toFixed(3)}</td></tr>`).join("")}
       </tbody></table></div>` : emptyNote;
 
-      // 5 — biggest one-season leaps (best score, year over year)
+      // 5 — biggest one-season leaps (season best, year over year). In a
+      // ratings circuit the season best is a Division rating, where 1 beats 5
+      // — so the improvement is last year's number MINUS this year's. Taking
+      // b2 - b1 there celebrated the bands that got worse.
       const leaps = [];
+      const lb = lowerIsBetter();
       for (const c of idx) {
         if (!inCorps(c.name)) continue;
         const series = (c.series || []).slice().sort((a, b) => a[0] - b[0]);
         for (let i = 1; i < series.length; i++) {
           const [y1, b1, k1] = series[i - 1], [y2, b2, k2] = series[i];
           if (y2 !== y1 + 1 || k2 !== cls || k1 !== cls || b1 == null || b2 == null || !inEra(y2)) continue;
-          const dlt = +(b2 - b1).toFixed(3);
+          const dlt = +(lb ? b1 - b2 : b2 - b1).toFixed(3);
           if (dlt > 0) leaps.push({ corps: c.name, y1, y2, b1, b2, d: dlt });
         }
       }
       leaps.sort((a, b) => b.d - a.d);
       const leapsHtml = leaps.length ? `<div class="tscroll"><table class="t"><thead><tr><th>${TERM_TH}</th><th>Seasons</th><th class="num m-hide">From</th><th class="num m-hide">To</th><th class="num">Jump</th></tr></thead><tbody id="recLeaps">
-        ${leaps.slice(0, 50).map(l => `<tr><td>${corpsLink(l.corps)}</td><td class="kicker">${l.y1} → ${l.y2}</td><td class="num m-hide">${score3(l.b1)}</td><td class="num m-hide">${score3(l.b2)}</td><td class="num score">+${l.d.toFixed(3)}</td></tr>`).join("")}
+        ${leaps.slice(0, 50).map(l => `<tr><td>${corpsLink(l.corps)}</td><td class="kicker">${l.y1} → ${l.y2}</td><td class="num m-hide">${score3(l.b1)}</td><td class="num m-hide">${score3(l.b2)}</td><td class="num score">+${l.d.toFixed(lb ? 0 : 3)}</td></tr>`).join("")}
       </tbody></table></div>` : emptyNote;
 
       // 6 — most championship-finals appearances
@@ -3466,13 +3564,24 @@
   /* Every Cadence app, for the one settings surface that manages alert
      preferences across the whole family. path is from the site root; ns
      prefixes that app's stored keys (one origin = one shared localStorage,
-     so any app's Settings page can manage every app's preferences). */
-  const CAD_APPS = [
-    { name: "Cadence DCI", path: ".", ns: "" },
-    { name: "WGI Color Guard", path: "wgi/guard", ns: "wgi-guard:" },
-    { name: "WGI Percussion", path: "wgi/percussion", ns: "wgi-perc:" },
-    { name: "WGI Winds", path: "wgi/winds", ns: "wgi-winds:" },
-  ];
+     so any app's Settings page can manage every app's preferences).
+     registry.js is the authority and loads ahead of this script on every
+     scoreboard page (docs/index.html and every page gen_family_pages.py
+     writes) — the literal below is only the fallback for a page that forgot
+     the tag, and a hardcoded list is exactly how six circuits ended up with
+     nowhere to configure alerts. */
+  const CAD_APPS = window.CAD_REGISTRY
+    ? window.CAD_REGISTRY.apps.map(a => ({
+      name: a.id === "dci" ? "Cadence DCI" : a.name,
+      path: window.CAD_REGISTRY.folderKey(a) || ".",
+      ns: a.ns,
+    }))
+    : [
+      { name: "Cadence DCI", path: ".", ns: "" },
+      { name: "WGI Color Guard", path: "wgi/guard", ns: "wgi-guard:" },
+      { name: "WGI Percussion", path: "wgi/percussion", ns: "wgi-perc:" },
+      { name: "WGI Winds", path: "wgi/winds", ns: "wgi-winds:" },
+    ];
 
   /* One card that manages score-alert preferences for every Cadence app —
      rendered on every app's Settings page. The DCI page keeps its native

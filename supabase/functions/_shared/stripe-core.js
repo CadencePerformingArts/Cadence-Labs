@@ -8,8 +8,9 @@
  *   - The webhook trusts NOTHING but the signature: raw body + the
  *     `stripe-signature` header + the endpoint secret, with a timestamp
  *     tolerance against replay.
- *   - Every event id is recorded first (stripe_events, service-role only);
- *     a second delivery of the same id is a no-op. Out-of-order deliveries
+ *   - Every event id is CLAIMED before its handler runs (stripe_events,
+ *     service-role only) and marked applied only when the handler finishes;
+ *     a second delivery of an applied id is a no-op. Out-of-order deliveries
  *     are safe because handlers set absolute state, never increments.
  *   - The database — not a browser redirect — grants access: only the
  *     webhook (service role) flips an organization's plan on card payments.
@@ -66,16 +67,48 @@ const QUOTAS = { ensemble: 10737418240, pro: 26843545600, program: 107374182400 
 
 /* ── the event state machine ─────────────────────────────────────────────
  * db contract (implemented against Supabase with the service role):
- *   recordEvent(id, type)  -> false if this event id was already processed
+ *   recordEvent(id, type)  -> false if this id is already claimed or applied
+ *   markApplied(id, type)  -> void   (optional: the claim becomes final)
+ *   releaseEvent(id)       -> void   (optional: hand an unapplied claim back)
  *   orgByCustomer(cusId)   -> { id, plan, status } | null
  *   update(orgId, fields)  -> void   (absolute state, service role)
  *   log(action, orgId, detail) -> void
- * Returns { handled, action } for observability.                         */
+ * Returns { handled, action } for observability.
+ *
+ * IDEMPOTENCY, precisely. The id is claimed BEFORE the handler runs, so an
+ * overlapping redelivery is dropped, and marked applied AFTER it succeeds,
+ * so a redelivery of an already-applied event stays a no-op forever. A
+ * handler that THROWS releases the claim first: that application did not
+ * happen, the caller answers 500, and Stripe's retry has to be allowed to
+ * try again — a consumed id would strand a PAID checkout on an
+ * unactivated organization with no path to recovery.                     */
 export async function applyStripeEvent(evt, db, priceMap) {
   if (!evt || !evt.id || !evt.type) return { handled: false, action: "malformed" };
   const fresh = await db.recordEvent(evt.id, evt.type);
   if (!fresh) return { handled: false, action: "duplicate" };
 
+  let out;
+  try {
+    out = await runHandler(evt, db, priceMap);
+  } catch (e) {
+    if (db.releaseEvent) {
+      // a release that itself fails leaves the id consumed — say so in the
+      // error rather than losing a payment quietly
+      try { await db.releaseEvent(evt.id); }
+      catch (e2) {
+        throw new Error(String((e && e.message) || e) +
+          " — claim not released: " + String((e2 && e2.message) || e2));
+      }
+    }
+    throw e;
+  }
+  // only a completed application makes the claim final; a failure to mark it
+  // is not worth a retry (the work is done, and the state is absolute)
+  if (db.markApplied) { try { await db.markApplied(evt.id, evt.type); } catch (e) {} }
+  return out;
+}
+
+async function runHandler(evt, db, priceMap) {
   const obj = (evt.data && evt.data.object) || {};
 
   switch (evt.type) {

@@ -1,8 +1,8 @@
 // Cadence — Stripe webhook (Supabase Edge Function, Deno).
 //
 // The ONLY component that grants workspace plans on card payments. Verifies
-// the raw-body signature, dedupes by event id, then applies absolute state
-// through the service role. Deploy:
+// the raw-body signature, claims the event id, applies absolute state through
+// the service role, and marks the claim applied only if that worked. Deploy:
 //
 //   supabase functions deploy stripe-webhook --no-verify-jwt
 //   supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_… \
@@ -46,14 +46,47 @@ async function rest(path: string, init: RequestInit) {
   return res;
 }
 
+// An event id is claimed as `pending:<type>` and rewritten to `<type>` once
+// its handler succeeds, so the ledger row says which of the two it is with
+// the columns 0016 already has. A claim whose run died mid-flight (the
+// isolate was killed between claiming and releasing) can be retaken once it
+// is older than this — Stripe keeps retrying for days, so a stranded claim
+// still gets applied instead of being swallowed as a duplicate forever.
+const STALE_CLAIM_MS = 10 * 60 * 1000;
+const PENDING = "pending:";
+
+async function eventRow(id: string) {
+  const res = await fetch(
+    `${SB_URL}/rest/v1/stripe_events?id=eq.${encodeURIComponent(id)}&select=type,received_at`,
+    { headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` } });
+  const rows = await res.json();
+  return rows[0] ?? null;
+}
+
 const db = {
   async recordEvent(id: string, type: string) {
-    // unique PK makes this the idempotency gate: 409 = already processed
+    // unique PK makes this the idempotency gate: 409 = already claimed
     const res = await rest("stripe_events", {
       method: "POST",
-      body: JSON.stringify({ id, type }),
+      body: JSON.stringify({ id, type: PENDING + type }),
     });
-    return res.status !== 409;
+    if (res.status !== 409) return true;
+    const row = await eventRow(id);
+    // applied is final; a live claim belongs to a delivery still running
+    if (!row || !String(row.type).startsWith(PENDING)) return false;
+    if (Date.now() - Date.parse(row.received_at) < STALE_CLAIM_MS) return false;
+    await rest(`stripe_events?id=eq.${encodeURIComponent(id)}`, {
+      method: "PATCH", body: JSON.stringify({ received_at: new Date().toISOString() }) });
+    return true;
+  },
+  async markApplied(id: string, type: string) {
+    await rest(`stripe_events?id=eq.${encodeURIComponent(id)}`, {
+      method: "PATCH", body: JSON.stringify({ type }) });
+  },
+  async releaseEvent(id: string) {
+    // the type filter makes this incapable of dropping an APPLIED row
+    await rest(`stripe_events?id=eq.${encodeURIComponent(id)}&type=like.${PENDING}*`, {
+      method: "DELETE" });
   },
   async orgByCustomer(cus: string | null) {
     if (!cus) return null;
@@ -103,7 +136,8 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify(out), {
       status: 200, headers: { "Content-Type": "application/json" } });
   } catch (e) {
-    // 500 makes Stripe retry — safe, because recordEvent dedupes
+    // 500 makes Stripe retry — the failed claim was released first, so the
+    // retry is applied instead of being swallowed as a duplicate
     return new Response(`error: ${(e as Error).message}`, { status: 500 });
   }
 });

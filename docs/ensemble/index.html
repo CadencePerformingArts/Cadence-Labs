@@ -43,6 +43,46 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
   }
 
+  /* ── invite deep links ────────────────────────────────────────────────
+     A copied invite link lands here as ?invite=CODE (people.js inviteUrl);
+     the notification worker used to email ?join=CODE, so accept both — the
+     links already out in the wild have to keep working.
+
+     We prefill the box and never redeem on load. redeem_org_invite is a
+     real state change (it burns a use and enrols the signed-in account), so
+     a link forwarded to the wrong group chat, or prefetched by a mail
+     client, must not quietly sign someone into a workspace. One tap on
+     "Join workspace" is the consent. */
+  var INVITE_KEY = "cad-pending-invite", INVITE_TTL = 7 * 864e5; // 7 days
+
+  function inviteFromUrl(search) {
+    var q;
+    try { q = new URLSearchParams(search); } catch (e) { return ""; }
+    return String(q.get("invite") || q.get("join") || "").trim();
+  }
+
+  /* Signing in bounces through a magic link, and account.js sends the user
+     back to location.pathname with the query string stripped — so park the
+     code for that round trip and consume it once. The stamp keeps a code
+     from a link that was never redeemed out of the box weeks later. */
+  function parkInvite(code) {
+    try { localStorage.setItem(INVITE_KEY, JSON.stringify({ code: code, at: Date.now() })); } catch (e) {}
+  }
+
+  function takeParkedInvite() {
+    var raw = null;
+    try { raw = localStorage.getItem(INVITE_KEY); localStorage.removeItem(INVITE_KEY); } catch (e) {}
+    if (!raw) return "";
+    try {
+      var v = JSON.parse(raw);
+      return v && v.code && Date.now() - (v.at || 0) < INVITE_TTL ? String(v.code) : "";
+    } catch (e) { return ""; }
+  }
+
+  // read at boot, before the sign-in gate can take the page over
+  var pendingInvite = inviteFromUrl(location.search);
+  if (pendingInvite) parkInvite(pendingInvite);
+
   function card(r) {
     var o = r.org, days = CadOrg.trialDaysLeft(o);
     var badge = o.status === "trialing"
@@ -125,6 +165,19 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         msg.textContent = "Couldn't create that workspace: " + (err.message || "unknown error");
       }
     });
+
+    // came in on an invite link — fill the box, say so, and put the Join
+    // button under their finger. The tap is still theirs to make.
+    var code = takeParkedInvite() || pendingInvite;
+    if (code) {
+      document.getElementById("joinCode").value = code;
+      var jm = document.getElementById("joinMsg");
+      jm.className = "acct-msg ok";
+      jm.textContent = "You've been invited — your code is filled in below. " +
+        "Choose Join workspace to accept it.";
+      var btn = document.querySelector("#joinForm button");
+      if (btn) { try { btn.focus(); } catch (e) {} }
+    }
   }
 
   CadOrg.start({ nav: "home", allowNoOrg: true }).then(function () {

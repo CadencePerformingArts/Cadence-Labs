@@ -36,7 +36,9 @@ export function render(n, siteUrl) {
         subject: `You're invited to ${p.org_name || "a Cadence workspace"}`,
         title: `Join ${p.org_name || "your group"} on Cadence`,
         body: "Tap to accept your invitation and sign in.",
-        url: `${base}/ensemble/?join=${encodeURIComponent(p.code || "")}`,
+        // one canonical invite link, matching what people.js inviteUrl()
+        // copies out. index.html still honours the older ?join= form.
+        url: `${base}/ensemble/index.html?invite=${encodeURIComponent(p.code || "")}`,
       };
     case "ack_post":
       return {

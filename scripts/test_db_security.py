@@ -205,6 +205,42 @@ def verify_additive_upgrade():
             else f"ADDITIVE: only {got}/3 new guards present after upgrade")
 
 
+def verify_0019_upgrade():
+    """Prove 0019 applies cleanly ONTO an existing 0001-0018 database — the
+    state of production the day it is pasted in — and not only into a fresh
+    RUN_ALL build. Third disposable database, same instance."""
+    print("verifying additive upgrade (0001-0018 then 0019) …")
+    psql("create database cad_prior19", db="postgres")
+    for stmt in STUB_SQL:
+        psql(stmt, db="cad_prior19")
+    import glob, os
+    prior = sorted(f for f in glob.glob(str(ROOT / "supabase/migrations/0[0-9][0-9][0-9]_*.sql"))
+                   if os.path.basename(f) < "0019")
+    for f in prior:
+        r = subprocess.run(["psql", "-h", str(WORK), "-p", PORT, "-U", "postgres",
+                            "-d", "cad_prior19", "-v", "ON_ERROR_STOP=1", "-qf", f],
+                           capture_output=True, text=True)
+        if r.returncode:
+            raise SystemExit(f"prior migration {os.path.basename(f)} failed: {r.stderr[-800:]}")
+    r = subprocess.run(["psql", "-h", str(WORK), "-p", PORT, "-U", "postgres",
+                        "-d", "cad_prior19", "-v", "ON_ERROR_STOP=1",
+                        "-qf", str(ROOT / "supabase/migrations/0019_notification_release.sql")],
+                       capture_output=True, text=True)
+    if r.returncode:
+        FAIL.append(f"ADDITIVE: 0019 failed to apply onto 0001-0018: {r.stderr[-400:]}")
+        return
+    PASS.append("ADDITIVE: 0019 applies cleanly onto an existing 0001-0018 database")
+    # the INSERT-time fan-out is gone and the deferred event trigger is in
+    got = subprocess.run(["psql", "-h", str(WORK), "-p", PORT, "-U", "postgres",
+                          "-d", "cad_prior19", "-qtA", "-c",
+                          "select count(*) filter (where tgname='posts_notify_ack') || '/' || "
+                          "count(*) filter (where tgname='org_events_notify_rsvp' and tgdeferrable) "
+                          "from pg_trigger"], capture_output=True, text=True).stdout.strip()
+    (PASS if got == "0/1" else FAIL).append(
+        "ADDITIVE: the post INSERT trigger is retired and the event trigger is deferred"
+        if got == "0/1" else f"ADDITIVE: triggers after 0019 = {got}, wanted 0/1")
+
+
 U = {k: str(uuid.uuid4()) for k in
      ["a_owner", "a_director", "a_staff", "a_student", "a_parent", "a_member2",
       "b_owner", "b_member", "c_owner"]}
@@ -425,19 +461,29 @@ def tests():
     must_fail("ISO: anon reads any workspace", None,
               "select case when count(*)>0 then 1/0 else 1 end from public.organizations", role="anon")
 
-    # ── notifications (0014) ──────────────────────────────────────────
-    # an ack-required post enqueues in-app rows for the audience via trigger
+    # ── notifications (0014 + 0019) ───────────────────────────────────
+    # An ack-required post enqueues in-app rows for its audience — but only
+    # once it is published. 0019 moved the enqueue off the INSERT, because
+    # at INSERT time the post_targets rows the client writes in a SECOND
+    # request do not exist yet, and "no targets" means the whole org.
     ok_post, post_out = run_as(director,
         f"insert into public.posts (org_id, author_member_id, title, body, requires_ack, priority) "
         f"values ('{ORG_A}', '{MEM['a_director']}', 'Read me', 'body', true, 'important') returning id",
         )
     if ok_post:
         pid = post_out.splitlines()[0]
-        # the student should have an in-app notification queued
+        pre = psql(f"select count(*) from public.org_notifications "
+                   f"where dedupe_key like 'ack:{pid}:%'")
+        (PASS if pre == "0" else FAIL).append(
+            "NOTIF: a bare INSERT enqueues nothing — the audience is not settled yet"
+            if pre == "0" else f"NOTIF: INSERT alone enqueued {pre} rows")
+        must_work("NOTIF: the author publishes the post once its targets exist", director,
+                  f"select public.publish_post('{pid}')")
+        # untargeted: the whole organization, the student included
         got = psql(f"select count(*) from public.org_notifications where type='ack_post' "
                    f"and recipient_member_id='{MEM['a_student']}' and channel='inapp'")
         (PASS if got and int(got) >= 1 else FAIL).append(
-            "NOTIF: ack-required post enqueues an in-app notification for the audience"
+            "NOTIF: a published ack-required post enqueues an in-app notification for the audience"
             if got and int(got) >= 1 else f"NOTIF: ack post enqueued {got} rows for student")
     else:
         FAIL.append("NOTIF: could not create ack post: " + post_out[:80])
@@ -471,6 +517,168 @@ def tests():
     (PASS if got2 and int(got2) == 1 else FAIL).append(
         "NOTIF: an invite with an email enqueues one email notification"
         if got2 and int(got2) == 1 else f"NOTIF: invite enqueued {got2} email rows")
+
+    # ── notification release (0019) ───────────────────────────────────
+    # A group nothing auto-joins (no auto_role_keys / auto_sections), with
+    # exactly one member: a precise audience to aim at and to check.
+    grp = psql(f"insert into public.org_groups (org_id, name, kind) "
+               f"values ('{ORG_A}', 'Brass', 'section') returning id")
+    psql(f"insert into public.org_group_members (group_id, member_id) "
+         f"values ('{grp}', '{MEM['a_student']}')")
+
+    def acked(post_id, member_id=None, channel="inapp"):
+        where = f"dedupe_key like 'ack:{post_id}:%' and channel='{channel}'"
+        if member_id:
+            where += f" and recipient_member_id='{member_id}'"
+        return int(psql(f"select count(*) from public.org_notifications where {where}"))
+
+    def new_post(title, priority="important", publish_at="now()"):
+        """Exactly what feed.html does: the post, then its target row."""
+        ok, out = run_as(director,
+            f"insert into public.posts (org_id, author_member_id, title, body, "
+            f"requires_ack, priority, publish_at) values ('{ORG_A}', '{MEM['a_director']}', "
+            f"'{title}', 'body', true, '{priority}', {publish_at}) returning id")
+        if not ok:
+            FAIL.append(f"REL: could not create post '{title}': {out[:100]}")
+            return None
+        p = out.splitlines()[0]
+        run_as(director, f"insert into public.post_targets (post_id, group_id) "
+                         f"values ('{p}', '{grp}')")
+        return p
+
+    # a targeted announcement must reach that group and NOBODY else: the
+    # payload carries left(title, 140), so a whole-org fan-out leaks the
+    # headline of a restricted post to people RLS then denies the post to
+    tpid = new_post("Brass only: bus call moved")
+    if tpid:
+        must_work("REL: the author publishes a targeted post", director,
+                  f"select public.publish_post('{tpid}')")
+        inside, outside, total = acked(tpid, MEM["a_student"]), \
+            acked(tpid, MEM["a_member2"]) + acked(tpid, MEM["a_parent"]), acked(tpid)
+        (PASS if inside == 1 and outside == 0 and total == 1 else FAIL).append(
+            "REL: a group-targeted announcement notifies only that group"
+            if inside == 1 and outside == 0 and total == 1
+            else f"REL: targeted post notified {total} members "
+                 f"(in-group={inside}, outside={outside})")
+
+    # a post scheduled for later notifies at publication, not at insert
+    spid = new_post("Uniform check next week", publish_at="now() + interval '2 seconds'")
+    if spid:
+        must_work("REL: publishing a scheduled post is accepted", director,
+                  f"select public.publish_post('{spid}')")
+        n0 = acked(spid)
+        (PASS if n0 == 0 else FAIL).append(
+            "REL: a post scheduled for later enqueues nothing while it is unpublished"
+            if n0 == 0 else f"REL: scheduled post enqueued {n0} rows before publish_at")
+        psql("select pg_sleep(2.5)")
+        psql("select public.release_due_notifications()")
+        n1 = acked(spid, MEM["a_student"])
+        (PASS if n1 == 1 else FAIL).append(
+            "REL: the scheduled post enqueues when publish_at arrives"
+            if n1 == 1 else f"REL: scheduled post enqueued {n1} rows after publish_at")
+
+    # events: org_event_create writes the event and its targets in ONE
+    # transaction, so the deferred trigger sees the real audience at COMMIT
+    ok, out = run_as(director,
+        f"select public.org_event_create(jsonb_build_object("
+        f"'org_id', '{ORG_A}'::text, 'title', 'Brass sectional', 'kind', 'rehearsal', "
+        f"'starts_at', (now() + interval '3 days')::text, 'rsvp_required', true), "
+        f"array['{grp}']::uuid[])")
+    if ok:
+        eid = out.splitlines()[0]
+        def rsvped(member_id):
+            return int(psql(f"select count(*) from public.org_notifications "
+                            f"where dedupe_key like 'rsvp:{eid}:%' and channel='inapp' "
+                            f"and recipient_member_id='{member_id}'"))
+        inside, outside = rsvped(MEM["a_student"]), rsvped(MEM["a_member2"]) + rsvped(MEM["a_parent"])
+        (PASS if inside == 1 and outside == 0 else FAIL).append(
+            "REL: a group-targeted RSVP event notifies only that group"
+            if inside == 1 and outside == 0
+            else f"REL: targeted event notified in-group={inside}, outside={outside}")
+    else:
+        FAIL.append("REL: could not create the targeted event: " + out[:100])
+
+    # an edit that turns RSVP on rewrites its targets in a LATER request, so
+    # that release is held rather than resolved against an audience that is
+    # still moving; calendar.html flushes it with publish_event() afterwards
+    ok, out = run_as(director,
+        f"select public.org_event_create(jsonb_build_object("
+        f"'org_id', '{ORG_A}'::text, 'title', 'Sectional, RSVP added later', "
+        f"'kind', 'rehearsal', 'starts_at', (now() + interval '4 days')::text), "
+        f"array['{grp}']::uuid[])")
+    if ok:
+        lid = out.splitlines()[0]
+        must_work("REL: an editor turns RSVP on after the fact", director,
+                  f"update public.org_events set rsvp_required = true where id='{lid}'")
+        n = psql(f"select count(*) from public.org_notifications where dedupe_key like 'rsvp:{lid}:%'")
+        held = psql(f"select count(*) from public.notification_releases "
+                    f"where subject_id='{lid}' and released_at is null")
+        (PASS if n == "0" and held == "1" else FAIL).append(
+            "REL: turning RSVP on holds its release instead of enqueueing at once"
+            if n == "0" and held == "1"
+            else f"REL: the edit enqueued {n} rows immediately (held releases={held})")
+        must_work("REL: the calendar publishes the event once its targets settled", director,
+                  f"select public.publish_event('{lid}')")
+        inside = int(psql(f"select count(*) from public.org_notifications "
+                          f"where dedupe_key like 'rsvp:{lid}:%' and channel='inapp' "
+                          f"and recipient_member_id='{MEM['a_student']}'"))
+        outside = int(psql(f"select count(*) from public.org_notifications "
+                           f"where dedupe_key like 'rsvp:{lid}:%' and channel='inapp' "
+                           f"and recipient_member_id <> '{MEM['a_student']}'"))
+        (PASS if inside == 1 and outside == 0 else FAIL).append(
+            "REL: publish_event reaches the target group and nobody else"
+            if inside == 1 and outside == 0
+            else f"REL: publish_event notified in-group={inside}, outside={outside}")
+    else:
+        FAIL.append("REL: could not create the RSVP-later event: " + out[:100])
+
+    # a member who muted the workspace is not enqueued. 0014 asked
+    # should_notify() with scope 'announcement' and channel 'inapp', neither
+    # of which org_notification_prefs could hold, so every preference —
+    # level 'none' included — was silently ignored.
+    must_work("REL: a member can mute the in-app channel (0019 widened the CHECK)", student,
+              f"insert into public.org_notification_prefs (member_id, scope, scope_id, channel, level) "
+              f"values ('{MEM['a_student']}', 'org', '{ORG_A}', 'inapp', 'none')")
+    mpid = new_post("Important, but they muted us")
+    if mpid:
+        run_as(director, f"select public.publish_post('{mpid}')")
+        n = acked(mpid, MEM["a_student"])
+        (PASS if n == 0 else FAIL).append(
+            "REL: a member with level='none' is not enqueued"
+            if n == 0 else f"REL: muted member still got {n} in-app rows")
+    # …but 'none' has never silenced urgent, and still must not
+    upid = new_post("Urgent: field is closed", priority="urgent")
+    if upid:
+        run_as(director, f"select public.publish_post('{upid}')")
+        n = acked(upid, MEM["a_student"])
+        (PASS if n == 1 else FAIL).append(
+            "REL: an urgent announcement still reaches a muted member"
+            if n == 1 else f"REL: urgent post enqueued {n} rows for the muted member")
+    psql(f"delete from public.org_notification_prefs where member_id='{MEM['a_student']}'")
+
+    # the release machinery is server-side only
+    must_fail("REL: authenticated cannot drain the release queue", director,
+              "select public.release_due_notifications()")
+    must_fail("REL: authenticated cannot enqueue notifications directly", director,
+              f"select public.enqueue_post_notifications('{tpid}')")
+    must_fail("REL: authenticated cannot register a release", director,
+              f"select public.register_notification_release('post', '{tpid}', '{ORG_A}', now())")
+    ok, out = run_as(director, "select count(*) from public.notification_releases")
+    seen = out.strip().splitlines()[-1] if ok and out.strip() else ""
+    (PASS if (not ok) or seen == "0" else FAIL).append(
+        "REL: the release ledger is invisible to every client"
+        if (not ok) or seen == "0" else f"REL: a client can read {seen} release rows")
+    must_raise("REL: a member cannot publish someone else's announcement", U["a_member2"],
+               f"select public.publish_post('{tpid}')")
+    must_raise("REL: a member cannot publish an event they cannot manage", U["a_member2"],
+               f"select public.publish_event('{uuid.uuid4()}')")
+
+    # ── storage quota default (0019) ──────────────────────────────────
+    # the Trial card in core.js advertises 5 GB; 0005 handed out 1 GiB
+    quota = psql(f"select storage_quota_bytes from public.organizations where id='{ORG_B}'")
+    (PASS if quota == "5368709120" else FAIL).append(
+        "QUOTA: a new workspace gets the 5 GiB the Trial plan advertises"
+        if quota == "5368709120" else f"QUOTA: new workspace quota = {quota}, wanted 5368709120")
 
     # ── platform admin (0015) ─────────────────────────────────────────
     # non-admins are refused everywhere, even org owners
@@ -563,6 +771,7 @@ def main():
     try:
         boot()
         verify_additive_upgrade()
+        verify_0019_upgrade()
         seed()
         tests()
     finally:

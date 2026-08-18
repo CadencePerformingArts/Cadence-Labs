@@ -3,7 +3,9 @@
 
    Owns: the Supabase REST helper (reusing the session account.js persists),
    the current-organization context, permission checks, plan entitlements,
-   and the shared app shell so every Ensemble screen is unmistakably Cadence.
+   the shared app shell so every Ensemble screen is unmistakably Cadence,
+   and the in-app notification reader (the bell) that drains what
+   0014_notifications.sql queues for the signed-in member.
 
    Nothing here trusts the browser: every check mirrored below is also
    enforced by RLS in supabase/migrations/0005_ensemble_core.sql. The UI
@@ -235,6 +237,12 @@
           "<span>Cadence</span></a>" +
         (org ? '<button class="ens-orgpick" id="ensOrgPick" type="button">' +
           "<b>" + esc(org.name) + "</b><span class=\"ens-caret\">▾</span></button>" : "") +
+        (org ? '<button class="ens-bell" id="ensBell" type="button" ' +
+          'aria-haspopup="dialog" aria-label="Notifications">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+          'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          '<path d="M18 15.5V11a6 6 0 1 0-12 0v4.5L4.5 18.5h15z"/><path d="M10 21h4"/></svg>' +
+          '<span class="ens-bell-n" id="ensBellN" hidden></span></button>' : "") +
       "</header>" +
       (tabs ? '<nav class="ens-tabs" aria-label="Workspace sections">' + tabs + "</nav>" : "") +
       (org ? statusStripHtml(org) : "");
@@ -273,6 +281,13 @@
     if (pick) pick.addEventListener("click", function () { openSwitcher(); });
     var more = document.getElementById("ensMoreBtn");
     if (more) more.addEventListener("click", function () { openMoreSheet(active); });
+    var bell = document.getElementById("ensBell");
+    if (bell) {
+      notifCss();
+      bell.addEventListener("click", function () { openNotifSheet(); });
+      paintBell();
+      loadNotifs();   // the badge is a background fact — never gate the page on it
+    }
   }
 
   /* keyboard accessibility for every sheet: focus moves in, Tab cycles
@@ -305,7 +320,9 @@
   }
 
   // the phone dock's fifth tab: everything that folded out of the dock,
-  // one tap away, in the same sheet language as the workspace switcher
+  // one tap away, in the same sheet language as the workspace switcher.
+  // A thumb's reach is the bottom of the screen, not the top bar, so how
+  // much this workspace may interrupt you is settable from down here too.
   function openMoreSheet(active) {
     var sec = SECTIONS[active] || SECTIONS.home;
     var lit = sec.parent || active;
@@ -326,10 +343,14 @@
       }).join("") +
       (can("billing.manage") || can("org.admin")
         ? '<a class="ens-sheet-row" href="billing.html"><b>Plan &amp; billing</b></a>' : "") +
+      '<button class="ens-sheet-row" id="ensMorePrefs" type="button">' +
+      "<b>Notification settings</b></button>" +
       '<button class="tab" id="ensMoreClose" type="button" style="margin-top:12px">Close</button></div>';
     document.body.appendChild(wrap);
     var close = trapSheet(wrap);
     wrap.addEventListener("click", function (e) {
+      var prefs = e.target.closest && e.target.closest("#ensMorePrefs");
+      if (prefs) { close(); openPrefsSheet(); return; }
       if (e.target === wrap || e.target.id === "ensMoreClose") close();
     });
   }
@@ -355,6 +376,359 @@
       var row = e.target.closest && e.target.closest("[data-id]");
       if (row) { pick(row.dataset.id); location.reload(); }
     });
+  }
+
+  /* ── in-app notifications ─────────────────────────────────────────────
+     0014_notifications.sql queues an 'inapp' row for every acknowledgment-
+     required announcement and every RSVP-required event, and its RLS
+     (notif_read_own for select, notif_mark_read for update) exists for
+     exactly one reader: the recipient's own browser. This is that reader.
+
+     The query carries NO user filter, on purpose. notif_read_own already
+     restricts every visible row to
+       channel = 'inapp' and recipient_member_id = org_member_id(org_id)
+     so a client-side copy of that rule would be decoration, not security.
+     org_id is in the query only so the bell talks about the workspace you
+     are actually looking at. */
+  var NOTIF_LIMIT = 30;
+  /* unread, in-app, not withdrawn. Deliberately NOT `status = 'sent'`: the
+     row is readable the moment the trigger enqueues it, so a deployment
+     with no worker running still gets its notifications instead of an
+     empty bell forever. */
+  var NOTIF_FILTER = "channel=eq.inapp&read_at=is.null&status=neq.canceled";
+  var notif = { count: 0, rows: null, err: false };
+
+  function notifQuery(orgId, limit) {
+    return "org_notifications?select=id,type,priority,payload,created_at&" +
+      NOTIF_FILTER + "&org_id=eq." + orgId +
+      "&order=created_at.desc&limit=" + (limit || NOTIF_LIMIT);
+  }
+  function notifAllPath(orgId) {      // the same set, addressed for one PATCH
+    return "org_notifications?" + NOTIF_FILTER + "&org_id=eq." + orgId;
+  }
+
+  /* where push-server/notify-worker.js's render() sends each type, minus
+     the origin — one link, whichever channel got there first */
+  function notifLink(n) {
+    var p = (n && n.payload) || {};
+    if (n && n.type === "ack_post") return "feed.html#post-" + encodeURIComponent(p.post_id || "");
+    if (n && n.type === "rsvp") return "event.html?id=" + encodeURIComponent(p.event_id || "");
+    return "home.html";               // a type this build doesn't know yet
+  }
+  function notifLine(n) {
+    if (n.type === "ack_post") return "Needs your acknowledgment";
+    if (n.type === "rsvp") return "Please RSVP";
+    return "Tap to open";
+  }
+
+  /* a compact relative time. comms.js has the richer one the feed uses; it
+     isn't loaded on every screen, and the bell is. */
+  function notifAgo(ts) {
+    if (!ts) return "";
+    var d = new Date(ts), s = (Date.now() - d.getTime()) / 1000;
+    if (s < 60) return "just now";
+    if (s < 3600) return Math.round(s / 60) + "m ago";
+    if (s < 86400) return Math.round(s / 3600) + "h ago";
+    if (s < 604800) return Math.round(s / 86400) + "d ago";
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  }
+
+  /* one place owns the number, and it floors at zero: a stale row, a double
+     dismissal or a re-read must never paint "-1" on the bell */
+  function setUnread(n) {
+    var v = Math.floor(Number(n));
+    notif.count = v > 0 ? v : 0;
+    paintBell();
+    return notif.count;
+  }
+
+  function paintBell() {
+    var bell = document.getElementById("ensBell");
+    if (!bell) return;
+    var badge = document.getElementById("ensBellN");
+    if (badge) {
+      badge.hidden = notif.count === 0;
+      badge.textContent = notif.count > 9 ? "9+" : String(notif.count);
+    }
+    bell.setAttribute("aria-label", notif.count
+      ? "Notifications — " + notif.count + " unread" : "Notifications");
+  }
+
+  async function loadNotifs() {
+    if (!state.org) { notif.rows = []; setUnread(0); return notif.rows; }
+    try {
+      notif.rows = (await rest(notifQuery(state.org.id, NOTIF_LIMIT))) || [];
+      notif.err = false;
+    } catch (e) {
+      // queue table missing (migrations behind) or the network is out — say
+      // nothing rather than paint a number we can't stand behind
+      notif.err = true; notif.rows = [];
+    }
+    setUnread(notif.rows.length);
+    return notif.rows;
+  }
+
+  /* read_at is the ONLY column a recipient may write — guard_notification_update()
+     in 0014 raises 'notification_readonly' on anything else. Keep both bodies
+     below exactly one key wide. */
+  async function markRead(id) {
+    await rest("org_notifications?id=eq." + encodeURIComponent(id), {
+      method: "PATCH", headers: { Prefer: "return=minimal" },
+      body: { read_at: new Date().toISOString() },
+    });
+    notif.rows = (notif.rows || []).filter(function (r) { return r.id !== id; });
+    setUnread(notif.count - 1);
+  }
+
+  async function markAllRead() {
+    if (!state.org) return;
+    await rest(notifAllPath(state.org.id), {
+      method: "PATCH", headers: { Prefer: "return=minimal" },
+      body: { read_at: new Date().toISOString() },
+    });
+    notif.rows = [];
+    setUnread(0);
+  }
+
+  function notifSheetHtml() {
+    var rows = notif.rows || [];
+    var body;
+    if (notif.err) {
+      body = '<div class="empty" style="padding:26px 8px">Couldn\'t reach your ' +
+        "notifications just now.</div>";
+    } else if (!rows.length) {
+      body = '<div class="empty" style="padding:26px 8px">You\'re all caught up.</div>';
+    } else {
+      body = rows.map(function (n) {
+        return '<a class="ens-sheet-row ens-notif" href="' + notifLink(n) +
+          '" data-notif="' + esc(n.id) + '">' +
+          "<b>" + esc((n.payload && n.payload.title) || "Cadence") + "</b>" +
+          "<span>" + esc(notifLine(n)) +
+          (n.priority === "urgent" ? " · Urgent" : "") +
+          " · " + esc(notifAgo(n.created_at)) + "</span></a>";
+      }).join("");
+    }
+    return '<div class="ens-sheet-in"><h3>Notifications</h3>' + body +
+      '<div class="ens-notif-acts">' +
+        (rows.length ? '<button class="tab" id="ensNotifAll" type="button">Mark all read</button>' : "") +
+        '<button class="tab" id="ensNotifPrefs" type="button">Settings</button>' +
+        '<button class="tab" id="ensNotifClose" type="button">Close</button>' +
+      "</div></div>";
+  }
+
+  function openNotifSheet() {
+    var wrap = document.createElement("div");
+    wrap.className = "ens-sheet";
+    wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-modal", "true");
+    wrap.setAttribute("aria-label", "Notifications");
+    wrap.innerHTML = '<div class="ens-sheet-in"><h3>Notifications</h3>' +
+      '<div class="empty" style="padding:26px 8px">Loading…</div></div>';
+    document.body.appendChild(wrap);
+    var close = trapSheet(wrap);
+    function paint() {
+      wrap.innerHTML = notifSheetHtml();
+      var f = wrap.querySelector("a, button");
+      if (f && document.activeElement === document.body) f.focus();
+    }
+    loadNotifs().then(paint, paint);
+    wrap.addEventListener("click", function (e) {
+      if (e.target === wrap || e.target.id === "ensNotifClose") { close(); return; }
+      if (e.target.id === "ensNotifAll") { markAllRead().then(paint, paint); return; }
+      if (e.target.id === "ensNotifPrefs") { close(); openPrefsSheet(); return; }
+      var row = e.target.closest && e.target.closest("[data-notif]");
+      if (!row) return;
+      e.preventDefault();
+      var href = row.getAttribute("href");
+      // dismiss first, but a failed PATCH must never strand someone on a
+      // sheet — the deep link is the point of the notification
+      function go() { location.href = href; }
+      markRead(row.getAttribute("data-notif")).then(go, go);
+    });
+  }
+
+  /* ── notification preferences ─────────────────────────────────────────
+     org_notification_prefs (0006) is one row per member, scope, scope_id
+     and channel. The CHECK constraints as 0006 shipped them:
+       scope   in ('org', 'group', 'chat')
+       channel in ('push', 'email')
+       level   in ('all', 'important', 'urgent', 'none')
+     This surface writes scope 'org' only — the workspace-wide switch the
+     feed already promises members, and the exact row every enqueue path
+     looks up: should_notify(member, 'org', org_id, channel, priority).
+     Chats have their own mute (chat_members.muted, in messages.html);
+     groups have no UI yet.
+
+     0019 widens `channel` to include 'inapp' so the bell is mutable like
+     any other channel. On a database still short of it the insert is
+     refused, so that row is offered optimistically and folds away with a
+     plain note — nobody should meet a raw exception over a column
+     constraint they cannot see. */
+  var LEVELS = [
+    ["all", "Everything"],
+    ["important", "Important and urgent"],
+    ["urgent", "Urgent only"],
+    ["none", "Mute"],
+  ];
+  var CHANNELS = [
+    ["inapp", "In the workspace"],
+    ["push", "Push notifications"],
+    ["email", "Email"],
+  ];
+  var prefsOff = {};   // channels this database refused, for this session
+
+  async function loadPrefs() {
+    // notif_own already narrows this to the caller's own member rows
+    var rows = await rest("org_notification_prefs?select=channel,level" +
+      "&scope=eq.org&scope_id=eq." + state.org.id);
+    var cur = {};
+    (rows || []).forEach(function (r) { cur[r.channel] = r.level; });
+    return cur;
+  }
+
+  async function savePref(channel, level) {
+    return rest("org_notification_prefs", {
+      method: "POST", headers: { Prefer: "resolution=merge-duplicates" },
+      body: {
+        member_id: state.member.id, scope: "org", scope_id: state.org.id,
+        channel: channel, level: level,
+      },
+    });
+  }
+
+  /* a channel value this database's CHECK constraint won't accept is a fact
+     about the schema, not something to throw at someone muting their phone */
+  function channelRejected(err) {
+    if (!err) return false;
+    var b = err.body || {};
+    if (b.code === "23514") return true;      // check_violation, whatever status carried it
+    var msg = String(b.message || b.details || err.message || "");
+    return err.status === 400 && /check constraint/i.test(msg);
+  }
+
+  function prefsSheetHtml(cur, failed) {
+    var org = state.org;
+    var rows = failed ? '<div class="empty" style="padding:26px 8px">Couldn\'t reach ' +
+      "your notification settings just now.</div>"
+      : CHANNELS.map(function (c) {
+          if (prefsOff[c[0]]) return "";
+          return '<label class="ens-prefrow"><b>' + c[1] + "</b>" +
+            '<select class="ctrl" data-ch="' + c[0] + '">' +
+            LEVELS.map(function (l) {
+              return '<option value="' + l[0] + '"' +
+                ((cur[c[0]] || "all") === l[0] ? " selected" : "") + ">" + l[1] + "</option>";
+            }).join("") + "</select></label>";
+        }).join("");
+    return '<div class="ens-sheet-in"><h3>Notifications from ' +
+      esc(org ? org.name : "this workspace") + "</h3>" +
+      '<p class="setnote" style="margin:0 0 10px">Choose how much this workspace ' +
+      "may interrupt you. Urgent announcements always get through — that is the " +
+      "one rule the workspace will not bend.</p>" + rows +
+      '<p class="ens-prefmsg" id="ensPrefMsg" role="status"></p>' +
+      '<div class="ens-notif-acts">' +
+        (failed ? "" : '<button class="tab" id="ensPrefMute" type="button">Mute this workspace</button>') +
+        '<button class="tab" id="ensPrefClose" type="button">Close</button>' +
+      "</div></div>";
+  }
+
+  function openPrefsSheet() {
+    if (!state.org || !state.member) return;
+    var wrap = document.createElement("div");
+    wrap.className = "ens-sheet";
+    wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-modal", "true");
+    wrap.setAttribute("aria-label", "Notification settings");
+    wrap.innerHTML = '<div class="ens-sheet-in"><h3>Notification settings</h3>' +
+      '<div class="empty" style="padding:26px 8px">Loading…</div></div>';
+    document.body.appendChild(wrap);
+    notifCss();
+    var close = trapSheet(wrap);
+    var cur = {}, failed = false;
+
+    function paint() {
+      wrap.innerHTML = prefsSheetHtml(cur, failed);
+      var f = wrap.querySelector("select, button");
+      if (f && document.activeElement === document.body) f.focus();
+    }
+    function msg(text, bad) {
+      var el = document.getElementById("ensPrefMsg");
+      if (el) { el.textContent = text; el.className = "ens-prefmsg" + (bad ? " bad" : ""); }
+    }
+    function label(ch) {
+      for (var i = 0; i < CHANNELS.length; i++) if (CHANNELS[i][0] === ch) return CHANNELS[i][1];
+      return ch;
+    }
+    loadPrefs().then(function (p) { cur = p; paint(); },
+                     function () { failed = true; paint(); });
+
+    async function muteAll() {
+      var done = 0;
+      for (var i = 0; i < CHANNELS.length; i++) {
+        var ch = CHANNELS[i][0];
+        if (prefsOff[ch]) continue;
+        try { await savePref(ch, "none"); cur[ch] = "none"; done++; }
+        catch (err) {
+          if (channelRejected(err)) prefsOff[ch] = true;
+          else { paint(); msg("Couldn't save that just now.", true); return; }
+        }
+      }
+      paint();
+      if (done) msg("Muted. Urgent announcements still reach you.");
+      else msg("This workspace's database doesn't accept those settings yet.", true);
+    }
+
+    wrap.addEventListener("change", function (e) {
+      var sel = e.target;
+      if (!sel || !sel.getAttribute || !sel.getAttribute("data-ch")) return;
+      var ch = sel.getAttribute("data-ch"), lvl = sel.value, was = cur[ch] || "all";
+      msg("Saving…");
+      savePref(ch, lvl).then(function () {
+        cur[ch] = lvl;
+        msg(lvl === "none" ? "Muted. Urgent announcements still reach you." : "Saved.");
+      }, function (err) {
+        if (channelRejected(err)) {
+          prefsOff[ch] = true; paint();
+          msg("“" + label(ch) + "” isn't a setting this workspace's database " +
+              "accepts yet, so it wasn't saved. The rest above are.", true);
+          return;
+        }
+        sel.value = was;
+        msg("Couldn't save that just now.", true);
+      });
+    });
+    wrap.addEventListener("click", function (e) {
+      if (e.target === wrap || e.target.id === "ensPrefClose") { close(); return; }
+      if (e.target.id === "ensPrefMute") { msg("Muting…"); muteAll(); }
+    });
+  }
+
+  /* The bell ships with the shell, so its styles ride along with it: every
+     /ensemble/ page gets the reader by loading core.js, with no per-page
+     stylesheet link to remember. Same tokens as ensemble.css. */
+  function notifCss() {
+    if (document.getElementById("ens-notif-css")) return;
+    var css = [
+      ".ens-bell{position:relative;flex:none;margin-left:auto;display:inline-flex;align-items:center;",
+      "  justify-content:center;width:38px;height:38px;border:0;border-radius:11px;",
+      "  background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;font:inherit;}",
+      ".ens-bell:hover{background:rgba(255,255,255,0.2);}",
+      ".ens-bell svg{width:19px;height:19px;}",
+      ".ens-bell-n{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;",
+      "  border-radius:999px;background:var(--gold);color:#16233d;font-size:11px;font-weight:800;",
+      "  line-height:18px;text-align:center;}",
+      ".ens-notif{flex-direction:column;align-items:flex-start;gap:3px;}",
+      ".ens-notif b{font-weight:700;font-size:14px;line-height:1.35;}",
+      ".ens-notif span{font-size:12px;}",
+      ".ens-notif-acts{display:flex;gap:8px;margin-top:12px;}",
+      ".ens-notif-acts .tab{flex:1;text-align:center;justify-content:center;}",
+      ".ens-prefrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 2px;}",
+      ".ens-prefrow b{font-size:14px;font-weight:650;}",
+      ".ens-prefrow select{flex:0 1 190px;min-width:0;}",
+      ".ens-prefmsg{min-height:18px;margin:8px 2px 0;font-size:12.5px;color:var(--muted);}",
+      ".ens-prefmsg.bad{color:var(--bad);}",
+    ].join("\n");
+    var st = document.createElement("style"); st.id = "ens-notif-css"; st.textContent = css;
+    document.head.appendChild(st);
   }
 
   /* ── boot: require sign-in, load orgs, mount shell, hand control back ── */
@@ -424,5 +798,14 @@
     canUseFeature: canUseFeature, isWritable: isWritable,
     trialDaysLeft: trialDaysLeft, planOf: planOf,
     reload: loadOrgs, select: pick, mountShell: mountShell,
+    notifUnread: function () { return notif.count; },
+    openNotifications: openNotifSheet, openNotifPrefs: openPrefsSheet,
+    // the pieces scripts/test_notify_ui.js drives directly
+    _notif: {
+      query: notifQuery, markAllPath: notifAllPath, link: notifLink,
+      setUnread: setUnread, load: loadNotifs, markRead: markRead,
+      markAllRead: markAllRead, savePref: savePref, rejected: channelRejected,
+      state: notif,
+    },
   };
 })();

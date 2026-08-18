@@ -98,6 +98,7 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
 
   var org = null, me = null, dir = null, posts = [], live = null;
   var filter = "all";
+  var group = null;             // ?group=<id> from Home's "Your groups" chips
   var editing = null;           // post id currently open in the inline editor
   var perms = {};
 
@@ -115,10 +116,21 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
     return posts;
   }
 
+  // ?group=<id> — the chips on Home link straight to a section's feed.
+  function groupParam() {
+    try { return new URLSearchParams(location.search).get("group"); } catch (e) { return null; }
+  }
+
   function visible() {
     var now = Date.now();
     return posts.filter(function (p) {
       var scheduled = p.publish_at && new Date(p.publish_at).getTime() > now;
+      if (group) {
+        // an untargeted post goes to the whole organization, so it reaches
+        // this group too — same rule the calendar's group filter uses
+        var t = p.targets || [];
+        if (t.length && !t.some(function (x) { return x.group_id === group.id; })) return false;
+      }
       if (filter === "archived") return p.archived;
       if (p.archived) return false;
       if (filter === "scheduled") return scheduled;
@@ -235,6 +247,11 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
         return '<button class="tab' + (filter === t[0] ? " on" : "") + '" type="button" data-filter="' +
           t[0] + '">' + t[1] + "</button>";
       }).join("") + "</div>" +
+      (group
+        ? '<div class="ens-strip" style="border-radius:10px;margin:2px 0 4px;max-width:760px">' +
+          "Showing <b>" + esc(group.name) + "</b> — what that group was sent, plus " +
+          'everything sent to the whole organization.<a href="feed.html">Show everything</a></div>'
+        : "") +
       '<div class="ens-feedwrap">' +
         composerHtml() +
         (list.length ? list.map(function (p) { return C.postHtml(p, ctx); }).join("") : emptyHtml()) +
@@ -324,6 +341,7 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
             }),
           });
         }
+        await publish(post.id);
         CadOrg.log("post.created", "post", post.id, { priority: post.priority });
         await load(); render();
       } catch (err) {
@@ -331,6 +349,16 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
         msg.textContent = explain(err);
       }
     });
+  }
+
+  /* Notifications are enqueued HERE, not by the insert — the targets above
+     are a second request, and a post with no target rows yet reads as one
+     addressed to the whole organization (0019_notification_release.sql).
+     The post itself is already saved, and a scheduled one goes out on its
+     own publish_at, so a database that has not applied 0019 must not turn
+     this into a failed post. */
+  async function publish(id) {
+    try { await CadOrg.rpc("publish_post", { p_post: id }); } catch (e) {}
   }
 
   function explain(err) {
@@ -518,6 +546,7 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
                    role_kind: t.role_kind || null, member_id: t.member_id || null };
         }) });
       }
+      await publish(post.id);
       CadOrg.log("post.edited", "post", post.id);
       editing = null;
       await load(); render();
@@ -544,6 +573,9 @@ textarea.ctrl { min-height: 108px; resize: vertical; font: inherit; line-height:
     me = CadOrg.member();
     try {
       dir = await C.loadDirectory(org.id);
+      var g = groupParam();
+      // an unknown id would just empty the feed with no explanation
+      group = (g && dir.groups.filter(function (x) { return x.id === g; })[0]) || null;
       await load();
     } catch (err) {
       main.innerHTML = '<div class="card"><div class="empty">Couldn\'t load the feed. ' +

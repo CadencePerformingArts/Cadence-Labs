@@ -102,7 +102,11 @@ function fakeQueue(rows, clock) {
     ok(t.url === "https://s/ensemble/feed.html#post-p9", "template: ack link is correct");
     ok(!/medical|coordinate|acknowledge me privately/i.test(Object.values(t).join(" ")), "template values leak no sensitive source content");
     const inv = render({ type: "invite", payload: { org_name: "R", code: "abc" } }, "https://s/");
-    ok(inv.url.includes("join=abc"), "template: invite link carries the join code");
+    ok(inv.url === "https://s/ensemble/index.html?invite=abc",
+      "template: invite link is the canonical index.html?invite= form the join page reads");
+    const enc = render({ type: "invite", payload: { org_name: "R", code: "a b&c" } }, "https://s/");
+    ok(enc.url === "https://s/ensemble/index.html?invite=a%20b%26c",
+      "template: invite code is percent-encoded into the link");
   }
 
   console.log(`PASS ${pass.length}`);

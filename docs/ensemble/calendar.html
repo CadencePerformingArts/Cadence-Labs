@@ -361,7 +361,16 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   function openForm(ev, defaultDay) {
     return O.eventForm({
       org: org, groups: groups, seasons: seasons, bridge: bridge,
-      onSaved: async function () { await load(); render(); },
+      onSaved: async function (id) {
+        /* An edit rewrites org_event_targets in requests of its own, so the
+           RSVP notification is released here — once the audience has
+           settled. Enqueueing while the target rows were still missing read
+           as "the whole organization" and sent a sectional's title to
+           everybody (0019_notification_release.sql). A database without
+           0019 has no publish_event; the event is already saved either way. */
+        if (id) { try { await CadOrg.rpc("publish_event", { p_event: id }); } catch (e) {} }
+        await load(); render();
+      },
     }, ev, defaultDay);
   }
 

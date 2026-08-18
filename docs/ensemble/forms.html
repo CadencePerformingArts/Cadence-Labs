@@ -115,11 +115,18 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     });
   }
 
+  /* A file field renders no control — attachments aren't wired to storage
+     yet, so the answer is collected off-form. It therefore can't be
+     required: the builder refuses to mark one, and anything already stored
+     that way is treated as optional here rather than locking the member out
+     of a form they can never submit. */
+  function isRequired(fd) { return !!fd.required && fd.field_type !== "file"; }
+
   function fieldHtml(fd, val) {
-    var req = fd.required ? ' <span class="req" aria-hidden="true">*</span>' : "";
+    var req = isRequired(fd) ? ' <span class="req" aria-hidden="true">*</span>' : "";
     var help = fd.help ? '<span class="help">' + esc(fd.help) + "</span>" : "";
     var id = "f_" + fd.id;
-    var head = '<div class="fm-field" data-field="' + fd.id + '" data-required="' + !!fd.required +
+    var head = '<div class="fm-field" data-field="' + fd.id + '" data-required="' + isRequired(fd) +
       '" data-type="' + esc(fd.field_type) + '"><label for="' + id + '">' + esc(fd.label) + req + help + "</label>";
     var tail = '<div class="fm-err">This one is required.</div></div>';
     var v = val == null ? "" : val;
@@ -170,7 +177,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       } else {
         var el = wrap.querySelector(".ctrl"); v = el ? el.value.trim() : "";
       }
-      var missing = fd.required && (v == null || v === "" ||
+      var missing = isRequired(fd) && (v == null || v === "" ||
         (Array.isArray(v) && !v.length) || (fd.field_type === "checkbox" && v !== true));
       wrap.classList.toggle("bad", !!missing);
       if (missing && !firstBad) firstBad = wrap;

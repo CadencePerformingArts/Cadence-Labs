@@ -163,12 +163,24 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     return list.map(function (f) { return FEATURE_LABEL[f] || f; });
   }
 
+  /* Checkout is gated on the PERMISSION alone, never on writability. A
+     read-only or expired workspace is exactly the one that needs to pay, and
+     the database agrees: the billing policies in migration 0009 use
+     org_has_perm, not org_can_write, precisely so a lapsed workspace can
+     reactivate. The only reason this button is ever disabled is a missing
+     permission — so that is the only thing the tooltip claims.
+     The plan the org is already subscribed to gets no button at all: a
+     second checkout would open a SECOND Stripe subscription, and the two
+     would fight over the plan as their webhooks arrive. ─────────────────── */
   function planCard(key) {
     var p = CadOrg.PLANS[key], cur = planKeyOf(S.org) === key;
+    var live = cur && CadOrg.isWritable(S.org);   // subscribed and still running
     var feats = featuresFor(key);
     var shown = key === "trial" ? feats.slice(0, 6) : feats.slice(0, 9);
     return '<div class="bil-plan' + (cur ? " on" : "") + '">' +
-      "<h3>" + esc(p.label) + (cur ? ' <span class="ens-tag important">Current</span>' : "") + "</h3>" +
+      "<h3>" + esc(p.label) +
+      (cur ? ' <span class="ens-tag important">' + (live ? "Current" : "Lapsed") +
+        "</span>" : "") + "</h3>" +
       '<div class="bil-amt">' + (p.price ? "$" + p.price + "<small> / year</small>"
         : key === "trial" ? "Free<small> · 60 days</small>" : "—") + "</div>" +
       '<div class="setsub">' + esc(BLURB[key] || "") + "</div>" +
@@ -181,9 +193,16 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       "</ul>" +
       '<div style="margin-top:auto;padding-top:12px">' +
         (key === "trial" ? '<span class="bil-note">Every new workspace starts here.</span>'
-          : (CadOrg.canDo("billing.manage")
-              ? '<button class="tab" type="button" data-checkout="' + key + '">Pay by card</button>'
-              : '<button class="tab" type="button" disabled title="Only billing managers can start checkout">' +
+          : live
+            ? '<span class="bil-note">' + (S.org.status === "past_due"
+                ? "Your plan — the last payment didn't go through. Stripe emails a link to " +
+                  "update the card; buying again would only open a second subscription."
+                : "This is your plan. Buying it again would open a second subscription.") + "</span>"
+            : (canBill()
+              ? '<button class="tab" type="button" data-checkout="' + key + '">' +
+                (cur ? "Reactivate by card" : "Pay by card") + "</button>"
+              : '<button class="tab" type="button" disabled ' +
+                'title="Only billing managers can start checkout — ask your billing owner">' +
                 "Pay by card</button>")) +
       "</div></div>";
   }
@@ -212,6 +231,11 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
      payment happened. Undeployed/unconfigured degrades honestly. ─────── */
   async function startCheckout(plan, btn) {
     var cfg = window.CAD_SUPABASE;
+    if (planKeyOf(S.org) === plan && CadOrg.isWritable(S.org)) {
+      alert("You are already on that plan — buying it again would open a second " +
+        "subscription. Write to us if you need to change how it is billed.");
+      return;
+    }
     var orig = btn.textContent;
     btn.disabled = true; btn.textContent = "Opening checkout…";
     try {
@@ -238,6 +262,9 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         ? "Card payments aren't switched on yet — the invoice route below works today."
         : why === "billing_manage_required"
         ? "Only billing managers can start checkout for this workspace."
+        : why === "already_on_plan" || why === "subscription_exists"
+        ? "This workspace already has a live subscription — a second checkout would " +
+          "open a second one. Reload this page, or write to us to change plans."
         : "Couldn't start checkout" + (why ? " — " + why : "") + ". The invoice route below always works.");
     } catch (e) {
       alert("Couldn't reach checkout — the invoice route below always works.");

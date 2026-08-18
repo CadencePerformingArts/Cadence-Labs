@@ -138,6 +138,73 @@ function fakeDb() {
   }, db, PRICES);
   ok(r.action === "no such customer", "unknown customer ignored safely");
 
+  /* ── the claim ledger: a failed application must not eat the event id ──
+   * ledgerDb models what the webhook's db does against stripe_events: the id
+   * is claimed as `pending:<type>`, rewritten to `<type>` on success, and
+   * dropped again if the handler threw. */
+  function ledgerDb() {
+    const d = fakeDb(), ledger = new Map();
+    d.ledger = ledger;
+    d.recordEvent = async (id, type) => {
+      if (ledger.has(id)) return false;              // claimed or already applied
+      ledger.set(id, "pending:" + type); return true;
+    };
+    d.markApplied = async (id, type) => { ledger.set(id, type); };
+    d.releaseEvent = async (id) => {
+      if (String(ledger.get(id)).startsWith("pending:")) ledger.delete(id);
+    };
+    return d;
+  }
+
+  const paid = {
+    id: "evt_co3", type: "checkout.session.completed", created: nowSec,
+    data: { object: { payment_status: "paid", customer: "cus_3",
+      metadata: { org_id: "org3", plan: "pro", price_id: "price_pro" } } },
+  };
+
+  const ldb = ledgerDb();
+  ldb.seed("org3", {});
+  const realUpdate = ldb.update;
+  let boom = true;
+  ldb.update = async (orgId, fields) => {
+    if (boom) { boom = false; throw new Error("transient 503"); }
+    return realUpdate(orgId, fields);
+  };
+
+  let threw = false;
+  try { await applyStripeEvent(paid, ldb, PRICES); } catch (e) { threw = true; }
+  ok(threw && ldb.orgs.org3.plan === null, "a failing handler throws and grants nothing");
+  ok(!ldb.ledger.has("evt_co3"), "a failed application releases the event id");
+
+  // …so Stripe's retry of that same event is applied, not swallowed
+  r = await applyStripeEvent(paid, ldb, PRICES);
+  ok(ldb.orgs.org3.plan === "pro" && ldb.orgs.org3.status === "active",
+    "the retry after a failure activates the paid plan");
+  ok(ldb.ledger.get("evt_co3") === "checkout.session.completed",
+    "a successful application marks the claim applied");
+
+  // and a redelivery of an APPLIED event still changes nothing
+  ldb.orgs.org3.status = "sentinel";
+  r = await applyStripeEvent(paid, ldb, PRICES);
+  ok(r.action === "duplicate" && ldb.orgs.org3.status === "sentinel",
+    "redelivery after success stays a no-op");
+  ok(ldb.ledger.get("evt_co3") === "checkout.session.completed",
+    "the applied claim is never released by a redelivery");
+
+  // a release that itself fails is reported loudly instead of losing a payment
+  const sdb = ledgerDb();
+  sdb.seed("org4", {});
+  sdb.update = async () => { throw new Error("transient 503"); };
+  sdb.releaseEvent = async () => { throw new Error("delete refused"); };
+  let msg = "";
+  try {
+    await applyStripeEvent({ ...paid, id: "evt_co4",
+      data: { object: { ...paid.data.object, customer: "cus_4",
+        metadata: { ...paid.data.object.metadata, org_id: "org4" } } } }, sdb, PRICES);
+  } catch (e) { msg = e.message; }
+  ok(/transient 503/.test(msg) && /claim not released/.test(msg),
+    "a release that fails names both errors in the 500 body");
+
   // every mutation was audited
   ok(db.logs.length >= 5, `state changes audited (${db.logs.length} entries)`);
 
