@@ -399,8 +399,26 @@
       onClose = closedCb || null;
       let rk;
       try { rk = await data("rankings.json"); } catch (e) { if (!replay) markSeen(); return; }
-      const groups = sortClasses(Object.keys(rk.standings || {}))
-        .map(c => ({ cls: c, rows: (rk.standings[c].rows || []).slice().sort((a, b) => a.rank - b.rank) }))
+      /* File each corps under the class it actually belongs to, once.
+         rk.standings is keyed by the board a corps competed on, and Open Class
+         corps run World Class prelims at Championships — so reading these
+         buckets straight put River City Rhythm under WORLD CLASS and again
+         under OPEN CLASS, alongside ten other Open Class corps. The board is
+         right (they did compete there); using it as a corps' class is not.
+         build_data.py resolves the real one as `home_class`; fall back to the
+         bucket on data built before that existed. */
+      const seen = new Set();
+      const byClass = new Map();
+      sortClasses(Object.keys(rk.standings || {})).forEach(cls =>
+        (rk.standings[cls].rows || []).slice().sort((a, b) => a.rank - b.rank).forEach(r => {
+          if (seen.has(r.corps)) return;
+          seen.add(r.corps);
+          const home = r.home_class || cls;
+          if (!byClass.has(home)) byClass.set(home, []);
+          byClass.get(home).push(r);
+        }));
+      const groups = sortClasses([...byClass.keys()])
+        .map(c => ({ cls: c, rows: byClass.get(c) }))
         .filter(g => g.rows.length);
       if (!groups.length) { if (!replay) markSeen(); return; }
 

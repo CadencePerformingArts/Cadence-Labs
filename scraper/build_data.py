@@ -542,6 +542,40 @@ def build_rankings(events):
                     continue
                 per_class[c["class"]].setdefault(r["corps"], []).append(
                     {"date": ev["date"], "score": r["score"], "event": ev["name"]})
+    # A corps' CLASS is not the same as the board it appears on. Open Class
+    # corps run World Class prelims at Championships, so they earn a row on the
+    # World Class board — correctly, they competed there and scored there — but
+    # they are not World Class corps. In 2026 that put eleven Open Class corps
+    # on the World Class board, and the follow picker, which reads these same
+    # buckets, listed River City Rhythm under WORLD CLASS and again under OPEN
+    # CLASS.
+    #
+    # Home class = the class a corps competes in most often. River City Rhythm
+    # is Open Class 10 shows to World Class 2; Bluecoats are World Class 18 to
+    # nothing. On a tie the more specific class wins, because a World Class
+    # corps never guests in Open/All-Age/International while the reverse is
+    # routine (Mercedes Marching Band, 1 International and 1 World Class, is
+    # International).
+    #
+    # Every surface that presents a class as an ATTRIBUTE of the corps must use
+    # this. The standings boards keep listing a corps wherever it competed —
+    # that is a fact about the season, not a claim about the corps.
+    class_counts: dict[str, dict[str, int]] = {}
+    for cls, corps_map in per_class.items():
+        for corps, hist in corps_map.items():
+            class_counts.setdefault(corps, {})[cls] = len(hist)
+
+    def home_class(corps: str) -> str | None:
+        by = class_counts.get(corps) or {}
+        if not by:
+            return None
+        most = max(by.values())
+        tied = sorted(c for c, n in by.items() if n == most)
+        if len(tied) == 1:
+            return tied[0]
+        specific = [c for c in tied if c != "World Class"]
+        return (specific or tied)[0]
+
     standings = {}
     for cls, corps_map in per_class.items():
         rows = []
@@ -551,7 +585,7 @@ def build_rankings(events):
             hi = max(hist, key=lambda h: h["score"])
             rows.append({
                 "corps": corps, "score": latest["score"], "date": latest["date"],
-                "event": latest["event"],
+                "event": latest["event"], "home_class": home_class(corps),
                 "high": hi["score"], "high_event": hi["event"], "high_date": hi["date"],
                 "prev_score": prev["score"] if prev else None,
                 "delta": round(latest["score"] - prev["score"], 3) if prev else None,
