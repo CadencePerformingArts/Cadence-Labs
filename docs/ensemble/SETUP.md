@@ -1,6 +1,6 @@
 # Cadence Ensemble — turning it on
 
-**Status: the database is live and fully migrated.** Migrations 0001-0018
+**Status: the database is live and fully migrated.** Migrations 0001-0020
 are applied to the production Supabase project, the private `ensemble`
 storage bucket has its four access policies, the owner account holds the
 platform-admin role, and an hourly pg_cron job expires trials and grace
@@ -34,6 +34,8 @@ policies, zero errors).
 | 14 | `supabase/migrations/0016_stripe_events.sql` | Stripe webhook idempotency ledger |
 | 15 | `supabase/migrations/0017_storage_policies.sql` | the four `ensemble` bucket policies, standalone + re-runnable |
 | 16 | `supabase/migrations/0018_auto_sweep.sql` | unattended trial/grace sweep (hourly via pg_cron) + the `past_due` expiry gap |
+| 17 | `supabase/migrations/0019_notification_release.sql` | notify at publication, not at insert: targeted announcements stop fanning out org-wide, preferences work, scheduled posts go out |
+| 18 | `supabase/migrations/0020_public_communities.sql` | open-join communities, with `is_public` locked against workspace admins |
 
 If files 3 and 4 were already applied earlier, skip them — the rest still run.
 
@@ -49,7 +51,7 @@ not rewrite any applied migration) and was verified applying onto the prior
 schema. Apply it before inviting anyone you don't fully trust. The full
 attack list and the tests that prove each fix are in
 `scripts/test_db_security.py` — run `python3 scripts/test_db_security.py`
-against a scratch database (never production) to see every check pass (64 as of 0018).
+against a scratch database (never production) to see every check pass (96 as of 0020, plus 16 in `scripts/test_public_communities.py`).
 
 **One possible snag, in file 6 only — already resolved on production.** The
 last block creates the private `ensemble` storage bucket and its access

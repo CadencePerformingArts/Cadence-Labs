@@ -13,7 +13,7 @@ environment (edge functions / CI secrets).
 
 ## Layout
 
-Migrations are ordered and append-only (`0001` … `0018`). Never edit an
+Migrations are ordered and append-only (`0001` … `0020`). Never edit an
 applied migration — correct it with a new one.
 
 - `0001_accounts_foundation.sql` — profiles, favorites, preferences,
@@ -53,6 +53,19 @@ applied migration — correct it with a new one.
   `service_role`), scheduled hourly with pg_cron where available. Also
   closes the `past_due` gap: a failed card left an org writable forever,
   because `0015` only ever expired `grace_period`.
+- `0019_notification_release.sql` — notification moves off the INSERT
+  trigger onto an explicit `publish_post()` / `publish_event()` step and a
+  release ledger. Closes three bugs at once: a targeted announcement was
+  fanning its title out to the whole organization (the client wrote
+  `post_targets` in a second request, after the trigger had already resolved
+  "no targets = everyone"), member preferences could never match a row, and
+  a scheduled post notified nobody, ever. Also raises the trial storage
+  default to the 5 GiB the plan card advertises.
+- `0020_public_communities.sql` — open-join communities. `is_public`,
+  `public_blurb` and `public_join_role_key` are in the same guarded set as
+  the billing fields: `org_update` lets any `org.admin` holder PATCH the
+  organizations row, so an unguarded flag would put a private roster one
+  checkbox from world-joinable.
 
 `RUN_ALL.sql` and `RUN_ENSEMBLE.sql` are **generated** paste-and-run bundles
 (one transaction each). Regenerate them after adding a migration:

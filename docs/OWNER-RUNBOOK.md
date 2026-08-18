@@ -34,13 +34,43 @@ live. Nothing in this repository purchases anything automatically.
 
 ## Current status (2026-08-18)
 
-Migrations **0001-0018 are applied** to the live project, storage policies
+Migrations **0001-0020 are applied** to the live project, storage policies
 included, and your account holds the platform-admin role — so
 `admin-platform.html` works for you right now. Trials and grace periods now
 expire **on their own**, hourly, without anyone opening the admin page. Both
 Stripe edge functions are deployed and deliberately inert until you supply
 test-mode keys. The section below is the reference for future migrations and
 for standing up a staging copy.
+
+## The open community (Cadence DCI Fans)
+
+Every other workspace is private: you get in with a code a director handed
+you. **Cadence DCI Fans** is the one exception — anybody signed in can join
+it with a single tap from `/ensemble/`, so a curious visitor can see what a
+workspace is before being invited to one that matters.
+
+It is deliberately **read-only for joiners**. They land in the `guest` role,
+which carries exactly one permission: read announcements. No files, no chat,
+no direct messages, no roster. That is not an oversight — every youth-safety
+rule in the database is scoped to one organization, so an open workspace with
+chat switched on is a public chat room that somebody has to moderate, and it
+can contain minors. Widen it only deliberately, and only when you have
+decided who moderates it.
+
+Two things are worth knowing:
+
+- **You cannot publish a workspace from the browser, and neither can a
+  director.** `is_public` sits in the same locked set as the billing fields,
+  because the org-update policy otherwise lets any admin PATCH their own row
+  — a school band's roster would have been one checkbox from world-joinable.
+  Making a workspace public is a SQL-editor act; the statement is at the
+  bottom of `supabase/migrations/0020_public_communities.sql`.
+- **Post to it as the owner.** You are the only member with permission to
+  write. Announcements you post there are what every joiner sees.
+
+To wind it down: `update public.organizations set is_public = false where
+slug = 'dci-fans';` — existing members keep their access, and nobody new can
+join. Nothing is ever deleted.
 
 ## Applying database migrations safely
 
