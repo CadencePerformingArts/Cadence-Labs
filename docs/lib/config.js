@@ -8,9 +8,9 @@
   window.CadConfig = {
     // Public base URL of the deployed app. Used for share-card links, social
     // text, and anywhere an absolute link leaves the app. Trailing slash.
-    BASE_URL: "https://lukebesel.github.io/DCI-Tracker/",
+    BASE_URL: "https://cadenceperformingarts.github.io/Cadence-Labs/",
     // Short human label for the same URL (printed on share images).
-    BASE_LABEL: "lukebesel.github.io/DCI-Tracker",
+    BASE_LABEL: "cadenceperformingarts.github.io/Cadence-Labs",
     // Push/ask relay origin (no trailing slash). Empty string disables every
     // relay-backed feature (score alerts UI degrades with a clear message).
     RELAY_URL: "https://cadenceapp.up.railway.app",

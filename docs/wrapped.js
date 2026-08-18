@@ -4,8 +4,8 @@
    reuses the app's corps colors. No backend — reads the static season JSON. */
 (function () {
   "use strict";
-  var SITE_URL = ((window.CadConfig || {}).BASE_URL || "https://lukebesel.github.io/DCI-Tracker/").replace(/\/$/, "");
-  var SITE_LABEL = (window.CadConfig || {}).BASE_LABEL || "lukebesel.github.io/DCI-Tracker";
+  var SITE_URL = ((window.CadConfig || {}).BASE_URL || "https://cadenceperformingarts.github.io/Cadence-Labs/").replace(/\/$/, "");
+  var SITE_LABEL = (window.CadConfig || {}).BASE_LABEL || "cadenceperformingarts.github.io/Cadence-Labs";
 
   // ---- color helpers ---------------------------------------------------------
   function hx(s) { s = String(s || "").replace("#", ""); if (s.length === 3) s = s.split("").map(function (c) { return c + c; }).join(""); var n = parseInt(s, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }

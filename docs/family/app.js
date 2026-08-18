@@ -1,9 +1,9 @@
 /* Cadence family engine — GENERATED from docs/app.js by
    scripts/build_family_engine.py. Do not edit by hand; edit the DCI app or
    the build script and regenerate. Instances configure via window.APP_CFG:
-   { appName, ns, classOrder, combinable, terms:{singular,plural,a},
-     eventsTitle } */
-/* DCI Tracker SPA — Rankings · Corps (compare) · Seasons · Database */
+   { appName, root, ns, board, captions, classOrder, combinable,
+     terms:{singular,plural,a}, eventsTitle } */
+/* Cadence SPA — Scoreboard · Shows · Corps · Stats (hash-routed, no build) */
 (function () {
   const app = document.getElementById("app");
   const { lineChart, sparkline, PALETTE, esc } = window.CCViz;
@@ -13,32 +13,14 @@
   const NS = k => (FAM ? FAM.ns : "") + k;
   const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
   const TERM = FAM ? FAM.terms : { singular: "corps", plural: "corps", a: "a corps" };
-  const TERM_TH = FAM ? FAM.terms.singular.charAt(0).toUpperCase() + FAM.terms.singular.slice(1) : "Corps";
-  // ratings/placements circuits (UIL, ISSMA): scores are null by design; the
-  // published rating or placement rides in the score channel for display
-  const ORD = n => { n = Math.round(n); const s = ["th", "st", "nd", "rd"], k = n % 100; return n + (s[(k - 20) % 10] || s[k] || s[0]); };
-  const RES_KIND = FAM ? FAM.resultsKind : null;
-  const normKind = o => {
-    if (Array.isArray(o)) { for (const x of o) normKind(x); return o; }
-    if (o && typeof o === "object") {
-      // A ratings circuit (UIL) also has placement rows (State finals). A
-      // placement 3 must never render as Division III, so placements inside
-      // a ratings circuit ride in the score channel offset by +1000 — an
-      // unambiguous marker (ratings are 1-5) that score3 decodes back to an
-      // ordinal. Pure-placement circuits keep the plain value.
-      // Two row shapes carry that channel: event and scoreboard rows call it
-      // `score`, corps-profile performances call it `s`. Filling only `score`
-      // left every profile blank, so fill whichever key the row really has.
-      if (o.score == null && o.s == null && (o.rating != null || o.placement != null)) {
-        const v = o.rating != null ? o.rating
-          : RES_KIND === "rating" ? 1000 + o.placement
-          : o.placement;
-        if ("s" in o) o.s = v; else o.score = v;
-      }
-      for (const k in o) normKind(o[k]);
-    }
-    return o;
-  };
+  const TERM_TH = FAM ? cap1(FAM.terms.singular) : "Corps";
+  // Does this app publish judge-level caption sheets? The DCI app always
+  // does; a family instance says so in its config (WGI ships captions:false
+  // because WGI's sheets are behind its directors-only portal). Every
+  // caption surface — the Stats sub-tab, the corps-profile tile, the
+  // Database dataset, the per-event recap fetch — is gated on this, so a
+  // captionless app never shows a control that leads nowhere.
+  const CAPS = !FAM || !!FAM.captions;
 
 
   async function data(path) {
@@ -46,7 +28,7 @@
     const p = fetch("data/" + path).then(r => {
       if (!r.ok) throw new Error(path + " " + r.status);
       return r.json();
-    }).then(j => (RES_KIND ? normKind(j) : j));
+    });
     cache.set(path, p);
     try { return await p; } catch (e) { cache.delete(path); throw e; }
   }
@@ -58,70 +40,25 @@
   // is already in. A whole show goes dark the moment its full results land, even
   // if the clock is still inside the window. DCI championship venues run on
   // Eastern time; August is EDT (UTC-4).
-  const LIVE_PAD = 15 * 60000; // 15-min cushion on each side of a performance slot
-  // logistics rows the schedule scrape sometimes leaves in the lineup — never a
-  // performing corps, so they must not carry a LIVE pill or stretch the window
-  const NON_CORPS = /gates?\s*open|doors?\s*open|will\s*call|box\s*office|welcome|national\s*anthem|opening\s*ceremon|closing\s*ceremon|intermission|scores?\s*announced|awards?|retreat|encore|age.?out|honor\s*guard|pledge|drum\s*major|autograph|loge|terrace|reserved\s*seating|takes\s*effect|levels?\s*open|lot\s*opens?|parking|(semi.?finals?|quarter.?finals?|finals?|prelims?|competition|show|program)\s*(begins?|resumes?|concludes?|starts?|ends?)|lunch|dinner|\bbreak\b/i;
+  // The decision rules live in docs/lib/live-core.js (pure + unit-tested);
+  // this module owns the fetching, 30-second cache, and lookup API.
   const LIVE = (() => {
+    const CORE = window.CadLiveCore;
     let cache = null, cacheAt = 0;
     const etToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
-    // convert a venue-local wall-clock slot to a UTC instant. The venue's
-    // IANA zone (from its state) gives the correct offset for that date —
-    // handling DST and Central/Mountain/Pacific venues, not a hardcoded
-    // EDT=UTC-4. tz defaults to Eastern, DCI's most common zone. This is the
-    // same conversion localizeVenueTime uses, so the LIVE window and the
-    // displayed time never disagree.
-    function slotMs(dateISO, timeStr, tz) {
-      const m = /(\d{1,2}):(\d{2})\s*([ap])\.?m/i.exec(String(timeStr || ""));
-      if (!m) return null;
-      let h = (+m[1]) % 12; if (/p/i.test(m[3])) h += 12;
-      const [y, mo, d] = dateISO.split("-").map(Number);
-      const zone = tz || "America/New_York";
-      let utc = Date.UTC(y, mo - 1, d, h, +m[2]);
-      return utc - tzOffsetMin(zone, new Date(utc)) * 60000;
-    }
     async function refresh(force) {
       const now = Date.now();
       if (!force && cache && now - cacheAt < 30000) return cache;
       const today = etToday();
       let up = [], season = null;
-      try { up = await data("upcoming.json"); } catch (e) {}
-      try { season = await data(`seasons/${+today.slice(0, 4)}.json`); } catch (e) {}
-      const scoredToday = new Set();      // corps names with a score posted today
-      const scoredByShow = {};            // event name → how many corps have scored
-      (season || []).forEach(e => {
-        if (e.date !== today) return;
-        let n = 0;
-        (e.classes || []).forEach(c => (c.results || []).forEach(r => {
-          if (r.score != null) { scoredToday.add(r.corps); n++; }
-        }));
-        scoredByShow[e.name] = (scoredByShow[e.name] || 0) + n;
-      });
-      const corpsLive = new Set(), showLive = new Set(), complete = new Set();
-      (up || []).forEach(ev => {
-        if (ev.date !== today || !Array.isArray(ev.schedule)) return;
-        const lineup = new Set(ev.lineup || []);
-        // real performing corps (logistics rows dropped) drive completeness + the
-        // per-corps pills used on the scoreboard / corps pages
-        const realSlots = ev.schedule.filter(p => p && lineup.has(p[1]) && !NON_CORPS.test(p[1]));
-        const realCorps = new Set(realSlots.map(p => p[1]));
-        const evTz = venueZone(ev.location);
-        // the instant every performing corps has a score the whole show is done —
-        // corps AND logistics rows all go dark, wherever the clock sits
-        if (realCorps.size && (scoredByShow[ev.name] || 0) >= realCorps.size) { complete.add(ev.name); return; }
-        realSlots.forEach(pair => {
-          const t = slotMs(ev.date, pair[0], evTz); if (t == null) return;
-          if (now >= t - LIVE_PAD && now <= t + LIVE_PAD && !scoredToday.has(pair[1])) corpsLive.add(pair[1]);
-        });
-        // the show stays live across its whole schedule — first slot to last,
-        // logistics rows included — until it completes above
-        const times = ev.schedule.map(p => slotMs(ev.date, p[0], evTz)).filter(t => t != null);
-        if (times.length) {
-          const first = Math.min(...times), last = Math.max(...times);
-          if (now >= first - LIVE_PAD && now <= last + LIVE_PAD) showLive.add(ev.name);
-        }
-      });
-      cache = { corpsLive, showLive, complete, scored: scoredToday, today }; cacheAt = now;
+      if (!FAM) {   // family circuits publish no live-scoring feed
+        try { up = await data("upcoming.json"); } catch (e) {}
+        try { season = await data(`seasons/${+today.slice(0, 4)}.json`); } catch (e) {}
+      }
+      // stamp each show with its venue zone before the core does any clock
+      // maths; live-core has no state table of its own.
+      (up || []).forEach(e => { if (!e.tz) e.tz = venueZone(e.location) || undefined; });
+      cache = { ...CORE.compute(up, season, today, now), today }; cacheAt = now;
       return cache;
     }
     return {
@@ -133,10 +70,9 @@
       scored: n => !!(cache && cache.scored.has(n)),
       // is a specific schedule slot inside its ±15-min live window right now?
       // (corps and logistics rows alike — the caller gates on show-completeness)
-      slotLiveAt: (dateISO, timeStr, tz) => {
-        const t = slotMs(dateISO, timeStr, tz);
-        return t != null && Date.now() >= t - LIVE_PAD && Date.now() <= t + LIVE_PAD;
-      },
+      // tz is the venue's zone (from its state) so the pill agrees with the
+      // start time printed beside it — see live-core's slotMs.
+      slotLiveAt: (dateISO, timeStr, tz) => CORE.slotLiveAt(dateISO, timeStr, Date.now(), tz),
       today: () => cache && cache.today,
       // signature of the current live sets — lets a view repaint only on change
       sig: () => cache ? [...cache.corpsLive].sort().join("|") + "#" + [...cache.showLive].sort().join("|") : "",
@@ -144,108 +80,8 @@
   })();
   const LIVE_BADGE = '<span class="pill live" title="Performing now — scores landing"><span class="livedot"></span>LIVE</span>';
 
-  const score3 = v => v == null ? "—" : RES_KIND === "rating" ? (v >= 1000 ? ORD(v - 1000) : (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v))) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);
+  const score3 = v => v == null ? "—" : (+v).toFixed(3);
   const h = (strings, ...vals) => strings.map((s, i) => s + (vals[i] == null ? "" : vals[i])).join("");
-
-  /* Circuits that publish Division ratings or ordinal placements instead of
-     point scores (UIL), and instances that ship no caption sheets, are family
-     concerns — scripts/build_family_engine.py rewrites both bodies for the
-     derived engine. The DCI app always scores in points, always has captions. */
-  function resultsKind() { return RES_KIND; }
-  function hasCaptions() { return !FAM || !!FAM.captions; }
-  // a rating or a placement is a golf score: 1 beats 5
-  const lowerIsBetter = () => resultsKind() === "rating" || resultsKind() === "placement";
-  const bestOf = vals => vals.length ? (lowerIsBetter() ? Math.min(...vals) : Math.max(...vals)) : null;
-  // inside a ratings circuit normKind rides State placements at 1000+, so a
-  // value's scale reads off the value itself — the two never share an axis
-  const isPlaced = v => resultsKind() === "rating" && v >= 1000;
-
-  /* ---- charting an ordinal result scale ----------------------------------
-     A rating is one of five whole divisions and a placement is a whole
-     finish: there is no Division 2.5 and no 0th place. CCViz.lineChart picks
-     its own gridlines off the PADDED numeric range of whatever happens to be
-     on screen, so handing it score3 as the tick formatter rounds those
-     fractions onto numerals — a season of a single Division I show pads to
-     ±1 and prints the axis "0 · I · I · II · II": a division that does not
-     exist, plus the same numeral twice on two different gridlines. So these
-     circuits do not use lineChart at all. The axis here IS the scale: whole
-     steps, the full domain every time (so one show and five show the same
-     ladder), and the best value on top because 1 beats 5. */
-  function scaleTicks(vals) {
-    // ratings are a closed 1–5 domain; placements run 1st down to the deepest
-    // finish on screen (thinned to whole steps once there are more than six)
-    if (resultsKind() === "rating" && !vals.some(isPlaced)) return [1, 2, 3, 4, 5];
-    const off = resultsKind() === "rating" ? 1000 : 0;   // placement marker
-    const worst = Math.max(5, ...vals.map(v => v - off));
-    const step = Math.ceil((worst - 1) / 5);
-    const ticks = [];
-    for (let n = 1; n < worst; n += step) ticks.push(n + off);
-    ticks.push(worst + off);
-    return ticks;
-  }
-  function ratingChart(container, opts) {
-    /* Colors and width come from charts.js, not from here. The SVG is sized
-       `width:100%` and scaled by its viewBox, so a hardcoded 860 on a 320px
-       phone renders 11px axis text at 4px — illegible, on the surface most
-       of this audience actually uses. And every band color on a ratings
-       circuit comes from EXT_PALETTE, all sixteen of which sit below the
-       luminance floor charts.js lifts colors off in dark mode. Both were
-       already solved once; reusing them is what stops the two chart paths
-       drifting apart again. */
-    const tint = window.CCViz.lineColor || (c => c);
-    const series = (opts.series || []).map((s, i) => ({
-      name: s.name || "", color: tint(s.color || PALETTE[i % PALETTE.length]), dash: s.dash || "",
-      points: (s.points || []).filter(p => p.y != null).slice().sort((a, b) => a.x - b.x),
-    })).filter(s => s.points.length);
-    const pts = series.flatMap(s => s.points);
-    if (!pts.length) { container.innerHTML = '<div class="empty">No data yet.</div>'; return; }
-    const ticks = scaleTicks(pts.map(p => p.y));
-    const yLo = ticks[0], yHi = ticks[ticks.length - 1];
-    const W = window.CCViz.fitWidth ? window.CCViz.fitWidth(container) : 860;
-    const H = opts.height || 260;
-    const m = { top: 16, right: 26, bottom: 26, left: 54 };
-    const iw = W - m.left - m.right, ih = H - m.top - m.bottom;
-    const xMin = Math.min(...pts.map(p => p.x)), xMax = Math.max(...pts.map(p => p.x));
-    const X = v => xMax === xMin ? m.left + iw / 2 : m.left + (v - xMin) / (xMax - xMin) * iw;
-    const Y = v => m.top + (v - yLo) / (yHi - yLo) * ih;   // 1 (best) at the top
-    const xFmt = opts.xFmt || (v => String(Math.round(v)));
-    const LAB = "fill:var(--ch-label);font-size:11px";
-    let g = "";
-    for (const tv of ticks) {
-      const y = Y(tv).toFixed(1);
-      g += `<line x1="${m.left}" x2="${W - m.right}" y1="${y}" y2="${y}" style="stroke:var(--ch-grid);stroke-width:1"></line>`
-        + `<text x="${m.left - 8}" y="${(Y(tv) + 4).toFixed(1)}" text-anchor="end" style="${LAB}">${esc(score3(tv))}</text>`;
-    }
-    g += `<line x1="${m.left}" x2="${W - m.right}" y1="${m.top + ih}" y2="${m.top + ih}" style="stroke:var(--ch-base);stroke-width:1"></line>`;
-    // x labels come off the real points — a ratings season is a handful of
-    // contests, so each one gets named instead of interpolated
-    const xs = [...new Set(pts.map(p => p.x))].sort((a, b) => a - b);
-    const every = Math.ceil(xs.length / 8);
-    xs.forEach((xv, i) => {
-      if (i % every !== 0 && i !== xs.length - 1) return;
-      g += `<text x="${X(xv).toFixed(1)}" y="${H - 8}" text-anchor="middle" style="${LAB}">${esc(xFmt(xv))}</text>`;
-    });
-    for (const s of series) {
-      if (s.points.length > 1) {
-        const d = s.points.map((p, j) => (j ? "L" : "M") + X(p.x).toFixed(1) + " " + Y(p.y).toFixed(1)).join(" ");
-        g += `<path d="${d}" fill="none" stroke="${esc(s.color)}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"${s.dash ? ` stroke-dasharray="${esc(s.dash)}"` : ""}></path>`;
-      }
-      // every result gets its own marker: with one or two shows a season the
-      // dots ARE the chart, and each carries its own label for hover/tap
-      for (const p of s.points)
-        g += `<circle cx="${X(p.x).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="4.5" fill="${esc(s.color)}" style="stroke:var(--ch-halo);stroke-width:2">`
-          + `<title>${esc((s.name ? s.name + " · " : "") + xFmt(p.x) + " · " + score3(p.y))}</title></circle>`;
-    }
-    container.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`
-      + (series.length >= 2 && !opts.noLegend
-        ? `<div class="legend">${series.map(s => `<span class="key"><span class="swatch-line" style="background:${s.dash
-          ? `repeating-linear-gradient(90deg, ${esc(s.color)} 0 4px, transparent 4px 7px)` : esc(s.color)}"></span>${esc(s.name)}</span>`).join("")}</div>`
-        : "");
-  }
-  // one entry point for every results chart: point scores keep CCViz's line
-  // chart, ordinal scales get the ladder above
-  const scoreChart = (container, opts) =>
-    (resultsKind() ? ratingChart : lineChart)(container, opts);
 
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   function fmtDate(iso) {
@@ -419,7 +255,6 @@
       + `:root${S}[data-theme="dark"],:root${S}[data-theme="dark"] .viz-root{${dark}}`
       + `:root${S}[data-theme="light"],:root${S}[data-theme="light"] .viz-root{${light}}`;
   }
-  const corpsThemeCSS = name => corpsThemeCSSFromVars(corpsThemeVars(name));
   // write a theme (curated corps, custom pair, or none) to the page + storage
   function writeTheme(slug, css, bar, extra) {
     let el = document.getElementById("corpsTheme");
@@ -458,7 +293,14 @@
   // the mobile layout still adapts and nothing overflows sideways
   function applyFontSize(scale) {
     const s = String(scale || "1");
-    document.documentElement.style.zoom = s === "1" ? "" : s;
+    const de = document.documentElement;
+    de.style.zoom = s === "1" ? "" : s;
+    // zoom shrinks the layout viewport but NOT vw/vh units or media queries, so
+    // publish the scale: `calc(<n>vw / var(--fs))` converts a visual-pixel size
+    // into the layout units the zoomed page actually has, and [data-fs] lets the
+    // CSS tighten up where the breakpoints can no longer see the real width.
+    de.style.setProperty("--fs", s);
+    if (s === "1") de.removeAttribute("data-fs"); else de.setAttribute("data-fs", s);
     try { s === "1" ? localStorage.removeItem("cad-fontsize") : localStorage.setItem("cad-fontsize", s); } catch (e) {}
   }
   window.CadFontSize = applyFontSize;
@@ -533,6 +375,203 @@
     const fav = FAVS.has(name);
     return `<a href="#/corps/${slugOf(name)}"${fav ? ' class="favname"' : ""}>${fav ? "★ " : ""}${esc(name)}</a>`;
   }
+
+  /* ===== first-run onboarding: "Who do you follow?" =====
+     One skippable sheet, shown once. Picking corps just drives the existing
+     ★ favorites store — no separate preference model. After a pick, offers
+     score alerts (existing CadPush) behind an explicit tap, never an
+     automatic permission prompt. Reopenable any time from Settings. */
+  const CadOnboard = (() => {
+    const KEY = "cad-onboard";           // versioned: bump the value to re-run
+    const DONE_VAL = "1";
+    const storageOK = (() => {
+      try { localStorage.setItem("cad-t", "1"); localStorage.removeItem("cad-t"); return true; }
+      catch (e) { return false; }
+    })();
+    const seen = () => { try { return localStorage.getItem(KEY) === DONE_VAL; } catch (e) { return true; } };
+    const markSeen = () => { try { localStorage.setItem(KEY, DONE_VAL); } catch (e) {} };
+    // Claim the first-visit popup slot NOW, at script-eval time — recap.js and
+    // install.js load after app.js and check these before auto-popping, so
+    // onboarding goes first and their nudges wait for a later visit.
+    const due = storageOK && !seen() && !FAVS.list().length;
+    if (due) {
+      try { sessionStorage.setItem("cad-rc-session", "1"); } catch (e) {}
+      try {
+        const cur = +(localStorage.getItem("cad-install-snooze") || 0);
+        if (cur < Date.now() + 864e5) localStorage.setItem("cad-install-snooze", String(Date.now() + 864e5));
+      } catch (e) {}
+    }
+
+    let ov = null, lastFocus = null, onClose = null;
+    function close() {
+      if (!ov) return;
+      ov.remove(); ov = null;
+      document.documentElement.style.overflow = "";
+      if (lastFocus && lastFocus.isConnected) { try { lastFocus.focus(); } catch (e) {} }
+      // the Following strip may need to appear/refresh with the new stars
+      if ((location.hash || "#/") === "#/") route();
+      const cb = onClose; onClose = null;
+      if (cb) { try { cb(); } catch (e) {} }
+    }
+
+    function chipHtml(name) {
+      const on = FAVS.has(name);
+      return `<button type="button" class="ob-chip${on ? " on" : ""}" data-corps="${esc(name)}"
+        aria-pressed="${on}">${corpsLogo(name, 22)}<span class="ob-chip-n">${esc(name)}</span></button>`;
+    }
+
+    async function open(replay, closedCb) {
+      if (ov) return;
+      onClose = closedCb || null;
+      let rk;
+      try { rk = await data("rankings.json"); } catch (e) { if (!replay) markSeen(); return; }
+      /* File each corps under the class it actually belongs to, once.
+         rk.standings is keyed by the board a corps competed on, and Open Class
+         corps run World Class prelims at Championships — so reading these
+         buckets straight put River City Rhythm under WORLD CLASS and again
+         under OPEN CLASS, alongside ten other Open Class corps. The board is
+         right (they did compete there); using it as a corps' class is not.
+         build_data.py resolves the real one as `home_class`; fall back to the
+         bucket on data built before that existed. */
+      const seen = new Set();
+      const byClass = new Map();
+      sortClasses(Object.keys(rk.standings || {})).forEach(cls =>
+        (rk.standings[cls].rows || []).slice().sort((a, b) => a.rank - b.rank).forEach(r => {
+          if (seen.has(r.corps)) return;
+          seen.add(r.corps);
+          const home = r.home_class || cls;
+          if (!byClass.has(home)) byClass.set(home, []);
+          byClass.get(home).push(r);
+        }));
+      const groups = sortClasses([...byClass.keys()])
+        .map(c => ({ cls: c, rows: byClass.get(c) }))
+        .filter(g => g.rows.length);
+      if (!groups.length && FAM) {
+        // no standings (no published score feed) — offer the whole roster
+        try {
+          const roster = await data("corps_index.json");
+          if (roster && roster.length) {
+            groups.push({ cls: "All " + TERM.plural, rows: roster.map(c => ({ corps: c.name })) });
+          }
+        } catch (e) {}
+      }
+      if (!groups.length) { if (!replay) markSeen(); return; }
+
+      lastFocus = document.activeElement;
+      ov = document.createElement("div");
+      ov.className = "ob-ov";
+      ov.innerHTML = `
+        <div class="ob-sheet" role="dialog" aria-modal="true" aria-labelledby="obTitle">
+          <h2 id="obTitle">Who do you follow?</h2>
+          <p class="ob-sub">${FAM ? "Star your " + TERM.plural + " — they lead every board and table in this app." : "Star your corps — the scoreboard and score alerts get personalized around them."}</p>
+          <input class="ctrl ob-search" type="search" placeholder="Search ${TERM.plural}…" aria-label="Search ${TERM.plural}">
+          <div class="ob-list">${groups.map(g =>
+            `<div class="ob-cls">${esc(g.cls)}</div><div class="ob-grid">${g.rows.map(r => chipHtml(r.corps)).join("")}</div>`).join("")}
+          </div>
+          <div class="ob-foot">
+            <button type="button" class="tab" id="obSkip">${replay ? "Close" : "Skip"}</button>
+            <button type="button" class="tab on" id="obDone">Done</button>
+          </div>
+        </div>`;
+      document.body.appendChild(ov);
+      document.documentElement.style.overflow = "hidden";
+      const sheet = ov.querySelector(".ob-sheet");
+      const doneBtn = ov.querySelector("#obDone");
+      const paintDone = () => {
+        const n = FAVS.list().length;
+        doneBtn.textContent = n ? `Done · following ${n}` : "Done";
+      };
+      paintDone();
+      ov.addEventListener("click", e => {
+        if (e.target === ov) { finish(); return; }              // backdrop = skip
+        const chip = e.target.closest(".ob-chip");
+        if (chip) {
+          FAVS.toggle(chip.dataset.corps);
+          chip.classList.toggle("on");
+          chip.setAttribute("aria-pressed", chip.classList.contains("on"));
+          paintDone();
+        }
+      });
+      ov.querySelector(".ob-search").addEventListener("input", e => {
+        const q = e.target.value.trim().toLowerCase();
+        ov.querySelectorAll(".ob-chip").forEach(c => {
+          c.hidden = !!q && !c.dataset.corps.toLowerCase().includes(q);
+        });
+        ov.querySelectorAll(".ob-cls").forEach(hd => {
+          const grid = hd.nextElementSibling;
+          const any = grid && [...grid.children].some(c => !c.hidden);
+          hd.hidden = !any; if (grid) grid.hidden = !any;
+        });
+      });
+      ov.addEventListener("keydown", e => { if (e.key === "Escape") finish(); });
+      ov.querySelector("#obSkip").onclick = finish;
+      doneBtn.onclick = async () => {
+        if (!replay) markSeen();
+        // contextual alerts offer — only when it could actually work and the
+        // user just chose someone to follow. Never triggers the permission
+        // prompt itself; that stays behind its own explicit tap below.
+        const favs = FAVS.list();
+        const P = window.CadPush;
+        let show = false;
+        if (favs.length && P) {
+          try {
+            // status() waits on serviceWorker.ready — race it so an
+            // environment with no service worker can't hang the sheet
+            const st = await Promise.race([P.status(), new Promise(r => setTimeout(() => r("unknown"), 1200))]);
+            show = st !== "on" && st !== "unknown"
+              && (!("Notification" in window) || Notification.permission !== "denied");
+          } catch (e) {}
+        }
+        if (!show) { close(); return; }
+        sheet.innerHTML = `
+          <h2 id="obTitle">Want a ping when ${esc(favs[0])} scores post?</h2>
+          <p class="ob-sub">Score alerts are free and sent the moment results land — your starred
+            corps lead the notification. You can turn them off any time in Settings.</p>
+          <div class="ob-foot">
+            <button type="button" class="tab" id="obLater">Not now</button>
+            <button type="button" class="tab on" id="obAlerts">Turn on score alerts</button>
+          </div>
+          <p class="ob-note" id="obNote" role="status"></p>`;
+        sheet.querySelector("#obLater").onclick = close;
+        sheet.querySelector("#obAlerts").onclick = async () => {
+          const note = sheet.querySelector("#obNote");
+          note.textContent = "Setting up…";
+          try {
+            const r = await P.enable();
+            if (r && r.ok) {
+              note.textContent = "Alerts are on — a test ping lands in ~15 seconds.";
+              setTimeout(close, 2200);
+            } else {
+              note.textContent = (r && r.reason) || "Notifications weren't allowed — you can change that in your browser settings.";
+            }
+          } catch (e) { note.textContent = "Couldn't reach the alert server — try again from Settings later."; }
+        };
+      };
+      try { sheet.focus({ preventScroll: true }); } catch (e) {}
+      sheet.setAttribute("tabindex", "-1");
+      sheet.focus();
+      function finish() { if (!replay) markSeen(); close(); }
+    }
+
+    function maybeShow() {
+      if (FAM) return;   // secondary apps: reachable from Settings, never a first-visit popup
+      if (!storageOK || seen()) return;
+      if (FAVS.list().length) { markSeen(); return; }   // existing users: never nag
+      if (document.querySelector(".sr-overlay,.rc-overlay,.ar-overlay,.in-ov,.ob-ov")) return;
+      // take this session's popup slot so the recap catch-up waits for the
+      // next visit instead of stacking on top of onboarding
+      try { sessionStorage.setItem("cad-rc-session", "1"); } catch (e) {}
+      open(false);
+    }
+    return { maybeShow, open };
+  })();
+  // ---- inline icon set — the nav's stroke style, sized for running text ----
+  const icoSvg = (paths, size = 15) => `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px">${paths}</svg>`;
+  const ICO_TROPHY = '<path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 5H4v2a3 3 0 0 0 3 3"/><path d="M17 5h3v2a3 3 0 0 1-3 3"/>';
+  const ICO_TARGET = '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r=".6"/>';
+  const ICO_TICKET = '<path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6z"/><path d="M13 5v2M13 11v2M13 17v2"/>';
+  const ICO_PHONE = '<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/>';
+  const TARGET_SVG = icoSvg(ICO_TARGET);
   // ---- share: native share sheet, clipboard fallback -----------------------
   const SHARE_SVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>';
   function flashBtn(btn, msg) {
@@ -553,25 +592,13 @@
     const sb = document.getElementById(id);
     if (sb) sb.addEventListener("click", () => shareView(sb, title, location.href));
   }
-  // pinned events: keep the shows you're following at the top of the list
-  const PINS = (() => {
-    let s;
-    try { s = new Set(JSON.parse(localStorage.getItem(NS("cad-pins")) || "[]")); }
-    catch (e) { s = new Set(); }
-    return {
-      has: k => s.has(k),
-      toggle: k => {
-        s.has(k) ? s.delete(k) : s.add(k);
-        localStorage.setItem(NS("cad-pins"), JSON.stringify([...s]));
-      },
-    };
-  })();
+  // stable per-show key — the same event keeps its key across data refreshes
   const pinKeyOf = ev => (ev.date || "") + "|" + (ev.name || "");
 
   // ---- Predictions: call a show's World Class finish before scores post ----
-  // Guesses live in localStorage (survive refresh, close, restart — per device,
-  // like favorites/pins), keyed like pins by date|name. Scored automatically
-  // the moment the show's results land.
+  // Guesses live in localStorage (survive refresh, close, restart — per
+  // device, like favorites), keyed by date|name. Scored automatically the
+  // moment the show's results land.
   const PREDS = (() => {
     let m;
     try { m = JSON.parse(localStorage.getItem(NS("cad-preds")) || "{}"); }
@@ -596,22 +623,8 @@
     if (wc) (wc.results || []).forEach(r => { if (r.score != null) m.set(r.corps, r.score); });
     return m;
   }
-  // exact spot = 3 pts, off by one = 1 pt. Graded only over the corps you
-  // actually called that competed, so a partial pick isn't crushed by the
-  // full-field size (and a scratched corps just doesn't count).
-  function scorePred(predOrder, actual) {
-    const pos = new Map(actual.map((c, i) => [c, i]));
-    let pts = 0, exact = 0, graded = 0;
-    predOrder.forEach((corps, i) => {
-      const ap = pos.get(corps);
-      if (ap == null) return;
-      graded++;
-      const d = Math.abs(ap - i);
-      if (d === 0) { pts += 3; exact++; } else if (d === 1) pts += 1;
-    });
-    const max = graded * 3;
-    return { pts, max, exact, n: graded, pct: max ? Math.round(pts / max * 100) : 0 };
-  }
+  // grading rules live in docs/lib/season-utils.js (pure + unit-tested)
+  const scorePred = window.CadSeasonUtils.scorePred;
   // Render the prediction UI into a mount div: the scored result if the show
   // is in, otherwise the tap-to-rank card (or the locked pick). Self-contained
   // — manages its own re-renders and click handling.
@@ -635,7 +648,7 @@
         + `<td class="pr-you">${corpsLink(corps)}${tick}</td>`
         + `<td class="pr-real">${real ? corpsLink(real) + sv : "—"}</td></tr>`;
     }).join("");
-    return h`<div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Your call: <b>${s.pct}%</b> <span class="kicker">${s.exact}/${s.n} exact · ${s.pts}/${s.max} pts</span></div>
+    return h`<div class="pr-head">${TARGET_SVG} Your call: <b>${s.pct}%</b> <span class="kicker">${s.exact}/${s.n} exact · ${s.pts}/${s.max} pts</span></div>
       <table class="t pr-table"><thead><tr><th class="num">#</th><th>Your pick</th><th>Actual finish</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
 
@@ -654,7 +667,7 @@
     let lineup = (ev.lineup || []).filter(c => wcCorps.has(c));
     if (lineup.length < 2) lineup = (ev.lineup || []).slice();   // early-season fallback
     if (lineup.length < 2) {
-      container.innerHTML = `<div class="predict"><div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Call the finish</div>`
+      container.innerHTML = `<div class="predict"><div class="pr-head">${TARGET_SVG} Call the finish</div>`
         + `<div class="pr-empty">Opens once the lineup is posted.</div></div>`;
       return;
     }
@@ -665,12 +678,12 @@
       const rest = lineup.filter(c => !draft.includes(c));
       if (locked) {
         container.innerHTML = h`<div class="predict">
-          <div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Your call is in <span class="kicker">edit anytime until scores post</span></div>
+          <div class="pr-head">${TARGET_SVG} Your call is in <span class="kicker">edit anytime until scores post</span></div>
           <ol class="pr-list locked">${draft.map(c => `<li>${corpsLink(c)}</li>`).join("")}</ol>
           <div class="pr-actions"><button class="tab" data-act="edit">Edit pick</button></div></div>`;
       } else {
         container.innerHTML = h`<div class="predict">
-          <div class="pr-head"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Call the finish <span class="kicker">tap them in the order you think they'll place</span></div>
+          <div class="pr-head">${TARGET_SVG} Call the finish <span class="kicker">tap them in the order you think they'll place</span></div>
           <ol class="pr-list">${draft.map((c, i) => `<li><button class="pr-pick" data-drop="${i}">${esc(c)}<span class="pr-x">✕</span></button></li>`).join("")
             || '<li class="pr-hint">Tap ' + TERM.a + ' below to start ranking…</li>'}</ol>
           ${rest.length ? `<div class="pr-pool">${rest.map(c => `<button class="pr-chip" data-add="${esc(c)}">${esc(c)}</button>`).join("")}</div>` : ""}
@@ -786,11 +799,8 @@
   }
 
   function setNav(route) {
-    const hashv = location.hash || "#/";
-    const links = [...document.querySelectorAll("#nav a")];
-    const exact = links.find(a => a.dataset.href && hashv.indexOf(a.dataset.href) === 0);
-    links.forEach(a =>
-      a.classList.toggle("active", exact ? a === exact : a.dataset.route === route));
+    document.querySelectorAll("#nav a").forEach(a =>
+      a.classList.toggle("active", a.dataset.route === route));
   }
   // Collapse long tables to the first `n` rows with a Show-all toggle.
   // Safe to call again after a re-render (replaces its own button).
@@ -811,11 +821,11 @@
     btn.onclick = () => {
       open = !open;
       applyRows();
-      btn.textContent = open ? `Show Top ${n} ▴` : `Show All ${rows.length} ${noun} ▾`;
+      btn.textContent = open ? `Show top ${n} ▴` : `Show all ${rows.length} ${noun} ▾`;
       // collapsing from deep in a long table: bring the table top back on screen
       if (!open && host.getBoundingClientRect().top < 0) host.scrollIntoView({ block: "start" });
     };
-    btn.textContent = `Show All ${rows.length} ${noun} ▾`;
+    btn.textContent = `Show all ${rows.length} ${noun} ▾`;
     wrap.appendChild(btn);
     host.insertAdjacentElement("afterend", wrap);
     applyRows();
@@ -823,10 +833,23 @@
 
   const CAP_KEY_NOTE = "<p class='capkey'>GE General Effect · VP Visual Proficiency · VA Visual Analysis · CG Color Guard · BR Brass · MA Music Analysis · PC Percussion</p>";
 
-  // pill sub-tabs inside the Data tab
-  const DATA_SUBS = (FAM && !FAM.captions ? [] : [["captions", "Captions"]]).concat([["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);
-  const dataSubNav = active => `<div class="subtabs">${DATA_SUBS.map(([k, l]) =>
-    `<a href="#/${k}" class="${k === active ? "on" : ""}">${l}</a>`).join("")}</div>`;
+  // underline sub-tabs inside the Data tab (Stats)
+  const DATA_SUBS = (CAPS ? [["captions", "Captions"]] : []).concat([["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);
+  // the strip scrolls horizontally on a narrow screen; once the view's
+  // innerHTML lands, nudge the active view into view so landing on "Database"
+  // (the rightmost tab) never leaves it clipped off the right edge
+  function centerSubtab() {
+    const strip = app.querySelector(".subtabs");
+    const on = strip && strip.querySelector("a.on");
+    if (!strip || !on) return;
+    const sr = strip.getBoundingClientRect(), ar = on.getBoundingClientRect();
+    strip.scrollLeft += (ar.left - sr.left) - (sr.width - ar.width) / 2;
+  }
+  const dataSubNav = active => {
+    requestAnimationFrame(centerSubtab);
+    return `<div class="subtabs">${DATA_SUBS.map(([k, l]) =>
+      `<a href="#/${k}" class="${k === active ? "on" : ""}">${l}</a>`).join("")}</div>`;
+  };
 
   // one-choice slicer with the same look as the checkbox pickers
   function singleSelect(mount, cfg) {
@@ -851,43 +874,37 @@
   });
   const COMBINABLE_SCORE_CLASSES = new Set(FAM ? (FAM.combinable || []) : ["World Class", "Open Class"]);
 
+  /* Each class's standings are built independently, so a corps' row only knows
+     that class's history. Corps routinely cross classes in one season (Open
+     Class corps run World Class prelims at Championships), which left their row
+     reading "—" for vs-prev, a season high equal to that single score, and an
+     empty sparkline. Stitch every class's history for a corps together so the
+     delta, 3-show average, season high and trend describe their ACTUAL season —
+     while the row itself (score, date, event, ranking) stays true to the class
+     being shown. */
+  const stitchSeasonHistory = window.CadSeasonUtils.stitchSeasonHistory;
+
   function combinedStandings(standings, selected) {
-    if (selected.length === 1) return standings[selected[0]];
-    // a corps can compete in more than one selected class (Open Class corps also
-    // run World Class prelims at Championships), so the same name shows up once
-    // per class. Collapse each corps to ONE row — their most recent result — and
-    // stitch the two classes' histories together so "vs prev" and the trend
-    // measure their actual last outing, not "first show in this class".
+    // one row per corps: their most recent result across the selected classes,
+    // so a corps that ran two classes never appears twice
     const groups = new Map();
     selected.forEach(cls => (standings[cls].rows || []).forEach(r => {
       const g = groups.get(r.corps) || [];
       g.push({ ...r, class: cls });
       groups.set(r.corps, g);
     }));
-    const rows = [...groups.values()].map(g => {
-      if (g.length === 1) return g[0];
-      const latest = g.slice().sort((a, b) => (b.date || "").localeCompare(a.date || "")
-        || (b.score ?? -Infinity) - (a.score ?? -Infinity))[0];
-      // merge both classes' [date, score] trends, newest last, one point per date
-      const seen = new Set(), trend = [];
-      g.flatMap(r => r.trend || []).slice()
-        .sort((a, b) => (a[0] || "").localeCompare(b[0] || ""))
-        .forEach(t => { if (!seen.has(t[0])) { seen.add(t[0]); trend.push(t); } });
-      const prev = trend.length > 1 ? trend[trend.length - 2][1] : null;
-      const hi = g.reduce((m, r) => (r.high != null && r.high > (m.high ?? -Infinity)) ? r : m, g[0]);
-      // prev_score must come from the merged trend too, so the Biggest Move
-      // card's "prev → score" line agrees with the delta computed here
-      return { ...latest, trend, prev_score: prev,
-        delta: prev != null ? +(latest.score - prev).toFixed(3) : null,
-        high: hi.high, high_event: hi.high_event, high_date: hi.high_date };
-    }).sort((a, b) => (b.score ?? -Infinity) - (a.score ?? -Infinity) || a.corps.localeCompare(b.corps))
+    const picked = [...groups.values()].map(g => g.length === 1 ? g[0]
+      : g.slice().sort((a, b) => (b.date || "").localeCompare(a.date || "")
+        || (b.score ?? -Infinity) - (a.score ?? -Infinity))[0]);
+    const rows = stitchSeasonHistory(standings, picked)
+      .sort((a, b) => (b.score ?? -Infinity) - (a.score ?? -Infinity) || a.corps.localeCompare(b.corps))
       .map((r, i) => ({ ...r, rank: i + 1 }));
     const movers = rows.filter(r => Number.isFinite(r.delta))
-      .sort((a, b) => b.delta - a.delta || a.rank - b.rank).slice(0, 3);
+      .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta) || a.rank - b.rank).slice(0, 3);
     const battles = rows.slice(1).map((r, i) => {
       const prev = rows[i];
       return { a: prev.corps, b: r.corps, ra: prev.rank, rb: r.rank,
-        sa: prev.score, sb: r.score, gap: Math.abs(prev.score - r.score) };
+        sa: prev.score, sb: r.score, gap: +Math.abs(prev.score - r.score).toFixed(3) };
     }).sort((a, b) => a.gap - b.gap || a.ra - b.ra);
     return { rows, movers, battles };
   }
@@ -1045,8 +1062,250 @@
     };
   }
 
+  /* ===== "Following" strip — the starred corps, pinned atop the Scoreboard.
+     Compact by design: one row per favorite with the facts a fan checks first
+     (rank, latest score and movement, LIVE state, next show when one is
+     verified). Never duplicates the standings table below it. */
+  const ord = n => { const s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); };
+  const followSeen = {
+    read() { try { return JSON.parse(localStorage.getItem("cad-follow-seen") || "{}") || {}; } catch (e) { return {}; } },
+    write(m) { try { localStorage.setItem("cad-follow-seen", JSON.stringify(m)); } catch (e) {} },
+  };
+  async function renderFollowStrip(mount, rk) {
+    if (!mount) return;
+    const favs = FAVS.list();
+    if (!favs.length) {
+      // onboarding was skipped — one quiet, dismissible pointer, never a big card
+      let dismissed = true;
+      try { dismissed = !!localStorage.getItem("cad-follow-hint") || localStorage.getItem("cad-onboard") !== "1"; } catch (e) {}
+      mount.innerHTML = dismissed ? "" : `
+        <div class="folhint">★ Star a corps to pin it here —
+          <button type="button" class="linklike" id="folPick">choose favorites</button>
+          <button type="button" class="folhint-x" aria-label="Dismiss">×</button></div>`;
+      const pick = mount.querySelector("#folPick");
+      if (pick) pick.onclick = () => CadOnboard.open(true);
+      const x = mount.querySelector(".folhint-x");
+      if (x) x.onclick = () => { try { localStorage.setItem("cad-follow-hint", "1"); } catch (e) {} mount.innerHTML = ""; };
+      return;
+    }
+    // latest row per favorite across every class (a corps that moved between
+    // classes keeps its most recent result)
+    const rows = new Map();
+    for (const [cls, block] of Object.entries(rk.standings || {})) {
+      for (const r of block.rows || []) {
+        if (!favs.includes(r.corps)) continue;
+        const prev = rows.get(r.corps);
+        if (!prev || (r.date || "") > (prev.date || "")) rows.set(r.corps, { ...r, cls });
+      }
+    }
+    // next verified appearance, when the upcoming feed has one (off-season:
+    // usually nothing — the line simply doesn't render; never fabricated)
+    let nexts = new Map();
+    try {
+      const up = await data("upcoming.json");
+      const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
+      for (const name of favs) {
+        const ev = (up || []).find(e => (e.date || "") >= today && !e.kind
+          && ((e.lineup || []).includes(name) || e.corps === name));
+        if (ev) nexts.set(name, ev);
+      }
+    } catch (e) {}
+    const seen = followSeen.read();
+    let seeded = false;
+    const cards = favs.map(name => {
+      const r = rows.get(name);
+      if (!r) {
+        return `<a class="fol-card" href="#/corps/${slugOf(name)}">${corpsLogo(name, 30)}
+          <span class="fol-main"><b>${esc(name)}</b>
+          <span class="fol-sub">No ${esc(String(rk.season))} scores yet</span></span></a>`;
+      }
+      const cur = `${r.date}|${r.score}`;
+      let isNew = false;
+      if (seen[name] == null) { seen[name] = cur; seeded = true; }        // first sight: seed silently
+      else if (seen[name] !== cur) isNew = true;
+      const live = LIVE.corpsLive(r.corps);
+      const nx = nexts.get(name);
+      const rankBit = r.rank ? `${ord(r.rank)} · ${esc(r.cls.replace(" Class", ""))}` : esc(r.cls);
+      return `<a class="fol-card" href="#/corps/${slugOf(name)}" data-fol="${esc(name)}" data-cur="${esc(cur)}">
+        ${corpsLogo(name, 30)}
+        <span class="fol-main">
+          <span class="fol-top"><b>${esc(name)}</b>${live ? " " + LIVE_BADGE : ""}${isNew ? ' <span class="fol-new">New score</span>' : ""}<span class="fol-rank">${rankBit}</span></span>
+          <span class="fol-sub">${score3(r.score)}${r.delta != null ? " " + deltaHtml(r.delta) : ""} · ${esc(fmtDate(r.date))} · ${esc(r.event || "")}</span>
+          ${nx ? `<span class="fol-sub fol-next">Next · ${esc(fmtDate(nx.date))} — ${esc(nx.name || "")}</span>` : ""}
+        </span></a>`;
+    });
+    if (seeded) followSeen.write(seen);
+    mount.innerHTML = `<div class="folwrap"><div class="folhead">Following</div>
+      <div class="folgrid">${cards.join("")}</div></div>`;
+    mount.querySelectorAll("[data-fol]").forEach(a => a.addEventListener("click", () => {
+      const m = followSeen.read();
+      m[a.dataset.fol] = a.dataset.cur;
+      followSeen.write(m);
+    }));
+  }
+
+  const daysSinceLastScore = rk => window.CadSeasonUtils.daysSinceLastScore(rk, Date.now());
+
+  /* ===== off-season home module: a truthful next-season countdown.
+     Renders only between seasons, and only once a real future show is in the
+     verified upcoming feed. (The "This Day in DCI History" panel is retired
+     for now — its onthisday index is still built, so it can return later.) */
+  async function renderOffseasonHome(mount, rk) {
+    if (!mount) return;
+    if (daysSinceLastScore(rk) <= 7) { mount.innerHTML = ""; return; }
+    const etNow = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
+    let next = null;
+    try {
+      const up = await data("upcoming.json");
+      next = (up || []).filter(e => !e.kind && (e.date || "") >= etNow)
+        .sort((a, b) => (a.date || "").localeCompare(b.date || ""))[0] || null;
+    } catch (e) {}
+    if (!next) { mount.innerHTML = ""; return; }
+    const days = Math.max(0, Math.ceil((new Date(next.date + "T12:00:00") - Date.now()) / 86400000));
+    const nextLine = `Next season starts <b>${esc(fmtDateY(next.date))}</b> — ${esc(next.name || "")}${days ? ` · in ${days} day${days === 1 ? "" : "s"}` : " · today"}`;
+    mount.innerHTML = `
+      <div class="card offszn">
+        <p class="offnext">${nextLine}</p>
+      </div>`;
+  }
+
+  /* ===== season picker — the year in the Scoreboard heading IS the control.
+     A grid of years beats a 53-item dropdown: every season is one tap, and
+     the reader can see the whole span of the archive at once. */
+  const CHEVRON_SVG = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  // the tappable, gold-underlined season control — reused verbatim by the
+  // Scoreboard heading and the Shows heading so both switch years the same way
+  function yearPickerHtml(year) {
+    return `<span class="yearwrap" id="yearWrap">`
+      + `<button type="button" class="yearpick" aria-haspopup="listbox" aria-expanded="false" title="Change season">${esc(String(year))}${CHEVRON_SVG}</button>`
+      + `<div class="yearpanel" role="listbox" aria-label="Season" hidden></div>`
+      + `</span>`;
+  }
+  function yearHeaderHtml(year) {
+    return `<h1 class="page">${yearPickerHtml(year)} Scoreboard</h1>`;
+  }
+  function wireYearPicker(years, value, onPick) {
+    const wrap = document.getElementById("yearWrap");
+    if (!wrap) return;
+    const btn = wrap.querySelector(".yearpick");
+    const panel = wrap.querySelector(".yearpanel");
+    let open = false, built = false;
+    const onDown = e => {
+      // a route change can swap the whole view out from under an open panel;
+      // drop the listener rather than acting on a detached node
+      if (!wrap.isConnected) { document.removeEventListener("pointerdown", onDown, true); return; }
+      if (!wrap.contains(e.target)) setOpen(false);
+    };
+    function setOpen(v) {
+      // built on first open: the heading keeps a clean text content, and the
+      // common case (never touching the picker) never builds 53 buttons
+      if (v && !built) {
+        // tabindex="-1": the grid is walked with arrows (below), so 53 seasons
+        // never become 53 tab stops between the heading and the board
+        panel.innerHTML = years.map(y =>
+          `<button type="button" role="option" tabindex="-1" class="yearopt${y === value ? " on" : ""}" data-y="${y}" aria-selected="${y === value}">${y}</button>`).join("");
+        built = true;
+      }
+      open = v;
+      panel.hidden = !v;
+      wrap.classList.toggle("open", v);
+      btn.setAttribute("aria-expanded", v ? "true" : "false");
+      if (!v) { document.removeEventListener("pointerdown", onDown, true); return; }
+      document.addEventListener("pointerdown", onDown, true);
+      const cur = panel.querySelector(".yearopt.on") || panel.firstElementChild;
+      if (cur) {
+        // scroll the panel itself — never the page out from under the reader
+        panel.scrollTop = Math.max(0, cur.offsetTop - panel.clientHeight / 2 + cur.offsetHeight / 2);
+        cur.focus({ preventScroll: true });
+      }
+    }
+    btn.onclick = () => setOpen(!open);
+    panel.onclick = e => {
+      const opt = e.target.closest("[data-y]");
+      if (!opt) return;
+      setOpen(false);
+      btn.focus();
+      onPick(+opt.dataset.y);
+    };
+    wrap.addEventListener("keydown", e => {
+      if (e.key === "Escape" && open) { e.stopPropagation(); setOpen(false); btn.focus(); return; }
+      if (!open) return;
+      // Tab closes and hands focus back to the trigger, so the panel can never
+      // trap keyboard users or linger open behind them
+      if (e.key === "Tab") { e.preventDefault(); setOpen(false); btn.focus(); return; }
+      // arrow/Home/End walk the grid — 53 seasons is far too many to Tab through
+      const nav = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 0, ArrowUp: 0, Home: 0, End: 0 };
+      if (!(e.key in nav)) return;
+      const opts = [...panel.querySelectorAll(".yearopt")];
+      const i = opts.indexOf(document.activeElement);
+      if (i < 0) return;
+      const cols = getComputedStyle(panel).gridTemplateColumns.split(/\s+/).filter(Boolean).length || 4;
+      let n = e.key === "Home" ? 0
+        : e.key === "End" ? opts.length - 1
+        : e.key === "ArrowDown" ? i + cols
+        : e.key === "ArrowUp" ? i - cols
+        : i + nav[e.key];
+      if (n < 0 || n >= opts.length || n === i) return;
+      e.preventDefault();
+      const el = opts[n];
+      el.focus({ preventScroll: true });
+      if (el.offsetTop < panel.scrollTop) panel.scrollTop = el.offsetTop - 8;
+      else if (el.offsetTop + el.offsetHeight > panel.scrollTop + panel.clientHeight)
+        panel.scrollTop = el.offsetTop + el.offsetHeight - panel.clientHeight + 8;
+    });
+  }
+
+  /* A season's own archive occasionally holds one stray event months away
+     from the tour — 2007's World Class block, for instance, includes an
+     indoor mini-corps contest in March, 91 days before the first real show.
+     Plotted literally, that lone point stretches the axis across an empty
+     quarter of the year and squashes the actual season into a corner.
+
+     So squeeze any stretch of EMPTY calendar wider than TREND_MAX_GAP down
+     to that width, mapping dates through a piecewise-linear scale. Every
+     point still appears, in date order, and tick labels stay truthful
+     because the chart formats them back through the inverse. Returns null
+     when nothing needs squeezing, which is the normal case. */
+  const TREND_MAX_GAP = 12;   // days of empty axis worth showing at most
+  function compressTrendGaps(series, maxGap) {
+    const gapMax = maxGap || TREND_MAX_GAP;
+    const xs = [...new Set(series.flatMap(s => s.points.map(p => p.x)))].sort((a, b) => a - b);
+    if (xs.length < 2) return null;
+    const segs = [];
+    let v = xs[0], squeezed = false;
+    for (let i = 1; i < xs.length; i++) {
+      const x0 = xs[i - 1], x1 = xs[i], gap = x1 - x0;
+      const w = gap > gapMax ? gapMax : gap;
+      if (gap > gapMax) squeezed = true;
+      segs.push({ x0, x1, v0: v, v1: v + w });
+      v += w;
+    }
+    if (!squeezed) return null;
+    const first = segs[0], last = segs[segs.length - 1];
+    const fwd = x => {
+      if (x <= first.x0) return first.v0 + (x - first.x0);
+      for (const s of segs) if (x <= s.x1) return s.v0 + (x - s.x0) / (s.x1 - s.x0) * (s.v1 - s.v0);
+      return last.v1 + (x - last.x1);
+    };
+    const back = t => {
+      if (t <= first.v0) return first.x0 + (t - first.v0);
+      for (const s of segs) if (t <= s.v1) return s.x0 + (t - s.v0) / (s.v1 - s.v0) * (s.x1 - s.x0);
+      return last.x1 + (t - last.v1);
+    };
+    return {
+      series: series.map(s => ({ ...s, points: s.points.map(p => ({ ...p, x: fwd(p.x) })) })),
+      fwd,
+      xFmt: t => dayLabel(back(t)),
+    };
+  }
+
   /* ============ RANKINGS (home) ============ */
-  async function viewRankings(_m, stale) {
+  // archived boards are pure functions of a season file, and the class filter
+  // re-renders the view — memoise so toggling a class on 1972 (211 events,
+  // 322 corps) doesn't rebuild the whole season each time
+  const archiveBoards = new Map();
+  const archiveClassPick = new Map();   // year -> classes picked, this visit only
+  async function viewRankings(qs, stale) {
     setNav("rankings");
     if (FAM && FAM.board && FAM.board !== "trend" && window.CadBoard) {
       return CadBoard.render({
@@ -1054,45 +1313,95 @@
         helpers: { esc, h, score3, corpsLink, corpsLogo, sortClasses, fmtDate2, FAVS, ensureLogos },
       });
     }
-    const rk = await data("rankings.json");
+    const meta = await data("meta.json");
+    if (stale()) return;
+    const years = (meta.seasons || []).map(s => s.year).filter(y => Number.isFinite(y)).sort((a, b) => b - a);
+    const latest = years[0] || new Date().getUTCFullYear();
+    const asked = +parseHashQuery(qs).y;
+    const year = years.includes(asked) ? asked : latest;
+    // only the newest season is "live" — past seasons are settled history, so
+    // they skip the live-tracking, Following and off-season modules entirely
+    const isCurrent = year === latest;
+    const header = yearHeaderHtml(year);
+    const pickYear = () => wireYearPicker(years, year, y => {
+      location.hash = y === latest ? "#/" : `#/?y=${y}`;
+    });
+
+    let rk;
+    try {
+      // the current season reads the pipeline's own rankings.json; past
+      // seasons are rebuilt from their events file with the identical
+      // algorithm (see CadSeasonUtils.rankingsFromEvents)
+      if (isCurrent) rk = await data("rankings.json");
+      else {
+        if (!archiveBoards.has(year)) {
+          archiveBoards.set(year,
+            window.CadSeasonUtils.rankingsFromEvents(await data(`seasons/${year}.json`), { season: year }));
+        }
+        rk = archiveBoards.get(year);
+      }
+    } catch (e) {
+      if (stale()) return;
+      app.innerHTML = header
+        + `<div class="card"><div class="empty">Couldn't load the ${esc(String(year))} season right now.<br>Pick another season above, or try again in a minute.</div></div>`;
+      pickYear();
+      return;
+    }
     if (stale()) return;
     await ensureLogos();
     if (stale()) return;
-    await LIVE.refresh().catch(() => {});
-    if (stale()) return;
-    const classes = sortClasses(Object.keys(rk.standings || {}));
+    if (isCurrent) { await LIVE.refresh().catch(() => {}); if (stale()) return; }
+    // an archived board keeps every class in `standings` so season-stitching
+    // sees a corps' whole year, but only offers the rankable ones as boards
+    const classes = sortClasses((rk.listClasses || Object.keys(rk.standings || {})).slice());
     if (!classes.length) {
-      app.innerHTML = `<div class="card"><div class="empty">No scores yet for ${rk.season} — check back after the first show.</div></div>`;
+      app.innerHTML = header + `<div class="card"><div class="empty">${isCurrent
+        ? `No scores yet for ${esc(String(year))} — check back after the first show.`
+        : `No scores on file for ${esc(String(year))}.`}</div></div>`;
+      pickYear();
       return;
     }
     const defaults = classes.includes("World Class") ? ["World Class"] : [classes[0]];
+    // The current season's class choice is remembered on the device. An
+    // archived season's is remembered only for this visit: its class names
+    // ("Class B", "All-Girl") are meaningless to the live board and must
+    // never overwrite the saved preference — but the choice still has to
+    // survive the re-render the picker triggers, hence the in-memory map.
     let saved = [];
     try {
-      const parsed = JSON.parse(localStorage.getItem(NS("dt-classes")) || "[]");
-      if (Array.isArray(parsed)) saved = parsed.filter(c => classes.includes(c));
+      const src = isCurrent
+        ? JSON.parse(localStorage.getItem(NS("dt-classes")) || "[]")
+        : archiveClassPick.get(year);
+      if (Array.isArray(src)) saved = src.filter(c => classes.includes(c));
     } catch (e) {}
     let selected = sortClasses([...(saved.length ? new Set(saved) : new Set(defaults.length ? defaults : [classes[0]]))]);
     const savedExclusive = selected.find(c => !COMBINABLE_SCORE_CLASSES.has(c));
     if (savedExclusive) selected = [savedExclusive];
     const selectedSet = new Set(selected);
     app.innerHTML = h`
-      <h1 class="page">${esc(String(rk.season))} Scoreboard</h1>${FAM && FAM.scoreNote ? `<p class="kicker" style="margin:-6px 2px 12px">${esc(FAM.scoreNote)}</p>` : ""}
+      ${header}
+      ${isCurrent ? '<div id="followMount"></div>' : ""}
       <div class="filters"><div id="clsSel"></div></div>
-      <div class="card">
-        <h2 id="trendTitle">Season Progression <span class="sub" id="trendSub">score by date · top 12</span></h2>
-        <div class="filters" style="margin:2px 0 8px"><div id="trendCorpsSel"></div><button class="tab" id="trendReset" hidden>Top 12</button><button class="tab" id="trendShare" title="Share this progression as an image">${SHARE_SVG} Share</button></div>
-        <div class="chartwrap" id="trendChart"></div>
-      </div>
-      <div class="grid cols-2" style="margin-top:14px">
-        <div class="card">
+      <div class="rk-grid">
+        <div class="card rk-trend">
+          <h2 id="trendTitle">Season Progression <span class="sub" id="trendSub">score by date · top 12</span></h2>
+          <div class="filters" style="margin:2px 0 8px"><div id="trendCorpsSel"></div><button class="tab" id="trendReset" hidden>Top 12</button><button class="tab" id="trendShare" title="Share this progression as an image">${SHARE_SVG} Share</button></div>
+          <div class="chartwrap" id="trendChart"></div>
+        </div>
+        <div class="card rk-stand">
           <h2 id="standTitle"></h2>
           <div id="standings"></div>
         </div>
-        <div style="display:grid;gap:14px;align-content:start">
-          <div class="card" id="moveCard"></div>
-          <div class="card" id="battleCard"></div>
-        </div>
-      </div>`;
+        <div class="card rk-move" id="moveCard"></div>
+        <div class="card rk-battle" id="battleCard"></div>
+      </div>
+      ${isCurrent ? '<div id="offSznMount"></div>' : ""}`;
+
+    pickYear();
+    if (isCurrent) {
+      renderFollowStrip(document.getElementById("followMount"), rk); // async, never blocks the board
+      renderOffseasonHome(document.getElementById("offSznMount"), rk);
+    }
 
     const previousSelection = new Set(selected);
     multiSelect(document.getElementById("clsSel"), {
@@ -1111,8 +1420,10 @@
           [...selectedSet].filter(c => !COMBINABLE_SCORE_CLASSES.has(c)).forEach(c => selectedSet.delete(c));
         }
         if (!selectedSet.size) previousSelection.forEach(c => selectedSet.add(c));
-        localStorage.setItem(NS("dt-classes"), JSON.stringify(sortClasses([...selectedSet])));
-        viewRankings(null, stale);
+        const picked = sortClasses([...selectedSet]);
+        if (isCurrent) localStorage.setItem(NS("dt-classes"), JSON.stringify(picked));
+        else archiveClassPick.set(year, picked);   // this visit only
+        viewRankings(qs, stale);   // re-render, staying on the season being viewed
       },
     });
 
@@ -1132,11 +1443,13 @@
       document.getElementById("trendSub").textContent =
         isDefaultPick() ? "score by date · top 12" : `score by date · ${rows.length} selected`;
       document.getElementById("trendReset").hidden = isDefaultPick();
+      const raw = rows.map(r => ({ name: r.corps, color: corpsColor(r.corps),
+        points: r.trend.map(t => ({ x: dayOfSeason(t[0]), y: t[1] })) }));
+      const squeeze = compressTrendGaps(raw);
       lineChart(el, {
         linearX: true,
-        series: rows.map(r => ({ name: r.corps, color: corpsColor(r.corps),
-          points: r.trend.map(t => ({ x: dayOfSeason(t[0]), y: t[1] })) })),
-        height: 340, xFmt: dayLabel, yFmt: v => v.toFixed(1),
+        series: squeeze ? squeeze.series : raw,
+        height: 340, xFmt: squeeze ? squeeze.xFmt : dayLabel, yFmt: v => v.toFixed(1),
       });
     }
     const msTrend = multiSelect(document.getElementById("trendCorpsSel"), {
@@ -1159,31 +1472,45 @@
       if (!window.CadWrapped || !window.CadWrapped.standingsCard) return;
       // share exactly what's charted right now (the selected corps, in rank order)
       const picked = block.rows.filter(r => trendPick.has(r.corps));
-      const rows = (picked.length ? picked : block.rows).map(r => ({
+      const src = picked.length ? picked : block.rows;
+      // same axis squeeze as the on-screen chart, so a shared card of a
+      // season with a stray off-tour date isn't crammed into a corner either
+      const squeeze = compressTrendGaps(src.map(r => ({
+        points: (r.trend || []).filter(t => t[1] != null).map(t => ({ x: dayOfSeason(t[0]), y: t[1] })) })));
+      const mapX = squeeze ? squeeze.fwd : (x => x);
+      const rows = src.map(r => ({
         corps: r.corps, color: corpsColor(r.corps), rank: r.rank, last: r.score,
-        trend: (r.trend || []).filter(t => t[1] != null).map(t => [dayOfSeason(t[0]), t[1]]),
+        trend: (r.trend || []).filter(t => t[1] != null).map(t => [mapX(dayOfSeason(t[0])), t[1]]),
       }));
       window.CadWrapped.standingsCard({ year: rk.season, cls: classLabel, rows });
     };
     drawTrend();
 
+    const seasonOver = daysSinceLastScore(rk) > 7;
+
     function renderStandings() {
       // keep true ranking order — favorites are starred/highlighted in place,
       // not pulled to the top
       const sorted = block.rows.slice().sort((a, b) => a.rank - b.rank);
+      // "final scores" implied a championship result, but this board ranks each
+      // corps' LAST score — and a handful of archived seasons end with corps at
+      // different late-season shows, so the top row isn't always the champion
       document.getElementById("standTitle").innerHTML =
-        `${esc(classLabel)} Standings <span class="sub">each ${TERM.singular}'s most recent score · your favorites are starred</span>`;
+        `${esc(classLabel)} Standings <span class="sub">${seasonOver
+          ? `each corps' last score of the ${rk.season} season · your favorites are starred`
+          : "each ${TERM.singular}'s most recent score · your favorites are starred"}</span>`;
       document.getElementById("standings").innerHTML = `
-        <table class="t standings"><thead><tr><th>#</th><th>Corps · last event</th><th class="num">Score</th><th class="num col-high">3-show avg</th><th class="num col-high">Season high</th><th class="num">vs prev</th><th class="col-trend">Trend</th></tr></thead><tbody>
+        <div class="tscroll"><table class="t standings"><thead><tr><th>#</th><th>Corps · last event</th><th class="num">Score</th><th class="num col-high">3-show avg</th><th class="num col-high">Season high</th><th class="num">vs prev</th><th class="col-trend">Trend</th></tr></thead><tbody>
         ${sorted.map(r => h`<tr${FAVS.has(r.corps) ? ' class="favrow"' : ""}>
           <td class="rank">${r.rank}</td>
-          <td><span class="corpscell">${corpsLogo(r.corps, 26)}<span class="corpscell-body"><span class="corpscell-name">${corpsLink(r.corps)}${LIVE.corpsLive(r.corps) ? LIVE_BADGE : ""}${showClassTags ? `<span class="classbadge ${r.class === "Open Class" ? "open" : "world"}" title="${esc(r.class)}">${r.class === "Open Class" ? "Open" : "World"}</span>` : ""}</span><div class="lastev">${esc(fmtDateY(r.date))} · ${esc(r.event)}</div></span></span></td>
+          <td><span class="corpscell">${corpsLogo(r.corps, 26)}<span class="corpscell-body"><span class="corpscell-name">${corpsLink(r.corps)}${isCurrent && LIVE.corpsLive(r.corps) ? LIVE_BADGE : ""}${showClassTags ? `<span class="classbadge ${r.class === "Open Class" ? "open" : "world"}" title="${esc(r.class)}">${r.class === "Open Class" ? "Open" : "World"}</span>` : ""}</span><div class="lastev">${esc(fmtDateY(r.date))} · ${esc(r.event)}</div></span></span></td>
           <td class="num score">${score3(r.score)}</td>
-          <td class="num col-high" data-tip="Average of the last ${Math.min(3, r.trend.length)} shows — smooths out one judging panel">${score3(r.trend.slice(-3).reduce((a, t) => a + t[1], 0) / Math.min(3, r.trend.length))}</td>
+          <td class="num col-high" data-tip="${r.trend.length === 1 ? "Their only scored show this season"
+            : `Average of the last ${Math.min(3, r.trend.length)} shows — smooths out one judging panel`}">${score3(r.trend.slice(-3).reduce((a, t) => a + t[1], 0) / Math.min(3, r.trend.length))}</td>
           <td class="num col-high" data-tip="${esc(`${score3(r.high)} — ${r.high_event || ""} · ${fmtDateY(r.high_date) || ""}`)}">${score3(r.high)}</td>
           <td class="num">${deltaHtml(r.delta)}</td>
           <td class="col-trend"><span class="sparkcell" data-trend="${r.trend.map(t => t[1]).join(",")}"></span></td>
-        </tr>`).join("")}</tbody></table>`;
+        </tr>`).join("")}</tbody></table></div>`;
       document.querySelectorAll(".sparkcell").forEach(elm => {
         sparkline(elm, elm.dataset.trend.split(",").map(Number).filter(n => !isNaN(n)), "#97a2b3");
       });
@@ -1193,7 +1520,7 @@
 
     const jump = block.movers && block.movers[0];
     document.getElementById("moveCard").innerHTML = jump ? h`
-      <h2>Biggest Move <span class="sub">latest show vs previous</span></h2>
+      <h2>Biggest Move <span class="sub">${seasonOver ? "last show vs previous" : "latest show vs previous"}</span></h2>
       <div style="font-size:20px;font-weight:650">${corpsLink(jump.corps)}</div>
       <div style="color:var(--text-secondary)">${score3(jump.prev_score)} → <b>${score3(jump.score)}</b> ${deltaHtml(jump.delta)}</div>
       ${block.movers.slice(1).map(m => `<div style="font-size:13px;margin-top:6px">${corpsLink(m.corps)} ${deltaHtml(m.delta)}</div>`).join("")}
@@ -1308,7 +1635,6 @@
           <div id="fClass"></div>
           <div id="corpsSel"></div>
           <div id="yearSel"></div>
-          ${resultsKind() === "rating" ? '<div id="cmpKind"></div>' : ""}
           <button class="tab" id="clearSel" title="Reset selection">Clear</button>
         </div>
         <div id="cmpNotice"></div>
@@ -1321,7 +1647,8 @@
     const yearSet = new Set(yearsSel.map(String));
     const corpsOptions = () => idx.filter(classMatch)
       .sort((a, b) => b.last - a.last || a.name.localeCompare(b.name))
-      .map(c => ({ value: c.slug, label: c.name, hint: c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));
+      .map(c => ({ value: c.slug, label: c.name,
+        hint: c.first == null ? "" : c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));
     const msCorps = multiSelect(document.getElementById("corpsSel"), {
       label: "Add " + TERM.plural + " — pick as many as you like…", searchable: true,
       labelFor: v => (bySlug.get(v) || { name: v }).name,
@@ -1349,19 +1676,6 @@
       selected: yearSet,
       onChange: v => { yearsSel = v.map(Number).sort((a, b) => b - a); persist(); draw(); },
     });
-    // A ratings circuit publishes two scales in the same season — Division
-    // ratings (1–5) at region contests, ordinal State placements (which
-    // normKind rides at 1000+) at the championships. On one axis they made
-    // the chart unreadable and Gain print "+1030.00", so each scale gets its
-    // own view and the notice below says how much is on the other one.
-    const twoScales = resultsKind() === "rating";
-    let scaleSel = "rating";
-    if (twoScales) singleSelect(document.getElementById("cmpKind"), {
-      label: "Results",
-      options: [{ value: "rating", label: "Division ratings" }, { value: "placement", label: "State placements" }],
-      value: scaleSel,
-      onChange: v => { scaleSel = v || "rating"; draw(); },
-    });
     document.getElementById("clearSel").onclick = () => {
       corpsSet.clear(); yearSet.clear();
       corpsSel = [];
@@ -1384,7 +1698,7 @@
       noticeEl.innerHTML = "";
       if (!corpsSel.length || !yearsSel.length) {
         chartEl.innerHTML = `<div class='empty' style="padding:52px 16px">
-          <div aria-hidden="true" style="color:var(--baseline)"><svg viewBox='0 0 24 24' width='34' height='34' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M5 20V12M12 20V5M19 20v-6M3 20h18'/></svg></div>
+          <div style="line-height:0;color:var(--muted)" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
           <div style="font-weight:650;color:var(--text-primary);margin:8px 0 4px">Pick ${TERM.plural} to compare — this season is already selected</div>
           Select as many ${TERM.plural} as you like — each ${TERM.singular}-season draws its own line,<br>
           and its row below expands into the full show-by-show log.</div>`;
@@ -1399,7 +1713,7 @@
       if (gen !== drawGen || stale()) return; // selection changed or view left while loading
       const multiCorps = corps.length > 1, multiYears = years.length > 1;
       const series = [], summary = [];
-      let combos = 0, truncated = false, offScale = 0;
+      let combos = 0, truncated = false;
       for (let ci = 0; ci < corps.length; ci++) {
         const name = bySlug.get(corps[ci]).name;
         for (let yi = 0; yi < years.length; yi++) {
@@ -1407,17 +1721,11 @@
           const evs = seasons[yi];
           if (!evs) continue;
           const pts = [];
-          // results this band-season has on the OTHER scale, counted per row:
-          // the expansion below only lists what is charted, so each row has to
-          // say what it is leaving out rather than leaning on a global notice
-          let rowOff = 0;
           for (const ev of evs) {
             if (!ev.date) continue;
             for (const c of ev.classes || []) {
               for (const r of c.results || []) {
-                if (!(r.corps === name && r.score)) continue;
-                if (twoScales && (isPlaced(r.score) ? "placement" : "rating") !== scaleSel) { offScale++; rowOff++; continue; }
-                pts.push({ x: dayOfSeason(ev.date), y: r.score, ev: ev.name, d: ev.date });
+                if (r.corps === name && r.score) pts.push({ x: dayOfSeason(ev.date), y: r.score, ev: ev.name, d: ev.date });
               }
             }
           }
@@ -1433,18 +1741,14 @@
             dash: multiCorps && multiYears ? YEAR_DASHES[years[yi] % YEAR_DASHES.length] : "",
           });
           const scores = pts.map(p => p.y);
-          const hiPt = pts.reduce((m, p) => (lowerIsBetter() ? p.y < m.y : p.y > m.y) ? p : m, pts[0]);
+          const hiPt = pts.reduce((m, p) => p.y > m.y ? p : m, pts[0]);
           const tipOf = p => `${score3(p.y)} — ${p.ev} · ${fmtDateY(p.d)}`;
-          // where 1 beats 5, an improvement is a DROP — the column keeps
-          // meaning "how much better did they get", and divisions are whole
-          const drift = scores[scores.length - 1] - scores[0];
           summary.push({
             corps: name, year: years[yi], shows: pts.length, list: pts,
             first: scores[0], latest: scores[scores.length - 1],
             high: hiPt.y,
             firstTip: tipOf(pts[0]), latestTip: tipOf(pts[pts.length - 1]), highTip: tipOf(hiPt),
-            gain: (lowerIsBetter() ? -drift : drift).toFixed(lowerIsBetter() ? 0 : 2),
-            off: rowOff,
+            gain: (scores[scores.length - 1] - scores[0]).toFixed(2),
           });
         }
         if (truncated) break;
@@ -1452,37 +1756,21 @@
       if (truncated) {
         noticeEl.innerHTML = `<div class="notice" style="margin-bottom:10px">Showing the first ${MAX_SERIES} ${TERM.singular}-season lines — trim the selection for a cleaner read.</div>`;
       }
-      if (twoScales && offScale) {
-        const other = scaleSel === "rating" ? "State placement" : "region rating";
-        noticeEl.innerHTML += `<div class="notice" style="margin-bottom:10px">${offScale} ${other} result${offScale > 1 ? "s" : ""} in this selection sit on the other scale — switch <b>Results</b> to chart them.</div>`;
-      }
       if (!series.length) {
-        chartEl.innerHTML = twoScales && offScale
-          ? `<div class='empty'>Nothing on this scale for the selection — every result here is ${scaleSel === "rating" ? "a State placement" : "a region rating"}. Switch <b>Results</b> above.</div>`
-          : "<div class='empty'>No scored shows for this selection — try other seasons.</div>";
+        chartEl.innerHTML = "<div class='empty'>No scored shows for this selection — try other seasons.</div>";
         tableEl.innerHTML = "";
         return;
       }
-      scoreChart(chartEl, { linearX: true, series, height: 360, xFmt: dayLabel,
-        yFmt: v => v.toFixed(1) });
-      summary.sort((a, b) => b.year - a.year
-        || (lowerIsBetter() ? (a.latest || 0) - (b.latest || 0) : (b.latest || 0) - (a.latest || 0)));
-      // Each row expands into the shows behind it. On a ratings circuit the
-      // chart — and therefore the expansion — holds one scale at a time, so
-      // the promise names the scale instead of claiming "every show", and a
-      // row with results on the other scale says so in its own detail table.
-      const scaleName = k => k === "rating" ? "region rating" : "State placement";
-      const otherName = scaleName(scaleSel === "rating" ? "placement" : "rating");
-      const rowTitle = twoScales
-        ? `Tap for every ${scaleName(scaleSel)} that season`
-        : "Tap for every show that season";
+      lineChart(chartEl, { linearX: true, series, height: 360, xFmt: dayLabel, yFmt: v => v.toFixed(1) });
+      summary.sort((a, b) => b.year - a.year || (b.latest || 0) - (a.latest || 0));
+      // each corps-season row expands into its full show-by-show log
       tableEl.innerHTML = `
-        <div class="tscroll"><table class="t"><thead><tr><th style="width:26px"></th><th>${TERM_TH}</th><th class="num">Season</th><th class="num m-hide">First</th><th class="num">Latest / Final</th><th class="num m-hide">${lowerIsBetter() ? "Best" : "High"}</th><th class="num">${lowerIsBetter() ? "Improved" : "Gain"}</th></tr></thead><tbody id="cmpRows">
-        ${summary.map((s, si) => h`<tr class="rowlink cmpsum" data-si="${si}" title="${esc(rowTitle)}">
+        <div class="tscroll"><table class="t"><thead><tr><th style="width:26px"></th><th>${TERM_TH}</th><th class="num">Season</th><th class="num m-hide">First</th><th class="num">Latest / Final</th><th class="num m-hide">High</th><th class="num">Gain</th></tr></thead><tbody id="cmpRows">
+        ${summary.map((s, si) => h`<tr class="rowlink cmpsum" data-si="${si}" title="Tap for every show that season">
           <td class="cmpcaret" style="color:var(--muted)">▸</td>
           <td>${corpsLink(s.corps)}</td><td class="num">${s.year}</td><td class="num m-hide" data-tip="${esc(s.firstTip)}">${score3(s.first)}</td><td class="num score" data-tip="${esc(s.latestTip)}">${score3(s.latest)}</td><td class="num m-hide" data-tip="${esc(s.highTip)}">${score3(s.high)}</td><td class="num">${s.gain > 0 ? "+" : ""}${s.gain}</td></tr>
         <tr class="cmpdet hid"><td></td><td colspan="6" style="padding:0 8px 12px">
-          <table class="t" style="font-size:13px">${s.list.map(p => `<tr><td style="color:var(--muted);white-space:nowrap;width:70px">${fmtDate(p.d)}</td><td>${esc(p.ev)}</td><td class="num score">${score3(p.y)}</td></tr>`).join("")}${s.off ? `<tr><td colspan="3" class="kicker" style="padding-top:6px">+ ${s.off} ${otherName}${s.off > 1 ? "s" : ""} this season — switch <b>Results</b> above to list ${s.off > 1 ? "them" : "it"}.</td></tr>` : ""}</table>
+          <table class="t" style="font-size:13px">${s.list.map(p => `<tr><td style="color:var(--muted);white-space:nowrap;width:70px">${fmtDate(p.d)}</td><td>${esc(p.ev)}</td><td class="num score">${score3(p.y)}</td></tr>`).join("")}</table>
         </td></tr>`).join("")}
         </tbody></table></div>`;
       tableEl.querySelectorAll("tr.cmpsum").forEach(tr => tr.onclick = e => {
@@ -1533,7 +1821,8 @@
     const corpsOpts = () => idx
       .filter(c => !clsFilter || corpsClass(c) === clsFilter)
       .sort((a, b) => b.last - a.last || a.name.localeCompare(b.name))
-      .map(c => ({ value: c.slug, label: c.name, hint: c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));
+      .map(c => ({ value: c.slug, label: c.name,
+        hint: c.first == null ? "" : c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));
     const pickSet = new Set(current ? [current] : []);
     const msPick = multiSelect(document.getElementById("cpCorps"), {
       label: "Pick " + TERM.a + "…", searchable: true, single: true,
@@ -1566,7 +1855,7 @@
     else {
       const favs = FAVS.list().filter(n => bySlug.has(slugOf(n)));
       document.getElementById("corpsDetail").innerHTML = h`<div class="card" style="text-align:center;padding:44px 20px">
-        <div aria-hidden="true" style="color:var(--baseline)"><svg viewBox='0 0 24 24' width='38' height='38' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg></div>
+        <div style="font-size:34px" aria-hidden="true">🥁</div>
         <h2 style="margin:10px 0 6px">Pick ${TERM.a}</h2>
         <div style="color:var(--muted);font-size:14px;max-width:44ch;margin:0 auto">Choose any ${TERM.singular} above to see season charts, the full performance log, and championship titles${FAM ? "" : " — back to 1972"}.</div>
         ${favs.length ? `<div style="margin-top:14px;font-size:15px">${favs.map(n => corpsLink(n)).join(" · ")}</div>` : ""}
@@ -1600,43 +1889,21 @@
     const byYear = new Map();
     perfs.forEach(p => { (byYear.get(p.y) || byYear.set(p.y, []).get(p.y)).push(p); });
     const years = [...byYear.keys()].sort();
-    const bestByYear = years.map(y => bestOf(byYear.get(y).map(p => p.s).filter(v => v != null)));
+    const bestByYear = years.map(y => Math.max(0, ...byYear.get(y).map(p => p.s || 0)) || null);
     const scored = perfs.filter(p => p.s);
     // show-over-show score change within each season — the first scored show of
     // a season is the baseline (0.0), every later show is measured vs the one
     // before it (same idea as the scoreboard's "vs prev" column). Keyed by the
     // perf object so the log can look each one up.
-    // In a ratings circuit the two scales never subtract: a State placement
-    // minus a region rating is a meaningless ±1000, and a rating that rose is
-    // a rating that got worse, so the sign flips to keep ▲ meaning "better".
     const deltaByPerf = new Map();
     byYear.forEach(ps => {
       const ordered = ps.filter(p => p.s != null).slice()
         .sort((a, b) => (a.d || "").localeCompare(b.d || ""));
-      ordered.forEach((p, i) => {
-        if (i === 0) { deltaByPerf.set(p, 0); return; }
-        const prev = ordered[i - 1];
-        if (isPlaced(p.s) !== isPlaced(prev.s)) return;   // never subtract across scales
-        deltaByPerf.set(p, +(lowerIsBetter() ? prev.s - p.s : p.s - prev.s).toFixed(3));
-      });
+      ordered.forEach((p, i) => deltaByPerf.set(p, i === 0 ? 0 : +(p.s - ordered[i - 1].s).toFixed(3)));
     });
     const cmpYears = years.slice(-3).reverse().join(",");
 
-    const bestPerf = scored.length
-      ? scored.reduce((m, p) => (lowerIsBetter() ? p.s < m.s : p.s > m.s) ? p : m, scored[0])
-      : null;
-    // A ratings circuit publishes two scales in one season — Division ratings
-    // at region contests, State placements (riding at 1000+) at the champs.
-    // The line charts plot the rating scale only; the log below still lists
-    // every State row, and score3 spells both out in their own notation.
-    const chartPts = ps => ps.filter(p => p.s && p.d && !isPlaced(p.s));
-    // point scores only — scoreChart hands an ordinal circuit to ratingChart,
-    // which labels its axis from the scale itself instead of a tick formatter
-    const chartYFmt = v => v.toFixed(1);
-    const scoreNoun = resultsKind() === "rating" ? "rating"
-      : resultsKind() === "placement" ? "placement" : "score";
-    const bestNoun = scoreNoun === "rating" ? "Best Rating"
-      : scoreNoun === "placement" ? "Best Placement" : "Top Score";
+    const bestPerf = scored.length ? scored.reduce((m, p) => p.s > m.s ? p : m, scored[0]) : null;
     // the plain page title is replaced by the "wrapped"-style hero below
     const pt = document.getElementById("corpsPageTitle");
     if (pt) pt.hidden = true;
@@ -1656,19 +1923,15 @@
       const s = ["th", "st", "nd", "rd"], v = n % 100;
       return n + (s[(v - 20) % 10] || s[v] || s[0]);
     };
-    // season stats for the focus year — the same four the share card shows.
-    // A ratings circuit averages ratings only: a State placement riding at
-    // 1000+ would swamp the mean, and "gained" is a drop in rating there.
+    // season stats for the focus year — the same four the share card shows
     function seasonAgg(yr) {
-      const all = (byYear.get(yr) || []).filter(p => p.s != null)
+      const ps = (byYear.get(yr) || []).filter(p => p.s != null)
         .slice().sort((a, b) => (a.d || "").localeCompare(b.d || ""));
-      const ps = resultsKind() === "rating" ? all.filter(p => !isPlaced(p.s)) : all;
       if (!ps.length) return null;
       const sc = ps.map(p => p.s);
-      const drift = sc[sc.length - 1] - sc[0];
       return {
-        high: bestOf(sc), avg: sc.reduce((a, b) => a + b, 0) / sc.length,
-        gained: +(lowerIsBetter() ? -drift : drift).toFixed(3), shows: ps.length,
+        high: Math.max(...sc), avg: sc.reduce((a, b) => a + b, 0) / sc.length,
+        gained: +(sc[sc.length - 1] - sc[0]).toFixed(3), shows: ps.length,
       };
     }
     const heroHtml = h`
@@ -1676,7 +1939,7 @@
         <div class="corpshero-top">
           ${corpsLogo(detail.name, 74, prof && prof.img)}
           <div class="corpshero-id">
-            <div class="corpshero-kicker">${esc(primaryCls || "Drum Corps")}${titles.length ? ` · ${titles.length} title${titles.length > 1 ? "s" : ""}` : ""}</div>
+            <div class="corpshero-kicker">${esc(primaryCls || (titles.length ? titles.slice().sort()[titles.length - 1].replace(/^\d{4}\s+/, "") : "") || (FAM ? cap1(TERM.plural) : "Drum Corps"))}${titles.length ? ` · ${titles.length} title${titles.length > 1 ? "s" : ""}` : ""}</div>
             <div class="corpshero-name">${esc(detail.name)}${LIVE.corpsLive(detail.name) ? " " + LIVE_BADGE : ""}</div>
             <div class="corpshero-sub" id="heroSub"></div>
           </div>
@@ -1684,13 +1947,14 @@
         <div class="corpshero-stats" id="heroStats"></div>
         <div class="corpshero-actions">
           <button id="corpFav" class="ch-btn${FAVS.has(detail.name) ? " on" : ""}">${favLabel()}</button>
-          ${resultsKind() ? "" : `<button id="corpCard" class="ch-btn" title="Share this ${TERM.singular}'s season card">${SHARE_SVG} Share</button>`}
+          ${years.length ? `<button id="corpCard" class="ch-btn" title="Share this ${TERM.singular}'s season card">${SHARE_SVG} Share</button>` : ""}
         </div>
       </div>`;
     // profile card: who this corps is, straight from Wikipedia
     const factRow = (label, v) => v ? `<span><b>${label}</b> ${esc(v)}</span>` : "";
     const site = prof && prof.website ? (/^https?:/i.test(prof.website) ? prof.website : "https://" + prof.website) : null;
-    const profHtml = prof ? h`
+    const profHtml = (prof && (prof.summary || prof.founded || prof.location
+      || prof.division || prof.director || prof.website || prof.wiki)) ? h`
       <div class="card profcard" style="margin-bottom:14px">
         ${prof.img ? `<img src="${esc(prof.img)}" alt="${esc(detail.name)} logo" loading="lazy" onerror="this.hidden=true">` : ""}
         <div style="min-width:0">
@@ -1709,34 +1973,27 @@
 
     mount().innerHTML = h`
       ${heroHtml}
-      <div class="filters"><div id="yearSel2"></div></div>
-      <div class="card"><h2 id="corpsChartTitle"></h2><div class="chartwrap" id="corpsChart"></div></div>
-      <div class="card" style="margin-top:14px"><h2 id="perfTitle">Performance Log</h2>
+      <div class="filters corps-filters"><div id="yearSel2"></div></div>
+      <div class="card corps-chart"><h2 id="corpsChartTitle"></h2><div class="chartwrap" id="corpsChart"></div></div>
+      <div class="card corps-perf" style="margin-top:14px"><h2 id="perfTitle">Performance Log</h2>
         <div id="perfTable"></div></div>
-      <div class="grid cols-tiles" style="margin-top:14px">
+      <div class="card corps-champs" style="margin-top:14px"><h2>Championships <span class="sub">each year's last score & championship finish</span></h2>
+        <div id="corpChampTable"></div></div>
+      <div class="grid cols-tiles corps-tiles" style="margin-top:14px">
         <div class="tile click" id="tilePerfs" role="button" title="Open the full performance log">
           <div class="label">Performances</div><div class="value">${perfs.length}</div>
           <div class="sub">${years.length} seasons · see every show →</div></div>
         <div class="tile click" id="tileBest" role="button" title="Jump to that season">
-          <div class="label">${lowerIsBetter() ? "Best " + scoreNoun : "Best score"}</div><div class="value">${bestPerf ? score3(bestPerf.s) : "—"}</div>
+          <div class="label">Best score</div><div class="value">${bestPerf ? score3(bestPerf.s) : "—"}</div>
           <div class="sub">${bestPerf ? esc(`${bestPerf.ev || ""} · ${bestPerf.y}`) + " →" : ""}</div></div>
         <div class="tile click" id="tileTitles" role="button" title="The full record book">
           <div class="label">Titles</div><div class="value">${titles.length}</div>
           <div class="sub">${esc(titles.length <= 6 ? titles.join(" · ") || "—" : titles.slice(-3).join(" · ") + ` · +${titles.length - 3} more`)} →</div></div>
-        ${hasCaptions() ? `<a class="tile click" href="#/captions?corps=${encodeURIComponent(detail.name)}">
+        ${!CAPS ? "" : `<a class="tile click" href="#/captions?corps=${encodeURIComponent(detail.name)}">
           <div class="label">Caption Scores</div><div class="value">GE · VIS · MUS</div>
-          <div class="sub">judge-by-judge breakdowns →</div></a>` : ""}
+          <div class="sub">judge-by-judge breakdowns →</div></a>`}
       </div>
-      ${profHtml ? `<div style="margin-top:14px">${profHtml}</div>` : ""}
-      <p class="claimline">Represent ${esc(detail.name)}?
-        <a href="${window.CadEnsembles ? CadEnsembles.claimUrl(CadEnsembles.appKey(), detail.name) : ((window.APP_CFG && window.APP_CFG.root) || ".") + "/pro.html"}">Claim this profile →</a></p>`;
-    // official content published by the ensemble itself (Ensemble Pro)
-    if (window.CadEnsembles) {
-      const om = document.createElement("div");
-      om.style.marginTop = "14px";
-      mount().appendChild(om);
-      CadEnsembles.mountOfficial(om, CadEnsembles.appKey(), detail.name);
-    }
+      ${profHtml ? `<div class="corps-prof" style="margin-top:14px">${profHtml}</div>` : ""}`;
 
     // hero action buttons — favorite (in-place rank), share, and season card
     const fb = document.getElementById("corpFav");
@@ -1745,11 +2002,6 @@
       fb.classList.toggle("on", FAVS.has(detail.name));
       fb.textContent = favLabel();
     };
-    // No Share button on a ratings/placement circuit: the season card is built
-    // from point scores (season high, average, points gained, a score
-    // sparkline) that UIL simply does not publish, so CadWrapped.seasonCard
-    // found nothing and the button did nothing. Better no button than a dead
-    // one — the log and the charts above carry the season instead.
     const cardBtn = document.getElementById("corpCard");
     if (cardBtn) cardBtn.onclick = async () => {
       if (!window.CadWrapped) return;
@@ -1764,57 +2016,20 @@
       const agg = seasonAgg(yr);
       const subEl = document.getElementById("heroSub");
       const statsEl = document.getElementById("heroStats");
-      if (subEl) subEl.textContent = agg ? `${yr} season · by the numbers` : `${years.length} season${years.length > 1 ? "s" : ""} on record`;
+      if (subEl) subEl.textContent = agg ? `${yr} season · by the numbers` : `${years.length} season${years.length === 1 ? "" : "s"} on record`;
       if (!statsEl) return;
       const cell = (v, l, id) => `<div class="corpshero-stat"${id ? ` id="${id}"` : ""}><div class="b"></div><div class="v">${v}</div><div class="l">${l}</div></div>`;
-      /* Four tiles, and every one of them has to be able to say something.
-         On a ratings circuit two of the point-score tiles cannot:
-           · "Class rank" is computed by CadWrapped.standing, which ranks on
-             point scores this circuit never publishes — it returns null on
-             every band, so the tile could only ever fall back to a rounded
-             season average printed as a Roman numeral.
-           · "Improved by" and "Shows" need more than one rated result, and
-             20,343 of the 20,362 UIL band-seasons on file have exactly one
-             — so both would read "+0" and "1" on essentially every profile.
-         Same standard as the Share button: better no tile than a dead one.
-         The season contributes what it actually knows and career facts fill
-         the rest, so the grid is always four wide. */
-      const tiles = [];
-      if (agg) {
-        tiles.push([score3(agg.high), lowerIsBetter() ? "Season best" : "Season high"]);
-        if (!resultsKind()) {
-          tiles.push(["…", "Class rank", "heroRank"]);
-          tiles.push([(agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(2), "Points gained"]);
-          tiles.push([agg.shows, "Shows"]);
-        } else {
-          // the championship result is on the other scale, so seasonAgg drops
-          // it — but it is the one number a State-qualifying season is about.
-          // The FINISH is the last one of the weekend, not the best of them:
-          // a band can place 9th in prelims and 10th in finals.
-          const placed = (byYear.get(yr) || []).filter(p => p.s != null && isPlaced(p.s))
-            .slice().sort((a, b) => (a.d || "").localeCompare(b.d || ""));
-          if (placed.length) tiles.push([score3(placed[placed.length - 1].s), "State finish"]);
-          if (agg.shows > 1) {
-            tiles.push([(agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(0), "Improved by"]);
-            tiles.push([agg.shows, "Rated shows"]);
-          }
-        }
-      } else {
-        tiles.push([bestPerf ? score3(bestPerf.s) : "—", lowerIsBetter() ? "Best " + scoreNoun : "Best score"]);
-      }
-      /* The filler tiles are CAREER figures and the heading above them says
-         "<year> season · by the numbers", so they must say so themselves —
-         "19 / Seasons" under a 2025 header reads as a season figure and is
-         wrong by a factor of twenty. Labelling them is the fix rather than
-         dropping them, because the grid is four wide at every breakpoint. */
-      for (const t of [[titles.length, "Titles, career"], [perfs.length, "Shows, career"],
-                       [years.length, "Seasons on record"]]) {
-        if (tiles.length >= 4) break;
-        tiles.push(t);
-      }
-      statsEl.innerHTML = tiles.slice(0, 4).map(t => cell(t[0], t[1], t[2])).join("");
+      statsEl.innerHTML = agg
+        ? cell(score3(agg.high), "Season high")
+          + cell("…", "Class rank", "heroRank")
+          + cell((agg.gained >= 0 ? "+" : "") + agg.gained.toFixed(2), "Points gained")
+          + cell(agg.shows, "Shows")
+        : cell(bestPerf ? score3(bestPerf.s) : "—", "Best score")
+          + cell(titles.length, "Titles")
+          + cell(perfs.length, "Performances")
+          + cell(years.length, "Seasons");
       // current standing needs every corps in the class — fill it once it loads
-      if (agg && !resultsKind() && window.CadWrapped && window.CadWrapped.standing) {
+      if (agg && window.CadWrapped && window.CadWrapped.standing) {
         window.CadWrapped.standing(detail.name, yr).then(st => {
           const tile = document.getElementById("heroRank");
           if (!tile || (selYears().slice(-1)[0] || years[years.length - 1]) !== yr) return;
@@ -1842,12 +2057,12 @@
       const title = document.getElementById("corpsChartTitle");
       if (sel.length === 1) {
         const yv = sel[0];
-        title.innerHTML = `${yv} Season Progression <span class="sub">${scoreNoun} by date · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
-        const pts = chartPts(byYear.get(yv) || [])
+        title.innerHTML = `${yv} Season Progression <span class="sub">score by date · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
+        const pts = (byYear.get(yv) || []).filter(p => p.s && p.d)
           .map(p => ({ x: dayOfSeason(p.d), y: p.s })).sort((a, b) => a.x - b.x);
-        scoreChart(document.getElementById("corpsChart"), {
+        lineChart(document.getElementById("corpsChart"), {
           linearX: true, series: [{ name: String(yv), points: pts, color: corpsColor(detail.name) }],
-          height: 260, xFmt: dayLabel, yFmt: chartYFmt,
+          height: 260, xFmt: dayLabel, yFmt: v => v.toFixed(1),
         });
         return;
       }
@@ -1856,14 +2071,14 @@
       if (sel.length > 1 && sel.length <= 8) {
         const series = sel.map(yv => ({
           name: String(yv), color: PALETTE[yv % PALETTE.length],
-          points: chartPts(byYear.get(yv) || [])
+          points: (byYear.get(yv) || []).filter(p => p.s && p.d)
             .map(p => ({ x: dayOfSeason(p.d), y: p.s })).sort((a, b) => a.x - b.x),
         })).filter(sr => sr.points.length);
         if (series.length) {
           title.innerHTML = `Season Progression — ${sel[0]}–${sel[sel.length - 1]} <span class="sub">one line per season · <a href="#/compare?c=${slug}&y=${cmpYears}">compare vs other ${TERM.plural} →</a></span>`;
-          scoreChart(document.getElementById("corpsChart"), {
+          lineChart(document.getElementById("corpsChart"), {
             linearX: true, series,
-            height: 260, xFmt: dayLabel, yFmt: chartYFmt,
+            height: 260, xFmt: dayLabel, yFmt: v => v.toFixed(1),
           });
           return;
         }
@@ -1872,9 +2087,9 @@
       // so years the corps didn't march show as real gaps and an in-progress
       // season sits as its own point instead of dragging the line
       const range = sel.length ? `${sel[0]}–${sel[sel.length - 1]}` : "";
-      title.innerHTML = `${bestNoun} by Year${range ? ` — ${range}` : ""} <span class="sub">gaps = seasons not yet in the database · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
+      title.innerHTML = `Top Score by Year${range ? ` — ${range}` : ""} <span class="sub">gaps = seasons not yet in the database · <a href="#/compare?c=${slug}&y=${cmpYears}">compare seasons →</a></span>`;
       const ptsAll = years.map((y, i) => ({ x: y, y: bestByYear[i] }))
-        .filter(p => p.y && !isPlaced(p.y) && (!sel.length || yearSet.has(String(p.x))));
+        .filter(p => p.y && (!sel.length || yearSet.has(String(p.x))));
       const segs = [];
       let cur = [];
       for (const p of ptsAll) {
@@ -1882,9 +2097,9 @@
         cur.push(p);
       }
       if (cur.length) segs.push(cur);
-      scoreChart(document.getElementById("corpsChart"), {
+      lineChart(document.getElementById("corpsChart"), {
         linearX: true, noLegend: true,
-        series: segs.map(pts => ({ name: bestNoun, points: pts, color: corpsColor(detail.name) })),
+        series: segs.map(pts => ({ name: "Top score", points: pts, color: corpsColor(detail.name) })),
         height: 260, yFmt: v => v.toFixed(0), xFmt: v => String(Math.round(v)),
       });
     }
@@ -1898,16 +2113,43 @@
         .sort((a, b) => (b.d || "").localeCompare(a.d || "") || b.y - a.y);
       document.getElementById("perfTable").innerHTML = `<div class="tscroll"><table class="t">
         <thead><tr><th>Date</th><th>Event</th><th class="m-hide">Class</th><th class="num">Place</th><th class="num">Score</th><th class="num" title="Change from this ${TERM.singular}'s previous show that season">vs prev</th></tr></thead>
-        <tbody id="perfRows">${list.slice(0, 600).map(p => h`<tr>
+        <tbody id="perfRows">${list.length ? "" : `<tr><td colspan="6" class="empty">No performances on record${selNote ? " for " + esc(selNote) : ""}.</td></tr>`}${list.slice(0, 600).map(p => h`<tr>
           <td style="color:var(--muted);white-space:nowrap">${fmtDate2(p.d, p.y)}</td>
           <td>${esc(p.ev || "")}</td>
           <td class="m-hide"><span class="pill">${esc(p.cls || "")}</span></td>
           <td class="num">${p.p ?? "—"}</td><td class="num score">${score3(p.s)}</td>
           <td class="num">${p.s == null ? '<span class="delta flat">—</span>' : deltaHtml(deltaByPerf.get(p))}</td></tr>`).join("")}</tbody></table></div>`;
-      collapseRows(document.getElementById("perfRows"), 5, "performances");
+      collapseRows(document.getElementById("perfRows"), 3, "performances");
+    }
+
+    // Championships table: one row per year — the season's last score and where
+    // they finished at the World Championships (their latest championship round
+    // that year: Finals when they made it, else Semifinals / Prelims). Newest
+    // first; the last three years show, the rest expand.
+    function renderCorpChamps() {
+      const roundOf = ev => /semi/i.test(ev) ? "Semifinals" : /quarter/i.test(ev) ? "Quarterfinals"
+        : /prelim/i.test(ev) ? "Prelims" : /final/i.test(ev) ? "Finals" : "";
+      const rows = years.slice().reverse().map(y => {
+        const ps = (byYear.get(y) || []).filter(p => p.s != null)
+          .slice().sort((a, b) => (a.d || "").localeCompare(b.d || ""));
+        if (!ps.length) return null;
+        const last = ps[ps.length - 1];
+        const champs = ps.filter(p => /world championship/i.test(p.ev || "") && p.p != null);
+        const fin = champs.length ? champs[champs.length - 1] : null;
+        return { y, last, fin };
+      }).filter(Boolean);
+      document.getElementById("corpChampTable").innerHTML = `<div class="tscroll"><table class="t">
+        <thead><tr><th>Year</th><th class="num">Last score</th><th>Championship finish</th></tr></thead>
+        <tbody id="corpChampRows">${rows.length ? "" : '<tr><td colspan="3" class="empty">No championship results on record.</td></tr>'}${rows.map(r => h`<tr>
+          <td><a href="#/season/${r.y}"><b>${r.y}</b></a></td>
+          <td class="num score">${score3(r.last.s)}</td>
+          <td>${r.fin ? h`<b>${ordinal(r.fin.p)}</b> <span class="kicker">· ${roundOf(r.fin.ev || "")}${r.fin.cls ? ` · ${esc(r.fin.cls)}` : ""}</span>` : '<span style="color:var(--muted)">—</span>'}</td>
+        </tr>`).join("")}</tbody></table></div>`;
+      collapseRows(document.getElementById("corpChampRows"), 3, "years");
     }
     renderChart();
     renderPerfs();
+    renderCorpChamps();
     renderHero();
 
     // stat tiles double as drill-downs
@@ -1985,8 +2227,14 @@
     })();
 
     // one table: every season, its champion, click through to the year
+    if (FAM && !Object.keys(champs || {}).length) {
+      const t = document.getElementById("champT");
+      if (t) t.innerHTML = "<tbody><tr><td class='empty'>The record book fills in with this app's first full season of data.</td></tr></tbody>";
+      const cs = document.getElementById("champSub");
+      if (cs) cs.textContent = "";
+      return;
+    }
     const clsSet = new Set();
-    if (FAM) { try { const _ch = await data("champions.json"); if (!Object.keys(_ch || {}).length) { const t = document.getElementById("champT"); if (t) t.innerHTML = "<tr><td class='empty'>The record book fills in with this app's first full season of data.</td></tr>"; const cs = document.getElementById("champSub"); if (cs) cs.textContent = ""; return; } } catch (e) {} }
     Object.values(champs).forEach(byCls => Object.keys(byCls).forEach(c => clsSet.add(c)));
     const clsList = sortClasses([...clsSet]);
     let champCls = clsList.includes("World Class") ? "World Class" : clsList[0];
@@ -2049,11 +2297,7 @@
       if (pts.length >= 3) {
         wrap.hidden = false;
         document.getElementById("champChartSub").textContent = `${champCls} title score by season`;
-        // through the shared entry point like every other results chart: a
-        // circuit that publishes ordinals instead of points must not get a
-        // tick chooser working on a padded numeric range (today no ratings
-        // circuit records a champion score, so this only ever picks lineChart)
-        scoreChart(document.getElementById("champChart"), {
+        lineChart(document.getElementById("champChart"), {
           linearX: true, noLegend: true,
           series: segs.map(sg => ({ name: "Winning score", points: sg, color: "#d97706" })),
           height: 240, yFmt: v => v.toFixed(1), xFmt: v => String(Math.round(v)),
@@ -2133,17 +2377,28 @@
       const shown = sameZone ? t : (localizeVenueTime(t, ev.date, tz) || t);
       // any slot inside its ±15-min window is live — corps and logistics rows
       // alike — until the show completes, and a corps that already scored drops
-      const live = !done && LIVE.slotLiveAt(ev.date, t) && !(isCorps && LIVE.scored(entry));
+      const live = !done && LIVE.slotLiveAt(ev.date, t, tz) && !(isCorps && LIVE.scored(entry));
       return `<tr${live ? ' class="evlive"' : ""}><td class="num" style="color:var(--muted);white-space:nowrap"${shown !== t ? ` title="${esc(t)} ${esc(abbr)} at the venue"` : ""}>${esc(shown || "")}</td><td>${isCorps ? corpsLink(entry) : `<span style="color:var(--muted)">${esc(entry)}</span>`}${live ? " " + LIVE_BADGE : ""}</td></tr>`;
     }).join("");
   }
 
   function eventBodyHtml(ev, year, i) {
+    // off-season entry (camp / auditions): a details card, not a scoreboard
+    if (ev.kind) {
+      const range = ev.end && ev.end !== ev.date
+        ? `${fmtDateY(ev.date)} – ${fmtDateY(ev.end)}` : fmtDateY(ev.date);
+      return h`
+        <div class="offbody">
+          <div>${esc(range)}${ev.location ? " · " + esc(ev.location) : ""}</div>
+          ${ev.corps ? h`<div style="margin-top:6px">Hosted by ${corpsLink(ev.corps)}</div>` : ""}
+          ${ev.url ? `<a class="tab" style="margin-top:10px;display:inline-block" href="${encodeURI(ev.url)}" target="_blank" rel="noopener">Details &amp; registration ↗</a>` : ""}
+        </div>`;
+    }
     if (ev.future) {
       const mapLink = (ev.location
         ? `<p style="font-size:12.5px;color:var(--muted);margin:8px 0 0"><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((ev.name || "") + " " + ev.location)}" target="_blank" rel="noopener">Venue map ↗</a></p>`
         : "") + (ev.url
-        ? `<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0"><a href="${encodeURI(ev.url)}" target="_blank" rel="noopener"> Venue info — bag policy, tickets, parking ↗</a></p>`
+        ? `<p style="font-size:12.5px;color:var(--muted);margin:6px 0 0"><a href="${encodeURI(ev.url)}" target="_blank" rel="noopener">${icoSvg(ICO_TICKET, 13)} Venue info — bag policy, tickets, parking ↗</a></p>`
         : "");
       if (ev.schedule && ev.schedule.length) {
         // show the viewer their own clock; note the venue's zone when it differs
@@ -2172,7 +2427,7 @@
     }
     // full page / caption sheet is the most-wanted jump — sit it up top, right
     // of the first class heading, so it's the first thing you see and tap
-    const fullLink = `<a href="#/event/${year}/${i}" class="evfull">${ev.has_recap ? "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> Captions & full page →" : "Full event page →"}</a>`;
+    const fullLink = `<a href="#/event/${year}/${i}" class="evfull">${ev.has_recap ? icoSvg(ICO_TROPHY, 13) + " Captions & full page →" : "Full event page →"}</a>`;
     return h`
       ${(ev.classes || []).map((c, ci) => h`
         <h3 class="evcls evcls-row">${esc(c.label || c.class)} <span class="kicker">${c.results.length} ${TERM.plural}</span>${ci === 0 ? fullLink : ""}</h3>
@@ -2180,46 +2435,6 @@
         ${c.results.map(r => `<tr><td class="rank">${r.place ?? "—"}</td><td>${corpsLink(r.corps)}</td><td class="num score">${score3(r.score)}</td></tr>`).join("")}
         </tbody></table>`).join("")}
       <div class="predictmount"></div>`;
-  }
-
-  const MONTH_FULL = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-  /* Official DCI news above the schedule: headline cards, plus an
-     auditions/camps list the moment corps announce them. The data is the
-     dci.org feed, refreshed by the cron — nothing here is hand-entered,
-     and the family apps (no news.json in their data) simply skip it. */
-  async function renderNewsRail() {
-    const mount = document.getElementById("newsMount");
-    if (!mount || (typeof FAM !== "undefined" && FAM)) return;
-    let news;
-    try { news = await data("news.json"); } catch (e) { return; }
-    if (!news || !news.items || !news.items.length || !document.getElementById("newsMount")) return;
-    const fmt = d => {
-      try { return new Date(d + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }); }
-      catch (e) { return ""; }
-    };
-    const cards = news.items.slice(0, 8).map(n =>
-      `<a class="newscard" href="${esc(n.url)}" target="_blank" rel="noopener">
-        ${n.image ? `<img src="${esc(n.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
-        <span class="newscard-in"><time>${fmt(n.date)}</time><b>${esc(n.title)}</b></span>
-      </a>`).join("");
-    const camps = news.items.filter(n => (n.tags || []).includes("auditions")).slice(0, 4);
-    mount.innerHTML = `
-      <div class="card" style="margin-bottom:14px">
-        <div class="ens-h" style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px">
-          <h2 style="margin:0">Latest from DCI</h2>
-          <a href="${esc(news.source.url)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:650">All news →</a>
-        </div>
-        <div class="newsrail">${cards}</div>
-        ${camps.length ? `
-        <div class="newscamps">
-          <h3>Auditions &amp; camps</h3>
-          ${camps.map(n => `<a href="${esc(n.url)}" target="_blank" rel="noopener">
-            <span class="newstag">Auditions</span><span>${esc(n.title)}</span>
-            <time>${fmt(n.date)}</time></a>`).join("")}
-          <p class="newsnote">Announcements straight from DCI and the corps — dates and details live in each article.</p>
-        </div>` : ""}
-      </div>`;
   }
 
   async function viewEvents(qs, stale) {
@@ -2230,14 +2445,11 @@
     const years = meta.seasons.map(sn => sn.year).sort((a, b) => b - a);
     let year = +params.y && years.includes(+params.y) ? +params.y : years[0];
     app.innerHTML = `
-      <h1 class="page">${FAM ? FAM.eventsTitle : "Shows"} <span class="kicker" id="evCount"></span></h1>
-      <div id="newsMount"></div>
-      <div class="filters" style="justify-content:space-between;align-items:center">
-        <div id="evYearSel"></div>
+      <h1 class="page">${FAM ? FAM.eventsTitle : "Shows"} ${yearPickerHtml(year)} <span class="kicker" id="evCount"></span></h1>
+      <div class="filters" style="justify-content:flex-end">
         <button class="tab" id="fToggle" aria-expanded="false">Filters ▾</button>
       </div>
       <div id="seasonMount"><div class="loading">Loading…</div></div>`;
-    renderNewsRail();
     let gen = 0;
     async function load() {
       const g = ++gen;
@@ -2246,13 +2458,86 @@
       if (mount) mount.innerHTML = "<div class='loading'>Loading…</div>";
       await renderSeason(year, () => stale() || g !== gen);
     }
-    singleSelect(document.getElementById("evYearSel"), {
-      label: "Season", searchable: years.length > 15,
-      options: years.map(y => ({ value: String(y), label: String(y) })),
-      value: String(year),
-      onChange: v => { year = +v; load(); },
-    });
+    // the year IS the control (same component as the Scoreboard). Picking a
+    // season re-routes, so the whole view rebuilds with the new heading —
+    // exactly how the Scoreboard picker behaves.
+    wireYearPicker(years, year, y => { location.hash = `#/events?y=${y}`; });
     await load();
+  }
+
+  /* News & Announcements: DCI.org headlines + the weekly per-corps roundup
+     (auditions, camps, next-season reveals), scraped into news.json. Items
+     newer than the last visit get a NEW pill — the in-app "notification". */
+  function renderNews(mountEl, news) {
+    if (!mountEl) return;
+    const items = (news && news.items) || [];
+    const articles = ((news && news.articles) || []).filter(a => !/corps-news-and-announcements/.test(a.url));
+    if (!items.length && !articles.length) { mountEl.innerHTML = ""; return; }
+    let lastSeen = "";
+    try { lastSeen = localStorage.getItem("cad-news-seen") || ""; } catch (e) {}
+    const PRI = { auditions: 0, announcement: 1, news: 2 };
+    // your starred corps' announcements surface first within each day
+    const fv = x => (x.corps && FAVS.has(x.corps) ? 0 : 1);
+    const sorted = items.slice().sort((a, b) =>
+      (b.date || "").localeCompare(a.date || "") || fv(a) - fv(b) || (PRI[a.kind] ?? 9) - (PRI[b.kind] ?? 9));
+    const isNew = x => x.date && lastSeen && x.date > lastSeen;
+    const anyNew = !lastSeen || sorted.some(isNew) || articles.some(isNew);
+    const kindPill = k => k === "auditions" ? '<span class="pill kpill kaud">Auditions</span>'
+      : k === "announcement" ? '<span class="pill kpill kspec">Announcement</span>' : "";
+    const cardHtml = it => h`<div class="newscard">
+        ${it.logo ? `<img class="newslogo" src="${encodeURI(it.logo)}" alt="" loading="lazy" onerror="this.hidden=true">` : ""}
+        <div class="newsbody">
+          <div class="newstop"><b>${esc(it.corps)}</b>${kindPill(it.kind)}${isNew(it) ? '<span class="pill kpill knew">New</span>' : ""}</div>
+          <div class="newstxt">${esc(it.blurb)}</div>
+          ${it.link ? `<a class="newsgo" href="${encodeURI(it.link)}" target="_blank" rel="noopener">See more ↗</a>` : ""}
+        </div>
+      </div>`;
+    const CUT = 2; // keep the tile short — a couple of cards, expand for the rest
+    // the whole tile collapses to just its header, remembered per device.
+    // Collapsed by DEFAULT — news stays out of the way until the reader opens
+    // it (the header keeps a "New" pill so fresh items still announce
+    // themselves). It expands only once someone has explicitly opened it.
+    let collapsed = true;
+    try { collapsed = localStorage.getItem("cad-news-collapsed") !== "0"; } catch (e) {}
+    mountEl.innerHTML = h`<div class="card newswrap${collapsed ? " collapsed" : ""}">
+      <h2 class="newsh2"><button class="newshead" type="button" aria-controls="newsInner" aria-expanded="${collapsed ? "false" : "true"}">
+        <span class="newshtxt">News &amp; Announcements <span class="sub">auditions, camps &amp; corps news · via DCI.org</span></span>
+        ${anyNew ? '<span class="pill kpill knew">New</span>' : ""}<span class="newschev" aria-hidden="true">${CHEVRON_SVG}</span>
+      </button></h2>
+      <div class="newsinner" id="newsInner"${collapsed ? " hidden" : ""}>
+        ${articles.slice(0, 2).map(a => h`<a class="newshl${isNew(a) ? " new" : ""}" href="${encodeURI(a.url)}" target="_blank" rel="noopener"><span class="newshl-d">${esc(fmtDate(a.date))}</span>${esc(a.title)}${isNew(a) ? ' <span class="pill kpill knew">New</span>' : ""}</a>`).join("")}
+        <div class="dsk2 newsgrid">${sorted.slice(0, CUT).map(cardHtml).join("")}</div>
+        ${sorted.length > CUT ? `<div class="dsk2 newsgrid" id="newsMore" hidden>${sorted.slice(CUT).map(cardHtml).join("")}</div>
+          <button class="tab newsmorebtn" type="button">All corps news (${sorted.length}) ▾</button>` : ""}
+      </div>
+    </div>`;
+    const head = mountEl.querySelector(".newshead");
+    const inner = mountEl.querySelector("#newsInner");
+    const wrap = mountEl.querySelector(".newswrap");
+    // Marking items "seen" advances cad-news-seen, which clears the New badge.
+    // Only do that once the content is actually on screen — a collapsed tile
+    // has shown the reader nothing, so its New pill must survive until they
+    // open it (otherwise it flashes once and is gone on the next navigation).
+    const maxDate = [...sorted, ...articles].reduce((m, x) => (x.date || "") > m ? x.date : m, "");
+    const markSeen = () => {
+      if (anyNew && maxDate) { try { localStorage.setItem("cad-news-seen", maxDate); } catch (e) {} }
+    };
+    if (head) head.onclick = () => {
+      const nowCollapsed = !inner.hidden;
+      inner.hidden = nowCollapsed;
+      wrap.classList.toggle("collapsed", nowCollapsed);
+      head.setAttribute("aria-expanded", nowCollapsed ? "false" : "true");
+      try { localStorage.setItem("cad-news-collapsed", nowCollapsed ? "1" : "0"); } catch (e) {}
+      // opening it counts as seeing it: bank the date and drop the header badge
+      if (!nowCollapsed) { markSeen(); const pill = head.querySelector(".knew"); if (pill) pill.remove(); }
+    };
+    const more = mountEl.querySelector(".newsmorebtn");
+    if (more) more.onclick = () => {
+      const p = mountEl.querySelector("#newsMore");
+      p.hidden = !p.hidden;
+      more.textContent = p.hidden ? `All corps news (${sorted.length}) ▾` : "Fewer ▴";
+    };
+    if (!collapsed) markSeen(); // rendered already open → it's been seen
   }
 
   async function renderSeason(year, stale) {
@@ -2267,18 +2552,11 @@
     await LIVE.refresh().catch(() => {});
     if (stale() || !mount()) return;
 
-    // the schedule's future events join the list, marked "upcoming" — keyed
-    // by each entry's own season year, not the wall clock, so fall and winter
-    // circuits (whose seasons straddle or lead the calendar year) still show
-    // their full slate
-    events = events.map(ev => Object.assign({}, ev)); // never mutate the data() cache
-    {
-      // season files published ahead of scores carry future dates with no
-      // results — those are upcoming shows even before upcoming.json says so
-      const todayStr = LIVE.today() || new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
-      events.forEach(ev => {
-        if (!ev.future && ev.date >= todayStr && !(ev.classes || []).some(c => (c.results || []).length)) ev.future = true;
-      });
+    // running season: the schedule's future events join the list, marked
+    // "upcoming" — the season page is the one place with the whole summer
+    events = events.slice(); // never mutate the array shared by the data() cache
+    let news = null;
+    if (+year === new Date().getFullYear()) {
       const up = await data("upcoming.json").catch(() => []);
       if (stale()) return;
       const seen = new Set(events.map(e => (e.date || "") + "|" + (e.name || "").toLowerCase()));
@@ -2288,6 +2566,20 @@
         events.push({ name: u.name, date: u.date, location: u.location,
           lineup: u.lineup || [], schedule: u.schedule, url: u.url, future: true });
       }
+      // off-season calendar: camps / auditions / special events with confirmed
+      // dates. They ride in the same list but are styled apart, so real
+      // competitive shows keep the spotlight.
+      const off = FAM ? [] : await data("offseason.json").catch(() => []);
+      if (stale()) return;
+      for (const o of off || []) {
+        if (!o.date || !String(o.date).startsWith(String(year))) continue;
+        if (seen.has(o.date + "|" + (o.name || "").toLowerCase())) continue;
+        events.push({ name: o.name, date: o.date, end: o.end, location: o.location,
+          url: o.url, corps: o.corps, kind: o.kind || "camp", future: true });
+      }
+      // corps announcements + DCI headlines, scraped from dci.org/news
+      news = FAM ? null : await data("news.json").catch(() => null);
+      if (stale()) return;
     }
 
     // filter option sets from the actual data
@@ -2315,12 +2607,12 @@
       if (p && ord.length) graded.push(scorePred(p.order, ord).pct);
     });
     const recordStrip = graded.length
-      ? `<a class="pr-record" href="#/predictions"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12h.01'/></svg> Your calls · ${graded.length} show${graded.length > 1 ? "s" : ""} · `
+      ? `<a class="pr-record" href="#/predictions">${TARGET_SVG} Your calls · ${graded.length} show${graded.length > 1 ? "s" : ""} · `
         + `avg ${Math.round(graded.reduce((a, b) => a + b, 0) / graded.length)}% · best ${Math.max(...graded)}% <span class="pr-record-go">See all →</span></a>`
       : "";
 
     const cnt = document.getElementById("evCount");
-    if (cnt) cnt.textContent = `· ${year} — ${events.filter(e => !e.future).length} events${events.some(e => e.future) ? `, ${events.filter(e => e.future).length} upcoming` : ""}`;
+    if (cnt) cnt.textContent = `· ${events.filter(e => !e.future).length} events${events.some(e => e.future) ? `, ${events.filter(e => e.future).length} upcoming` : ""}`;
     mount().innerHTML = h`
       <div class="filters fpanel" id="fPanel" hidden>
         <div id="fCls"></div>
@@ -2330,9 +2622,11 @@
       </div>
       <div id="evcount" class="kicker" style="margin:0 0 10px"></div>
       ${recordStrip}
+      <div id="newsMount"></div>
       <div id="evlist"></div>`;
 
     const list = document.getElementById("evlist");
+    renderNews(document.getElementById("newsMount"), news);
 
     function toggle(row, force) {
       const body = row.querySelector(".evbody");
@@ -2353,6 +2647,7 @@
       if (cls && !(ev.classes || []).some(c => c.class === cls)) return false;
       if (corpsPick.size) {
         const featured = (ev.lineup || []).some(c => corpsPick.has(c)) ||
+          (ev.corps && corpsPick.has(ev.corps)) ||
           (ev.classes || []).some(c => (c.results || []).some(r => corpsPick.has(r.corps)));
         if (!featured) return false;
       }
@@ -2367,14 +2662,20 @@
       return true;
     }
 
+    // off-season entries (camps, auditions) carry a `kind`; real shows don't.
+    // Shows keep the strong gold-edged card so competition always stands out.
+    const KIND_PILL = { camp: '<span class="pill kpill kcamp">Camp</span>',
+      auditions: '<span class="pill kpill kaud">Auditions</span>',
+      special: '<span class="pill kpill kspec">Event</span>' };
     function rowHtml([ev, i]) {
       const winner = eventWinner(ev);
       const live = LIVE.showLive(ev); // currently performing (schedule window, scores not in)
-      return h`<div class="evrow card${live ? " evlive" : ""}" data-i="${i}">
+      const off = !!ev.kind;
+      return h`<div class="evrow card ${off ? "evoff" : "evshow"}${live ? " evlive" : ""}" data-i="${i}">
         <button class="evhead" aria-expanded="false">
           <span class="evwhen">${fmtDate2(ev.date, ev.date_display)}</span>
           <span class="evmain"><b>${esc(ev.name)}<span class="evhdr-live">${live ? " " + LIVE_BADGE : ""}</span>${ev.has_recap ? ' <span class="pill evpill">recap</span>' : ""}</b><span class="evloc">${esc(ev.location || "")}</span></span>
-          <span class="evwin">${live ? "" : ev.future ? '<span class="pill">upcoming</span>' : winner ? h`${esc(winner.corps)}<b>${score3(winner.score)}</b>` : ""}</span>
+          <span class="evwin">${off ? (KIND_PILL[ev.kind] || KIND_PILL.special) : live ? "" : ev.future ? '<span class="pill">upcoming</span>' : winner ? h`${esc(winner.corps)}<b>${score3(winner.score)}</b>` : ""}</span>
           <span class="caret">▸</span>
         </button>
         <div class="evbody" hidden></div>
@@ -2388,19 +2689,16 @@
       const q = document.getElementById("fQ").value.trim().toLowerCase();
       const matched = events.map((ev, i) => [ev, i]).filter(([ev]) => matches(ev, cls, q));
       const filtering = !!(cls || corpsPick.size || q);
+      const isCurrentYear = +year === new Date().getFullYear();
       const today = LIVE.today() || new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
       // a show is "finished" once its day is past, or (today) once it has results
       // and is no longer live — those drop to the results section below
       const finished = ([ev]) => ev.date < today || (ev.date === today && !ev.future && !LIVE.showLive(ev));
-      // any season with shows still to come gets the what's-on view (upcoming
-      // first) — decided by the data, not the calendar year, since fall and
-      // winter circuits' seasons straddle or lead the year they're named for
-      const seasonAhead = matched.some(e => !finished(e));
 
       const cnt = document.getElementById("evcount");
       let html;
-      if (filtering || !seasonAhead) {
-        // filtered / wrapped-season browse: a single flat list, newest first
+      if (filtering || !isCurrentYear) {
+        // filtered / past-season browse: a single flat list, newest first
         const sorted = matched.slice().sort(([a], [b]) =>
           (b.date || "").localeCompare(a.date || "") || a.name.localeCompare(b.name));
         html = sorted.map(rowHtml).join("");
@@ -2421,8 +2719,8 @@
         const plur = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
         html =
           (current.length ? current.map(rowHtml).join("")
-            : `<div class="card"><div class="empty">No upcoming shows — the season's a wrap.</div></div>`) +
-          (upcoming.length ? sectionBtn("up", `${plur(upcoming.length, "more upcoming show")}`, upOpen)
+            : `<div class="evdone">No upcoming shows — the season's a wrap.</div>`) +
+          (upcoming.length ? sectionBtn("up", `${plur(upcoming.length, "more upcoming event")}`, upOpen)
             + (upOpen ? upcoming.map(rowHtml).join("") : "") : "") +
           (recent.length ? `<div class="evsectlabel">Recent results</div>` + recent.map(rowHtml).join("") : "") +
           (older.length ? sectionBtn("past", `${plur(older.length, "earlier show")}`, pastOpen)
@@ -2533,6 +2831,36 @@
     return (rec.events || []).find(e => e.e === evName && (!evDate || e.d === evDate)) || null;
   }
 
+  /* ===== "Caption Winners Card" call-to-action =====
+     The shareable card is the best thing in the captions data, so it gets a
+     loud, obvious entry point — the same treatment the corps page gives its
+     season card — at the TOP of every captions block. */
+  const CAP_CTA_INNER =
+    `<span class="capcta-ic">${icoSvg(ICO_TROPHY, 23)}</span>` +
+    '<span class="capcta-t"><b>Caption Winners Card</b>' +
+    "<span>See who took GE · Visual · Music — and by how much</span></span>" +
+    '<span class="capcta-go">Open →</span>';
+  const capCta = (attrs = "") => `<button type="button" class="capcta"${attrs}>${CAP_CTA_INNER}</button>`;
+  // `info` may be a function so the button can read the currently-picked show
+  function wireCapCta(btn, info) {
+    if (!btn) return;
+    const note = msg => `<span class="capcta-ic">${icoSvg(ICO_TROPHY, 23)}</span><span class="capcta-t"><b>${esc(msg)}</b></span>`;
+    btn.onclick = () => {
+      if (!window.CadWrapped || !window.CadWrapped.captionsCard) return;
+      const i = typeof info === "function" ? info() : info;
+      if (!i) return;
+      btn.disabled = true;
+      btn.innerHTML = note("Creating card…");
+      const restore = () => { btn.disabled = false; btn.innerHTML = CAP_CTA_INNER; };
+      window.CadWrapped.captionsCard(i).then(ok => {
+        if (ok) return restore();
+        btn.disabled = false;
+        btn.innerHTML = note("No caption sheet for this show yet");
+        setTimeout(() => { if (btn.isConnected) restore(); }, 1900);
+      }).catch(restore);
+    };
+  }
+
   // Hierarchical sheet: caption group → judge sub-caption → sub-scores.
   // Rank sits under every value; gold marks each column's leader. Tap a
   // caption, judge, or column header to re-rank the sheet by it.
@@ -2582,7 +2910,7 @@
       }
     }
     const winStrip = winChips.length
-      ? `<div class="capwins" title="Caption winners on this sheet"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> ${winChips.join("")}</div>` : "";
+      ? `<div class="capwins" title="Caption winners on this sheet"><span class="cw-ico">${icoSvg(ICO_TROPHY, 14)}</span>${winChips.join("")}</div>` : "";
     // heavier rule where a caption group starts, so the blocks read at a glance
     const gb = new Set(groups.map(g => g.first));
     gb.add(iSub);
@@ -2639,8 +2967,11 @@
     return { repaint: paint };
   }
 
-  async function viewEvent(year, idx, stale) {
+  async function viewEvent(year, idx, stale, qs) {
     setNav("events");
+    // ?c=<corps> — set by score-alert deep links: emphasize that corps' row
+    // and bring it into view so a tapped notification lands on the result
+    const focus = (() => { try { return new URLSearchParams(qs || "").get("c") || ""; } catch (e) { return ""; } })();
     const events = await data(`seasons/${year}.json`);
     if (stale()) return;
     const ev = events[+idx];
@@ -2651,7 +2982,7 @@
     let capRows = [];
     let recEv = null;
     try {
-      if (+year >= 2013) {
+      if (+year >= 2013 && CAPS) {
         recEv = await recapEvent(year, ev.name, ev.date);
         const all = await data(`captions/${year}.json`);
         capRows = all.filter(r => r[1] === ev.name && (!ev.date || r[0] === ev.date));
@@ -2679,7 +3010,7 @@
         return names.length ? `<span${k === "ge" ? ' class="cw-main"' : ""}><b>${esc(label)}</b> ${esc([...new Set(names)].join(" & "))}</span>` : "";
       }).join("");
       return h`<h3 class="evcls" style="margin-top:14px">Caption Breakdown <span class="kicker">verified against the official recap · gold marks the caption winner · tap a column to sort</span></h3>
-        ${winChips ? `<div class="capwins"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> ${winChips}</div>` : ""}
+        ${winChips ? `<div class="capwins"><span class="cw-ico">${icoSvg(ICO_TROPHY, 14)}</span>${winChips}</div>` : ""}
         <div class="tscroll"><table class="t sticky1 capsort"><thead><tr><th>${TERM_TH}</th>${CAP_HEAD.map(([k, l]) => `<th class="num" data-sort="${k}">${l}</th>`).join("")}</tr></thead><tbody class="evcap" data-ci="${ci}">
         ${rows.map(r => `<tr><td>${corpsLink(r[CIDX.corps])}</td>${CAP_HEAD.map(([k]) => {
           const v = r[CIDX[k]];
@@ -2688,11 +3019,16 @@
         }).join("")}</tr>`).join("")}
         </tbody></table></div>${CAP_KEY_NOTE}`;
     };
-    // the full official sheet beats the summary — show it whenever it parsed
-    const capSection = (cls, ci) => recByClass.has(cls)
-      ? h`<h3 class="evcls" style="margin-top:14px">Official Recap <span class="kicker">every judge, every caption · rank under each score · gold marks the leader · tap a judge or column to sort</span></h3>
-         <div class="rcmount" data-cls="${esc(cls)}"></div>`
-      : capTable(cls, ci);
+    // the full official sheet beats the summary — show it whenever it parsed.
+    // The shareable card leads the block so it's the first thing you see.
+    const capSection = (cls, ci) => {
+      const sheet = recByClass.has(cls)
+        ? h`<h3 class="evcls" style="margin-top:14px">Official Recap <span class="kicker">every judge, every caption · rank under each score · gold marks the leader · tap a judge or column to sort</span></h3>
+           <div class="rcmount" data-cls="${esc(cls)}"></div>`
+        : capTable(cls, ci);
+      if (!sheet) return "";
+      return `<div class="capctawrap">${capCta(` data-cls="${esc(cls)}"`)}</div>` + sheet;
+    };
 
     app.innerHTML = h`
       <div class="crumbs"><a href="#/events?y=${year}">Shows</a> / <a href="#/events?y=${year}">${year}</a> / ${esc(ev.name)}</div>
@@ -2700,28 +3036,32 @@
       <p class="lede">${esc(fmtDateY(ev.date) || ev.date_display || "")}${ev.location ? " · " + esc(ev.location) : ""}${ev.url ? h` · <a href="${encodeURI(ev.url)}" target="_blank" rel="noopener">source ↗</a>` : ""}</p>
       <button id="evShare" class="favtoggle" style="margin:0 0 12px" title="Share this show">${SHARE_SVG} Share</button>
       ${(ev.classes || []).map((c, ci) => h`
-        <div class="card" style="margin-bottom:14px"><h2>${esc(c.label || c.class)}</h2>
+        <div class="card cardgap"><h2>${esc(c.label || c.class)}</h2>
         <div class="tscroll"><table class="t"><thead><tr><th>#</th><th>${TERM_TH}</th><th class="num">Score</th></tr></thead><tbody class="evres" data-ci="${ci}">
-        ${c.results.map(r => `<tr><td class="rank">${r.place ?? "—"}</td><td>${corpsLink(r.corps)}</td><td class="num score">${score3(r.score)}</td></tr>`).join("")}
+        ${c.results.map(r => `<tr${FAVS.has(r.corps) || r.corps === focus ? ` class="favrow"${r.corps === focus ? ' data-focus="1"' : ""}` : ""}><td class="rank">${r.place ?? "—"}</td><td>${corpsLink(r.corps)}</td><td class="num score">${score3(r.score)}</td></tr>`).join("")}
         </tbody></table></div>
-        ${capSection(c.class, ci)}
-        ${(recByClass.has(c.class) || capByClass.has(c.class)) ? `<button class="tab capcardbtn" data-cls="${esc(c.class)}" style="margin-top:12px">🏆 Caption winners card</button>` : ""}</div>`).join("")}
+        ${capSection(c.class, ci)}</div>`).join("")}
       ${ev.recap_url ? `<p style="font-size:12.5px;color:var(--muted)"><a href="${encodeURI(ev.recap_url)}" target="_blank" rel="noopener">Official recap on DCI.org ↗</a></p>` : ""}
       ${ev.location ? `<p style="font-size:12.5px;color:var(--muted)"><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((ev.name || "") + " " + ev.location)}" target="_blank" rel="noopener">Venue map ↗</a></p>` : ""}`;
     wireShare("evShare", `${ev.name} · Cadence`);
-    document.querySelectorAll(".capcardbtn").forEach(btn => btn.onclick = () => {
-      if (!window.CadWrapped || !window.CadWrapped.captionsCard) return;
-      const orig = btn.innerHTML; btn.disabled = true; btn.textContent = "Creating…";
-      window.CadWrapped.captionsCard({ year: +year, date: ev.date, event: ev.name, cls: btn.dataset.cls })
-        .then(ok => { btn.disabled = false; btn.innerHTML = orig;
-          if (!ok) { btn.innerHTML = "No caption card available"; setTimeout(() => { if (btn.isConnected) btn.innerHTML = orig; }, 1800); } })
-        .catch(() => { btn.disabled = false; btn.innerHTML = orig; });
-    });
+    document.querySelectorAll(".capcta").forEach(btn => wireCapCta(btn,
+      () => ({ year: +year, date: ev.date, event: ev.name, cls: btn.dataset.cls })));
     document.querySelectorAll(".rcmount").forEach(m => {
       const rc = recByClass.get(m.dataset.cls);
       if (rc) renderRecapSheet(m, rc);
     });
     document.querySelectorAll(".evres, .evcap").forEach(tb => collapseRows(tb, 5, TERM.plural));
+    // deep-linked corps: expand its table if the collapse hid it, then bring
+    // the row into view (instant — no animation to fight reduced-motion)
+    const focusRow = focus && document.querySelector('tr[data-focus="1"]');
+    if (focusRow) {
+      if (focusRow.classList.contains("hid")) {
+        const wrap = (focusRow.closest(".tscroll") || {}).nextElementSibling;
+        const btn = wrap && wrap.querySelector && wrap.querySelector("button");
+        if (btn) btn.click();
+      }
+      setTimeout(() => { try { focusRow.scrollIntoView({ block: "center" }); } catch (e) {} }, 60);
+    }
     // tap a caption header to re-rank the sheet by that caption
     document.querySelectorAll(".capsort").forEach(table => {
       table.querySelectorAll("th[data-sort]").forEach(th => th.onclick = () => {
@@ -2772,6 +3112,7 @@
       <div class="card">
         <h2 id="showCmpTitle">Show Recap <span class="sub">the official judge-by-judge sheet — rank under each score, gold marks each caption's leader</span></h2>
         <div class="filters" style="margin:2px 0 8px"><div id="showSel"></div><div id="showCorpsSel"></div></div>
+        <div class="capctawrap">${capCta(' id="showCapCta"')}</div>
         <div id="showCmpBody"><div class="empty">Pick a show above.</div></div>
       </div>
       <div class="secdiv" id="capSeasonDiv"></div>
@@ -2780,14 +3121,16 @@
         <div id="capKey"></div>
         <div id="capCls"></div>
       </div>
-      <div class="card" style="margin-top:14px">
-        <h2 id="capChartTitle"></h2>
-        <div class="filters" style="margin:2px 0 8px"><div id="capCorpsSel"></div><button class="tab" id="capReset" hidden>Top 8</button></div>
-        <div class="chartwrap" id="capChart"></div>
-      </div>
-      <div class="card" style="margin-top:14px">
-        <h2 id="capBoardTitle"></h2>
-        <div id="capBoard"></div>
+      <div class="dsk2 w75" style="margin-top:14px">
+        <div class="card">
+          <h2 id="capChartTitle"></h2>
+          <div class="filters" style="margin:2px 0 8px"><div id="capCorpsSel"></div><button class="tab" id="capReset" hidden>Top 8</button></div>
+          <div class="chartwrap" id="capChart"></div>
+        </div>
+        <div class="card">
+          <h2 id="capBoardTitle"></h2>
+          <div id="capBoard"></div>
+        </div>
       </div>
       <div class="card" style="margin-top:14px">
         <h2 id="spotTitle">Corps Spotlight</h2>
@@ -2807,6 +3150,14 @@
         <p class="capkey">* one or more recap rows for that night couldn't be fully verified — the winner shown leads among verified scores</p>
       </div>`;
 
+
+    // the card follows whatever show + class is picked above it
+    wireCapCta(document.getElementById("showCapCta"), () => {
+      const v = ssShow && ssShow.get();
+      if (!v) return null;
+      const [d, evName] = String(v).split("|");
+      return { year, date: d, event: evName, cls };
+    });
 
     let rows = [];
     let recapsYr = []; // judge-level sheets for the picked year
@@ -2849,6 +3200,8 @@
       }
       shows.sort((a, b) => b.d.localeCompare(a.d));
       const corpsSel = document.getElementById("showCorpsSel");
+      const ctaWrap = document.querySelector("#showCapCta") && document.querySelector("#showCapCta").parentElement;
+      if (ctaWrap) ctaWrap.hidden = !shows.length; // nothing to card up without a sheet
       if (!shows.length) {
         body.innerHTML = "<div class='empty'>No verified recaps for this class yet.</div>";
         if (ssShow) ssShow.setOptions([]);
@@ -2926,7 +3279,7 @@
         const names = [...new Set(sheet.filter(r => r[i] != null && r[i] === best[k] && best[k] > 0).map(r => r[iCorps()]))];
         return names.length ? `<span${k === "ge" ? ' class="cw-main"' : ""}><b>${esc(label)}</b> ${esc(names.join(" & "))}</span>` : "";
       }).join("");
-      body.innerHTML = `${winChips ? `<div class="capwins"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1.5A3.5 3.5 0 0 0 7.5 11M17 6h3v1.5A3.5 3.5 0 0 1 16.5 11M12 14v4M8.5 20h7'/></svg> ${winChips}</div>` : ""}<div class="tscroll"><table class="t sticky1 showcmp"><thead><tr><th>${TERM_TH}</th>${HEAD.map(([k, l]) =>
+      body.innerHTML = `${winChips ? `<div class="capwins"><span class="cw-ico">${icoSvg(ICO_TROPHY, 14)}</span>${winChips}</div>` : ""}<div class="tscroll"><table class="t sticky1 showcmp"><thead><tr><th>${TERM_TH}</th>${HEAD.map(([k, l]) =>
           `<th class="num" data-c="${cols.indexOf(k)}">${l}</th>`).join("")}</tr></thead><tbody>
         ${sheet.map(r => `<tr><td>${corpsLink(r[iCorps()])}</td>${HEAD.map(([k]) => {
           const i = cols.indexOf(k);
@@ -3239,7 +3592,7 @@
   const DB_SETS = {
     scores: {
       label: "Scores",
-      cols: ["Year", "Date", "Event", "Corps", "Class", "Place", "Score"],
+      cols: ["Year", "Date", "Event", TERM_TH, "Class", "Place", "Score"],
       corpsIdx: 3, clsIdx: 4, evIdx: 2, dateIdx: 1, scoreCols: [6],
       load: loadScores,
     },
@@ -3257,11 +3610,11 @@
     setNav("data");
     app.innerHTML = `${dataSubNav("database")}<h1 class="page">Database <span id="dbcount" class="kicker"></span></h1>
       <div class="filters" id="dbFilters">
-        ${hasCaptions() ? '<div id="dbSet"></div>' : ""}
+        <div id="dbSet"></div>
         <div id="dbCorps"></div>
         <div id="dbYears"></div>
         <div id="fcls"></div>
-        <input class="ctrl" id="fq" placeholder="Search event…">
+        <input class="ctrl" id="fq" placeholder="Search event or ${TERM.singular}…">
         <button class="tab" id="dbReset" title="Clear all filters">Reset</button>
         <button class="tab" id="csv">Export CSV</button>
       </div>
@@ -3269,9 +3622,6 @@
 
     let setKey = "scores";
     let cfg = DB_SETS[setKey];
-    // display column -> index into the raw row. Identity everywhere except a
-    // ratings circuit's Scores set, which swaps in a trailing column.
-    let colIx = cfg.cols.map((_, i) => i);
     const CHUNK0 = 10;
     let shown = CHUNK0;
     let rows = [];
@@ -3283,14 +3633,10 @@
 
     let fclsVal = "";
     let ssFcls = null;
-    // only offer datasets this app actually ships — a circuit with no caption
-    // sheets could never show anything but a build-pending message, and one
-    // dataset needs no picker at all
-    const dbSets = Object.entries(DB_SETS).filter(([k]) => k !== "captions" || hasCaptions());
-    const dbSetEl = document.getElementById("dbSet");
-    if (dbSetEl && dbSets.length > 1) singleSelect(dbSetEl, {
+    const ssSet = singleSelect(document.getElementById("dbSet"), {
       label: "Dataset",
-      options: dbSets.map(([k, v]) => ({ value: k, label: v.label })),
+      options: Object.entries(DB_SETS).filter(([k]) => CAPS || k !== "captions")
+        .map(([k, v]) => ({ value: k, label: v.label })),
       value: setKey,
       onChange: v => { setKey = v; initDataset(); },
     });
@@ -3299,7 +3645,6 @@
       const gen = ++dbGen;
       document.getElementById("dbtable").innerHTML = "<div class='loading'>Loading…</div>";
       cfg = DB_SETS[setKey];
-      colIx = cfg.cols.map((_, i) => i);
       let got;
       try { got = await cfg.load(); }
       catch (e) {
@@ -3309,18 +3654,6 @@
       }
       if (stale() || gen !== dbGen || !document.getElementById("dbtable")) return;
       rows = got;
-      // A ratings circuit publishes no point scores: its perf rows carry a
-      // null Score and the real result — the Division rating — in a trailing
-      // column the DCI column list never knew about. Show the column the rows
-      // actually have (the CSV export follows the same list).
-      if (setKey === "scores" && resultsKind() && rows.length && rows[0].length > cfg.cols.length) {
-        const extra = rows[0].length - 1;
-        cfg = Object.assign({}, cfg, {
-          cols: cfg.cols.slice(0, -1).concat(resultsKind() === "rating" ? "Rating" : "Placement"),
-          scoreCols: [extra],
-        });
-        colIx = colIx.slice(0, -1).concat(extra);
-      }
       DB.sort = [cfg.dateIdx, -1];   // freshest shows first
       corpsSet.clear(); yearSet.clear();
       document.getElementById("fq").value = "";
@@ -3368,7 +3701,8 @@
         (!yearSet.size || yearSet.has(String(r[0]))) &&
         (!corpsSet.size || corpsSet.has(r[cfg.corpsIdx])) &&
         (!cls || r[cfg.clsIdx] === cls) &&
-        (!q || (r[cfg.evIdx] || "").toLowerCase().includes(q)));
+        (!q || (r[cfg.evIdx] || "").toLowerCase().includes(q)
+          || (r[cfg.corpsIdx] || "").toLowerCase().includes(q)));
       const [ci, dir] = DB.sort;
       filtered = filtered.slice().sort((a, b) => {
         const av = a[ci], bv = b[ci];
@@ -3401,21 +3735,17 @@
       const more = filtered.length - shown;
       document.getElementById("dbtable").innerHTML =
         `<div class="tscroll dense"><table class="t"><thead><tr>${cfg.cols.map((c, i) =>
-          `<th style="cursor:pointer;user-select:none" class="${colIx[i] === 0 || colIx[i] === cfg.clsIdx ? "m-hide" : ""}" data-c="${colIx[i]}">${c}${colIx[i] === ci ? (dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("")}</tr></thead><tbody>
+          `<th style="cursor:pointer;user-select:none" class="${i === 0 || i === cfg.clsIdx ? "m-hide" : ""}" data-c="${i}">${c}${i === ci ? (dir > 0 ? " ↑" : " ↓") : ""}</th>`).join("")}</tr></thead><tbody>
         ${filtered.slice(0, shown).map(r =>
-          `<tr>${cfg.cols.map((c, i) => cellHtml(r, colIx[i])).join("")}</tr>`).join("")}</tbody></table></div>` +
+          `<tr>${cfg.cols.map((c, i) => cellHtml(r, i)).join("")}</tr>`).join("")}</tbody></table></div>` +
         (more > 0 ? `<div class="expandwrap"><button class="tab" id="dbMore">Show ${Math.min(100, more).toLocaleString()} more ▾ <span class="kicker">(${(shown).toLocaleString()} of ${filtered.length.toLocaleString()})</span></button></div>` : "");
       const mb = document.getElementById("dbMore");
       if (mb) mb.onclick = () => { shown += 100; render(); };
       document.querySelectorAll("#dbtable th").forEach(th => th.onclick = () => {
         const c = +th.dataset.c;
-        // first click on a column puts the best row first: newest for dates
-        // and seasons, highest for point scores — but LOWEST where 1 beats 5,
-        // so a Rating column opens on Division I, not Division V
-        const first = c === 0 || c === cfg.dateIdx ? -1
-          : cfg.scoreCols.includes(c) ? (lowerIsBetter() ? 1 : -1)
-          : 1;
-        DB.sort = DB.sort[0] === c ? [c, -DB.sort[1]] : [c, first];
+        DB.sort = DB.sort[0] === c
+          ? [c, -DB.sort[1]]
+          : [c, c === 0 || c === cfg.dateIdx || cfg.scoreCols.includes(c) ? -1 : 1];
         apply();
       });
     }
@@ -3432,13 +3762,13 @@
     document.getElementById("csv").onclick = () => {
       const lines = [cfg.cols.join(",")].concat(filtered.map(r =>
         cfg.cols.map((c, i) => {
-          const v = r[colIx[i]];
+          const v = r[i];
           return v == null ? "" : /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
         }).join(",")));
       const blob = new Blob([lines.join("\n")], { type: "text/csv" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = `dci-tracker-${setKey}.csv`;
+      a.download = `cadence-${setKey}.csv`;
       a.click();
       URL.revokeObjectURL(a.href);
     };
@@ -3452,7 +3782,9 @@
     if (stale()) return;
     const classes = sortClasses(Object.keys(rec));
     if (!classes.length) {
-      app.innerHTML = "<div class='card'><div class='empty'>The record book builds with the next data run.</div></div>";
+      app.innerHTML = dataSubNav("records")
+        + '<h1 class="page">Records <span class="kicker">· the all-time book</span></h1>'
+        + "<div class='card'><div class='empty'>The record book builds with the next data run.</div></div>";
       return;
     }
     const savedCls = localStorage.getItem(NS("dt-reccls"));
@@ -3603,25 +3935,21 @@
         ${margins.map(g => `<tr><td>${yearLink(g.y)}</td><td><b>${esc(g.c1)}</b></td><td class="num score">${score3(g.s1)}</td><td>${esc(g.c2)}</td><td class="num m-hide">${score3(g.s2)}</td><td class="num" style="font-weight:650">${g.m.toFixed(3)}</td></tr>`).join("")}
       </tbody></table></div>` : emptyNote;
 
-      // 5 — biggest one-season leaps (season best, year over year). In a
-      // ratings circuit the season best is a Division rating, where 1 beats 5
-      // — so the improvement is last year's number MINUS this year's. Taking
-      // b2 - b1 there celebrated the bands that got worse.
+      // 5 — biggest one-season leaps (best score, year over year)
       const leaps = [];
-      const lb = lowerIsBetter();
       for (const c of idx) {
         if (!inCorps(c.name)) continue;
         const series = (c.series || []).slice().sort((a, b) => a[0] - b[0]);
         for (let i = 1; i < series.length; i++) {
           const [y1, b1, k1] = series[i - 1], [y2, b2, k2] = series[i];
           if (y2 !== y1 + 1 || k2 !== cls || k1 !== cls || b1 == null || b2 == null || !inEra(y2)) continue;
-          const dlt = +(lb ? b1 - b2 : b2 - b1).toFixed(3);
+          const dlt = +(b2 - b1).toFixed(3);
           if (dlt > 0) leaps.push({ corps: c.name, y1, y2, b1, b2, d: dlt });
         }
       }
       leaps.sort((a, b) => b.d - a.d);
       const leapsHtml = leaps.length ? `<div class="tscroll"><table class="t"><thead><tr><th>${TERM_TH}</th><th>Seasons</th><th class="num m-hide">From</th><th class="num m-hide">To</th><th class="num">Jump</th></tr></thead><tbody id="recLeaps">
-        ${leaps.slice(0, 50).map(l => `<tr><td>${corpsLink(l.corps)}</td><td class="kicker">${l.y1} → ${l.y2}</td><td class="num m-hide">${score3(l.b1)}</td><td class="num m-hide">${score3(l.b2)}</td><td class="num score">+${l.d.toFixed(lb ? 0 : 3)}</td></tr>`).join("")}
+        ${leaps.slice(0, 50).map(l => `<tr><td>${corpsLink(l.corps)}</td><td class="kicker">${l.y1} → ${l.y2}</td><td class="num m-hide">${score3(l.b1)}</td><td class="num m-hide">${score3(l.b2)}</td><td class="num score">+${l.d.toFixed(3)}</td></tr>`).join("")}
       </tbody></table></div>` : emptyNote;
 
       // 6 — most championship-finals appearances
@@ -3677,154 +4005,6 @@
 
   /* ============ SUGGESTIONS ============ */
   const SUGGEST_REPO = "CadencePerformingArts/Cadence-Labs";
-  const PALETTE_BAR = ["#0a3f6b", "#16233d", "#7c3aed", "#0f7b3d", "#b91c1c", "#0e7490",
-    "#c2410c", "#4338ca", "#701a75", "#92400e", "#1d4ed8", "#334155"];
-  const PALETTE_ACC = ["#f0b429", "#fbbf24", "#38bdf8", "#f472b6", "#34d399", "#fb923c",
-    "#e11d48", "#a3e635", "#c084fc", "#ffffff"];
-  // hex ↔ HSL for the inline color sliders (no native color dialog anywhere)
-  const hexToHsl = hex => {
-    const m = /^#?([0-9a-f]{6})$/i.exec(String(hex).trim());
-    const n = parseInt(m ? m[1] : "0a3f6b", 16);
-    const r = (n >> 16) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
-    const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
-    let h = 0;
-    if (d) {
-      if (max === r) h = ((g - b) / d) % 6;
-      else if (max === g) h = (b - r) / d + 2;
-      else h = (r - g) / d + 4;
-      h = Math.round(h * 60);
-      if (h < 0) h += 360;
-    }
-    const l = (max + min) / 2;
-    const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
-    return [h, Math.round(s * 100), Math.round(l * 100)];
-  };
-  const hslToHex = (h, s, l) => {
-    s /= 100; l /= 100;
-    const f = n => {
-      const k = (n + h / 30) % 12;
-      const c = l - s * Math.min(l, 1 - l) * Math.max(-1, Math.min(k - 3, 9 - k, 1));
-      return Math.round(c * 255).toString(16).padStart(2, "0");
-    };
-    return "#" + f(0) + f(8) + f(4);
-  };
-
-  /* Every Cadence app, for the one settings surface that manages alert
-     preferences across the whole family. path is from the site root; ns
-     prefixes that app's stored keys (one origin = one shared localStorage,
-     so any app's Settings page can manage every app's preferences).
-     registry.js is the authority and loads ahead of this script on every
-     scoreboard page (docs/index.html and every page gen_family_pages.py
-     writes) — the literal below is only the fallback for a page that forgot
-     the tag, and a hardcoded list is exactly how six circuits ended up with
-     nowhere to configure alerts. */
-  const CAD_APPS = window.CAD_REGISTRY
-    ? window.CAD_REGISTRY.apps.map(a => ({
-      name: a.id === "dci" ? "Cadence DCI" : a.name,
-      path: window.CAD_REGISTRY.folderKey(a) || ".",
-      ns: a.ns,
-    }))
-    : [
-      { name: "Cadence DCI", path: ".", ns: "" },
-      { name: "WGI Color Guard", path: "wgi/guard", ns: "wgi-guard:" },
-      { name: "WGI Percussion", path: "wgi/percussion", ns: "wgi-perc:" },
-      { name: "WGI Winds", path: "wgi/winds", ns: "wgi-winds:" },
-    ];
-
-  /* One card that manages score-alert preferences for every Cadence app —
-     rendered on every app's Settings page. The DCI page keeps its native
-     push card above this (real subscriptions need the DCI service worker),
-     so its own entry is skipped there; on family pages DCI appears as a
-     link row for the same reason. */
-  function mountFamilyAlerts() {
-    const curNs = (window.APP_CFG && window.APP_CFG.ns) || "";
-    const rootPrefix = (window.APP_CFG && window.APP_CFG.root) || ".";
-    const dciHref = rootPrefix === "." ? "#/settings" : rootPrefix + "/#/settings";
-    const apps = CAD_APPS.filter(a => a.ns !== "" || curNs !== "")
-      .slice().sort((a, b) => (a.ns === curNs ? -1 : 0) - (b.ns === curNs ? -1 : 0));
-    if (!apps.length) return;
-    const pref = (ns, k, dflt) => { try { const v = localStorage.getItem(ns + k); return v == null ? dflt : v; } catch (e) { return dflt; } };
-    const setPref = (ns, k, v) => { try { localStorage.setItem(ns + k, v); } catch (e) {} };
-
-    const card = document.createElement("div");
-    card.className = "card setcard";
-    card.innerHTML = `<h2>Alerts across Cadence</h2>
-      <p class="setnote">One place for every Cadence app — pick exactly what you want a ping for.
-      Preferences apply the moment each app's alert feed goes live.</p>`
-      + apps.map(a => {
-        if (a.ns === "") return `<a class="famapp-link" href="${dciHref}"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg> <b>Cadence DCI</b>
-          <span class="setsub">Push alerts live — manage them in the DCI app</span><span class="famapp-go">→</span></a>`;
-        const open = a.ns === curNs;
-        const on = pref(a.ns, "cad-notify-on", "on") === "on";
-        return `<div class="famapp${open ? " open" : ""}" data-ns="${a.ns}" data-path="${a.path}">
-          <div class="famapp-head">
-            <button class="famapp-name" type="button" aria-expanded="${open}"><span class="caret">▸</span>${esc(a.name)}</button>
-            <button class="toggle${on ? " on" : ""}" data-fam-on aria-pressed="${on}" aria-label="${esc(a.name)} score alerts"></button>
-          </div>
-          <div class="famapp-body"${open ? "" : " hidden"}></div>
-        </div>`;
-      }).join("");
-
-    async function fillBody(wrap) {
-      const ns = wrap.dataset.ns, body = wrap.querySelector(".famapp-body");
-      if (!body || body.dataset.filled) return;
-      body.dataset.filled = "1";
-      const favs = pref(ns, "cad-notify-scope", "all") === "favs";
-      let clsList = [];
-      try {
-        const rk = await (await fetch(`${rootPrefix}/${wrap.dataset.path}/data/rankings.json`)).json();
-        clsList = Object.keys(rk.standings || {});
-      } catch (e) {}
-      let onRaw = null;
-      try { onRaw = JSON.parse(pref(ns, "cad-notify-classes", "null")); } catch (e) {}
-      const onSet = new Set(Array.isArray(onRaw) ? onRaw.filter(c => clsList.includes(c)) : clsList);
-      body.innerHTML = `
-        <div class="setrow">
-          <div><b>Only my favorites</b><div class="setsub">Alert just for your ★ picks</div></div>
-          <button class="toggle${favs ? " on" : ""}" data-fam-favs aria-pressed="${favs}" aria-label="Favorites only"></button>
-        </div>` + (clsList.length ? `
-        <div class="setrow setrow-classes">
-          <div><b>Which classes</b><div class="setsub">Only alert me for the classes I follow</div></div>
-        </div>
-        <div class="classchips">${clsList.map(c => `<button class="classchip${onSet.has(c) ? " on" : ""}" data-ncls="${esc(c)}" aria-pressed="${onSet.has(c)}">${esc(c)}</button>`).join("")}</div>` : "");
-      const favBtn = body.querySelector("[data-fam-favs]");
-      if (favBtn) favBtn.addEventListener("click", () => {
-        const now = !favBtn.classList.contains("on");
-        favBtn.classList.toggle("on", now);
-        favBtn.setAttribute("aria-pressed", String(now));
-        setPref(ns, "cad-notify-scope", now ? "favs" : "all");
-      });
-      body.querySelectorAll("[data-ncls]").forEach(b => b.addEventListener("click", () => {
-        const c = b.dataset.ncls;
-        if (onSet.has(c)) onSet.delete(c); else onSet.add(c);
-        b.classList.toggle("on", onSet.has(c));
-        setPref(ns, "cad-notify-classes", JSON.stringify([...onSet]));
-      }));
-    }
-
-    card.querySelectorAll(".famapp").forEach(wrap => {
-      wrap.querySelector(".famapp-name").addEventListener("click", () => {
-        const body = wrap.querySelector(".famapp-body");
-        const open = body.hidden;
-        body.hidden = !open;
-        wrap.classList.toggle("open", open);
-        wrap.querySelector(".famapp-name").setAttribute("aria-expanded", String(open));
-        if (open) fillBody(wrap);
-      });
-      const onBtn = wrap.querySelector("[data-fam-on]");
-      onBtn.addEventListener("click", () => {
-        const now = !onBtn.classList.contains("on");
-        onBtn.classList.toggle("on", now);
-        onBtn.setAttribute("aria-pressed", String(now));
-        setPref(wrap.dataset.ns, "cad-notify-on", now ? "on" : "off");
-      });
-      if (!wrap.querySelector(".famapp-body").hidden) fillBody(wrap);
-    });
-
-    const foot = app.querySelector(".setfoot");
-    if (foot) app.insertBefore(card, foot); else app.appendChild(card);
-  }
-
   async function viewSettings(_m, stale) {
     setNav("");
     const themeMode = (window.CadTheme && window.CadTheme.mode()) || (localStorage.getItem("cad-theme") || "auto");
@@ -3865,33 +4045,36 @@
     app.innerHTML = h`
       <h1 class="page">Settings</h1>
 
-      ${(window.CadAccount && window.CadAccount.enabled) ? `
-      <div class="card setcard" id="acctCard">
-        <h2>Cadence account</h2>
-        <div id="acctBody"></div>
-      </div>` : ""}
-
       ${(window.CadInstall && !window.CadInstall.standalone()) ? `
       <div class="card setcard" id="installCard">
-        <h2><svg viewBox='0 0 24 24' width='18' height='18' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M8 3h8v18H8zM11 18.5h2'/></svg> Add to Home Screen</h2>
+        <h2>${icoSvg(ICO_PHONE, 16)} Add to Home Screen</h2>
         <p class="setnote">Install Cadence like a real app — full screen, works offline, and it's how you get score alerts on iPhone.</p>
         <button class="tab" id="installOpen" type="button" style="font-weight:800;padding:11px 20px;font-size:14.5px">Show me how →</button>
       </div>` : ""}
 
       <div class="card setcard">
-        <h2>Appearance</h2>
-        <p class="setnote">Pick a light or dark look — or follow your device.</p>
-        <div class="seg" id="themeSeg">${segBtn("auto", "Auto")}${segBtn("light", "Light")}${segBtn("dark", "Dark")}</div>
+        <h2>Favorites</h2>
+        <p class="setnote" id="favSummary">${FAVS.list().length
+          ? `Following ${FAVS.list().map(n => `<b>${esc(n)}</b>`).join(", ")} — starred everywhere${FAM ? "" : ", first in score alerts"}.`
+          : (FAM ? "Star " + TERM.plural + " to pin them to the top of every board and table." : "Star corps to pin them on the Scoreboard and lead your score alerts.")}</p>
+        <button class="tab" id="favPick" type="button">Choose favorites</button>
+      </div>
+
+      <div class="dsk2">
+        <div class="card setcard">
+          <h2>Appearance</h2>
+          <p class="setnote">Pick a light or dark look — or follow your device.</p>
+          <div class="seg" id="themeSeg">${segBtn("auto", "Auto")}${segBtn("light", "Light")}${segBtn("dark", "Dark")}</div>
+        </div>
+        <div class="card setcard">
+          <h2>Text Size</h2>
+          <p class="setnote">Make everything a little easier to read.</p>
+          <div class="seg" id="fsSeg">${fsBtn("1", "Default")}${fsBtn("1.1", "Large")}${fsBtn("1.2", "Larger")}</div>
+        </div>
       </div>
 
       <div class="card setcard">
-        <h2>Text size</h2>
-        <p class="setnote">Make everything a little easier to read.</p>
-        <div class="seg" id="fsSeg">${fsBtn("1", "Default")}${fsBtn("1.1", "Large")}${fsBtn("1.2", "Larger")}</div>
-      </div>
-
-      <div class="card setcard">
-        <h2>Team colors</h2>
+        <h2>Team Colors</h2>
         <p class="setnote">Paint Cadence in ${FAM ? "your own colors" : "your corps' colors"} — or keep the classic Cadence look.</p>
         <button class="setreset${curCorps ? " armed" : " on"}" data-corps-set="">
           <span class="corpschip-sw" style="background:#f0b429"></span>
@@ -3908,24 +4091,10 @@
           <div class="corpslist-empty" id="corpsEmpty" hidden>No corps match “<span id="corpsEmptyQ"></span>”.</div>
         </div>
         <div class="custombuild">
-          <div class="custombuild-h">Or build your own <span class="kicker">pick a primary, then an accent</span></div>
-          <div class="palrow" data-pal="bar">${PALETTE_BAR.map(c => `<button type="button" class="palsw${c === custInit[0] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Primary ${c}"></button>`).join("")}</div>
-          <div class="palrow" data-pal="acc">${PALETTE_ACC.map(c => `<button type="button" class="palsw${c === custInit[1] ? " on" : ""}" data-c="${c}" style="background:${c}" aria-label="Accent ${c}"></button>`).join("")}</div>
-          <div class="custsliders">
-            <div class="custslide">
-              <span class="custlbl">Primary</span>
-              <input type="range" class="slider-hue" id="custBarH" min="0" max="359" step="1" aria-label="Primary hue">
-              <input type="range" class="slider-lit" id="custBarL" min="10" max="88" step="1" aria-label="Primary lightness">
-            </div>
-            <div class="custslide">
-              <span class="custlbl">Accent</span>
-              <input type="range" class="slider-hue" id="custAccH" min="0" max="359" step="1" aria-label="Accent hue">
-              <input type="range" class="slider-lit" id="custAccL" min="10" max="94" step="1" aria-label="Accent lightness">
-            </div>
-          </div>
+          <div class="custombuild-h">Or build your own <span class="kicker">just for fun</span></div>
           <div class="customrow">
-            <input type="hidden" id="custBar" value="${custInit[0]}">
-            <input type="hidden" id="custAcc" value="${custInit[1]}">
+            <label class="custompick"><input type="color" id="custBar" value="${custInit[0]}"><span>Primary</span></label>
+            <label class="custompick"><input type="color" id="custAcc" value="${custInit[1]}"><span>Accent</span></label>
             <span class="corpsrow-sw custpreview" id="custPreview" style="--c1:${custInit[0]};--c2:${custInit[1]}"></span>
             <button class="tab pr-lock" id="custApply" type="button">Use these</button>
           </div>
@@ -3954,62 +4123,16 @@
       <p class="setfoot">Preferences are saved on this device. Created by Lucas Besel.</p>`;
     if (stale()) return;
 
-    // family pages: drop the DCI-only cards (real push + install live on the
-    // DCI page; the shared "Alerts across Cadence" card covers this app's
-    // alert preferences on every page)
+    // family pages: drop the cards whose feature only exists on the DCI app.
+    // Score alerts need a live scores feed and the push relay's per-corps
+    // registration (neither exists for a family circuit), and the install
+    // prompt is wired by install.js, which family shells don't load — so
+    // both cards would sit there doing nothing.
     if (FAM) app.querySelectorAll(".setcard").forEach(c => {
       const t = ((c.querySelector("h2") || {}).textContent) || "";
       if (/Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
     });
 
-
-    // account — sign-in card; repaints on auth changes
-    function paintAcct() {
-      const body = document.getElementById("acctBody");
-      if (!body || !window.CadAccount) return;
-      const u = CadAccount.user();
-      if (!u) {
-        body.innerHTML = `
-          <p class="setnote">One account for every Cadence app — your ★ favorites and alert
-            settings follow you to any device. No password: we email you a sign-in link.</p>
-          <form class="acct-form" id="acctForm">
-            <input class="ctrl" type="email" id="acctEmail" placeholder="you@example.com"
-              autocomplete="email" required>
-            <button class="tab" type="submit">Email me a sign-in link</button>
-          </form>
-          <p class="acct-msg" id="acctMsg" role="status"></p>`;
-        const form = document.getElementById("acctForm");
-        form.addEventListener("submit", e => {
-          e.preventDefault();
-          const msg = document.getElementById("acctMsg");
-          const email = document.getElementById("acctEmail").value;
-          msg.className = "acct-msg"; msg.textContent = "Sending…";
-          CadAccount.signIn(email).then(() => {
-            msg.className = "acct-msg ok";
-            msg.textContent = "Link sent — open the email on this device to finish signing in.";
-          }).catch(err => {
-            msg.className = "acct-msg err";
-            msg.textContent = "Couldn't send the link" + (err && err.message ? ` — ${err.message}` : "") + ". Try again in a minute.";
-          });
-        });
-      } else {
-        const plus = CadAccount.plusStatus();
-        const plusLine = plus && (plus.status === "active" || plus.status === "beta")
-          ? `<div class="setsub"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 11.5 10 20l2-1.2L14 20l-2-8.5'/></svg> Cadence+ ${plus.status === "beta" ? "beta " : ""}member</div>` : "";
-        body.innerHTML = `
-          <div class="setrow">
-            <div><b>${esc(u.email || "Signed in")}</b>
-              <div class="setsub">Favorites &amp; alert settings sync across every Cadence app</div>${plusLine}</div>
-            <button class="tab" id="acctOut" type="button">Sign out</button>
-          </div>`;
-        document.getElementById("acctOut").addEventListener("click", () => CadAccount.signOut());
-      }
-    }
-    paintAcct();
-    if (window.CadAccount && !viewSettings._acctHooked) {
-      viewSettings._acctHooked = true; // one global listener; repaints only when the card exists
-      CadAccount.onChange(() => paintAcct());
-    }
 
     // appearance
     app.querySelectorAll("[data-theme-set]").forEach(b => b.addEventListener("click", () => {
@@ -4056,17 +4179,7 @@
         if (qs) qs.textContent = search.value.trim();
       }
     });
-    // custom primary + accent — curated swatches drive the pickers, so the
-    // ugly native color dialog is only a fine-tune fallback
-    app.querySelectorAll(".palrow").forEach(rowEl => rowEl.addEventListener("click", e => {
-      const sw = e.target.closest(".palsw");
-      if (!sw) return;
-      const input = document.getElementById(rowEl.dataset.pal === "bar" ? "custBar" : "custAcc");
-      if (!input) return;
-      input.value = sw.dataset.c;
-      rowEl.querySelectorAll(".palsw").forEach(x => x.classList.toggle("on", x === sw));
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-    }));
+    // custom primary + accent — just for fun
     const custBar = document.getElementById("custBar");
     const custAcc = document.getElementById("custAcc");
     const custPrev = document.getElementById("custPreview");
@@ -4074,46 +4187,8 @@
     const paintCustPreview = () => {
       if (custPrev && custBar && custAcc) { custPrev.style.setProperty("--c1", custBar.value); custPrev.style.setProperty("--c2", custAcc.value); }
     };
-    // inline hue + lightness sliders drive each channel; the hidden inputs
-    // hold the hex the rest of the code (swatch rows, Apply) already speaks.
-    // Saturation is remembered per channel so curated swatches round-trip
-    // exactly; dragging hue on a near-grey bumps it to something visible.
-    const custSat = { bar: hexToHsl(custBar.value)[1], acc: hexToHsl(custAcc.value)[1] };
-    const custSliders = pal => ({
-      h: document.getElementById(pal === "bar" ? "custBarH" : "custAccH"),
-      l: document.getElementById(pal === "bar" ? "custBarL" : "custAccL"),
-      input: pal === "bar" ? custBar : custAcc,
-    });
-    function paintTracks(pal) {
-      const s = custSliders(pal), hue = +s.h.value, ss = custSat[pal];
-      s.l.style.background = `linear-gradient(90deg, hsl(${hue},${ss}%,8%), hsl(${hue},${ss}%,50%), hsl(${hue},${ss}%,95%))`;
-      s.h.style.setProperty("--thumb", `hsl(${hue},${Math.max(ss, 40)}%,50%)`);
-      s.l.style.setProperty("--thumb", s.input.value);
-    }
-    function syncFromHex(pal) { // hex (swatch tap, saved value) → sliders
-      const s = custSliders(pal), hsl = hexToHsl(s.input.value);
-      custSat[pal] = hsl[1];
-      s.h.value = hsl[0];
-      s.l.value = Math.min(+s.l.max, Math.max(+s.l.min, hsl[2]));
-      paintTracks(pal);
-    }
-    function syncFromSliders(pal) { // slider drag → hex
-      const s = custSliders(pal);
-      if (custSat[pal] < 12) custSat[pal] = 72;
-      s.input.value = hslToHex(+s.h.value, custSat[pal], +s.l.value);
-      paintTracks(pal);
-      paintCustPreview();
-      const row = app.querySelector(`.palrow[data-pal="${pal}"]`);
-      if (row) row.querySelectorAll(".palsw").forEach(x => x.classList.toggle("on", x.dataset.c === s.input.value));
-    }
-    ["bar", "acc"].forEach(pal => {
-      const s = custSliders(pal);
-      if (!s.h || !s.l || !s.input) return;
-      s.h.addEventListener("input", () => syncFromSliders(pal));
-      s.l.addEventListener("input", () => syncFromSliders(pal));
-      s.input.addEventListener("input", () => { syncFromHex(pal); paintCustPreview(); });
-      syncFromHex(pal);
-    });
+    if (custBar) custBar.addEventListener("input", paintCustPreview);
+    if (custAcc) custAcc.addEventListener("input", paintCustPreview);
     if (custApply) custApply.addEventListener("click", () => {
       applyCustomTheme(custBar.value, custAcc.value);
       app.querySelectorAll("[data-corps-set]").forEach(x => x.classList.remove("on"));
@@ -4129,19 +4204,50 @@
     const installOpen = document.getElementById("installOpen");
     if (installOpen) installOpen.addEventListener("click", () => { if (window.CadInstall) window.CadInstall.open(); });
 
+    // favorites picker — same sheet as first-run onboarding; re-render the
+    // page on close so the summary (and alert personalization notes) refresh
+    const favPick = document.getElementById("favPick");
+    if (favPick) favPick.addEventListener("click", () => CadOnboard.open(true, () => {
+      if ((location.hash || "") === "#/settings") route();
+    }));
+
     // notifications
     const pushToggle = document.getElementById("pushToggle");
     const pushStatus = document.getElementById("pushStatus");
+    // is the alert relay answering? Any HTTP response (even 404 from an older
+    // build without /healthz) proves the server is up — only a network-level
+    // failure counts as down. Never blocks the page; 2.5 s cap.
+    async function relayUp() {
+      const base = (window.CadConfig || {}).RELAY_URL;
+      if (!base) return false;
+      try {
+        const ctl = new AbortController();
+        const t = setTimeout(() => ctl.abort(), 2500);
+        const r = await fetch(base + "/healthz", { signal: ctl.signal });
+        clearTimeout(t);
+        return r.status > 0;
+      } catch (e) { return false; }
+    }
     async function paintPush() {
       if (!pushStatus || !pushToggle) return;
       if (!window.CadPush) { pushStatus.textContent = "Not available"; pushToggle.disabled = true; return; }
       const s = await CadPush.status();
       if (s === "unsupported") { pushStatus.textContent = "Not supported in this browser"; pushToggle.disabled = true; pushToggle.classList.remove("on"); return; }
       if (s === "ios-install") { pushStatus.textContent = "On iPhone, install the app first (Share → Add to Home Screen), then reopen Cadence"; pushToggle.disabled = true; pushToggle.classList.remove("on"); return; }
+      if (s !== "on" && "Notification" in window && Notification.permission === "denied") {
+        pushStatus.textContent = "Blocked — allow notifications for this site in your browser settings, then reopen Cadence";
+        pushToggle.disabled = true; pushToggle.classList.remove("on");
+        return;
+      }
       pushToggle.disabled = false;
       pushToggle.classList.toggle("on", s === "on");
       pushToggle.setAttribute("aria-pressed", s === "on");
       pushStatus.textContent = s === "on" ? "On — you'll get a ping when scores drop" : "Off";
+      // relay trouble is worth a heads-up only when alerts are meant to be on
+      if (s === "on") relayUp().then(up => {
+        if (!up && pushStatus.isConnected && pushToggle.classList.contains("on"))
+          pushStatus.textContent = "On — but the alert server isn't responding right now, so alerts may be delayed";
+      });
     }
     if (pushToggle) pushToggle.addEventListener("click", async () => {
       if (!window.CadPush || pushToggle.disabled) return;
@@ -4158,6 +4264,11 @@
       scopeToggle.setAttribute("aria-pressed", next === "favs");
       if (window.CadPush) CadPush.setScope(next);
     });
+    /* The "Prediction results" toggle used to sit here. It wrote
+       its own localStorage key on click and read it back only to paint its
+       own state — nothing decided whether to send a reminder from it. A
+       control that claims to silence a notification and does nothing is worse
+       than no control, so it is gone rather than stubbed. */
     const clsChips = [...app.querySelectorAll("#classChips .classchip")];
     clsChips.forEach(ch => ch.addEventListener("click", () => {
       ch.classList.toggle("on");
@@ -4166,7 +4277,6 @@
       if (window.CadPush && CadPush.setClasses) CadPush.setClasses(picked);
     }));
     paintPush();
-    mountFamilyAlerts();
   }
 
   // Ask Cadence — natural-language questions answered from the official scores.
@@ -4174,6 +4284,16 @@
   let askThread = []; // [{ role: "user"|"assistant", content }]
   async function viewAsk(_m, stale) {
     setNav("");
+    // real feature flag, not just a hidden button: the assistant renders an
+    // honest unavailable state until BOTH this flag and the relay's own
+    // server-side gate are switched on
+    if (!(window.CadConfig || {}).ASK_ENABLED) {
+      app.innerHTML = `
+        <h1 class="page">Ask Cadence <span class="kicker">· scores assistant</span></h1>
+        <div class="card"><div class="empty">The scores assistant is switched off right now.<br>
+          Everything else works without it — try the <a href="#/">Scoreboard</a> or <a href="#/stats">Stats</a>.</div></div>`;
+      return;
+    }
     let year = new Date().getUTCFullYear();
     try {
       const meta = await data("meta.json");
@@ -4254,23 +4374,85 @@
   // falling back to that year's Shows list if the data hasn't caught up yet.
   async function viewGo(qs) {
     const p = new URLSearchParams(qs || "");
-    const y = p.get("y"), d = p.get("d"), e = p.get("e");
+    const y = p.get("y"), d = p.get("d"), e = p.get("e"), c = p.get("c");
     if (!y) { location.replace("#/"); return; }
     try {
       const events = await data(`seasons/${y}.json`);
       let idx = -1;
       if (e) idx = events.findIndex(ev => ev.date === d && ev.name === e);
       if (idx < 0 && d) idx = events.findIndex(ev => ev.date === d);
-      if (idx >= 0) { location.replace(`#/event/${y}/${idx}`); return; }
+      // carry the alert's corps through so the event page lands on their row
+      if (idx >= 0) { location.replace(`#/event/${y}/${idx}${c ? `?c=${encodeURIComponent(c)}` : ""}`); return; }
     } catch (err) {}
     location.replace(`#/events?y=${y}`);
+  }
+
+  // About, data sources, non-affiliation, and privacy — the app's honest
+  // self-description. Everything stated here must stay true to the actual
+  // implementation (no accounts, no trackers, relay stores only what /subscribe
+  // is sent). Update this page whenever that reality changes.
+  function viewAbout() {
+    setNav("");
+    // the About page is DCI's; family apps hand off to the canonical copy
+    if (FAM) { location.href = (FAM.root || ".") + "/#/about"; return; }
+    const cfg = window.CadConfig || {};
+    const relayHost = (() => { try { return new URL(cfg.RELAY_URL).host; } catch (e) { return null; } })();
+    app.innerHTML = `
+      <h1 class="page">About Cadence</h1>
+      <div class="card cardgap">
+        <h2>What This Is</h2>
+        <p class="abouttxt">Cadence is a free scores dashboard for Drum Corps International (DCI)
+          competition: live season standings, judge-level caption recaps, corps histories, and
+          complete published results back to 1972. It covers DCI's World Class, Open Class, and
+          All-Age divisions. It does not currently cover other circuits.</p>
+        <p class="abouttxt"><b>Cadence is an independent fan project.</b> It is not affiliated with,
+          sponsored by, or endorsed by Drum Corps International, CompetitionSuite, or any corps.
+          All corps names and event names belong to their respective organizations.</p>
+      </div>
+      <div class="card cardgap">
+        <h2>Where the Scores Come From</h2>
+        <p class="abouttxt">Scores are collected from publicly published sources and credited:
+          <a href="https://www.dci.org/scores" target="_blank" rel="noopener">DCI.org</a> (primary, with caption recaps),
+          <a href="https://www.drum-corps.net" target="_blank" rel="noopener">drum-corps.net</a>,
+          <a href="https://downbeatdesigns.com" target="_blank" rel="noopener">Downbeat Designs</a>,
+          CompetitionSuite's public score feeds, and
+          <a href="https://www.soundmachine.org/dci/dcihistory.htm" target="_blank" rel="noopener">The Sound Machine</a> historical archive.
+          Collection is rate-limited and cached to keep load on those sites minimal, and every
+          caption sheet is re-verified arithmetically before it's published here. Scores can be
+          corrected at the source; Cadence picks up corrections on its next update cycle.</p>
+      </div>
+      <div class="card cardgap">
+        <h2>Privacy</h2>
+        <p class="abouttxt">Cadence has no accounts and no sign-in. Your favorites, theme, team
+          colors, text size, predictions, and seen-item markers are stored only in this browser
+          — they never leave your device.</p>
+        <p class="abouttxt">There is no advertising and no behavioral analytics. The app makes no
+          requests to tracking services.</p>
+        <p class="abouttxt"><b>Score alerts</b> are the one optional feature that stores anything
+          off-device: turning them on registers an anonymous browser push endpoint${relayHost ? ` with the
+          alert relay (<span class="mono">${esc(relayHost)}</span>)` : ""} along with your starred corps and
+          class preferences, so notifications can be personalized. No name, email, or identifier
+          is attached. Turning alerts off asks the relay to delete that registration, and you can
+          also revoke notification permission in your browser or device settings at any time. The
+          relay keeps only aggregate counters and recent error messages for troubleshooting; its
+          hosting provider may keep standard server request logs.</p>
+        <p class="abouttxt">External links (venue pages, news articles, GitHub) lead to third-party
+          sites with their own policies. The "Ask Cadence" assistant is currently unavailable.</p>
+      </div>
+      <div class="card">
+        <h2>Contact &amp; Source</h2>
+        <p class="abouttxt">Questions, corrections, or ideas: open an issue on
+          <a href="https://github.com/${SUGGEST_REPO}/issues" target="_blank" rel="noopener">GitHub</a>
+          or use the <a href="#/suggestions">Suggestions</a> page. The full source code is public.</p>
+        <p class="abouttxt" style="margin-bottom:0">Created by Lucas Besel${cfg.RELEASE ? ` · release <span class="mono">${esc(String(cfg.RELEASE))}</span>` : ""}</p>
+      </div>`;
   }
 
   async function viewSuggestions(_m, stale) {
     setNav("");
     app.innerHTML = `
       <h1 class="page">Suggestions <span class="kicker">· help decide what gets built</span></h1>
-      <div class="card" style="margin-bottom:14px">
+      <div class="card cardgap">
         <h2>Have an Idea?</h2>
         <p style="margin:0 0 12px;color:var(--text-secondary)">Missing a stat? Want a new view? Post it below — suggestions are public, and the most-wanted ideas get built first. A free GitHub account is all it takes.</p>
         <a class="tab on" style="display:inline-block;text-decoration:none" href="https://github.com/${SUGGEST_REPO}/issues/new?template=suggestion.yml" target="_blank" rel="noopener">Post a suggestion →</a>
@@ -4306,7 +4488,8 @@
 
   /* ============ router ============ */
   const routes = [
-    [/^#?\/?$/, viewRankings],
+    // "#/" is the current season; "#/?y=1994" is that season's board
+    [/^#?\/?(?:\?(.*))?$/, (m, st) => viewRankings(m[1], st)],
     [/^#\/compare(?:\?(.*))?$/, (m, st) => viewCorpsHub(m[1], st)],
     [/^#\/corps\?(.*)$/, m => { location.replace(`#/compare?${m[1]}`); }],
     [/^#\/corps$/, (m, st) => viewCorpsPage(null, st)],
@@ -4314,18 +4497,22 @@
     [/^#\/events(?:\?(.*))?$/, (m, st) => viewEvents(m[1], st)],
     [/^#\/predictions$/, viewPredictions],
     [/^#\/(?:seasons|champions)$/, viewSeasons],
-    [/^#\/data$/, () => { location.replace(FAM && !FAM.captions ? "#/compare" : "#/captions"); }],
+    // Stats hub entry — lands on the captions front page. "#/data" is the
+    // legacy name for the same hub; keep both redirecting forever so old
+    // shared links never break.
+    [/^#\/(?:stats|data)$/, () => { location.replace(CAPS ? "#/captions" : "#/compare"); }],
     [/^#\/season\/(\d{4})$/, m => { location.replace(`#/events?y=${m[1]}`); }],
-    [/^#\/event\/(\d{4})\/(\d+)$/, (m, st) => viewEvent(m[1], m[2], st)],
-    [/^#\/captions(?:\?(.*))?$/, (m, st) => { if (FAM && !FAM.captions) { location.replace("#/compare"); return; } return viewCaptions(m[1], st); }],
+    [/^#\/event\/(\d{4})\/(\d+)(?:\?(.*))?$/, (m, st) => viewEvent(m[1], m[2], st, m[3])],
+    [/^#\/captions(?:\?(.*))?$/, (m, st) => { if (!CAPS) { location.replace("#/compare"); return; } return viewCaptions(m[1], st); }],
     [/^#\/records$/, viewRecords],
     [/^#\/settings$/, viewSettings],
     [/^#\/go(?:\?(.*))?$/, m => viewGo(m[1])],
     [/^#\/ask$/, viewAsk],
+    [/^#\/about$/, viewAbout],
     [/^#\/suggestions$/, viewSuggestions],
     [/^#\/database$/, viewDatabase],
     // legacy routes from earlier versions
-    [/^#\/(today|rankings)$/, viewRankings],
+    [/^#\/(today|rankings)$/, (m, st) => viewRankings("", st)],
     [/^#\/season\/dci\/(\d{4})$/, m => { location.replace(`#/events?y=${m[1]}`); }],
   ];
 
@@ -4335,13 +4522,12 @@
      Each top-level tab remembers where you last were (an open event, a
      corps, a stats sub-page with its filters-in-URL) and takes you back
      there. Tapping the tab you're already on returns to its front page. */
-  const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM && !FAM.captions ? "#/compare" : "#/captions", champions: "#/champions" };
+  const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: CAPS ? "#/captions" : "#/compare" };
   function sectionOf(hash) {
     if (/^#\/(events|event\/|season\/|predictions)/.test(hash)) return "events";
     if (/^#\/corps/.test(hash)) return "corps";
-    if (FAM && /^#\/(champions|seasons)/.test(hash)) return "champions";
-    if (/^#\/(data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";
-    if (hash === "#/" || hash === "" || hash === "#") return "rankings";
+    if (/^#\/(stats|data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";
+    if (/^#?\/?(\?.*)?$/.test(hash)) return "rankings";   // incl. "#/?y=1994"
     return null; // suggestions etc. carry no tab memory
   }
   function rememberSpot() {
@@ -4352,7 +4538,12 @@
     if (fab) fab.hidden = /^#\/ask$/.test(hash); // hide the shortcut on its own page
     document.querySelectorAll("#nav a").forEach(a => {
       const r = a.dataset.route;
-      if (!r || !NAV_DEFAULT[r]) return; // plain links (My Cadence) aren't routes
+      // Cadence puts a Workspace link in this nav, and it is a plain href to
+      // ensemble/ rather than a hash route. Without this guard r is undefined,
+      // NAV_DEFAULT[undefined] is undefined, and the anchor's href is set to
+      // the literal string "undefined" on first paint — every Workspace tab
+      // led to a 404.
+      if (!r || !NAV_DEFAULT[r]) return;
       a.setAttribute("href", r === sec ? NAV_DEFAULT[r]
         : (sessionStorage.getItem(NS("cad-last-" + r)) || NAV_DEFAULT[r]));
     });
@@ -4376,7 +4567,7 @@
           console.error(e);
           app.innerHTML = firstBuildPending
             ? `<div class="card" style="text-align:center;padding:48px 20px">
-                 <div style="margin-bottom:10px;color:var(--baseline)"><svg viewBox='0 0 24 24' width='42' height='42' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:0px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg></div>
+                 <div style="line-height:0;color:var(--muted);margin-bottom:12px" aria-hidden="true"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 10v4M9.5 7v10M14.5 9.5v5M19 5v14"/></svg></div>
                  <h2 style="margin:0 0 8px">First Data Build in Progress</h2>
                  <p style="color:var(--text-secondary);max-width:52ch;margin:0 auto">Scores are being pulled from DCI.org right now. This page fills in automatically when it finishes.</p>
                </div>`
@@ -4438,8 +4629,16 @@
       : mins < 180 ? `${mins} min ago`
       : mins < 36 * 60 ? `${Math.round(mins / 60)} h ago`
       : `${Math.round(mins / 1440)} d ago`;
+    // the pipeline rebuilds every ~15 min year-round, so a stamp hours old
+    // means updates have stalled — flag it quietly rather than pretending
+    // the board is current. Cached offline data trips this too, which is
+    // exactly right: it isn't live.
+    const stale = mins > 120;
+    el.classList.toggle("stale", stale);
     el.textContent = `Updated ${ago}`;
-    el.title = `Data from ${s} — refreshes several times an hour — every 3 min on show nights`;
+    el.title = stale
+      ? `Data from ${s} — updates seem delayed right now; scores may lag until the pipeline catches up`
+      : `Data from ${s} — refreshes several times an hour — every 3 min on show nights`;
   }
   setInterval(() => paintUpdated(), 30 * 1000);
 
@@ -4487,7 +4686,7 @@
       if (toast) return;
       toast = document.createElement("button");
       toast.id = "liveToast";
-      toast.innerHTML = "<svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M4 9c0-1.7 3.6-3 8-3s8 1.3 8 3M4 9v7c0 1.7 3.6 3 8 3s8-1.3 8-3V9M4 9c0 1.7 3.6 3 8 3s8-1.3 8-3M7.5 4l3 5.5M16.5 4l-3 5.5'/></svg> New scores just landed — <b>tap to refresh</b>";
+      toast.innerHTML = "🥁 New scores just landed — <b>tap to refresh</b>";
       toast.onclick = () => {
         cache.clear();
         seedRankings(seed);
@@ -4565,10 +4764,11 @@
     async function refreshShowFlag() {
       try {
         const up = await data("upcoming.json");
-        // "today" and "last night" in Eastern (DCI's home clock), not UTC —
-        // between 8pm ET and midnight ET a UTC date is already tomorrow, which
-        // would drop tonight's show off the fast-poll list while it's still on
-        const day = ms => new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date(ms));
+        // Eastern, not UTC. Deriving the day in UTC rolls the date over at
+        // 8pm Eastern, so tonight's show dropped off the 30s fast-poll list
+        // while it was still running — exactly when live scores matter most.
+        const etFmt = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" });
+        const day = ms => etFmt.format(new Date(ms));
         const now = Date.now();
         const days = new Set([day(now), day(now - 864e5)]);
         showActive = (up || []).some(e => days.has(e.date));
@@ -4603,6 +4803,8 @@
   data("meta.json").then(m => {
     paintUpdated(m.updated);
     route();
+    // first-run onboarding waits for the first view to paint, never blocks it
+    setTimeout(() => CadOnboard.maybeShow(), 800);
   }).catch(() => {
     firstBuildPending = true;
     document.getElementById("updated").textContent = "awaiting first data build";

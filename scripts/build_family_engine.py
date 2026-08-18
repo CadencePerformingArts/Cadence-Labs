@@ -2,14 +2,15 @@
 """Derive the Cadence family engine (docs/family/app.js) from the DCI app
 (docs/app.js), plus a family copy of wrapped.js for share cards.
 
-The DCI app is never modified. Family instances (WGI activities, BOA,
-A Cappella, Show Choir) load docs/family/app.js with a `window.APP_CFG`
-config that supplies class lists, terminology and a storage namespace, so
-every instance behaves exactly like the DCI app with its own data.
+The DCI app is never modified. Family instances (the three WGI activities)
+load docs/family/app.js with a `window.APP_CFG` config that supplies class
+lists, terminology and a storage namespace, so every instance behaves like
+the DCI app with its own data.
 
 Each transform asserts its anchor exists — if docs/app.js drifts, this
 script fails loudly (and so does the deploy) instead of silently shipping a
-broken family engine.
+broken family engine. When an anchor dies, re-anchor it against the new
+source; never loosen an assertion into a no-op.
 
     python3 scripts/build_family_engine.py
 """
@@ -23,45 +24,29 @@ OUT_DIR = ROOT / "docs" / "family"
 HEADER = """/* Cadence family engine — GENERATED from docs/app.js by
    scripts/build_family_engine.py. Do not edit by hand; edit the DCI app or
    the build script and regenerate. Instances configure via window.APP_CFG:
-   { appName, ns, classOrder, combinable, terms:{singular,plural,a},
-     eventsTitle } */
+   { appName, root, ns, board, captions, classOrder, combinable,
+     terms:{singular,plural,a}, eventsTitle } */
 """
 
 FAM_BOOTSTRAP = """  // --- Cadence family config (absent on the DCI app, set by instances) ---
   const FAM = window.APP_CFG || null;
   const NS = k => (FAM ? FAM.ns : "") + k;
   const TERM = FAM ? FAM.terms : { singular: "corps", plural: "corps", a: "a corps" };
-  // ratings/placements circuits (UIL, ISSMA): scores are null by design; the
-  // published rating or placement rides in the score channel for display
-  const ORD = n => { n = Math.round(n); const s = ["th", "st", "nd", "rd"], k = n % 100; return n + (s[(k - 20) % 10] || s[k] || s[0]); };
-  const RES_KIND = FAM ? FAM.resultsKind : null;
-  const normKind = o => {
-    if (Array.isArray(o)) { for (const x of o) normKind(x); return o; }
-    if (o && typeof o === "object") {
-      // A ratings circuit (UIL) also has placement rows (State finals). A
-      // placement 3 must never render as Division III, so placements inside
-      // a ratings circuit ride in the score channel offset by +1000 — an
-      // unambiguous marker (ratings are 1-5) that score3 decodes back to an
-      // ordinal. Pure-placement circuits keep the plain value.
-      // Two row shapes carry that channel: event and scoreboard rows call it
-      // `score`, corps-profile performances call it `s`. Filling only `score`
-      // left every profile blank, so fill whichever key the row really has.
-      if (o.score == null && o.s == null && (o.rating != null || o.placement != null)) {
-        const v = o.rating != null ? o.rating
-          : RES_KIND === "rating" ? 1000 + o.placement
-          : o.placement;
-        if ("s" in o) o.s = v; else o.score = v;
-      }
-      for (const k in o) normKind(o[k]);
-    }
-    return o;
-  };
+  // Does this app publish judge-level caption sheets? The DCI app always
+  // does; a family instance says so in its config (WGI ships captions:false
+  // because WGI's sheets are behind its directors-only portal). Every
+  // caption surface — the Stats sub-tab, the corps-profile tile, the
+  // Database dataset, the per-event recap fetch — is gated on this, so a
+  // captionless app never shows a control that leads nowhere.
+  const CAPS = !FAM || !!FAM.captions;
 """
 
 SETTINGS_INJECT = """
-    // family pages: drop the DCI-only cards (real push + install live on the
-    // DCI page; the shared "Alerts across Cadence" card covers this app's
-    // alert preferences on every page)
+    // family pages: drop the cards whose feature only exists on the DCI app.
+    // Score alerts need a live scores feed and the push relay's per-corps
+    // registration (neither exists for a family circuit), and the install
+    // prompt is wired by install.js, which family shells don't load — so
+    // both cards would sit there doing nothing.
     if (FAM) app.querySelectorAll(".setcard").forEach(c => {
       const t = ((c.querySelector("h2") || {}).textContent) || "";
       if (/Add to Home Screen|Notifications|Prediction/i.test(t)) c.remove();
@@ -120,48 +105,142 @@ def main() -> None:
       "cad-last-rankings", "cad-last-events", "cad-last-corps", "cad-last-data"]
       .forEach(k => sessionStorage.removeItem(NS(k)));''', "brand reset ss")
 
-    # ratings/placements circuits: normalize fetched JSON so every view sees
-    # the rating/placement in the score channel (display via score3 below)
+    # ---- live scoring: a family app has no live feed ----
+    # LIVE.refresh polls the CURRENT calendar year's season file and the
+    # upcoming feed every 30 s. No family circuit publishes scores as they
+    # land, and an app whose only season is next year's schedule would ask
+    # for a seasons/<this year>.json that will never exist — a guaranteed
+    # 404 on every Shows visit. Skip the fetches; every LIVE lookup already
+    # answers false against an empty cache.
     js = sub_once(
         js,
-        '''    const p = fetch("data/" + path).then(r => {
-      if (!r.ok) throw new Error(path + " " + r.status);
-      return r.json();
-    });''',
-        '''    const p = fetch("data/" + path).then(r => {
-      if (!r.ok) throw new Error(path + " " + r.status);
-      return r.json();
-    }).then(j => (RES_KIND ? normKind(j) : j));''',
-        "ratings normalize")
+        """      const today = etToday();
+      let up = [], season = null;
+      try { up = await data("upcoming.json"); } catch (e) {}
+      try { season = await data(`seasons/${+today.slice(0, 4)}.json`); } catch (e) {}""",
+        """      const today = etToday();
+      let up = [], season = null;
+      if (!FAM) {   // family circuits publish no live-scoring feed
+        try { up = await data("upcoming.json"); } catch (e) {}
+        try { season = await data(`seasons/${+today.slice(0, 4)}.json`); } catch (e) {}
+      }""",
+        "live feed skip")
 
-    # the DCI app hardcodes "points, and captions exist"; the derived engine
-    # reads both off the instance config, so the shared views (compare,
-    # database, records, corps profile) can sort and label a ratings circuit
-    # the right way round
-    js = sub_once(js, "  function resultsKind() { return null; }",
-                  "  function resultsKind() { return RES_KIND; }", "results kind hook")
-    js = sub_once(js, "  function hasCaptions() { return true; }",
-                  "  function hasCaptions() { return !FAM || !!FAM.captions; }", "captions hook")
-
-    # score3 renders ratings as roman numerals, placements as ordinals. In a
-    # ratings circuit, values >= 1000 are normKind's placement marker (UIL
-    # State finals) and decode to an ordinal \u2014 never a Division numeral.
+    # ---- first-run onboarding ----
+    # "Who do you follow?" builds its chips from rankings.json. A family app
+    # with no published scores has an empty standings block, which used to
+    # make Settings › Choose favorites open nothing at all. Fall back to the
+    # ensemble index so the control always does something; favorites still
+    # matter there (they highlight rows on the championship board).
     js = sub_once(
         js,
-        'const score3 = v => v == null ? "\u2014" : (+v).toFixed(3);',
-        'const score3 = v => v == null ? "\u2014" : RES_KIND === "rating" ? (v >= 1000 ? ORD(v - 1000) : (["", "I", "II", "III", "IV", "V"][Math.round(v)] || String(v))) : RES_KIND === "placement" ? ORD(v) : (+v).toFixed(3);',
-        "score3 kinds")
+        "      if (!groups.length) { if (!replay) markSeen(); return; }",
+        """      if (!groups.length && FAM) {
+        // no standings (no published score feed) — offer the whole roster
+        try {
+          const roster = await data("corps_index.json");
+          if (roster && roster.length) {
+            groups.push({ cls: "All " + TERM.plural, rows: roster.map(c => ({ corps: c.name })) });
+          }
+        } catch (e) {}
+      }
+      if (!groups.length) { if (!replay) markSeen(); return; }""",
+        "onboarding roster fallback")
+    js = sub_once(
+        js,
+        '<p class="ob-sub">Star your corps — the scoreboard and score alerts get personalized around them.</p>',
+        '<p class="ob-sub">${FAM ? "Star your " + TERM.plural + " — they lead every board and table in this app."'
+        ' : "Star your corps — the scoreboard and score alerts get personalized around them."}</p>',
+        "onboarding sub copy")
+    # ...but never as an unsolicited first-visit modal on a secondary app.
+    js = sub_once(
+        js,
+        "    function maybeShow() {\n      if (!storageOK || seen()) return;",
+        "    function maybeShow() {\n"
+        "      if (FAM) return;   // secondary apps: reachable from Settings, never a first-visit popup\n"
+        "      if (!storageOK || seen()) return;",
+        "onboarding no auto-show")
+
+    # ---- captions: hide every surface when the app publishes no sheets ----
+    # stats hub: no captions tab; #/data lands on Compare
+    js = sub_once(
+        js,
+        'const DATA_SUBS = [["captions", "Captions"], ["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]];',
+        'const DATA_SUBS = (CAPS ? [["captions", "Captions"]] : []).concat('
+        '[["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);',
+        "data subs")
+    js = sub_once(js, '[/^#\\/(?:stats|data)$/, () => { location.replace("#/captions"); }],',
+                  '[/^#\\/(?:stats|data)$/, () => { location.replace(CAPS ? "#/captions" : "#/compare"); }],',
+                  "data route")
+    js = sub_once(
+        js,
+        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => viewCaptions(m[1], st)],",
+        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => { if (!CAPS) { location.replace(\"#/compare\"); return; } return viewCaptions(m[1], st); }],",
+        "captions family redirect")
+    # corps profile: the fourth stat tile deep-links into the captions view.
+    # Without sheets that tile lands on a redirect back to Compare — a tile
+    # that dead-ends. Drop it; the tile grid is auto-fill and reflows to 3.
+    js = sub_once(
+        js,
+        """        <a class="tile click" href="#/captions?corps=${encodeURIComponent(detail.name)}">
+          <div class="label">Caption Scores</div><div class="value">GE · VIS · MUS</div>
+          <div class="sub">judge-by-judge breakdowns →</div></a>""",
+        """        ${!CAPS ? "" : `<a class="tile click" href="#/captions?corps=${encodeURIComponent(detail.name)}">
+          <div class="label">Caption Scores</div><div class="value">GE · VIS · MUS</div>
+          <div class="sub">judge-by-judge breakdowns →</div></a>`}""",
+        "corps caption tile")
+    # event page: skip the recap + caption sheet fetches (both 404 without a
+    # captions dataset, and the page renders identically without them)
+    js = sub_once(
+        js,
+        "      if (+year >= 2013) {",
+        "      if (+year >= 2013 && CAPS) {",
+        "event captions fetch")
+    # Database: drop the "Caption Scores" dataset from the picker
+    js = sub_once(
+        js,
+        "      options: Object.entries(DB_SETS).map(([k, v]) => ({ value: k, label: v.label })),",
+        "      options: Object.entries(DB_SETS).filter(([k]) => CAPS || k !== \"captions\")\n"
+        "        .map(([k, v]) => ({ value: k, label: v.label })),",
+        "database caption dataset")
+
+    # ---- Shows page: no news feed, no off-season calendar ----
+    # Both are DCI-pipeline files (news.json, offseason.json). A family app
+    # publishes neither, and renderNews(null) already renders nothing — but
+    # the fetches themselves would log a 404 on every visit to Shows.
+    js = sub_once(
+        js,
+        '      const off = await data("offseason.json").catch(() => []);',
+        '      const off = FAM ? [] : await data("offseason.json").catch(() => []);',
+        "offseason skip")
+    js = sub_once(
+        js,
+        '      news = await data("news.json").catch(() => null);',
+        '      news = FAM ? null : await data("news.json").catch(() => null);',
+        "news skip")
+
+    # ---- About: one canonical page, on the DCI app ----
+    # viewAbout is written about DCI (its sources, its privacy posture).
+    # Nothing on a family page links to it, but a typed/shared #/about must
+    # not render DCI's copy under a WGI banner — send it home instead.
+    js = sub_once(
+        js,
+        "  function viewAbout() {\n    setNav(\"\");",
+        "  function viewAbout() {\n    setNav(\"\");\n"
+        "    // the About page is DCI's; family apps hand off to the canonical copy\n"
+        "    if (FAM) { location.href = (FAM.root || \".\") + \"/#/about\"; return; }",
+        "about handoff")
 
     # Alternate scoreboards. DCI's standings board assumes corps meet each
     # other repeatedly all season (10 performances each, 92% with 3+), which
-    # makes trend lines meaningful. That premise fails for circuits where a
-    # band competes once or twice a year against a different panel — so those
-    # apps declare a board shape and render purpose-built modules instead.
+    # makes trend lines meaningful. That premise fails for a circuit that
+    # publishes no season scores at all — those apps declare a board shape
+    # and render a purpose-built module (docs/family/board.js) instead.
     js = sub_once(
         js,
-        """  async function viewRankings(_m, stale) {
+        """  async function viewRankings(qs, stale) {
     setNav("rankings");""",
-        """  async function viewRankings(_m, stale) {
+        """  async function viewRankings(qs, stale) {
     setNav("rankings");
     if (FAM && FAM.board && FAM.board !== "trend" && window.CadBoard) {
       return CadBoard.render({
@@ -170,22 +249,6 @@ def main() -> None:
       });
     }""",
         "board shape hook")
-
-    # stats hub: no captions tab for family; #/data lands on Compare
-    js = sub_once(
-        js,
-        'const DATA_SUBS = [["captions", "Captions"], ["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]];',
-        'const DATA_SUBS = (FAM && !FAM.captions ? [] : [["captions", "Captions"]]).concat([["compare", "Compare"], ["champions", "Champions"], ["records", "Records"], ["database", "Database"]]);',
-        "data subs")
-    js = sub_once(js, '[/^#\\/data$/, () => { location.replace("#/captions"); }],',
-                  '[/^#\\/data$/, () => { location.replace(FAM && !FAM.captions ? "#/compare" : "#/captions"); }],',
-                  "data route")
-
-    js = sub_once(
-        js,
-        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => viewCaptions(m[1], st)],",
-        "[/^#\\/captions(?:\\?(.*))?$/, (m, st) => { if (FAM && !FAM.captions) { location.replace(\"#/compare\"); return; } return viewCaptions(m[1], st); }],",
-        "captions family redirect")
 
     # ---- terminology: user-visible strings ----
     # NOTE: several targets live in PLAIN strings, not template literals —
@@ -207,7 +270,6 @@ def main() -> None:
          "Pick ${TERM.plural} to compare — this season is already selected", 1),
         ("} corps-season lines — trim the selection", "} ${TERM.singular}-season lines — trim the selection", 1),
         ('"Pick a corps…"', '"Pick " + TERM.a + "…"', 2),
-        (">Pick a corps</h2>", ">Pick ${TERM.a}</h2>", 1),
         ("Choose any corps above to see season charts, the full performance log, and championship titles — back to 1972.",
          "Choose any ${TERM.singular} above to see season charts, the full performance log, and championship titles${FAM ? \"\" : \" — back to 1972\"}.", 1),
         ("No scores on record for this corps yet.", "No scores on record for this ${TERM.singular} yet.", 1),
@@ -218,8 +280,19 @@ def main() -> None:
          "Change from this ${TERM.singular}'s previous show that season", 1),
         ("${ev.lineup.length} corps</span>", "${ev.lineup.length} ${TERM.plural}</span>", 1),
         ("${c.results.length} corps</span>", "${c.results.length} ${TERM.plural}</span>", 1),
-        ('<h1 class="page">Shows <span', '<h1 class="page">${FAM ? FAM.eventsTitle : "Shows"} <span', 1),
+        ('<h1 class="page">Shows ${yearPickerHtml(year)} <span',
+         '<h1 class="page">${FAM ? FAM.eventsTitle : "Shows"} ${yearPickerHtml(year)} <span', 1),
         ('· any corps, any seasons', '· any ${TERM.singular}, any seasons', 1),
+        # onboarding sheet, Database search box, Settings › Favorites summary —
+        # all three are reachable on a family app
+        ('placeholder="Search corps…" aria-label="Search corps"',
+         'placeholder="Search ${TERM.plural}…" aria-label="Search ${TERM.plural}"', 1),
+        ('placeholder="Search event or corps…"', 'placeholder="Search event or ${TERM.singular}…"', 1),
+        ('"Star corps to pin them on the Scoreboard and lead your score alerts."',
+         '(FAM ? "Star " + TERM.plural + " to pin them to the top of every board and table."'
+         ' : "Star corps to pin them on the Scoreboard and lead your score alerts.")', 1),
+        (' — starred everywhere, first in score alerts.`',
+         ' — starred everywhere${FAM ? "" : ", first in score alerts"}.`', 1),
         ('· the record book, 1972–today', '· the record book${FAM ? "" : ", 1972–today"}', 1),
     ]
     for old, new, count in pairs:
@@ -228,8 +301,22 @@ def main() -> None:
     # table column headers and the ensembles page title
     js, n = re.subn(r'>Corps<', '>${TERM_TH}<', js)
     assert n == 13, f"'Corps' table headers: {n}"
-    js = sub_once(js, "  const TERM = FAM ? FAM.terms",
-                  "  const TERM = FAM ? FAM.terms", "term anchor present")
+
+    # Two 'corps' that the >Corps< regex cannot reach, both shipped on every
+    # WGI app before this was caught:
+    #   1. the Ensembles-page sub-heading, whose own body text underneath it
+    #      already read "Choose any ensemble above" — the card disagreed with
+    #      itself. (The old transform anchored on '>Pick a corps</h2>'; the new
+    #      app.js capitalises it, so the anchor silently matched nothing.)
+    #   2. the Database column list, which is a plain JS array rather than
+    #      markup — and doubles as the CSV export header, so the downloaded
+    #      file said Corps too, next to filters reading "All ensembles".
+    js = sub_once(js, '<h2 style="margin:10px 0 6px">Pick a Corps</h2>',
+                  '<h2 style="margin:10px 0 6px">Pick ${TERM.a}</h2>',
+                  "pick-one heading")
+    js = sub_once(js, '"Year", "Date", "Event", "Corps", "Class", "Place", "Score"',
+                  '"Year", "Date", "Event", TERM_TH, "Class", "Place", "Score"',
+                  "database column list")
     js = sub_once(
         js,
         'const NS = k => (FAM ? FAM.ns : "") + k;',
@@ -245,23 +332,56 @@ def main() -> None:
         js,
         'const TERM = FAM ? FAM.terms : { singular: "corps", plural: "corps", a: "a corps" };',
         'const TERM = FAM ? FAM.terms : { singular: "corps", plural: "corps", a: "a corps" };\n'
-        '  const TERM_TH = FAM ? FAM.terms.singular.charAt(0).toUpperCase() + FAM.terms.singular.slice(1) : "Corps";',
+        '  const TERM_TH = FAM ? cap1(FAM.terms.singular) : "Corps";',
         "TERM_TH")
-
-    # custom tabs: a nav anchor carrying data-href highlights on exact hash
-    # prefix (used by each circuit's championship tab)
+    # the ensemble pickers (Compare and the Ensembles tab) hint at each
+    # entry's span of seasons. An app whose index has no scored seasons yet
+    # stores nulls there — printed straight, every option read "null".
     js = sub_once(
         js,
-        """  function setNav(route) {
-    document.querySelectorAll("#nav a").forEach(a =>
-      a.classList.toggle("active", a.dataset.route === route));""",
-        """  function setNav(route) {
-    const hashv = location.hash || "#/";
-    const links = [...document.querySelectorAll("#nav a")];
-    const exact = links.find(a => a.dataset.href && hashv.indexOf(a.dataset.href) === 0);
-    links.forEach(a =>
-      a.classList.toggle("active", exact ? a === exact : a.dataset.route === route));""",
-        "setNav data-href")
+        '.map(c => ({ value: c.slug, label: c.name, hint: c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));',
+        '.map(c => ({ value: c.slug, label: c.name,\n'
+        '        hint: c.first == null ? "" : c.first === c.last ? String(c.first) : `${c.first}–${c.last}` }));',
+        "corps picker hint", 2)
+
+    # corps hero: the season share card is built from a season's results, so
+    # an ensemble with no published results has nothing to share — the button
+    # asked for seasons/undefined.json (a 404) and then silently did nothing.
+    js = sub_once(
+        js,
+        '          <button id="corpCard" class="ch-btn" title="Share this ${TERM.singular}\'s season card">${SHARE_SVG} Share</button>',
+        '          ${years.length ? `<button id="corpCard" class="ch-btn" title="Share this ${TERM.singular}\'s season card">${SHARE_SVG} Share</button>` : ""}',
+        "share card button guard")
+
+    # corps hero: the kicker above the name reads the class of the corps'
+    # latest performance, and falls back to the literal "Drum Corps". Neither
+    # fits an app whose ensembles may hold titles but no published results —
+    # fall back to the class they last won, then to the app's own noun.
+    js = sub_once(
+        js,
+        '<div class="corpshero-kicker">${esc(primaryCls || "Drum Corps")}',
+        '<div class="corpshero-kicker">${esc(primaryCls'
+        ' || (titles.length ? titles.slice().sort()[titles.length - 1].replace(/^\\d{4}\\s+/, "") : "")'
+        ' || (FAM ? cap1(TERM.plural) : "Drum Corps"))}',
+        "hero kicker fallback")
+    # "0 season on record" — a DCI corps always has at least one, an ensemble
+    # known only from the record book has none
+    js = sub_once(
+        js,
+        '`${years.length} season${years.length > 1 ? "s" : ""} on record`',
+        '`${years.length} season${years.length === 1 ? "" : "s"} on record`',
+        "seasons plural")
+
+    # profile card: only render it when there is something to say. A family
+    # app's profiles.json often carries nothing but a generated monogram
+    # (corpsLogo reads `img` for every avatar in the app) — that must not
+    # paint an empty card with a lone logo under the corps hero.
+    js = sub_once(
+        js,
+        "    const profHtml = prof ? h`",
+        "    const profHtml = (prof && (prof.summary || prof.founded || prof.location\n"
+        "      || prof.division || prof.director || prof.website || prof.wiki)) ? h`",
+        "profile card guard")
 
     # championship hub: family apps lead the Champions tab with the reigning
     # champion of every class (tap-through to profiles)
@@ -296,29 +416,40 @@ def main() -> None:
     })();''',
         "reigning champions hub")
 
-    # fifth tab: per-tab memory must know the champions tab, and #/champions
-    # is its own section on family apps (not part of Stats), else the nav
-    # rewrite sets its href to the literal string "undefined" → 404
+    # per-tab memory: #/data's front page moves when there is no captions tab
     js = sub_once(
         js,
         'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: "#/captions" };',
-        'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: FAM && !FAM.captions ? "#/compare" : "#/captions", champions: "#/champions" };',
+        'const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: CAPS ? "#/captions" : "#/compare" };',
         "nav defaults")
-    js = sub_once(
-        js,
-        'if (/^#\\/(data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";',
-        'if (FAM && /^#\\/(champions|seasons)/.test(hash)) return "champions";\n'
-        '    if (/^#\\/(data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";',
-        "sectionOf champions")
 
-    # champions view: friendly state instead of "undefined" when the record
-    # book is empty (e.g. an adapter's first season is still ingesting)
+    # champions view: friendly state instead of an empty table when the
+    # record book hasn't been built yet (a new app's first ingest)
     js = sub_once(
         js,
         "    // one table: every season, its champion, click through to the year\n    const clsSet = new Set();",
-        "    // one table: every season, its champion, click through to the year\n    const clsSet = new Set();\n"
-        "    if (FAM) { try { const _ch = await data(\"champions.json\"); if (!Object.keys(_ch || {}).length) { const t = document.getElementById(\"champT\"); if (t) t.innerHTML = \"<tr><td class='empty'>The record book fills in with this app's first full season of data.</td></tr>\"; const cs = document.getElementById(\"champSub\"); if (cs) cs.textContent = \"\"; return; } } catch (e) {} }",
+        "    // one table: every season, its champion, click through to the year\n"
+        "    if (FAM && !Object.keys(champs || {}).length) {\n"
+        "      const t = document.getElementById(\"champT\");\n"
+        "      if (t) t.innerHTML = \"<tbody><tr><td class='empty'>The record book fills in with this app's first full season of data.</td></tr></tbody>\";\n"
+        "      const cs = document.getElementById(\"champSub\");\n"
+        "      if (cs) cs.textContent = \"\";\n"
+        "      return;\n"
+        "    }\n"
+        "    const clsSet = new Set();",
         "champions empty guard")
+
+    # Records' empty state returns before painting the Stats sub-nav, so a
+    # reader who lands on it has no way across to Compare or Champions. On
+    # the DCI app the record book is never empty; on an app still waiting for
+    # its first season it is the normal state.
+    js = sub_once(
+        js,
+        '      app.innerHTML = "<div class=\'card\'><div class=\'empty\'>The record book builds with the next data run.</div></div>";',
+        '      app.innerHTML = dataSubNav("records")\n'
+        '        + \'<h1 class="page">Records <span class="kicker">· the all-time book</span></h1>\'\n'
+        '        + "<div class=\'card\'><div class=\'empty\'>The record book builds with the next data run.</div></div>";',
+        "records empty subnav")
 
     # compare: default to the latest season that actually has scores — a
     # schedule-only future season (e.g. WGI 2027) must not open an empty chart
@@ -336,14 +467,6 @@ def main() -> None:
       yearsSel = [Math.max(...pool)];
     }""",
         "compare scored-year default")
-
-    # per-sector scoreboard framing note (BOA/ACA/SC honesty line under the h1)
-    js = sub_once(
-        js,
-        '<h1 class="page">${esc(String(rk.season))} Scoreboard</h1>',
-        '<h1 class="page">${esc(String(rk.season))} Scoreboard</h1>'
-        '${FAM && FAM.scoreNote ? `<p class="kicker" style="margin:-6px 2px 12px">${esc(FAM.scoreNote)}</p>` : ""}',
-        "score note")
 
     # "Show All N corps" expanders and the team-colors note
     js, n = re.subn(r'collapseRows\(([^;]*?), 5, "corps"\)', r'collapseRows(\1, 5, TERM.plural)', js)
@@ -372,7 +495,7 @@ def main() -> None:
         "async function paintPush() {\n      if (!pushStatus || !pushToggle) return;\n      if (!window.CadPush) {",
         "paintPush guard")
 
-    # settings: strip DCI-only cards, add per-class notification prefs
+    # settings: strip DCI-only cards
     js = sub_once(
         js,
         '<p class="setfoot">Preferences are saved on this device. Created by Lucas Besel.</p>`;\n    if (stale()) return;',
@@ -382,14 +505,20 @@ def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUT_DIR / "app.js").write_text(HEADER + js)
 
-    # wrapped.js: share cards print the family app's own URL, not DCI-Tracker's
+    # wrapped.js: share cards print the family app's own URL. The DCI copy
+    # takes it from CadConfig; an instance carries its own in APP_CFG, which
+    # wins here so a WGI card never advertises the DCI address.
     wj = (ROOT / "docs" / "wrapped.js").read_text()
-    wj = sub_once(wj, 'var SITE_URL = "https://cadenceperformingarts.github.io/Cadence-Labs";',
-                  'var SITE_URL = (window.APP_CFG && window.APP_CFG.siteUrl) || "https://cadenceperformingarts.github.io/Cadence-Labs";',
-                  "wrapped url")
-    wj = sub_once(wj, 'var SITE_LABEL = "cadenceperformingarts.github.io/Cadence-Labs";',
-                  'var SITE_LABEL = (window.APP_CFG && window.APP_CFG.siteLabel) || "cadenceperformingarts.github.io/Cadence-Labs";',
-                  "wrapped label")
+    wj = sub_once(
+        wj,
+        'var SITE_URL = ((window.CadConfig || {}).BASE_URL',
+        'var SITE_URL = ((window.APP_CFG || {}).siteUrl || (window.CadConfig || {}).BASE_URL',
+        "wrapped url")
+    wj = sub_once(
+        wj,
+        'var SITE_LABEL = (window.CadConfig || {}).BASE_LABEL',
+        'var SITE_LABEL = (window.APP_CFG || {}).siteLabel || (window.CadConfig || {}).BASE_LABEL',
+        "wrapped label")
     (OUT_DIR / "wrapped.js").write_text(wj)
 
     print(f"wrote {OUT_DIR/'app.js'} ({len(js)//1024}KB) and {OUT_DIR/'wrapped.js'}")

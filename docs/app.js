@@ -34,6 +34,9 @@
       let up = [], season = null;
       try { up = await data("upcoming.json"); } catch (e) {}
       try { season = await data(`seasons/${+today.slice(0, 4)}.json`); } catch (e) {}
+      // stamp each show with its venue zone before the core does any clock
+      // maths; live-core has no state table of its own.
+      (up || []).forEach(e => { if (!e.tz) e.tz = venueZone(e.location) || undefined; });
       cache = { ...CORE.compute(up, season, today, now), today }; cacheAt = now;
       return cache;
     }
@@ -46,7 +49,9 @@
       scored: n => !!(cache && cache.scored.has(n)),
       // is a specific schedule slot inside its ±15-min live window right now?
       // (corps and logistics rows alike — the caller gates on show-completeness)
-      slotLiveAt: (dateISO, timeStr) => CORE.slotLiveAt(dateISO, timeStr, Date.now()),
+      // tz is the venue's zone (from its state) so the pill agrees with the
+      // start time printed beside it — see live-core's slotMs.
+      slotLiveAt: (dateISO, timeStr, tz) => CORE.slotLiveAt(dateISO, timeStr, Date.now(), tz),
       today: () => cache && cache.today,
       // signature of the current live sets — lets a view repaint only on change
       sig: () => cache ? [...cache.corpsLive].sort().join("|") + "#" + [...cache.showLive].sort().join("|") : "",
@@ -2059,7 +2064,7 @@
         .sort((a, b) => (b.d || "").localeCompare(a.d || "") || b.y - a.y);
       document.getElementById("perfTable").innerHTML = `<div class="tscroll"><table class="t">
         <thead><tr><th>Date</th><th>Event</th><th class="m-hide">Class</th><th class="num">Place</th><th class="num">Score</th><th class="num" title="Change from this corps' previous show that season">vs prev</th></tr></thead>
-        <tbody id="perfRows">${list.slice(0, 600).map(p => h`<tr>
+        <tbody id="perfRows">${list.length ? "" : `<tr><td colspan="6" class="empty">No performances on record${selNote ? " for " + esc(selNote) : ""}.</td></tr>`}${list.slice(0, 600).map(p => h`<tr>
           <td style="color:var(--muted);white-space:nowrap">${fmtDate2(p.d, p.y)}</td>
           <td>${esc(p.ev || "")}</td>
           <td class="m-hide"><span class="pill">${esc(p.cls || "")}</span></td>
@@ -2086,7 +2091,7 @@
       }).filter(Boolean);
       document.getElementById("corpChampTable").innerHTML = `<div class="tscroll"><table class="t">
         <thead><tr><th>Year</th><th class="num">Last score</th><th>Championship finish</th></tr></thead>
-        <tbody id="corpChampRows">${rows.map(r => h`<tr>
+        <tbody id="corpChampRows">${rows.length ? "" : '<tr><td colspan="3" class="empty">No championship results on record.</td></tr>'}${rows.map(r => h`<tr>
           <td><a href="#/season/${r.y}"><b>${r.y}</b></a></td>
           <td class="num score">${score3(r.last.s)}</td>
           <td>${r.fin ? h`<b>${ordinal(r.fin.p)}</b> <span class="kicker">· ${roundOf(r.fin.ev || "")}${r.fin.cls ? ` · ${esc(r.fin.cls)}` : ""}</span>` : '<span style="color:var(--muted)">—</span>'}</td>
@@ -2293,7 +2298,7 @@
       const shown = sameZone ? t : (localizeVenueTime(t, ev.date, tz) || t);
       // any slot inside its ±15-min window is live — corps and logistics rows
       // alike — until the show completes, and a corps that already scored drops
-      const live = !done && LIVE.slotLiveAt(ev.date, t) && !(isCorps && LIVE.scored(entry));
+      const live = !done && LIVE.slotLiveAt(ev.date, t, tz) && !(isCorps && LIVE.scored(entry));
       return `<tr${live ? ' class="evlive"' : ""}><td class="num" style="color:var(--muted);white-space:nowrap"${shown !== t ? ` title="${esc(t)} ${esc(abbr)} at the venue"` : ""}>${esc(shown || "")}</td><td>${isCorps ? corpsLink(entry) : `<span style="color:var(--muted)">${esc(entry)}</span>`}${live ? " " + LIVE_BADGE : ""}</td></tr>`;
     }).join("");
   }
@@ -3683,7 +3688,7 @@
       const blob = new Blob([lines.join("\n")], { type: "text/csv" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = `dci-tracker-${setKey}.csv`;
+      a.download = `cadence-${setKey}.csv`;
       a.click();
       URL.revokeObjectURL(a.href);
     };
@@ -3917,7 +3922,7 @@
   }
 
   /* ============ SUGGESTIONS ============ */
-  const SUGGEST_REPO = "LukeBesel/DCI-Tracker";
+  const SUGGEST_REPO = "CadencePerformingArts/Cadence-Labs";
   async function viewSettings(_m, stale) {
     setNav("");
     const themeMode = (window.CadTheme && window.CadTheme.mode()) || (localStorage.getItem("cad-theme") || "auto");
@@ -3951,7 +3956,6 @@
       + corpsLogo(n, 24) + `<span class="corpsrow-name">${esc(n)}</span>`
       + (corpsHasLogo(n) ? `<span class="corpsrow-sw" style="${twoTone(n)}"></span>` : "") + `</button>`;
     const scope = (window.CadPush && CadPush.scope()) || "all";
-    const predsOn = (() => { try { return (localStorage.getItem("cad-notify-preds") || "on") === "on"; } catch (e) { return true; } })();
     const selClasses = (window.CadPush && CadPush.classes) ? CadPush.classes() : null; // null = all
     const CLASS_OPTS = ["World Class", "Open Class", "All-Age"];
     const clsOn = c => !selClasses || selClasses.includes(c);
@@ -4031,10 +4035,6 @@
         </div>
         <div class="classchips" id="classChips">
           ${CLASS_OPTS.map(c => `<button class="classchip${clsOn(c) ? " on" : ""}" data-cls="${esc(c)}" aria-pressed="${clsOn(c)}">${esc(c)}</button>`).join("")}
-        </div>
-        <div class="setrow">
-          <div><b>Prediction results</b><div class="setsub">Nudge me to check my Call the Finish score after a show posts</div></div>
-          <button class="toggle${predsOn ? " on" : ""}" id="predsToggle" aria-pressed="${predsOn}" aria-label="Prediction reminders"></button>
         </div>
       </div>
 
@@ -4170,12 +4170,11 @@
       scopeToggle.setAttribute("aria-pressed", next === "favs");
       if (window.CadPush) CadPush.setScope(next);
     });
-    const predsToggle = document.getElementById("predsToggle");
-    if (predsToggle) predsToggle.addEventListener("click", () => {
-      const on = predsToggle.classList.toggle("on");
-      predsToggle.setAttribute("aria-pressed", on);
-      try { localStorage.setItem("cad-notify-preds", on ? "on" : "off"); } catch (e) {}
-    });
+    /* The "Prediction results" toggle used to sit here. It wrote
+       its own localStorage key on click and read it back only to paint its
+       own state — nothing decided whether to send a reminder from it. A
+       control that claims to silence a notification and does nothing is worse
+       than no control, so it is gone rather than stubbed. */
     const clsChips = [...app.querySelectorAll("#classChips .classchip")];
     clsChips.forEach(ch => ch.addEventListener("click", () => {
       ch.classList.toggle("on");
@@ -4443,6 +4442,12 @@
     if (fab) fab.hidden = /^#\/ask$/.test(hash); // hide the shortcut on its own page
     document.querySelectorAll("#nav a").forEach(a => {
       const r = a.dataset.route;
+      // Cadence puts a Workspace link in this nav, and it is a plain href to
+      // ensemble/ rather than a hash route. Without this guard r is undefined,
+      // NAV_DEFAULT[undefined] is undefined, and the anchor's href is set to
+      // the literal string "undefined" on first paint — every Workspace tab
+      // led to a 404.
+      if (!r || !NAV_DEFAULT[r]) return;
       a.setAttribute("href", r === sec ? NAV_DEFAULT[r]
         : (sessionStorage.getItem("cad-last-" + r) || NAV_DEFAULT[r]));
     });
@@ -4549,7 +4554,7 @@
     // GitHub Pages CDN (which has to finish a build+deploy), so the scoreboard
     // updates as fast as the source itself has the scores. Off-season / on
     // failure it falls back to the normal Pages data.
-    const RAW = "https://raw.githubusercontent.com/LukeBesel/DCI-Tracker/main/docs/data/";
+    const RAW = "https://raw.githubusercontent.com/CadencePerformingArts/Cadence-Labs/main/docs/data/";
     let stamp = null;
     let toast = null;
     let showActive = false;
@@ -4663,7 +4668,11 @@
     async function refreshShowFlag() {
       try {
         const up = await data("upcoming.json");
-        const day = ms => new Date(ms).toISOString().slice(0, 10);
+        // Eastern, not UTC. Deriving the day in UTC rolls the date over at
+        // 8pm Eastern, so tonight's show dropped off the 30s fast-poll list
+        // while it was still running — exactly when live scores matter most.
+        const etFmt = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" });
+        const day = ms => etFmt.format(new Date(ms));
         const now = Date.now();
         const days = new Set([day(now), day(now - 864e5)]);
         showActive = (up || []).some(e => days.has(e.date));

@@ -124,6 +124,17 @@ a:hover { text-decoration: underline; }
 .updated { margin-left: auto; color: rgba(255,255,255,0.55); font-size: 11px; }
 .updated.stale { color: var(--gold); font-weight: 600; }
 
+/* The Workspace tab — same nav language, subtly set apart because it leaves
+   the scoreboard for the private side of the product. Lost in the rebase
+   while the markup that uses it survived, so the divider silently rendered
+   as nothing on every page. */
+#nav a.navmy { position: relative; }
+#nav a.navmy::before {
+  content: ""; position: absolute; left: -3px; top: 18%; height: 64%;
+  width: 1px; background: rgba(255, 255, 255, 0.22);
+}
+@media (max-width: 560px) { #nav a.navmy::before { display: none; } }
+
 main { max-width: 1180px; margin: 0 auto; padding: 22px 18px 60px; min-height: 70vh; }
 .loading { color: var(--muted); padding: 60px 0; text-align: center; }
 

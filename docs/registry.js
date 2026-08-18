@@ -11,11 +11,11 @@
  * degrades instead of breaking.
  *
  * Fields:
- *   id      canonical id ('dci', 'wgi-guard', 'boa', …)
+ *   id      canonical id ('dci', 'wgi-guard', 'wgi-perc', 'wgi-winds')
  *   name    customer-facing name          short  compact chip label
  *   path    folder from the site root ('' = DCI at the root)
  *   ns      APP_CFG.ns / localStorage prefix ('' for DCI)
- *   board   scoreboard shape (trend | event | rating | history)
+ *   board   scoreboard shape (trend for DCI, history for WGI)
  *   listed  shown in the app switcher today
  *   status  'live' | 'archive' (real data, not currently ingesting)
  *   term    what a competitor is called, plural
@@ -43,7 +43,7 @@
       }
       return APPS[0];
     },
-    // claims/profiles folder key ('wgi/guard', 'boa', '' = DCI)
+    // claims/profiles folder key ('wgi/guard', '' = DCI)
     folderKey: function (a) { return a.path.replace(/\/$/, ""); },
   };
 })();

@@ -8,11 +8,20 @@ on:
       - "apps/**"
       - "packages/**"
       - "supabase/**"
+      # the shipped site, minus the generated data trees (a data commit must
+      # not wake this workflow) and minus vendor/, which is a third-party bundle
       - "docs/*.js"
+      - "docs/*.html"
+      - "docs/lib/**"
+      - "docs/family/**"
       - "docs/ensemble/**"
+      - "docs/legal/**"
+      - "docs/wgi/index.html"
+      - "docs/wgi/*/index.html"
       - "push-server/**"
       - "scripts/*.js"
       - "scripts/check_workflow_names.py"
+      - "tests/unit/**"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/app-ci.yml"
@@ -22,11 +31,20 @@ on:
       - "apps/**"
       - "packages/**"
       - "supabase/**"
+      # the shipped site, minus the generated data trees (a data commit must
+      # not wake this workflow) and minus vendor/, which is a third-party bundle
       - "docs/*.js"
+      - "docs/*.html"
+      - "docs/lib/**"
+      - "docs/family/**"
       - "docs/ensemble/**"
+      - "docs/legal/**"
+      - "docs/wgi/index.html"
+      - "docs/wgi/*/index.html"
       - "push-server/**"
       - "scripts/*.js"
       - "scripts/check_workflow_names.py"
+      - "tests/unit/**"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/app-ci.yml"
@@ -64,6 +82,11 @@ jobs:
   # The shipped site + tooling layer: fast, dependency-free node/python
   # suites (the DB security suite needs a disposable PostgreSQL, so it
   # stays a developer/agent gate — see supabase/README.md).
+  #
+  # tests/qa (the browser regression suite) is deliberately NOT run here. It
+  # needs `npm ci` plus a downloaded Chromium and takes minutes, and qa.yml
+  # already runs it on every docs/** change — duplicating it would double the
+  # slowest job in the repo for no extra signal. This job stays the fast gate.
   site:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -72,36 +95,58 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      # Both parse steps WALK docs/ rather than listing directories. The old
+      # hand-kept lists had already drifted: they missed docs/lib/*.js (the
+      # shared config/live/season modules the rebase introduced, which every
+      # page loads) and the generated docs/wgi/**/index.html app pages. A list
+      # that has to be edited whenever a directory appears is a list that ships
+      # unparsed code; the walk cannot drift. Skips: data/ (generated JSON,
+      # no scripts) and vendor/ (third-party bundle we do not lint).
       - name: Every shipped script parses
         run: |
-          for f in docs/*.js docs/ensemble/*.js docs/family/*.js; do
+          n=0
+          for f in $(find docs -name '*.js' -not -path 'docs/data/*' -not -path 'docs/vendor/*' | sort); do
             node -e "new Function(require('fs').readFileSync('$f','utf8'))" || exit 1
+            n=$((n + 1))
           done
+          echo "$n shipped scripts parse"
       # Whole screens live in inline <script> blocks (the join page, billing,
-      # admin, the platform console). Globbing .js alone let a syntax error in
-      # any of them ship green.
+      # admin, the platform console, and every generated WGI app's APP_CFG
+      # bootstrap). Globbing .js alone let a syntax error in any of them ship
+      # green.
       - name: Every inline page script parses
         run: |
           node -e '
             const fs = require("fs"), path = require("path");
-            const dirs = ["docs", "docs/ensemble", "docs/legal"];
+            const SKIP = new Set(["data", "vendor"]);
             const re = /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g;
             let files = 0, blocks = 0;
-            for (const d of dirs) {
-              if (!fs.existsSync(d)) continue;
-              for (const f of fs.readdirSync(d).filter((n) => n.endsWith(".html"))) {
-                const p = path.join(d, f), html = fs.readFileSync(p, "utf8");
+            (function walk(d) {
+              for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+                const p = path.join(d, e.name);
+                if (e.isDirectory()) { if (!SKIP.has(e.name)) walk(p); continue; }
+                if (!e.name.endsWith(".html")) continue;
+                const html = fs.readFileSync(p, "utf8");
                 files++;
                 let m; re.lastIndex = 0;
                 while ((m = re.exec(html))) {
                   blocks++;
                   try { new Function(m[1]); }
-                  catch (e) { console.error(p + ": " + e.message); process.exit(1); }
+                  catch (err) { console.error(p + ": " + err.message); process.exit(1); }
                 }
               }
-            }
+            })("docs");
             console.log(files + " pages, " + blocks + " inline blocks parse");
           '
+      # The shared modules under docs/lib/ carry real logic (live-show windows,
+      # season stitching, config) and have a proper unit suite. Cheap and
+      # dependency-free, so it runs here as well as in QA — App CI is the
+      # workflow that fires on scripts/ and push-server/ changes, which QA's
+      # path filter does not treat as app changes.
+      # NOTE: the directory form (`node --test tests/unit/`) fails with
+      # MODULE_NOT_FOUND on Node 22 — the glob is required.
+      - name: Shared-module unit tests
+        run: node --test tests/unit/*.test.js
       - name: P1 regression guards
         run: node scripts/test_p1_fixes.js
       - name: Preference-sync merge rules
@@ -112,13 +157,21 @@ jobs:
         run: node push-server/notify-worker.check.js
       - name: Notification channel providers
         run: node push-server/notify-providers.check.js
-      - name: UIL rating vs placement rendering
-        run: node scripts/test_uil_rendering.js
+      # scripts/test_uil_rendering.js was removed here with the UIL circuit.
+      # It guarded the ratings/placement board, which no surviving app uses
+      # (DCI is board "trend"; the three WGI apps are board "history"), and
+      # the engine no longer has a ratings path to render. The file is gone,
+      # so leaving the step would have failed the job on a missing file.
       - name: Invite deep links survive the whole path
         run: node scripts/test_invite_links.js
       - name: In-app notification reader contract
         run: node scripts/test_notify_ui.js
       - name: Workspace navigation and honest copy
         run: node scripts/test_workspace_ux.js
+      # Was shipped without ever being wired into a workflow — the same drift
+      # that left test_uil_rendering.js listed after its deletion, in the other
+      # direction. It passes, and it guards how a corps' home class is derived.
+      - name: A corps has one class, and it is the one it competes in
+        run: node scripts/test_class_accuracy.js
       - name: Watched workflow names exist
         run: python3 scripts/check_workflow_names.py

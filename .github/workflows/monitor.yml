@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      SITE: https://lukebesel.github.io/DCI-Tracker
+      SITE: https://cadenceperformingarts.github.io/Cadence-Labs
       RELAY: https://cadenceapp.up.railway.app
     steps:
       - name: Probe site, data freshness, and relay

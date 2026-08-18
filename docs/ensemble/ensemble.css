@@ -238,3 +238,16 @@ body.ens.drill-full main { flex: 1; min-height: 0; max-width: none; padding: 0 !
 .ens-flash { animation: ens-flash-kf 1.8s ease-out; }
 tr.ens-flash > td { background: var(--accent-wash); transition: background 1.8s ease-out; }
 @media (prefers-reduced-motion: reduce) { .ens-flash { animation: none; } }
+
+/* ===== account form + status line =====
+   These lived in docs/app.css until the DCI-Tracker design swap, which
+   dropped them; every workspace page renders them (the signed-out gate in
+   core.js, the event editor in ops.js, the comment box in comms.js and the
+   sign-in forms in admin/billing/event/files/forms/index/members/messages/
+   music.html). Restored verbatim from the pre-swap app.css. */
+.acct-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.acct-form .ctrl { flex: 1 1 220px; }
+.acct-form .tab { font-weight: 700; }
+.acct-msg { margin: 10px 0 0; font-size: 13.5px; font-weight: 600; display: none; }
+.acct-msg.ok { display: block; color: var(--good); }
+.acct-msg.err { display: block; color: var(--bad); }

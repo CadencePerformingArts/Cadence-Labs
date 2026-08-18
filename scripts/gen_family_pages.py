@@ -64,115 +64,6 @@ PAGES = {
         "class_order": ["Independent World", "Independent Open", "Scholastic World"],
         "credit": "Not affiliated with WGI Sport of the Arts.",
     },
-    "boa": {
-        "board": "event",
-        "captions": True,
-        "status": 'Real results from official BOA recaps — every season back to 1976, caption by caption.',
-        "root": "..",
-        "title": "Cadence BOA — Bands of America Scores & Results",
-        "brand_tag": "BOA",
-        "activity": None,
-        "app_name": "Cadence BOA",
-        "short_name": "Cadence BOA",
-        "accent": "#dc2626",
-        "ns": "boa:",
-        "score_note": "Every championship has its own judging panel — this board shows each band's most recent score; compare within one event on its Shows page.",
-        "terms": {"singular": "band", "plural": "bands", "a": "a band"},
-        "events_title": "Shows",
-        "nav": ["Scoreboard", "Shows", "Bands", "Stats"],
-        "class_order": ["Class AAAA", "Class AAA", "Class AA", "Class A"],
-        "credit": "Not affiliated with Music for All / Bands of America.",
-    },
-    "usbands": {
-        "status": "Real 2024\u201325 US Bands results from every published score recap \u2014 590+ bands.",
-        "root": "..",
-        "title": "Cadence US Bands — Scores & National Championships",
-        "brand_tag": "USB",
-        "activity": None,
-        "app_name": "Cadence US Bands",
-        "short_name": "US Bands",
-        "accent": "#be185d",
-        "ns": "usb:",
-        "score_note": "US Bands shows are judged per event — this board shows each band's most recent score on the road to Nationals in Allentown.",
-        "terms": {"singular": "band", "plural": "bands", "a": "a band"},
-        "events_title": "Shows",
-        "nav": ["Scoreboard", "Shows", "Bands", "Stats"],
-        "class_order": ["World", "Group V Open", "Group IV Open", "Group III Open", "Group II Open", "Group I Open", "Group II AA", "Group I AA", "Group V A", "Group IV A", "Group III A", "Group II A", "Group I A", "Group IV Regional A", "Group III Regional A", "Group II Regional A", "Group I Regional A", "Finalist"],
-        "credit": "Not affiliated with US Bands.",
-    },
-    "uil": {
-        "board": "rating",
-        "results_kind": "rating",
-        "status": "Real UIL Texas results — 21 rated region seasons (2005–2025, ~1,000 bands/yr) plus state placements back to 1979. Division ratings, not point scores.",
-        "root": "..",
-        "title": "Cadence UIL — Texas Marching Band Ratings & State Results",
-        "brand_tag": "UIL",
-        "activity": None,
-        "app_name": "Cadence UIL Texas",
-        "short_name": "UIL Texas",
-        "accent": "#bf5700",
-        "ns": "uil:",
-        "terms": {"singular": "band", "plural": "bands", "a": "a band"},
-        "events_title": "Contests",
-        "nav": ["Scoreboard", "Contests", "Bands", "Stats"],
-        "class_order": ["6A", "5A", "4A", "3A", "2A", "1A", "B"],
-        "credit": "Not affiliated with the University Interscholastic League. Region ratings via texasmusicforms.com (CutTime LLC), state results via smbc.uiltexas.org.",
-        "score_note": "UIL awards Division ratings at region contests (1 = Superior … 5 = Poor) and ordinal placements at the State Marching Band Championships — this circuit publishes no point scores, so score columns show ratings/placements instead.",
-    },
-    "wgasc": {
-        "status": "Real 2022–2026 WGASC results — every published show, every class, with judge-level caption sheets.",
-        "root": "..",
-        "title": "Cadence WGASC — SoCal Winter Guard Scores & Standings",
-        "brand_tag": "WGASC",
-        "activity": None,
-        "app_name": "Cadence WGASC",
-        "short_name": "WGASC",
-        "accent": "#f59e0b",
-        "ns": "wgasc:",
-        "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
-        "events_title": "Shows",
-        "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
-        "class_order": ["Independent World", "Independent Open", "Independent A Senior", "Independent A", "Independent Regional A", "Scholastic World", "Scholastic Open", "Scholastic AAA", "Scholastic AA", "Scholastic A", "High School AA", "High School A", "Junior High AAA", "Junior High AA", "Junior High A", "Percussion Independent World", "Percussion Independent Open", "Percussion Independent A", "Percussion Scholastic World", "Percussion Scholastic Open", "Percussion Scholastic A", "Percussion Scholastic Junior High", "Percussion Scholastic Novice", "Percussion Scholastic Regional A", "Percussion Scholastic Concert World", "Percussion Scholastic Concert Open", "Percussion Scholastic Concert A", "Percussion Scholastic Concert Junior High", "Percussion Scholastic Standstill HS", "Percussion Scholastic Standstill JH", "Winds Independent World", "Winds Independent Open", "Winds Independent A", "Winds Scholastic Open", "Winds Scholastic A"],
-        "credit": "Not affiliated with the Winter Guard Association of Southern California.",
-        "score_note": "WGASC shows are judged per event — this board shows each ensemble's most recent score. Championship weekends double the judging panels (General Effect counts double on finals sheets), so finals scores run on a different sheet than regionals.",
-        "captions": True,
-    },
-    "tcgc": {
-        "status": "Real 2013–2026 TCGC results from official CompetitionSuite recaps — guard, percussion & winds, with judge-level captions.",
-        "root": "..",
-        "title": "Cadence TCGC — Texas Color Guard Circuit Scores & Standings",
-        "brand_tag": "TCGC",
-        "activity": None,
-        "app_name": "Cadence TCGC",
-        "short_name": "TCGC",
-        "accent": "#b45309",
-        "ns": "tcgc:",
-        "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
-        "events_title": "Shows",
-        "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
-        "class_order": ["Scholastic World", "Independent World", "Scholastic Open", "Independent Open", "Scholastic National A", "Scholastic A", "Independent A", "Scholastic AA", "Scholastic JV A", "Scholastic Regional A", "Scholastic JV Regional A", "Cadet Regional A", "Cadet Novice", "Novice", "Percussion Scholastic World", "Percussion Independent World", "Percussion Scholastic Open", "Percussion Independent Open", "Percussion Scholastic A", "Percussion Independent A", "Percussion Scholastic AA", "Percussion Scholastic Concert Open", "Percussion Scholastic Concert A", "Percussion Scholastic Concert Cadet", "Winds Scholastic World", "Winds Independent World", "Winds Scholastic Open", "Winds Independent Open", "Winds Scholastic A"],
-        "credit": "Not affiliated with the Texas Color Guard Circuit.",
-        "score_note": "Winter shows are judged panel by panel — this board shows each ensemble's most recent score on the road to the TCGC State Championships.",
-        "captions": True,
-    },
-    "ffcc": {
-        "status": "Real FFCC results — official CompetitionSuite recaps 2022–2026 with judge captions, plus archived ffcc.org scores back to 2005.",
-        "root": "..",
-        "title": "Cadence FFCC — Florida Color Guard, Percussion & Winds Scores",
-        "brand_tag": "FFCC",
-        "activity": None,
-        "app_name": "Cadence FFCC",
-        "short_name": "FFCC",
-        "accent": "#0e7490",
-        "ns": "ffcc:",
-        "terms": {"singular": "ensemble", "plural": "ensembles", "a": "an ensemble"},
-        "events_title": "Shows",
-        "nav": ["Scoreboard", "Shows", "Ensembles", "Stats"],
-        "class_order": ["Independent World", "Independent Open", "Independent A", "Scholastic World", "Scholastic Open", "Scholastic AAA", "Scholastic AA", "Scholastic A", "Regional A", "Cadet", "Cadet Novice", "Class B", "Percussion Independent World", "Percussion Independent Open", "Percussion Independent A", "Percussion Scholastic Open", "Percussion Scholastic AA", "Percussion Scholastic A", "Percussion Scholastic Novice", "Percussion Scholastic Concert World", "Percussion Scholastic Concert Open", "Percussion Scholastic Concert A", "Winds Independent World", "Winds Independent Open", "Winds Independent A", "Winds Scholastic World", "Winds Scholastic Open", "Winds Scholastic A"],
-        "credit": "Not affiliated with the Florida Federation of Colorguards Circuit.",
-        "score_note": "One circuit, three activities — class names carry the activity (unprefixed classes are color guard). The board shows each ensemble's most recent score; compare within one show on its Shows page.",
-        "captions": True,
-    },
 }
 
 def v(rel: str) -> str:
@@ -223,16 +114,18 @@ def page(key: str, c: dict) -> str:
         "appName": c["app_name"],
         "root": r,
         # apps with real caption datasets get the full DCI Captions tab;
-        # everyone else lands on Compare
+        # everyone else lands on Compare, and every caption surface (the
+        # corps-profile tile, the Database dataset, the per-event recap
+        # fetch) is hidden rather than left to dead-end
         "captions": c.get("captions", False),
-        "resultsKind": c.get("results_kind"),
+        # "trend" is the DCI board; anything else renders through
+        # docs/family/board.js — see docs/family/BOARD-CONTRACT.md
         "board": c.get("board", "trend"),
         "ns": c["ns"],
         "classOrder": c["class_order"],
         "combinable": [],
         "terms": c["terms"],
         "eventsTitle": c["events_title"],
-        "scoreNote": c.get("score_note"),
         "siteUrl": f"https://cadenceperformingarts.github.io/Cadence-Labs/{key}",
         "siteLabel": "cadenceperformingarts.github.io/Cadence-Labs",
     }
@@ -247,13 +140,12 @@ def page(key: str, c: dict) -> str:
     v_ens = v("ensembles.js")
     v_reg = v("registry.js")
     v_board = v("family/board.js")
+    # shared runtime the engine hard-depends on: window.CadConfig (relay +
+    # feature switches) and the pure modules window.CadLiveCore /
+    # window.CadSeasonUtils, which app.js dereferences at eval time. Miss
+    # these and the whole app dies before the first paint.
+    v_cfgjs, v_livecore, v_seasonutils = v("lib/config.js"), v("lib/live-core.js"), v("lib/season-utils.js")
     nav = c["nav"]
-    et = c.get("extra_tab")
-    extra_tab_html = (
-        f'<a href="{et[1]}" data-route="champions" data-href="{et[1]}">'
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-        '<path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3"/></svg>'
-        f'<span>{et[0]}</span></a>' if et else "")
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -288,7 +180,6 @@ r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replac
     <a href="#/events" data-route="events"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>{nav[1]}</span></a>
     <a href="#/corps" data-route="corps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 5l10 4M17 5L7 9"/><rect x="4" y="9" width="16" height="9" rx="2"/><path d="M4 12.5h16"/></svg><span>{nav[2]}</span></a>
     <a href="#/data" data-route="data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg><span>{nav[3]}</span></a>
-  {extra_tab_html}
     <a href="{r}/ensemble/" class="navmy" title="Your workspaces — the private side of Cadence"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h7v12H4zM13 6h7v7h-7z"/><path d="M13 17h7"/></svg><span>Workspace</span></a>
   </nav>
   <a id="settingsBtn" href="#/settings" title="Settings" aria-label="Settings"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 6.087a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.019.382c-.115.043-.283.031-.45-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></a>
@@ -326,6 +217,7 @@ window.APP_CFG = {json.dumps(cfg)};
   addEventListener("appinstalled", function () {{ btn.hidden = true; }});
 }})();
 </script>
+<script src="{r}/lib/config.js{v_cfgjs}"></script>
 <script src="{r}/vendor/supabase.min.js{v_sbvend}"></script>
 <script src="{r}/supabase.js{v_sbcfg}"></script>
 <script src="{r}/account.js{v_acct}"></script>
@@ -333,6 +225,8 @@ window.APP_CFG = {json.dumps(cfg)};
 <script src="{r}/registry.js{v_reg}"></script>
 <script src="{r}/ensembles.js{v_ens}"></script>
 <script src="{r}/charts.js{v_charts}"></script>
+<script src="{r}/lib/live-core.js{v_livecore}"></script>
+<script src="{r}/lib/season-utils.js{v_seasonutils}"></script>
 <script src="{r}/family/wrapped.js{v_wrapped}"></script>
 <script src="{r}/family/board.js{v_board}"></script>
 <script src="{r}/family/app.js{v_engine}"></script>

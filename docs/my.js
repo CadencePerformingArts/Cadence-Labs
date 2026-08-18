@@ -50,7 +50,7 @@
   };
 
   /* ── the family, from the one registry — EVERY deployed app, listed or
-     not, so a star placed on BOA or UIL shows up here too. Icons stay
+     not, so a star placed on any of them shows up here too. Icons stay
      local (they're this page's visual language); everything else comes
      from docs/registry.js. Falls back to the core four if the registry
      script is missing. ─────────────────────────────────────────────── */
@@ -118,7 +118,10 @@
     var p = iso.split("-");
     return "<b>" + MONTHS[(+p[1] || 1) - 1] + " " + (+p[2] || "") + "</b><small>" + p[0] + "</small>";
   }
-  function scoreDisp(r) { // scores, UIL ratings and ISSMA placements all ride here
+  // Every surviving app (DCI, WGI guard/perc/winds) reports a numeric score;
+  // the rating/placement branches are inert against today's data and only
+  // guard against a standings row that predates the score-only feeds.
+  function scoreDisp(r) {
     if (r.score != null) return (+r.score).toFixed(3);
     if (r.rating != null) {
       var roman = ["", "I", "II", "III", "IV", "V"][Math.round(r.rating)] || String(r.rating);

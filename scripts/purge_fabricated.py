@@ -19,8 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-APPS = ["wgi/guard", "wgi/percussion", "wgi/winds", "boa", "usbands",
-        "uil", "wgasc", "tcgc", "ffcc", ""]
+APPS = ["wgi/guard", "wgi/percussion", "wgi/winds", ""]
 
 
 DRY = False  # --dry-run: compute everything, write nothing
