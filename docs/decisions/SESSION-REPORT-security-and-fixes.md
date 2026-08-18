@@ -1,11 +1,10 @@
 # Session report — security, functional fixes, notification spine
 
-Branch: `claude/github-ai-coding-setup-gk88x9`. Not merged to `main` and not
-deployed to the site. **The database migrations WERE applied to the live
-Supabase project on 2026-08-17 at the owner's explicit instruction** — see
-"Production application" at the end of this document for exactly what was
-run and verified. Everything else remains on the feature branch with a clean
-rollback path (additive migrations only).
+**Fully shipped.** Developed on `claude/github-ai-coding-setup-gk88x9`;
+migrations 0012-0017 applied to the live Supabase project and the branch
+merged to `main` and deployed to the public site, both at the owner's
+explicit instruction. See "Production application" and "Deployment" at the
+end of this document for exactly what was run and verified.
 
 ## 1. Executive outcome
 
@@ -435,3 +434,30 @@ Nothing about the database. The remaining items are external services: the
 notification env vars on the relay, the Stripe test deploy, legal review of
 the `docs/legal/` drafts, and enabling MFA on the platform-admin account
 (Supabase → Authentication) before real money is involved.
+
+
+---
+
+## Deployment (2026-08-18)
+
+The front end shipped to match the database.
+
+- `main` had advanced 280 commits (all score-cron data updates) while this
+  work was on its branch. Rather than merge onto `main` and risk racing the
+  cron, `origin/main` was merged **into the branch** first — no conflicts,
+  since the cron only touches `data/` and `docs/data/` — then the full gate
+  was re-run against the merged tree: P1 19/19, sync 23/23, Stripe 18/18,
+  UIL 8/8, worker 12/12, providers 19/19, monorepo vitest 27/27, typecheck
+  clean, and 18 pages browser-checked at 390px and 1280px with no console
+  errors and no overflow.
+- The derived family engine was rebuilt (cache-bust hashes changed on the
+  nine circuit pages, as expected after the UIL transform fix).
+- `main` was then fast-forwarded, with a retry loop for the cron: it did push
+  two more data commits mid-flight, which were merged and the push succeeded
+  on the first attempt.
+- GitHub Pages redeployed; the live site now serves `registry.js`,
+  `admin-platform.html`, `ensemble/forms.html` and the `legal/` pages.
+
+Deployment risk was low by construction: the workspace side has no
+organizations and one user, so no member was mid-session during the swap,
+and the public scoreboards are static files whose data layer was untouched.

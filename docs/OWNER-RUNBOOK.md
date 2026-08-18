@@ -126,9 +126,8 @@ and members cannot grant it to themselves.) **Still worth doing:** turn on
 MFA for that account in Supabase → Authentication before real money is
 involved.
 
-Note: the page ships on the `claude/github-ai-coding-setup-gk88x9` branch.
-It is live at the public URL only once that branch is merged and the site
-redeploys — see "Keep the site and database in step" below.
+This page is live at the public URL now — the branch was merged and the
+site redeployed on 2026-08-18.
 
 The SQL statements below remain as emergency fallbacks — copy from the
 migration comments, fill in the id or slug, and run.
@@ -234,21 +233,14 @@ be charged — and each line below must be true before that changes:
 session report).*
 
 
-## Keep the site and database in step
+## Site and database are in step
 
-The database is now migrated **ahead of the deployed website**. The public
-site is built from `main`; all of this session's front-end work is on the
-`claude/github-ai-coding-setup-gk88x9` branch and has not been merged.
+Both halves shipped together on 2026-08-18: migrations 0012-0017 are applied
+to the live database, and the matching front-end was merged to `main` and
+deployed. The workspace UI changes roles through the guarded
+`set_member_role()` RPC that migration 0012 requires, so the two generations
+match.
 
-Practically that means, until the branch is merged and the site redeploys:
-
-- `admin-platform.html` and the member `forms.html` page are not at the
-  public URL yet.
-- The deployed workspace UI still edits a member's role with a direct
-  PATCH. Migration 0012 now refuses that (it is exactly the hole 0012
-  closes), so a role change in the *old* UI would show an error. The new
-  UI on the branch calls the guarded `set_member_role()` RPC instead.
-
-Nothing is broken today because the workspace side has no organizations and
-one user. But merge the branch before you invite anyone, so the site and the
-database are the same generation.
+If you ever apply a migration *without* deploying the site (or vice versa),
+re-read this section: the coupling that matters is the role editor, member
+forms, event chat and the platform admin page — all four need both halves.
