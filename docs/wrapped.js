@@ -4,8 +4,8 @@
    reuses the app's corps colors. No backend — reads the static season JSON. */
 (function () {
   "use strict";
-  var SITE_URL = "https://cadenceperformingarts.github.io/Cadence-Labs";
-  var SITE_LABEL = "cadenceperformingarts.github.io/Cadence-Labs";
+  var SITE_URL = ((window.CadConfig || {}).BASE_URL || "https://lukebesel.github.io/DCI-Tracker/").replace(/\/$/, "");
+  var SITE_LABEL = (window.CadConfig || {}).BASE_LABEL || "lukebesel.github.io/DCI-Tracker";
 
   // ---- color helpers ---------------------------------------------------------
   function hx(s) { s = String(s || "").replace("#", ""); if (s.length === 3) s = s.split("").map(function (c) { return c + c; }).join(""); var n = parseInt(s, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
@@ -182,12 +182,25 @@
     g.fillStyle = "#fff"; g.beginPath(); g.arc(lx, ly, 5, 0, 6.29); g.fill();
 
     // footer
-    g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Follow every score at " + SITE_LABEL, W / 2, H - 64); g.textAlign = "left";
+    g.fillStyle = "rgba(255,255,255,.5)";
+    cardFooter(g, W, H - 64, "Follow every score at " + SITE_LABEL);
     return cv;
   }
 
   // ---- shared card helpers ---------------------------------------------------
+  // every card signs off the same way: the site line, then a quiet
+  // non-affiliation note so a shared image never reads as official
+  function cardFooter(g, W, mainY, text) {
+    g.textAlign = "center";
+    g.font = "700 26px " + FONT;
+    g.fillText(text, W / 2, mainY);
+    var prev = g.fillStyle;
+    g.font = "600 19px " + FONT;
+    g.fillStyle = "rgba(255,255,255,.34)";
+    g.fillText("Unofficial fan app — not affiliated with DCI", W / 2, mainY + 30);
+    g.fillStyle = prev;
+    g.textAlign = "left";
+  }
   var MONTHS_LONG = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
   function newCanvas() { var cv = document.createElement("canvas"); cv.width = 1080; cv.height = 1350; return cv; }
@@ -280,7 +293,7 @@
     }
 
     g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Full scores at " + SITE_LABEL, W / 2, H - 60); g.textAlign = "left";
+    cardFooter(g, W, H - 60, "Full scores at " + SITE_LABEL);
     return cv;
   }
 
@@ -322,7 +335,7 @@
     });
 
     g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Relive every season at " + SITE_LABEL, W / 2, H - 60); g.textAlign = "left";
+    cardFooter(g, W, H - 60, "Relive every season at " + SITE_LABEL);
     return cv;
   }
 
@@ -387,7 +400,7 @@
       g.fillText(fmt3(r.last), lx + colW - 34, ly); g.textAlign = "left";
     });
     g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Live standings at " + SITE_LABEL, W / 2, H - 56); g.textAlign = "left";
+    cardFooter(g, W, H - 56, "Live standings at " + SITE_LABEL);
     return cv;
   }
   function standingsCard(info) {
@@ -561,7 +574,7 @@
       g.fillText(ellip(g, "▲ " + flips + " caption" + (flips === 1 ? "" : "s") + " changed hands since the last show", W - PAD * 2), W / 2, H - 92);
     }
     g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 24px " + FONT;
-    g.fillText(SITE_LABEL, W / 2, H - 52); g.textAlign = "left";
+    cardFooter(g, W, H - 52, SITE_LABEL);
     return cv;
   }
   function fmt2(n) { return n == null ? "—" : (Math.round(n * 100) / 100).toFixed(2); }

@@ -141,7 +141,7 @@
     var visits = +(lget("cad-install-visits") || 0);
     if (visits < 2) return;                                // don't nag first-timers
     if (Date.now() < +(lget("cad-install-snooze") || 0)) return; // snoozed
-    if (document.querySelector(".cm-overlay,.rc-overlay,.sr-overlay,.ar-overlay,.cad-ov,.in-ov")) return; // don't stack
+    if (document.querySelector(".rc-overlay,.sr-overlay,.ar-overlay,.cad-ov,.in-ov,.ob-ov")) return; // don't stack
     try { sessionStorage.setItem("cad-install-session", "1"); } catch (e) {}
     open();
   }

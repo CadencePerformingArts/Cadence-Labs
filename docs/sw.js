@@ -1,8 +1,9 @@
 /* DCI Tracker service worker — network-first with cache fallback.
    Fresh data always wins when online; the app shell and the last-seen data
    keep working offline. Nothing is ever served stale while connected. */
-const CACHE = "cadence-v25";
-const SHELL = ["./", "index.html", "app.css", "app.js", "charts.js", "recap.js", "arcade.js", "wrapped.js", "install.js", "manifest.webmanifest"];
+const CACHE = "cadence-v42";
+const SHELL = ["./", "index.html", "app.css", "app.js", "charts.js", "recap.js", "arcade.js", "wrapped.js", "install.js",
+  "lib/config.js", "lib/live-core.js", "lib/season-utils.js", "onthisday.json", "manifest.webmanifest"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

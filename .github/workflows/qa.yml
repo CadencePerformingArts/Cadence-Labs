@@ -1,0 +1,108 @@
+name: QA
+# Path-aware CI. Data-only commits never reach this workflow (the data bot
+# pushes with GITHUB_TOKEN, which suppresses workflow triggers; its deploy
+# path is gated by the validator inside pages.yml instead). Human changes:
+#   app paths      → JS unit tests + full browser QA
+#   pipeline paths → scraper tests + data validator
+#   workflows      → both
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "!docs/data/**"
+      - "scraper/**"
+      - "scripts/**"
+      - "tests/**"
+      - "push-server/**"
+      - ".github/workflows/**"
+  push:
+    paths:
+      - "docs/**"
+      - "!docs/data/**"
+      - "scraper/**"
+      - "scripts/**"
+      - "tests/**"
+      - "push-server/**"
+      - ".github/workflows/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      app: ${{ steps.diff.outputs.app }}
+      pipeline: ${{ steps.diff.outputs.pipeline }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: diff
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="origin/${{ github.base_ref }}"
+            git fetch origin "${{ github.base_ref }}" --depth=1 || true
+          else
+            BASE="${{ github.event.before }}"
+            # first push of a branch / force contexts: fall back to one commit back
+            git cat-file -e "$BASE" 2>/dev/null || BASE="HEAD~1"
+          fi
+          FILES=$(git diff --name-only "$BASE"...HEAD 2>/dev/null || git diff --name-only HEAD~1 HEAD)
+          echo "$FILES" | head -50
+          app=false; pipeline=false
+          # app = anything under docs/ EXCEPT generated docs/data, plus the
+          # QA/unit suites, the relay, and workflow changes
+          if echo "$FILES" | grep -vE '^docs/data/' | grep -qE '^docs/'; then app=true; fi
+          echo "$FILES" | grep -qE '^(tests/(qa|unit)/|push-server/|\.github/workflows/)' && app=true
+          echo "$FILES" | grep -qE '^(scraper/|scripts/|tests/[^/]+\.py$|\.github/workflows/)' && pipeline=true
+          echo "app=$app" >> "$GITHUB_OUTPUT"
+          echo "pipeline=$pipeline" >> "$GITHUB_OUTPUT"
+          echo "app=$app pipeline=$pipeline"
+
+  app:
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: JS unit tests
+        run: node --test tests/unit/*.test.js
+      - name: Install browser QA deps
+        working-directory: tests/qa
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Browser QA
+        working-directory: tests/qa
+        run: npm test
+
+  pipeline:
+    needs: changes
+    if: needs.changes.outputs.pipeline == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scraper/requirements.txt pytest
+      - name: Scraper unit tests
+        run: python -m pytest tests/ -q
+      # rebuild the site data from this branch's committed inputs (no network)
+      # and validate the FRESH build — this exercises changed build code end
+      # to end, rather than judging a branch by its possibly-stale checkout
+      - name: Build & validate site data
+        run: |
+          export PYTHONPATH=scraper
+          python scraper/build_data.py
+          python scraper/validate_data.py

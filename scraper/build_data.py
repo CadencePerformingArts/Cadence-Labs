@@ -72,6 +72,38 @@ def canon_class(name: str) -> str:
     return n or "World Class"
 
 
+# A show's own NAME can state the division it crowned, and when it does it
+# outranks the division column. The pre-2013 archive records the division per
+# result row, so a show that IS one division leaves that column blank and
+# every row falls back to the top class — which is how 2008's "Open Class
+# Finals" put Blue Devils B (96.775) sixth on the World Class board.
+#
+# Two rules, both matching DCI's own naming history:
+#   * "Division II"/"Division III" are DCI's lower divisions in every year the
+#     numbered system ran (1984-2007), and CLASS_CANON already maps the bare
+#     numerals the same way.
+#   * "Open Class" only means the lower class from 2008, when DCI renamed
+#     Division II/III. Before that it named the TOP division (DCI through
+#     1983, and the UK/Dutch circuits for longer still), so those shows keep
+#     whatever class the source gave them.
+# A name that also states the top division ("… World Class & Open Class …")
+# is a combined show whose rows must carry their own divisions — leave it be.
+LOWER_DIV_EVENT = re.compile(r"\bdiv(?:ision|\.)?\s*(?:ii|iii)\b", re.I)
+OPEN_CLASS_EVENT = re.compile(r"open class", re.I)
+TOP_DIV_EVENT = re.compile(r"world class|\bdiv(?:ision|\.)?\s*i\b", re.I)
+OPEN_CLASS_RENAMED = 2008
+
+
+def event_is_lower_class(name: str, year: int | None) -> bool:
+    """True when the event's name says its field is DCI's lower division."""
+    n = norm_space(name or "")
+    if not n or TOP_DIV_EVENT.search(n):
+        return False
+    if LOWER_DIV_EVENT.search(n):
+        return True
+    return bool(year and year >= OPEN_CLASS_RENAMED and OPEN_CLASS_EVENT.search(n))
+
+
 def load_events():
     """dci_events.json (DCI.org, 2013+) merged with history_events.json
     (pre-2013 archive scrape, same schema). History only contributes years
@@ -91,6 +123,11 @@ def load_events():
         log("no parsed events — nothing to build")
         return []
     NON_FIELD = re.compile(r"mini-?corps|individual\s*&\s*ensemble|\bi\s*&\s*e\b|mca championship", re.I)
+    # …and the same standstill ensembles entered at shows that aren't named
+    # for them: a mini-corps is a horn line on the front sideline, so its
+    # score doesn't belong on a field-competition board (2008's March
+    # exhibition had Capital Brass MiniCorps at 87.0, twelfth for the season).
+    NON_FIELD_CORPS = re.compile(r"mini-?\s*corps", re.I)
     out = []
     for ev in events:
         if not ev.get("year") or not ev.get("classes") or ev.get("non_corps"):
@@ -99,16 +136,33 @@ def load_events():
             continue  # standstill/ensemble contests are not field competition
         ev = dict(ev)
         ev["date"] = ev.get("date") or iso_date(ev)
+        lower_div = event_is_lower_class(ev.get("name"), ev.get("year"))
+        # …but the name only speaks for a blank division column. A show that
+        # ALREADY carries a distinct Open Class group had a populated column, so
+        # its World Class group is a genuine, explicitly-labelled group — not a
+        # fallback — and must be left alone (2013's "So Cal Classic Open Class
+        # Championships" fielded Pacific Crest and Mandarins in World Class
+        # alongside its Open Class group; the name must not sweep them under).
+        if lower_div and any(
+                not IE_CLASS.search(norm_space(c.get("class") or ""))
+                and canon_class(norm_space(c.get("class") or "")) == "Open Class"
+                for c in ev["classes"]):
+            lower_div = False
         classes = []
         for c in ev["classes"]:
             if IE_CLASS.search(norm_space(c.get("class") or "")):
                 continue  # individual/ensemble category, not corps competition
             raw_label = norm_space(c.get("class") or "")
             cc = canon_class(raw_label)
+            if lower_div and cc == "World Class":
+                # the show's name is the authority; the source's label was a
+                # blank-column fallback, so it isn't worth surfacing either
+                cc, raw_label = "Open Class", ""
             results = [dict(r, corps=canon_corps(r["corps"])) for r in c["results"] if r.get("corps")]
-            # junk rows: bare numbers, unknown/tba placeholders
+            # junk rows: bare numbers, unknown/tba placeholders, standstill units
             results = [r for r in results
                        if not re.fullmatch(r"\d+", r["corps"])
+                       and not NON_FIELD_CORPS.search(r["corps"])
                        and r["corps"].lower().strip("()") not in ("unknown", "tba", "tbd", "n/a")]
             # a corps listed twice in one group keeps its best-scored row
             best_row: dict[str, dict] = {}
@@ -251,6 +305,66 @@ def load_events():
         log(f"reclassified {moved} senior-circuit results to All-Age")
     out = [ev for ev in out if ev["classes"]]
 
+    # Same blank-column problem, without the name to give it away: an
+    # all-Open-Class tour show (2008's "Music in Motion", "Dayton Summer
+    # Classic", "Music on the March" — twelve Open Class corps apiece, no
+    # World Class corps in the field) drops its whole field onto the World
+    # Class board. A corps competes in one class per season, so the field it
+    # keeps says which class a show was, in three steps per season:
+    #   1. Open roster — corps the source itself put in an Open Class group.
+    #   2. World roster — corps from a "World Class" field with NOT ONE corps
+    #      off the open roster. Those fields are unambiguous, and the corps in
+    #      them are that season's real World Class corps.
+    #   3. Retag any remaining "World Class" field that holds an open-roster
+    #      corps and no world-roster corps.
+    # Step 2 is what protects the genuine case: when Open Class corps tour
+    # into a World Class show (Colt Cadets and Les Stentors at 2026's World
+    # Championship Prelims), the World Class corps beside them are all on the
+    # world roster, so step 3 leaves that field alone.
+    open_roster: dict[int, set] = defaultdict(set)
+    for ev in out:
+        for c in ev["classes"]:
+            if c["class"] == "Open Class":
+                open_roster[ev["year"]].update(r["corps"] for r in c["results"])
+    world_roster: dict[int, set] = defaultdict(set)
+    for ev in out:
+        known = open_roster.get(ev["year"]) or set()
+        for c in ev["classes"]:
+            if c["class"] != "World Class":
+                continue
+            field = {r["corps"] for r in c["results"]}
+            if not field & known:
+                world_roster[ev["year"]].update(field)
+    reclassed = 0
+    for ev in out:
+        known = open_roster.get(ev["year"])
+        if not known:
+            continue
+        worlds = world_roster.get(ev["year"]) or set()
+        for c in ev["classes"]:
+            if c["class"] != "World Class":
+                continue
+            field = {r["corps"] for r in c["results"]}
+            if field & known and not field & worlds:
+                c["class"] = "Open Class"
+                c.pop("label", None)
+                reclassed += len(c["results"])
+        # the retag can collide with a group the show already had
+        merged_cls: dict[tuple, dict] = {}
+        for c in ev["classes"]:
+            key = (c["class"], c.get("label") or "")
+            if key in merged_cls:
+                merged_cls[key]["results"].extend(c["results"])
+            else:
+                merged_cls[key] = c
+        if len(merged_cls) != len(ev["classes"]):
+            for c in merged_cls.values():
+                c["results"].sort(key=lambda r: (r["place"] if r["place"] is not None else 99,
+                                                 -(r["score"] or 0)))
+            ev["classes"] = list(merged_cls.values())
+    if reclassed:
+        log(f"reclassified {reclassed} all-Open-Class-field results out of World Class")
+
     log(f"loaded {len(out)} usable events")
     return out
 
@@ -350,6 +464,20 @@ def build_corps(events):
                     "y": ev["year"], "d": ev.get("date"), "ev": ev.get("name"),
                     "cls": c["class"], "p": r.get("place"), "s": r.get("score"),
                 })
+    # The historical archives spell some corps several ways ("Renegades Sr."
+    # vs "Renegades, Sr.") — variants that slugify identically are the same
+    # corps, and writing them separately made the second overwrite the first's
+    # corps/<slug>.json while the index listed both. Merge them: one slug, one
+    # page, the most-used spelling as the display name.
+    by_slug = defaultdict(list)
+    for corps, plist in perfs.items():
+        by_slug[slugify(corps)].append((corps, plist))
+    merged = {}
+    for slug, variants in by_slug.items():
+        variants.sort(key=lambda v: (-len(v[1]), v[0]))
+        name = variants[0][0]
+        merged[name] = [p for _, pl in variants for p in pl]
+    perfs = merged
     index = []
     for corps, plist in sorted(perfs.items()):
         plist.sort(key=lambda x: (x["y"], x["d"] or ""))
@@ -385,11 +513,27 @@ def build_corps(events):
     return index
 
 
+def _round_rank(name):
+    """Order rounds within one date: prelims/quarters, then semis, then finals.
+
+    Championship weekends run several rounds, sometimes two on the same date.
+    Sorting on the date alone made whichever the file listed last count as a
+    corps' "latest score", which put prelims on top of same-day finals.
+    docs/lib/season-utils.js mirrors this rule for archived seasons.
+    """
+    n = name or ""
+    if re.search(r"prelim|quarter", n, re.I):
+        return 0
+    if re.search(r"semi", n, re.I):
+        return 1
+    return 2
+
+
 def build_rankings(events):
     now = datetime.now(timezone.utc)
     season = max((e["year"] for e in events), default=now.year)
     dated = sorted([e for e in events if e.get("date") and e["year"] == season],
-                   key=lambda e: e["date"])
+                   key=lambda e: (e["date"], _round_rank(e.get("name"))))
     per_class = defaultdict(dict)
     for ev in dated:
         for c in ev["classes"]:
@@ -978,12 +1122,34 @@ def build_upcoming():
 
 
 def build_news():
-    """docs/data/news.json from data/parsed/dci_news.json (official DCI RSS,
-    fetched by scripts/fetch_dci_news.py): headline cards plus the
-    auditions/camps tags the Shows page surfaces."""
+    """docs/data/news.json from the dci.org news scrape, plus the curated
+    off-season calendar (scraper/offseason_events.json → docs/data/offseason.json).
+    Both live under docs/data, which this script wipes each run — so they are
+    (re)written here from their sources every build."""
     p = PARSED / "dci_news.json"
     if p.exists():
-        write_json("news.json", json.loads(p.read_text()))
+        try:
+            d = json.loads(p.read_text())
+            write_json("news.json", {
+                "updated": d.get("updated"),
+                "articles": (d.get("articles") or [])[:20],
+                "items": (d.get("corps_items") or [])[:80],
+            })
+        except Exception as e:  # noqa: BLE001
+            print(f"news.json skipped: {e}")
+    off = ROOT / "scraper" / "offseason_events.json"
+    events = []
+    if off.exists():
+        try:
+            for ev in (json.loads(off.read_text()).get("events") or []):
+                if ev.get("date") and ev.get("name"):
+                    events.append({k: ev[k] for k in
+                                   ("date", "end", "name", "corps", "location", "url", "kind")
+                                   if ev.get(k)})
+        except Exception as e:  # noqa: BLE001
+            print(f"offseason.json skipped: {e}")
+    events.sort(key=lambda e: e["date"])
+    write_json("offseason.json", events)
 
 
 def main():

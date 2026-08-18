@@ -1,0 +1,109 @@
+name: Health monitor
+# Is the public app up, is its data fresh (season-aware), is the push relay
+# answering? Failures update ONE reusable issue (label: ops) instead of
+# spamming new ones, and the issue closes itself when everything recovers.
+on:
+  schedule:
+    - cron: "23 */6 * * *"   # four light checks a day
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+concurrency:
+  group: monitor
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SITE: https://lukebesel.github.io/DCI-Tracker
+      RELAY: https://cadenceapp.up.railway.app
+    steps:
+      - name: Probe site, data freshness, and relay
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error, datetime, time
+
+          SITE = os.environ["SITE"]; RELAY = os.environ["RELAY"]
+          probs = []
+          def get(u, timeout=30):
+              req = urllib.request.Request(u + ("&" if "?" in u else "?") + "cb=" + str(int(time.time())),
+                  headers={"cache-control": "no-cache", "user-agent": "cadence-monitor"})
+              return urllib.request.urlopen(req, timeout=timeout).read()
+
+          # 1. the app itself
+          try:
+              html = get(f"{SITE}/index.html").decode("utf-8", "replace")
+              if "Cadence" not in html:
+                  probs.append("site: index.html loaded but does not look like the Cadence app")
+          except Exception as e:
+              probs.append(f"site: index.html unreachable — {e}")
+
+          # 2. data freshness, season-aware: the pipeline rebuilds every ~15 min
+          #    year-round, so even the relaxed threshold means "pipeline dead",
+          #    but show windows get a much stricter bar and the off-season
+          #    never alarms over a routine multi-hour wobble.
+          try:
+              meta = json.loads(get(f"{SITE}/data/meta.json"))
+              t = datetime.datetime.strptime(meta.get("updated", ""), "%Y-%m-%d %H:%M UTC").replace(tzinfo=datetime.timezone.utc)
+              now = datetime.datetime.now(datetime.timezone.utc)
+              age_h = (now - t).total_seconds() / 3600
+              showday, inseason = False, False
+              try:
+                  up = json.loads(get(f"{SITE}/data/upcoming.json")) or []
+                  days = {now.strftime("%Y-%m-%d"), (now - datetime.timedelta(days=1)).strftime("%Y-%m-%d")}
+                  real = [e for e in up if not e.get("kind")]
+                  showday = any(e.get("date") in days for e in real)
+                  inseason = bool(real)
+              except Exception:
+                  pass
+              thr = 1 if showday else 3 if inseason else 26
+              if age_h > thr:
+                  when = "show window" if showday else ("in-season" if inseason else "off-season")
+                  probs.append(f"data: meta.json is {age_h:.1f}h old ({when} threshold {thr}h) — "
+                               f"check the pulse/update workflows and data/scrape_report.txt in the latest commit")
+          except Exception as e:
+              probs.append(f"data: meta.json unreadable — {e}")
+
+          # 3. push relay (any HTTP response = process is up; /healthz may be
+          #    404 on a relay build older than v16 — fall back to /status)
+          relay_up = False
+          for path in ("/healthz", "/status"):
+              try:
+                  h = json.loads(get(RELAY + path, timeout=15))
+                  if h.get("ok"): relay_up = True
+                  break
+              except urllib.error.HTTPError:
+                  continue
+              except Exception:
+                  continue
+          if not relay_up:
+              probs.append(f"relay: {RELAY} is not answering /healthz or /status — score alerts are not being sent. "
+                           f"Check the Railway service (see OPERATIONS.md §4).")
+
+          with open("problems.txt", "w") as f:
+              f.write("\n".join(probs))
+          print("\n".join(probs) if probs else "all checks passed")
+          PY
+      - name: Update the ops issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          title="Automated health check is failing"
+          num=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -s problems.txt ]; then
+            body="$(printf 'The scheduled health monitor found problems at %s:\n\n```\n%s\n```\n\nRunbook: OPERATIONS.md §4. This issue is updated in place by monitor.yml — it will close itself when checks recover.' "$(date -u +'%F %T UTC')" "$(cat problems.txt)")"
+            if [ -n "$num" ]; then
+              gh issue comment "$num" --body "$body"
+            else
+              gh issue create --title "$title" --body "$body" --label ops \
+                || gh issue create --title "$title" --body "$body"
+            fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "Recovered — all health checks passing as of $(date -u +'%F %T UTC')."
+          fi

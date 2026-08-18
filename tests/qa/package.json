@@ -1,0 +1,11 @@
+{
+  "name": "cadence-qa",
+  "private": true,
+  "description": "Browser regression suite for the Cadence app — serves docs/ locally and drives it with Playwright",
+  "scripts": {
+    "test": "node runner.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}

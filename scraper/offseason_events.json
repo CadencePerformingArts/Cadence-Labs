@@ -1,0 +1,4 @@
+{
+  "_readme": "Curated off-season calendar: camps, auditions, and other non-competitive corps events with CONFIRMED dates. These merge into the app's Shows list (styled as camps/auditions, distinct from real shows). Only add events with dates verified from the corps' own announcement — never guess dates. Fields: date (YYYY-MM-DD, required), name (required), corps, end (YYYY-MM-DD for multi-day), location, url, kind (camp | auditions | special).",
+  "events": []
+}
