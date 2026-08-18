@@ -98,19 +98,33 @@ The database already queues workspace notifications (invites, must-read
 announcements, RSVP-required events). The push relay drains that queue —
 but only after you give it database access:
 
-1. In Railway, open the relay service → **Variables**, and add:
+1. In Railway, open the relay service → **Variables**. These two are what
+   let it see the queue at all:
    - `SUPABASE_URL` — your project URL (Supabase → Settings → API).
    - `SUPABASE_SERVICE_ROLE_KEY` — the service-role key from the same
      page. **Server-side only. Never put this key in the repository, a
      web page, or anywhere a browser can see it.**
-2. That's it. The relay checks the queue every 30 seconds (tunable with
-   `NOTIFY_POLL_SECONDS`). Without those two variables it does nothing
-   new, so the existing score-push service is unaffected.
+2. These decide which channels can actually deliver. Each one is optional
+   and each is checked independently — a channel with no configuration is
+   skipped cleanly rather than failing:
+   - `RESEND_API_KEY` and `NOTIFY_FROM_EMAIL` — email delivery. Without
+     them no invitation or announcement email is sent.
+   - `SUPABASE_JWT_SECRET` (Supabase → Settings → API → JWT Settings) —
+     workspace push. The relay uses it to verify that a browser
+     registering for push really is the signed-in user; the user id comes
+     from the verified token, never from the request body. Without it the
+     registration endpoint answers `503` and workspace push cannot work,
+     even though VAPID keys are already set for the public score alerts.
+3. The relay checks the queue every 30 seconds (tunable with
+   `NOTIFY_POLL_SECONDS`). Without step 1 it does nothing new at all, so
+   the existing score-push service is unaffected either way.
 
-**What flows immediately:** in-app notifications (rows the workspace reads
-when a member opens it). **What needs more work:** real push and email
-delivery — those providers are deliberately stubbed as "unconfigured" and
-skipped cleanly until a developer wires them. No message is sent until then.
+**Be aware of what is honest here.** A queued notification with no
+configured channel is marked `skipped`, not `failed` — deliberately, so a
+half-configured relay does not fill the health tile with red. The flip side
+is that "no errors" does not mean "delivered". Check
+`admin-platform.html`'s health tile against what people actually received
+before you trust the pipe.
 
 ## The platform admin screen (and the SQL fallbacks)
 

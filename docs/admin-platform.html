@@ -135,14 +135,24 @@ table.pa .num { text-align: right; font-variant-numeric: tabular-nums; }
         stat(H.read_only_orgs, "Read-only workspaces", false) +
         stat(H.notifications_failed, "Failed notifications", H.notifications_failed > 0) +
         stat(H.notifications_pending, "Notifications queued", false) +
+        // a skipped notification had no configured channel — nobody was told.
+        // "no failures" is not "delivered", so say so rather than let a quiet
+        // zero in the failed column read as success. Older databases don't
+        // report this key; render nothing rather than "undefined".
+        (H.notifications_skipped == null ? ""
+          : stat(H.notifications_skipped, "Never delivered (no channel)",
+                 H.notifications_skipped > 0)) +
         stat(H.orgs, "Organizations", false) +
         "</div>" +
         '<div class="pa-act"><button id="sweep">Run subscription sweep</button></div>' +
-        '<p class="pa-note">The sweep moves expired trials and lapsed grace periods to read-only — ' +
-        "the nightly job the runbook used to describe. Idempotent; audited.</p>";
+        '<p class="pa-note">Expired trials, lapsed grace periods and workspaces left ' +
+        "past-due by a failed card move to read-only automatically, every hour. " +
+        "This button runs the same sweep now. Idempotent; audited.</p>";
       document.getElementById("sweep").addEventListener("click", async function () {
         try { var r = await rpc("padmin_sweep_subscriptions");
-              msg("Swept: " + r.trials_expired + " trials, " + r.grace_expired + " grace periods.", true); }
+              // past_due_expired arrives from 0018 onward; older databases omit it
+              msg("Swept: " + r.trials_expired + " trials, " + r.grace_expired + " grace periods" +
+                  (r.past_due_expired == null ? "" : ", " + r.past_due_expired + " past-due") + ".", true); }
         catch (e) { msg(e.message, false); }
       });
     }
