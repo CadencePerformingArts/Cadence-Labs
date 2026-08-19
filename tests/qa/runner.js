@@ -313,31 +313,20 @@ section("shows: expansion, filters panel, event page focus", async (browser, bas
     await page.goHash("#/events"); await page.waitForTimeout(1000);
   }
 
-  // News & Announcements starts collapsed to just its header, and the reader
-  // can expand it — both directions remembered per device
-  const nw = await page.$(".newswrap");
-  if (nw) {
-    let inner = await page.$("#newsInner");
-    if (!inner) bad("news: no inner content wrapper");
-    else if (await inner.isVisible()) bad("news: tile did not start collapsed by default");
+  // "Latest from DCI": the always-open news card — a photo rail of
+  // headlines, the camps list, and an All news link that stays in the app
+  const rail = await page.$("#newsMount .newsrail");
+  if (rail) {
+    if (!await page.$("#newsMount .newsart")) bad("news: rail rendered no headline cards");
+    const hadCamps = !!await page.$("#newsMount .newscamps");
+    const allNews = await page.$('#newsMount a[href="#/news"]');
+    if (!allNews) bad("news: All news link is missing or leaves the app");
     else {
-      // the New badge must survive while the tile stays collapsed — "seen" is
-      // banked only when the reader opens it, so a reload without opening keeps
-      // the badge (regression guard for the flash-once-and-gone bug)
-      if (await page.$(".newshead .knew")) {
-        await page.goHash("#/events"); await page.waitForTimeout(900);
-        if (!(await page.$(".newshead .knew")))
-          bad("news: New badge cleared while collapsed, before the reader opened it");
-        inner = await page.$("#newsInner");
-      }
-      await page.click(".newshead"); await page.waitForTimeout(250);
-      if (inner && !await inner.isVisible()) bad("news: could not expand the tile");
-      if (await page.evaluate(() => localStorage.getItem("cad-news-collapsed")) !== "0")
-        bad("news: expanded state not remembered");
-      await page.click(".newshead"); await page.waitForTimeout(250);
-      if (inner && await inner.isVisible()) bad("news: could not collapse the tile again");
-      if (await page.evaluate(() => localStorage.getItem("cad-news-collapsed")) !== "1")
-        bad("news: collapsed state not remembered");
+      await allNews.click(); await page.waitForTimeout(900);
+      if (await page.evaluate(() => location.hash) !== "#/news") bad("news: All news did not open #/news");
+      if (!await page.$(".newsgrid .newsart")) bad("#/news: no headline grid");
+      if (hadCamps && !await page.$(".newsanns .newscard")) bad("#/news: no corps announcements");
+      await page.goHash("#/events"); await page.waitForTimeout(900);
     }
   }
 
