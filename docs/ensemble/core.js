@@ -169,27 +169,29 @@
      for daily (plus More) make the dock; everything else lives one tap away
      in the More sheet. Desktop has the room, so it keeps the full rail —
      `sec: true` marks the sections that fold into More on phones. */
+  /* Icons share the public app's dock language: 24-grid, stroke 2, round
+     caps, rounded rectangles, no fussy detail — they read at 26px. */
   var SECTIONS = {
     home:      { label: "Home", href: "home.html",
-                 ico: "M4 11.5 12 4l8 7.5M6.5 10v9.5h11V10" },
+                 ico: "M4 11.5 12 4.5l8 7M6.5 10.5V18a1.5 1.5 0 0 0 1.5 1.5h8a1.5 1.5 0 0 0 1.5-1.5v-7.5" },
     feed:      { label: "Announcements", href: "feed.html", sec: true,
-                 ico: "M4 10v4h3l7 4V6l-7 4H4zM17.5 9.5a4 4 0 0 1 0 5" },
+                 ico: "M4 10v4h3l7 4.5v-13L7 10H4zM17.5 9.5a4 4 0 0 1 0 5" },
     calendar:  { label: "Calendar", href: "calendar.html",
-                 ico: "M4.5 5.5h15v14h-15zM4.5 10h15M9 3.5v3.5M15 3.5v3.5" },
+                 ico: "M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4" },
     messages:  { label: "Messages", href: "messages.html",
-                 ico: "M5 5.5h14v9.5H9.5L5 19z" },
+                 ico: "M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8L5 20z" },
     files:     { label: "Files", href: "files.html", sec: true,
-                 ico: "M4 7.5h5.5l1.8 2H20v9H4z" },
+                 ico: "M3.5 8a2 2 0 0 1 2-2h3.6l1.8 2h7.6a2 2 0 0 1 2 2v6.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" },
     music:     { label: "Music", href: "music.html", sec: true,
                  ico: "M9.5 17.5V6l9-1.8V15M9.5 17.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0zm9-2.5a2.4 2.4 0 1 1-4.8 0 2.4 2.4 0 0 1 4.8 0z" },
     drill:     { label: "Drill", href: "drill.html",
-                 ico: "M3.5 5.5h17v13h-17zM12 5.5v13M7.5 10.5h.01M12 13.5h.01M16.5 8.5h.01M16.5 15h.01M7.5 15.5h.01" },
+                 ico: "M3.5 7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2zM12 5v14M8 10h.01M16 12h.01M9.5 14.5h.01" },
     forms:     { label: "Forms", href: "forms.html", sec: true,
-                 ico: "M6 3.5h9l3 3v14H6zM15 3.5v3h3M9 12h6M9 15.5h6M9 8.5h3" },
+                 ico: "M6 5a1.5 1.5 0 0 1 1.5-1.5H14L18 8v11a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19zM14 3.5V8h4M9.5 12.5h5M9.5 16h5" },
     members:   { label: "Members", href: "members.html", sec: true,
                  ico: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3.8 19.5c.4-3 2.7-4.8 5.2-4.8s4.8 1.8 5.2 4.8M16 11a2.6 2.6 0 1 0-1.2-4.9M16.6 14.9c2 .3 3.5 1.9 3.9 4.1" },
     admin:     { label: "Admin", href: "admin.html", sec: true,
-                 ico: "M12 14.8a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6zM19 12a7 7 0 0 0-.2-1.6l2-1.5-1.8-3-2.3.9A7 7 0 0 0 14 5l-.4-2.4h-3.4L9.9 5a7 7 0 0 0-2.7 1.6L4.9 5.9l-1.8 3 2 1.5a7 7 0 0 0 0 3.2l-2 1.5 1.8 3 2.3-.9a7 7 0 0 0 2.7 1.6l.4 2.4h3.4l.4-2.4a7 7 0 0 0 2.7-1.6l2.3.9 1.8-3-2-1.5c.1-.5.2-1 .2-1.6z" },
+                 ico: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 3v2.5M12 18.5V21M21 12h-2.5M5.5 12H3M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8M18.4 18.4l-1.8-1.8M7.4 7.4 5.6 5.6" },
     // subpages highlight their parent tab
     billing:   { parent: "admin", label: "Billing", href: "billing.html" },
     event:     { parent: "calendar", label: "Event", href: "event.html" },
@@ -200,7 +202,36 @@
     return true;
   }
 
+  /* The workspace LIST is not "inside" any workspace, so it wears the
+     public app's own topbar — Scoreboard, Shows, Corps, Stats, and the lit
+     Workspace tab — exactly as the main app renders them. Section tabs and
+     the org picker appear only once you've entered a specific workspace. */
+  function listShellHtml() {
+    function icon(d) {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
+    }
+    return '' +
+      '<header class="topbar">' +
+        '<a class="brand" href="../">' +
+          '<svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">' +
+          '<rect x="3" y="3" width="58" height="58" rx="15" fill="#f0b429"/>' +
+          '<g stroke="#16233d" stroke-width="6.5" stroke-linecap="round">' +
+          '<line x1="16" y1="26" x2="16" y2="38"/><line x1="27" y1="20" x2="27" y2="44"/>' +
+          '<line x1="38" y1="28" x2="38" y2="36"/><line x1="49" y1="16" x2="49" y2="48"/></g></svg>' +
+          "<span>Cadence</span></a>" +
+        '<nav id="nav">' +
+          '<a href="../#/">' + icon("M5 20V12M12 20V5M19 20v-6M3 20h18") + "<span>Scoreboard</span></a>" +
+          '<a href="../#/events">' + icon("M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM4 10h16M9 3v4M15 3v4") + "<span>Shows</span></a>" +
+          '<a href="../#/corps">' + icon("M7 5l10 4M17 5L7 9M6 9h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2zM4 12.5h16") + "<span>Corps</span></a>" +
+          '<a href="../#/stats">' + icon("M5 6c0-1.66 3.13-3 7-3s7 1.34 7 3-3.13 3-7 3-7-1.34-7-3zM5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3") + "<span>Stats</span></a>" +
+          '<a href="./" class="navmy active" aria-current="page">' + icon("M4 6h7v12H4zM13 6h7v7h-7zM13 17h7") + "<span>Workspace</span></a>" +
+        "</nav>" +
+      "</header>";
+  }
+
   function shellHtml(active) {
+    if (active === "list") return listShellHtml();
     var org = state.org;
     var sec = SECTIONS[active] || SECTIONS.home;
     var lit = sec.parent || (SECTIONS[active] ? active : "home");
@@ -214,16 +245,16 @@
         return '<a class="ens-tab' + (s.sec ? " sec" : "") + (k === lit ? " on" : "") +
           '" href="' + s.href + '"' +
           (k === lit ? ' aria-current="page"' : "") + ">" +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
           'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + s.ico + '"/></svg>' +
           "<span>" + s.label + "</span></a>";
       }).join("");
       // phones: the folded sections live one tap away behind More
       tabs += '<button class="ens-tab ens-more' + (moreLit ? " on" : "") + '" type="button" ' +
         'id="ensMoreBtn" aria-haspopup="dialog" aria-label="More sections">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
         'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        '<path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"/></svg>' +
+        '<path d="M6.5 4.5h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2zM15.5 4.5h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2zM6.5 13.5h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2zM15.5 13.5h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z"/></svg>' +
         "<span>More</span></button>";
     }
     return '' +
@@ -338,7 +369,7 @@
         return '<a class="ens-sheet-row' + (k === lit ? " on" : "") + '" href="' + s.href + '">' +
           '<b style="display:inline-flex;align-items:center;gap:9px">' +
           '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" ' +
-          'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
           '<path d="' + s.ico + '"/></svg>' + s.label + "</b></a>";
       }).join("") +
       (can("billing.manage") || can("org.admin")
@@ -367,7 +398,8 @@
           '" data-id="' + r.org.id + '"><b>' + esc(r.org.name) + "</b>" +
           '<span>' + esc((r.role && r.role.name) || "Member") + "</span></button>";
       }).join("") +
-      '<a class="ens-sheet-row" href="index.html"><b>+ New or join a workspace</b></a>' +
+      '<a class="ens-sheet-row" href="index.html"><b>All workspaces</b>' +
+        "<span>Back to the list — join or start another</span></a>" +
       '<button class="tab" id="ensSheetClose" type="button" style="margin-top:12px">Close</button></div>';
     document.body.appendChild(wrap);
     var close = trapSheet(wrap);

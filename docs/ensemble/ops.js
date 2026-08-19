@@ -680,8 +680,14 @@
         var msg = wrap.querySelector("#eMsg");
         var title = wrap.querySelector("#eTitle").value.trim();
         var startsAt = fromLocalInput(wrap.querySelector("#eStart").value);
+        var endsAt = fromLocalInput(wrap.querySelector("#eEnd").value);
         if (!title) { msg.className = "acct-msg err"; msg.textContent = "Give it a title."; return; }
         if (!startsAt) { msg.className = "acct-msg err"; msg.textContent = "Pick a start time."; return; }
+        if (endsAt && endsAt < startsAt) {
+          msg.className = "acct-msg err";
+          msg.textContent = "This ends before it starts. If it runs past midnight, set the end date to the next day.";
+          return;
+        }
         msg.className = "acct-msg"; msg.textContent = "Saving…";
 
         var picks = Array.prototype.map.call(wrap.querySelectorAll(".eGrp:checked"),
@@ -692,7 +698,7 @@
           title: title,
           kind: wrap.querySelector("#eKind").value,
           starts_at: startsAt,
-          ends_at: fromLocalInput(wrap.querySelector("#eEnd").value),
+          ends_at: endsAt,
           all_day: wrap.querySelector("#eAllDay").checked,
           location: wrap.querySelector("#eLoc").value.trim() || null,
           address: wrap.querySelector("#eAddr").value.trim() || null,
@@ -720,8 +726,10 @@
           toast(editing ? "Event updated" : "Event created");
           if (ctx.onSaved) ctx.onSaved(editing ? ev.id : newId, editing);
         } catch (err) {
+          var why = (err && err.message) || "unknown error";
+          if (/org_events_check/.test(why)) why = "the end time is before the start time";
           msg.className = "acct-msg err";
-          msg.textContent = "Couldn't save: " + ((err && err.message) || "unknown error");
+          msg.textContent = "Couldn't save: " + why;
         }
       });
 
