@@ -2025,64 +2025,6 @@
   "_seen": "2026-08-19"
  },
  {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "7:27 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:44 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Impulse"
-   ],
-   [
-    "8:35 PM",
-    "Gold"
-   ],
-   [
-    "8:52 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:17 PM",
-    "Retreat"
-   ]
-  ],
-  "_seen": "2026-08-19"
- },
- {
   "url": "https://www.dci.org/events/2026-brass-impact/",
   "name": "Brass Impact",
   "location": "Olathe, KS",
@@ -5907,6 +5849,95 @@
    "Rhythm IN BLUE",
    "Spark"
   ],
+  "_seen": "2026-08-19"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-finals/",
+  "name": "DCI All-Age World Championship Finals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 8, 2026",
+  "date": "2026-08-08",
+  "lineup": [
+   "MBI",
+   "Northern Lights",
+   "Govenaires",
+   "Rogues Hollow Regiment",
+   "Fusion Core",
+   "White Sabers",
+   "Hurricanes",
+   "Cincinnati Tradition",
+   "Bushwackers",
+   "Atlanta CV",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers"
+  ],
+  "schedule": [
+   [
+    "9:00 AM",
+    "Gates Open"
+   ],
+   [
+    "9:50 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "10:00 AM",
+    "MBI"
+   ],
+   [
+    "10:17 AM",
+    "Northern Lights"
+   ],
+   [
+    "10:34 AM",
+    "Govenaires"
+   ],
+   [
+    "10:51 AM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "11:08 AM",
+    "Fusion Core"
+   ],
+   [
+    "11:25 AM",
+    "White Sabers"
+   ],
+   [
+    "11:42 AM",
+    "Intermission"
+   ],
+   [
+    "11:57 AM",
+    "Hurricanes"
+   ],
+   [
+    "12:14 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "12:31 PM",
+    "Bushwackers"
+   ],
+   [
+    "12:48 PM",
+    "Atlanta CV"
+   ],
+   [
+    "1:05 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "1:22 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "1:45 PM",
+    "Awards Ceremony"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
   "_seen": "2026-08-19"
  },
  {
