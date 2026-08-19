@@ -2694,8 +2694,11 @@
     const articles = ((news && news.articles) || []).filter(a => !/corps-news-and-announcements/.test(a.url));
     if (!items.length && !articles.length) { mountEl.innerHTML = ""; return; }
     const allNews = (news && news.source && news.source.url) || "https://www.dci.org/news";
-    const cards = articles.slice(0, 8).map(a => h`<a class="newsart" href="${encodeURI(a.url)}" target="_blank" rel="noopener">
-        ${a.image ? `<img src="${encodeURI(a.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+    // the rail is a PHOTO rail: an article with no picture doesn't belong in
+    // it (it still lists on #/news) — and one whose picture 404s drops its
+    // whole card rather than degrading into a lone text tile
+    const cards = articles.filter(a => a.image).slice(0, 8).map(a => h`<a class="newsart" href="${encodeURI(a.url)}" target="_blank" rel="noopener">
+        <img src="${encodeURI(a.image)}" alt="" loading="lazy" onerror="this.closest('.newsart').remove()">
         <span class="newsart-in"><time>${esc(fmtDate(a.date))}</time><b>${esc(a.title)}</b></span>
       </a>`).join("");
     // starred corps' announcements first, newest first within that
@@ -2709,7 +2712,7 @@
           <h2 style="margin:0">Latest from DCI</h2>
           <a href="#/news" style="font-size:12.5px;font-weight:650">All news →</a>
         </div>
-        <div class="newsrail">${cards}</div>
+        ${cards ? `<div class="newsrail">${cards}</div>` : ""}
         ${camps.length ? `
         <div class="newscamps">
           <h3>Auditions &amp; camps</h3>
@@ -4862,6 +4865,9 @@
   // favorites) kept
   const brandEl = document.querySelector(".brand");
   if (brandEl) brandEl.addEventListener("click", () => {
+    // modes.js turns the logo into the app switcher — opening a menu must
+    // not wipe anyone's filters or per-tab memory
+    if (document.getElementById("cadModeMenu")) return;
     ["dt-class", "dt-corpsclass"].forEach(k => localStorage.removeItem(NS(k)));
     ["cmp-corps", "cmp-years", "cad-shows-f",
       "cad-last-rankings", "cad-last-events", "cad-last-corps", "cad-last-data"]
