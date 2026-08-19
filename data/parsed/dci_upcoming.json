@@ -2025,6 +2025,64 @@
   "_seen": "2026-08-19"
  },
  {
+  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
+  "name": "So Cal Classic: Open Class Pacific Championship Finals",
+  "location": "Buena Park, CA",
+  "date_display": "July 12, 2026",
+  "date": "2026-07-12",
+  "lineup": [
+   "Sacramento Freelancers",
+   "Blue Devils C",
+   "Golden Empire",
+   "Impulse",
+   "Gold",
+   "Blue Devils B"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Sacramento Freelancers"
+   ],
+   [
+    "7:27 PM",
+    "Blue Devils C"
+   ],
+   [
+    "7:44 PM",
+    "Golden Empire"
+   ],
+   [
+    "8:01 PM",
+    "Intermission"
+   ],
+   [
+    "8:18 PM",
+    "Impulse"
+   ],
+   [
+    "8:35 PM",
+    "Gold"
+   ],
+   [
+    "8:52 PM",
+    "Blue Devils B"
+   ],
+   [
+    "9:17 PM",
+    "Retreat"
+   ]
+  ],
+  "_seen": "2026-08-19"
+ },
+ {
   "url": "https://www.dci.org/events/2026-brass-impact/",
   "name": "Brass Impact",
   "location": "Olathe, KS",
@@ -2152,75 +2210,6 @@
   "_seen": "2026-08-19"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
-  "name": "DCI Broken Arrow",
-  "location": "Broken Arrow, OK",
-  "date_display": "July 14, 2026",
-  "date": "2026-07-14",
-  "lineup": [
-   "Zephyrus",
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:27 PM",
-    "Crossmen"
-   ],
-   [
-    "8:44 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:01 PM",
-    "Colts"
-   ],
-   [
-    "9:18 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:52 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:09 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:26 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:51 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Broken Arrow Memorial Stadium has a clear bag policy, more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-19"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-hutchinson/",
   "name": "DCI Hutchinson",
   "location": "Hutchinson, KS",
@@ -2286,60 +2275,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-08-19"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-new-mexico/",
-  "name": "DCI New Mexico",
-  "location": "Albuquerque, NM",
-  "date_display": "July 14, 2026",
-  "date": "2026-07-14",
-  "lineup": [
-   "Arsenal",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "7:15 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Arsenal"
-   ],
-   [
-    "8:47 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:04 PM",
-    "The Academy"
-   ],
-   [
-    "9:21 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:38 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:55 PM",
-    "Encore - Pacific Crest - City of Industry, CA"
-   ],
-   [
-    "10:03 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy in effect for this event.",
   "_seen": "2026-08-19"
  },
  {
