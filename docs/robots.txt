@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cadenceperformingarts.github.io/Cadence-Labs/

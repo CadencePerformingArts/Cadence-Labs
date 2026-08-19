@@ -25,7 +25,7 @@
 
   /* ---- app keys: docs/<key>/ folders, '' is DCI at the root. Built from
      the one registry (docs/registry.js) when present; the inline fallback
-     keeps a registry-less page working. ISSMA is retired and gone. ---- */
+     keeps a registry-less page working and mirrors registry.js exactly. ---- */
   var NS_TO_KEY = {}, KEY_LABEL = {};
   if (window.CAD_REGISTRY) {
     CAD_REGISTRY.apps.forEach(function (a) {
@@ -36,13 +36,11 @@
   } else {
     NS_TO_KEY = {
       "": "", "wgi-guard:": "wgi/guard", "wgi-perc:": "wgi/percussion",
-      "wgi-winds:": "wgi/winds", "boa:": "boa", "usb:": "usbands", "uil:": "uil",
-      "wgasc:": "wgasc", "tcgc:": "tcgc", "ffcc:": "ffcc",
+      "wgi-winds:": "wgi/winds",
     };
     KEY_LABEL = {
       "": "DCI", "wgi/guard": "WGI Color Guard", "wgi/percussion": "WGI Percussion",
-      "wgi/winds": "WGI Winds", "boa": "Bands of America", "usbands": "US Bands",
-      "uil": "UIL Texas", "wgasc": "WGASC", "tcgc": "TCGC", "ffcc": "FFCC",
+      "wgi/winds": "WGI Winds",
     };
   }
 

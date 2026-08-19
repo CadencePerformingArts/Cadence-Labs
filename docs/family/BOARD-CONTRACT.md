@@ -1,89 +1,117 @@
-# Scoreboard shapes + the insights contract
+# The championship board
 
-## Why circuits need different boards
+## What replaced the bespoke board
 
-Measured from the real datasets (latest scored season, performances per
-ensemble / share with 3+ appearances):
+There used to be a second scoreboard here — `board.js` (14 KB) plus
+`board.css` and a `CadBoard.render({app, data, stale, shape, cfg, helpers})`
+plugin contract — because the DCI scoreboard leads with a season progression
+chart and WGI has no season to progress: WGI publishes live scores only
+through its directors-only portal, so Cadence has no per-show score feed for
+it at all.
 
-| App | ens | events | perf/ens | 3+ | verdict |
-|-----|-----|--------|----------|-----|---------|
-| DCI | 53 | 61 | 10.0 | 92% | trend lines are the right answer |
-| WGASC | 497 | 48 | 4.6 | 95% | trends work |
-| FFCC | 264 | 27 | 4.7 | 95% | trends work |
-| TCGC | 407 | 39 | 4.0 | 89% | trends work |
-| US Bands | 454 | 128 | 3.1 | 43% | trends work for many |
-| **BOA** | **679** | **29** | **1.3** | **6%** | a season line is one dot — needs event-centric + multi-season |
-| **UIL** | **1052** | **60** | **1.2** | **5%** | ratings, not scores — needs rating history |
-| **ISSMA** | **51** | **2** | **1.0** | **0%** | placements only |
+That module is gone. **Both files are deleted, and so is the `APP_CFG.board`
+shape plumbing in `scripts/build_family_engine.py`.** Three things changed:
 
-So each app declares `APP_CFG.board`: `trend` (default, DCI behaviour),
-`event`, `rating`, or `placement`. Non-trend boards render through
-`docs/family/board.js` (`window.CadBoard.render(...)`), called from the
-engine's `viewRankings` before the standings board is built.
+1. Five of the six circuits the plugin contract existed to serve (BOA, US
+   Bands, UIL, WGASC, TCGC, FFCC) were retired, and their `event` / `rating` /
+   `placement` shapes with them. A plugin architecture with one plugin is
+   overhead, not flexibility.
+2. `scripts/build_wgi_datasets.py` now fans the championship record out into
+   the shapes the shared engine already reads (`corps_index.json`,
+   `corps/<slug>.json`, `records.json`, `rankings.json`, `db/*`). Three of the
+   four things the old board rendered — the honor roll, the dynasty count and
+   the official schedule — are now the **Champions**, **Records** and
+   **Shows** tabs: real screens with filters, search, deep links, CSV export
+   and share cards, instead of a read-only copy of them on one page.
+3. What was left is one branch of one view, so it lives in the engine, where
+   it shares `.rk-grid`, the tokens, `multiSelect`, `wireYearPicker`,
+   `lineChart` and the rest by construction rather than by convention.
 
-## `CadBoard.render({ app, data, stale, shape, cfg, helpers })`
+## How the board is chosen now
 
-- `app` — the `<main>` element to render into.
-- `data(path)` — the engine's cached fetcher, relative to this app's `data/`.
-- `stale()` — returns true when the user navigated away; bail out.
-- `shape` — `"event" | "rating" | "placement"`.
-- `cfg` — the full `APP_CFG` (classOrder, terms, scoreNote, resultsKind…).
-- `helpers` — `{ esc, h, score3, corpsLink, corpsLogo, sortClasses, fmtDate2,
-  FAVS, ensureLogos }` from the engine, so output matches the rest of Cadence.
+By the data, not by config. `docs/wgi/*/data/rankings.json` carries
 
-## `data/insights.json` (precomputed by `scripts/gen_insights.py`)
+```json
+{ "kind": "championship", "season": 2026, "standings": {…}, "winners": {…} }
+```
 
-Written per app. Every key is optional — `board.js` must degrade to whatever
-exists and never assume a section is present.
+and the derived engine's `viewRankings` reads that file first:
 
-```jsonc
-{
-  "shape": "event",
-  "updated": "2026-08-08 04:00 UTC",
-  "latest_year": 2025,
-  "seasons": [1976, ..., 2025],
-
-  // most recent events, newest first (event boards lead with these)
-  "recent_events": [{
-    "name": "BOA Grand National Championships",
-    "date": "2025-11-15", "location": "Indianapolis, IN",
-    "classes": [{
-      "class": "Class AAAA", "n": 18, "median": 72.1,
-      "top": [{"corps": "Carmel HS (IN)", "score": 96.15, "rank": 1}]
-    }]
-  }],
-
-  // best score per ensemble this season, per class (honest label: panels differ)
-  "season_leaders": {
-    "Class AAAA": [{"corps": "…", "best": 96.15, "best_event": "…",
-                    "best_date": "2025-11-15", "events": 3}]
-  },
-
-  // multi-season trajectory: [year, best score] — this IS a real trend even
-  // when a single season isn't (BOA has up to 49 points per band)
-  "trajectory": { "Carmel HS (IN)": [[2019, 94.2], [2021, 95.0]] },
-
-  // biggest year-over-year movement (risers/fallers module)
-  "yoy": [{"corps": "…", "class": "…", "from": 88.1, "to": 93.4,
-           "delta": 5.3, "years": [2024, 2025]}],
-
-  // score spread per class per season, for "where did we land" context
-  "class_dist": { "Class AAAA": { "2025": {"min": 55.2, "p25": 68.0,
-                   "median": 72.1, "p75": 80.4, "max": 96.15, "n": 210} } },
-
-  // caption averages by class + season (only where captions exist)
-  "captions": { "Class AAAA": { "2025": {"ge": 27.4, "vis": 22.1, "mus": 23.0} } },
-
-  // UIL: division-rating distribution per class per year, and per-band history
-  "ratings": { "6A": { "2025": {"1": 180, "2": 60, "3": 12} } },
-  "band_ratings": { "Akins HS": [[2024, 2], [2025, 1]] },
-
-  // ISSMA: placement history per band
-  "placements": { "Avon HS": [[2024, 1], [2025, 2]] }
+```js
+if (FAM) {
+  const rkc = await data("rankings.json").catch(() => null);
+  if (rkc && rkc.kind === "championship") return champBoard(qs, stale, rkc);
 }
 ```
 
-Rules: never invent numbers. UIL ratings are 1–5 (1 = Superior), so lower is
-better and averages are meaningless — show distributions and streaks, not
-means. ISSMA placements are ordinals; lower is better. Score-based circuits
-must label any cross-event comparison as such, because panels differ.
+(see `scripts/build_family_engine.py`, transform `board shape hook`). The day
+WGI grants portal access and `.github/workflows/wgi-ingest.yml` ingests real
+per-show scores, `build_wgi_datasets.py` refuses the tree — see
+`refusal_reason()` — a normal `rankings.json` is written without
+`kind: "championship"`, and the DCI board takes over. No code change here.
+
+## What `champBoard` renders
+
+The same shell as the DCI board: the year picker in the `<h1>`, the `.rk-grid`
+with its four named areas, the same cards and tables.
+
+| area | DCI | championship |
+|---|---|---|
+| `trend` | season progression, score by date | **winning score by season**, one line per class — 236 real title scores for guard |
+| `stand` | standings, each corps' latest score | **the selected season's World Championships**: champion, score, title # and previous title, one row per class |
+| `move` | Biggest Move (latest vs previous show) | **Biggest Move**: the selected season's winning score against the previous championship in the same class |
+| `battle` | Closest Battle (smallest gap) | **Dynasties** (most titles in the charted classes) |
+
+The year picker offers every season with a title on record (1978–2026 for
+guard), so `#/?y=1985` is the 1985 World Championships. `#/season/1985`
+redirects there instead of to a Shows page that has no 1985.
+
+Two rules the board keeps:
+
+* **Nothing is interpolated.** Consecutive-season logic (`Biggest Jump`)
+  refuses to span a gap in the record, and the chart's sub-line names the
+  gaps out loud ("no championships 2020–21").
+* **One honest sentence per screen.** `APP_CFG.notes` carries a one-liner per
+  screen (`board`, `events`, `corps`, `compare`, `records`, `database`,
+  `profile`), written in `scripts/gen_family_pages.py` and rendered by the
+  engine's `noteHtml()`. The board's says why there are no season scores. An
+  app that shows an empty column has to say why, once — not on every card.
+
+## The dataset contract
+
+`scripts/build_wgi_datasets.py` is the only writer of these five files in a
+WGI tree, and every row in them is one championship title (place 1, one class,
+one season). It asserts that itself — `assert_traceable()` walks every derived
+row back to a `champions.json` entry and raises rather than write a row that
+cannot be traced — and `scripts/test_wgi_datasets.js` re-checks it from
+outside.
+
+| file | shape | used by |
+|---|---|---|
+| `corps_index.json` | `[{name, slug, first, last, seasons, best, n, series:[[year, score, class]]}]` | Ensembles, Compare |
+| `corps/<slug>.json` | `{name, performances:[{y, d, ev, cls, p, s}]}` | ensemble profiles |
+| `records.json` | `{class: {top:[[y, date, corps, score, event]], finals:{year:[[corps, score]]}}}` | Stats › Records |
+| `rankings.json` | `{kind, season, standings:{class:{rows}}, winners:{class:[[y, corps, score]]}}` | Scoreboard, My Cadence |
+| `db/index.json`, `db/perfs_<decade>.json` | `[[year, date, event, corps, class, place, score]]` | Stats › Database |
+
+**`date` is null everywhere**, because the published record carries no dates.
+The views fall back to the year (`fmtDate2(null, year)`), the profile drops
+its within-season progression chart for the career view, and `my.js` skips
+undated rows. A plausible-looking championship date would be exactly the kind
+of invention `scripts/purge_fabricated.py` exists to clean up.
+
+`champions.json` itself is untouched and remains the source of truth:
+`{"<year>": {"<class>": {"corps": str, "score": num|null}}}`.
+
+Two operational notes:
+
+* **One writer per tree.** `scripts/gen_family_data.py` (the deploy and ingest
+  path) asks `build_wgi_datasets.refusal_reason()` first: no reason → the
+  champion derivation writes these files; a reason → its own season-file
+  derivation does, and the champion builder stands down.
+* `scripts/purge_fabricated.py --rebuild` still resets these five files to the
+  empty state. It predates this derivation and decides "this app has no real
+  results" by counting season results only, which a championship record has
+  none of. It is a manual tool, no workflow runs it, and it never touches
+  `champions.json` — so re-running `python3 scripts/build_wgi_datasets.py`
+  (or `gen_family_data.py`) puts everything back, byte for byte.

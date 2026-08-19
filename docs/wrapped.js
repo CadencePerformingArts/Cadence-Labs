@@ -4,8 +4,8 @@
    reuses the app's corps colors. No backend — reads the static season JSON. */
 (function () {
   "use strict";
-  var SITE_URL = "https://cadenceperformingarts.github.io/Cadence-Labs";
-  var SITE_LABEL = "cadenceperformingarts.github.io/Cadence-Labs";
+  var SITE_URL = ((window.CadConfig || {}).BASE_URL || "https://cadenceperformingarts.github.io/Cadence-Labs/").replace(/\/$/, "");
+  var SITE_LABEL = (window.CadConfig || {}).BASE_LABEL || "cadenceperformingarts.github.io/Cadence-Labs";
 
   // ---- color helpers ---------------------------------------------------------
   function hx(s) { s = String(s || "").replace("#", ""); if (s.length === 3) s = s.split("").map(function (c) { return c + c; }).join(""); var n = parseInt(s, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
@@ -182,12 +182,25 @@
     g.fillStyle = "#fff"; g.beginPath(); g.arc(lx, ly, 5, 0, 6.29); g.fill();
 
     // footer
-    g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Follow every score at " + SITE_LABEL, W / 2, H - 64); g.textAlign = "left";
+    g.fillStyle = "rgba(255,255,255,.5)";
+    cardFooter(g, W, H - 64, "Follow every score at " + SITE_LABEL);
     return cv;
   }
 
   // ---- shared card helpers ---------------------------------------------------
+  // every card signs off the same way: the site line, then a quiet
+  // non-affiliation note so a shared image never reads as official
+  function cardFooter(g, W, mainY, text) {
+    g.textAlign = "center";
+    g.font = "700 26px " + FONT;
+    g.fillText(text, W / 2, mainY);
+    var prev = g.fillStyle;
+    g.font = "600 19px " + FONT;
+    g.fillStyle = "rgba(255,255,255,.34)";
+    g.fillText("Unofficial fan app — not affiliated with DCI", W / 2, mainY + 30);
+    g.fillStyle = prev;
+    g.textAlign = "left";
+  }
   var MONTHS_LONG = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
   function newCanvas() { var cv = document.createElement("canvas"); cv.width = 1080; cv.height = 1350; return cv; }
@@ -280,7 +293,7 @@
     }
 
     g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Full scores at " + SITE_LABEL, W / 2, H - 60); g.textAlign = "left";
+    cardFooter(g, W, H - 60, "Full scores at " + SITE_LABEL);
     return cv;
   }
 
@@ -322,7 +335,7 @@
     });
 
     g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Relive every season at " + SITE_LABEL, W / 2, H - 60); g.textAlign = "left";
+    cardFooter(g, W, H - 60, "Relive every season at " + SITE_LABEL);
     return cv;
   }
 
@@ -387,7 +400,7 @@
       g.fillText(fmt3(r.last), lx + colW - 34, ly); g.textAlign = "left";
     });
     g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 26px " + FONT; g.textAlign = "center";
-    g.fillText("Live standings at " + SITE_LABEL, W / 2, H - 56); g.textAlign = "left";
+    cardFooter(g, W, H - 56, "Live standings at " + SITE_LABEL);
     return cv;
   }
   function standingsCard(info) {
@@ -429,6 +442,58 @@
       .sort(function (a, b) { return b - a; });
     return vals.length > 1 ? Math.round((vals[0] - vals[1]) * 1000) / 1000 : null;
   }
+  function _runnerUpOf(set, idx, winner) {
+    var hi = -Infinity, who = null;
+    set.forEach(function (r) {
+      var v = r[idx];
+      if (v != null && r[3] !== winner && v > hi) { hi = v; who = r[3]; }
+    });
+    return who;
+  }
+
+  // ---- judge-level captions (the official recap sheet) ----------------------
+  // recaps/<year>.json carries every judge's column; the card lists each
+  // judge's caption with its winner — the detail the sheet's winners strip
+  // used to spell out.
+  var REC = {};
+  function loadRecaps(year) {
+    return REC[year] || (REC[year] = fetch("data/recaps/" + year + ".json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }));
+  }
+  var SUB_SHORT = [[/^General Effect/, "GE"], [/^Visual Proficiency/, "Visual Prof."],
+    [/^Visual\s*[-–]\s*/, "Visual "], [/^Music\s*[-–]\s*Analysis/, "Music Analysis"], [/^Music\s*[-–]\s*/, ""]];
+  function shortSub(n) {
+    var s = String(n || "");
+    SUB_SHORT.forEach(function (p) { s = s.replace(p[0], p[1]); });
+    return s;
+  }
+  function judgeCaptions(year, date, event, cls) {
+    return loadRecaps(year).then(function (rec) {
+      var ev = rec && (rec.events || []).find(function (e) { return e.d === date && e.e === event; });
+      var cd = ev && (ev.classes || []).find(function (c) { return c.c === cls; });
+      if (!cd) return null;
+      var out = [], i = 0;
+      (cd.groups || []).forEach(function (g) {
+        (g.subs || []).forEach(function (s) {
+          var totI = i + s.cols.length;
+          var hi = -Infinity, who = null, second = -Infinity, secondWho = null;
+          (cd.rows || []).forEach(function (r) {
+            var v = r[1][totI];
+            if (v == null) return;
+            if (v > hi) { second = hi; secondWho = who; hi = v; who = r[0]; }
+            else if (v > second) { second = v; secondWho = r[0]; }
+          });
+          if (who != null) out.push({ group: g.n, name: shortSub(s.n), judge: s.j && s.j !== "." ? s.j : null,
+            winner: who, score: hi,
+            margin: secondWho != null ? Math.round((hi - second) * 1000) / 1000 : null,
+            runnerUp: secondWho });
+          i = totI + 1;         // past this sub's Tot column
+        });
+        i += 1;                 // past the group's Tot column
+      });
+      return out.length ? out : null;
+    });
+  }
   function captionSummary(year, date, event, cls) {
     return loadCaptions(year).then(function (rows) {
       if (!rows || !rows.length) return null;
@@ -450,7 +515,9 @@
         if (!w) return null;
         var pw = prev.length ? _winnerOf(prev, CAP_IDX[d.key]) : null;
         return { key: d.key, label: d.label, main: !!d.main, winner: w.corps, score: w.score,
-          margin: _marginOf(here, CAP_IDX[d.key]), took: pw && pw.corps !== w.corps ? pw.corps : null };
+          margin: _marginOf(here, CAP_IDX[d.key]),
+          runnerUp: _runnerUpOf(here, CAP_IDX[d.key], w.corps),
+          took: pw && pw.corps !== w.corps ? pw.corps : null };
       }).filter(Boolean);
       if (!caps.length) return null;
       var champ = _winnerOf(here, CAP_IDX.tot);
@@ -461,107 +528,164 @@
     });
   }
 
+  /* The card opens FULL-SCREEN, so its legibility is pure arithmetic: at 2160
+     px wide shown across a ~390 px phone, every card pixel is 0.18 CSS px.
+     Detail type therefore needs ~68 px and names ~96 px IN CARD SPACE to clear
+     12 / 16 CSS px on glass. 2160 also means a DPR-3 phone (1170 device px)
+     DOWN-samples instead of up-scaling the old 1080 — that was the fuzz.
+     Layout: one column, one line per judge, grouped under its caption family,
+     because a single wide line reads far better per pixel of height than the
+     old two-column stack of three-line cells. */
+  var CARD_FAMILIES = [
+    { name: "General Effect", key: "ge", match: /general effect/i },
+    { name: "Visual", key: "vis", match: /visual/i },
+    { name: "Music", key: "mus", match: /music/i },
+  ];
+  // flat sub-captions fall into the same families when no judge sheet parsed
+  var FLAT_FAMILY = { ge1: "ge", ge2: "ge", vp: "vis", va: "vis", cg: "vis", br: "mus", ma: "mus", pc: "mus" };
+
+  // inside a family block the family's own name is redundant on every row
+  function stripFamily(label) {
+    return String(label).replace(/^Visual\s+Prof\.?$/i, "Proficiency")
+      .replace(/^(Visual|Music)\s+/i, "");
+  }
+  function cardFamilies(info) {
+    var byKey = {};
+    (info.caps || []).forEach(function (c) { byKey[c.key] = c; });
+    var judges = info.judgeSubs || [];
+    return CARD_FAMILIES.map(function (f) {
+      var head = byKey[f.key];
+      var rows = judges.length
+        ? judges.filter(function (j) { return f.match.test(j.group); }).map(function (j) {
+            return { label: stripFamily(j.name) + (j.judge ? " · " + j.judge : ""),
+              winner: j.winner, score: j.score, margin: j.margin };
+          })
+        : (info.caps || []).filter(function (c) { return !c.main && FLAT_FAMILY[c.key] === f.key; })
+            .map(function (c) {
+              return { label: stripFamily(c.label), winner: c.winner, score: c.score, margin: c.margin };
+            });
+      return { name: f.name, head: head || null, rows: rows };
+    }).filter(function (f) { return f.head || f.rows.length; });
+  }
+
   function drawCaptionsCard(info) {
-    var W = 1080, H = 1350, cv = newCanvas(), g = cv.getContext("2d");
-    var PAD = 84, GOOD = "#ffd35c";
-    // dress the whole card in the colours of the corps that won the show overall
+    var W = 2160, H = 4180;
+    var cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+    var g = cv.getContext("2d");
+    var PAD = 130, R = W - PAD, GOOD = "#ffd35c";
+    var NAME_X = PAD + 1030;      // one fixed column for the winning corps
+    var SCORE_R = R;             // scores right-align to a single edge
+    var ROW = 178;               // judge row pitch
+    // dress the card in the colours of the corps that won the show overall
     var champ = (info.podium && info.podium[0] && info.podium[0].corps) || info.champ;
     var theme = pair(champ), bar = theme.bar, accHex = theme.accent;
-    // the accent doubles as text on the dark ground — lighten a dark corps colour
-    // so scores stay legible
+    // the accent doubles as text on the dark ground — lighten a dark corps
+    // colour so scores stay legible
     var accent = capLum(accHex) < 0.5 ? shade(accHex, 0.5) : accHex;
-    var grad = g.createLinearGradient(0, 0, 0, H); grad.addColorStop(0, shade(bar, 0.06)); grad.addColorStop(1, shade(bar, -0.5));
+    var grad = g.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, shade(bar, 0.08)); grad.addColorStop(1, shade(bar, -0.55));
     g.fillStyle = grad; g.fillRect(0, 0, W, H);
-    var rg = g.createRadialGradient(W * 0.85, H * 0.05, 0, W * 0.85, H * 0.05, W * 0.95);
-    rg.addColorStop(0, hexA(accHex, 0.18)); rg.addColorStop(1, hexA(accHex, 0)); g.fillStyle = rg; g.fillRect(0, 0, W, H);
+    var rg = g.createRadialGradient(W * 0.85, 0, 0, W * 0.85, 0, W * 0.62);
+    rg.addColorStop(0, hexA(accHex, 0.16)); rg.addColorStop(1, hexA(accHex, 0));
+    g.fillStyle = rg; g.fillRect(0, 0, W, 700);
 
     g.textBaseline = "alphabetic"; g.textAlign = "left";
-    g.fillStyle = accent; g.font = "800 30px " + FONT; g.fillText("C A D E N C E", PAD, 116);
-    g.fillStyle = "rgba(255,255,255,.6)"; g.textAlign = "right"; g.fillText(info.year + " SEASON", W - PAD, 116); g.textAlign = "left";
-    g.fillStyle = "#fff"; g.font = "900 60px " + FONT; g.fillText("Caption Winners", PAD, 200);
-    g.fillStyle = accent; g.font = "800 27px " + FONT;
-    g.fillText(ellip(g, (info.event || "").toUpperCase() + "  ·  " + (info.cls || "").toUpperCase(), W - PAD * 2), PAD, 244);
+    // ---- header. Brand and season both sit LEFT: the viewer's close button
+    // owns the top-right corner and would sit on anything right-aligned here.
+    g.font = "800 60px " + FONT;
+    g.fillStyle = accent; g.fillText("C A D E N C E", PAD, 160);
+    var brandW = g.measureText("C A D E N C E").width;
+    g.fillStyle = "rgba(255,255,255,.62)";
+    g.fillText("·  " + info.year + " SEASON", PAD + brandW + 34, 160);
+    g.fillStyle = "#fff"; g.font = "900 132px " + FONT; g.fillText("Caption Winners", PAD, 306);
+    g.fillStyle = "rgba(255,255,255,.78)"; g.font = "700 72px " + FONT;
+    g.fillText(ellip(g, (info.event || "") + "  ·  " + (info.cls || ""), W - PAD * 2), PAD, 400);
 
-    var caps = info.caps || [];
-    var mains = caps.filter(function (c) { return c.main; });
-    var subs = caps.filter(function (c) { return !c.main; });
+    // ---- caption families. No fills, no zebra, no chips: one hairline under
+    // each family header is all the structure a plain table needs.
+    // One corps usually sweeps, so the interesting rows are the ones it did
+    // NOT win. Work out that usual winner and set every other row in gold —
+    // Blue Devils taking a single caption off a Bluecoats sweep has to be
+    // impossible to miss, and colour does that where plain text cannot.
+    var fams = cardFamilies(info);
+    var tally = {}, usual = null, best = 0;
+    fams.forEach(function (f) {
+      f.rows.forEach(function (r) {
+        tally[r.winner] = (tally[r.winner] || 0) + 1;
+        if (tally[r.winner] > best) { best = tally[r.winner]; usual = r.winner; }
+      });
+    });
+    var odd = function (name) { return usual && name !== usual; };
 
-    // three hero caption tiles: GE / Visual / Music
-    var tTop = 288, tGap = 22, tW = (W - PAD * 2 - tGap * 2) / 3, tH = 268;
-    mains.forEach(function (c, i) {
-      var tx = PAD + i * (tW + tGap), col = pair(c.winner);
-      roundRect(g, tx, tTop, tW, tH, 26); g.fillStyle = "rgba(255,255,255,.06)"; g.fill();
-      roundRect(g, tx, tTop, tW, tH, 26); g.lineWidth = 2;
-      g.strokeStyle = c.took ? hexA(GOOD, 0.85) : "rgba(255,255,255,.14)"; g.stroke();
-      // caption label
-      g.textAlign = "center";
-      g.fillStyle = "rgba(255,255,255,.66)"; g.font = "800 23px " + FONT;
-      g.fillText(c.label.toUpperCase(), tx + tW / 2, tTop + 46);
-      // color chip + winner name (wrap to 2 lines)
-      g.fillStyle = col.bar; roundRect(g, tx + tW / 2 - 9, tTop + 66, 18, 18, 5); g.fill();
-      g.fillStyle = "#fff"; g.font = "900 30px " + FONT;
-      var words = String(c.winner).split(" "), line = "", lines = [];
-      words.forEach(function (w) { var t = line ? line + " " + w : w; if (g.measureText(t).width > tW - 24 && line) { lines.push(line); line = w; } else line = t; });
-      if (line) lines.push(line);
-      lines.slice(0, 2).forEach(function (ln, k) { g.fillText(ellip(g, ln, tW - 20), tx + tW / 2, tTop + 128 + k * 34); });
-      // winning score
-      g.fillStyle = accent; g.font = "900 46px " + FONT;
-      g.fillText(fmt2(c.score), tx + tW / 2, tTop + 216);
-      // change flag
-      if (c.took) {
-        g.fillStyle = GOOD; g.font = "800 18px " + FONT;
-        g.fillText(ellip(g, "▲ took from " + c.took, tW - 20), tx + tW / 2, tTop + 250);
-      } else if (c.margin != null) {
-        g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 18px " + FONT;
-        g.fillText("+" + fmt2(c.margin) + " margin", tx + tW / 2, tTop + 250);
+    var y = 560;
+    fams.forEach(function (f) {
+      var h = f.head;
+      g.fillStyle = accent; g.font = "800 86px " + FONT;
+      g.fillText(f.name.toUpperCase(), PAD, y);
+      if (h) {
+        g.textAlign = "right";
+        g.fillStyle = "#fff"; g.font = "800 84px " + FONT;
+        g.fillText(fmt2(h.score), SCORE_R, y);
+        var sW = g.measureText(fmt2(h.score)).width;
+        g.fillStyle = odd(h.winner) ? GOOD : "rgba(255,255,255,.72)"; g.font = "700 74px " + FONT;
+        g.fillText(ellip(g, h.winner, 700), SCORE_R - sW - 40, y);
+        g.textAlign = "left";
       }
-      g.textAlign = "left";
+      g.fillStyle = "rgba(255,255,255,.26)"; g.fillRect(PAD, y + 40, W - PAD * 2, 3);
+      y += 140;   // the rule needs air under it before the first row
+      f.rows.forEach(function (r) {
+        var flag = odd(r.winner);
+        g.fillStyle = "rgba(255,255,255,.7)"; g.font = "700 68px " + FONT;
+        g.fillText(ellip(g, r.label, 950), PAD + 34, y);
+        if (flag) {   // a dot as well as the colour, so it reads without hue
+          g.fillStyle = GOOD; g.beginPath();
+          g.arc(NAME_X - 40, y - 26, 15, 0, Math.PI * 2); g.fill();
+        }
+        g.fillStyle = flag ? GOOD : "rgba(255,255,255,.95)";
+        g.font = (flag ? "800 82px " : "700 82px ") + FONT;
+        g.fillText(ellip(g, r.winner, 570), NAME_X, y);
+        g.textAlign = "right";
+        g.fillStyle = flag ? GOOD : accent; g.font = "800 82px " + FONT;
+        g.fillText(fmt2(r.score), SCORE_R, y);
+        g.textAlign = "left";
+        y += ROW;
+      });
+      y += 84;
     });
 
-    // sub-caption winners — two columns
-    var sTop = tTop + tH + 74;
-    g.fillStyle = "#fff"; g.font = "800 30px " + FONT; g.fillText("Sub-caption winners", PAD, sTop - 26);
-    var colW = (W - PAD * 2) / 2, rowH = 78, perCol = Math.ceil(subs.length / 2);
-    subs.forEach(function (c, i) {
-      var col = i < perCol ? 0 : 1, idx = i < perCol ? i : i - perCol;
-      var lx = PAD + col * colW, ly = sTop + idx * rowH, cc = pair(c.winner);
-      g.fillStyle = "rgba(255,255,255,.55)"; g.font = "800 21px " + FONT;
-      g.fillText(c.label.toUpperCase(), lx, ly);
-      g.fillStyle = cc.bar; roundRect(g, lx, ly + 14, 16, 16, 4); g.fill();
-      g.fillStyle = "#fff"; g.font = "800 27px " + FONT;
-      g.fillText(ellip(g, c.winner, colW - 150), lx + 28, ly + 30);
-      g.fillStyle = accent; g.font = "800 25px " + FONT; g.textAlign = "right";
-      g.fillText(fmt2(c.score), lx + colW - 40, ly + 30); g.textAlign = "left";
-      if (c.took) {
-        g.fillStyle = GOOD; g.font = "700 16px " + FONT;
-        g.fillText(ellip(g, "▲ from " + c.took, colW - 60), lx + 28, ly + 52);
-      }
-    });
-
-    // overall top 3 — anchors the bottom and gives the caption story its context
-    var pod = info.podium || [];
+    // ---- overall podium, in the same plain table ----
+    var pod = (info.podium || []).slice(0, 3);
     if (pod.length) {
-      var pTop = sTop + perCol * rowH + 46;
-      g.fillStyle = "#fff"; g.font = "800 30px " + FONT; g.fillText("Overall", PAD, pTop);
-      var medal = ["#f0b429", "#c9ccd1", "#cd7f32"];
+      y += 10;
+      g.fillStyle = accent; g.font = "800 76px " + FONT;
+      g.fillText("OVERALL", PAD, y);
+      g.fillStyle = "rgba(255,255,255,.26)"; g.fillRect(PAD, y + 40, W - PAD * 2, 3);
+      y += 140;
       pod.forEach(function (r, i) {
-        var py = pTop + 44 + i * 62, cc = pair(r.corps);
-        g.fillStyle = medal[i] || "#c9ccd1"; g.font = "900 30px " + FONT; g.fillText(String(i + 1), PAD, py);
-        g.fillStyle = cc.bar; roundRect(g, PAD + 42, py - 20, 18, 18, 5); g.fill();
-        g.fillStyle = "#fff"; g.font = "800 30px " + FONT; g.fillText(ellip(g, r.corps, W - PAD * 2 - 240), PAD + 74, py);
-        g.fillStyle = accent; g.font = "900 32px " + FONT; g.textAlign = "right"; g.fillText(fmt3(r.score), W - PAD, py); g.textAlign = "left";
+        g.fillStyle = "rgba(255,255,255,.6)"; g.font = "700 72px " + FONT;
+        g.fillText(String(i + 1), PAD + 34, y);
+        g.fillStyle = "#fff"; g.font = "800 86px " + FONT;
+        g.fillText(ellip(g, r.corps, W - PAD * 2 - 620), PAD + 130, y);
+        g.textAlign = "right"; g.fillStyle = accent; g.font = "800 86px " + FONT;
+        g.fillText(fmt3(r.score), SCORE_R, y); g.textAlign = "left";
+        y += ROW;
       });
     }
 
-    // footer: caption-flip note (the podium already names the overall leader)
-    var flips = caps.filter(function (c) { return c.took; }).length;
+    // ---- footer. Drawn inline: cardFooter's type sizes are tuned for the
+    // 1080-wide cards and would land at ~5 CSS px on this one.
+    var flips = (info.caps || []).filter(function (c) { return c.took; }).length;
     g.textAlign = "center";
     if (flips && info.prevDate) {
-      g.fillStyle = GOOD; g.font = "800 26px " + FONT;
-      g.fillText(ellip(g, "▲ " + flips + " caption" + (flips === 1 ? "" : "s") + " changed hands since the last show", W - PAD * 2), W / 2, H - 92);
+      g.fillStyle = GOOD; g.font = "700 70px " + FONT;
+      g.fillText(ellip(g, "▲ " + flips + " caption" + (flips === 1 ? "" : "s") + " changed hands since the last show", W - PAD * 2),
+        W / 2, H - 200);
     }
-    g.fillStyle = "rgba(255,255,255,.5)"; g.font = "700 24px " + FONT;
-    g.fillText(SITE_LABEL, W / 2, H - 52); g.textAlign = "left";
+    g.fillStyle = "rgba(255,255,255,.68)"; g.font = "700 64px " + FONT;
+    g.fillText(SITE_LABEL, W / 2, H - 108);
+    g.fillStyle = "rgba(255,255,255,.46)"; g.font = "600 52px " + FONT;
+    g.fillText("Unofficial fan app — not affiliated with DCI", W / 2, H - 42);
+    g.textAlign = "left";
     return cv;
   }
   function fmt2(n) { return n == null ? "—" : (Math.round(n * 100) / 100).toFixed(2); }
@@ -569,11 +693,14 @@
   function captionsCard(info) {
     return captionSummary(info.year, info.date, info.event, info.cls).then(function (sum) {
       if (!sum) return false;
-      var cv = drawCaptionsCard(sum);
-      openViewer([{ canvas: cv, filename: "cadence-captions-" + sum.date + ".png",
-        title: "Caption winners · " + sum.event,
-        caption: sum.event + " · " + sum.cls + " caption winners" }]);
-      return true;
+      return judgeCaptions(info.year, sum.date, sum.event, sum.cls).then(function (js) {
+        sum.judgeSubs = js || null;
+        var cv = drawCaptionsCard(sum);
+        openViewer([{ canvas: cv, filename: "cadence-captions-" + sum.date + ".png",
+          title: "Caption winners · " + sum.event,
+          caption: sum.event + " · " + sum.cls + " caption winners" }]);
+        return true;
+      });
     });
   }
 
@@ -618,14 +745,14 @@
   // A lightbox that shows one or more cards big, in the app, each with a Share
   // button. Season card, daily recaps and history all open here — one surface.
   var VIEW_CSS =
-    ".cad-ov{position:fixed;inset:0;z-index:4200;display:flex;align-items:center;justify-content:center;background:rgba(6,8,14,.74);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);padding:20px;animation:cadFade .18s ease}" +
+    ".cad-ov{position:fixed;inset:0;z-index:4200;display:flex;align-items:center;justify-content:center;background:rgba(6,8,14,.74);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);padding:10px;animation:cadFade .18s ease}" +
     "@keyframes cadFade{from{opacity:0}to{opacity:1}}" +
-    ".cad-modal{position:relative;width:min(430px,100%);display:flex;flex-direction:column;align-items:center;gap:13px}" +
+    ".cad-modal{position:relative;width:min(560px,100%);display:flex;flex-direction:column;align-items:center;gap:10px}" +
     ".cad-x{position:absolute;top:-4px;right:-4px;z-index:3;width:40px;height:40px;border-radius:999px;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:25px;line-height:38px;cursor:pointer}" +
     ".cad-x:hover{background:rgba(255,255,255,.26)}" +
     ".cad-cap{color:#fff;font-weight:700;font-size:14px;opacity:.92;text-align:center;min-height:18px}" +
     ".cad-stage{position:relative;width:100%;display:flex;justify-content:center;touch-action:pan-y}" +
-    ".cad-img{width:100%;max-width:380px;max-height:70vh;object-fit:contain;border-radius:18px;box-shadow:0 20px 54px rgba(0,0,0,.55);animation:cadPop .22s ease}" +
+    ".cad-img{width:100%;max-width:520px;max-height:88vh;object-fit:contain;border-radius:18px;box-shadow:0 20px 54px rgba(0,0,0,.55);animation:cadPop .22s ease}" +
     "@keyframes cadPop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}" +
     ".cad-dots{display:flex;gap:7px;min-height:7px}" +
     ".cad-dot{width:7px;height:7px;border-radius:999px;background:rgba(255,255,255,.32);cursor:pointer;transition:background .15s,width .15s}" +
@@ -637,7 +764,14 @@
     ".cad-btn.ghost{width:44px;height:44px;font-size:21px;border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.08);color:#fff}" +
     ".cad-btn.ghost:hover{background:rgba(255,255,255,.16)}" +
     ".cad-btn.ghost[hidden]{display:none}" +
-    ".cad-btn.primary svg{width:16px;height:16px}";
+    ".cad-btn.primary svg{width:16px;height:16px}" +
+    // full-screen mode for phone-shaped (9:16) cards: no chrome, the card IS
+    // the screen — just a floating close and the share row beneath
+    ".cad-ov.cad-full{padding:0}" +
+    ".cad-full .cad-modal{width:100vw;gap:8px}" +
+    ".cad-full .cad-cap{display:none}" +
+    ".cad-full .cad-img{max-width:100vw;max-height:calc(100dvh - 88px);border-radius:0}" +
+    ".cad-full .cad-x{top:8px;right:8px;background:rgba(0,0,0,.45)}";
   function ensureStyle() {
     if (document.getElementById("cad-wrapped-css")) return;
     var s = document.createElement("style"); s.id = "cad-wrapped-css"; s.textContent = VIEW_CSS;
@@ -651,7 +785,10 @@
     if (!cards.length) return null;
     ensureStyle();
     var idx = 0, urls = [];
-    var ov = document.createElement("div"); ov.className = "cad-ov";
+    var ov = document.createElement("div");
+    // a phone-shaped card fills the phone — the modal chrome steps aside
+    var tall = cards.some(function (c) { return c.canvas && c.canvas.height / c.canvas.width > 1.3; });
+    ov.className = "cad-ov" + (tall ? " cad-full" : "");
     ov.innerHTML =
       '<div class="cad-modal" role="dialog" aria-modal="true" aria-label="Card">' +
       '<button class="cad-x" aria-label="Close">&times;</button>' +

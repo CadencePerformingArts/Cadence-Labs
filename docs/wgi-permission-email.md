@@ -14,10 +14,12 @@ Information Systems, and Cadence is where that degree meets a lifelong love
 of DCI and band: a free fan-made scoreboard and season-history app for the
 marching arts (cadenceperformingarts.github.io/Cadence-Labs).
 
-Cadence began as a DCI live-scores dashboard and now covers Bands of America
-(every published recap back to 1976), US Bands, UIL Texas, and several
-regional winter circuits — always built from officially published results,
-always with attribution. The app is still in active development and testing
+Cadence began as a DCI live-scores dashboard — every published score back to
+1972, refreshed around the clock, always built from officially published
+results and always with attribution. We have also built and retired apps for
+several other circuits while working out which ones we can serve properly;
+we would rather cover a handful of activities accurately than many of them
+badly. The app is still in active development and testing
 with a small group of fans, which is exactly why I'm reaching out now: I'd
 rather set up WGI's data the right way from day one than ask forgiveness
 after we grow. Fans keep asking for one thing more than anything else: WGI

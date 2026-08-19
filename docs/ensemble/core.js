@@ -119,7 +119,7 @@
   async function loadOrgs() {
     // one round trip: my member rows with their org and role expanded
     var rows = await rest("org_members?select=id,role_id,section,instrument," +
-      "leadership_title,status,display_name,org:organizations(*),role:org_roles(*)" +
+      "leadership_title,status,display_name,org:organizations(*),role:org_roles!org_members_role_id_fkey(*)" +
       "&status=eq.active&order=joined_at.asc");
     state.orgs = (rows || []).filter(function (r) { return r.org; });
     return state.orgs;

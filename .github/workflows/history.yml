@@ -35,7 +35,7 @@ jobs:
       - name: Commit results
         if: always()
         run: |
-          git config user.name "dci-tracker-bot"
+          git config user.name "cadence-bot"
           git config user.email "actions@users.noreply.github.com"
           # 1) commit ONLY scrape inputs (data/). docs/data is a build product:
           #    it must never be merged — it is rebuilt from merged inputs below.

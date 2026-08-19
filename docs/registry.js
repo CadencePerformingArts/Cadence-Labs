@@ -11,11 +11,10 @@
  * degrades instead of breaking.
  *
  * Fields:
- *   id      canonical id ('dci', 'wgi-guard', 'boa', …)
+ *   id      canonical id ('dci', 'wgi-guard', 'wgi-perc', 'wgi-winds')
  *   name    customer-facing name          short  compact chip label
  *   path    folder from the site root ('' = DCI at the root)
  *   ns      APP_CFG.ns / localStorage prefix ('' for DCI)
- *   board   scoreboard shape (trend | event | rating | history)
  *   listed  shown in the app switcher today
  *   status  'live' | 'archive' (real data, not currently ingesting)
  *   term    what a competitor is called, plural
@@ -23,16 +22,10 @@
 (function () {
   "use strict";
   var APPS = [
-    { id: "dci",       name: "DCI",             short: "DCI",    path: "",                ns: "",           board: "trend",   listed: true,  status: "live",    term: "corps" },
-    { id: "wgi-guard", name: "WGI Color Guard", short: "WGI CG", path: "wgi/guard/",      ns: "wgi-guard:", board: "history", listed: true,  status: "live",    term: "guards" },
-    { id: "wgi-perc",  name: "WGI Percussion",  short: "WGI Pc", path: "wgi/percussion/", ns: "wgi-perc:",  board: "history", listed: true,  status: "live",    term: "ensembles" },
-    { id: "wgi-winds", name: "WGI Winds",       short: "WGI Wd", path: "wgi/winds/",      ns: "wgi-winds:", board: "history", listed: true,  status: "live",    term: "ensembles" },
-    { id: "boa",       name: "Bands of America", short: "BOA",   path: "boa/",            ns: "boa:",       board: "event",   listed: false, status: "archive", term: "bands" },
-    { id: "usbands",   name: "US Bands",        short: "USB",    path: "usbands/",        ns: "usb:",       board: "trend",   listed: false, status: "archive", term: "bands" },
-    { id: "uil",       name: "UIL Texas",       short: "UIL",    path: "uil/",            ns: "uil:",       board: "rating",  listed: false, status: "archive", term: "bands" },
-    { id: "wgasc",     name: "WGASC",           short: "WGASC",  path: "wgasc/",          ns: "wgasc:",     board: "trend",   listed: false, status: "archive", term: "groups" },
-    { id: "tcgc",      name: "TCGC",            short: "TCGC",   path: "tcgc/",           ns: "tcgc:",      board: "trend",   listed: false, status: "archive", term: "groups" },
-    { id: "ffcc",      name: "FFCC",            short: "FFCC",   path: "ffcc/",           ns: "ffcc:",      board: "trend",   listed: false, status: "archive", term: "groups" },
+    { id: "dci",       name: "DCI",             short: "DCI",    path: "",                ns: "",   listed: true,  status: "live",    term: "corps" },
+    { id: "wgi-guard", name: "WGI Color Guard", short: "WGI CG", path: "wgi/guard/",      ns: "wgi-guard:", listed: true,  status: "live",    term: "guards" },
+    { id: "wgi-perc",  name: "WGI Percussion",  short: "WGI Pc", path: "wgi/percussion/", ns: "wgi-perc:", listed: true,  status: "live",    term: "ensembles" },
+    { id: "wgi-winds", name: "WGI Winds",       short: "WGI Wd", path: "wgi/winds/",      ns: "wgi-winds:", listed: true,  status: "live",    term: "ensembles" },
   ];
 
   var byId = {}, byNs = {};
@@ -49,7 +42,7 @@
       }
       return APPS[0];
     },
-    // claims/profiles folder key ('wgi/guard', 'boa', '' = DCI)
+    // claims/profiles folder key ('wgi/guard', '' = DCI)
     folderKey: function (a) { return a.path.replace(/\/$/, ""); },
   };
 })();

@@ -13,39 +13,31 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="../app.css">
 <link rel="stylesheet" href="ensemble.css">
 <style>
-/* Operations layer — shared with calendar.html, plus the screens that only
-   exist here: the itinerary timeline, the packing checklist, signup slots
-   and the fast attendance grid. Tokens all come from app.css. */
+/* One event. The card, the RSVP buttons, the result block, the sheet form
+   furniture and the toast are shared with calendar.html and live in
+   ensemble.css; what's here is the screens that only exist on this page —
+   the itinerary timeline, the packing checklist, signup slots and the fast
+   attendance grid — plus the page's own desktop arrangement.
+
+   Desktop shape: the identity card takes the wide track with the RSVP and
+   competition cards in a rail beside it (.dsk2.w75), then the optional
+   blocks pair off two-up (.dsk2), then the attendance roster — the one
+   genuinely wide table — spans the page. */
+.ev-rail { display: grid; gap: 14px; align-content: start; }
+.ev-pair { margin-top: 14px; }
 .ops-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 6px; }
 .ops-head h1 { margin: 0; }
 .ops-head .ops-head-r { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
-.ops-back { font-size: 13px; font-weight: 650; }
-
-.ops-note { color: var(--muted); font-size: 12px; margin-top: 6px; }
-.ops-rsvp { display: inline-flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
-.ops-rsvp-b { border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
-  font: inherit; font-size: 13px; font-weight: 650; padding: 8px 16px; border-radius: 999px; cursor: pointer; }
-.ops-rsvp-b:hover { background: var(--surface-2); }
-.ops-rsvp-b.on { border-color: transparent; color: #fff; }
-.ops-rsvp-b.on.yes { background: var(--good); }
-.ops-rsvp-b.on.maybe { background: var(--accent); }
-.ops-rsvp-b.on.no { background: var(--bad); }
-.ops-rsvp-b[disabled] { opacity: .5; cursor: default; }
+.ops-back { display: inline-block; font-size: 13px; font-weight: 650; margin-bottom: 6px; }
+/* this page's RSVP buttons are the primary action, so they sit a little
+   larger than the same control on a calendar card */
+.ops-rsvp-b { padding: 8px 16px; }
 
 .ops-hero-meta { display: grid; gap: 4px; font-size: 14px; color: var(--text-secondary); margin: 8px 0; }
 .ops-hero-meta b { color: var(--text-primary); }
 .ops-desc { white-space: pre-wrap; margin-top: 10px; font-size: 14.5px; }
 .ops-attach { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
 .ops-attach a { border: 1px solid var(--border); border-radius: 9px; padding: 6px 11px; font-size: 13px; }
-
-/* competition result */
-.ops-result { border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface-2); }
-.ops-result-head { display: flex; align-items: center; gap: 14px; }
-.ops-place { font-size: 30px; font-weight: 800; color: var(--accent-ink); }
-.ops-result-head b { font-size: 24px; font-weight: 800; color: var(--heading); display: block; line-height: 1.15; }
-.ops-result-head span { font-size: 12px; color: var(--muted); font-weight: 600; }
-.ops-mini { margin-top: 10px; gap: 14px; }
-.ops-mini div b { font-size: 15px; }
 
 /* itinerary timeline */
 .ops-tl { position: relative; margin-top: 4px; }
@@ -103,35 +95,11 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
   display: flex; gap: 8px; align-items: center; flex-wrap: wrap; box-shadow: 0 6px 18px rgba(10,25,50,.12); }
 @media (min-width: 800px) { .ops-sticky { bottom: 12px; } }
 .ops-sticky .grow { flex: 1; }
-
-/* shared bits */
-.ops-f { margin-bottom: 11px; }
-.ops-f > label { display: block; font-size: 12px; font-weight: 700; color: var(--muted);
-  text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
-.ops-f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.ops-check { display: flex; align-items: center; gap: 8px; font-size: 14px; margin: 6px 0; }
-.ops-check input { width: 17px; height: 17px; }
-.ops-picks { display: flex; flex-wrap: wrap; gap: 7px; }
-.ops-pick { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border);
-  border-radius: 999px; padding: 6px 11px; font-size: 13px; cursor: pointer; background: var(--surface-1); }
-.ops-pick input { margin: 0; }
-.ops-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-.ops-actions .grow { flex: 1; }
-.ops-danger { color: var(--bad); }
-.ops-sheet-body .ctrl, .ops-sheet-body textarea.ctrl { width: 100%; }
-.ops-showrow { display: block; width: 100%; text-align: left; border: 1px solid var(--border);
-  background: var(--surface-1); border-radius: 11px; padding: 10px 12px; margin-bottom: 7px;
-  font: inherit; cursor: pointer; }
-.ops-showrow:hover { background: var(--surface-2); }
-.ops-showrow b { display: block; font-size: 14px; }
-.ops-showrow span { color: var(--muted); font-size: 12.5px; }
-.ops-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 84px; z-index: 300;
-  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13.5px;
-  font-weight: 650; box-shadow: 0 8px 24px rgba(10,25,50,.3); transition: opacity .4s; }
-.ops-toast.bad { background: var(--bad); }
-.ops-toast.out { opacity: 0; }
-@media (min-width: 800px) { .ops-toast { bottom: 24px; } }
 .ops-row-btn { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+/* the result headline is the loudest number on this page — one step up from
+   the same block on a calendar card */
+.ops-place { font-size: 30px; }
+.ops-result-head b { font-size: 24px; }
 </style>
 </head>
 <body class="ens">
@@ -549,16 +517,18 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         '<div class="ops-row-btn"><a class="tab" href="calendar.html">← Back to the calendar</a></div></div>';
       return;
     }
+    /* Same cards as ever, arranged instead of stacked. attendanceCard()
+       hands back the personal card when the viewer may not see the roster,
+       so asking canSeeAttendance() once keeps exactly one of each. */
+    var canSee = canSeeAttendance();
+    var rail = (ev.rsvp_required || (ev.rsvps || []).length ? rsvpCard() : "") + competitionCard();
     main.innerHTML =
       '<a class="ops-back" href="calendar.html">← Calendar</a>' +
-      heroCard() +
-      competitionCard() +
-      (ev.rsvp_required || (ev.rsvps || []).length ? rsvpCard() : "") +
-      itineraryCard() +
-      packingCard() +
-      signupsCard() +
-      attendanceCard() +
-      (canSeeAttendance() ? myAttendanceCard() : "");
+      '<div class="dsk2 w75">' + heroCard() +
+        (rail ? '<div class="ev-rail">' + rail + "</div>" : "") + "</div>" +
+      '<div class="dsk2 ev-pair">' + itineraryCard() + packingCard() + "</div>" +
+      '<div class="dsk2 ev-pair">' + signupsCard() + myAttendanceCard() + "</div>" +
+      (canSee ? '<div class="ev-pair">' + attendanceCard() + "</div>" : "");
     wire();
   }
 

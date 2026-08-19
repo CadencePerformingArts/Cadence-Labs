@@ -13,71 +13,33 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="../app.css">
 <link rel="stylesheet" href="ensemble.css">
 <style>
-/* People screens — layout only; every colour comes from app.css tokens. */
+/* Members — page layout only. The rows, the drawer, the chips and the
+   toast are shared with admin.html and live in ensemble.css; every colour
+   is an app.css token.
+
+   Desktop shape: the five filters become a sticky rail and the roster takes
+   the rest of the width — a directory reads as "narrow controls, wide
+   list", the same proportion #corpsDetail gives a corps profile. */
+.ppl-grid { display: grid; gap: 14px; }
+.ppl-grid > * { min-width: 0; }
+@media (min-width: 700px) {
+  .ppl-grid { grid-template-columns: minmax(220px, 3fr) 9fr; align-items: start; }
+  .ppl-filtercard { position: sticky; top: 66px; }
+  /* in a rail the filters stack; the search box no longer shares a row */
+  .ppl-filters { display: grid; gap: 8px; }
+  .ppl-filters .ctrl, .ppl-filters input.ctrl { width: 100%; }
+}
+/* a 60-name roster is the densest thing in the workspace: once the list
+   track passes ~760px it carries two columns of names instead of one long
+   scroll with half the row empty */
+@media (min-width: 1080px) {
+  .ppl-grid .ppl-list { grid-template-columns: 1fr 1fr; column-gap: 18px; }
+}
 .ppl-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
 .ppl-filters .ctrl { min-width: 0; }
 .ppl-filters input.ctrl { flex: 1 1 220px; }
 .ppl-count { color: var(--muted); font-size: 12.5px; font-weight: 650; margin: 0 2px 8px; }
-.ppl-list { display: grid; gap: 2px; }
-.ppl-row {
-  display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
-  background: none; border: 0; font: inherit; cursor: pointer; color: var(--text-primary);
-  padding: 9px 10px; border-radius: 11px;
-}
-.ppl-row:hover { background: var(--surface-2); }
-.ppl-av {
-  flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--accent-wash); color: var(--accent-ink); font-size: 12.5px; font-weight: 800;
-}
-.ppl-main { flex: 1; min-width: 0; }
-.ppl-main b { display: block; font-size: 14.5px; font-weight: 650; }
-.ppl-sub { display: block; color: var(--muted); font-size: 12.5px; margin-top: 1px;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ppl-tags { flex: none; display: flex; gap: 5px; align-items: center; }
-/* drawer */
-.ppl-drawer { position: fixed; inset: 0; z-index: 210; background: rgba(10,25,50,.45);
-  display: flex; align-items: flex-end; justify-content: center; }
-.ppl-drawer-in { position: relative; background: var(--surface-1); width: 100%; max-width: 620px;
-  border-radius: 16px 16px 0 0; padding: 20px; max-height: 88vh; overflow: auto; }
-@media (min-width: 700px) { .ppl-drawer { align-items: center; } .ppl-drawer-in { border-radius: 16px; } }
-.ppl-x { position: absolute; top: 10px; right: 12px; border: 0; background: none; cursor: pointer;
-  font-size: 25px; line-height: 1; color: var(--muted); padding: 4px 8px; }
-.ppl-drawer-in h3 { margin: 0 0 4px; font-size: 19px; color: var(--heading); }
-.ppl-drawer-in h4 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase;
-  letter-spacing: .5px; color: var(--muted); }
-.ppl-field { display: block; margin: 0 0 10px; }
-.ppl-field > span { display: block; font-size: 12.5px; font-weight: 650; color: var(--muted); margin-bottom: 4px; }
-.ppl-field .ctrl, .ppl-field textarea.ctrl { width: 100%; box-sizing: border-box; min-width: 0; }
-.ppl-2 { display: grid; gap: 0 12px; grid-template-columns: 1fr 1fr; }
-@media (max-width: 520px) { .ppl-2 { grid-template-columns: 1fr; } }
-.ppl-kv { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; font-size: 14px; }
-.ppl-kv dt { color: var(--muted); font-size: 12.5px; font-weight: 650; }
-.ppl-kv dd { margin: 0; }
-.ppl-chiprow { display: flex; flex-wrap: wrap; gap: 6px; }
-.ppl-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2);
-  border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; font-size: 12.5px; }
-.ppl-chip button { border: 0; background: none; cursor: pointer; color: var(--muted); font-size: 15px; line-height: 1; padding: 0; }
-.ppl-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-.ppl-perms { border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; margin: 0 0 10px; }
-.ppl-perms legend { font-size: 12px; font-weight: 800; text-transform: uppercase;
-  letter-spacing: .5px; color: var(--muted); padding: 0 4px; }
-.ppl-perm { display: flex; gap: 9px; align-items: flex-start; padding: 5px 0; font-size: 13.5px; }
-.ppl-perm.implied { opacity: .55; }
-.ppl-perm code { font-family: var(--mono); font-size: 12px; }
-.ppl-perm-d { display: block; color: var(--muted); font-size: 12px; }
-.ppl-code { font-family: var(--mono); font-size: 13px; background: var(--surface-2);
-  border: 1px solid var(--border); border-radius: 8px; padding: 4px 8px; word-break: break-all; }
-.ppl-tree-row { display: flex; align-items: center; gap: 8px; padding: 7px 6px; border-radius: 9px; }
-.ppl-tree-row:hover { background: var(--surface-2); }
-.ppl-tree-row b { font-size: 14px; font-weight: 650; }
-.ppl-tree-row .ppl-sub { display: inline; }
-.ppl-toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
-  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px;
-  font-size: 13.5px; font-weight: 600; z-index: 400; box-shadow: 0 4px 16px rgba(10,25,50,.3); }
-.ppl-toast.bad { background: var(--bad, #c92a2a); }
-.ppl-warn { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
-.ppl-pane { display: none; }
-.ppl-pane.on { display: block; }
+.ppl-filtercard .ppl-count { margin-bottom: 0; }
 </style>
 </head>
 <body class="ens">
@@ -112,7 +74,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     var orgId = S.org.id;
     S.members = await CadOrg.rest("org_members?select=id,user_id,display_name,section," +
       "instrument,grad_year,leadership_title,is_minor,status,role_id,joined_at,custom," +
-      "role:org_roles(id,key,name,kind,permissions)&org_id=eq." + orgId +
+      "role:org_roles!org_members_role_id_fkey(id,key,name,kind,permissions)&org_id=eq." + orgId +
       "&order=display_name.asc.nullslast");
     S.roles = await CadOrg.rest("org_roles?select=id,key,name,kind,permissions,sort&org_id=eq." +
       orgId + "&order=sort.asc");
@@ -179,7 +141,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 
   function directoryHtml() {
     var rows = filtered();
-    return '<div class="card">' +
+    return '<div class="ppl-grid">' +
+      '<div class="card ppl-filtercard">' +
       '<div class="ppl-filters">' +
         '<input class="ctrl" id="fq" type="search" placeholder="Search name, section, instrument…" value="' + esc(S.filters.q) + '">' +
         '<select class="ctrl" id="frole"><option value="">All roles</option>' +
@@ -202,13 +165,15 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       "</div>" +
       '<p class="ppl-count">' + rows.length + " member" + (rows.length === 1 ? "" : "s") +
         " shown · " + S.members.length + " on the roster</p>" +
+      "</div>" +
+      '<div class="card">' +
       (rows.length
         ? '<div class="ppl-list" id="pplList">' + rows.map(function (m) {
             return P.memberRowHtml(m, { tag: m.leadership_title
               ? '<span class="ens-tag important">' + esc(m.leadership_title) + "</span>" : "" });
           }).join("") + "</div>"
         : '<div class="empty">No members match those filters.</div>') +
-      "</div>";
+      "</div></div>";
   }
 
   /* ── member drawer ────────────────────────────────────────────────── */
@@ -433,7 +398,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     var live = S.invites.filter(function (i) {
       return (!i.expires_at || new Date(i.expires_at) > new Date()) && i.uses < i.max_uses;
     });
-    return '<div class="ens-grid">' +
+    return '<div class="dsk2">' +
       '<div class="card"><h2>Invite one person</h2>' +
         '<p class="setnote">Creates a single-use code tied to that email address.</p>' +
         '<form class="acct-form" id="oneForm">' +
@@ -453,10 +418,10 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         '<button class="tab on" type="button" id="csvGo" disabled>Create invites</button></div>' +
         '<div id="csvOut"></div></div>' +
 
-      '<div class="card" style="grid-column:1/-1"><h2>Open invites</h2>' +
+      '<div class="card span2"><h2>Open invites</h2>' +
         '<p class="setnote">Cadence does not email these for you yet — copy a link or code and ' +
         "send it the way your families already hear from you.</p>" +
-        (live.length ? live.map(inviteRowHtml).join("")
+        (live.length ? '<div class="ens-cols2">' + live.map(inviteRowHtml).join("") + "</div>"
           : '<div class="empty">No open invites.</div>') + "</div>" +
       "</div>";
   }
@@ -590,8 +555,8 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     var tree = P.flattenTree(P.groupTree(S.groups));
     var counts = {};
     S.gm.forEach(function (r) { counts[r.group_id] = (counts[r.group_id] || 0) + 1; });
-    return '<div class="ens-grid">' +
-      '<div class="card" style="grid-column:1/-1"><div class="ens-h"><h2>Groups</h2>' +
+    return '<div class="dsk2 w75">' +
+      '<div class="card"><div class="ens-h"><h2>Groups</h2>' +
         '<span class="setsub">' + S.groups.length + " total</span></div>" +
         (tree.length ? tree.map(function (n) {
           var g = n.group;

@@ -4,10 +4,12 @@ Cadence is two products in one repository:
 
 1. **Free public scoreboards** — live scores, season standings, event
    results, histories and favorites. **Cadence DCI** runs on real Drum Corps
-   International data refreshed around the clock; the **WGI** apps (Color
-   Guard, Percussion, Winds) run on real ingested data; six more circuit
-   apps (BOA, USBands, UIL, WGASC, TCGC, FFCC) are deployed but unlisted.
-   All are siblings derived from the one proven DCI engine (ADR-003).
+   International data refreshed around the clock, and the **WGI** apps
+   (Color Guard, Percussion, Winds) run on real ingested data. The WGI apps
+   are siblings derived from the one proven DCI engine (ADR-003). Six other
+   circuits (BOA, USBands, UIL, WGASC, TCGC, FFCC) were built and then
+   retired in the August 2026 rebase; their research notes are kept under
+   `data/circuit-probes/`.
 2. **Paid private workspaces** — **Cadence Ensemble** ($149–499/yr, 60-day
    free trial): announcements, chat with youth-safety rules, calendar/RSVP,
    attendance, files, forms, drill — for real band and guard programs.

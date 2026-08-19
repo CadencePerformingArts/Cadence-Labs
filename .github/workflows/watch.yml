@@ -50,7 +50,7 @@ jobs:
           days = {now.strftime("%Y-%m-%d"), (now - datetime.timedelta(days=1)).strftime("%Y-%m-%d")}
           sys.exit(0 if any(e.get("date") in days for e in up) else 1)
           PY
-          git config user.name "dci-tracker-bot"
+          git config user.name "cadence-bot"
           git config user.email "actions@users.noreply.github.com"
           request_deploy() {
             local api code i

@@ -47,6 +47,14 @@ jobs:
           python3 scripts/build_family_engine.py
           python3 scripts/gen_family_data.py
           python3 scripts/gen_family_pages.py
+      # This job re-derives all 447 WGI championship rows on every deploy, so
+      # it is the last place a fabricated number could enter the published
+      # site. The guard belongs HERE, not only in the ingest workflow that
+      # runs on a Monday cron between January and April. It fails the deploy
+      # rather than shipping a scoreboard that cannot be traced to
+      # champions.json.
+      - name: Every WGI row traces back to the championship record
+        run: node scripts/test_wgi_datasets.js
       - name: Compose site
         run: |
           mkdir -p _site

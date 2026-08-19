@@ -5,7 +5,7 @@
   --surface-2: #eef1f6;
   --text-primary: #16233d;
   --text-secondary: #3f4c63;
-  --muted: #74808f;
+  --muted: #636f7e; /* AA ≥4.5:1 on both light surfaces */
   --grid: #e4e9f1;
   --baseline: #c4cdda;
   --border: #dfe4ec;
@@ -87,7 +87,6 @@ table.t, #nav, .msel, .tab, .tile, .evhead, .legend, h1.page, .card h2, .card h3
 :root { accent-color: var(--accent); }
 .ctrl:focus, .tab:focus-visible, button:focus-visible {
   outline: 2px solid var(--accent); outline-offset: 1px;
-  box-shadow: 0 0 0 4px var(--accent-wash);
 }
 select.ctrl { -webkit-appearance: none; appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
@@ -111,21 +110,30 @@ a:hover { text-decoration: underline; }
 .topbar {
   position: sticky; top: 0; z-index: 50;
   display: flex; align-items: center; gap: 18px;
-  padding: 10px 18px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--navy) 88%, #6ea8dc) 0%, var(--navy) 55%);
-  background-color: var(--navy);
-  box-shadow: 0 2px 14px rgba(8, 20, 40, 0.16);
+  padding: 10px 18px; background: var(--navy);
   flex-wrap: wrap;
 }
 .brand { display: flex; align-items: center; gap: 9px; color: #fff; font-size: 18.5px; font-weight: 700; }
 .brand b { color: var(--gold); }
 .brand:hover { text-decoration: none; }
-#nav { display: flex; gap: 3px; flex-wrap: wrap; }
-#nav a { color: rgba(255,255,255,0.88); padding: 8px 16px; border-radius: 999px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px; line-height: 1.35; }
+#nav { display: flex; gap: 4px; flex-wrap: wrap; }
+#nav a { color: rgba(255,255,255,0.82); padding: 8px 15px; border-radius: 10px; font-size: 15.5px; font-weight: 550; display: flex; align-items: center; gap: 6px; }
 #nav a svg { display: none; }
-#nav a:hover { background: rgba(255,255,255,0.13); color: #fff; text-decoration: none; }
+#nav a:hover { color: #fff; background: rgba(255,255,255,0.10); text-decoration: none; }
 #nav a.active { color: var(--on-accent, var(--navy)); background: var(--gold); font-weight: 700; }
 .updated { margin-left: auto; color: rgba(255,255,255,0.55); font-size: 11px; }
+.updated.stale { color: var(--gold); font-weight: 600; }
+
+/* The Workspace tab — same nav language, subtly set apart because it leaves
+   the scoreboard for the private side of the product. Lost in the rebase
+   while the markup that uses it survived, so the divider silently rendered
+   as nothing on every page. */
+#nav a.navmy { position: relative; }
+#nav a.navmy::before {
+  content: ""; position: absolute; left: -3px; top: 18%; height: 64%;
+  width: 1px; background: rgba(255, 255, 255, 0.22);
+}
+@media (max-width: 560px) { #nav a.navmy::before { display: none; } }
 
 main { max-width: 1180px; margin: 0 auto; padding: 22px 18px 60px; min-height: 70vh; }
 .loading { color: var(--muted); padding: 60px 0; text-align: center; }
@@ -139,14 +147,75 @@ main { max-width: 1180px; margin: 0 auto; padding: 22px 18px 60px; min-height: 7
 
 /* layout */
 .grid { display: grid; gap: 14px; }
+/* desktop pairing: stacks on phones, sits side-by-side on wide screens */
+.dsk2 { display: grid; gap: 14px; }
+/* An author `display` always beats the UA sheet's `[hidden] { display: none }`,
+   so every `display: grid|flex` class silently un-hides anything the scripts
+   toggle with the hidden attribute. This file already carried eight one-off
+   fixes for it, and the workspace redesign reintroduced it on a dozen more
+   classes — including ensemble-admin.html, which rendered its whole profile
+   editor underneath the signed-out card. One rule, once, for every element. */
+[hidden] { display: none !important; }
+.dsk2 > *, .rk-grid > * { min-width: 0; } /* wide tables scroll inside, never stretch the track */
+/* Scoreboard shell: single column on phones (chart → standings → move → battle,
+   same as always); on wide screens the chart takes the left with the Move and
+   Battle cards beside it, and the standings stretch across beneath */
+.rk-grid { display: grid; gap: 14px; align-items: start; }
+/* Wide layouts kick in at 700px so a phone turned sideways (≈670–930px) gets
+   the two-column arrangements instead of a stretched single column — the
+   641–999px range used to be a dead zone that looked like neither phone nor
+   desktop. Portrait tablets land here too. */
+@media (min-width: 700px) {
+  .dsk2 { grid-template-columns: 1fr 1fr; align-items: start; }
+  .dsk2.w75 { grid-template-columns: 7fr 5fr; }
+  .dsk2 > .setcard { margin-bottom: 0; max-width: none; }
+  .rk-grid {
+    grid-template-columns: 8fr 4fr;
+    grid-template-areas: "trend move" "trend battle" "trend ." "stand stand";
+    grid-template-rows: auto auto 1fr auto;
+  }
+  .rk-trend { grid-area: trend; }
+  .rk-stand { grid-area: stand; }
+  .rk-move { grid-area: move; }
+  .rk-battle { grid-area: battle; }
+  /* Corps page: identity on the left, the season chart on the right, the log
+     and championships side by side under them, tiles + profile full width */
+  #corpsDetail {
+    display: grid; gap: 14px; align-items: start;
+    grid-template-columns: minmax(360px, 5fr) 7fr;
+    grid-template-areas: "hero chart" "filters chart" "perf champs" "tiles tiles" "prof prof";
+    grid-template-rows: auto 1fr auto auto auto;
+  }
+  #corpsDetail > * { margin: 0 !important; }
+  #corpsDetail > .corpshero { grid-area: hero; }
+  /* the hero shares the row with the chart now — 2×2 tiles fit its width */
+  #corpsDetail > .corpshero .corpshero-stats { grid-template-columns: repeat(2, 1fr); }
+  #corpsDetail > .corps-filters { grid-area: filters; align-self: end; }
+  #corpsDetail > .corps-chart { grid-area: chart; }
+  #corpsDetail > .corps-perf { grid-area: perf; }
+  #corpsDetail > .corps-champs { grid-area: champs; }
+  #corpsDetail > .corps-tiles { grid-area: tiles; }
+  #corpsDetail > .corps-prof { grid-area: prof; }
+  /* Shows: two show cards per row; section labels and expanders span both */
+  #evlist { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+  #evlist .evrow { margin-bottom: 0; }
+  /* :not(.evrow) — an event row IS a .card, so the unscoped selector made
+     every show span both tracks and the two-column grid never showed. */
+  #evlist .evsectlabel, #evlist .evsection, #evlist .evdone,
+  #evlist > .card:not(.evrow) { grid-column: 1 / -1; }
+}
+/* grid tracks default to min-width:auto, so a wide table (or a long corps name)
+   stretches the track and pushes the whole page sideways — most visible at the
+   Large/Larger text sizes. Let tracks shrink and scroll their own content. */
+.grid > * { min-width: 0; }
 .cols-2 { grid-template-columns: 2fr 1fr; }
 .cols-tiles { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
 @media (max-width: 900px) { .cols-2 { grid-template-columns: 1fr; } }
 
 .card {
   background: var(--surface-1); border: 1px solid var(--border);
-  border-radius: 16px; padding: 16px;
-  box-shadow: 0 1px 2px rgba(22,35,61,0.05), 0 6px 20px rgba(22,35,61,0.05);
+  border-radius: 14px; padding: 16px;
+  box-shadow: 0 1px 3px rgba(22,35,61,0.06);
 }
 .card h2, .card h3 { margin: 0 0 10px; font-size: 16.5px; font-weight: 650; }
 .card h2 .sub, .kicker { color: var(--muted); font-weight: 500; font-size: 12.5px; }
@@ -155,8 +224,45 @@ h1.page {
   font-weight: 800; letter-spacing: -0.2px; color: var(--heading);
 }
 h1.page .kicker { font-weight: 500; }
+
+/* season picker — the year in the Scoreboard heading is the control */
+.yearwrap { position: relative; display: inline-block; }
+.yearpick {
+  font: inherit; color: inherit; letter-spacing: inherit; background: none; margin: 0;
+  border: 0; border-bottom: 2px solid var(--gold); padding: 0 1px 1px;
+  display: inline-flex; align-items: center; gap: 1px; cursor: pointer;
+}
+.yearpick:hover { color: var(--link); }
+.yearpick svg { flex: none; color: var(--muted); transition: transform 0.15s; }
+.yearwrap.open .yearpick svg { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .yearpick svg { transition: none; } }
+.yearpanel {
+  position: absolute; top: calc(100% + 8px); left: 0; z-index: 70;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+  /* viewport units divided by --fs, matching the rest of the file: the root
+     zoom used for the text-size setting would otherwise double-count them */
+  width: max-content; max-width: min(calc(92vw / var(--fs, 1)), 380px);
+  max-height: min(320px, calc(52dvh / var(--fs, 1)));
+  overflow-y: auto; padding: 8px;
+  background: var(--surface-1); border: 1px solid var(--baseline); border-radius: 12px;
+  box-shadow: 0 12px 34px rgba(11, 11, 11, 0.16);
+}
+.yearpanel[hidden] { display: none; }
+.yearopt {
+  font: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0;
+  font-variant-numeric: tabular-nums; color: var(--text-primary);
+  background: var(--surface-2); border: 1px solid transparent; border-radius: 8px;
+  padding: 8px 10px; min-width: 62px; cursor: pointer;
+}
+.yearopt:hover { border-color: var(--link); color: var(--link); }
+/* --link is defined in BOTH themes; --accent-ink is light-only and dropped to
+   2.5:1 on the panel in dark mode, making the selected season the least
+   legible chip in the grid */
+.yearopt.on { background: var(--accent-wash); border-color: var(--gold); color: var(--link); font-weight: 700; }
+@media (min-width: 560px) {
+  .yearpanel { grid-template-columns: repeat(6, 1fr); max-width: 520px; }
+}
 p.lede { color: var(--text-secondary); margin: 0 0 18px; max-width: 74ch; }
-p.pagenote { color: var(--muted); font-size: 11.5px; font-family: var(--mono); margin: 16px 2px 0; max-width: 90ch; }
 
 /* labeled section divider — mono annotation between page sections */
 .secdiv {
@@ -173,13 +279,6 @@ a.favname { font-weight: 650; }
 .capwin { background: var(--accent-wash); font-weight: 700; box-shadow: inset 0 -2px 0 var(--gold); }
 
 /* favorites */
-.favbtn {
-  border: 0; background: none; cursor: pointer; font-size: 17px;
-  color: var(--baseline); padding: 2px 4px; line-height: 1;
-}
-.favbtn.on { color: var(--gold); }
-.favbtn::after { content: ""; position: absolute; inset: -8px; }
-.favbtn { position: relative; }
 .favrow { background: var(--accent-wash); }
 
 /* settings gear */
@@ -222,13 +321,35 @@ th[data-sort] { cursor: pointer; user-select: none; }
   background: var(--accent-wash); border-radius: 10px;
 }
 .capwins b { color: var(--link); font-weight: 700; margin-right: 3px; }
+.capwins .cw-ico { align-self: center; line-height: 0; color: var(--gold); }
 .capwins .cw-main { font-weight: 650; }
 .capwins .cw-main b { text-transform: uppercase; letter-spacing: .4px; }
+
+/* "Caption Winners Card" call-to-action — one compact line: the card itself
+   does the explaining, so the button just needs to be findable */
+.capctawrap { margin: 10px 0 8px; }
+.capctawrap[hidden] { display: none; }
+.capcta {
+  display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+  font: inherit; cursor: pointer; padding: 8px 13px; border-radius: 10px;
+  color: var(--text-primary); background: var(--accent-wash);
+  border: 1px solid var(--gold);
+}
+.capcta:hover { filter: brightness(1.03); border-color: var(--gold); }
+.capcta:disabled { opacity: .7; cursor: default; }
+.capcta-ic { flex: none; line-height: 0; color: var(--gold); }
+.capcta-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.capcta-t b { font-size: 14px; font-weight: 800; letter-spacing: -.1px; }
+.capcta-go { margin-left: auto; flex: none; font-size: 12.5px; font-weight: 800; color: var(--link); white-space: nowrap; }
 
 .rjump { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 8px; }
 .rjbtn {
   border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
   border-radius: 999px; padding: 4px 12px; font-size: 12px; font-family: inherit; cursor: pointer;
+  position: relative;
+}
+.rjbtn::after { /* extend the touch target past the visible pill */
+  content: ""; position: absolute; inset: -8px -2px;
 }
 .rjbtn:hover { color: var(--text-primary); border-color: var(--link); }
 @media (max-width: 640px) {
@@ -251,19 +372,25 @@ th[data-sort] { cursor: pointer; user-select: none; }
 @media (max-width: 640px) { #liveToast { bottom: calc(96px + env(safe-area-inset-bottom)); } }
 @keyframes toastin { from { opacity: 0; transform: translateX(-50%) translateY(12px); } }
 
-/* Data section sub-tabs */
-.subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 2px 0 16px; }
+/* Data section sub-tabs — an underline tab strip, matching the gold-underlined
+   season control in the headings (the active view carries the same line). */
+.subtabs {
+  display: flex; gap: 2px; margin: 2px 0 18px;
+  border-bottom: 1px solid var(--baseline);
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.subtabs::-webkit-scrollbar { display: none; }
 .subtabs a {
-  padding: 10px 20px; border-radius: 999px; font-size: 15px; font-weight: 600;
-  background: var(--surface-1); border: 1px solid var(--border); color: var(--text-secondary);
+  flex: 0 0 auto; margin-bottom: -1px; white-space: nowrap;
+  padding: 9px 14px 10px; font-size: 15px; font-weight: 600;
+  color: var(--text-secondary); background: none;
+  border: 0; border-bottom: 2px solid transparent; border-radius: 0;
 }
 .subtabs a:hover { text-decoration: none; color: var(--text-primary); }
-.subtabs a.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.subtabs a.on { color: var(--link); border-bottom-color: var(--gold); font-weight: 700; }
 @media (max-width: 640px) {
-  /* all sub-tabs visible at once (3 per row, centered) instead of a
-     horizontal scroll that cut off the ends */
-  .subtabs { justify-content: center; gap: 6px; margin: 2px 0 14px; }
-  .subtabs a { flex: 0 1 calc(33.333% - 4px); padding: 10px 6px; font-size: 13.5px; text-align: center; white-space: nowrap; }
+  .subtabs { gap: 0; margin: 2px 0 14px; }
+  .subtabs a { padding: 9px 12px 10px; font-size: 14px; }
 }
 
 /* filters/tabs */
@@ -276,19 +403,20 @@ th[data-sort] { cursor: pointer; user-select: none; }
 .fpanel > *, .fpanel .msel, .fpanel .msel-btn { width: 100%; max-width: none; }
 /* section header + expander buttons in the Shows list */
 .evsectlabel { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 16px 2px 8px; }
+/* off-season "season's a wrap" line — a slim notice, not a tall empty card */
+.evdone { color: var(--muted); font-size: 13.5px; padding: 4px 2px 2px; }
 .evsection { display: block; width: 100%; margin: 2px 0 12px; font-weight: 700; }
 .tab {
   border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
-  border-radius: 999px; padding: 7px 15px; font-size: 14px; font-family: inherit; cursor: pointer;
-  font-weight: 550; line-height: 1.4;
+  border-radius: 8px; padding: 7px 14px; font-size: 14px; font-family: inherit; cursor: pointer;
 }
 .tab:hover { color: var(--text-primary); background: var(--surface-2); }
-.tab.on { background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 650; }
+.tab.on { background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 600; }
 /* one look for every filter control: native selects, text inputs and the
    multiselect buttons all share the same chrome so filter rows read as one */
 .ctrl {
   background: var(--surface-1); color: var(--text-primary); border: 1px solid var(--baseline);
-  border-radius: 10px; padding: 7px 11px; font-size: 14px; font-family: inherit;
+  border-radius: 8px; padding: 7px 10px; font-size: 14px; font-family: inherit;
 }
 input.ctrl { min-width: 210px; }
 
@@ -334,6 +462,86 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14.5px; }
   100% { box-shadow: 0 0 0 0 rgba(224,49,49,0); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .pill.live .livedot { animation: none; } }
+/* event kinds: real shows carry the gold competition edge; off-season entries
+   (camps, auditions) sit quieter with a dashed edge and a colored pill */
+.evrow.evshow { border-left: 3px solid var(--gold); }
+.evrow.evoff { border-left: 3px dashed var(--baseline); }
+.evrow.evoff .evmain b { font-weight: 600; }
+.kpill { text-transform: none; letter-spacing: 0; font-family: inherit; font-weight: 700; }
+.kpill.kcamp { background: rgba(103, 65, 217, .12); color: #6741d9; border-color: rgba(103, 65, 217, .4); }
+.kpill.kaud { background: rgba(12, 133, 153, .12); color: #0c8599; border-color: rgba(12, 133, 153, .4); }
+.kpill.kspec { background: rgba(232, 89, 12, .1); color: #e8590c; border-color: rgba(232, 89, 12, .38); }
+.kpill.knew { background: var(--accent-wash); color: var(--accent-ink); border-color: var(--gold); }
+.offbody { padding: 4px 2px 2px; color: var(--text-secondary); font-size: 13.5px; }
+
+/* News & Announcements */
+.newswrap { margin: 0 0 14px; }
+/* collapsible header: the whole h2 row is the toggle */
+.newsh2 { margin: 0; }
+.newshead {
+  display: flex; align-items: center; gap: 8px; width: 100%; min-height: 34px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  background: none; border: 0; padding: 3px 0;
+}
+.newshead .newshtxt { min-width: 0; }
+.newschev { margin-left: auto; flex: none; color: var(--muted); transition: transform 0.15s; }
+.newswrap.collapsed .newschev { transform: rotate(-90deg); }
+@media (prefers-reduced-motion: reduce) { .newschev { transition: none; } }
+.newsinner { margin-top: 12px; }
+.newsinner[hidden] { display: none; }
+/* collapsed, the tile is just its header — tighten the card so it isn't a
+   band of empty space (the .card.newswrap.collapsed specificity beats
+   [data-fs] .card's padding override) */
+.card.newswrap.collapsed { padding-top: 8px; padding-bottom: 8px; }
+
+/* generic collapsible card header (Caption Titles, and reusable elsewhere) */
+.collhead { margin: 0; }
+.collbtn {
+  display: flex; align-items: center; gap: 8px; width: 100%; min-height: 34px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  background: none; border: 0; padding: 3px 0;
+}
+.collttl { min-width: 0; }
+.collchev { margin-left: auto; flex: none; color: var(--muted); transition: transform 0.15s; }
+.card.collapsed .collchev { transform: rotate(-90deg); }
+.card.collapsed { padding-top: 8px; padding-bottom: 8px; }
+@media (prefers-reduced-motion: reduce) { .collchev { transition: none; } }
+.newshl { display: flex; align-items: baseline; gap: 10px; padding: 7px 2px; font-weight: 600; border-top: 1px solid var(--grid); }
+.newshl:first-of-type { border-top: 0; }
+.newshl:hover { text-decoration: none; }
+.newshl:hover { background: var(--surface-2); border-radius: 8px; }
+.newshl-d { flex: none; color: var(--muted); font-size: 11.5px; font-weight: 700; }
+.newsgrid { margin-top: 10px; }
+
+/* headline photo cards — a horizontally-scrollable rail of the latest
+   DCI.org stories, thumbnail + date + clamped title. An article whose feed
+   body has no real image (WordPress emoji glyphs don't count) renders the
+   same card without the picture. */
+.newsrail {
+  display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; padding-bottom: 4px; scroll-snap-type: x proximity;
+}
+.newsart {
+  flex: 0 0 232px; scroll-snap-align: start; display: flex; flex-direction: column;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  background: var(--surface-1); color: inherit; text-decoration: none;
+}
+.newsart:hover { text-decoration: none; border-color: var(--baseline); }
+.newsart img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface-2); }
+.newsart-in { display: block; padding: 9px 11px 11px; }
+.newsart time { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
+.newsart b {
+  font-size: 13px; line-height: 1.4; font-weight: 650; color: var(--text-primary);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.newscard { display: flex; gap: 11px; align-items: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-radius: 13px; padding: 11px 13px; }
+.newslogo { width: 34px; height: 34px; object-fit: contain; flex: none; border-radius: 8px; background: #fff; padding: 2px; }
+.newsbody { min-width: 0; }
+.newstop { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 3px; }
+.newstxt { font-size: 13px; line-height: 1.5; color: var(--text-secondary); }
+.newsgo { display: inline-block; margin-top: 5px; font-size: 12.5px; font-weight: 700; }
+.newsmorebtn { display: block; width: 100%; margin-top: 10px; }
+
 /* the corps performing right now, highlighted in a show's running order */
 tr.evlive > td { background: rgba(224,49,49,0.07); }
 tr.evlive > td:first-child { box-shadow: inset 3px 0 0 #e03131; }
@@ -405,7 +613,6 @@ tr.evlive > td:first-child { box-shadow: inset 3px 0 0 #e03131; }
 .ch-btn.on { background: var(--ch-accent, #f0b429); border-color: transparent; color: #15130f; }
 @media (max-width: 640px) {
   .corpshero { padding: 18px 16px 16px; border-radius: 18px; }
-  .corpshero-logo { width: 62px; height: 62px; border-radius: 16px; }
   .corpshero-stats { grid-template-columns: repeat(2, 1fr); gap: 9px; }
 }
 
@@ -428,7 +635,9 @@ a.tile:hover { text-decoration: none; }
 .chartwrap svg, .chartwrap svg text { -webkit-user-select: none; user-select: none; }
 .chartwrap svg { display: block; width: 100%; height: auto; }
 .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 8px 2px 0; font-size: 12.5px; color: var(--text-secondary); }
-.legend .key { display: inline-flex; align-items: center; gap: 6px; }
+.legend .key { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border-radius: 8px; padding: 2px 7px; margin: -2px -5px; }
+.legend .key:hover { background: var(--surface-2); }
+.legend .key.focus { background: var(--accent-wash); font-weight: 700; color: var(--text-primary); }
 .legend .swatch-line { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
 .legend .legend-num {
   display: inline-flex; align-items: center; justify-content: center;
@@ -459,7 +668,7 @@ a.tile:hover { text-decoration: none; }
 .year:hover { color: var(--text-primary); background: var(--surface-2); text-decoration: none; }
 .year small { color: var(--muted); display: block; font-size: 10.5px; }
 
-.recapscroll, .tscroll { overflow-x: auto; }
+.tscroll { overflow-x: auto; }
 .tscroll {
   background:
     linear-gradient(90deg, var(--surface-1) 40%, rgba(255,255,255,0)) left/28px 100% no-repeat local,
@@ -467,10 +676,108 @@ a.tile:hover { text-decoration: none; }
     radial-gradient(farthest-side at 0 50%, rgba(22,35,61,0.22), transparent) left/14px 100% no-repeat scroll,
     radial-gradient(farthest-side at 100% 50%, rgba(22,35,61,0.22), transparent) right/14px 100% no-repeat scroll;
 }
-.recapscroll table, .tscroll.dense table { font-size: 12.5px; white-space: nowrap; }
+.tscroll.dense table { font-size: 12.5px; white-space: nowrap; }
+/* off-season module: This Day in DCI History + season countdown — sits at
+   the very bottom of the Scoreboard, after the standings grid */
+.offszn { margin: 14px 0 0; }
+.otd { margin-top: 2px; }
+.otd-row {
+  display: flex; gap: 10px; align-items: baseline; padding: 7px 2px;
+  color: var(--text-primary); text-decoration: none; border-top: 1px solid var(--grid);
+  font-size: 13px; line-height: 1.45;
+}
+.otd-row:first-child { border-top: 0; }
+.otd-row:hover { text-decoration: none; background: var(--surface-2); }
+.otd-y { flex: none; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--link); width: 40px; }
+.otd-t { min-width: 0; }
+.offnext { margin: 10px 0 0; font-size: 12.5px; color: var(--muted); }
+.offnext b { color: var(--text-primary); }
+
+/* "Following" strip — starred corps pinned atop the Scoreboard */
+.folwrap { margin: 0 0 14px; }
+.folhead {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px;
+  color: var(--muted); margin: 0 0 6px;
+}
+.folgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px; }
+.fol-card {
+  display: flex; align-items: center; gap: 10px; min-width: 0;
+  background: var(--surface-1); border: 1px solid var(--baseline); border-radius: 12px;
+  padding: 9px 12px; color: var(--text-primary); text-decoration: none;
+}
+.fol-card:hover { border-color: var(--link); text-decoration: none; }
+.fol-main { min-width: 0; flex: 1; display: block; }
+.fol-top { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+.fol-top b { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fol-rank { margin-left: auto; flex: none; font-size: 11.5px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.fol-sub { display: block; font-size: 12px; color: var(--text-secondary); margin-top: 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.fol-next { color: var(--muted); }
+.fol-new {
+  flex: none; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--accent-ink); background: var(--accent-wash); border: 1px solid var(--gold);
+  border-radius: 999px; padding: 1px 7px;
+}
+.folhint {
+  display: flex; align-items: center; gap: 6px; margin: 0 0 12px;
+  font-size: 12.5px; color: var(--muted);
+}
+.linklike { border: 0; background: none; padding: 0; font: inherit; color: var(--link); cursor: pointer; position: relative; }
+.linklike:hover { text-decoration: underline; }
+.linklike::after { /* extend the touch target past the inline text */
+  content: ""; position: absolute; inset: -10px -4px;
+}
+.folhint-x {
+  border: 0; background: none; color: var(--muted); font-size: 16px; line-height: 1;
+  cursor: pointer; padding: 4px 6px; margin-left: auto; position: relative;
+}
+.folhint-x::after { content: ""; position: absolute; inset: -8px; }
+
+/* first-run onboarding sheet */
+.ob-ov {
+  position: fixed; inset: 0; z-index: 3500; background: rgba(10, 16, 28, 0.55);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.ob-sheet {
+  background: var(--surface-1); color: var(--text-primary); width: 100%; max-width: 520px;
+  max-height: 86dvh; display: flex; flex-direction: column;
+  border-radius: 22px 22px 0 0; padding: 20px 18px calc(14px + env(safe-area-inset-bottom));
+  outline: none;
+}
+.ob-sheet h2 { margin: 0 0 4px; font-size: 19px; }
+.ob-sub { margin: 0 0 12px; color: var(--text-secondary); font-size: 13.5px; line-height: 1.5; }
+.ob-search { width: 100%; margin-bottom: 10px; }
+.ob-list { overflow-y: auto; min-height: 0; flex: 1; padding: 2px; margin: 0 -2px; }
+.ob-cls {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px;
+  color: var(--muted); margin: 10px 0 6px;
+}
+.ob-cls:first-child { margin-top: 0; }
+.ob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.ob-chip {
+  display: flex; align-items: center; gap: 8px; min-width: 0; text-align: left;
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--text-primary);
+  background: var(--surface-2); border: 1px solid var(--baseline); border-radius: 11px;
+  padding: 8px 10px; cursor: pointer; min-height: 42px;
+}
+.ob-chip[hidden] { display: none; }
+.ob-chip .ob-chip-n { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ob-chip.on { border-color: var(--gold); background: var(--accent-wash); }
+.ob-chip.on .ob-chip-n::before { content: "★ "; color: var(--gold); }
+.ob-foot { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+.ob-foot .tab { padding: 10px 18px; font-weight: 700; }
+.ob-note { margin: 10px 0 0; font-size: 12.5px; color: var(--text-secondary); min-height: 1.2em; }
+@media (min-width: 560px) {
+  .ob-ov { align-items: center; padding: 20px; }
+  .ob-sheet { border-radius: 22px; border: 1px solid var(--border); max-height: 82dvh; }
+  .ob-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+.card.cardgap { margin-bottom: 14px; } /* stacked cards outside a grid */
+.abouttxt { color: var(--text-secondary); font-size: 13.5px; line-height: 1.65; margin: 0 0 10px; max-width: 74ch; }
+.mono { font-family: var(--mono); font-size: 0.92em; }
 .crumbs { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
 .crumbs a { color: var(--text-secondary); }
-.badge-champ { color: #b8860b; }
 .empty { color: var(--muted); padding: 40px 16px; text-align: center; }
 .notice {
   background: var(--accent-wash); border: 1px solid rgba(240,180,41,0.5);
@@ -512,30 +819,6 @@ a.tile:hover { text-decoration: none; }
 #evYearSel .msel-btn { min-width: 0; max-width: none; width: auto; }
 #evYearSel .msel-panel { min-width: 130px; }
 
-/* corps directory add-to-compare */
-.addcell { width: 34px; }
-.addbtn {
-  width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--baseline);
-  background: var(--surface-1); color: var(--text-secondary); cursor: pointer;
-  font-size: 14px; line-height: 1;
-  position: relative;
-}
-.addbtn::after { /* expand the touch target past the visible circle */
-  content: ""; position: absolute; inset: -9px; border-radius: 50%;
-}
-.addbtn:hover { border-color: var(--link); color: var(--link); }
-.addbtn.on { background: var(--navy); border-color: var(--navy); color: #fff; }
-
-/* upcoming events */
-.upitem { padding: 8px 0; border-bottom: 1px solid var(--grid); font-size: 13px; }
-.upitem:last-of-type { border-bottom: 0; }
-.upitem .lineup { color: var(--text-secondary); font-size: 12px; margin-top: 3px; line-height: 1.5; }
-.lineup-more {
-  border: 0; background: none; color: var(--link); cursor: pointer;
-  font-size: 12px; padding: 0 2px;
-}
-.lineup-more:hover { text-decoration: underline; }
-
 /* season event accordion */
 .evrow { padding: 0; margin-bottom: 10px; overflow: hidden; }
 .evhead {
@@ -575,24 +858,17 @@ a.tile:hover { text-decoration: none; }
   #settingsBtn { order: 2; }
   #nav {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
-    display: flex; gap: 0;
-    background: color-mix(in srgb, var(--navy) 94%, transparent);
-    background-color: var(--navy);
-    -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
-    border-top: 1px solid rgba(255,255,255,0.09);
-    box-shadow: 0 -6px 24px rgba(8,20,40,0.28);
+    display: flex; gap: 0; background: var(--navy);
+    box-shadow: 0 -4px 16px rgba(22,35,61,0.25);
     padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
-  }
-  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-    #nav { background-color: rgba(10,40,72,0.9); background-color: color-mix(in srgb, var(--navy) 90%, transparent); }
   }
   #nav a {
     flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
-    padding: 7px 2px; font-size: 12px; font-weight: 650; color: rgba(255,255,255,0.85);
-    border-radius: 13px; min-width: 0; white-space: nowrap;
+    padding: 7px 2px; font-size: 12px; font-weight: 650; color: rgba(255,255,255,0.75);
+    border-radius: 12px; min-width: 0; white-space: nowrap;
   }
   #nav a svg { display: block; width: 26px; height: 26px; }
-  #nav a:hover { background: none; }
+  #nav a:hover { background: none; color: rgba(255,255,255,0.9); }
   #nav a.active { color: var(--on-accent, var(--navy)); background: var(--gold); }
   main { padding: 14px 12px 110px; }
   .foot { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
@@ -602,12 +878,16 @@ a.tile:hover { text-decoration: none; }
   .evmain b { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   /* card titles stay on one line */
   .card h2 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .card h2 .sub { display: none; }
+  /* decorative subheads go on a phone, but a .sub that carries a disclosure
+     (a WGI app's coverage span and its championship gaps) must not — that left
+     the chart with two unexplained holes in it at 390px. */
+  .card h2 .sub:not(.keep) { display: none; }
   .tile .value { font-size: 24px; }
   .standings .col-trend, .standings .col-high, .col-perfs, .m-hide { display: none; }
   .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 10px; font-size: 11.5px; margin-top: 6px; }
   .legend .legend-num { width: 14px; height: 14px; font-size: 9px; }
-  .standings .lastev { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 36vw; }
+  /* vw ignores the Text-size zoom, so divide by the scale to get real layout units */
+  .standings .lastev { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(36vw / var(--fs, 1)); }
   .t td, .t th { padding: 6px 5px; }
   .filters .ctrl { flex: 1 1 auto; min-width: 0; }
   .filters .msel { flex: 1 1 44%; min-width: 0; }
@@ -615,8 +895,8 @@ a.tile:hover { text-decoration: none; }
   .msel { flex: 1 1 45%; }
   .msel-btn { width: 100%; max-width: none; min-width: 0; }
   .msel-panel {
-    position: fixed; left: 12px; right: 12px; top: 20vh;
-    min-width: 0; max-height: 55vh;
+    position: fixed; left: 12px; right: 12px; top: calc(20vh / var(--fs, 1));
+    min-width: 0; max-height: calc(55vh / var(--fs, 1));
     box-shadow: 0 18px 50px rgba(11,11,11,0.3);
   }
   .evhead { grid-template-columns: 46px minmax(0,1fr) auto 12px; gap: 8px; padding: 11px 12px; }
@@ -707,7 +987,6 @@ a.tile:hover { text-decoration: none; }
 .corpschip-sw { width: 16px; height: 16px; border-radius: 50%; flex: none;
   background: linear-gradient(135deg, var(--c1, var(--gold)) 0 50%, var(--c2, var(--gold)) 50% 100%);
   box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18); }
-.corpschip.nochip .corpschip-sw { background: #f0b429; }
 /* corps logo (real logo where we have one; two-tone color swatch as fallback) */
 .corpslogo { position: relative; display: inline-flex; flex: none; border-radius: 5px; overflow: hidden;
   background: linear-gradient(135deg, var(--c1, var(--navy)) 0 50%, var(--c2, var(--gold)) 50% 100%);
@@ -749,49 +1028,18 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
 .custombuild-h { font-weight: 650; font-size: 14px; color: var(--heading); margin-bottom: 11px; }
 .custombuild-h .kicker { font-weight: 500; }
 .customrow { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; }
+.custompick { display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+  font-size: 11.5px; color: var(--muted); font-weight: 600; cursor: pointer; }
+.custompick input[type=color] { width: 46px; height: 34px; border: 1.5px solid var(--border);
+  border-radius: 9px; background: var(--surface-1); cursor: pointer; padding: 3px; }
+.custompick input[type=color]::-webkit-color-swatch { border: 0; border-radius: 5px; }
+.custompick input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
 .custpreview { width: 36px; height: 24px; align-self: center; }
 .customrow .tab { margin-left: auto; }
-/* inline hue + lightness sliders — the whole picker lives on the page,
-   no native color dialog anywhere */
-.custsliders { display: grid; gap: 12px 16px; grid-template-columns: 1fr 1fr; margin: 2px 0 12px; }
-@media (max-width: 560px) { .custsliders { grid-template-columns: 1fr; } }
-.custslide { display: flex; flex-direction: column; gap: 7px; }
-.custlbl { font-size: 11.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--muted); }
-.custslide input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 14px;
-  border-radius: 999px; border: 1px solid var(--border); outline-offset: 3px; cursor: pointer; margin: 0; }
-.custslide .slider-hue { background: linear-gradient(90deg,
-  hsl(0,78%,50%), hsl(60,78%,50%), hsl(120,78%,42%), hsl(180,78%,42%),
-  hsl(240,78%,55%), hsl(300,78%,50%), hsl(359,78%,50%)); }
-.custslide input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
-  width: 24px; height: 24px; border-radius: 50%; background: var(--thumb, #fff);
-  border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
-.custslide input[type=range]::-moz-range-thumb {
-  width: 18px; height: 18px; border-radius: 50%; background: var(--thumb, #fff);
-  border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
-/* per-app sections of the "Alerts across Cadence" card */
-.famapp { border-top: 1px solid var(--grid); }
-.famapp-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-.famapp-name { display: flex; align-items: center; gap: 8px; border: 0; background: none;
-  font: inherit; font-weight: 700; font-size: 14.5px; color: var(--heading);
-  padding: 12px 0; cursor: pointer; flex: 1; text-align: left; }
-.famapp-name .caret { transition: transform .15s; color: var(--muted); }
-.famapp.open .famapp-name .caret { transform: rotate(90deg); }
-.famapp-body { padding: 0 0 12px 22px; }
-.famapp-body .classchips { margin-top: 8px; }
-.famapp-link { display: flex; align-items: center; gap: 8px; padding: 12px 0;
-  border-top: 1px solid var(--grid); color: var(--text); text-decoration: none;
-  font-size: 14.5px; flex-wrap: wrap; }
-.famapp-link b { color: var(--heading); }
-.famapp-link .setsub { flex: 1 1 100%; margin-left: 27px; }
-.famapp-link .famapp-go { margin-left: auto; color: var(--link); font-weight: 700; }
-.famapp-link:hover b { text-decoration: underline; }
 /* labelled rows (select + toggles) */
 .setrow { display: flex; align-items: center; justify-content: space-between; gap: 14px;
   padding: 13px 0; border-top: 1px solid var(--grid); }
 .setrow:first-of-type { border-top: 0; }
-.setrow-sel { border-top: 0; padding: 0; margin-top: 14px; }
-.setrow-sel span { font-weight: 600; font-size: 14px; }
-.setrow-sel .ctrl { min-width: 200px; }
 .setsub { color: var(--muted); font-size: 12.5px; margin-top: 2px; max-width: 46ch; }
 /* iOS-style toggle switch */
 .toggle { flex: none; width: 46px; height: 27px; border-radius: 999px; border: 0; cursor: pointer;
@@ -842,7 +1090,7 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
 .askcard { padding: 0; overflow: hidden; }
 .asklog {
   display: flex; flex-direction: column; gap: 10px;
-  padding: 18px; min-height: 200px; max-height: min(56vh, 600px); overflow-y: auto;
+  padding: 18px; min-height: 200px; max-height: min(calc(56vh / var(--fs, 1)), 600px); overflow-y: auto;
 }
 .askmsg {
   max-width: 88%; padding: 10px 13px; border-radius: 15px;
@@ -899,70 +1147,39 @@ h1.page .corpslogo { vertical-align: -6px; margin-right: 11px; }
   /* lift the shortcut above the fixed bottom tab bar */
   #askFab { bottom: calc(96px + env(safe-area-inset-bottom)); right: calc(14px + env(safe-area-inset-right));
     width: 50px; height: 50px; }
-  .asklog { max-height: min(52vh, 520px); }
+  .asklog { max-height: min(calc(52vh / var(--fs, 1)), 520px); }
 }
 
-/* Cadence Labs adjustments: recap calendar button retired; team-colors picker
-   reduced to the default chip + custom builder (theme applies across every
-   Cadence app); brand always on one line */
-#rc-topbtn { display: none !important; }
-.setcard .chipwrap, .setcard .corpsearch { display: none; }
-.brand, .brand > span { white-space: nowrap; }
-@media (max-width: 400px) { .brand { font-size: 16.5px; gap: 7px; } }
-
-/* curated theme palettes in Settings */
-.palrow { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
-.palsw { width: 34px; height: 34px; border-radius: 9px; border: 2px solid var(--border); cursor: pointer; padding: 0; }
-.palsw.on { outline: 3px solid var(--gold); outline-offset: 1px; }
-/* organizations: unobtrusive claim pointer at the foot of profiles */
-.claimline { margin: 18px 2px 4px; font-size: 12.5px; color: var(--muted); text-align: center; }
-.claimline a { font-weight: 650; }
-/* account card */
-.acct-form { display: flex; gap: 8px; flex-wrap: wrap; }
-.acct-form .ctrl { flex: 1 1 220px; }
-.acct-form .tab { font-weight: 700; }
-.acct-msg { margin: 10px 0 0; font-size: 13.5px; font-weight: 600; display: none; }
-.acct-msg.ok { display: block; color: var(--good); }
-.acct-msg.err { display: block; color: var(--bad); }
-/* the permanent My Cadence tab — same nav language, subtly set apart since it
-   leaves the scoreboard for the personal/workspace side of the product */
-#nav a.navmy { position: relative; }
-#nav a.navmy::before {
-  content: ""; position: absolute; left: -3px; top: 18%; height: 64%;
-  width: 1px; background: rgba(255,255,255,0.22);
+/* ===== Text size: Large / Larger =====
+   The root `zoom` shrinks the usable layout width (a 390px phone has ~325 units
+   at Larger) but media queries still report the unzoomed width, so the compact
+   rules never tighten any further. These give the scaled sizes the extra
+   breathing room the breakpoints can't: fewer columns, tighter chrome, and
+   nothing that forces a horizontal scroll. */
+[data-fs] .card { padding: 14px; }
+[data-fs] .cols-tiles { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+[data-fs] .corpshero { padding: 18px 16px 16px; }
+[data-fs] .corpshero-stats { grid-template-columns: repeat(2, 1fr); }
+[data-fs] .topbar { gap: 10px; padding: 8px 12px; }
+/* the freshness stamp must never wrap the header onto two rows, and it yields
+   space (shrinking, then ellipsis) so the nav buttons always fit */
+[data-fs] .updated {
+  white-space: nowrap; font-size: 10px; line-height: 1.25;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis;
 }
-@media (max-width: 560px) { #nav a.navmy::before { display: none; } }
-
-/* DCI news rail on the Shows page */
-.newsrail {
-  display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin; padding-bottom: 4px; scroll-snap-type: x proximity;
+[data-fs] .brand { flex: 0 0 auto; }
+[data-fs="1.2"] .brand { font-size: 17px; }
+[data-fs="1.2"] .topbar { gap: 8px; padding: 8px 10px; }
+[data-fs] .foot { grid-template-columns: 1fr; }
+/* long single-line headings get to wrap instead of being clipped mid-word */
+[data-fs] .card h2 { white-space: normal; }
+[data-fs="1.2"] .cols-tiles { grid-template-columns: 1fr 1fr; }
+[data-fs="1.2"] main { padding-left: 10px; padding-right: 10px; }
+@media (max-width: 640px) {
+  /* the standings' optional columns are already hidden here; at the scaled
+     sizes drop the class tag and shorten the sub-line so the four core
+     columns still fit without a sideways scroll */
+  [data-fs="1.2"] .standings .lastev { max-width: calc(30vw / var(--fs, 1)); }
+  [data-fs] .t td, [data-fs] .t th { padding: 6px 4px; }
+  [data-fs] h1.page { font-size: 20px; }
 }
-.newscard {
-  flex: 0 0 232px; scroll-snap-align: start; display: flex; flex-direction: column;
-  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
-  background: var(--surface-1); color: inherit; text-decoration: none;
-}
-.newscard:hover { text-decoration: none; border-color: var(--baseline); }
-.newscard img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface-2); }
-.newscard-in { display: block; padding: 9px 11px 11px; }
-.newscard time { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
-.newscard b {
-  font-size: 13px; line-height: 1.4; font-weight: 650; color: var(--text-primary);
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-}
-.newscamps { margin-top: 12px; border-top: 1px solid var(--grid); padding-top: 10px; }
-.newscamps h3 { margin: 0 0 6px; font-size: 13px; font-weight: 700; color: var(--heading); }
-.newscamps a {
-  display: flex; align-items: center; gap: 9px; padding: 7px 2px;
-  color: inherit; text-decoration: none; font-size: 13.5px; border-radius: 8px;
-}
-.newscamps a:hover { background: var(--surface-2); }
-.newscamps a > span:nth-child(2) { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.newscamps time { flex: none; color: var(--muted); font-size: 12px; font-weight: 650; }
-.newstag {
-  flex: none; background: var(--accent-wash); color: var(--accent-ink);
-  border-radius: 6px; padding: 2px 7px; font-size: 10.5px; font-weight: 800;
-  letter-spacing: .4px; text-transform: uppercase;
-}
-.newsnote { margin: 6px 0 0; font-size: 11.5px; color: var(--muted); }

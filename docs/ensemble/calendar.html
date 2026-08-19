@@ -13,10 +13,38 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="../app.css">
 <link rel="stylesheet" href="ensemble.css">
 <style>
-/* Operations layer — event cards, month grid, RSVP controls. Tokens and
-   components come from app.css / ensemble.css; this only adds shapes those
-   don't have. Mobile first: the list is the primary view, the month grid
-   appears when there's room for it. */
+/* Calendar — page layout only. The event card, the RSVP buttons, the sheet
+   form furniture and the toast are shared with event.html and live in
+   ensemble.css; tokens and .card come from app.css.
+
+   Desktop shape: the filters and the list/month view take the wide track,
+   and "today" sits in a sticky rail beside them — the same idea as the
+   scoreboard's .rk-grid, where the chart takes the left and the two
+   summary cards stack on the right. Named areas so the phone order (today
+   first, then filters, then the list) survives unchanged underneath. */
+.cal-grid { display: grid; gap: 14px; }
+.cal-grid > * { min-width: 0; }
+@media (min-width: 700px) {
+  .cal-grid {
+    grid-template-columns: 7fr 5fr;
+    grid-template-areas: "bar side" "main side";
+    align-items: start;
+  }
+  .cal-bar { grid-area: bar; }
+  .cal-main { grid-area: main; }
+  .cal-side { grid-area: side; position: sticky; top: 66px; }
+  /* the month grid is seven columns wide by definition — it gets the whole
+     page and the "today" card moves up beside the filters instead */
+  .cal-grid.cal-wide { grid-template-areas: "bar side" "main main"; }
+  .cal-grid.cal-wide .cal-side { position: static; }
+  .cal-bar .ops-bar { margin: 0; }
+  /* two event cards per row inside the wide track — the same density the
+     public shows list (#evlist) uses, with the section headings spanning */
+  .cal-main .ops-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+  .cal-main .ops-list > * { min-width: 0; }
+  .cal-main .ops-list .ops-card { margin-bottom: 0; }
+  .cal-main .ops-list .ops-list-head { grid-column: 1 / -1; }
+}
 .ops-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 6px; }
 .ops-head h1 { margin: 0; }
 .ops-head .ops-head-r { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
@@ -35,37 +63,13 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .ops-list-head h2 { margin: 0; font-size: 15px; color: var(--heading); }
 .ops-list-head span { color: var(--muted); font-size: 12.5px; font-weight: 600; }
 
-.ops-card { display: flex; gap: 12px; align-items: flex-start; background: var(--surface-1);
-  border: 1px solid var(--border); border-radius: 13px; padding: 12px; margin-bottom: 9px; }
-.ops-card.past { opacity: .72; }
-.ops-card-when { flex: none; width: 46px; text-align: center; line-height: 1.1; }
-.ops-card-when b { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: .5px;
-  text-transform: uppercase; color: var(--accent-ink); }
-.ops-card-when i { display: block; font-style: normal; font-size: 22px; font-weight: 800; color: var(--heading); }
-.ops-card-when span { display: block; font-size: 10.5px; color: var(--muted); font-weight: 700; }
-.ops-card-body { min-width: 0; flex: 1; }
-.ops-card-title { display: block; font-size: 15.5px; font-weight: 700; color: var(--text-primary); }
-.ops-card-title:hover { color: var(--link); text-decoration: none; }
-.ops-card-meta { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
-.ops-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
-.ops-card-tags:empty { display: none; }
-
-.ops-rsvp { display: inline-flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
-.ops-rsvp-b { border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
-  font: inherit; font-size: 13px; font-weight: 650; padding: 7px 14px; border-radius: 999px; cursor: pointer; }
-.ops-rsvp-b:hover { background: var(--surface-2); }
-.ops-rsvp-b.on { border-color: transparent; color: #fff; }
-.ops-rsvp-b.on.yes { background: var(--good); }
-.ops-rsvp-b.on.maybe { background: var(--accent); }
-.ops-rsvp-b.on.no { background: var(--bad); }
-.ops-rsvp-b[disabled] { opacity: .5; cursor: default; }
-.ops-note { color: var(--muted); font-size: 12px; margin-top: 6px; }
-
 .ops-today { border-left: 4px solid var(--accent); }
 .ops-today .ens-h h2 { font-size: 16.5px; }
 
 /* month grid */
-.ops-month { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px;
+/* seven equal tracks that may shrink: 1fr floors at min-content, so a long
+   event chip used to push the grid wider than its card and get clipped */
+.ops-month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px;
   background: var(--grid); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
 .ops-month .dow { background: var(--surface-2); color: var(--muted); font-size: 11px; font-weight: 800;
   letter-spacing: .5px; text-transform: uppercase; padding: 7px 6px; text-align: center; }
@@ -83,43 +87,6 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .ops-chip.comp { background: rgba(43,138,62,.14); color: var(--good); }
 .ops-more { font-size: 10.5px; color: var(--muted); font-weight: 700; margin-top: 2px; }
 
-/* forms inside the sheet */
-.ops-sheet-body .ctrl, .ops-sheet-body textarea.ctrl { width: 100%; }
-.ops-f { margin-bottom: 11px; }
-.ops-f > label { display: block; font-size: 12px; font-weight: 700; color: var(--muted);
-  text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
-.ops-f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.ops-check { display: flex; align-items: center; gap: 8px; font-size: 14px; margin: 6px 0; }
-.ops-check input { width: 17px; height: 17px; }
-.ops-picks { display: flex; flex-wrap: wrap; gap: 7px; }
-.ops-pick { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border);
-  border-radius: 999px; padding: 6px 11px; font-size: 13px; cursor: pointer; background: var(--surface-1); }
-.ops-pick input { margin: 0; }
-.ops-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-.ops-actions .grow { flex: 1; }
-.ops-danger { color: var(--bad); }
-
-.ops-showrow { display: block; width: 100%; text-align: left; border: 1px solid var(--border);
-  background: var(--surface-1); border-radius: 11px; padding: 10px 12px; margin-bottom: 7px;
-  font: inherit; cursor: pointer; }
-.ops-showrow:hover { background: var(--surface-2); }
-.ops-showrow b { display: block; font-size: 14px; }
-.ops-showrow span { color: var(--muted); font-size: 12.5px; }
-
-.ops-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 84px; z-index: 300;
-  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13.5px;
-  font-weight: 650; box-shadow: 0 8px 24px rgba(10,25,50,.3); transition: opacity .4s; }
-.ops-toast.bad { background: var(--bad); }
-.ops-toast.out { opacity: 0; }
-@media (min-width: 800px) { .ops-toast { bottom: 24px; } }
-
-.ops-result { border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface-2); }
-.ops-result-head { display: flex; align-items: center; gap: 14px; }
-.ops-place { font-size: 26px; font-weight: 800; color: var(--accent-ink); }
-.ops-result-head b { font-size: 22px; font-weight: 800; color: var(--heading); display: block; line-height: 1.15; }
-.ops-result-head span { font-size: 12px; color: var(--muted); font-weight: 600; }
-.ops-mini { margin-top: 10px; gap: 14px; }
-.ops-mini div b { font-size: 15px; }
 </style>
 </head>
 <body class="ens">
@@ -238,8 +205,10 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         (canCreate() ? " Add the first rehearsal — everything else hangs off the calendar." : "") +
         "</div></div>";
     }
-    return section("Upcoming", upcoming, "", false) +
-      section("Past", past.slice(0, 60), past.length > 60 ? "showing 60 most recent" : "", true);
+    return '<div class="ops-list">' +
+      section("Upcoming", upcoming, "", false) +
+      section("Past", past.slice(0, 60), past.length > 60 ? "showing 60 most recent" : "", true) +
+      "</div>";
   }
 
   function monthHtml() {
@@ -284,9 +253,11 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       (bridge && bridge.linked
         ? " Competitions can be linked to real Cadence shows, so official scores land here automatically."
         : "") + "</p>" +
-      todayCard() +
-      barHtml() +
-      (view === "month" ? monthHtml() : listHtml());
+      '<div class="cal-grid' + (view === "month" ? " cal-wide" : "") + '">' +
+        '<div class="cal-side">' + todayCard() + "</div>" +
+        '<div class="cal-bar">' + barHtml() + "</div>" +
+        '<div class="cal-main">' + (view === "month" ? monthHtml() : listHtml()) + "</div>" +
+      "</div>";
     wire();
   }
 

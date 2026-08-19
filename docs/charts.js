@@ -1,4 +1,4 @@
-/* Corps Central chart helpers — hand-rolled SVG per house dataviz spec:
+/* Cadence chart helpers — hand-rolled SVG per house dataviz spec:
    2px lines, >=8px end markers with 2px surface rings, hairline solid grid,
    crosshair + single tooltip listing every series, legend always for >=2 series. */
 (function () {
@@ -279,16 +279,18 @@
     }
     const numbered = series.length >= 2 && !opts.noLegend;
     const badges = [];
+    const seriesEls = []; // per-series svg nodes so the legend can spotlight one line
     series.forEach((s, si) => {
       const pts = s.points.filter(p => p.y != null).sort((a, b) => a.x - b.x);
       if (!pts.length) return;
       const d = pts.map((p, j) => (j ? "L" : "M") + X(p.x).toFixed(1) + " " + Y(p.y).toFixed(1)).join(" ");
       const attrs = { d, fill: "none", stroke: s.color, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" };
       if (s.dash) attrs["stroke-dasharray"] = s.dash;
-      el("path", attrs, svg);
+      const path = el("path", attrs, svg);
       const last = pts[pts.length - 1];
-      el("circle", { cx: X(last.x), cy: Y(last.y), r: 4, fill: s.color, stroke: CH().halo, "stroke-width": 2 }, svg);
-      if (numbered) badges.push({ x: X(last.x), y: Y(last.y), color: s.color, num: si + 1 });
+      const dot = el("circle", { cx: X(last.x), cy: Y(last.y), r: 4, fill: s.color, stroke: CH().halo, "stroke-width": 2 }, svg);
+      seriesEls[si] = { path, dot, badge: [] };
+      if (numbered) badges.push({ x: X(last.x), y: Y(last.y), color: s.color, num: si + 1, si });
     });
     // numbered chips beside each line's endpoint (de-overlapped vertically)
     if (badges.length) {
@@ -298,10 +300,11 @@
       }
       for (const b of badges) {
         const by = Math.min(Math.max(b.y, m.top + 7), m.top + ih + 4);
-        el("circle", { cx: b.x + 12, cy: by, r: 7.5, fill: b.color, stroke: CH().halo, "stroke-width": 1.5 }, svg);
+        const c = el("circle", { cx: b.x + 12, cy: by, r: 7.5, fill: b.color, stroke: CH().halo, "stroke-width": 1.5 }, svg);
         const t = el("text", { x: b.x + 12, y: by + 3.2, "text-anchor": "middle", fill: "#fff",
                                "font-size": 9.5, "font-weight": 700 }, svg);
         t.textContent = b.num;
+        if (seriesEls[b.si]) seriesEls[b.si].badge = [c, t];
       }
     }
     // hover: snap to nearest x present in any series
@@ -326,9 +329,29 @@
     if (series.length >= 2 && !opts.noLegend) {
       const lg = document.createElement("div");
       lg.className = "legend";
+      // tap a name to spotlight that corps' line (tap again to clear) — with a
+      // dozen lines on the chart, this is how you actually FIND yours
+      let focused = -1;
+      const applyFocus = () => {
+        series.forEach((s, si) => {
+          const e = seriesEls[si];
+          if (!e) return;
+          const dim = focused >= 0 && si !== focused;
+          e.path.setAttribute("opacity", dim ? 0.13 : 1);
+          e.path.setAttribute("stroke-width", si === focused ? 3.5 : 2);
+          e.dot.setAttribute("opacity", dim ? 0.13 : 1);
+          e.badge.forEach(n => n.setAttribute("opacity", dim ? 0.2 : 1));
+        });
+        // the spotlit line rises above the pack (but stays under the crosshair)
+        const f = focused >= 0 && seriesEls[focused];
+        if (f) [f.path, f.dot].concat(f.badge).forEach(n => svg.insertBefore(n, cross));
+        lg.querySelectorAll(".key").forEach((k, si) => k.classList.toggle("focus", si === focused));
+      };
       series.forEach((s, si) => {
         const k = document.createElement("span");
         k.className = "key";
+        k.title = `Highlight ${s.name}'s line`;
+        k.onclick = () => { focused = focused === si ? -1 : si; applyFocus(); };
         const nb = document.createElement("span");
         nb.className = "legend-num";
         nb.style.background = s.color;
@@ -443,11 +466,5 @@
     el("circle", { cx: X(last), cy: Y(values[last]), r: 2.5, fill: color || "#c3c2b7" }, svg);
   }
 
-  // lineColor and fitWidth are exported because app.js draws the ordinal
-  // ratings/placement ladder itself (a closed 1-5 domain cannot share
-  // lineChart's numeric tick chooser). Anything drawing a chart outside this
-  // file still has to lift dark-mode colors off the floor and size its
-  // viewBox from the real container, and reimplementing either is how the
-  // two paths drift apart.
-  window.CCViz = { lineChart, barChart, sparkline, PALETTE, esc, showTip, hideTip, lineColor, fitWidth };
+  window.CCViz = { lineChart, barChart, sparkline, PALETTE, esc, showTip, hideTip };
 })();

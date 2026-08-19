@@ -1,16 +1,29 @@
 /* Cadence Ensemble — operational layer on top of the public app's design
-   system (docs/app.css). Same tokens, cards, buttons and spacing; denser,
-   more workmanlike layouts. Mobile first: the section nav is a bottom bar
-   on phones and a horizontal rail on desktop. */
+   system (docs/app.css). Not a second design system: same tokens, the same
+   .card / .tile surfaces, the same .dsk2 / grid-area primitives, and the
+   same min-width: 700px breakpoint. What lives here is the workspace
+   chrome app.css has no reason to know about (the section rail, the sheets,
+   the bell) and the page grids that arrange workspace screens out of those
+   shared parts.
 
-.ens-top { gap: 12px; }
+   Mobile first is still the floor: every screen works one-handed at 390px,
+   and uses the room it is given at 1280px. */
+
+.ens-top { gap: 12px; min-width: 0; }
 .ens-top .brand span { font-size: 17px; }
+/* app.css switches .topbar to flex-wrap: nowrap at ≤640px (the public bar
+   only carries a brand and a timestamp). The workspace bar carries a
+   workspace name and the bell too, so on a 390px phone the bell hung 7px
+   past the viewport and every workspace page scrolled sideways. Nothing
+   here may refuse to shrink: the name ellipsizes instead. */
+.ens-top .brand { flex: none; }
 .ens-orgpick {
   display: flex; align-items: center; gap: 7px; border: 0; cursor: pointer;
   background: rgba(255,255,255,0.12); color: #fff; font: inherit;
   padding: 7px 13px; border-radius: 10px; max-width: 52vw;
+  min-width: 0; flex: 0 1 auto;
 }
-.ens-orgpick b { font-weight: 700; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ens-orgpick b { font-weight: 700; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .ens-orgpick:hover { background: rgba(255,255,255,0.2); }
 .ens-caret { font-size: 10px; opacity: .8; }
 .ens-topline { margin-left: auto; color: rgba(255,255,255,0.72); font-size: 12.5px; font-weight: 600; }
@@ -96,21 +109,65 @@ body.ens { padding-bottom: 0; }
 .ens-sheet-row.on { background: var(--accent-wash); }
 .ens-sheet-row span { color: var(--muted); font-size: 12.5px; }
 
+/* ── workspace page layout ────────────────────────────────────────────
+   Everything below is built out of app.css's primitives — .dsk2 for a
+   pair of cards, .dsk2.w75 for a wide primary beside a rail, and named
+   grid areas the way #corpsDetail arranges a corps profile. The rule
+   app.css states for .dsk2/.rk-grid applies to every grid here too: the
+   tracks carry min-width: 0, so a wide table or a long unbroken word
+   scrolls inside its card instead of stretching the page.
+
+   The one shape app.css has no primitive for is a long list of ROWS
+   inside a single card — a 60-name roster, a shows list, an audit log.
+   .dsk2 and #evlist both split cards; nothing splits rows. .ens-cols2 is
+   that missing primitive and nothing more: two columns of rows at ≥700px,
+   one column below it. */
+.ens-cols2 { display: grid; gap: 0 24px; }
+.ens-cols2 > * { min-width: 0; }
+/* a pair that only had one card to show spans the row rather than sitting
+   in the left half with a hole beside it */
+.dsk2 > :only-child { grid-column: 1 / -1; }
+/* cards in a dashboard grid are as tall as they need to be, not as tall as
+   the tallest card in their row */
+.ens-grid { display: grid; gap: 14px; align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.ens-grid > * { min-width: 0; }
+.ens-grid > .span2 { grid-column: 1 / -1; }
+.dsk2 > .span2 { grid-column: 1 / -1; }
+@media (min-width: 700px) {
+  .ens-cols2 { grid-template-columns: 1fr 1fr; }
+  /* a two-column row list starts each column cleanly */
+  .ens-cols2 > .ens-item:nth-child(2) { border-top: 0; }
+}
+
 /* dashboard blocks */
-.ens-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .ens-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 10px; }
-.ens-h h2 { margin: 0; }
+.ens-h h2 { margin: 0; min-width: 0; }
+/* the workspace picker on /ensemble/ — a card that is a link, so it gets the
+   same lift as any other tappable surface instead of inline styles */
+.ens-orgcard { display: block; text-decoration: none; color: inherit; }
+.ens-orgcard:hover { text-decoration: none; border-color: var(--baseline); background: var(--surface-2); }
+/* a second-level heading inside a workspace page, below h1.page */
+.ens-subhead { font-size: 18px; font-weight: 800; letter-spacing: -0.1px;
+  color: var(--heading); margin: 26px 0 10px; }
+.ens-foot { color: var(--muted); font-size: 12.5px; margin-top: 18px; }
 .ens-h a { font-size: 12.5px; font-weight: 650; }
 .ens-item {
   display: flex; gap: 11px; align-items: flex-start;
   padding: 11px 0; border-top: 1px solid var(--grid); font-size: 14px;
 }
 .ens-item:first-of-type { border-top: 0; }
-.ens-item .ens-when { flex: none; width: 62px; color: var(--muted); font-size: 12px; font-weight: 700; }
-.ens-item .ens-sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+/* 62px fits a time and most dates; a priority tag or "Wed, Aug 19" needs
+   more, and a fixed width made it overhang the title beside it */
+.ens-item .ens-when { flex: none; min-width: 62px; color: var(--muted); font-size: 12px; font-weight: 700; }
+.ens-item > :not(.ens-when) { min-width: 0; }
+/* the sub line is a <span> on most screens — without this it runs on
+   directly after the title instead of sitting under it */
+.ens-item .ens-sub { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
 .ens-tag {
   display: inline-block; border-radius: 6px; padding: 2px 7px;
   font-size: 10.5px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase;
+  white-space: nowrap;   /* "CADENCE ENSEMBLE PRO" is a label, not a paragraph */
 }
 .ens-tag.urgent { background: rgba(201,42,42,.12); color: var(--bad); }
 .ens-tag.important { background: var(--accent-wash); color: var(--accent-ink); }
@@ -122,15 +179,210 @@ body.ens { padding-bottom: 0; }
 .ens-stat div span { font-size: 12px; color: var(--muted); font-weight: 600; }
 .ens-locked { opacity: .6; }
 .ens-lock-note { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+/* "← back to the list" above a detail view (forms.html). Was used and never
+   defined anywhere, so it rendered as an ordinary link. */
+.ens-back { display: inline-block; font-size: 13px; font-weight: 650; margin-bottom: 6px; }
+
+/* ═══ shared workspace surfaces ═══════════════════════════════════════
+   These classes are rendered by more than one screen — ops.js's event card
+   on both calendar.html and event.html, people.js's rows on members.html
+   and admin.html, the preview sheet on files.html and music.html, .ppl-*
+   actions on billing.html. Each one used to live in whichever page's
+   <style> block happened to define it first, so the same markup rendered
+   styled on one screen and bare on another. They belong to the layer, not
+   to a page. */
+
+/* event cards (ops.js eventCard) — calendar.html, event.html */
+.ops-card { display: flex; gap: 12px; align-items: flex-start; background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 13px; padding: 12px; margin-bottom: 9px; }
+.ops-card.past { opacity: .72; }
+.ops-card-when { flex: none; width: 46px; text-align: center; line-height: 1.1; }
+.ops-card-when b { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: .5px;
+  text-transform: uppercase; color: var(--accent-ink); }
+.ops-card-when i { display: block; font-style: normal; font-size: 22px; font-weight: 800; color: var(--heading); }
+.ops-card-when span { display: block; font-size: 10.5px; color: var(--muted); font-weight: 700; }
+.ops-card-body { min-width: 0; flex: 1; }
+.ops-card-title { display: block; font-size: 15.5px; font-weight: 700; color: var(--text-primary); }
+.ops-card-title:hover { color: var(--link); text-decoration: none; }
+.ops-card-meta { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.ops-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.ops-card-tags:empty { display: none; }
+
+/* RSVP control (ops.js rsvpControl) — calendar.html, event.html */
+.ops-rsvp { display: inline-flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
+.ops-rsvp-b { border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+  font: inherit; font-size: 13px; font-weight: 650; padding: 7px 14px; border-radius: 999px; cursor: pointer; }
+.ops-rsvp-b:hover { background: var(--surface-2); }
+.ops-rsvp-b.on { border-color: transparent; color: #fff; }
+.ops-rsvp-b.on.yes { background: var(--good); }
+.ops-rsvp-b.on.maybe { background: var(--accent); }
+.ops-rsvp-b.on.no { background: var(--bad); }
+.ops-rsvp-b[disabled] { opacity: .5; cursor: default; }
+.ops-note { color: var(--muted); font-size: 12px; margin-top: 6px; }
+
+/* competition result block (ops.js) — calendar.html, event.html */
+.ops-result { border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface-2); }
+.ops-result-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.ops-place { font-size: 26px; font-weight: 800; color: var(--accent-ink); }
+.ops-result-head b { font-size: 22px; font-weight: 800; color: var(--heading); display: block; line-height: 1.15; }
+.ops-result-head span { font-size: 12px; color: var(--muted); font-weight: 600; }
+.ops-mini { margin-top: 10px; gap: 14px; }
+.ops-mini div b { font-size: 15px; }
+
+/* the event/day sheet's form furniture (ops.js eventForm) */
+.ops-sheet-body .ctrl, .ops-sheet-body textarea.ctrl { width: 100%; }
+.ops-f { margin-bottom: 11px; }
+.ops-f > label { display: block; font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+.ops-f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ops-f2 > * { min-width: 0; }
+.ops-check { display: flex; align-items: center; gap: 8px; font-size: 14px; margin: 6px 0; }
+.ops-check input { width: 17px; height: 17px; }
+.ops-picks { display: flex; flex-wrap: wrap; gap: 7px; }
+.ops-pick { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px 11px; font-size: 13px; cursor: pointer; background: var(--surface-1); }
+.ops-pick input { margin: 0; }
+.ops-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.ops-actions .grow { flex: 1; }
+.ops-danger { color: var(--bad); }
+.ops-showrow { display: block; width: 100%; text-align: left; border: 1px solid var(--border);
+  background: var(--surface-1); border-radius: 11px; padding: 10px 12px; margin-bottom: 7px;
+  font: inherit; cursor: pointer; }
+.ops-showrow:hover { background: var(--surface-2); }
+.ops-showrow b { display: block; font-size: 14px; }
+.ops-showrow span { color: var(--muted); font-size: 12.5px; }
+
+/* toast (ops.js, people.js) — sits above the phone dock, and above nothing
+   in particular once the rail moves back to the top */
+.ops-toast, .ppl-toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 84px; z-index: 300;
+  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13.5px;
+  font-weight: 650; box-shadow: 0 8px 24px rgba(10,25,50,.3); transition: opacity .4s; }
+.ops-toast.bad, .ppl-toast.bad { background: var(--bad); }
+.ops-toast.out { opacity: 0; }
+@media (min-width: 700px) { .ops-toast, .ppl-toast { bottom: 24px; } }
+
+/* people rows + the member drawer (people.js) — members.html, admin.html */
+.ppl-list { display: grid; gap: 2px; }
+.ppl-list > * { min-width: 0; }
+.ppl-row {
+  display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
+  background: none; border: 0; font: inherit; cursor: pointer; color: var(--text-primary);
+  padding: 9px 10px; border-radius: 11px; min-width: 0;
+}
+.ppl-row:hover { background: var(--surface-2); }
+.ppl-av {
+  flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent-wash); color: var(--accent-ink); font-size: 12.5px; font-weight: 800;
+}
+.ppl-main { flex: 1; min-width: 0; }
+.ppl-main b { display: block; font-size: 14.5px; font-weight: 650;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ppl-sub { display: block; color: var(--muted); font-size: 12.5px; margin-top: 1px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the tag column shrinks and wraps: a leadership title used to push the
+   whole roster past the right edge of a phone */
+.ppl-tags { flex: 0 1 auto; min-width: 0; display: flex; gap: 5px; align-items: center;
+  flex-wrap: wrap; justify-content: flex-end; }
+.ppl-tree-row { display: flex; align-items: center; gap: 8px; padding: 7px 6px; border-radius: 9px;
+  flex-wrap: wrap; }
+.ppl-tree-row:hover { background: var(--surface-2); }
+.ppl-tree-row b { font-size: 14px; font-weight: 650; }
+.ppl-tree-row .ppl-sub { display: inline; }
+.ppl-drawer { position: fixed; inset: 0; z-index: 210; background: rgba(10,25,50,.45);
+  display: flex; align-items: flex-end; justify-content: center; }
+.ppl-drawer-in { position: relative; background: var(--surface-1); width: 100%; max-width: 620px;
+  border-radius: 16px 16px 0 0; padding: 20px; max-height: 88vh; overflow: auto; }
+@media (min-width: 700px) { .ppl-drawer { align-items: center; } .ppl-drawer-in { border-radius: 16px; } }
+.ppl-x { position: absolute; top: 10px; right: 12px; border: 0; background: none; cursor: pointer;
+  font-size: 25px; line-height: 1; color: var(--muted); padding: 4px 8px; }
+.ppl-drawer-in h3 { margin: 0 0 4px; font-size: 19px; color: var(--heading); }
+.ppl-drawer-in h4 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--muted); }
+.ppl-field { display: block; margin: 0 0 10px; }
+.ppl-field > span { display: block; font-size: 12.5px; font-weight: 650; color: var(--muted); margin-bottom: 4px; }
+.ppl-field .ctrl, .ppl-field textarea.ctrl { width: 100%; box-sizing: border-box; min-width: 0; }
+.ppl-2 { display: grid; gap: 0 12px; }
+.ppl-2 > * { min-width: 0; }
+@media (min-width: 520px) { .ppl-2 { grid-template-columns: 1fr 1fr; } }
+.ppl-kv { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 6px 12px; font-size: 14px; }
+.ppl-kv dt { color: var(--muted); font-size: 12.5px; font-weight: 650; }
+.ppl-kv dd { margin: 0; overflow-wrap: anywhere; }
+.ppl-chiprow { display: flex; flex-wrap: wrap; gap: 6px; }
+.ppl-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; font-size: 12.5px; }
+.ppl-chip button { border: 0; background: none; cursor: pointer; color: var(--muted); font-size: 15px; line-height: 1; padding: 0; }
+.ppl-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+.ppl-perms { border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; margin: 0 0 10px; }
+.ppl-perms legend { font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .5px; color: var(--muted); padding: 0 4px; }
+.ppl-perm { display: flex; gap: 9px; align-items: flex-start; padding: 5px 0; font-size: 13.5px; }
+.ppl-perm.implied { opacity: .55; }
+.ppl-perm code { font-family: var(--mono); font-size: 12px; }
+.ppl-perm-d { display: block; color: var(--muted); font-size: 12px; }
+.ppl-code { font-family: var(--mono); font-size: 13px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 8px; padding: 4px 8px; word-break: break-all; }
+.ppl-warn { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+.ppl-pane { display: none; }
+.ppl-pane.on { display: block; }
+
+/* library chips + the preview sheet (files.js) — files.html, music.html */
+.fl-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.fl-chip { border: 1px solid var(--baseline); background: var(--surface-1); color: var(--text-secondary);
+  border-radius: 999px; padding: 5px 12px; font-size: 12.5px; font-family: inherit; cursor: pointer;
+  font-weight: 650; text-decoration: none; }
+.fl-chip:hover { background: var(--surface-2); color: var(--text-primary); text-decoration: none; }
+.fl-chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.fl-tag { display: inline-block; background: var(--surface-2); color: var(--muted); border-radius: 5px;
+  padding: 1px 6px; font-size: 10.5px; font-weight: 700; margin-left: 4px; }
+.fl-meta { color: var(--muted); font-size: 12px; }
+.fl-star { font-size: 14px; line-height: 1; }
+.fl-modal { position: fixed; inset: 0; z-index: 220; background: rgba(10,25,50,.55);
+  display: flex; align-items: center; justify-content: center; padding: 12px; }
+.fl-modal-in { background: var(--surface-1); border-radius: 14px; width: 100%; max-width: 940px;
+  max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
+.fl-modal-top, .fl-modal-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 14px; border-bottom: 1px solid var(--border); }
+.fl-modal-foot { border-bottom: 0; border-top: 1px solid var(--border); }
+.fl-modal-top b { font-size: 15px; color: var(--heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fl-modal-body { padding: 12px 14px; overflow: auto; flex: 1 1 auto; }
+.fl-view { width: 100%; height: 72vh; border: 0; border-radius: 8px; background: var(--surface-2); display: block; }
+.fl-img { height: auto; max-height: 72vh; object-fit: contain; }
+.fl-audio { width: 100%; }
+.fl-form { display: grid; gap: 9px; }
+.fl-form .ctrl { width: 100%; }
+.fl-form label { font-size: 12px; font-weight: 700; color: var(--muted); }
+@media (max-width: 640px) { .fl-view { height: 60vh; } }
+
+/* app.css styles .subtabs a — the public app navigates between its data
+   sections. The workspace's sub-tabs switch a pane in place, so they are
+   <button class="tab">, and without this they rendered as pills inside a
+   strip built for underline tabs. Same strip, same gold underline, same
+   product. */
+.subtabs .tab {
+  flex: 0 0 auto; margin-bottom: -1px; white-space: nowrap;
+  padding: 9px 14px 10px; font-size: 15px; font-weight: 600;
+  color: var(--text-secondary); background: none; cursor: pointer;
+  border: 0; border-bottom: 2px solid transparent; border-radius: 0;
+}
+.subtabs .tab:hover { color: var(--text-primary); background: none; }
+.subtabs .tab.on { color: var(--link); border-bottom-color: var(--gold); font-weight: 700; background: none; }
+@media (max-width: 640px) { .subtabs .tab { padding: 9px 12px 10px; font-size: 14px; } }
 
 /* ── Cadence Drill ─────────────────────────────────────────────────────
    The designer is a real tool: toolbar up top, sets rail on the left,
    the field in the middle, inspector on the right. On phones the rails
    collapse into sheets so the field keeps the room. */
-.drill-app { display: grid; grid-template-rows: auto 1fr auto; height: 100%; min-height: 420px; }
+.drill-app { display: grid; grid-template-rows: auto 1fr auto; height: 100%; min-height: 420px; min-width: 0; }
+/* grid tracks floor at their items' min-content, and the toolbar's is wider
+   than a phone — the same rule app.css states for .dsk2 and .rk-grid */
+.drill-app > * { min-width: 0; }
 body.ens.drill-full { overflow: hidden; display: flex; flex-direction: column; height: 100dvh; }
 body.ens.drill-full #ensShell { flex: none; }
-body.ens.drill-full main { flex: 1; min-height: 0; max-width: none; padding: 0 !important; margin: 0; }
+/* min-width: 0 all the way down. Without it the flex item floors at the
+   toolbar's max-content width (523px), so on a 390px phone the designer was
+   a 523px page inside an overflow:hidden body — the right third of the
+   toolbar and the field were cut off with no way to scroll to them. */
+body.ens.drill-full main { flex: 1; min-height: 0; min-width: 0; max-width: none; padding: 0 !important; margin: 0; }
 .drill-bar {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   padding: 8px 12px; background: var(--surface-1); border-bottom: 1px solid var(--border);
@@ -177,16 +429,19 @@ body.ens.drill-full main { flex: 1; min-height: 0; max-width: none; padding: 0 !
 .dset b { display: block; font-size: 13px; font-weight: 700; }
 .dset span { display: block; font-size: 11px; color: var(--muted); }
 .drill-insp h3 { margin: 0 0 8px; font-size: 12px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); }
-.drill-insp .row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-.drill-insp .row label { font-size: 12.5px; color: var(--text-secondary); font-weight: 650; flex: 1; }
+/* label beside its control, and under it when the control wants the full
+   width (.wide) — the label used to be squeezed out of the row entirely */
+.drill-insp .row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.drill-insp .row label { font-size: 12.5px; color: var(--text-secondary); font-weight: 650; flex: 1 1 auto; }
 .drill-insp .row .ctrl { width: 90px; padding: 5px 8px; font-size: 13px; }
 .drill-insp .wide { width: 100% !important; }
 .drill-insp .hint { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin: 4px 0 10px; }
 .drill-play {
   display: flex; align-items: center; gap: 10px; padding: 8px 12px;
   background: var(--surface-1); border-top: 1px solid var(--border);
+  flex-wrap: wrap;   /* the transport is wider than a phone in one row */
 }
-.drill-play input[type=range] { flex: 1; }
+.drill-play input[type=range] { flex: 1 1 140px; min-width: 0; }
 .drill-count { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--heading); font-size: 13px; min-width: 84px; text-align: center; }
 @media (max-width: 900px) {
   .drill-main { grid-template-columns: 168px 1fr; }
@@ -205,9 +460,12 @@ body.ens.drill-full main { flex: 1; min-height: 0; max-width: none; padding: 0 !
   }
 }
 
-/* viewer + dot book */
-.dv-wrap { display: grid; gap: 14px; grid-template-columns: 1fr 320px; align-items: start; }
-@media (max-width: 900px) { .dv-wrap { grid-template-columns: 1fr; } }
+/* viewer + dot book — mobile first like every other workspace screen: the
+   field, then the set card under it, side by side once there is room */
+.dv-wrap { display: grid; gap: 14px; align-items: start; }
+.dv-wrap > * { min-width: 0; }
+@media (min-width: 700px) { .dv-wrap { grid-template-columns: minmax(0, 1fr) 300px; } }
+@media (min-width: 1000px) { .dv-wrap { grid-template-columns: minmax(0, 1fr) 320px; } }
 .dv-stage { position: relative; aspect-ratio: 2 / 1; min-height: 260px; border-radius: 14px; overflow: hidden; }
 .dv-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
 .dv-card .big { font-size: 16px; font-weight: 750; color: var(--heading); line-height: 1.45; }
@@ -238,3 +496,16 @@ body.ens.drill-full main { flex: 1; min-height: 0; max-width: none; padding: 0 !
 .ens-flash { animation: ens-flash-kf 1.8s ease-out; }
 tr.ens-flash > td { background: var(--accent-wash); transition: background 1.8s ease-out; }
 @media (prefers-reduced-motion: reduce) { .ens-flash { animation: none; } }
+
+/* ===== account form + status line =====
+   These lived in docs/app.css until the DCI-Tracker design swap, which
+   dropped them; every workspace page renders them (the signed-out gate in
+   core.js, the event editor in ops.js, the comment box in comms.js and the
+   sign-in forms in admin/billing/event/files/forms/index/members/messages/
+   music.html). Restored verbatim from the pre-swap app.css. */
+.acct-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.acct-form .ctrl { flex: 1 1 220px; }
+.acct-form .tab { font-weight: 700; }
+.acct-msg { margin: 10px 0 0; font-size: 13.5px; font-weight: 600; display: none; }
+.acct-msg.ok { display: block; color: var(--good); }
+.acct-msg.err { display: block; color: var(--bad); }

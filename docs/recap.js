@@ -2,9 +2,8 @@
    A self-contained module that turns the season data into a "what happened
    today" recap for any show day: every show's results plus fun facts (top
    score, biggest movers, new season highs, who passed whom in the standings,
-   closest finish). It auto-pops the latest show day's recap the same night once
-   scores are in, and a calendar button opens a searchable browser of every show
-   day, every season.
+   closest finish). It auto-pops the shows you missed, the same night once
+   scores are in.
 
    Namespaced (.rc-* / cad-rc-* localStorage / window.CadRecap) and reuses the
    app's CSS variables, so it follows the viewer's light/dark (and corps) theme.
@@ -14,6 +13,7 @@
 
   var TZ = "America/New_York";      // scores + show days are Eastern
   var SCORES_IN_HOUR = 22;          // "same night once scores are in": ET hour after which today's show day is eligible to auto-pop (10pm)
+  var RECAP_RECENT_DAYS = 10;       // only auto-pop shows from the last ~week and a half
   var DATA = "data/";
 
   // ---- date helpers ----------------------------------------------------------
@@ -41,23 +41,16 @@
   function lget(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lset(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-  function reduceMotion() { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } }
   function fmt(n) { return n == null ? "—" : (Math.round(n * 1000) / 1000).toFixed(3); }
   function signed(n) { return (n > 0 ? "+" : "") + (Math.round(n * 1000) / 1000).toFixed(3); }
 
   // ---- data ------------------------------------------------------------------
-  var yearCache = {}, metaP = null;
+  var yearCache = {};
   function loadYear(year) {
     if (yearCache[year]) return yearCache[year];
     return (yearCache[year] = fetch(DATA + "seasons/" + year + ".json?cb=" + Date.now(), { headers: { "cache-control": "no-cache" } })
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
       .catch(function () { yearCache[year] = null; return null; }));
-  }
-  function loadYears() {
-    return metaP || (metaP = fetch(DATA + "meta.json?cb=" + Date.now(), { headers: { "cache-control": "no-cache" } })
-      .then(function (r) { return r.json(); })
-      .then(function (m) { return ((m && m.seasons) || []).map(function (s) { return s.year; }).filter(Boolean).sort(function (a, b) { return b - a; }); })
-      .catch(function () { return []; }));
   }
 
   // ---- recap computation -----------------------------------------------------
@@ -233,18 +226,7 @@
   function injectStyles() {
     if (document.getElementById("rc-style")) return;
     var css = [
-      ".rc-overlay{position:fixed;inset:0;z-index:2900;display:flex;align-items:center;justify-content:center;padding:16px;}",
-      ".rc-backdrop{position:absolute;inset:0;background:rgba(8,20,38,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}",
-      ".rc-card{position:relative;z-index:3;width:100%;max-width:460px;max-height:92vh;display:flex;flex-direction:column;background:var(--surface-1);color:var(--text-primary);border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 70px rgba(8,20,38,.5);overflow:hidden;animation:rc-pop .3s cubic-bezier(.2,.9,.3,1.2) both;}",
       "@keyframes rc-pop{from{opacity:0;transform:translateY(12px) scale(.97);}to{opacity:1;transform:none;}}",
-      "@media (prefers-reduced-motion: reduce){.rc-card{animation:none;}}",
-      ".rc-head{position:relative;background:var(--navy);color:#fff;padding:20px 20px 16px;}",
-      ".rc-x{position:absolute;top:10px;right:10px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;}",
-      ".rc-x:hover{background:rgba(255,255,255,.26);}",
-      ".rc-eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}",
-      ".rc-title{font-size:23px;line-height:1.1;font-weight:900;letter-spacing:-.4px;margin:6px 40px 0 0;color:#fff;}",
-      ".rc-sub{font-size:12.5px;color:rgba(255,255,255,.8);margin-top:4px;}",
-      ".rc-body{padding:16px 18px 18px;overflow-y:auto;-webkit-overflow-scrolling:touch;}",
       ".rc-sech{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:14px 2px 8px;}",
       ".rc-facts{display:flex;flex-direction:column;gap:8px;}",
       ".rc-fact{display:flex;gap:11px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:11px 13px;}",
@@ -255,9 +237,6 @@
       ".rc-ft .rc-up{color:var(--good);font-weight:800;}",
       ".rc-ftk{font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}",
       ".rc-show{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:10px;}",
-      ".rc-showh{background:var(--surface-2);padding:10px 13px;}",
-      ".rc-showh b{font-size:14px;font-weight:800;color:var(--text-primary);}",
-      ".rc-showh span{display:block;font-size:12px;color:var(--muted);margin-top:1px;}",
       ".rc-clsh{font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);padding:8px 13px 2px;}",
       ".rc-row{display:flex;align-items:center;gap:10px;padding:6px 13px;font-size:13.5px;}",
       ".rc-row+.rc-row{border-top:1px solid var(--border);}",
@@ -265,14 +244,7 @@
       ".rc-cn{flex:1;color:var(--text-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}",
       ".rc-sc{flex:0 0 auto;font-weight:800;font-variant-numeric:tabular-nums;color:var(--text-primary);}",
       ".rc-dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;}",
-      ".rc-btn{display:block;width:100%;border:0;border-radius:999px;padding:13px 18px;font:inherit;font-size:15px;font-weight:800;cursor:pointer;background:var(--gold);color:#16233d;margin-top:16px;}",
-      ".rc-btn:hover{filter:brightness(1.04);}",
-      ".rc-btn.rc-ghost{background:var(--surface-2);color:var(--text-primary);border:1px solid var(--border);}",
-      ".rc-btn.rc-ghost:hover{filter:none;border-color:var(--muted);}",
-      ".rc-morelink{font-size:12.5px;color:var(--link);text-decoration:none;display:inline-block;margin:6px 2px 0;}",
       // narrative lead + top-3 podium
-      ".rc-lead{font-size:14.5px;line-height:1.5;color:var(--text-primary);margin:2px 2px 4px;}",
-      ".rc-lead b{font-weight:800;}",
       ".rc-podium{display:flex;flex-direction:column;gap:8px;margin:2px 0 2px;}",
       ".rc-pod{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:13px;background:var(--surface-2);border:1px solid var(--border);border-left:5px solid var(--rc-accent,var(--gold));}",
       ".rc-pod.first{padding:15px 14px;box-shadow:0 3px 14px rgba(8,20,38,.1);}",
@@ -281,61 +253,12 @@
       ".rc-pod-main{flex:1;min-width:0;}",
       ".rc-pod-corps{font-weight:800;font-size:14.5px;color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}",
       ".rc-pod.first .rc-pod-corps{font-size:18px;}",
-      ".rc-pod-ev{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px;}",
       ".rc-pod-score{flex:0 0 auto;font-weight:900;font-variant-numeric:tabular-nums;font-size:18px;color:var(--text-primary);}",
       ".rc-pod.first .rc-pod-score{font-size:25px;}",
       ".rc-medcol{flex:0 0 22px;text-align:center;font-variant-numeric:tabular-nums;}",
-      // browser
-      ".rc-tools{display:flex;gap:8px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--surface-1);flex-wrap:wrap;}",
-      ".rc-tools input,.rc-tools select{font:inherit;font-size:13px;padding:8px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-primary);}",
-      ".rc-tools input{flex:1;min-width:120px;}",
-      ".rc-histbtn{font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;border:1px solid var(--gold);background:var(--accent-wash);color:var(--accent-ink);border-radius:9px;padding:8px 12px;flex:1 0 100%;}",
-      ".rc-histbtn:hover{background:var(--gold);color:#16233d;}",
-      // ---- season calendar ----
-      ".rc-cal{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 14px 16px;}",
-      ".rc-month{margin-top:16px;}",
-      ".rc-month:first-child{margin-top:8px;}",
-      ".rc-month-h{font-size:15px;font-weight:800;color:var(--text-primary);margin:0 2px 8px;}",
-      ".rc-wd{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:5px;}",
-      ".rc-wd span{text-align:center;font-size:10.5px;font-weight:800;color:var(--muted);letter-spacing:.4px;}",
-      ".rc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}",
-      ".rc-cell{min-height:44px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:2px;}",
-      ".rc-cell.pad{visibility:hidden;}",
-      ".rc-cell .rc-cd{font-size:13px;font-weight:600;color:var(--text-secondary);}",
-      ".rc-cell .rc-cd.off{color:var(--muted);opacity:.5;}",
-      ".rc-cell.has{background:var(--surface-2);border:1px solid var(--border);cursor:pointer;transition:transform .12s ease,border-color .12s ease;}",
-      ".rc-cell.has:hover{border-color:var(--muted);transform:translateY(-1px);}",
-      ".rc-cell.has .rc-cd{color:var(--text-primary);font-weight:800;}",
-      ".rc-cell .rc-cdot{width:6px;height:6px;border-radius:50%;margin-top:4px;background:var(--muted);}",
-      ".rc-cell.wc{border-color:rgba(240,180,41,.5);}",
-      ".rc-cell.wc .rc-cdot{background:#f0b429;}",
-      ".rc-cell.oc{border-color:rgba(77,171,247,.5);}",
-      ".rc-cell.oc .rc-cdot{background:#4dabf7;}",
-      ".rc-cell.aa{border-color:rgba(34,184,207,.5);}",
-      ".rc-cell.aa .rc-cdot{background:#22b8cf;}",
-      ".rc-cell.dim{opacity:.26;}",
-      ".rc-cx{position:absolute;top:2px;right:4px;font-size:9.5px;font-weight:800;color:var(--muted);}",
-      ".rc-list{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 12px 14px;}",
-      ".rc-day{width:100%;text-align:left;display:flex;align-items:center;gap:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:11px 13px;margin-top:8px;cursor:pointer;font:inherit;color:var(--text-primary);}",
-      ".rc-day:hover{border-color:var(--muted);}",
-      ".rc-day .rc-dd{flex:1;min-width:0;}",
-      ".rc-day .rc-dt{font-size:14px;font-weight:800;}",
-      ".rc-day .rc-dm{font-size:12px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}",
-      ".rc-day .rc-dc{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}",
-      ".rc-dtags{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex:0 0 auto;}",
       ".rc-sechcls{color:var(--gold);}",
       // class badge — color-codes each day (World Class = gold) and marks the tier
-      ".rc-clspill{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 7px;border-radius:6px;white-space:nowrap;}",
-      ".rc-clspill.wc{background:rgba(240,180,41,.18);color:#f0b429;border:1px solid rgba(240,180,41,.45);}",
-      ".rc-clspill.oc{background:rgba(25,113,194,.16);color:#4dabf7;border:1px solid rgba(25,113,194,.4);}",
-      ".rc-clspill.aa{background:rgba(12,133,153,.16);color:#22b8cf;border:1px solid rgba(12,133,153,.4);}",
-      ".rc-clspill.other{background:var(--surface-2);color:var(--muted);border:1px solid var(--border);}",
-      ".rc-empty{color:var(--muted);text-align:center;padding:30px 16px;font-size:14px;}",
-      ".rc-back{background:none;border:0;color:var(--gold);font:inherit;font-size:13px;font-weight:800;cursor:pointer;padding:0;margin-bottom:2px;display:inline-flex;align-items:center;gap:4px;}",
       // top-bar button
-      "#rc-topbtn{display:inline-flex;align-items:center;justify-content:center;background:var(--surface-2);color:var(--text-primary);cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:6px;line-height:0;order:2;}",
-      "#rc-topbtn:hover{border-color:var(--muted);}",
-      "#rc-topbtn svg{width:20px;height:20px;display:block;}",
       // ---- rich per-show recap popup (a full in-app view) ----
       ".sr-overlay{position:fixed;inset:0;z-index:3600;display:flex;align-items:center;justify-content:center;padding:16px;}",
       ".sr-backdrop{position:absolute;inset:0;background:rgba(6,10,18,.66);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);}",
@@ -359,7 +282,6 @@
       ".sr-sub{font-size:12.5px;color:rgba(255,255,255,.8);margin-top:5px;}",
       // scroll body
       ".sr-body{padding:14px 16px 8px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;}",
-      ".sr-cls{margin-bottom:12px;border:1px solid var(--border);border-radius:12px;overflow:hidden;}",
       // podium + facts reuse the rc-* look; leaderboard rows compact
       ".rc-sech{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:14px 2px 8px;}",
       ".rc-sechcls{color:var(--gold);}",
@@ -384,6 +306,7 @@
       ".rc-clsh{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:var(--surface-2);padding:8px 13px;}",
       ".rc-row{display:flex;align-items:center;gap:10px;padding:7px 13px;font-size:13.5px;}",
       ".rc-row+.rc-row{border-top:1px solid var(--border);}",
+      ".rc-row.rc-fav{background:var(--accent-wash);font-weight:650;}",
       ".rc-pl{flex:0 0 22px;text-align:center;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;}",
       ".rc-medcol{flex:0 0 22px;text-align:center;}",
       ".rc-cn{flex:1;color:var(--text-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}",
@@ -398,6 +321,7 @@
       ".sr-next:hover{border-color:var(--muted);}",
       // caption-winners call-to-action inside the recap body
       ".sr-capcta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin:2px 0 8px;border:1px solid var(--border);background:var(--surface-2);color:var(--text-primary);border-radius:13px;padding:12px 14px;font:inherit;font-size:15px;font-weight:800;cursor:pointer;}",
+      ".sr-capcta svg{width:16px;height:16px;flex:none;color:var(--gold);}",
       ".sr-capcta span{font-weight:600;font-size:12.5px;color:var(--muted);}",
       ".sr-capcta:hover{border-color:var(--gold);}",
       ".sr-capcta:disabled{opacity:.6;cursor:default;}"
@@ -405,38 +329,7 @@
     var st = document.createElement("style"); st.id = "rc-style"; st.textContent = css; document.head.appendChild(st);
   }
 
-  // ---- overlay plumbing ------------------------------------------------------
-  var overlay = null, lastFocus = null;
-  function close() {
-    if (overlay) { overlay.remove(); overlay = null; }
-    document.removeEventListener("keydown", onKey, true);
-    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
-  }
-  function onKey(e) {
-    if (!overlay) return;
-    if (e.key === "Escape") { e.preventDefault(); close(); return; }
-    if (e.key === "Tab") {
-      var f = overlay.querySelectorAll('button, [href], input, select, [tabindex]:not([tabindex="-1"])');
-      if (!f.length) return; var first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  }
-  function shell(innerHtml) {
-    injectStyles();
-    if (overlay) close();
-    lastFocus = document.activeElement;
-    overlay = document.createElement("div");
-    overlay.className = "rc-overlay";
-    overlay.setAttribute("role", "dialog"); overlay.setAttribute("aria-modal", "true"); overlay.setAttribute("aria-label", "Daily recap");
-    overlay.innerHTML = '<div class="rc-backdrop"></div><div class="rc-card">' + innerHtml + "</div>";
-    overlay.querySelector(".rc-backdrop").addEventListener("click", close);
-    document.body.appendChild(overlay);
-    document.addEventListener("keydown", onKey, true);
-    return overlay.querySelector(".rc-card");
-  }
-
-  // ---- marquee podium (used by both the card and the browser list) -----------
+  // ---- marquee podium --------------------------------------------------------
   var CLASS_ORDER = ["World Class", "Open Class", "All-Age", "International"];
   function classRank(c) { var i = CLASS_ORDER.indexOf(c); return i < 0 ? 99 : i; }
   // the podium must NOT mix classes — World Class and All-Age are separate
@@ -499,13 +392,19 @@
     return '<div class="rc-sech">Top of the show' + (top.cls ? ' · <span class="rc-sechcls">' + esc(top.cls) + "</span>" : "") + "</div>" +
       '<div class="rc-podium">' + pods + "</div>";
   }
+  function favSet() {
+    try { return new Set(JSON.parse(localStorage.getItem("cad-favs") || "[]")); }
+    catch (e) { return new Set(); }
+  }
   function leaderboardHtml(recap) {
+    var favs = favSet();
     return recap.classes.map(function (c) {
       var rows = c.results.map(function (r) {
         var pl = r.place >= 1 && r.place <= 3 ? '<span class="rc-medcol">' + MEDALS[r.place - 1] + "</span>" : '<span class="rc-pl">' + (r.place || "") + "</span>";
-        return '<div class="rc-row">' + pl +
+        var fav = favs.has(r.corps);
+        return '<div class="rc-row' + (fav ? " rc-fav" : "") + '">' + pl +
           '<span class="rc-dot" style="background:' + accent(r.corps) + '"></span>' +
-          '<span class="rc-cn">' + esc(r.corps) + '</span><span class="rc-sc">' + fmt(r.score) + "</span></div>";
+          '<span class="rc-cn">' + (fav ? "★ " : "") + esc(r.corps) + '</span><span class="rc-sc">' + fmt(r.score) + "</span></div>";
       }).join("");
       return '<div class="rc-cls"><div class="rc-clsh">' + esc(c.cls) + " · " + c.results.length + " corps</div>" + rows + "</div>";
     }).join("");
@@ -533,7 +432,7 @@
       '<div class="sr-body">' +
         podiumHtml(recap) +
         (+recap.date.slice(0, 4) >= 2013
-          ? '<button class="sr-capcta" type="button">🏆 Caption winners <span>who took GE · Visual · Music →</span></button>' : "") +
+          ? '<button class="sr-capcta" type="button">' + TROPHY_SVG + ' Caption winners <span>who took GE · Visual · Music →</span></button>' : "") +
         (factsHtml(recap.facts) ? '<div class="rc-sech">Highlights</div>' + factsHtml(recap.facts) : "") +
         '<div class="rc-sech">Full results</div>' + leaderboardHtml(recap) +
       "</div>" +
@@ -546,6 +445,7 @@
   // swipeable stack of rich show-recap popups
   var stackList = [], stackIdx = 0, srOverlay = null;
   var SHARE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M8 7l4-4 4 4M4 13v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg>';
+  var TROPHY_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M7 5H4v2a3 3 0 0 0 3 3"/><path d="M17 5h3v2a3 3 0 0 1-3 3"/></svg>';
   function closeStack() {
     if (srOverlay) { srOverlay.remove(); srOverlay = null; }
     document.removeEventListener("keydown", onStackKey, true);
@@ -620,14 +520,6 @@
     recaps = (recaps || []).filter(Boolean);
     if (!recaps.length) return;
     injectStyles();
-    // these popups take priority over Championship Mode: close it cleanly (this
-    // also stops its confetti + cancels its pending reveal) and keep it from
-    // re-popping this session
-    try {
-      if (window.CadChamp && window.CadChamp.close) window.CadChamp.close();
-      else { var cm = document.querySelector(".cm-overlay"); if (cm) cm.remove(); }
-    } catch (e) { var c2 = document.querySelector(".cm-overlay"); if (c2) c2.remove(); }
-    try { sessionStorage.setItem("cad-cm-session", "1"); } catch (e) {}
     if (srOverlay) closeStack();
     stackList = recaps; stackIdx = 0;
     srOverlay = document.createElement("div");
@@ -639,112 +531,8 @@
     document.addEventListener("keydown", onStackKey, true);
     paintStack(false);
   }
-  // one show → its own single-card stack
-  function openRecap(recap) { openStack([recap]); }
 
-  // ---- render: browser -------------------------------------------------------
-  var browseState = { year: null, q: "", cls: "" };
-  function pillFor(cls) {
-    if (/world/i.test(cls)) return { k: "wc", label: "World" };
-    if (/open/i.test(cls)) return { k: "oc", label: "Open" };
-    if (/all.?age/i.test(cls)) return { k: "aa", label: "All-Age" };
-    if (/inter/i.test(cls)) return { k: "other", label: "Intl" };
-    return { k: "other", label: cls };
-  }
-  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
-  var MNAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  // build a per-day index for a season: class set, top score per class, show
-  // count, and searchable text
-  function dayIndex(evs) {
-    var info = {};
-    scoredShowDays(evs).forEach(function (d) { info[d] = { text: "", classes: {}, top: {}, shows: 0 }; });
-    evs.forEach(function (e) {
-      if (!e.date || !info[e.date]) return;
-      var nfo = info[e.date], scored = false, t = (e.name || "") + " " + (e.location || "") + " ";
-      (e.classes || []).forEach(function (c) {
-        if (!(c.results || []).length) return;
-        var cn = c["class"]; nfo.classes[cn] = 1;
-        (c.results || []).forEach(function (r) { t += r.corps + " "; if (r.score != null) { scored = true; if (!nfo.top[cn] || r.score > nfo.top[cn].score) nfo.top[cn] = { corps: r.corps, score: r.score }; } });
-      });
-      if (scored) nfo.shows++;
-      nfo.text += t.toLowerCase();
-    });
-    return info;
-  }
-  function marqueeOf(nfo) { return Object.keys(nfo.classes).sort(function (a, b) { return classRank(a) - classRank(b); })[0]; }
-
-  function openBrowser() {
-    var card = shell(
-      '<div class="rc-head"><button class="rc-x" type="button" aria-label="Close">×</button>' +
-      '<div class="rc-eyebrow">Cadence</div><h2 class="rc-title">Season Calendar</h2>' +
-      '<div class="rc-sub">Tap any highlighted day for its show recaps</div></div>' +
-      '<div class="rc-tools"><select id="rc-year" aria-label="Season"></select>' +
-      '<select id="rc-cls" aria-label="Class"><option value="">All classes</option><option>World Class</option><option>Open Class</option><option>All-Age</option><option>International</option></select>' +
-      '<input id="rc-q" type="search" placeholder="Search corps or show…" autocomplete="off"></div>' +
-      '<div class="rc-cal" id="rc-cal"><p class="rc-empty">Loading…</p></div>');
-    card.querySelector(".rc-x").addEventListener("click", close);
-    var sel = card.querySelector("#rc-year"), clsSel = card.querySelector("#rc-cls"), q = card.querySelector("#rc-q"), cal = card.querySelector("#rc-cal");
-    q.value = browseState.q || ""; clsSel.value = browseState.cls || "";
-    loadYears().then(function (years) {
-      if (!years.length) { cal.innerHTML = '<p class="rc-empty">Couldn’t load seasons.</p>'; return; }
-      if (!browseState.year || years.indexOf(browseState.year) < 0) browseState.year = years[0];
-      sel.innerHTML = years.map(function (y) { return '<option value="' + y + '"' + (y === browseState.year ? " selected" : "") + ">" + y + "</option>"; }).join("");
-      renderCal(cal);
-      sel.addEventListener("change", function () { browseState.year = +sel.value; renderCal(cal); });
-      clsSel.addEventListener("change", function () { browseState.cls = clsSel.value; renderCal(cal); });
-      var t; q.addEventListener("input", function () { clearTimeout(t); browseState.q = q.value; t = setTimeout(function () { renderCal(cal); }, 180); });
-    });
-  }
-  function monthGrid(mk, info, active, filtering) {
-    var parts = mk.split("-"), y = +parts[0], m = +parts[1];
-    var firstWd = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
-    var dim = new Date(Date.UTC(y, m, 0)).getUTCDate();
-    var cells = "";
-    for (var i = 0; i < firstWd; i++) cells += '<span class="rc-cell pad"></span>';
-    for (var day = 1; day <= dim; day++) {
-      var iso = mk + "-" + pad2(day), nfo = info[iso];
-      if (nfo) {
-        var pill = pillFor(marqueeOf(nfo));
-        var dimd = filtering && !active[iso] ? " dim" : "";
-        cells += '<button class="rc-cell has ' + pill.k + dimd + '" type="button" data-d="' + iso + '" title="' + nfo.shows + ' show' + (nfo.shows === 1 ? "" : "s") + '">' +
-          '<span class="rc-cd">' + day + "</span><span class='rc-cdot'></span>" +
-          (nfo.shows > 1 ? '<span class="rc-cx">' + nfo.shows + "</span>" : "") + "</button>";
-      } else {
-        cells += '<span class="rc-cell"><span class="rc-cd off">' + day + "</span></span>";
-      }
-    }
-    return '<div class="rc-month"><div class="rc-month-h">' + MNAMES[m - 1] + " " + y + "</div>" +
-      '<div class="rc-wd"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>' +
-      '<div class="rc-grid">' + cells + "</div></div>";
-  }
-  function renderCal(cal) {
-    cal.innerHTML = '<p class="rc-empty">Loading…</p>';
-    var year = browseState.year, clsFilter = browseState.cls || "", qq = (browseState.q || "").trim().toLowerCase();
-    loadYear(year).then(function (evs) {
-      if (!evs) { cal.innerHTML = '<p class="rc-empty">No data for ' + year + ".</p>"; return; }
-      var info = dayIndex(evs), days = Object.keys(info);
-      if (!days.length) { cal.innerHTML = '<p class="rc-empty">No scored shows for ' + year + ".</p>"; return; }
-      var filtering = !!(qq || clsFilter), active = {}, anyActive = false;
-      days.forEach(function (d) {
-        if (clsFilter && !info[d].classes[clsFilter]) return;
-        if (qq && info[d].text.indexOf(qq) < 0) return;
-        active[d] = 1; anyActive = true;
-      });
-      if (filtering && !anyActive) { cal.innerHTML = '<p class="rc-empty">No show days match.</p>'; return; }
-      // months to show: when filtering, only months with a match; else all
-      var months = {};
-      days.forEach(function (d) { if (!filtering || active[d]) months[d.slice(0, 7)] = 1; });
-      var keys = Object.keys(months).sort().reverse(); // newest month first
-      cal.innerHTML = keys.map(function (mk) { return monthGrid(mk, info, active, filtering); }).join("");
-      Array.prototype.forEach.call(cal.querySelectorAll(".rc-cell.has"), function (b) {
-        b.addEventListener("click", function () {
-          openStack(showsForDay(evs, b.dataset.d).map(function (ev) { return recapForShow(evs, ev); }));
-        });
-      });
-    });
-  }
-
-  // ---- auto-show + button ----------------------------------------------------
+  // ---- auto-show -------------------------------------------------------------
   // The latest show day worth popping: newest scored day this season, but if
   // that day is TODAY it only counts once it's late enough that scores are in.
   function latestEligibleDay(evs) {
@@ -759,7 +547,9 @@
     var today = todayET();
     if (d > today) return false;
     if (d === today && hourET() < SCORES_IN_HOUR) return false;
-    return true;
+    // a recap is a "what you missed this week" moment, not an archive: never
+    // auto-pop a show from months ago (e.g. a first visit in the off-season)
+    return d >= new Date(Date.now() - RECAP_RECENT_DAYS * 864e5).toISOString().slice(0, 10);
   }
   // the individual SHOWS you missed: newest-first, eligible, unseen. Tracked
   // per show (date + event) so each show you haven't caught up on appears once.
@@ -778,43 +568,32 @@
     return out; // newest first
   }
   function maybeAutoShow() {
+    // at most one stack per session…
     try { if (sessionStorage.getItem("cad-rc-session")) return; } catch (e) {}
-    // the auto-popup shows ONCE, ever — after that, recaps live in the calendar
-    if (lget("cad-rc-autoseen")) return;
+    // …and each show recaps exactly once, ever (seenKey below). Together those
+    // mean: you get caught up on shows you haven't seen, and never see the same
+    // recap twice. ("cad-rc-autoseen" used to cap this at one popup for the
+    // life of the install because the season calendar was the permanent home
+    // for recaps; with the calendar gone that flag would retire the feature
+    // after a single use, so it is no longer consulted.)
     var year = +todayET().slice(0, 4);
     loadYear(year).then(function (evs) {
       if (!evs) return;
       var shows = missedShows(evs, 3);              // at most 3, so it's not a wall of popups
       if (!shows.length) return;                    // nothing new to catch up on
       try { sessionStorage.setItem("cad-rc-session", "1"); } catch (e) {}
-      lset("cad-rc-autoseen", "1");                 // don't auto-pop again — calendar only
       shows.forEach(function (ev) { lset(seenKey(ev), "1"); });
       openStack(shows.map(function (ev) { return recapForShow(evs, ev); }));
     });
   }
-  function injectButton() {
-    var bar = document.querySelector("header.topbar");
-    if (!bar || document.getElementById("rc-topbtn")) return;
-    injectStyles();
-    var btn = document.createElement("button");
-    btn.id = "rc-topbtn"; btn.type = "button";
-    btn.title = "Show recaps"; btn.setAttribute("aria-label", "Open show recaps");
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/><path d="M7.5 13.5l2 2 3.5-4"/></svg>';
-    var gear = document.getElementById("settingsBtn");
-    if (gear) bar.insertBefore(btn, gear); else bar.appendChild(btn);
-    btn.addEventListener("click", function () { openBrowser(); });
-  }
 
   function init() {
-    try { injectButton(); } catch (e) {}
-    // recaps take priority over Championship Mode, so show them right away
     setTimeout(function () { try { maybeAutoShow(); } catch (e) {} }, 0);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 
   window.CadRecap = {
-    open: openBrowser,
     show: function (year, date) {
       loadYear(year || +todayET().slice(0, 4)).then(function (evs) {
         if (!evs) return;

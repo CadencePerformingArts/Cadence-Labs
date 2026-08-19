@@ -14,8 +14,10 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="ensemble.css">
 <style>
 /* Messages-local classes. Mobile first: one pane at a time, list ⇄ conversation.
-   From 860px up it becomes two panes side by side. Everything else (colors,
-   buttons, cards, chips) comes from app.css / ensemble.css. */
+   Two panes from 700px — the breakpoint the rest of Cadence turns at, so a
+   phone held sideways and a portrait tablet get the room they have instead
+   of the phone layout. Everything else (colors, buttons, cards, chips) comes
+   from app.css / ensemble.css. */
 /* display: rules below would otherwise beat the `hidden` attribute the
    scripts toggle — this keeps hidden meaning hidden. */
 [hidden] { display: none !important; }
@@ -26,11 +28,12 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 }
 .chatwrap[data-view="list"] .conv { display: none; }
 .chatwrap[data-view="conv"] .chatlist { display: none; }
-@media (min-width: 860px) {
-  .chatwrap { grid-template-columns: 288px 1fr; height: calc(100dvh - 260px); }
+@media (min-width: 700px) {
+  .chatwrap { grid-template-columns: 244px minmax(0, 1fr); height: calc(100dvh - 260px); }
   .chatwrap .conv, .chatwrap .chatlist { display: flex !important; }
   .conv-back { display: none !important; }
 }
+@media (min-width: 1000px) { .chatwrap { grid-template-columns: 300px minmax(0, 1fr); } }
 .chatlist { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--border); }
 .chatlist-top { padding: 10px; border-bottom: 1px solid var(--grid); display: flex; gap: 6px; flex-wrap: wrap; }
 .chatlist-scroll { overflow: auto; flex: 1; padding: 6px; }
@@ -59,7 +62,9 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .msgs { flex: 1; overflow: auto; padding: 12px; display: flex; flex-direction: column; gap: 3px; }
 .daysep { text-align: center; color: var(--muted); font-size: 11.5px; font-weight: 700;
   text-transform: uppercase; letter-spacing: .4px; margin: 14px 0 8px; }
-.msg { padding: 5px 8px; border-radius: 10px; max-width: 100%; }
+/* a 850px line of chat is unreadable — the message keeps a measure and the
+   room around it belongs to the pane, not to the sentence */
+.msg { padding: 5px 8px; border-radius: 10px; max-width: min(100%, 78ch); }
 .msg:hover { background: var(--surface-2); }
 .msg.mine { background: var(--accent-wash); }
 .msg.mine:hover { background: var(--accent-wash); }

@@ -2,8 +2,15 @@
 # Run "discover" first — it writes data/wgi_probe.json as an artifact so the
 # organization GUID and season/competition shapes can be verified before the
 # first real ingest. "ingest" only commits data that passes validation; a
-# failed run never erases anything (the demo generator also skips any
-# activity that has a LIVE marker).
+# failed run never erases anything.
+#
+# WGI publishes live scores only through its directors-only portal, so until
+# access is granted the apps run on the championship record — every view is
+# derived from it by scripts/build_wgi_datasets.py — plus the official
+# schedule (see docs/family/BOARD-CONTRACT.md). This job is what turns the
+# real feed on the day it opens: once seasons/<year>.json carries scored
+# results, build_wgi_datasets.py stands down (refusal_reason) and
+# gen_family_data.py re-derives everything from the fuller data instead.
 name: WGI ingest
 
 on:
@@ -15,8 +22,8 @@ on:
         options: [discover, ingest]
         default: discover
       year:
-        description: "Season year"
-        default: "2026"
+        description: "Season year (blank = current year)"
+        default: ""
   schedule:
     # Weekly during the WGI season (Jan–Apr), Mondays 06:12 UTC
     - cron: "12 6 * 1-4 1"
@@ -43,19 +50,25 @@ jobs:
       - name: Run WGI scraper
         env:
           MODE: ${{ github.event.inputs.mode || 'ingest' }}
-          YEAR: ${{ github.event.inputs.year || '2026' }}
+          YEAR_IN: ${{ github.event.inputs.year }}
           PYTHONPATH: scraper
         run: |
+          # scheduled runs carry no inputs — a hardcoded default would keep
+          # re-ingesting a season that has already ended
+          YEAR="${YEAR_IN:-$(date -u +%Y)}"
           python scraper/scrape_wgi.py --$MODE --year "$YEAR" || echo "::warning::wgi $MODE did not complete cleanly — see probe artifact"
-      - name: Probe the other circuits' sources
-        if: ${{ (github.event.inputs.mode || 'ingest') == 'discover' }}
-        env:
-          PYTHONPATH: scraper
+      - name: Normalise the ingested datasets
+        if: ${{ (github.event.inputs.mode || 'ingest') == 'ingest' }}
         run: |
-          for s in boa showchoir; do
-            python scraper/scrape_family_probe.py --source $s || echo "::warning::$s probe empty"
-          done
-          python scraper/scrape_usbands.py --discover || echo "::warning::usbands probe incomplete"
+          # CompetitionSuite serves HTML-escaped ensemble names, and the app's
+          # router only resolves slugOf() slugs — this pass decodes the names,
+          # re-derives corps_index + the per-ensemble logs from the season
+          # files, and gives every indexed ensemble a profile file. It also
+          # picks the derivation source: champion record until real per-show
+          # results land, season files afterwards.
+          python3 scripts/gen_family_data.py
+          # every derived row must still trace back to a real published result
+          node scripts/test_wgi_datasets.js
       - name: Upload probe report
         if: always()
         uses: actions/upload-artifact@v4

@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cadence — DCI Scores, Rankings & History</title>
 <meta name="description" content="Auto-updating DCI drum corps dashboard: current season rankings, multi-corps multi-year comparisons, every published score, caption recaps, corps histories and champions — straight from official DCI.org published scores.">
+<link rel="canonical" href="https://cadenceperformingarts.github.io/Cadence-Labs/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cadence">
+<meta property="og:title" content="Cadence — DCI Scores, Rankings & History">
+<meta property="og:description" content="Live-updating DCI drum corps scores, rankings, caption recaps, and 50+ years of corps history — free, installable, made by fans.">
+<meta property="og:url" content="https://cadenceperformingarts.github.io/Cadence-Labs/">
+<meta property="og:image" content="https://cadenceperformingarts.github.io/Cadence-Labs/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cadence — DCI Scores, Rankings & History">
+<meta name="twitter:description" content="Live-updating DCI drum corps scores, rankings, caption recaps, and 50+ years of corps history — free, installable, made by fans.">
+<meta name="twitter:image" content="https://cadenceperformingarts.github.io/Cadence-Labs/icons/icon-512.png">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0a3f6b">
 <link rel="manifest" href="manifest.webmanifest?v=4">
@@ -12,34 +25,37 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Cadence">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='3' width='58' height='58' rx='15' fill='%23339af0'/><g stroke='%23ffd43b' stroke-width='6.5' stroke-linecap='round'><line x1='16' y1='26' x2='16' y2='38'/><line x1='27' y1='20' x2='27' y2='44'/><line x1='38' y1='28' x2='38' y2='36'/><line x1='49' y1='16' x2='49' y2='48'/></g></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='3' width='58' height='58' rx='15' fill='%23f0b429'/><g stroke='%2316233d' stroke-width='6.5' stroke-linecap='round'><line x1='16' y1='26' x2='16' y2='38'/><line x1='27' y1='20' x2='27' y2='44'/><line x1='38' y1='28' x2='38' y2='36'/><line x1='49' y1='16' x2='49' y2='48'/></g></svg>">
 <script>(function(){var r=document.documentElement;var t=localStorage.getItem("cad-theme");if(t)r.dataset.theme=t;
-var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;
+var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1"){r.style.zoom=fs;r.style.setProperty("--fs",fs);r.setAttribute("data-fs",fs);}
 var name=localStorage.getItem("cad-corps-theme"),css=localStorage.getItem("cad-corps-css");
 if(name&&css){var s=document.createElement("style");s.id="corpsTheme";s.textContent=css;document.head.appendChild(s);
 r.setAttribute("data-corps",name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""));
 var m=document.querySelector('meta[name="theme-color"]'),bar=localStorage.getItem("cad-corps-bar");if(m&&bar)m.content=bar;}})();</script>
 <link rel="stylesheet" href="app.css">
+<script src="lib/config.js"></script>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="#/">
     <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true">
-      <rect x="3" y="3" width="58" height="58" rx="15" fill="#339af0"/>
-      <g stroke="#ffd43b" stroke-width="6.5" stroke-linecap="round">
+      <rect x="3" y="3" width="58" height="58" rx="15" fill="#f0b429"/>
+      <g stroke="#16233d" stroke-width="6.5" stroke-linecap="round">
         <line x1="16" y1="26" x2="16" y2="38"/>
         <line x1="27" y1="20" x2="27" y2="44"/>
         <line x1="38" y1="28" x2="38" y2="36"/>
         <line x1="49" y1="16" x2="49" y2="48"/>
       </g>
     </svg>
-    <span>Cadence <b>DCI</b></span>
+    <span>Cadence</span>
   </a>
   <nav id="nav">
     <a href="#/" data-route="rankings" title="Current standings — latest scores and movement"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20v-6"/><path d="M3 20h18"/></svg><span>Scoreboard</span></a>
     <a href="#/events" data-route="events" title="Every show — schedules, lineups, results, back to 1972"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>Shows</span></a>
     <a href="#/corps" data-route="corps" title="One corps in depth: season charts, every performance, titles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 5l10 4M17 5L7 9"/><rect x="4" y="9" width="16" height="9" rx="2"/><path d="M4 12.5h16"/></svg><span>Corps</span></a>
-    <a href="#/data" data-route="data" title="Stats hub: compare corps, caption scores, champions, all-time records, full database"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg><span>Stats</span></a>
+    <a href="#/stats" data-route="data" title="Stats hub: compare corps, caption scores, champions, all-time records, full database"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg><span>Stats</span></a>
+    <!-- The private side of the product. A plain href, not a hash route —
+         rememberSpot() skips anchors without a data-route for that reason. -->
     <a href="ensemble/" class="navmy" title="Your workspaces — the private side of Cadence"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h7v12H4zM13 6h7v7h-7z"/><path d="M13 17h7"/></svg><span>Workspace</span></a>
   </nav>
   <a id="settingsBtn" href="#/settings" title="Settings — theme, team colors, alerts" aria-label="Settings"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 6.087a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.019.382c-.115.043-.283.031-.45-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/></svg></a>
@@ -47,15 +63,17 @@ var m=document.querySelector('meta[name="theme-color"]'),bar=localStorage.getIte
 </header>
 
 <main id="app" class="viz-root">
+  <noscript><style>#app .loading { display: none; }</style>
+    <div class="empty">Cadence needs JavaScript to show live scores &mdash; please enable it and reload.</div></noscript>
   <div class="loading">Loading…</div>
 </main>
 
 <footer class="foot">
-  <div><a href="#" id="installBtn" hidden><b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M8 3h8v18H8zM11 18.5h2'/></svg> Get the App</b> — install on this device (iPhone needs this for score alerts)</a></div>
-  <div><a href="#" id="pushBtn"><b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — get a ping when scores drop</a></div>
+  <div><a href="#" id="installBtn" hidden><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg> Get the App</b> — install on this device (iPhone needs this for score alerts)</a></div>
+  <div><a href="#" id="pushBtn"><b><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Score alerts</b> — get a ping when scores drop</a></div>
   <div>Scores from <a href="https://www.dci.org/scores" rel="noopener">DCI.org</a> · refreshed several times an hour · minute-by-minute on show nights</div>
   <div><a href="#/suggestions"><b>Suggestions</b> — tell us what to build next →</a></div>
-  <div class="credit">Created by Lucas Besel</div>
+  <div class="credit">Created by Lucas Besel · an independent fan project, not affiliated with Drum Corps International · <a href="#/about">About &amp; privacy</a></div>
 </footer>
 
 <div id="tooltip" class="tooltip" hidden></div>
@@ -65,13 +83,9 @@ var m=document.querySelector('meta[name="theme-color"]'),bar=localStorage.getIte
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M12 8.2v.02M9.6 9.6a2.4 2.4 0 0 1 4.2 1.6c0 1.6-2.4 2-2.4 2" stroke-width="1.7"/></svg>
 </a>
 -->
-<script src="vendor/supabase.min.js"></script>
-<script src="supabase.js"></script>
-<script src="account.js"></script>
-<script src="analytics.js"></script>
-<script src="registry.js"></script>
-<script src="ensembles.js"></script>
 <script src="charts.js"></script>
+<script src="lib/live-core.js"></script>
+<script src="lib/season-utils.js"></script>
 <script src="app.js"></script>
 <script>
 if ("serviceWorker" in navigator) {
@@ -126,7 +140,7 @@ window.CadTheme = (function () {
 // score alerts: Web Push via the Cadence push relay — exposed as window.CadPush
 // so the footer button and the Settings page drive the same subscription.
 window.CadPush = (function () {
-  var SERVER = "https://cadenceapp.up.railway.app";
+  var SERVER = (window.CadConfig || {}).RELAY_URL || "";
   var canPush = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
   var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
   var listeners = [];
@@ -142,7 +156,15 @@ window.CadPush = (function () {
   }
   async function getSub() {
     if (!canPush) return null;
-    try { var reg = await navigator.serviceWorker.ready; return await reg.pushManager.getSubscription(); }
+    // serviceWorker.ready never settles if registration failed — cap the wait
+    // so status checks report "off" instead of hanging the Settings page
+    try {
+      var reg = await Promise.race([
+        navigator.serviceWorker.ready,
+        new Promise(function (_, rej) { setTimeout(function () { rej(new Error("sw-timeout")); }, 3000); }),
+      ]);
+      return await reg.pushManager.getSubscription();
+    }
     catch (e) { return null; }
   }
   function favList() { try { return JSON.parse(localStorage.getItem("cad-favs") || "[]"); } catch (e) { return []; } }
@@ -154,6 +176,7 @@ window.CadPush = (function () {
     return (await getSub()) ? "on" : "off";
   }
   async function enable() {
+    if (!SERVER) return { ok: false, reason: "Score alerts aren't configured in this build." };
     if (!canPush) return { ok: false, reason: isIOS && !standalone()
       ? "Score alerts on iPhone/iPad need the app installed first:\n\n1. Tap Share → 'Add to Home Screen'\n2. Open Cadence from your home screen\n3. Turn on Score alerts again"
       : "This browser doesn't support notifications." };
@@ -186,7 +209,7 @@ window.CadPush = (function () {
   // ★ favorites) with the relay; if the relay's push key rotated since we
   // subscribed, silently resubscribe under the new key
   async function syncSub() {
-    if (!canPush || Notification.permission !== "granted") return;
+    if (!SERVER || !canPush || Notification.permission !== "granted") return;
     var reg, sub;
     try { reg = await navigator.serviceWorker.ready; sub = await reg.pushManager.getSubscription(); }
     catch (e) { return; }
@@ -217,9 +240,10 @@ window.CadPush = (function () {
 // relay's /ask, which grounds Claude on the published scores. Exposed as
 // window.CadAsk so the #/ask view can drive it.
 window.CadAsk = (function () {
-  var SERVER = "https://cadenceapp.up.railway.app";
+  var SERVER = (window.CadConfig || {}).RELAY_URL || "";
   async function ask(q, opts) {
     opts = opts || {};
+    if (!SERVER) throw new Error("The assistant is unavailable.");
     var r = await fetch(SERVER + "/ask", {
       method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ q: q, year: opts.year, history: opts.history || [] }),
@@ -235,12 +259,18 @@ window.CadAsk = (function () {
 (function () {
   var btn = document.getElementById("pushBtn");
   if (!btn || !window.CadPush) return;
+  var ICO = function (paths) {
+    return '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px">' + paths + "</svg>";
+  };
+  var BELL = ICO('<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>');
+  var BELL_ON = ICO('<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M20.4 3.6a13 13 0 0 1 1.85 3.6M3.6 3.6a13 13 0 0 0-1.85 3.6" stroke-width="1.7"/>');
+  var CHECK = ICO('<path d="M20 6 9 17l-5-5"/>');
   async function paint() {
     var s = await CadPush.status();
-    btn.innerHTML = s === "on" ? "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5c0-1 .3-2 .8-2.8M18 16v-5a6 6 0 0 0-9.5-4.9M4.5 18.5h15M10 21h4M4 4l16 16'/></svg> Score alerts on</b> — tap to turn off"
-      : s === "ios-install" ? "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — on iPhone, install the app first · tap for steps"
-      : s === "unsupported" ? "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — not supported in this browser"
-      : "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M6 16v-5a6 6 0 0 1 12 0v5l1.5 2.5H4.5zM10 21h4'/></svg> Score alerts</b> — get a ping when scores drop";
+    btn.innerHTML = s === "on" ? "<b>" + BELL_ON + " Score alerts on</b> — tap to turn off"
+      : s === "ios-install" ? "<b>" + BELL + " Score alerts</b> — on iPhone, install the app first · tap for steps"
+      : s === "unsupported" ? "<b>" + BELL + " Score alerts</b> — not supported in this browser"
+      : "<b>" + BELL + " Score alerts</b> — get a ping when scores drop";
   }
   CadPush.onChange(paint);
   btn.addEventListener("click", async function (e) {
@@ -248,7 +278,7 @@ window.CadAsk = (function () {
     var s = await CadPush.status();
     if (s === "on") { await CadPush.disable(); await paint(); return; }
     var r = await CadPush.enable();
-    if (r && r.ok && r.test) btn.innerHTML = "<b><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' style='vertical-align:-3px'><path d='M5 13l4 4L19 7'/></svg> Alerts on!</b> — test ping in ~15 s, lock your screen or go home to see it";
+    if (r && r.ok && r.test) btn.innerHTML = "<b>" + CHECK + " Alerts on!</b> — test ping in ~15 s, lock your screen or go home to see it";
     else if (r && r.reason) alert(r.reason);
     setTimeout(paint, 20000);
   });
@@ -263,8 +293,5 @@ window.CadAsk = (function () {
 <script src="arcade.js"></script>
 <!-- Add-to-Home-Screen helper: obvious iOS instructions + occasional nudge. Self-contained. -->
 <script src="install.js"></script>
-<!-- Cadence family mode switcher (logo menu → DCI/WGI/…). Self-contained. -->
-<script src="modes.js"></script>
-<script src="starter.js"></script>
 </body>
 </html>

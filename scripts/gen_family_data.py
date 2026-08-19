@@ -1,404 +1,324 @@
 #!/usr/bin/env python3
-"""Generate demo datasets for every Cadence family app instance, in the exact
-format the DCI pipeline publishes (docs/data/*). Each instance gets a full
-data/ directory: meta, rankings, seasons, corps_index, corps/<slug>,
-profiles, champions, records, db — so the shared family engine renders every
-page exactly like the DCI app.
+"""Normalise the shipped Cadence family datasets (docs/wgi/*/data).
 
-All of this is clearly-labeled DEMO data: real, well-known ensemble names
-with deterministic invented scores. When a permitted live source exists for
-a mode, its generator here is replaced by a real adapter writing the same
-format — nothing else changes.
+Fabricated scores are retired: every family app now carries real ingested
+data or an honest empty state, so this script no longer *generates* results.
+What it does is make the published files match the shapes the shared engine
+(docs/family/app.js, derived from docs/app.js) actually reads. Those files
+arrive from two directions — scraper/scrape_wgi.py for live ingests and
+scripts/purge_fabricated.py for the empty-state rebuild — and the seams
+between them are where the app breaks:
+
+  * ensemble names arrive HTML-escaped from scraped pages, so
+    "St. Anthony&#8217;s Queens" renders literally, entity and all;
+  * corps_index slugs were built with a different slugifier than the app's
+    `slugOf()`, so "Arlington HS (NY)" indexed as "arlington-hs-(ny)" — a
+    slug the router's [a-z0-9-]+ pattern cannot even match;
+  * corps_index listed 152 ensembles for 39 corps/<slug>.json files, so most
+    profile links 404'd;
+  * records.json was flattened to {"top": [], "finals": []}, which the
+    Records view reads as two classes named "top" and "finals" and then
+    throws on;
+  * profiles.json still carried preview-era summaries that claimed
+    championships nobody won.
+
+Everything here is idempotent — it runs on every deploy (pages.yml) and a
+second run changes nothing.
 
     python3 scripts/gen_family_data.py
 """
-import hashlib
+import html
 import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-SEASONS = [2022, 2023, 2024, 2025, 2026]
-UPDATED = "preview"
 
-# ---------------------------------------------------------------------------
-# Instance definitions
-# ---------------------------------------------------------------------------
-# events: (id, name, month, day, city, worlds?) — dates realized per season.
+# the shipped family apps, in menu order
+APPS = ["wgi/guard", "wgi/percussion", "wgi/winds"]
 
+# summaries written by the retired demo generator — they assert seasons and
+# championships that never happened, so they must never survive a run
+FABRICATED_SUMMARY = re.compile(r"Preview data|Preview-season champion|placeholders until the live feed")
 
-def wgi_schedule(act_label):
-    return [
-        (f"WGI Mid-East Power Regional", 2, 1, "Cincinnati, OH", False),
-        (f"WGI Southeast Power Regional", 2, 8, "Atlanta, GA", False),
-        (f"WGI SoCal Power Regional", 2, 15, "Riverside, CA", False),
-        (f"WGI Mid-Atlantic Regional", 2, 22, "Wildwood, NJ", False),
-        (f"WGI Texas Regional", 3, 1, "San Antonio, TX", False),
-        (f"WGI Indianapolis Regional", 3, 8, "Indianapolis, IN", False),
-        (f"WGI Mid-West Power Regional", 3, 15, "Bowling Green, OH", False),
-        (f"WGI Dayton Regional", 3, 22, "Dayton, OH", False),
-        (f"WGI World Championships — {act_label}", 4, 18, "Dayton, OH", True),
-    ]
+ENTITY = re.compile(r"&(?:#\d+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]+);")
 
 
-INSTANCES = {
-    "wgi/guard": {
-        "roster": {
-            "Independent World": [("Pride of Cincinnati", "Cincinnati, OH"), ("Blessed Sacrament", "Newark, NJ"), ("Onyx", "Dayton, OH"), ("Paramount", "Atlanta, GA"), ("Imbue", "Indianapolis, IN"), ("Bluecoats Indoor", "Canton, OH"), ("The Cavaliers Indoor", "Rosemont, IL"), ("Fantasia", "Riverside, CA"), ("Alter Ego", "Trenton, NJ"), ("Etude", "Charlotte, NC")],
-            "Independent Open": [("Juxtaposition", "Rochester, NY"), ("Vintage", "Kettering, OH"), ("First Flight", "Raleigh, NC"), ("MCM", "San Antonio, TX"), ("Q", "Fullerton, CA"), ("CGT Dallas", "Dallas, TX")],
-            "Independent A": [("Veritas", "Lexington, KY"), ("Corona Winter Guard", "Corona, CA"), ("Sacred Heart", "Vineland, NJ"), ("Redline", "Boston, MA"), ("Vox Artium", "Denver, CO")],
-            "Scholastic World": [("Avon HS", "Avon, IN"), ("Carmel HS", "Carmel, IN"), ("Tarpon Springs HS", "Tarpon Springs, FL"), ("Flanagan HS", "Pembroke Pines, FL"), ("Trumbull HS", "Trumbull, CT"), ("Center Grove HS", "Greenwood, IN"), ("Arcadia HS", "Arcadia, CA"), ("Broken Arrow HS", "Broken Arrow, OK")],
-            "Scholastic Open": [("James Bowie HS", "Austin, TX"), ("Fishers HS", "Fishers, IN"), ("Bellbrook HS", "Bellbrook, OH"), ("Father Ryan HS", "Nashville, TN"), ("Goshen HS", "Goshen, IN")],
-            "Scholastic A": [("Lebanon HS", "Lebanon, OH"), ("North Ridgeville HS", "North Ridgeville, OH"), ("Mason HS", "Mason, OH"), ("Daphne HS", "Daphne, AL"), ("Fred J. Page HS", "Franklin, TN")],
-        },
-        "schedule": wgi_schedule("Color Guard"),
-        "base": {"Independent World": 88.0, "Independent Open": 84.5, "Independent A": 82.0, "Scholastic World": 87.0, "Scholastic Open": 83.5, "Scholastic A": 81.0},
-    },
-    "wgi/percussion": {
-        "roster": {
-            "Independent World": [("Rhythm X", "Dayton, OH"), ("Broken City", "Riverside, CA"), ("Pulse Percussion", "Los Angeles, CA"), ("Matrix", "Akron, OH"), ("STRYKE Percussion", "Fort Lauderdale, FL"), ("United Percussion", "Cherry Hill, NJ"), ("Cap City Percussion", "Columbus, OH"), ("Gold Percussion", "Anaheim, CA"), ("INov8 Percussion", "Cleveland, TN"), ("Vigilantes Indoor", "Dallas, TX")],
-            "Independent Open": [("George Mason University", "Fairfax, VA"), ("Vessel", "Denton, TX"), ("Colt Cadets Indoor", "Dubuque, IA"), ("Modulation Z", "Orlando, FL"), ("Eastern Massive", "Allentown, PA")],
-            "Scholastic World": [("Ayala HS", "Chino Hills, CA"), ("Chino Hills HS", "Chino Hills, CA"), ("Dartmouth HS", "Dartmouth, MA"), ("Plymouth-Canton", "Canton, MI"), ("Arcadia HS", "Arcadia, CA"), ("Father Ryan HS", "Nashville, TN"), ("Center Grove HS", "Greenwood, IN")],
-            "Scholastic Open": [("Mission Viejo HS", "Mission Viejo, CA"), ("Sparkman HS", "Harvest, AL"), ("Bentonville HS", "Bentonville, AR"), ("Zionsville HS", "Zionsville, IN")],
-            "Scholastic Concert World": [("Chino Hills Concert", "Chino Hills, CA"), ("Poteet Concert", "Mesquite, TX"), ("Dobyns-Bennett Concert", "Kingsport, TN")],
-        },
-        "schedule": wgi_schedule("Percussion"),
-        "base": {"Independent World": 88.5, "Independent Open": 84.0, "Scholastic World": 87.5, "Scholastic Open": 83.0, "Scholastic Concert World": 85.0},
-    },
-    "wgi/winds": {
-        "roster": {
-            "Independent World": [("Rhythm X Winds", "Dayton, OH"), ("STRYKE Wynds", "Fort Lauderdale, FL"), ("Cap City Winds", "Columbus, OH"), ("Resistance Winds", "Houston, TX"), ("Terminus Winds", "Atlanta, GA"), ("Aeris Winds", "Indianapolis, IN")],
-            "Independent Open": [("Meraki Winds", "Nashville, TN"), ("Juniper Winds", "Boise, ID"), ("Sonoro Winds", "Phoenix, AZ")],
-            "Scholastic World": [("Flanagan HS Winds", "Pembroke Pines, FL"), ("Bellbrook HS Winds", "Bellbrook, OH"), ("Union HS Winds", "Tulsa, OK"), ("Ronald Reagan HS Winds", "San Antonio, TX")],
-        },
-        "schedule": wgi_schedule("Winds"),
-        "base": {"Independent World": 87.5, "Independent Open": 83.5, "Scholastic World": 86.0},
-    },
-    "boa": {
-        "roster": {
-            "Class AAAA": [("Carmel HS", "Carmel, IN"), ("Avon HS", "Avon, IN"), ("Broken Arrow HS", "Broken Arrow, OK"), ("Hebron HS", "Carrollton, TX"), ("Flower Mound HS", "Flower Mound, TX"), ("Vandegrift HS", "Austin, TX"), ("Blue Springs HS", "Blue Springs, MO"), ("Bentonville HS", "Bentonville, AR"), ("William Mason HS", "Mason, OH"), ("Round Rock HS", "Round Rock, TX"), ("Leander HS", "Leander, TX"), ("Castle HS", "Newburgh, IN")],
-            "Class AAA": [("Marian Catholic HS", "Chicago Heights, IL"), ("Claudia Taylor Johnson HS", "San Antonio, TX"), ("Rockford HS", "Rockford, MI"), ("Owasso HS", "Owasso, OK"), ("Harrison HS", "Kennesaw, GA"), ("Bellbrook HS", "Bellbrook, OH"), ("Sunny Hills HS", "Fullerton, CA")],
-            "Class AA": [("Union HS", "Tulsa, OK"), ("Bourbon County HS", "Paris, KY"), ("Wando HS", "Mount Pleasant, SC"), ("Greendale HS", "Greendale, WI"), ("Central Hardin HS", "Cecilia, KY")],
-            "Class A": [("Adair County HS", "Columbia, KY"), ("Western Carteret HS", "Cape Carteret, NC"), ("Republic HS", "Republic, MO"), ("Antioch HS", "Antioch, IL")],
-        },
-        "schedule": [
-            ("BOA Louisville Regional", 9, 19, "Louisville, KY", False),
-            ("BOA St. George Regional", 9, 26, "St. George, UT", False),
-            ("BOA Obetz Regional", 10, 3, "Obetz, OH", False),
-            ("BOA Austin Regional", 10, 10, "Austin, TX", False),
-            ("BOA Jacksonville Regional", 10, 17, "Jacksonville, AL", False),
-            ("BOA San Antonio Super Regional", 10, 24, "San Antonio, TX", False),
-            ("BOA Indianapolis Super Regional", 10, 31, "Indianapolis, IN", False),
-            ("Grand National Championships", 11, 14, "Indianapolis, IN", True),
-        ],
-        "base": {"Class AAAA": 88.0, "Class AAA": 85.5, "Class AA": 83.0, "Class A": 81.0},
-        "note": "Every BOA championship has its own judging panel — scores compare within an event, and season standings show each band's most recent score.",
-    },
-    "usbands": {
-        "roster": {
-            "Group VI Open": [("Bridgewater-Raritan HS", "Bridgewater, NJ"), ("Old Bridge HS", "Old Bridge, NJ"), ("Southern Regional HS", "Manahawkin, NJ"), ("Jackson Memorial HS", "Jackson, NJ")],
-            "Group V A": [("West Orange HS", "West Orange, NJ"), ("Union HS", "Union, NJ"), ("Passaic HS", "Passaic, NJ")],
-            "Group IV A": [("Roxbury HS", "Succasunna, NJ"), ("Phillipsburg HS", "Phillipsburg, NJ"), ("North Penn HS", "Lansdale, PA")],
-            "Group III A": [("Cedar Grove HS", "Cedar Grove, NJ"), ("Garnet Valley HS", "Glen Mills, PA"), ("Nutley HS", "Nutley, NJ")],
-            "Group II A": [("Point Pleasant Borough", "Point Pleasant, NJ"), ("Bordentown HS", "Bordentown, NJ")],
-            "Group I A": [("Highland Park HS", "Highland Park, NJ"), ("Metuchen HS", "Metuchen, NJ")],
-        },
-        "schedule": [
-            ("Yamaha Cup", 9, 20, "East Rutherford, NJ — MetLife Stadium", False),
-            ("Old Bridge Show", 10, 4, "Old Bridge, NJ", False),
-            ("New Jersey State Championships", 10, 25, "Rutgers University", False),
-            ("US Bands National Championships", 11, 8, "Allentown, PA — J. Birney Crum Stadium", True),
-        ],
-        "base": {"Group VI Open": 88.5, "Group V A": 86.5, "Group IV A": 85.5, "Group III A": 84.5, "Group II A": 83.5, "Group I A": 82.5},
-    },
-}
+def slug_of(name: str) -> str:
+    """Mirrors slugOf() in docs/app.js (and slug() in apply_logo_overrides.py).
+    The router only accepts [a-z0-9-]+, so every stored slug must round-trip
+    through this or its links are unreachable."""
+    return re.sub(r"^-+|-+$", "", re.sub(r"[^a-z0-9]+", "-", name.lower()))
 
 
-def slug(name: str) -> str:
-    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", name.lower())).strip("-")
+def clean_text(s: str) -> str:
+    """Decode scraped HTML entities and normalise the whitespace they bring
+    along. URLs and data: URIs are passed through untouched — percent-encoded
+    payloads must not be rewritten."""
+    if not s or s.startswith(("data:", "http://", "https://", "//")):
+        return s
+    # scraped pages are occasionally double-escaped ("&amp;#8217;")
+    for _ in range(3):
+        if not ENTITY.search(s):
+            break
+        nxt = html.unescape(s)
+        if nxt == s:
+            break
+        s = nxt
+    s = s.replace(" ", " ").replace("​", "")
+    return re.sub(r"[ \t]+", " ", s).strip()
 
 
-# Monogram palette: hand-tuned dark-anchor -> vivid-accent pairs (hash-spun
-# hues drift into muddy olives/browns; a curated set never does). Each name
-# hashes to a pair, then gets a small deterministic hue spin so two ensembles
-# sharing a palette still read as distinct.
-_MONO_PAL = [
-    ("#1b2a6b", "#4263eb"),  # royal
-    ("#0b3357", "#1c7ed6"),  # ocean
-    ("#0b4a53", "#15aabf"),  # lagoon
-    ("#0c4f3f", "#12b886"),  # emerald
-    ("#1c4d2c", "#37b24d"),  # field green
-    ("#6b4400", "#f5b301"),  # gold
-    ("#77200a", "#e8590c"),  # ember
-    ("#6b1220", "#e03131"),  # crimson
-    ("#791843", "#e64980"),  # raspberry
-    ("#4c1273", "#ae3ec9"),  # violet
-    ("#35226b", "#7048e8"),  # indigo
-    ("#2b3a67", "#748ffc"),  # periwinkle
-    ("#1a1d23", "#5c6670"),  # graphite
-    ("#233a3f", "#4f9ea8"),  # steel teal
-]
-
-# words that never carry a monogram initial ("Avon HS" -> A, "Spirit of
-# Atlanta" -> SA); if stripping them leaves nothing, fall back to all words
-_MONO_NOISE = {"HS", "H.S", "HIGH", "SCHOOL", "THE", "OF", "AND"}
+def clean_deep(node):
+    if isinstance(node, dict):
+        return {k: clean_deep(v) for k, v in node.items()}
+    if isinstance(node, list):
+        return [clean_deep(v) for v in node]
+    if isinstance(node, str):
+        return clean_text(node)
+    return node
 
 
-def _mono_spin(hexcolor: str, deg: float) -> str:
-    import colorsys
-    r, g, b = (int(hexcolor[i:i + 2], 16) / 255 for i in (1, 3, 5))
-    h, l, s = colorsys.rgb_to_hls(r, g, b)
-    r, g, b = colorsys.hls_to_rgb((h + deg / 360) % 1, l, s)
-    return "#%02x%02x%02x" % (round(r * 255), round(g * 255), round(b * 255))
+def load(p: Path):
+    try:
+        return json.loads(p.read_text())
+    except Exception:
+        return None
 
 
-def _mono_initials(name: str) -> str:
-    """Real initials: hyphen/slash-aware ("Bridgewater-Raritan HS" -> BR),
-    noise-word-aware ("Pride of Cincinnati" -> PC), keeps short acronym names
-    whole ("MCM", "CGT Dallas" -> CGT), drops middle initials ("Fred J. Page
-    HS" -> FP) while keeping meaningful trailing ones ("Rhythm X" -> RX)."""
-    words = [w for w in (re.sub(r"[^A-Za-z0-9]", "", p)
-                         for p in re.split(r"[\s\-–—/]+", name)) if w]
-    core = [w for w in words if w.upper() not in _MONO_NOISE] or words
-    if core and core[0].isupper() and 2 <= len(core[0]) <= 3:
-        return core[0]
-    if len(core) > 2:
-        core = [core[0]] + [w for w in core[1:-1] if len(w) > 1] + [core[-1]]
-    ini = "".join(w[0] for w in core[:2]).upper()
-    return ini or (name.strip()[:1].upper() or "?")
+def dump(p: Path, obj) -> None:
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(obj))
 
 
-def monogram(name: str) -> str:
-    """Deterministic premium-looking SVG monogram as a data URI: two-tone
-    diagonal gradient from a curated palette, soft sheen sweep, inset bezel,
-    notched inner ring, tracked bold initials with a 1px drop shade. The
-    '#logo.svg' fragment satisfies the app's isLogoUrl() check; browsers
-    ignore it."""
-    from urllib.parse import quote
-    c1, c2 = _MONO_PAL[jitter(name, "pal", mod=len(_MONO_PAL))]
-    deg = jitter(name, "spin", mod=13) - 6
-    c1, c2 = _mono_spin(c1, deg), _mono_spin(c2, deg)
-    ini = _mono_initials(name)
-    n = len(ini)
-    fs = {1: 27, 2: 22.5}.get(n, 16.5)      # font size by initial count
-    ls = {1: 0, 2: 1.1}.get(n, 0.7)         # letter-spacing (tracking)
-    tx = 32 - ls / 2                        # re-center: trailing tracking skews anchor
-    ty = round(32 + fs * 0.355, 1)          # optical vertical center
-    text = (f"x='{tx}' y='{ty}' font-family=\"'Avenir Next','Segoe UI',system-ui,sans-serif\" "
-            f"font-size='{fs}' font-weight='700' letter-spacing='{ls}' text-anchor='middle'")
-    svg = ("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
-           "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>"
-           f"<stop offset='0' stop-color='{c1}'/><stop offset='1' stop-color='{c2}'/>"
-           "</linearGradient></defs>"
-           "<rect width='64' height='64' rx='15' fill='url(#g)'/>"
-           "<polygon points='0 46,64 4,64 16,0 58' fill='#fff' opacity='.055'/>"
-           "<rect x='1.25' y='1.25' width='61.5' height='61.5' rx='13.75' fill='none' stroke='#fff' stroke-opacity='.16'/>"
-           "<circle cx='32' cy='32' r='24' fill='none' stroke='#fff' stroke-opacity='.38' stroke-width='1.5' "
-           "pathLength='100' stroke-dasharray='86 14' stroke-dashoffset='80.5' stroke-linecap='round'/>"
-           f"<text {text} fill='rgba(6,10,18,.35)' transform='translate(0 1)'>{ini}</text>"
-           f"<text {text} fill='#fff'>{ini}</text></svg>")
-    return "data:image/svg+xml;utf8," + quote(svg, safe="") + "#logo.svg"
+def names_in(data_dir: Path) -> dict:
+    """Every ensemble name this app knows about -> the name as published.
+    Sources: the champion record, each season's results and lineups, and the
+    upcoming schedule's lineups."""
+    names = {}
+
+    def add(n):
+        if isinstance(n, str):
+            n = clean_text(n)
+            if n:
+                names[n] = n
+
+    champs = load(data_dir / "champions.json") or {}
+    for by_cls in champs.values():
+        if isinstance(by_cls, dict):
+            for w in by_cls.values():
+                if isinstance(w, dict):
+                    add(w.get("corps"))
+    for f in sorted((data_dir / "seasons").glob("*.json")) if (data_dir / "seasons").exists() else []:
+        for ev in load(f) or []:
+            for c in ev.get("classes") or []:
+                for r in c.get("results") or []:
+                    add(r.get("corps"))
+            for n in ev.get("lineup") or []:
+                add(n)
+    for ev in load(data_dir / "upcoming.json") or []:
+        for n in ev.get("lineup") or []:
+            add(n)
+    for c in load(data_dir / "corps_index.json") or []:
+        add(c.get("name"))
+    return names
 
 
-def movers_and_battles(rows: list[dict]) -> tuple[list, list]:
-    movers = sorted((r for r in rows if isinstance(r.get("delta"), (int, float))),
-                    key=lambda r: -r["delta"])[:3]
-    battles = sorted(
-        ({"a": rows[i - 1]["corps"], "b": r["corps"], "ra": rows[i - 1]["rank"], "rb": r["rank"],
-          "sa": rows[i - 1]["score"], "sb": r["score"],
-          "gap": round(abs(rows[i - 1]["score"] - r["score"]), 3)}
-         for i, r in enumerate(rows) if i > 0),
-        key=lambda b: (b["gap"], b["ra"]))[:3]
-    return movers, battles
+def performance_logs(data_dir: Path) -> dict:
+    """Rebuild every ensemble's performance log from the published season
+    files, which are this app's only source of truth for results.
+
+    The corps/<slug>.json logs are derived data, and they had drifted: the
+    WGI apps still carried five invented 2022-2026 seasons per ensemble from
+    the retired demo generator, under real ensemble names, even though the
+    only published season is 2027's schedule. Deriving the logs here means a
+    result exists on a profile if and only if it exists in a season file."""
+    logs: dict = {}
+    seasons = data_dir / "seasons"
+    for f in sorted(seasons.glob("*.json")) if seasons.exists() else []:
+        year = int(f.stem) if f.stem.isdigit() else None
+        for ev in load(f) or []:
+            y = year if year is not None else int(str(ev.get("date") or "0")[:4] or 0)
+            for c in ev.get("classes") or []:
+                for r in c.get("results") or []:
+                    name = clean_text(str(r.get("corps") or ""))
+                    if not name:
+                        continue
+                    logs.setdefault(name, []).append({
+                        "y": y, "d": ev.get("date"), "ev": ev.get("name"),
+                        "cls": c.get("class"), "p": r.get("place"), "s": r.get("score"),
+                    })
+    for lst in logs.values():
+        lst.sort(key=lambda p: (p["y"], p["d"] or ""))
+    return logs
 
 
-def jitter(*parts, mod=100) -> int:
-    h = hashlib.md5("|".join(str(p) for p in parts).encode()).hexdigest()
-    return int(h[:8], 16) % mod
-
-
-def score_for(base, seat, outing, n_outings, year, name, worlds_round=0):
-    growth = 8.2 * (outing / max(n_outings - 1, 1)) ** 0.85
-    # ±1.3 season-to-season form swing — enough for the top seats to trade
-    # championships across years instead of one permanent dynasty
-    season_shift = (jitter(name, year, "season") - 50) / 38.0
-    wiggle = (jitter(name, year, outing) - 50) / 38.0
-    s = base - seat * 1.05 + growth + season_shift + wiggle + worlds_round * 0.85
-    return round(min(s, 99.4), 3)
-
-
-def gen_instance(key, cfg):
-    out = DOCS / key / "data"
-    (out / "seasons").mkdir(parents=True, exist_ok=True)
-    (out / "corps").mkdir(exist_ok=True)
-    (out / "db").mkdir(exist_ok=True)
-
-    roster = cfg["roster"]
-    classes = list(roster.keys())
-    perfs = {}          # (cls, name) -> [{y,d,ev,p,s}]
-    season_files = {}
-    champions = {}
-    all_db_rows = []
-
-    for year in SEASONS:
-        events = []
-        outings = {(c, n): 0 for c in classes for n, _ in roster[c]}
-        for ev_i, (ename, month, day, city, worlds) in enumerate(cfg["schedule"]):
-            date = f"{year}-{month:02d}-{day:02d}"
-            ev_classes = []
-            for cls in classes:
-                members = roster[cls]
-                take = members if worlds else [m for i, m in enumerate(members) if (i + ev_i + year) % 3 != 2]
-                if len(take) < 2:
-                    take = members
-                rows = []
-                for name, _home in take:
-                    seat = [m[0] for m in members].index(name)
-                    o = outings[(cls, name)]
-                    s = score_for(cfg["base"][cls], seat, o, len(cfg["schedule"]), year, name,
-                                  1 if worlds else 0)
-                    outings[(cls, name)] += 1
-                    rows.append({"corps": name, "score": s})
-                rows.sort(key=lambda r: -r["score"])
-                results = [{"place": i + 1, "corps": r["corps"], "score": r["score"]}
-                           for i, r in enumerate(rows)]
-                ev_classes.append({"class": cls, "results": results})
-                for r in results:
-                    perfs.setdefault((cls, r["corps"]), []).append(
-                        {"y": year, "d": date, "ev": ename, "cls": cls, "p": r["place"], "s": r["score"]})
-                    all_db_rows.append([year, date, ename, r["corps"], cls, r["place"], r["score"]])
-                if worlds:
-                    champions.setdefault(str(year), {})[cls] = {
-                        "corps": results[0]["corps"], "score": results[0]["score"]}
-            events.append({
-                "name": ename, "date": date,
-                "date_display": f"{['','January','February','March','April','May','June','July','August','September','October','November','December'][month]} {day}, {year}",
-                "location": city, "url": None, "source": "demo",
-                "classes": ev_classes, "has_recap": False,
-            })
-        season_files[year] = events
-
-    # rankings from the latest season
-    latest = SEASONS[-1]
-    standings = {}
-    for cls in classes:
-        rows = []
-        for name, home in roster[cls]:
-            hist = [p for p in perfs.get((cls, name), []) if p["y"] == latest]
-            if not hist:
-                continue
-            hist.sort(key=lambda p: p["d"])
-            last, prev = hist[-1], (hist[-2] if len(hist) > 1 else None)
-            best = max(hist, key=lambda p: p["s"])
-            rows.append({
-                "corps": name, "score": last["s"], "date": last["d"], "event": last["ev"],
-                "high": best["s"], "high_event": best["ev"], "high_date": best["d"],
-                "prev_score": prev["s"] if prev else None,
-                "delta": round(last["s"] - prev["s"], 3) if prev else None,
-                "outings": len(hist),
-                "trend": [[p["d"], p["s"]] for p in hist],
-            })
-        rows.sort(key=lambda r: -r["score"])
-        for i, r in enumerate(rows):
-            r["rank"] = i + 1
-        movers, battles = movers_and_battles(rows)
-        standings[cls] = {"rows": rows, "movers": movers, "battles": battles}
-
-    recent = []
-    for ev in reversed(season_files[latest][-3:]):
-        top = ev["classes"][0]["results"][0]
-        recent.append({"name": ev["name"], "date": ev["date"], "location": ev["location"],
-                       "winner": {"corps": top["corps"], "score": top["score"], "class": ev["classes"][0]["class"]}})
-
-    # corps index + per-corps files + profiles
-    idx, profiles = [], {}
-    for cls in classes:
-        for name, home in roster[cls]:
-            sl = slug(name)
-            plist = sorted(perfs.get((cls, name), []), key=lambda p: (p["y"], p["d"] or ""))
-            series = []
-            for year in SEASONS:
-                ys = [p for p in plist if p["y"] == year]
-                series.append([year, max((p["s"] for p in ys), default=None),
-                               cls if ys else None])
-            best = max((p["s"] for p in plist), default=None)
-            idx.append({"name": name, "slug": sl, "first": SEASONS[0], "last": SEASONS[-1],
-                        "seasons": len(SEASONS), "best": best, "n": len(plist), "series": series})
-            (DOCS / key / "data" / "corps" / f"{sl}.json").write_text(
-                json.dumps({"name": name, "performances": plist}))
-            titles = [y for y, cl in champions.items() if cl.get(cls, {}).get("corps") == name]
-            profiles[sl] = {
-                "title": name,
-                "img": monogram(name),
-                "summary": f"{name} ({home}) competes in {cls}. "
-                + (f"Preview-season champion: {', '.join(sorted(titles))}. " if titles else "")
-                + "Preview data — scores are placeholders until the live feed lands; the name belongs to a real, well-loved program.",
-            }
-    idx.sort(key=lambda c: c["name"])
-
-    records = {}
-    for cls in classes:
-        flat = [(n, p) for (c, n), pl in perfs.items() if c == cls for p in pl]
-        top = sorted(flat, key=lambda np: -np[1]["s"])[:10]
-        finals = {}
-        for year in SEASONS:
-            worlds_name = cfg["schedule"][-1][0]
-            rows = sorted(
-                ((n, p["s"]) for n, p in flat if p["y"] == year and p["ev"] == worlds_name),
-                key=lambda r: -r[1])
-            if rows:
-                finals[str(year)] = [[n, s] for n, s in rows]
-        records[cls] = {
-            "top": [[p["y"], p["d"], n, p["s"], p["ev"]] for n, p in top],
-            "finals": finals,
-        }
-
-    write = lambda rel, obj: (out / rel).write_text(json.dumps(obj))
-    meta_seasons = [{"year": y, "events": len(season_files[y])} for y in SEASONS]
-    ev_live = out / "EVENTS_LIVE"
-    if ev_live.exists():
-        live = json.loads(ev_live.read_text())
-        meta_seasons.append({"year": live["season"], "events": live["events"]})
-    write("meta.json", {"updated": UPDATED, "seasons": meta_seasons})
-    write("rankings.json", {"generated": UPDATED, "season": latest, "standings": standings, "recent_events": recent})
-    for y in SEASONS:
-        write(f"seasons/{y}.json", season_files[y])
-    if not ev_live.exists():
-        write("upcoming.json", [])
-    write("corps_index.json", idx)
-    write("profiles.json", profiles)
-    if not (out / "CHAMPS_LIVE").exists():
-        write("champions.json", champions)
-    write("records.json", records)
-    write("db/index.json", [{"decade": "2020s", "rows": len(all_db_rows)}])
-    write("db/perfs_2020s.json", sorted(all_db_rows, key=lambda r: (r[0], r[1])))
-    n_rows = sum(len(v["rows"]) for v in standings.values())
-    print(f"{key}: {n_rows} standings rows · {sum(len(v) for v in season_files.values())} events · {len(idx)} ensembles")
-
-
-def main():
-    # Fabricated scores are retired. Every shipped app now carries real data or
-    # an honest empty state (see scripts/purge_fabricated.py); inventing
-    # results under real ensemble names is never acceptable, so this generator
-    # refuses to run against a shipped dataset.
-    print("gen_family_data: demo score generation is retired — no data written.")
-    print("  Real feeds live in scraper/*.py; empty states are built by")
-    print("  scripts/purge_fabricated.py --rebuild.")
-    return
-
-def _retired_main():
-    for key, cfg in INSTANCES.items():
-        # An activity that has real ingested data (scraper/scrape_wgi.py writes
-        # a LIVE marker) must never be overwritten by demo data.
-        if (DOCS / key / "data" / "LIVE").exists():
-            print(f"{key}: LIVE data present — demo generator skipped")
+def normalise_profiles(d: Path) -> None:
+    """profiles: keyed by the app slug, no invented history."""
+    profs = load(d / "profiles.json") or {}
+    out = {}
+    for key, p in profs.items():
+        if not isinstance(p, dict):
             continue
-        gen_instance(key, cfg)
-    # re-apply the curated real-logo overrides (data/logos/overrides.json) so
-    # a regeneration can never wipe them back to generated monograms
-    import apply_logo_overrides
-    apply_logo_overrides.main()
+        title = clean_text(str(p.get("title") or key))
+        p = dict(p)
+        p["title"] = title
+        if FABRICATED_SUMMARY.search(str(p.get("summary") or "")):
+            p.pop("summary", None)
+        # a profile that is nothing but a generated monogram still earns its
+        # place: corpsLogo() reads `img` for every avatar in the app
+        if p:
+            out[slug_of(title)] = p
+    if out != profs:
+        dump(d / "profiles.json", out)
+
+
+def normalise(app: str) -> None:
+    d = DOCS / app / "data"
+    if not d.exists():
+        print(f"{app}: no data directory — skipped")
+        return
+
+    # ---- 1. decode entities / whitespace everywhere the reader can see ----
+    touched = 0
+    files = [d / n for n in ("champions.json", "corps_index.json", "profiles.json",
+                             "upcoming.json", "rankings.json", "records.json", "meta.json")]
+    files += sorted((d / "seasons").glob("*.json")) if (d / "seasons").exists() else []
+    files += sorted((d / "corps").glob("*.json")) if (d / "corps").exists() else []
+    for f in files:
+        if not f.exists():
+            continue
+        cur = load(f)
+        if cur is None:
+            continue
+        new = clean_deep(cur)
+        if new != cur:
+            dump(f, new)
+            touched += 1
+
+    # ---- 2. records.json: a per-class map, or nothing ----
+    # The Records view treats every top-level key as a class name. A flat
+    # {"top": [], "finals": []} therefore renders classes called "top" and
+    # "finals" and throws reading rec["top"].top. An empty object is the
+    # honest shape for an app with no record book yet.
+    rec = load(d / "records.json")
+    if not isinstance(rec, dict) or not all(
+            isinstance(v, dict) and "top" in v for v in rec.values()):
+        dump(d / "records.json", {})
+
+    # ---- 3. db/index.json: a list of {decade, rows} ----
+    dbi = load(d / "db" / "index.json")
+    if not isinstance(dbi, list):
+        dump(d / "db" / "index.json", [])
+
+    # ---- 4. corps_index + per-ensemble logs, both derived from the seasons ----
+    # …unless this app has no season results at all and does have a real
+    # championship record, in which case scripts/build_wgi_datasets.py owns
+    # these files and derives them from that record instead. Exactly one
+    # writer per tree: it refuses the moment a richer ingest lands (see
+    # build_wgi_datasets.refusal_reason), and this branch takes over again.
+    import build_wgi_datasets as bwd
+    if bwd.refusal_reason(d) is None:
+        r = bwd.build_app(app)
+        print(f"{app}: {touched} files cleaned · derived from the championship record "
+              f"({r['titles']} titles · {r['ensembles']} ensembles · {r['classes']} classes, "
+              f"{len(r['changed'])} file(s) written)")
+        normalise_profiles(d)
+        return
+
+    # Slug parity matters as much as the numbers: the router only matches
+    # [a-z0-9-]+, so an index slug the app's slugOf() would never produce
+    # ("arlington-hs-(ny)") is a link that cannot resolve.
+    known = names_in(d)
+    logs = performance_logs(d)
+    idx = []
+    for name in sorted(known):
+        plist = logs.get(name, [])
+        scored = [p["s"] for p in plist if p["s"] is not None]
+        yrs = sorted({p["y"] for p in plist})
+        series = [[y,
+                   max((p["s"] for p in plist if p["y"] == y and p["s"] is not None), default=None),
+                   next((p["cls"] for p in plist if p["y"] == y), None)] for y in yrs]
+        idx.append({
+            "name": name,
+            "slug": slug_of(name),
+            "first": yrs[0] if yrs else None,
+            "last": yrs[-1] if yrs else None,
+            "seasons": len(yrs),
+            "best": max(scored) if scored else None,
+            "n": len(plist),
+            "series": series,
+        })
+    dump(d / "corps_index.json", idx)
+
+    # renderCorpsDetail fetches corps/<slug>.json; a missing file is a 404 in
+    # the console and a "no scores on record" card. The card is the right
+    # answer — the 404 is not, so ship the empty log explicitly.
+    corps_dir = d / "corps"
+    corps_dir.mkdir(exist_ok=True)
+    keep = {f"{e['slug']}.json" for e in idx}
+    written = removed = 0
+    for entry in idx:
+        want = corps_dir / f"{entry['slug']}.json"
+        body = {"name": entry["name"], "performances": logs.get(entry["name"], [])}
+        if load(want) != body:
+            dump(want, body)
+            written += 1
+    # stale files (old slugs, ensembles no longer in any published season)
+    for f in sorted(corps_dir.glob("*.json")):
+        if f.name not in keep:
+            f.unlink()
+            removed += 1
+
+    normalise_profiles(d)
+
+    print(f"{app}: {len(idx)} ensembles · {touched} files cleaned · "
+          f"{written} logs written, {removed} stale removed · "
+          f"{dropped} invented summaries dropped")
+
+
+def reapply_logos() -> None:
+    """Re-apply the curated real-logo overrides (data/logos/overrides.json)
+    so a normalisation pass can never wipe them back to generated monograms.
+
+    apply_logo_overrides.main() walks every app in the override file,
+    including DCI; this script owns the family datasets only, so it reuses
+    that module's helpers and stays inside APPS. Run the script itself
+    (`python3 scripts/apply_logo_overrides.py`) to cover DCI too."""
+    import apply_logo_overrides as alo
+    if not alo.OVERRIDES.exists():
+        print("logo overrides: none found")
+        return
+    entries = [e for e in json.loads(alo.OVERRIDES.read_text()) if e.get("app") in APPS]
+    by_app = {}
+    for e in entries:
+        by_app.setdefault(e["app"], []).append(e)
+    for app, evs in sorted(by_app.items()):
+        ppath = alo.profiles_path(app)
+        if not ppath.exists():
+            continue
+        profs = json.loads(ppath.read_text())
+        changed = 0
+        for e in evs:
+            prof = profs.get(alo.slug(e["name"]))
+            if prof is None:
+                print(f"logo overrides: {app}: no profile for {e['name']!r} — skipped")
+                continue
+            new = {"img": alo.resolve_img(app, e["img"]),
+                   "img_source": e.get("source"), "img_license": e.get("license")}
+            if any(prof.get(k) != v for k, v in new.items()):
+                changed += 1
+            prof.update(new)
+        if changed:
+            ppath.write_text(alo.dumps_like(ppath, profs))
+        print(f"logo overrides: {app}: {len(evs)} applied ({changed} changed)")
+
+
+def main() -> None:
+    for app in APPS:
+        normalise(app)
+    reapply_logos()
 
 
 if __name__ == "__main__":

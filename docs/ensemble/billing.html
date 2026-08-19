@@ -13,10 +13,14 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 <link rel="stylesheet" href="../app.css">
 <link rel="stylesheet" href="ensemble.css">
 <style>
-/* Billing — layout only; colours come from app.css tokens. */
-.bil-hero { display: grid; gap: 14px; grid-template-columns: 1.3fr 1fr; align-items: start; }
-@media (max-width: 760px) { .bil-hero { grid-template-columns: 1fr; } }
-.bil-kv { display: grid; grid-template-columns: 150px 1fr; gap: 7px 12px; font-size: 14px; margin: 0; }
+/* Billing — page layout only; colours are app.css tokens, and the toast is
+   shared with members/admin and lives in ensemble.css.
+
+   The status card beside "what you get" used to be a bespoke 1.3fr/1fr grid
+   turning at 760px. It is exactly .dsk2.w75 — a wide primary beside a
+   narrower secondary, turning at the 700px the rest of Cadence turns at —
+   so it uses that instead. */
+.bil-kv { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 7px 12px; font-size: 14px; margin: 0; }
 .bil-kv dt { color: var(--muted); font-size: 12.5px; font-weight: 650; }
 .bil-kv dd { margin: 0; }
 .bil-bar { height: 9px; border-radius: 99px; background: var(--surface-2);
@@ -35,17 +39,14 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
 .bil-field { display: block; margin: 0 0 10px; }
 .bil-field > span { display: block; font-size: 12.5px; font-weight: 650; color: var(--muted); margin-bottom: 4px; }
 .bil-field .ctrl, .bil-field textarea.ctrl { width: 100%; box-sizing: border-box; min-width: 0; }
-.bil-2 { display: grid; gap: 0 12px; grid-template-columns: 1fr 1fr; }
-@media (max-width: 520px) { .bil-2 { grid-template-columns: 1fr; } }
+.bil-2 { display: grid; gap: 0 12px; }
+.bil-2 > * { min-width: 0; }
+@media (min-width: 520px) { .bil-2 { grid-template-columns: 1fr 1fr; } }
 .bil-note { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; }
 .bil-inv { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .bil-inv th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .4px;
   color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); }
 .bil-inv td { padding: 8px; border-bottom: 1px solid var(--grid); }
-.ppl-toast { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
-  background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 10px;
-  font-size: 13.5px; font-weight: 600; z-index: 400; box-shadow: 0 4px 16px rgba(10,25,50,.3); }
-.ppl-toast.bad { background: var(--bad, #c92a2a); }
 </style>
 </head>
 <body class="ens">
@@ -425,7 +426,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       '<h1 class="page">Billing</h1>' +
       '<p class="lede">One subscription covers your whole organization. Students, parents, staff ' +
       "and boosters all join free — you are never billed per person.</p>" +
-      '<div class="bil-hero">' + statusCard() +
+      '<div class="dsk2 w75">' + statusCard() +
         '<div class="card"><h2>What you get</h2>' +
         '<p class="setnote">Cadence Ensemble is the private side of Cadence: announcements, ' +
         "groups, chat, calendar, attendance, files, music, forms and parent accounts — " +
@@ -440,7 +441,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
         ? (S.tablesMissing
             ? '<div class="card" style="margin-top:16px"><div class="empty">' +
               "Billing contacts and invoices need migration 0009 — run it in Supabase.</div></div>"
-            : '<div class="ens-grid" style="margin-top:16px">' + contactCard() + requestCard() + "</div>" +
+            : '<div class="dsk2" style="margin-top:16px">' + contactCard() + requestCard() + "</div>" +
               '<div style="margin-top:16px">' + invoicesCard() + "</div>")
         : '<div class="card" style="margin-top:16px"><div class="empty">' +
           "Your workspace's billing owner handles the subscription. Ask them to visit this page.</div></div>") +

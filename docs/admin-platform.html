@@ -13,8 +13,10 @@
 var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})();</script>
 <link rel="stylesheet" href="app.css">
 <style>
-/* Platform admin — dense, plain, operational. Tokens from app.css. */
-main { max-width: 1080px; margin: 0 auto; padding: 18px; }
+/* Platform admin — dense, plain, operational. Tokens from app.css, and the
+   page shell app.css already defines: this used to re-declare `main` at a
+   narrower width with different padding, so the one Cadence page an owner
+   opens next to the others sat at a different measure. */
 .pa-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 16px; }
 .pa-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 18px; }
 .pa-stat { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }

@@ -50,7 +50,7 @@
   };
 
   /* ── the family, from the one registry — EVERY deployed app, listed or
-     not, so a star placed on BOA or UIL shows up here too. Icons stay
+     not, so a star placed on any of them shows up here too. Icons stay
      local (they're this page's visual language); everything else comes
      from docs/registry.js. Falls back to the core four if the registry
      script is missing. ─────────────────────────────────────────────── */
@@ -118,7 +118,10 @@
     var p = iso.split("-");
     return "<b>" + MONTHS[(+p[1] || 1) - 1] + " " + (+p[2] || "") + "</b><small>" + p[0] + "</small>";
   }
-  function scoreDisp(r) { // scores, UIL ratings and ISSMA placements all ride here
+  // Every surviving app (DCI, WGI guard/perc/winds) reports a numeric score;
+  // the rating/placement branches are inert against today's data and only
+  // guard against a standings row that predates the score-only feeds.
+  function scoreDisp(r) {
     if (r.score != null) return (+r.score).toFixed(3);
     if (r.rating != null) {
       var roman = ["", "I", "II", "III", "IV", "V"][Math.round(r.rating)] || String(r.rating);
@@ -354,7 +357,7 @@
   function loadPrivate() {
     if (!window.CAD_SUPABASE || !sbToken()) return Promise.resolve(null); // signed out
     return sbRest("org_members?select=id,section,org:organizations(id,name,slug,plan,status,trial_ends_at)," +
-      "role:org_roles(name)&status=eq.active&order=joined_at.asc").then(function (rows) {
+      "role:org_roles!org_members_role_id_fkey(name)&status=eq.active&order=joined_at.asc").then(function (rows) {
       var mine = (rows || []).filter(function (r) { return r && r.org; }).slice(0, 4);
       if (!mine.length) return { orgs: [] };
       var nowIso = new Date().toISOString();
@@ -387,7 +390,7 @@
   function orgBadge(org) { return '<span class="privbadge"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg> ' + esc(org.name) + "</span>"; }
 
   function privateHtml(data, user) {
-    var head = '<div class="secdiv my-priv-div"><span class="lock"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg></span> Your workspaces · private</div>';
+    var head = '<div class="secdiv"><span class="lock"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3"/></svg></span> Your workspaces · private</div>';
     if (!data) { // signed out — the private half still exists, honestly
       return '<div class="my-priv">' + head +
         '<div class="my-grid"><div class="card"><h2>Sign in to see your workspaces</h2>' +
