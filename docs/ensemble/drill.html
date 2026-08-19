@@ -38,8 +38,18 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     catch (e) { return ""; }
   }
 
+  /* Drill WRITING is a desktop tool. Charting needs a big field, precise
+     drags and a keyboard — none of which a phone has — so on a phone even a
+     director gets the dot book, with an honest line about where the editor
+     lives. The check is live (matchMedia), so rotating a tablet into a wide
+     enough viewport genuinely changes the answer on the next render. */
+  function deskWide() {
+    try { return matchMedia("(min-width: 700px)").matches; } catch (e) { return true; }
+  }
+
   async function render(org) {
     var canWrite = CadOrg.canDo("drill.manage");
+    var canEditHere = canWrite && deskWide();
     var shows = [];
     var missing = false;
     try {
@@ -52,18 +62,21 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
       return '<div class="ens-item">' +
         '<span class="ens-when">' + fmtDay(s.updated_at) + "</span>" +
         '<a style="flex:1;text-decoration:none;color:inherit" href="' +
-          (canWrite ? "drilledit.html" : "drillview.html") + "?show=" + s.id + '"><b>' + esc(s.title) + "</b>" +
+          (canEditHere ? "drilledit.html" : "drillview.html") + "?show=" + s.id + '"><b>' + esc(s.title) + "</b>" +
         '<span class="ens-sub">' + kind + " · " + s.tempo + " bpm</span></a>" +
-        (canWrite ? '<a class="tab" style="flex:none" href="drillview.html?show=' + s.id + '">Dot book</a>' : "") +
+        (canEditHere ? '<a class="tab" style="flex:none" href="drillview.html?show=' + s.id + '">Dot book</a>' : "") +
         "</div>";
     }).join("");
 
     main.innerHTML =
       '<h1 class="page">Drill</h1>' +
-      (canWrite
+      (canEditHere
         ? '<div class="ens-quick" style="margin-bottom:16px"><button type="button" class="tab" id="drNew">New show</button>' +
           '<a class="tab" href="drilledit.html?local=1">Practice sketchpad</a></div>'
-        : "") +
+        : canWrite
+          ? '<p class="setnote" style="margin:0 0 16px">Drill writing is a desktop tool — open Cadence on a ' +
+            "computer to chart or edit a show. On your phone, every show below opens as the dot book.</p>"
+          : "") +
       '<div class="card">' +
         '<div class="ens-h"><h2>Shows</h2></div>' +
         (missing
@@ -71,8 +84,10 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
             "An admin can apply the latest Cadence migrations to turn it on.</div>"
           : (rows ? '<div class="ens-cols2">' + rows + "</div>" : "") ||
             '<div class="empty">' +
-            (canWrite
+            (canEditHere
               ? "No shows yet. <b>New show</b> starts a blank field — sets, forms, playback and printable dot books are all built in."
+              : canWrite
+              ? "No shows yet. Drill writing lives on desktop — open Cadence on a computer to chart the first one."
               : "No drill has been published yet. When your director charts the show here, you’ll open it and see exactly where you stand in every set.") +
             "</div>") +
       "</div>";

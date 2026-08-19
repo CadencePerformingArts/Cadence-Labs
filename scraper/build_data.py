@@ -1342,6 +1342,7 @@ def build_news():
             d = json.loads(p.read_text())
             write_json("news.json", {
                 "updated": d.get("updated"),
+                "source": {"name": "DCI.org — official news", "url": "https://www.dci.org/news"},
                 "articles": (d.get("articles") or [])[:20],
                 "items": (d.get("corps_items") or [])[:80],
             })
