@@ -34,6 +34,14 @@
    dot books, so what you design is exactly what members read. */
 (function () {
   "use strict";
+  /* Drill writing is a desktop tool — a deep link or an old bookmark from a
+     phone lands on the dot book instead, never a chart surface squeezed into
+     390px. drill.html applies the same rule to its own links; this is the
+     backstop for every other way in. */
+  if (!matchMedia("(min-width: 700px)").matches) {
+    var q0 = new URLSearchParams(location.search);
+    location.replace(q0.get("show") ? "drillview.html?show=" + q0.get("show") : "drill.html");
+  }
   var D = window.CadDrill;
   var qs = new URLSearchParams(location.search);
   var LOCAL = qs.get("local") === "1" || !qs.get("show");

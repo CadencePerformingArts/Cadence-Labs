@@ -2411,77 +2411,42 @@
      newer than the last visit get a NEW pill — the in-app "notification". */
   function renderNews(mountEl, news) {
     if (!mountEl) return;
+    // The presentation the owner chose and asked to keep: an always-open
+    // "Latest from DCI" card — photo rail of headlines, then a short
+    // "Auditions & camps" list. What CHANGED underneath is the honesty of
+    // that list: it now draws from DCI's per-corps announcement roundup
+    // (items whose kind really is auditions), never from headline articles —
+    // the old article-level tagging once labeled a video-shoot feature story
+    // AUDITIONS because its body mentioned auditions in passing.
     const items = (news && news.items) || [];
     const articles = ((news && news.articles) || []).filter(a => !/corps-news-and-announcements/.test(a.url));
     if (!items.length && !articles.length) { mountEl.innerHTML = ""; return; }
-    let lastSeen = "";
-    try { lastSeen = localStorage.getItem("cad-news-seen") || ""; } catch (e) {}
-    const PRI = { auditions: 0, announcement: 1, news: 2 };
-    // your starred corps' announcements surface first within each day
-    const fv = x => (x.corps && FAVS.has(x.corps) ? 0 : 1);
-    const sorted = items.slice().sort((a, b) =>
-      (b.date || "").localeCompare(a.date || "") || fv(a) - fv(b) || (PRI[a.kind] ?? 9) - (PRI[b.kind] ?? 9));
-    const isNew = x => x.date && lastSeen && x.date > lastSeen;
-    const anyNew = !lastSeen || sorted.some(isNew) || articles.some(isNew);
-    const kindPill = k => k === "auditions" ? '<span class="pill kpill kaud">Auditions</span>'
-      : k === "announcement" ? '<span class="pill kpill kspec">Announcement</span>' : "";
-    const cardHtml = it => h`<div class="newscard">
-        ${it.logo ? `<img class="newslogo" src="${encodeURI(it.logo)}" alt="" loading="lazy" onerror="this.hidden=true">` : ""}
-        <div class="newsbody">
-          <div class="newstop"><b>${esc(it.corps)}</b>${kindPill(it.kind)}${isNew(it) ? '<span class="pill kpill knew">New</span>' : ""}</div>
-          <div class="newstxt">${esc(it.blurb)}</div>
-          ${it.link ? `<a class="newsgo" href="${encodeURI(it.link)}" target="_blank" rel="noopener">See more ↗</a>` : ""}
+    const allNews = (news && news.source && news.source.url) || "https://www.dci.org/news";
+    const cards = articles.slice(0, 8).map(a => h`<a class="newsart" href="${encodeURI(a.url)}" target="_blank" rel="noopener">
+        ${a.image ? `<img src="${encodeURI(a.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+        <span class="newsart-in"><time>${esc(fmtDate(a.date))}</time><b>${esc(a.title)}</b></span>
+      </a>`).join("");
+    // starred corps' announcements first, newest first within that
+    const camps = items.filter(i => i.kind === "auditions")
+      .sort((a, b) => ((a.corps && FAVS.has(a.corps)) ? 0 : 1) - ((b.corps && FAVS.has(b.corps)) ? 0 : 1) ||
+                      (b.date || "").localeCompare(a.date || ""))
+      .slice(0, 4);
+    mountEl.innerHTML = `
+      <div class="card" style="margin-bottom:14px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px">
+          <h2 style="margin:0">Latest from DCI</h2>
+          <a href="${esc(allNews)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:650">All news →</a>
         </div>
+        <div class="newsrail">${cards}</div>
+        ${camps.length ? `
+        <div class="newscamps">
+          <h3>Auditions &amp; camps</h3>
+          ${camps.map(n => h`<a href="${encodeURI(n.link || allNews)}" target="_blank" rel="noopener">
+            <span class="newstag">Auditions</span><span><b>${esc(n.corps)}</b> — ${esc(n.blurb)}</span>
+            <time>${esc(fmtDate(n.date))}</time></a>`).join("")}
+          <p class="newsnote">Announcements straight from DCI and the corps — dates and details live in each article.</p>
+        </div>` : ""}
       </div>`;
-    const CUT = 2; // keep the tile short — a couple of cards, expand for the rest
-    // the whole tile collapses to just its header, remembered per device.
-    // Collapsed by DEFAULT — news stays out of the way until the reader opens
-    // it (the header keeps a "New" pill so fresh items still announce
-    // themselves). It expands only once someone has explicitly opened it.
-    let collapsed = true;
-    try { collapsed = localStorage.getItem("cad-news-collapsed") !== "0"; } catch (e) {}
-    mountEl.innerHTML = h`<div class="card newswrap${collapsed ? " collapsed" : ""}">
-      <h2 class="newsh2"><button class="newshead" type="button" aria-controls="newsInner" aria-expanded="${collapsed ? "false" : "true"}">
-        <span class="newshtxt">News &amp; Announcements <span class="sub">auditions, camps &amp; corps news · via DCI.org</span></span>
-        ${anyNew ? '<span class="pill kpill knew">New</span>' : ""}<span class="newschev" aria-hidden="true">${CHEVRON_SVG}</span>
-      </button></h2>
-      <div class="newsinner" id="newsInner"${collapsed ? " hidden" : ""}>
-        ${articles.length ? `<div class="newsrail">${articles.slice(0, 8).map(a => h`<a class="newsart${isNew(a) ? " new" : ""}" href="${encodeURI(a.url)}" target="_blank" rel="noopener">
-          ${a.image ? `<img src="${encodeURI(a.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
-          <span class="newsart-in"><time>${esc(fmtDate(a.date))}</time><b>${esc(a.title)}</b>${isNew(a) ? ' <span class="pill kpill knew">New</span>' : ""}</span>
-        </a>`).join("")}</div>` : ""}
-        <div class="dsk2 newsgrid">${sorted.slice(0, CUT).map(cardHtml).join("")}</div>
-        ${sorted.length > CUT ? `<div class="dsk2 newsgrid" id="newsMore" hidden>${sorted.slice(CUT).map(cardHtml).join("")}</div>
-          <button class="tab newsmorebtn" type="button">All corps news (${sorted.length}) ▾</button>` : ""}
-      </div>
-    </div>`;
-    const head = mountEl.querySelector(".newshead");
-    const inner = mountEl.querySelector("#newsInner");
-    const wrap = mountEl.querySelector(".newswrap");
-    // Marking items "seen" advances cad-news-seen, which clears the New badge.
-    // Only do that once the content is actually on screen — a collapsed tile
-    // has shown the reader nothing, so its New pill must survive until they
-    // open it (otherwise it flashes once and is gone on the next navigation).
-    const maxDate = [...sorted, ...articles].reduce((m, x) => (x.date || "") > m ? x.date : m, "");
-    const markSeen = () => {
-      if (anyNew && maxDate) { try { localStorage.setItem("cad-news-seen", maxDate); } catch (e) {} }
-    };
-    if (head) head.onclick = () => {
-      const nowCollapsed = !inner.hidden;
-      inner.hidden = nowCollapsed;
-      wrap.classList.toggle("collapsed", nowCollapsed);
-      head.setAttribute("aria-expanded", nowCollapsed ? "false" : "true");
-      try { localStorage.setItem("cad-news-collapsed", nowCollapsed ? "1" : "0"); } catch (e) {}
-      // opening it counts as seeing it: bank the date and drop the header badge
-      if (!nowCollapsed) { markSeen(); const pill = head.querySelector(".knew"); if (pill) pill.remove(); }
-    };
-    const more = mountEl.querySelector(".newsmorebtn");
-    if (more) more.onclick = () => {
-      const p = mountEl.querySelector("#newsMore");
-      p.hidden = !p.hidden;
-      more.textContent = p.hidden ? `All corps news (${sorted.length}) ▾` : "Fewer ▴";
-    };
-    if (!collapsed) markSeen(); // rendered already open → it's been seen
   }
 
   async function renderSeason(year, stale) {
