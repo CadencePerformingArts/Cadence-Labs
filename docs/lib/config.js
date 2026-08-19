@@ -20,6 +20,6 @@
     ASK_ENABLED: false,
     // Release identifier shown on the About page; keep in step with the
     // service worker's cache version when shell files change.
-    RELEASE: "v42",
+    RELEASE: "v46",
   };
 })();

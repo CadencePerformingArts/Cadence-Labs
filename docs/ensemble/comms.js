@@ -88,7 +88,7 @@
   async function loadDirectory(orgId, force) {
     if (dirCache && dirCache.orgId === orgId && !force) return dirCache;
     var members = await CadOrg.rest("org_members?select=id,user_id,display_name,section," +
-      "instrument,leadership_title,is_minor,status,role:org_roles(id,key,name,kind)" +
+      "instrument,leadership_title,is_minor,status,role:org_roles!org_members_role_id_fkey(id,key,name,kind)" +
       "&org_id=eq." + orgId + "&order=display_name.asc");
     var groups = await CadOrg.rest("org_groups?select=id,name,kind,parent_id&org_id=eq." +
       orgId + "&order=name.asc");

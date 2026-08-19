@@ -1,7 +1,7 @@
 /* Cadence service worker — network-first with cache fallback.
    Fresh data always wins when online; the app shell and the last-seen data
    keep working offline. Nothing is ever served stale while connected. */
-const CACHE = "cadence-v42";
+const CACHE = "cadence-v46";
 const SHELL = ["./", "index.html", "app.css", "app.js", "charts.js", "recap.js", "arcade.js", "wrapped.js", "install.js",
   "lib/config.js", "lib/live-core.js", "lib/season-utils.js", "onthisday.json", "manifest.webmanifest"];
 

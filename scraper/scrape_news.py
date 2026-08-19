@@ -42,6 +42,36 @@ ANNOUNCE = re.compile(r"announc|reveal|2027|next summer|next season|show title|t
                       r"director|staff|tour dates", re.I)
 
 
+FEED = "https://www.dci.org/feed/"
+CONTENT_NS = "{http://purl.org/rss/1.0/modules/content/}"
+# WordPress serves its emoji glyphs as images from s.w.org — never a thumbnail
+EMOJI_IMG = re.compile(r"s\.w\.org/images/core/emoji", re.I)
+FIRST_IMG = re.compile(r'<img[^>]+src="(https://[^"]+)"', re.I)
+
+
+def article_images() -> dict[str, str]:
+    """url -> first real content image, from the RSS feed. Best-effort."""
+    import xml.etree.ElementTree as ET
+    xml = fetch(FEED) or ""
+    if not xml:
+        return {}
+    out: dict[str, str] = {}
+    try:
+        root = ET.fromstring(xml)
+    except ET.ParseError:
+        return {}
+    for it in root.findall(".//item"):
+        link = (it.findtext("link") or "").strip()
+        body = it.findtext(CONTENT_NS + "encoded") or ""
+        if not link:
+            continue
+        for src in FIRST_IMG.findall(body):
+            if not EMOJI_IMG.search(src):
+                out[link] = src
+                break
+    return out
+
+
 def kind_of(blurb: str) -> str:
     if AUDITION.search(blurb):
         return "auditions"
@@ -68,6 +98,17 @@ def main() -> int:
         articles.append({"title": norm_space(_html.unescape(title)), "url": url,
                          "date": f"{yy}-{mo}-{dd}"})
     articles.sort(key=lambda a: a["date"], reverse=True)
+
+    # Headline thumbnails come from the WordPress RSS feed's content:encoded —
+    # the index page carries none. Best-effort: a dead feed just means text
+    # cards. WordPress inlines its emoji glyphs as s.w.org SVG <img>s, and an
+    # article whose only image is an emoji must render as text, not as a
+    # thumbnail of a camera emoji (that shipped once).
+    imgs = article_images()
+    for a in articles:
+        img = imgs.get(a["url"])
+        if img:
+            a["image"] = img
 
     # the last few weekly roundups carry the per-corps announcements
     roundups = [a for a in articles if "corps-news-and-announcements" in a["url"]][:3]

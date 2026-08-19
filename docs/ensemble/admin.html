@@ -86,7 +86,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     try {
       if (kind === "roster") {
         var ms = await CadOrg.rest("org_members?select=display_name,section,instrument," +
-          "leadership_title,grad_year,status,joined_at,role:org_roles(name)&org_id=eq." + org.id +
+          "leadership_title,grad_year,status,joined_at,role:org_roles!org_members_role_id_fkey(name)&org_id=eq." + org.id +
           "&order=display_name.asc&limit=5000");
         downloadCsv("roster.csv",
           ["Name", "Role", "Section", "Instrument", "Title", "Grad year", "Status", "Joined"],

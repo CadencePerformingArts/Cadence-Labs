@@ -105,6 +105,32 @@
      them outright would hide results from stitchSeasonHistory and corrupt
      the season high / 3-show average / sparkline of corps that competed in
      both. `listClasses` is the subset worth showing in the class picker. */
+  /* The DCI season ends at the World Championship. The archive keeps every
+     show of the calendar year — other circuits' championships and post-tour
+     hometown exhibitions included — and "rank by last score" would let those
+     late shows set the board (1996's archive has a 98.1 posted in Montreal a
+     week AFTER that corps placed 15th at DCI Semifinals). So the World/Open
+     Class boards stop at the championship's last date; other classes
+     (All-Age's September DCA championship, foreign circuits) keep their own
+     calendars. Mirrors scraper/build_data.py — keep the patterns in step. */
+  var CHAMP_EVENT = /world championship|dci championship/i;
+  var CHAMP_BARE = /^(dci\s+)?(world|open) class (championship\s+)?(grand\s+)?(prelims?|quarter[\s-]?finals?|semi[\s-]?finals?|finals?)$/i;
+  var DCI_RANKED = { "World Class": 1, "Open Class": 1 };
+  function isChampEvent(name, year) {
+    var n = String(name || "").trim().replace(/\s+/g, " ");
+    if (CHAMP_EVENT.test(n)) return true;
+    // bare "World/Open Class Finals" is DCI's naming only from 2008 — before
+    // that it's another circuit's (the Dutch championship shares the name)
+    return year >= 2008 && CHAMP_BARE.test(n);
+  }
+  function champEndDate(evs) {
+    var end = "";
+    evs.forEach(function (e) {
+      if (e.date && isChampEvent(e.name, +String(e.date).slice(0, 4)) && e.date > end) end = e.date;
+    });
+    return end || null;
+  }
+
   function rankingsFromEvents(events, opts) {
     var o = opts || {};
     var minCorps = o.minCorps == null ? 3 : o.minCorps;
@@ -113,12 +139,14 @@
       .slice().sort(function (a, b) {
         return String(a.date).localeCompare(String(b.date)) || roundRank(a.name) - roundRank(b.name);
       });
+    var cut = champEndDate(evs);
     var perClass = new Map();        // class -> Map(corps -> [{date, score, event}])
     var perClassEvents = new Map();  // class -> Set(event key)
     evs.forEach(function (ev) {
       (ev.classes || []).forEach(function (c) {
         var cls = c && c["class"];
         if (!cls) return;
+        if (cut && DCI_RANKED[cls] && ev.date > cut) return; // season's over
         (c.results || []).forEach(function (r) {
           // falsy-score skip mirrors the Python builder (drops null AND 0)
           if (!r || !r.corps || !r.score) return;

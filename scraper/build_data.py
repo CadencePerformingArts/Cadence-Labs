@@ -104,6 +104,67 @@ def event_is_lower_class(name: str, year: int | None) -> bool:
     return bool(year and year >= OPEN_CLASS_RENAMED and OPEN_CLASS_EVENT.search(n))
 
 
+# Same rule for the historical side divisions: "DCI World Championships
+# Class A Prelims" is a Class A event, and its blank division column must
+# not put 42 Class A corps on the World Class board (1982). Checked in
+# order — a combined "Class A and All Girl" listing takes the first match.
+SIDE_DIV_EVENTS = [
+    (re.compile(r"\bclass a\b", re.I), "Class A"),
+    (re.compile(r"all[- ]?girl", re.I), "All-Girl"),
+]
+
+
+def event_side_class(name: str) -> str | None:
+    n = norm_space(name or "")
+    if not n or TOP_DIV_EVENT.search(n):
+        return None
+    for pat, cls in SIDE_DIV_EVENTS:
+        if pat.search(n):
+            return cls
+    return None
+
+
+# ---- the DCI championship is the season's anchor -------------------------
+# Two rules key off it (mirrored in docs/lib/season-utils.js — keep in step):
+#   * A DCI class's season ENDS there. Scores from later shows (other
+#     circuits' championships, post-tour hometown exhibitions) are real
+#     events, but they are not DCI standings — 1996's archive has Les Etoiles
+#     posting a 98.1 at a Montreal show a week AFTER placing 15th at DCI
+#     Semifinals, which put them #1 on the World Class board.
+#   * The corps who competed there are the class's roster for the year.
+# "DCI championship" is matched tightly: "world championship" / "dci
+# championship" anywhere, or — from 2008, when DCI adopted the naming —
+# its bare round names ("World Class Finals", "Open Class Semifinals").
+# Before 2008 those bare names belong to other circuits (the Dutch
+# championship is literally called "Open Class Finals"), and other
+# circuits' championships (DCA, DCUK, Drum Corps Europe, West Indies…)
+# must never match.
+CHAMP_EVENT = re.compile(r"world championship|dci championship", re.I)
+CHAMP_BARE = re.compile(
+    r"^(dci\s+)?(world|open) class (championship\s+)?(grand\s+)?"
+    r"(prelims?|quarter[\s-]?finals?|semi[\s-]?finals?|finals?)$", re.I)
+DCI_RANKED_CLASSES = ("World Class", "Open Class")
+
+
+def is_champ_event(name: str, year: int | None) -> bool:
+    n = norm_space(name or "")
+    if CHAMP_EVENT.search(n):
+        return True
+    return bool(year and year >= OPEN_CLASS_RENAMED and CHAMP_BARE.match(n))
+
+
+def champ_end_dates(events) -> dict[int, str]:
+    """year -> the last championship date (the finals) that season, if any."""
+    out: dict[int, str] = {}
+    for e in events:
+        if not e.get("date") or not is_champ_event(e.get("name"), e.get("year")):
+            continue
+        y = e["year"]
+        if y not in out or e["date"] > out[y]:
+            out[y] = e["date"]
+    return out
+
+
 def load_events():
     """dci_events.json (DCI.org, 2013+) merged with history_events.json
     (pre-2013 archive scrape, same schema). History only contributes years
@@ -127,7 +188,8 @@ def load_events():
     # for them: a mini-corps is a horn line on the front sideline, so its
     # score doesn't belong on a field-competition board (2008's March
     # exhibition had Capital Brass MiniCorps at 87.0, twelfth for the season).
-    NON_FIELD_CORPS = re.compile(r"mini-?\s*corps", re.I)
+    # Marching bands guesting at corps shows aren't corps either.
+    NON_FIELD_CORPS = re.compile(r"mini-?\s*corps|\byouth band\b|\(band\)", re.I)
     out = []
     for ev in events:
         if not ev.get("year") or not ev.get("classes") or ev.get("non_corps"):
@@ -158,12 +220,16 @@ def load_events():
                 # the show's name is the authority; the source's label was a
                 # blank-column fallback, so it isn't worth surfacing either
                 cc, raw_label = "Open Class", ""
+            elif cc == "World Class":
+                side = event_side_class(ev.get("name"))
+                if side:
+                    cc, raw_label = side, ""
             results = [dict(r, corps=canon_corps(r["corps"])) for r in c["results"] if r.get("corps")]
             # junk rows: bare numbers, unknown/tba placeholders, standstill units
             results = [r for r in results
                        if not re.fullmatch(r"\d+", r["corps"])
                        and not NON_FIELD_CORPS.search(r["corps"])
-                       and r["corps"].lower().strip("()") not in ("unknown", "tba", "tbd", "n/a")]
+                       and r["corps"].lower().strip("()") not in ("unknown", "tba", "tbd", "n/a", "retreat")]
             # a corps listed twice in one group keeps its best-scored row
             best_row: dict[str, dict] = {}
             for r in results:
@@ -262,10 +328,15 @@ def load_events():
         "Steel City Ambassadors", "Rochester Crusaders", "Chops, Inc.",
         "Govenaires", "Fitchburg Kingsmen", "White Sabers", "Fusion Core",
         "Cincinnati Tradition", "Atlanta CorpsVets", "Carolina Gold",
+        "St. Rita's Brassmen",  # Brooklyn seniors — 2nd on 1973's junior board via the World Open's senior division
     }
     seniors_by_year: dict[int, set] = defaultdict(set)
+    # \b keeps ODCA (a junior circuit) and other substrings out; the "dci"
+    # guard keeps split bills ("DCI Atlantic/DCA Show") from branding the
+    # junior half of the lineup — The Cadets are not a senior corps
     for ev in out:
-        if ev.get("source") == "dcx" and "dca" in (ev.get("name") or "").lower():
+        n = (ev.get("name") or "").lower()
+        if ev.get("source") == "dcx" and re.search(r"\bdca\b", n) and "dci" not in n:
             for c in ev["classes"]:
                 for r in c["results"]:
                     seniors_by_year[ev["year"]].add(r["corps"])
@@ -365,6 +436,73 @@ def load_events():
     if reclassed:
         log(f"reclassified {reclassed} all-Open-Class-field results out of World Class")
 
+    # Non-DCI circuits (DCUK, Drum Corps Holland/Europe, Drum Corps West
+    # Indies, national circuits abroad) ride the archive with their top
+    # division labelled "World Class" — putting the UK's Blue Eagles seventh
+    # on 1991's DCI board. A DCI class's season converges at the World
+    # Championship, so the corps who competed there are the class's roster;
+    # a field that shares NOT ONE corps with that roster is another circuit's
+    # show and gets its honest label, International. One touring corps in the
+    # field (Taipei Yuehfu at DCI II/III, a US corps guesting abroad) keeps
+    # the whole field DCI — only entirely-foreign fields move.
+    champ_roster: dict[tuple, set] = defaultdict(set)
+    for ev in out:
+        if not is_champ_event(ev.get("name"), ev.get("year")):
+            continue
+        for c in ev["classes"]:
+            if c["class"] in DCI_RANKED_CLASSES:
+                champ_roster[(ev["year"], c["class"])].update(r["corps"] for r in c["results"])
+    intl = 0
+    for ev in out:
+        if is_champ_event(ev.get("name"), ev.get("year")):
+            continue
+        # judge the EVENT, not each group alone: a lone Open Class group at a
+        # DCI show (Arsenal touring "DCI Dallas" without making championships
+        # week) must not go International just because its own field misses
+        # the roster — the World Class corps on the same bill prove the show
+        # is DCI's. Only an event where NO group touches a roster is another
+        # circuit's.
+        dci_event = False
+        for c in ev["classes"]:
+            if c["class"] not in DCI_RANKED_CLASSES:
+                continue
+            roster = champ_roster.get((ev["year"], c["class"]))
+            if roster and len(roster) >= 10 and {r["corps"] for r in c["results"]} & roster:
+                dci_event = True
+                break
+        if dci_event:
+            continue
+        changed = False
+        for c in ev["classes"]:
+            if c["class"] not in DCI_RANKED_CLASSES:
+                continue
+            roster = champ_roster.get((ev["year"], c["class"]))
+            # a thin roster means the championship itself barely scraped —
+            # don't judge whole fields against a fragment
+            if not roster or len(roster) < 10:
+                continue
+            field = {r["corps"] for r in c["results"]}
+            if field and not field & roster:
+                c["class"] = "International"
+                c.pop("label", None)
+                intl += len(c["results"])
+                changed = True
+        if changed:
+            merged_i: dict[tuple, dict] = {}
+            for c in ev["classes"]:
+                key = (c["class"], c.get("label") or "")
+                if key in merged_i:
+                    merged_i[key]["results"].extend(c["results"])
+                else:
+                    merged_i[key] = c
+            if len(merged_i) != len(ev["classes"]):
+                for c in merged_i.values():
+                    c["results"].sort(key=lambda r: (r["place"] if r["place"] is not None else 99,
+                                                     -(r["score"] or 0)))
+                ev["classes"] = list(merged_i.values())
+    if intl:
+        log(f"reclassified {intl} non-DCI-circuit results to International")
+
     log(f"loaded {len(out)} usable events")
     return out
 
@@ -406,12 +544,21 @@ def is_champ_finals(ev) -> bool:
     if "semi" in n or "prelim" in n or "quarter" in n:
         return False
     # side championships crown their own divisions, not the DCI title —
-    # the archive labels their sections as the top division, so exclude by name
-    if re.search(r"class a\b|all[- ]?girl|division i{2,3}\b", n):
+    # the archive labels their sections as the top division, so exclude by
+    # name. DCI's OWN Division II/III finals DO crown (the Open Class
+    # champion of their day), so they clear this guard.
+    if re.search(r"class a\b|all[- ]?girl", n):
         return False
-    # some archive years name the finals bare "World Class Finals" — that
-    # phrasing is DCI's own, so it clears the non-DCI-circuit guard
+    if re.search(r"division i{2,3}\b", n) and not re.search(r"world championship|dci championship", n):
+        return False
+    # from 2008 DCI names its finals bare "World Class Finals" / "Open Class
+    # Finals" — before that, those exact names are other circuits' (the Dutch
+    # championship is literally "Open Class Finals", which crowned Beatrix a
+    # "DCI Open Class champion" for six seasons)
     if re.fullmatch(r"(dci\s+)?(world|open) class finals", n):
+        return (ev.get("year") or 0) >= OPEN_CLASS_RENAMED
+    # the DCA championship IS the All-Age title
+    if "dca championship" in n:
         return True
     if ev.get("source") == "dcx" and "dci" not in n:
         return False
@@ -420,6 +567,11 @@ def is_champ_finals(ev) -> bool:
 
 def build_champions(events):
     champs = defaultdict(dict)
+    # Division II and III finals both crown into the unified "Open Class" —
+    # II is the senior division, so its winner takes the year's title even
+    # when III's field scored higher on its own sheet.
+    pri_of = lambda name: 0 if re.search(r"division iii\b", (name or "").lower()) else 1
+    champ_pri: dict[tuple, int] = {}
     for ev in events:
         if not is_champ_finals(ev):
             continue
@@ -434,11 +586,20 @@ def build_champions(events):
                 cls = "Open Class"
             if "all-age" in n or "all age" in n:
                 cls = "All-Age"
+            elif cls == "All-Age" and "dca championship" not in n:
+                # a senior-circuit group riding a DCI championship bill is not
+                # the DCA title — only DCA's own championship crowns All-Age
+                continue
+            if "dca championship" in n and cls != "All-Age":
+                continue  # DCA's bill crowns the All-Age title, nothing else
             cur = champs[ev["year"]].get(cls)
-            if cur is None or (res[0]["score"] or 0) > (cur["score"] or 0):
+            pri = pri_of(ev.get("name"))
+            cur_pri = champ_pri.get((ev["year"], cls), -1)
+            if cur is None or pri > cur_pri or (pri == cur_pri and (res[0]["score"] or 0) > (cur["score"] or 0)):
                 top = res[0]["score"]
                 winners = list(dict.fromkeys(r["corps"] for r in res if r["score"] == top))
                 champs[ev["year"]][cls] = {"corps": " & ".join(winners), "score": top}
+                champ_pri[(ev["year"], cls)] = pri
 
     # fall back to the documented public record (Wikipedia) for seasons
     # where no championship-finals event has been scraped
@@ -534,9 +695,16 @@ def build_rankings(events):
     season = max((e["year"] for e in events), default=now.year)
     dated = sorted([e for e in events if e.get("date") and e["year"] == season],
                    key=lambda e: (e["date"], _round_rank(e.get("name"))))
+    # DCI standings end at the World Championship: a show dated after the
+    # finals never moves the World/Open Class board (other classes — All-Age's
+    # September DCA championship, foreign circuits — keep their own calendars).
+    # Mirrored in docs/lib/season-utils.js rankingsFromEvents.
+    cut = champ_end_dates(dated).get(season)
     per_class = defaultdict(dict)
     for ev in dated:
         for c in ev["classes"]:
+            if cut and c["class"] in DCI_RANKED_CLASSES and ev["date"] > cut:
+                continue
             for r in c["results"]:
                 if not r.get("score"):
                     continue
@@ -1025,15 +1193,21 @@ def build_records(events):
     main_classes = ("World Class", "Open Class", "All-Age")
     per_year = defaultdict(lambda: defaultdict(list))   # cls -> year -> rows
     finals = defaultdict(dict)                          # cls -> year -> rows
+    # record-book scores for the DCI classes stop at each season's
+    # championship — post-finals exhibition scores are not DCI records
+    champ_end = champ_end_dates(events)
     for ev in events:
         finals_ev = is_champ_finals(ev)
         n = (ev.get("name") or "").lower()
+        cut = champ_end.get(ev["year"])
         for c in ev.get("classes") or []:
             cls = c["class"]
             res = [r for r in (c.get("results") or []) if r.get("score")]
             if not res:
                 continue
             if cls in main_classes:
+                if cls in DCI_RANKED_CLASSES and cut and (ev.get("date") or "") > cut:
+                    continue
                 for r in res:
                     per_year[cls][ev["year"]].append(
                         [ev["year"], ev.get("date"), r["corps"], r["score"], ev.get("name")])
@@ -1043,6 +1217,8 @@ def build_records(events):
                     fcls = "Open Class"
                 if "all-age" in n or "all age" in n:
                     fcls = "All-Age"
+                elif cls == "All-Age" and "dca championship" not in n:
+                    continue  # senior group on a DCI bill — not the DCA title
                 if fcls not in main_classes:
                     continue
                 rows = sorted(res, key=lambda r: -(r["score"] or 0))

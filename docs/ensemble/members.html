@@ -74,7 +74,7 @@ var fs=localStorage.getItem("cad-fontsize");if(fs&&fs!=="1")r.style.zoom=fs;})()
     var orgId = S.org.id;
     S.members = await CadOrg.rest("org_members?select=id,user_id,display_name,section," +
       "instrument,grad_year,leadership_title,is_minor,status,role_id,joined_at,custom," +
-      "role:org_roles(id,key,name,kind,permissions)&org_id=eq." + orgId +
+      "role:org_roles!org_members_role_id_fkey(id,key,name,kind,permissions)&org_id=eq." + orgId +
       "&order=display_name.asc.nullslast");
     S.roles = await CadOrg.rest("org_roles?select=id,key,name,kind,permissions,sort&org_id=eq." +
       orgId + "&order=sort.asc");

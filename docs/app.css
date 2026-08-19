@@ -325,24 +325,22 @@ th[data-sort] { cursor: pointer; user-select: none; }
 .capwins .cw-main { font-weight: 650; }
 .capwins .cw-main b { text-transform: uppercase; letter-spacing: .4px; }
 
-/* "Caption Winners Card" call-to-action — the loud entry point to the
-   shareable card, mirroring how the corps page surfaces its season card */
-.capctawrap { margin: 14px 0 10px; }
+/* "Caption Winners Card" call-to-action — one compact line: the card itself
+   does the explaining, so the button just needs to be findable */
+.capctawrap { margin: 10px 0 8px; }
 .capctawrap[hidden] { display: none; }
 .capcta {
-  display: flex; align-items: center; gap: 13px; width: 100%; text-align: left;
-  font: inherit; cursor: pointer; padding: 13px 15px; border-radius: 14px;
+  display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+  font: inherit; cursor: pointer; padding: 8px 13px; border-radius: 10px;
   color: var(--text-primary); background: var(--accent-wash);
   border: 1px solid var(--gold);
 }
 .capcta:hover { filter: brightness(1.03); border-color: var(--gold); }
 .capcta:disabled { opacity: .7; cursor: default; }
 .capcta-ic { flex: none; line-height: 0; color: var(--gold); }
-.capcta-t { min-width: 0; }
-.capcta-t b { display: block; font-size: 15px; font-weight: 800; letter-spacing: -.1px; }
-.capcta-t span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
-.capcta-go { margin-left: auto; flex: none; font-size: 13px; font-weight: 800; color: var(--link); white-space: nowrap; }
-@media (max-width: 430px) { .capcta-go { display: none; } }
+.capcta-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.capcta-t b { font-size: 14px; font-weight: 800; letter-spacing: -.1px; }
+.capcta-go { margin-left: auto; flex: none; font-size: 12.5px; font-weight: 800; color: var(--link); white-space: nowrap; }
 
 .rjump { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 8px; }
 .rjbtn {
@@ -491,12 +489,51 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 @media (prefers-reduced-motion: reduce) { .newschev { transition: none; } }
 .newsinner { margin-top: 12px; }
 .newsinner[hidden] { display: none; }
+/* collapsed, the tile is just its header — tighten the card so it isn't a
+   band of empty space (the .card.newswrap.collapsed specificity beats
+   [data-fs] .card's padding override) */
+.card.newswrap.collapsed { padding-top: 8px; padding-bottom: 8px; }
+
+/* generic collapsible card header (Caption Titles, and reusable elsewhere) */
+.collhead { margin: 0; }
+.collbtn {
+  display: flex; align-items: center; gap: 8px; width: 100%; min-height: 34px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  background: none; border: 0; padding: 3px 0;
+}
+.collttl { min-width: 0; }
+.collchev { margin-left: auto; flex: none; color: var(--muted); transition: transform 0.15s; }
+.card.collapsed .collchev { transform: rotate(-90deg); }
+.card.collapsed { padding-top: 8px; padding-bottom: 8px; }
+@media (prefers-reduced-motion: reduce) { .collchev { transition: none; } }
 .newshl { display: flex; align-items: baseline; gap: 10px; padding: 7px 2px; font-weight: 600; border-top: 1px solid var(--grid); }
 .newshl:first-of-type { border-top: 0; }
 .newshl:hover { text-decoration: none; }
 .newshl:hover { background: var(--surface-2); border-radius: 8px; }
 .newshl-d { flex: none; color: var(--muted); font-size: 11.5px; font-weight: 700; }
 .newsgrid { margin-top: 10px; }
+
+/* headline photo cards — a horizontally-scrollable rail of the latest
+   DCI.org stories, thumbnail + date + clamped title. An article whose feed
+   body has no real image (WordPress emoji glyphs don't count) renders the
+   same card without the picture. */
+.newsrail {
+  display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; padding-bottom: 4px; scroll-snap-type: x proximity;
+}
+.newsart {
+  flex: 0 0 232px; scroll-snap-align: start; display: flex; flex-direction: column;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  background: var(--surface-1); color: inherit; text-decoration: none;
+}
+.newsart:hover { text-decoration: none; border-color: var(--baseline); }
+.newsart img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface-2); }
+.newsart-in { display: block; padding: 9px 11px 11px; }
+.newsart time { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
+.newsart b {
+  font-size: 13px; line-height: 1.4; font-weight: 650; color: var(--text-primary);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
 .newscard { display: flex; gap: 11px; align-items: flex-start; background: var(--surface-2); border: 1px solid var(--border); border-radius: 13px; padding: 11px 13px; }
 .newslogo { width: 34px; height: 34px; object-fit: contain; flex: none; border-radius: 8px; background: #fff; padding: 2px; }
 .newsbody { min-width: 0; }

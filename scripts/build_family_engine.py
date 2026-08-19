@@ -734,8 +734,8 @@ def main() -> None:
         "database note")
     js = sub_once(
         js,
-        '''      <h1 class="page">Shows ${yearPickerHtml(year)} <span class="kicker" id="evCount"></span></h1>''',
-        '''      <h1 class="page">Shows ${yearPickerHtml(year)} <span class="kicker" id="evCount"></span></h1>
+        '''      <h1 class="page">${yearPickerHtml(year)} Shows <span class="kicker" id="evCount"></span></h1>''',
+        '''      <h1 class="page">${yearPickerHtml(year)} Shows <span class="kicker" id="evCount"></span></h1>
       ${noteHtml("events")}''',
         "events note")
     js = sub_once(
@@ -774,7 +774,7 @@ def main() -> None:
         ("'<li class=\"pr-hint\">Tap a corps below to start ranking…</li>'",
          "'<li class=\"pr-hint\">Tap ' + TERM.a + ' below to start ranking…</li>'", 1),
         ("} corps`,", "} ${TERM.plural}`,", 1),
-        ('"Pick corps to chart…"', '"Pick " + TERM.plural + " to chart…"', 2),
+        ('"Pick corps to chart…"', '"Pick " + TERM.plural + " to chart…"', 1),
         ("each corps' most recent score", "each ${TERM.singular}'s most recent score", 1),
         ("\"<h2>Closest Battle</h2><div class='empty'>Needs two corps within striking distance.</div>\"",
          "\"<h2>Closest Battle</h2><div class='empty'>Needs two \" + TERM.plural + \" within striking distance.</div>\"", 1),
@@ -786,7 +786,7 @@ def main() -> None:
         ("Pick corps to compare — this season is already selected",
          "Pick ${TERM.plural} to compare — this season is already selected", 1),
         ("} corps-season lines — trim the selection", "} ${TERM.singular}-season lines — trim the selection", 1),
-        ('"Pick a corps…"', '"Pick " + TERM.a + "…"', 2),
+        ('"Pick a corps…"', '"Pick " + TERM.a + "…"', 1),
         ("Choose any corps above to see season charts, the full performance log, and championship titles — back to 1972.",
          "Choose any ${TERM.singular} above to see season charts, the full performance log, and championship titles${FAM ? \"\" : \" — back to 1972\"}.", 1),
         ("No scores on record for this corps yet.", "No scores on record for this ${TERM.singular} yet.", 1),
@@ -797,8 +797,8 @@ def main() -> None:
          "Change from this ${TERM.singular}'s previous show that season", 1),
         ("${ev.lineup.length} corps</span>", "${ev.lineup.length} ${TERM.plural}</span>", 1),
         ("${c.results.length} corps</span>", "${c.results.length} ${TERM.plural}</span>", 1),
-        ('<h1 class="page">Shows ${yearPickerHtml(year)} <span',
-         '<h1 class="page">${FAM ? FAM.eventsTitle : "Shows"} ${yearPickerHtml(year)} <span', 1),
+        ('<h1 class="page">${yearPickerHtml(year)} Shows <span',
+         '<h1 class="page">${yearPickerHtml(year)} ${FAM ? FAM.eventsTitle : "Shows"} <span', 1),
         ('· any corps, any seasons', '· any ${TERM.singular}, any seasons', 1),
         # onboarding sheet, Database search box, Settings › Favorites summary —
         # all three are reachable on a family app
@@ -844,7 +844,7 @@ def main() -> None:
 
     # table column headers and the ensembles page title
     js, n = re.subn(r'>Corps<', '>${TERM_TH}<', js)
-    assert n == 13, f"'Corps' table headers: {n}"
+    assert n == 12, f"'Corps' table headers: {n}"
 
     # Two 'corps' that the >Corps< regex cannot reach, both shipped on every
     # WGI app before this was caught:
@@ -1014,7 +1014,7 @@ def main() -> None:
 
     # "Show All N corps" expanders and the team-colors note
     js, n = re.subn(r'collapseRows\(([^;]*?), 5, "corps"\)', r'collapseRows(\1, 5, TERM.plural)', js)
-    assert n == 3, f"collapseRows noun: {n}"
+    assert n == 2, f"collapseRows noun: {n}"
     js = sub_once(js, 'titlesMode === "years" ? "seasons" : "corps"',
                   'titlesMode === "years" ? "seasons" : TERM.plural', "titles noun")
     js = sub_once(

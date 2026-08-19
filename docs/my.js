@@ -357,7 +357,7 @@
   function loadPrivate() {
     if (!window.CAD_SUPABASE || !sbToken()) return Promise.resolve(null); // signed out
     return sbRest("org_members?select=id,section,org:organizations(id,name,slug,plan,status,trial_ends_at)," +
-      "role:org_roles(name)&status=eq.active&order=joined_at.asc").then(function (rows) {
+      "role:org_roles!org_members_role_id_fkey(name)&status=eq.active&order=joined_at.asc").then(function (rows) {
       var mine = (rows || []).filter(function (r) { return r && r.org; }).slice(0, 4);
       if (!mine.length) return { orgs: [] };
       var nowIso = new Date().toISOString();

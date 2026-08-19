@@ -1558,14 +1558,34 @@
       corpsSel = corpsSel.filter(s => bySlug.has(s));
       yearsSel = yearsSel.filter(y => allYears.includes(y));
     }
-    // nothing chosen yet? open to a favorited corps if you have one, so the hub
-    // lands on someone you care about instead of an empty compare
+    // nothing chosen yet? seed a real comparison so the hub never opens empty:
+    //   2+ favorites → compare your favorites
+    //   1 favorite   → that corps vs the current top corps
+    //   no favorites → the current top 3
     if (!explicit && !corpsSel.length) {
       const byName = new Map(idx.map(c => [c.name, c]));
-      for (const n of FAVS.list()) {
-        const c = byName.get(n);
-        if (c) { corpsSel = [c.slug]; if (clsFilter && corpsClass(c) !== clsFilter) clsFilter = corpsClass(c); break; }
+      const favSlugs = FAVS.list().map(n => byName.get(n)).filter(Boolean).map(c => c.slug);
+      const topSlugs = async () => {
+        try {
+          const rk = await data("rankings.json");
+          const st = rk.standings || {};
+          const order = rk.listClasses || Object.keys(st);
+          const cl = order.includes("World Class") ? "World Class" : order[0];
+          return ((st[cl] || {}).rows || []).map(r => byName.get(r.corps)).filter(Boolean).map(c => c.slug);
+        } catch (e) { return []; }
+      };
+      if (favSlugs.length >= 2) {
+        corpsSel = favSlugs;
+      } else if (favSlugs.length === 1) {
+        const top = await topSlugs();
+        corpsSel = [favSlugs[0], ...top.filter(s => s !== favSlugs[0]).slice(0, 1)];
+      } else {
+        corpsSel = (await topSlugs()).slice(0, 3);
       }
+      if (stale()) return;
+      // don't let the corps-type filter hide any corps we just seeded
+      const seeded = corpsSel.map(s => bySlug.get(s)).filter(Boolean);
+      if (clsFilter && seeded.some(c => corpsClass(c) !== clsFilter)) clsFilter = "";
     }
     // corps otherwise start empty on purpose — you pick who to compare — but the
     // current season rides pre-selected so one corps pick draws a line
@@ -2366,7 +2386,7 @@
     const years = meta.seasons.map(sn => sn.year).sort((a, b) => b - a);
     let year = +params.y && years.includes(+params.y) ? +params.y : years[0];
     app.innerHTML = `
-      <h1 class="page">Shows ${yearPickerHtml(year)} <span class="kicker" id="evCount"></span></h1>
+      <h1 class="page">${yearPickerHtml(year)} Shows <span class="kicker" id="evCount"></span></h1>
       <div class="filters" style="justify-content:flex-end">
         <button class="tab" id="fToggle" aria-expanded="false">Filters ▾</button>
       </div>
@@ -2426,7 +2446,10 @@
         ${anyNew ? '<span class="pill kpill knew">New</span>' : ""}<span class="newschev" aria-hidden="true">${CHEVRON_SVG}</span>
       </button></h2>
       <div class="newsinner" id="newsInner"${collapsed ? " hidden" : ""}>
-        ${articles.slice(0, 2).map(a => h`<a class="newshl${isNew(a) ? " new" : ""}" href="${encodeURI(a.url)}" target="_blank" rel="noopener"><span class="newshl-d">${esc(fmtDate(a.date))}</span>${esc(a.title)}${isNew(a) ? ' <span class="pill kpill knew">New</span>' : ""}</a>`).join("")}
+        ${articles.length ? `<div class="newsrail">${articles.slice(0, 8).map(a => h`<a class="newsart${isNew(a) ? " new" : ""}" href="${encodeURI(a.url)}" target="_blank" rel="noopener">
+          ${a.image ? `<img src="${encodeURI(a.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+          <span class="newsart-in"><time>${esc(fmtDate(a.date))}</time><b>${esc(a.title)}</b>${isNew(a) ? ' <span class="pill kpill knew">New</span>' : ""}</span>
+        </a>`).join("")}</div>` : ""}
         <div class="dsk2 newsgrid">${sorted.slice(0, CUT).map(cardHtml).join("")}</div>
         ${sorted.length > CUT ? `<div class="dsk2 newsgrid" id="newsMore" hidden>${sorted.slice(CUT).map(cardHtml).join("")}</div>
           <button class="tab newsmorebtn" type="button">All corps news (${sorted.length}) ▾</button>` : ""}
@@ -2757,15 +2780,14 @@
      loud, obvious entry point — the same treatment the corps page gives its
      season card — at the TOP of every captions block. */
   const CAP_CTA_INNER =
-    `<span class="capcta-ic">${icoSvg(ICO_TROPHY, 23)}</span>` +
-    '<span class="capcta-t"><b>Caption Winners Card</b>' +
-    "<span>See who took GE · Visual · Music — and by how much</span></span>" +
+    `<span class="capcta-ic">${icoSvg(ICO_TROPHY, 19)}</span>` +
+    '<span class="capcta-t"><b>Caption Winners Card</b></span>' +
     '<span class="capcta-go">Open →</span>';
   const capCta = (attrs = "") => `<button type="button" class="capcta"${attrs}>${CAP_CTA_INNER}</button>`;
   // `info` may be a function so the button can read the currently-picked show
   function wireCapCta(btn, info) {
     if (!btn) return;
-    const note = msg => `<span class="capcta-ic">${icoSvg(ICO_TROPHY, 23)}</span><span class="capcta-t"><b>${esc(msg)}</b></span>`;
+    const note = msg => `<span class="capcta-ic">${icoSvg(ICO_TROPHY, 19)}</span><span class="capcta-t"><b>${esc(msg)}</b></span>`;
     btn.onclick = () => {
       if (!window.CadWrapped || !window.CadWrapped.captionsCard) return;
       const i = typeof info === "function" ? info() : info;
@@ -2821,17 +2843,22 @@
       }
       return hi > 0 ? names.join(" & ") : null;
     };
-    const winChips = [];
-    for (const g of groups) {
-      const w = winnerOf(g.totI);
-      if (w) winChips.push(`<span class="cw-main"><b>${esc(g.n)}</b> ${esc(w)}</span>`);
-      for (const s of g.subs) {
-        const ws = winnerOf(s.totI);
-        if (ws) winChips.push(`<span><b>${esc(shortSub(s.n))}</b> ${esc(ws)}</span>`);
+    // the caption-winners strip is redundant wherever the shareable Winners
+    // Card sits above the sheet (the captions page), so it can be suppressed
+    let winStrip = "";
+    if (!opts.hideWins) {
+      const winChips = [];
+      for (const g of groups) {
+        const w = winnerOf(g.totI);
+        if (w) winChips.push(`<span class="cw-main"><b>${esc(g.n)}</b> ${esc(w)}</span>`);
+        for (const s of g.subs) {
+          const ws = winnerOf(s.totI);
+          if (ws) winChips.push(`<span><b>${esc(shortSub(s.n))}</b> ${esc(ws)}</span>`);
+        }
       }
+      winStrip = winChips.length
+        ? `<div class="capwins" title="Caption winners on this sheet"><span class="cw-ico">${icoSvg(ICO_TROPHY, 14)}</span>${winChips.join("")}</div>` : "";
     }
-    const winStrip = winChips.length
-      ? `<div class="capwins" title="Caption winners on this sheet"><span class="cw-ico">${icoSvg(ICO_TROPHY, 14)}</span>${winChips.join("")}</div>` : "";
     // heavier rule where a caption group starts, so the blocks read at a glance
     const gb = new Set(groups.map(g => g.first));
     gb.add(iSub);
@@ -3004,13 +3031,6 @@
   }
 
   /* ============ CAPTIONS ============ */
-  const CAPTION_DEFS = [
-    ["ge", "General Effect"], ["ge1", "GE 1"], ["ge2", "GE 2"],
-    ["vis", "Visual"], ["vp", "Visual Proficiency"], ["va", "Visual Analysis"], ["cg", "Color Guard"],
-    ["mus", "Music"], ["br", "Brass"], ["ma", "Music Analysis"], ["pc", "Percussion"],
-    ["tot", "Total"],
-  ];
-
   async function viewCaptions(qs, stale) {
     setNav("data");
     let cindex;
@@ -3024,51 +3044,35 @@
     const seasons = cindex.seasons.map(s => s.year).sort((a, b) => b - a);
     const params = parseHashQuery(qs);
     let year = +params.y && seasons.includes(+params.y) ? +params.y : seasons[0];
-    let capKey = CAPTION_DEFS.some(([k]) => k === params.cap) ? params.cap : "ge";
-    let spotWant = params.corps ? decodeURIComponent(params.corps) : null; // deep link into the Spotlight
 
     app.innerHTML = `
       ${dataSubNav("captions")}
       <h1 class="page">Caption Scores</h1>
+      <div class="filters">
+        <div id="capYear"></div>
+        <div id="capCls"></div>
+      </div>
       <div class="card">
         <h2 id="showCmpTitle">Show Recap <span class="sub">the official judge-by-judge sheet — rank under each score, gold marks each caption's leader</span></h2>
         <div class="filters" style="margin:2px 0 8px"><div id="showSel"></div><div id="showCorpsSel"></div></div>
         <div class="capctawrap">${capCta(' id="showCapCta"')}</div>
         <div id="showCmpBody"><div class="empty">Pick a show above.</div></div>
       </div>
-      <div class="secdiv" id="capSeasonDiv"></div>
-      <div class="filters">
-        <div id="capYear"></div>
-        <div id="capKey"></div>
-        <div id="capCls"></div>
-      </div>
-      <div class="dsk2 w75" style="margin-top:14px">
-        <div class="card">
-          <h2 id="capChartTitle"></h2>
-          <div class="filters" style="margin:2px 0 8px"><div id="capCorpsSel"></div><button class="tab" id="capReset" hidden>Top 8</button></div>
-          <div class="chartwrap" id="capChart"></div>
-        </div>
-        <div class="card">
-          <h2 id="capBoardTitle"></h2>
-          <div id="capBoard"></div>
-        </div>
-      </div>
-      <div class="card" style="margin-top:14px">
-        <h2 id="spotTitle">Corps Spotlight</h2>
-        <div class="filters" style="margin:2px 0 8px"><div id="spotCorps"></div><div id="spotVs"></div></div>
-        <div class="chartwrap" id="spotChart"></div>
-        ${CAP_KEY_NOTE}
-      </div>
       <div class="secdiv">All-Time</div>
       <div class="card">
-        <h2 id="titlesTitle">Caption Titles</h2>
-        <div class="filters" style="margin:2px 0 8px">
-          <div id="titlesCaps"></div>
-          <button class="tab" id="titlesMode">Career totals</button>
+        <h2 class="collhead"><button type="button" class="collbtn" id="titlesTog" aria-controls="titlesWrap" aria-expanded="false">
+          <span class="collttl">Caption Titles <span class="sub" id="titlesSub"></span></span>
+          <span class="collchev" aria-hidden="true">${CHEVRON_SVG}</span>
+        </button></h2>
+        <div id="titlesWrap" hidden>
+          <div class="filters" style="margin:2px 0 8px">
+            <div id="titlesCaps"></div>
+            <button class="tab" id="titlesMode">Career totals</button>
+          </div>
+          <div id="titlesBody"><div class="loading">Loading…</div></div>
+          ${CAP_KEY_NOTE}
+          <p class="capkey">* one or more recap rows for that night couldn't be fully verified — the winner shown leads among verified scores</p>
         </div>
-        <div id="titlesBody"><div class="loading">Loading…</div></div>
-        ${CAP_KEY_NOTE}
-        <p class="capkey">* one or more recap rows for that night couldn't be fully verified — the winner shown leads among verified scores</p>
       </div>`;
 
 
@@ -3084,12 +3088,6 @@
     let recapsYr = []; // judge-level sheets for the picked year
     let cls = "";
     let loadGen = 0; // guards against out-of-order season loads
-    const capPick = new Set();
-    let seedPick = true; // (re)fill the picker with the top 12 on next update
-    let msCap = null;
-    let lastBoard = [];
-    const capIsDefault = () => capPick.size === Math.min(12, lastBoard.length)
-      && lastBoard.slice(0, 12).every(b => capPick.has(b.corps));
 
     const iDate = () => cols.indexOf("date"), iEv = () => cols.indexOf("event"),
       iCls = () => cols.indexOf("class"), iCorps = () => cols.indexOf("corps");
@@ -3171,7 +3169,8 @@
         body.innerHTML = "";
         const mount = document.createElement("div");
         body.appendChild(mount);
-        renderRecapSheet(mount, rc, { pick: showPick });
+        // the Winners Card above the sheet already states who took each caption
+        renderRecapSheet(mount, rc, { pick: showPick, hideWins: true });
         const foot = document.createElement("p");
         foot.className = "capkey";
         foot.style.marginTop = "8px";
@@ -3194,13 +3193,8 @@
         const i = cols.indexOf(k);
         best[k] = Math.max(...sheet.map(r => r[i] == null ? -1 : r[i]));
       }
-      const FLAT_WINS = [["ge", "GE"], ["vp", "Visual Prof."], ["va", "Visual Analysis"], ["cg", "Color Guard"], ["br", "Brass"], ["ma", "Music Analysis"], ["pc", "Percussion"]];
-      const winChips = FLAT_WINS.map(([k, label]) => {
-        const i = cols.indexOf(k);
-        const names = [...new Set(sheet.filter(r => r[i] != null && r[i] === best[k] && best[k] > 0).map(r => r[iCorps()]))];
-        return names.length ? `<span${k === "ge" ? ' class="cw-main"' : ""}><b>${esc(label)}</b> ${esc(names.join(" & "))}</span>` : "";
-      }).join("");
-      body.innerHTML = `${winChips ? `<div class="capwins"><span class="cw-ico">${icoSvg(ICO_TROPHY, 14)}</span>${winChips}</div>` : ""}<div class="tscroll"><table class="t sticky1 showcmp"><thead><tr><th>Corps</th>${HEAD.map(([k, l]) =>
+      // (no caption-winners strip here — the Winners Card above covers it)
+      body.innerHTML = `<div class="tscroll"><table class="t sticky1 showcmp"><thead><tr><th>Corps</th>${HEAD.map(([k, l]) =>
           `<th class="num" data-c="${cols.indexOf(k)}">${l}</th>`).join("")}</tr></thead><tbody>
         ${sheet.map(r => `<tr><td>${corpsLink(r[iCorps()])}</td>${HEAD.map(([k]) => {
           const i = cols.indexOf(k);
@@ -3227,179 +3221,12 @@
       if (!ssCls) {
         ssCls = singleSelect(document.getElementById("capCls"), {
           label: "Class", options: opts, value: cls,
-          onChange: v => { cls = v; seedPick = true; update(); renderTitles(); },
+          onChange: v => { cls = v; renderShowCmp(); renderTitles(); },
         });
       } else {
         ssCls.setOptions(opts);
         ssCls.set(cls);
       }
-    }
-
-    function corpsSeries() {
-      const ki = cols.indexOf(capKey);
-      const per = new Map();
-      for (const r of rows) {
-        if (r[iCls()] !== cls || r[ki] == null || !r[iDate()]) continue;
-        const arr = per.get(r[iCorps()]) || [];
-        arr.push({ d: r[iDate()], ev: r[iEv()], v: r[ki] });
-        per.set(r[iCorps()], arr);
-      }
-      per.forEach(a => a.sort((x, y) => x.d.localeCompare(y.d)));
-      return per;
-    }
-
-    function update() {
-      renderClassTabs();
-      const per = corpsSeries();
-      const label = (CAPTION_DEFS.find(([k]) => k === capKey) || [])[1];
-      const board = [...per.entries()].map(([corps, a]) => {
-        const best = a.reduce((m, p) => p.v > m.v ? p : m, a[0]);
-        const last = a[a.length - 1];
-        return { corps, best: best.v, bestEv: best.ev, bestD: best.d,
-          latest: last.v, latestEv: last.ev, latestD: last.d, n: a.length };
-      }).sort((x, y) => y.best - x.best);
-      board.forEach((b, i) => { b.rank = i + 1; });
-
-      // chart: top 12 pre-selected in the picker — deselect to trim
-      if (seedPick) {
-        capPick.clear();
-        board.slice(0, 12).forEach(b => capPick.add(b.corps));
-        seedPick = false;
-      }
-      lastBoard = board;
-      const capDefault = capIsDefault();
-      const chosen = board.filter(b => capPick.has(b.corps));
-      const div = document.getElementById("capSeasonDiv");
-      if (div) div.textContent = `${year} Season — Caption Scores`;
-      document.getElementById("capChartTitle").innerHTML =
-        `${esc(label)} Progression — ${esc(String(year))} <span class="sub">${capDefault ? "top 12" : chosen.length + " selected"}</span>`;
-      document.getElementById("capReset").hidden = capDefault;
-      document.getElementById("capReset").textContent = "Top 12";
-      lineChart(document.getElementById("capChart"), {
-        linearX: true,
-        series: chosen.map(b => ({
-          name: b.corps, color: corpsColor(b.corps),
-          points: per.get(b.corps).map(p => ({ x: dayOfSeason(p.d), y: p.v })),
-        })),
-        height: 330, xFmt: dayLabel, yFmt: v => v.toFixed(1),
-      });
-
-      document.getElementById("capBoardTitle").innerHTML =
-        `${esc(label)} Leaders — ${esc(String(year))} <span class="sub">best single-show score, ${esc(cls)}</span>`;
-      document.getElementById("capBoard").innerHTML = board.length ? `
-        <div class="tscroll"><table class="t"><thead><tr><th>#</th><th>Corps</th><th class="num">Best</th><th>At</th><th class="num col-high">Latest</th><th class="num col-perfs">Scored shows</th></tr></thead><tbody>
-        ${board.map(b => h`<tr>
-          <td class="rank">${b.rank}</td>
-          <td>${corpsLink(b.corps)}</td>
-          <td class="num score">${score3(b.best)}</td>
-          <td style="color:var(--muted);font-size:12.5px;white-space:nowrap">${esc(b.bestEv)} · ${esc(fmtDateY(b.bestD))}</td>
-          <td class="num col-high" data-tip="${esc(`${score3(b.latest)} — ${b.latestEv} · ${fmtDateY(b.latestD)}`)}">${score3(b.latest)}</td>
-          <td class="num col-perfs">${b.n}</td></tr>`).join("")}
-        </tbody></table></div>` : "<div class='empty'>No recap data for this caption yet — it fills in as recaps are scraped.</div>";
-      if (board.length) collapseRows(document.querySelector("#capBoard tbody"), 5, "corps");
-
-      renderSpot(board);
-      renderShowCmp();
-
-      // corps picker persists across updates so the panel stays open
-      const capOptions = board.map(b => ({ value: b.corps, label: b.corps, hint: `#${b.rank}` }));
-      if (!msCap) {
-        msCap = multiSelect(document.getElementById("capCorpsSel"), {
-          label: "Pick corps to chart…", searchable: true,
-          summary: () => capIsDefault() ? "Top 12" : null,
-          bulk: true, bulkAll: false,
-          presets: [{ label: "Top 12", values: () => lastBoard.slice(0, 12).map(b => b.corps) }],
-          options: capOptions,
-          selected: capPick,
-          onChange: update,
-        });
-        document.getElementById("capReset").onclick = () => { seedPick = true; msCap.refresh(); update(); };
-      } else {
-        msCap.setOptions(capOptions);
-      }
-
-      if (!stale()) history.replaceState(null, "", `#/captions?y=${year}&cap=${capKey}`);
-    }
-
-    // caption-by-caption bars for one corps: latest show vs season best
-    const SPOT_CAPS = [["ge1", "GE1"], ["ge2", "GE2"], ["vp", "VP"], ["va", "VA"],
-      ["cg", "CG"], ["br", "BR"], ["ma", "MA"], ["pc", "PC"]];
-    let ssSpot = null;
-    let ssVs = null;
-    let spotBoard = [];
-    function renderSpot(board) {
-      if (!document.getElementById("spotCorps")) return;
-      spotBoard = board;
-      const opts = board.map(b => ({ value: b.corps, label: b.corps, hint: `#${b.rank}` }));
-      const wantSpot = spotWant && board.some(b => b.corps === spotWant) ? spotWant : null;
-      if (!ssSpot) {
-        ssSpot = singleSelect(document.getElementById("spotCorps"), {
-          label: "Pick a corps…", searchable: board.length > 12, options: opts,
-          value: wantSpot || (board.length ? board[0].corps : null),
-          onChange: () => renderSpot(spotBoard),
-        });
-      } else {
-        ssSpot.setOptions(opts);
-        if (wantSpot) ssSpot.set(wantSpot);
-        else if (!board.some(b => b.corps === ssSpot.get())) ssSpot.set(board.length ? board[0].corps : null);
-      }
-      if (wantSpot) {
-        spotWant = null; // consumed — user picks freely from here
-        setTimeout(() => {
-          const t = document.getElementById("spotTitle");
-          if (t) t.scrollIntoView({ block: "start", behavior: "smooth" });
-        }, 60);
-      }
-      const vsOpts = [{ value: "", label: "No comparison" }, ...opts];
-      if (!ssVs) {
-        ssVs = singleSelect(document.getElementById("spotVs"), {
-          label: "Compare vs…", searchable: board.length > 12, options: vsOpts, value: "",
-          onChange: () => renderSpot(spotBoard),
-        });
-      } else {
-        ssVs.setOptions(vsOpts);
-        if (ssVs.get() && !board.some(b => b.corps === ssVs.get())) ssVs.set("");
-      }
-      const corps = ssSpot.get();
-      const chartEl = document.getElementById("spotChart");
-      if (!corps) { chartEl.innerHTML = "<div class='empty'>No corps in this class yet.</div>"; return; }
-      const vs = ssVs.get() && ssVs.get() !== corps ? ssVs.get() : "";
-
-      const latestOf = name => {
-        const perf = rows.filter(r => r[iCls()] === cls && r[iCorps()] === name && r[iDate()])
-          .sort((a, b) => a[iDate()].localeCompare(b[iDate()]));
-        return perf.length ? perf[perf.length - 1] : null;
-      };
-      const latest = latestOf(corps);
-      if (!latest) { chartEl.innerHTML = "<div class='empty'>No verified recap for this corps yet.</div>"; return; }
-      const vsLatest = vs ? latestOf(vs) : null;
-      document.getElementById("spotTitle").innerHTML = vsLatest
-        ? `${esc(corps)} vs ${esc(vs)} <span class="sub">latest recap of each · every caption out of 20</span>`
-        : `${esc(corps)} — Caption Scores <span class="sub">${esc(latest[iEv()])} · ${esc(fmtDateY(latest[iDate()]))} · each caption out of 20</span>`;
-      // per-caption rank within the class (by season best)
-      const rankOf = (k, name) => {
-        const ki = cols.indexOf(k);
-        const bests = new Map();
-        for (const r of rows) {
-          if (r[iCls()] !== cls || r[ki] == null) continue;
-          const cur = bests.get(r[iCorps()]);
-          if (cur == null || r[ki] > cur) bests.set(r[iCorps()], r[ki]);
-        }
-        return [...bests.entries()].sort((a, b) => b[1] - a[1]).map(e => e[0]).indexOf(name) + 1;
-      };
-      const groups = SPOT_CAPS.map(([k, label]) => {
-        const ki = cols.indexOf(k);
-        const rA = rankOf(k, corps);
-        const bars = [{ name: corps, value: latest[ki], color: corpsColor(corps) }];
-        let sub = rA > 0 ? `#${rA}` : "";
-        if (vsLatest) {
-          const rB = rankOf(k, vs);
-          bars.push({ name: vs, value: vsLatest[ki], color: corpsColor(vs) });
-          sub = rA > 0 && rB > 0 ? `#${rA}·#${rB}` : sub;
-        }
-        return { label, sub, bars };
-      });
-      CCViz.barChart(chartEl, { groups, height: 280, yMax: 20, track: true, yFmt: v => v.toFixed(1) });
     }
 
     async function loadYear() {
@@ -3412,14 +3239,12 @@
       if (stale() || gen !== loadGen) return; // navigated away or picked another year
       rows = got;
       recapsYr = gotRec;
-      // a spotlight deep link lands in whatever class that corps marched
-      if (spotWant) {
-        const r0 = rows.find(r => r[iCorps()] === spotWant);
-        if (r0) cls = r0[iCls()];
-      }
       const cl = classesIn(rows);
       cls = cl.includes(cls) ? cls : (cl[0] || "");
-      update();
+      renderClassTabs();
+      renderShowCmp();
+      renderTitles();
+      if (!stale()) history.replaceState(null, "", `#/captions?y=${year}`);
     }
 
     // ---- caption titles: who took each caption at the championships ----
@@ -3429,6 +3254,7 @@
     const titleSel = new Set(["ge", "br", "pc", "cg"]);
     let titlesMode = "years";
     let titlesData = null;
+    let titlesOpen = false; // Caption Titles is collapsed by default
     multiSelect(document.getElementById("titlesCaps"), {
       label: "Pick captions…", bulk: true,
       options: TITLE_CAPS.map(([k, , full]) => ({ value: k, label: full })),
@@ -3439,14 +3265,25 @@
       document.getElementById("titlesMode").textContent = titlesMode === "years" ? "Career totals" : "By year";
       renderTitles();
     };
+    const titlesTog = document.getElementById("titlesTog");
+    const titlesWrap = document.getElementById("titlesWrap");
+    titlesTog.closest(".card").classList.add("collapsed");
+    titlesTog.onclick = () => {
+      titlesOpen = !titlesOpen;
+      titlesWrap.hidden = !titlesOpen;
+      titlesTog.setAttribute("aria-expanded", titlesOpen ? "true" : "false");
+      titlesTog.closest(".card").classList.toggle("collapsed", !titlesOpen);
+      if (titlesOpen) renderTitles();
+    };
     async function renderTitles() {
+      if (!titlesOpen) return; // collapsed by default — build the table only when opened
       if (!titlesData) titlesData = await data("caption_titles.json").catch(() => ({}));
       const el = document.getElementById("titlesBody");
       if (stale() || !el) return;
       const list = (titlesData[cls] || []).slice().sort((a, b) => b.y - a.y);
       const capsShown = TITLE_CAPS.filter(([k]) => titleSel.has(k));
-      document.getElementById("titlesTitle").innerHTML =
-        `Caption Titles <span class="sub">${esc(cls)} · best caption score at the championships, every year</span>`;
+      const sub = document.getElementById("titlesSub");
+      if (sub) sub.textContent = `${cls} · best caption score at the championships, every year`;
       if (!list.length || !capsShown.length) {
         el.innerHTML = `<div class='empty'>${capsShown.length ? "No championship recaps for this class yet." : "Pick at least one caption."}</div>`;
         return;
@@ -3476,17 +3313,10 @@
       collapseRows(document.getElementById("titleRows"), 5, titlesMode === "years" ? "seasons" : "corps");
     }
 
-    const _loadYear = loadYear;
-    loadYear = async () => { await _loadYear(); renderTitles(); }; // year switch can reset the class
     singleSelect(document.getElementById("capYear"), {
       label: "Season", options: seasons.map(y => ({ value: String(y), label: String(y) })),
       value: String(year),
-      onChange: v => { year = +v; seedPick = true; loadYear(); },
-    });
-    singleSelect(document.getElementById("capKey"), {
-      label: "Caption", options: CAPTION_DEFS.map(([k, l]) => ({ value: k, label: l })),
-      value: capKey,
-      onChange: v => { capKey = v; seedPick = true; update(); },
+      onChange: v => { year = +v; loadYear(); },
     });
     await loadYear();
   }
