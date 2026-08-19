@@ -49,26 +49,39 @@ EMOJI_IMG = re.compile(r"s\.w\.org/images/core/emoji", re.I)
 FIRST_IMG = re.compile(r'<img[^>]+src="(https://[^"]+)"', re.I)
 
 
-def article_images() -> dict[str, str]:
-    """url -> first real content image, from the RSS feed. Best-effort."""
+def feed_articles() -> list[dict]:
+    """Articles straight from the WordPress RSS feed: title, url, date, and
+    the first real content image. The feed is both the thumbnail source AND
+    the fallback headline source — /news and /feed/ are separate endpoints,
+    so a blocked or redesigned index page can't blank the app's news rail as
+    long as the feed answers."""
     import xml.etree.ElementTree as ET
+    from email.utils import parsedate_to_datetime
     xml = fetch(FEED) or ""
     if not xml:
-        return {}
-    out: dict[str, str] = {}
+        return []
     try:
         root = ET.fromstring(xml)
     except ET.ParseError:
-        return {}
+        return []
+    out: list[dict] = []
     for it in root.findall(".//item"):
         link = (it.findtext("link") or "").strip()
-        body = it.findtext(CONTENT_NS + "encoded") or ""
-        if not link:
+        title = norm_space(_html.unescape(it.findtext("title") or ""))
+        if not link or not title:
             continue
+        date = ""
+        try:
+            date = parsedate_to_datetime(it.findtext("pubDate") or "").strftime("%Y-%m-%d")
+        except Exception:
+            pass
+        a = {"title": title, "url": link, "date": date}
+        body = it.findtext(CONTENT_NS + "encoded") or ""
         for src in FIRST_IMG.findall(body):
             if not EMOJI_IMG.search(src):
-                out[link] = src
+                a["image"] = src
                 break
+        out.append(a)
     return out
 
 
@@ -86,9 +99,7 @@ def strip_tags(s: str) -> str:
 
 def main() -> int:
     html = fetch(INDEX, force=True, retries=1) or fetch(INDEX) or ""
-    if not html:
-        log("news: index unreachable — keeping existing file")
-        return 0
+    from_feed = feed_articles()
 
     articles, seen = [], set()
     for mo, dd, yy, url, title in ARTICLE.findall(html):
@@ -99,16 +110,25 @@ def main() -> int:
                          "date": f"{yy}-{mo}-{dd}"})
     articles.sort(key=lambda a: a["date"], reverse=True)
 
-    # Headline thumbnails come from the WordPress RSS feed's content:encoded —
-    # the index page carries none. Best-effort: a dead feed just means text
-    # cards. WordPress inlines its emoji glyphs as s.w.org SVG <img>s, and an
-    # article whose only image is an emoji must render as text, not as a
-    # thumbnail of a camera emoji (that shipped once).
-    imgs = article_images()
-    for a in articles:
-        img = imgs.get(a["url"])
-        if img:
-            a["image"] = img
+    if articles:
+        # Headline thumbnails come from the RSS feed's content:encoded — the
+        # index page carries none. Best-effort: a dead feed just means text
+        # cards. WordPress inlines its emoji glyphs as s.w.org SVG <img>s, and
+        # an article whose only image is an emoji must render as text, not as
+        # a thumbnail of a camera emoji (that shipped once).
+        imgs = {a["url"]: a["image"] for a in from_feed if a.get("image")}
+        for a in articles:
+            img = imgs.get(a["url"])
+            if img:
+                a["image"] = img
+    elif from_feed:
+        # index blocked or redesigned — the feed alone still carries the
+        # latest headlines, so the news rail never goes dark over one endpoint
+        log("news: index gave no articles — using the RSS feed's")
+        articles = sorted(from_feed, key=lambda a: a["date"], reverse=True)
+    else:
+        log("news: index and feed both unreachable — keeping existing file")
+        return 0
 
     # the last few weekly roundups carry the per-corps announcements
     roundups = [a for a in articles if "corps-news-and-announcements" in a["url"]][:3]

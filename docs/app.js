@@ -2435,7 +2435,7 @@
       <div class="card" style="margin-bottom:14px">
         <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px">
           <h2 style="margin:0">Latest from DCI</h2>
-          <a href="${esc(allNews)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:650">All news →</a>
+          <a href="#/news" style="font-size:12.5px;font-weight:650">All news →</a>
         </div>
         <div class="newsrail">${cards}</div>
         ${camps.length ? `
@@ -2447,6 +2447,47 @@
           <p class="newsnote">Announcements straight from DCI and the corps — dates and details live in each article.</p>
         </div>` : ""}
       </div>`;
+  }
+
+  /* The full news page (#/news): every headline and every per-corps
+     announcement, browsed inside the app. Individual stories still open on
+     DCI.org — the articles are theirs — but the index never leaves Cadence. */
+  async function viewNews() {
+    setNav("events");
+    let news = null;
+    try { news = await data("news.json"); } catch (e) {}
+    const articles = ((news && news.articles) || []).filter(a => !/corps-news-and-announcements/.test(a.url));
+    const items = (news && news.items) || [];
+    if (!articles.length && !items.length) {
+      app.innerHTML = `<h1 class="page">News</h1>
+        <div class="card"><div class="empty">No news yet — check back soon.</div></div>`;
+      return;
+    }
+    const KIND_LABEL = { auditions: "Auditions", announcement: "Announcement", news: "News" };
+    const cards = articles.map(a => h`<a class="newsart" href="${encodeURI(a.url)}" target="_blank" rel="noopener">
+        ${a.image ? `<img src="${encodeURI(a.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+        <span class="newsart-in"><time>${esc(fmtDate(a.date))}</time><b>${esc(a.title)}</b></span>
+      </a>`).join("");
+    // starred corps' announcements first, newest first within that
+    const anns = items.slice()
+      .sort((a, b) => ((a.corps && FAVS.has(a.corps)) ? 0 : 1) - ((b.corps && FAVS.has(b.corps)) ? 0 : 1) ||
+                      (b.date || "").localeCompare(a.date || ""))
+      .map(n => h`<div class="newscard">
+        ${n.logo ? `<img class="newslogo" src="${encodeURI(n.logo)}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+        <div class="newsbody">
+          <div class="newstop"><b>${esc(n.corps)}</b><span class="newstag">${esc(KIND_LABEL[n.kind] || "News")}</span>
+            <time class="kicker">${esc(fmtDate(n.date))}</time></div>
+          <div class="newstxt">${esc(n.blurb)}</div>
+          ${n.link ? `<a class="newsgo" href="${encodeURI(n.link)}" target="_blank" rel="noopener">Read more ↗</a>` : ""}
+        </div>
+      </div>`).join("");
+    app.innerHTML = `
+      <h1 class="page">News</h1>
+      ${cards ? `<div class="card" style="margin-bottom:14px"><h2>Headlines</h2>
+        <div class="newsgrid">${cards}</div></div>` : ""}
+      ${anns ? `<div class="card"><h2>Corps announcements <span class="kicker">${items.length}</span></h2>
+        <div class="newsanns">${anns}</div>
+        <p class="newsnote">Announcements straight from DCI and the corps — dates and details live in each article.</p></div>` : ""}`;
   }
 
   async function renderSeason(year, stale) {
@@ -4196,6 +4237,7 @@
     [/^#\/corps$/, (m, st) => viewCorpsPage(null, st)],
     [/^#\/corps\/([a-z0-9-]+)$/, (m, st) => viewCorpsPage(m[1], st)],
     [/^#\/events(?:\?(.*))?$/, (m, st) => viewEvents(m[1], st)],
+    [/^#\/news$/, viewNews],
     [/^#\/predictions$/, viewPredictions],
     [/^#\/(?:seasons|champions)$/, viewSeasons],
     // Stats hub entry — lands on the captions front page. "#/data" is the
@@ -4225,7 +4267,7 @@
      there. Tapping the tab you're already on returns to its front page. */
   const NAV_DEFAULT = { rankings: "#/", events: "#/events", corps: "#/corps", data: "#/captions" };
   function sectionOf(hash) {
-    if (/^#\/(events|event\/|season\/|predictions)/.test(hash)) return "events";
+    if (/^#\/(events|event\/|season\/|predictions|news)/.test(hash)) return "events";
     if (/^#\/corps/.test(hash)) return "corps";
     if (/^#\/(stats|data|compare|captions|champions|seasons|records|database)/.test(hash)) return "data";
     if (/^#?\/?(\?.*)?$/.test(hash)) return "rankings";   // incl. "#/?y=1994"
@@ -4494,6 +4536,9 @@
   // favorites) kept
   const brandEl = document.querySelector(".brand");
   if (brandEl) brandEl.addEventListener("click", () => {
+    // modes.js turns the logo into the app switcher — opening a menu must
+    // not wipe anyone's filters or per-tab memory
+    if (document.getElementById("cadModeMenu")) return;
     ["dt-class", "dt-corpsclass"].forEach(k => localStorage.removeItem(k));
     ["cmp-corps", "cmp-years", "cad-shows-f",
       "cad-last-rankings", "cad-last-events", "cad-last-corps", "cad-last-data"]

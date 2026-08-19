@@ -49,7 +49,9 @@
 .ens-tab:hover { background: var(--surface-2); color: var(--text-primary); text-decoration: none; }
 .ens-tab.on { background: var(--navy); color: #fff; }
 .ens-tab.on svg { opacity: 1; }
-.ens-tab.ens-more { border: 0; background: none; cursor: pointer; font: inherit; }
+/* a <button> neither inherits the font nor sizes like an <a> — hand it the
+   family and let .ens-tab set size/weight, or More renders comically large */
+.ens-tab.ens-more { border: 0; background: none; cursor: pointer; font-family: inherit; }
 /* desktop has room for every section — the More button is a phone thing */
 @media (min-width: 641px) { .ens-tab.ens-more { display: none; } }
 /* phones: the rail becomes a bottom dock — same look and reach as the
@@ -67,11 +69,13 @@
     gap: 0; overflow-x: hidden;
   }
   .ens-tab.sec { display: none; }
+  /* the same metrics as the public app's dock (#nav a) — one visual language */
   .ens-tab {
     flex: 1 0 0; flex-direction: column; gap: 4px; padding: 7px 2px;
-    font-size: 11px; border-radius: 13px; color: rgba(255,255,255,0.85);
+    font-size: 12px; font-weight: 650; border-radius: 12px;
+    color: rgba(255,255,255,0.75); min-width: 0;
   }
-  .ens-tab svg { width: 22px; height: 22px; }
+  .ens-tab svg { width: 26px; height: 26px; }
   .ens-tab:hover { background: none; color: #fff; }
   .ens-tab.on { background: var(--gold); color: var(--on-accent, var(--navy)); }
   body.ens main { padding-bottom: 110px; }
