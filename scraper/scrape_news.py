@@ -106,7 +106,16 @@ def strip_tags(s: str) -> str:
 
 def main() -> int:
     html = fetch(INDEX, force=True, retries=1) or fetch(INDEX) or ""
-    from_feed = feed_articles()
+
+    # the previous run's output backstops everything below: a source having a
+    # bad day must never take away content the app already had
+    prev_articles, prev_items = [], []
+    try:
+        _prev = json.loads((PARSED / "dci_news.json").read_text())
+        prev_articles = _prev.get("articles") or []
+        prev_items = _prev.get("corps_items") or []
+    except Exception:
+        pass
 
     articles, seen = [], set()
     for mo, dd, yy, url, title in ARTICLE.findall(html):
@@ -117,49 +126,12 @@ def main() -> int:
                          "date": f"{yy}-{mo}-{dd}"})
     articles.sort(key=lambda a: a["date"], reverse=True)
 
-    if articles:
-        # Headline thumbnails, three sources deep — the index page carries
-        # none of its own, and every fallback exists because the one above it
-        # has actually failed on a runner:
-        #   1. the RSS feed's content:encoded (skipping s.w.org emoji glyphs —
-        #      a thumbnail of a camera emoji shipped once);
-        #   2. the image the LAST run knew for the same article — a feed
-        #      outage must never strip pictures the app already had;
-        #   3. the article page's own og:image (cache-first, so each article
-        #      pays that fetch once ever).
-        imgs = {norm_url(a["url"]): a["image"] for a in from_feed if a.get("image")}
-        prev: dict[str, str] = {}
-        try:
-            for a in json.loads((PARSED / "dci_news.json").read_text()).get("articles") or []:
-                if a.get("image"):
-                    prev[norm_url(a["url"])] = a["image"]
-        except Exception:
-            pass
-        fetched = 0
-        for a in articles:
-            u = norm_url(a["url"])
-            img = imgs.get(u) or prev.get(u)
-            if not img:
-                m = OG_IMG.search(fetch(a["url"]) or "")
-                fetched += 1
-                if m:
-                    og = m.group(1) or m.group(2)
-                    if og and not EMOJI_IMG.search(og):
-                        img = og
-            if img:
-                a["image"] = img
-        log(f"news images: {sum(1 for a in articles if a.get('image'))}/{len(articles)} "
-            f"(feed {len(imgs)}, carried {len(prev)}, og-fetched {fetched})")
-    elif from_feed:
-        # index blocked or redesigned — the feed alone still carries the
-        # latest headlines, so the news rail never goes dark over one endpoint
-        log("news: index gave no articles — using the RSS feed's")
-        articles = sorted(from_feed, key=lambda a: a["date"], reverse=True)
-    else:
-        log("news: index and feed both unreachable — keeping existing file")
-        return 0
-
-    # the last few weekly roundups carry the per-corps announcements
+    # ── per-corps announcements, BEFORE any risky fetch ─────────────────────
+    # dci.org serves /feed/ a 403 to the runners, and common.fetch's circuit
+    # breaker rightly marks the whole domain down after one 403 — so every
+    # page this scraper genuinely needs is fetched before the feed is tried,
+    # or one blocked endpoint silently empties the rest of the run (that
+    # shipped once: 0 corps items, 0 og images, "OK (0s)").
     roundups = [a for a in articles if "corps-news-and-announcements" in a["url"]][:3]
     corps_items, item_seen = [], set()
     for r in roundups:
@@ -173,6 +145,51 @@ def main() -> int:
             item_seen.add(key)
             corps_items.append({"corps": corps, "blurb": text, "link": link,
                                 "logo": logo, "kind": kind_of(text), "date": r["date"]})
+    if not corps_items and prev_items:
+        log(f"news: roundups yielded nothing — keeping the previous run's "
+            f"{len(prev_items)} corps items")
+        corps_items = prev_items
+
+    # ── headline thumbnails, three sources deep ─────────────────────────────
+    # The index page carries none of its own, and every fallback exists
+    # because the one above it has actually failed on a runner:
+    #   1. the image the LAST run knew for the same article;
+    #   2. the article page's own og:image (cache-first, paid once ever);
+    #   3. the RSS feed's content:encoded — tried LAST because its 403 trips
+    #      the dci.org breaker (skipping s.w.org emoji glyphs: a thumbnail of
+    #      a camera emoji shipped once).
+    prev_imgs = {norm_url(a["url"]): a["image"] for a in prev_articles if a.get("image")}
+    fetched = 0
+    if articles:
+        for a in articles:
+            img = prev_imgs.get(norm_url(a["url"]))
+            if not img:
+                m = OG_IMG.search(fetch(a["url"]) or "")
+                fetched += 1
+                if m:
+                    og = m.group(1) or m.group(2)
+                    if og and not EMOJI_IMG.search(og):
+                        img = og
+            if img:
+                a["image"] = img
+
+    # nothing below needs dci.org any more — the feed may now trip the breaker
+    from_feed = feed_articles()
+    if articles:
+        feed_imgs = {norm_url(a["url"]): a["image"] for a in from_feed if a.get("image")}
+        for a in articles:
+            if not a.get("image") and feed_imgs.get(norm_url(a["url"])):
+                a["image"] = feed_imgs[norm_url(a["url"])]
+        log(f"news images: {sum(1 for a in articles if a.get('image'))}/{len(articles)} "
+            f"(carried {len(prev_imgs)}, og-fetched {fetched}, feed {len(feed_imgs)})")
+    elif from_feed:
+        # index blocked or redesigned — the feed alone still carries the
+        # latest headlines, so the news rail never goes dark over one endpoint
+        log("news: index gave no articles — using the RSS feed's")
+        articles = sorted(from_feed, key=lambda a: a["date"], reverse=True)
+    else:
+        log("news: index and feed both unreachable — keeping existing file")
+        return 0
 
     PARSED.mkdir(parents=True, exist_ok=True)
     out = PARSED / "dci_news.json"
