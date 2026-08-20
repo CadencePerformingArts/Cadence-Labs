@@ -64,14 +64,20 @@ def _is_challenge(status: int, text: str, resp_headers: dict) -> bool:
 
 
 def http_get(url: str, timeout: int = 30, headers: dict | None = None):
-    """Single GET with automatic Cloudflare-challenge failover for dci.org.
-    Returns (status_code, text, response_headers-lowercased)."""
+    """Single GET with automatic block failover for dci.org. Returns
+    (status_code, text, response_headers-lowercased).
+
+    Any 403/429 from dci.org — the Cloudflare managed challenge OR a plain
+    nginx 403 (the block started arriving as both) — fails over to the relay,
+    which sits on a different network and keeps working when the runners'
+    IPs are on the wrong list. Direct is always tried first each run, so the
+    moment the block lifts we go back to fetching straight from the source."""
     relayable = bool(DCI_RELAY) and urlparse(url).netloc == "www.dci.org"
     if relayable and not _relay_mode[0]:
         status, text, rh = _raw_get(url, timeout=timeout, headers=headers)
-        if not _is_challenge(status, text, rh):
+        if status not in (403, 429) and not _is_challenge(status, text, rh):
             return status, text, rh
-        log(f"cloudflare challenge on {url} — switching to relay for this run")
+        log(f"dci.org direct gave HTTP {status} on {url} — switching to relay for this run")
         _relay_mode[0] = True
     if relayable:
         return _raw_get(DCI_RELAY + quote(url, safe=""), timeout=timeout + 10, headers=headers)
