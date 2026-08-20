@@ -127,81 +127,6 @@
   "_seen": "2026-08-20"
  },
  {
-  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
-  "name": "Bluecoats Opening Night Community Celebration",
-  "location": "Alliance, OH",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Columbus Saints",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Eclipse",
-   "EN-CORPS by EN-RICH-MENT",
-   "Bluecoats Alumni Legacy Arc",
-   "Rhythm IN BLUE",
-   "The Bluecoats",
-   "The Blue Way Summer Arts Camp",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "5:15 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "6:25 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "6:40 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "6:55 PM",
-    "Eclipse"
-   ],
-   [
-    "7:10 PM",
-    "EN-CORPS by EN-RICH-MENT"
-   ],
-   [
-    "7:25 PM",
-    "Bluecoats Alumni Legacy Arc"
-   ],
-   [
-    "7:40 PM",
-    "Rhythm IN BLUE"
-   ],
-   [
-    "7:55 PM",
-    "The Bluecoats"
-   ],
-   [
-    "8:18 PM",
-    "The Blue Way Summer Arts Camp"
-   ],
-   [
-    "8:28 PM",
-    "Encore - Bluecoats - Canton, OH"
-   ],
-   [
-    "8:53 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy in effect for this event",
-  "_seen": "2026-08-20"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -3626,6 +3551,69 @@
   "_seen": "2026-08-20"
  },
  {
+  "url": "https://www.dci.org/events/2026-bushwackers-invitational/",
+  "name": "Bushwackers Invitational",
+  "location": "Mt. Olive, NJ",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "Spark",
+   "Sunrisers",
+   "Hurricanes",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Bushwackers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spark"
+   ],
+   [
+    "7:22 PM",
+    "Sunrisers"
+   ],
+   [
+    "7:39 PM",
+    "Hurricanes"
+   ],
+   [
+    "7:56 PM",
+    "Intermission"
+   ],
+   [
+    "8:31 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:48 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "9:05 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:22 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:47 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-20"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southeastern-championship/",
   "name": "DCI Southeastern Championship",
   "location": "Atlanta, GA",
@@ -3830,6 +3818,83 @@
    ]
   ],
   "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
+  "_seen": "2026-08-20"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-music-on-the-mountain/",
+  "name": "Music on the Mountain",
+  "location": "Sheffield, PA",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "Allegheny Eclipse",
+   "Apogee",
+   "Rogues Hollow Regiment",
+   "Cincinnati Tradition",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "Gold"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Allegheny Eclipse"
+   ],
+   [
+    "7:20 PM",
+    "Apogee"
+   ],
+   [
+    "7:32 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "7:49 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:06 PM",
+    "Intermission"
+   ],
+   [
+    "8:23 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:40 PM",
+    "Raiders"
+   ],
+   [
+    "8:57 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:14 PM",
+    "The Battalion"
+   ],
+   [
+    "9:31 PM",
+    "Gold"
+   ],
+   [
+    "9:48 PM",
+    "Encore - The Battalion - Salt Lake City, UT"
+   ],
+   [
+    "9:56 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-20"
  },
  {
