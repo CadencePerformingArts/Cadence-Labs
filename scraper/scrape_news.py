@@ -47,6 +47,13 @@ CONTENT_NS = "{http://purl.org/rss/1.0/modules/content/}"
 # WordPress serves its emoji glyphs as images from s.w.org — never a thumbnail
 EMOJI_IMG = re.compile(r"s\.w\.org/images/core/emoji", re.I)
 FIRST_IMG = re.compile(r'<img[^>]+src="(https://[^"]+)"', re.I)
+OG_IMG = re.compile(
+    r'<meta[^>]+(?:property|name)="og:image"[^>]+content="(https://[^"]+)"'
+    r'|<meta[^>]+content="(https://[^"]+)"[^>]+(?:property|name)="og:image"', re.I)
+
+
+def norm_url(u: str) -> str:
+    return (u or "").rstrip("/")
 
 
 def feed_articles() -> list[dict]:
@@ -111,16 +118,38 @@ def main() -> int:
     articles.sort(key=lambda a: a["date"], reverse=True)
 
     if articles:
-        # Headline thumbnails come from the RSS feed's content:encoded — the
-        # index page carries none. Best-effort: a dead feed just means text
-        # cards. WordPress inlines its emoji glyphs as s.w.org SVG <img>s, and
-        # an article whose only image is an emoji must render as text, not as
-        # a thumbnail of a camera emoji (that shipped once).
-        imgs = {a["url"]: a["image"] for a in from_feed if a.get("image")}
+        # Headline thumbnails, three sources deep — the index page carries
+        # none of its own, and every fallback exists because the one above it
+        # has actually failed on a runner:
+        #   1. the RSS feed's content:encoded (skipping s.w.org emoji glyphs —
+        #      a thumbnail of a camera emoji shipped once);
+        #   2. the image the LAST run knew for the same article — a feed
+        #      outage must never strip pictures the app already had;
+        #   3. the article page's own og:image (cache-first, so each article
+        #      pays that fetch once ever).
+        imgs = {norm_url(a["url"]): a["image"] for a in from_feed if a.get("image")}
+        prev: dict[str, str] = {}
+        try:
+            for a in json.loads((PARSED / "dci_news.json").read_text()).get("articles") or []:
+                if a.get("image"):
+                    prev[norm_url(a["url"])] = a["image"]
+        except Exception:
+            pass
+        fetched = 0
         for a in articles:
-            img = imgs.get(a["url"])
+            u = norm_url(a["url"])
+            img = imgs.get(u) or prev.get(u)
+            if not img:
+                m = OG_IMG.search(fetch(a["url"]) or "")
+                fetched += 1
+                if m:
+                    og = m.group(1) or m.group(2)
+                    if og and not EMOJI_IMG.search(og):
+                        img = og
             if img:
                 a["image"] = img
+        log(f"news images: {sum(1 for a in articles if a.get('image'))}/{len(articles)} "
+            f"(feed {len(imgs)}, carried {len(prev)}, og-fetched {fetched})")
     elif from_feed:
         # index blocked or redesigned — the feed alone still carries the
         # latest headlines, so the news rail never goes dark over one endpoint
