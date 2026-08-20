@@ -3626,69 +3626,6 @@
   "_seen": "2026-08-20"
  },
  {
-  "url": "https://www.dci.org/events/2026-bushwackers-invitational/",
-  "name": "Bushwackers Invitational",
-  "location": "Mt. Olive, NJ",
-  "date_display": "July 25, 2026",
-  "date": "2026-07-25",
-  "lineup": [
-   "Spark",
-   "Sunrisers",
-   "Hurricanes",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros",
-   "Bushwackers",
-   "Hawthorne Caballeros Alumni"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Spark"
-   ],
-   [
-    "7:22 PM",
-    "Sunrisers"
-   ],
-   [
-    "7:39 PM",
-    "Hurricanes"
-   ],
-   [
-    "7:56 PM",
-    "Intermission"
-   ],
-   [
-    "8:31 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:48 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "9:05 PM",
-    "Bushwackers"
-   ],
-   [
-    "9:22 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-20"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-southeastern-championship/",
   "name": "DCI Southeastern Championship",
   "location": "Atlanta, GA",
@@ -3893,83 +3830,6 @@
    ]
   ],
   "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
-  "_seen": "2026-08-20"
- },
- {
-  "url": "https://www.dci.org/events/2026-music-on-the-mountain/",
-  "name": "Music on the Mountain",
-  "location": "Sheffield, PA",
-  "date_display": "July 25, 2026",
-  "date": "2026-07-25",
-  "lineup": [
-   "Allegheny Eclipse",
-   "Apogee",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Les Stentors",
-   "Raiders",
-   "7th Regiment",
-   "The Battalion",
-   "Gold"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Allegheny Eclipse"
-   ],
-   [
-    "7:20 PM",
-    "Apogee"
-   ],
-   [
-    "7:32 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "7:49 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:06 PM",
-    "Intermission"
-   ],
-   [
-    "8:23 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:40 PM",
-    "Raiders"
-   ],
-   [
-    "8:57 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:14 PM",
-    "The Battalion"
-   ],
-   [
-    "9:31 PM",
-    "Gold"
-   ],
-   [
-    "9:48 PM",
-    "Encore - The Battalion - Salt Lake City, UT"
-   ],
-   [
-    "9:56 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-20"
  },
  {
@@ -5301,6 +5161,100 @@
   "_seen": "2026-08-20"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
+  "name": "DCI Open Class World Championship Finals",
+  "location": "Dayton, OH",
+  "date_display": "August 4, 2026",
+  "date": "2026-08-04",
+  "lineup": [
+   "Mercedes Marching Band",
+   "Heat Wave",
+   "Eclipse",
+   "Les Stentors",
+   "7th Regiment",
+   "Raiders",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Memphis Blues",
+   "Blue Devils B",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "Mercedes Marching Band"
+   ],
+   [
+    "6:27 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:44 PM",
+    "Eclipse"
+   ],
+   [
+    "7:01 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:18 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:35 PM",
+    "Raiders"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:26 PM",
+    "Columbians"
+   ],
+   [
+    "8:43 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:00 PM",
+    "Memphis Blues"
+   ],
+   [
+    "9:17 PM",
+    "Blue Devils B"
+   ],
+   [
+    "9:34 PM",
+    "Gold"
+   ],
+   [
+    "9:51 PM",
+    "The Battalion"
+   ],
+   [
+    "10:16 PM",
+    "Retreat"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-08-20"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
   "name": "DCI 2026: Big, Loud & Live",
   "date_display": "August 6, 2026",
@@ -6005,6 +5959,128 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-08-20"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-soundsport-international-music-food-festival/",
+  "name": "SoundSport International Music & Food Festival",
+  "location": "Indianapolis, IN",
+  "date_display": "August 8, 2026",
+  "date": "2026-08-08",
+  "lineup": [
+   "Columbus Saints",
+   "Spark",
+   "IPS Combined Marching Band",
+   "Alexandria Marching Tigers",
+   "Sacramento Freelancers Mini Corps",
+   "Green Beret Marching Band",
+   "Apogee",
+   "Apollo Marching Theatre",
+   "Mercedes Marching Band",
+   "Sacramento Freelancers",
+   "Drumline Battle Seeding Round",
+   "Phoenix",
+   "Rhythm IN BLUE",
+   "Conquest Drum & Bugle Corps",
+   "Carolina Gold",
+   "Sonus Brass Theater",
+   "DrumLine Battle"
+  ],
+  "schedule": [
+   [
+    "10:00 AM",
+    "Gates Opens"
+   ],
+   [
+    "10:30 AM",
+    "Welcome"
+   ],
+   [
+    "10:45 AM",
+    "Columbus Saints"
+   ],
+   [
+    "11:02 AM",
+    "Spark"
+   ],
+   [
+    "11:13 AM",
+    "IPS Combined Marching Band"
+   ],
+   [
+    "11:24 AM",
+    "Alexandria Marching Tigers"
+   ],
+   [
+    "11:35 AM",
+    "Sacramento Freelancers Mini Corps"
+   ],
+   [
+    "11:50 AM",
+    "Intermission"
+   ],
+   [
+    "12:16 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "12:27 PM",
+    "Apogee"
+   ],
+   [
+    "12:38 PM",
+    "Apollo Marching Theatre"
+   ],
+   [
+    "12:49 PM",
+    "Mercedes Marching Band"
+   ],
+   [
+    "1:00 PM",
+    "Sacramento Freelancers"
+   ],
+   [
+    "1:11 PM",
+    "Intermission"
+   ],
+   [
+    "1:31 PM",
+    "Drumline Battle Seeding Round"
+   ],
+   [
+    "2:01 PM",
+    "Phoenix"
+   ],
+   [
+    "2:16 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "2:27 PM",
+    "Conquest Drum & Bugle Corps"
+   ],
+   [
+    "2:38 PM",
+    "Carolina Gold"
+   ],
+   [
+    "2:49 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "3:00 PM",
+    "DrumLine Battle"
+   ],
+   [
+    "3:30 PM",
+    "Awards Ceremony"
+   ],
+   [
+    "4:00 PM",
+    "Awards Ends"
+   ]
+  ],
+  "bag_policy": "Clear Bag Policy will be in effect. Outside food and Drink will NOT be permitted inside the stadium, including food and drink purchased at the festival. ACTIVITIES, EXHIBITS, & VENDORS Food Trucks Coco Bongos - Enjoy Tropical, non-alcoholic, frozen drinks in festive cups. Choose from 3 flavors: Bahama Mama, Pina Colada, and Outrageous Orange.",
   "_seen": "2026-08-20"
  }
 ]
