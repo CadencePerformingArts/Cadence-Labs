@@ -633,6 +633,59 @@
   "_seen": "2026-08-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-preview-of-champions/",
+  "name": "Preview of Champions",
+  "location": "Nashua, NH",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Boston Crusaders",
+   "Spartans",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome"
+   ],
+   [
+    "8:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:35 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:00 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:55 PM",
+    "Spartans"
+   ],
+   [
+    "10:20 PM",
+    "Encore - Spartans - Nashua, NH"
+   ],
+   [
+    "10:45 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-08-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
