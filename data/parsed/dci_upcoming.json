@@ -4130,6 +4130,83 @@
   "_seen": "2026-08-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
+  "name": "Summer Music Games in Cincinnati",
+  "location": "Mason, OH",
+  "date_display": "July 27, 2026",
+  "date": "2026-07-27",
+  "lineup": [
+   "Columbus Saints",
+   "Cincinnati Tradition",
+   "Colt Cadets",
+   "River City Rhythm",
+   "Seattle Cascades",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:15 PM",
+    "Columbus Saints"
+   ],
+   [
+    "7:32 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "7:49 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:06 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:23 PM",
+    "Intermission"
+   ],
+   [
+    "8:43 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:00 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:17 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:34 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:51 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:08 PM",
+    "Encore - TBD"
+   ],
+   [
+    "10:16 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-brass-at-the-beach/",
   "name": "Brass at the Beach",
   "location": "Myrtle Beach, SC",
