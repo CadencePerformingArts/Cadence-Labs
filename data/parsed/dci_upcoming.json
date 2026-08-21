@@ -1687,6 +1687,65 @@
   "_seen": "2026-08-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-little-rock/",
+  "name": "DCI Little Rock",
+  "location": "Little Rock, AR",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Memphis Blues",
+   "Zephyrus",
+   "Music City",
+   "Spirit of Atlanta",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:27 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:44 PM",
+    "Music City"
+   ],
+   [
+    "9:01 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:18 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:35 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:52 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
+  "_seen": "2026-08-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
   "name": "Drum Corps Grand Prix",
   "location": "Clifton, NJ",
