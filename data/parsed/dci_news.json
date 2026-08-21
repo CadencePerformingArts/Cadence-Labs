@@ -1,6 +1,12 @@
 {
- "updated": "2026-08-21 19:29 UTC",
+ "updated": "2026-08-21 19:42 UTC",
  "articles": [
+  {
+   "title": "Corps news and announcements",
+   "url": "https://www.dci.org/news/corps-news-and-announcements-20260821/",
+   "date": "2026-08-21",
+   "image": "https://images.dci.org/wp-content/uploads/2026/08/regiment-news-20260821-scaled.jpg"
+  },
   {
    "title": "Making Magic: Inside Cody Fry’s video shoot with the Blue Devils",
    "url": "https://www.dci.org/news/making-magic-inside-cody-frys-video-shoot-with-the-blue-devils/",
@@ -54,15 +60,233 @@
    "url": "https://www.dci.org/news/top-12-race-goes-down-to-the-wire-at-closely-contested-semifinals/",
    "date": "2026-08-07",
    "image": "https://images.dci.org/wp-content/uploads/2026/08/boston-crusaders-semifinals-2026-ARTICLE-1024x683.jpg"
-  },
-  {
-   "title": "Spirit punches “Golden” Finals ticket in strongest season since 2013",
-   "url": "https://www.dci.org/news/spirit-punches-golden-finals-ticket-in-strongest-season-since-2013/",
-   "date": "2026-08-07",
-   "image": "https://images.dci.org/wp-content/uploads/2026/08/SPIRIT_HEADER-1024x576.jpg"
   }
  ],
  "corps_items": [
+  {
+   "corps": "The Academy",
+   "blurb": "The Academy’s 2027 interest form for prospective corps members is now live.",
+   "link": "https://www.facebook.com/TheAcademyDBC/posts/1624545279035017",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e638e_N41XtnNYfxJN3-1R6hEfHF5B49w7kAtX.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Blue Devils",
+   "blurb": "Blue Devils shared details for a September 19 gathering to celebrate the life of Pete Emmons, DCI Hall of Famer and an important figure in the corps’ history.",
+   "link": "https://www.facebook.com/thebluedevils/posts/1614420010080168",
+   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b08_Uzne3m6mvUnKdgmHijfR1ONE_5lXRM_5.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Bluecoats",
+   "blurb": "Bluecoats’ flag silks from the 2026 season are available for purchase.",
+   "link": "https://www.facebook.com/bluecoats/posts/1515103963995311",
+   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b0c_wRimxHy5d3FL1RVb48fVoLZBJm6JCPHj.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Carolina Crown",
+   "blurb": "Carolina Crown mourned the loss of volunteer coordinator and friend, Elizabeth Seay, who passed away from cancer earlier this week.",
+   "link": "https://www.facebook.com/carolinacrown/posts/1513811677450661",
+   "logo": "https://images.dci.org/wp-content/uploads/2026/04/carolina-crown-logo-2026-800x800-1.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Colts",
+   "blurb": "Colts are selling the Yamaha trombones used in their 2026 production.",
+   "link": "https://www.facebook.com/dcicolts/posts/1516643297170834",
+   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b11_A4Ndqer0pihrDjJx8CSsr9chF9_69GxA.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Crossmen",
+   "blurb": "Crossmen put out a call for audition sign-ups.",
+   "link": "https://www.facebook.com/CrossmenDBC/posts/1649526853399629",
+   "logo": "https://images.dci.org/wp-content/uploads/2025/05/crossmen-logo-2025-800x800-1.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Madison Scouts",
+   "blurb": "Madison Scouts is encouraging performers to “Be A Scout” and sign up to audition in 2027.",
+   "link": "https://www.facebook.com/MadisonScouts/posts/1425483042785301",
+   "logo": "https://production.assets.dci.org/5a181168d670bd001b2e637b_XVfT9k-W5gcOkuQ6X0dN90CVLLeqv2HY.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Mandarins",
+   "blurb": "Mandarins introduced the new Mandarins Parade Corps, intended for percussion and color guard members from ages 11-17.",
+   "link": "https://www.facebook.com/mandarins.sacramento/posts/1480463934121223",
+   "logo": "https://production.assets.dci.org/5a181168d670bd001b2e637c_hsc3QNRMPgTFcrZ7cGL5SZnfVa-ElLRW.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Music City",
+   "blurb": "Music City shared an interest form for its 2027 auditions.",
+   "link": "https://www.facebook.com/MusicCityDrumCorps/posts/1621029002926210",
+   "logo": "https://production.assets.dci.org/60745db031aad24c2a28bf82_NX3k9OaDxEwg3iY32PA_0HopnnIN4zNi.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Pacific Crest",
+   "blurb": "Pacific Crest is hosting a charity golf tournament on October 16.",
+   "link": "https://www.facebook.com/PCDrumCorps/posts/1493672479468424",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e6380_ig_O2i2w44kMY9sAdB33wfyR7FxaUwnq.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Phantom Regiment",
+   "blurb": "Phantom Regiment shared a video diary featuring its ageout members during DCI World Championships Week.",
+   "link": "https://www.facebook.com/reel/1067731972284977/",
+   "logo": "https://production.assets.dci.org/63db1e325c9f3d71ff0f3572_5Y27rZO3PlACjdvRXZpkhOJdaYq-7SgK.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "River City Rhythm",
+   "blurb": "River City Rhythm shared an interest form for the corps’ 2027 auditions.",
+   "link": "https://www.facebook.com/RCRCorps/posts/1481198454049914",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e6385_EwteLulOtHFmWAzjvcolDGTkPzuQf6z2.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Santa Clara Vanguard",
+   "blurb": "Vanguard is selling a limited-edition T-shirt to commemorate its 2026 production, “With Reckless Abandon.”",
+   "link": "https://www.facebook.com/SCV/posts/1501363058696884",
+   "logo": "https://production.assets.dci.org/5a181189d670bd001a3d7667_kBC05CQk-TmysXsCUfxZoS4jODaJGKp_.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Seattle Cascades",
+   "blurb": "Cascades shared a link to its audition interest form for 2027.",
+   "link": "https://www.facebook.com/SeattleCascadesDrumCorps/posts/1890584572337030",
+   "logo": "https://production.assets.dci.org/65fc6116a20db2fb6f043d52_IZ3CjfyeBATPeR4OHRFqVOcjrfPJ5SJf.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Spartans",
+   "blurb": "A generous donor is matching $25k in donations to the Spartans’ Move a Mile fundraising campaign.",
+   "link": "https://www.facebook.com/spartansdbc/posts/1467034152127089",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e638b_jyGwm7j5R3SuNK_dQCJUOVXTpzNkXYp3.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Atlanta CV",
+   "blurb": "Atlanta CV shared its 2027 audition interest form.",
+   "link": "https://www.facebook.com/AtlantaCorpsVets/posts/1658454502451795",
+   "logo": "https://production.assets.dci.org/6515addc538cb30314083e02_RDl0siw3JAafravQ4WILxiPj1iARfBj2.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Bushwackers",
+   "blurb": "Bushwackers is looking for a brass caption head for the 2027 season.",
+   "link": "https://www.facebook.com/bushwackersDBC/posts/1521560033333784",
+   "logo": "https://production.assets.dci.org/6515b6a9e471c33c5807f562_ymGvhSvIhpgoM50b5D8DQ9TeaKj2kOp6.png",
+   "kind": "announcement",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Cincinnati Tradition",
+   "blurb": "Cincinnati Tradition’s 2027 audition interest form is now live.",
+   "link": "https://www.facebook.com/CincinnatiTradition/posts/1363833075934848",
+   "logo": "https://production.assets.dci.org/6515b5d0faa75784aa051262_mgL4Z8piwopCeEEL4vA4j4eB93wcssKG.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Fusion Core",
+   "blurb": "Fusion Core’s first audition date is set for December 5 in Apopka, Florida.",
+   "link": "https://www.facebook.com/FusionDBCore/posts/1505165094989873",
+   "logo": "https://production.assets.dci.org/6515b3a5c5719f2f750c6522_dEBpFd9ZsYb6wXD9Dk7KWaxApXo9pJc0.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Govenaires",
+   "blurb": "Govenaires encouraged prospective members to audition for its 100th anniversary season.",
+   "link": "https://www.facebook.com/Govenaires/posts/1667421928716535",
+   "logo": "https://production.assets.dci.org/6515b2eb538cb30314083e05_fCkEbmkpkV4JFFpAWc8-2DfGV4RcOqlF.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Hawthorne Caballeros",
+   "blurb": "The Hawthone Caballeros mourned the passing of longtime member and corps Hall of Fame member Michael J Del Vecchio.",
+   "link": "https://www.facebook.com/HawthorneCaballeros/posts/1738794107744395",
+   "logo": "https://production.assets.dci.org/6515b1fc538cb30314083e04_ZfE4tprbZukslkzEhh1M8jL3jBYlErM1.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Sunrisers",
+   "blurb": "Sunrisers shared an interest form for its 2027 season.",
+   "link": "https://www.facebook.com/lisunrisers/posts/1491480909682956",
+   "logo": "https://production.assets.dci.org/657b18c9ec350f75bd05b792_QgeuOSjQFJ6469rKksKpLGYdMMM7R6AC.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "White Sabers",
+   "blurb": "White Sabers shared the recipients of its inaugural Donny Allen Memorial Scholarship.",
+   "link": "https://www.facebook.com/share/v/1BWfJDmC5m/",
+   "logo": "https://production.assets.dci.org/6515afb0538cb30314083e03_t2r19Qsr6NV5-mECGLkA8f2P3Sp0ejPL.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Blue Saints Drum &amp; Bugle Corps – Sudbury, ON",
+   "blurb": "Blue Saints are hosting an Open House on September 12 in Ontario, Canada.",
+   "link": "https://www.facebook.com/share/p/1EKJtcB9U5/",
+   "logo": "https://images.dci.org/wp-content/uploads/2025/06/blue-saints-SS-logo.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Calgary Round-Up Band – Calgary, ALB",
+   "blurb": "Registration is now open for the Calgary Round-Up Band’s 2027 season.",
+   "link": "https://www.facebook.com/share/p/19AqW5uidk/",
+   "logo": "https://images.dci.org/wp-content/uploads/2025/06/calgary-roundup-band-SS-logo.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Carolina Gold – Winston-Salem, NC",
+   "blurb": "Carolina Gold’s 2027 interest form is available for prospective member sign-ups.",
+   "link": "https://www.facebook.com/CarolinaGoldDBC/posts/pfbid02avhJRDtrw1jwjfd1VEykrnmq7C3Rac5QwY28bB8oSamcouxZfKYseSqmSNnCcypdl",
+   "logo": "https://production.assets.dci.org/6760fe217a240f0613095042_GUR1oM1qpXSiUp-npAMh684NjCX-1VFU.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "EN-RICH-MENT – Canton, OH",
+   "blurb": "EN-RICH-MENT’s ENCORPS Drumline performed alongside the Carolina Panthers Drumline at an NFL Hall of Fame event.",
+   "link": "https://www.facebook.com/share/p/1DJAH6qS7j/",
+   "logo": "https://production.assets.dci.org/63daaf2801d803a9cd0bc6c2_Qvo3fnnuvjV1NNxb4gWDn341_zaMt9T1.png",
+   "kind": "news",
+   "date": "2026-08-21"
+  },
+  {
+   "corps": "Sky Ryders – Hutchinson, KS",
+   "blurb": "Sky Ryders’ 2027 interest form for those interested in auditioning for the evaluating Open Class corps is now available.",
+   "link": "https://www.facebook.com/share/p/17ogE4TA47/",
+   "logo": "https://production.assets.dci.org/65cf7eb6824d2ae1d00683f3_nek-WQjyLjCbcZHhqBEs4I3opo3cbpJ3.png",
+   "kind": "auditions",
+   "date": "2026-08-21"
+  },
   {
    "corps": "7th Regiment",
    "blurb": "7th Regiment capped its season with its best performance of the year in Indianapolis.",
