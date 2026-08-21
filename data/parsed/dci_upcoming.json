@@ -1687,65 +1687,6 @@
   "_seen": "2026-08-21"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-little-rock/",
-  "name": "DCI Little Rock",
-  "location": "Little Rock, AR",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Memphis Blues",
-   "Zephyrus",
-   "Music City",
-   "Spirit of Atlanta",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:27 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:44 PM",
-    "Music City"
-   ],
-   [
-    "9:01 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:18 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:35 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
-  "_seen": "2026-08-21"
- },
- {
   "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
   "name": "Drum Corps Grand Prix",
   "location": "Clifton, NJ",
@@ -3018,6 +2959,71 @@
   "_seen": "2026-08-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-08-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -3207,6 +3213,64 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-08-21"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-march-on/",
+  "name": "March On!",
+  "location": "Champlin, MN",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "RCR Street Club",
+   "MBI",
+   "Govenaires",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "RCR Street Club"
+   ],
+   [
+    "7:22 PM",
+    "MBI"
+   ],
+   [
+    "7:39 PM",
+    "Govenaires"
+   ],
+   [
+    "7:56 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:13 PM",
+    "Columbians"
+   ],
+   [
+    "8:30 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:47 PM",
+    "Encore - River City Rhythm - Anoka, MN"
+   ],
+   [
+    "8:55 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-21"
  },
  {
