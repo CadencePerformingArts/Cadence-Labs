@@ -633,59 +633,6 @@
   "_seen": "2026-08-21"
  },
  {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-08-21"
- },
- {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -3272,6 +3219,64 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-08-21"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-march-on/",
+  "name": "March On!",
+  "location": "Champlin, MN",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "RCR Street Club",
+   "MBI",
+   "Govenaires",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "RCR Street Club"
+   ],
+   [
+    "7:22 PM",
+    "MBI"
+   ],
+   [
+    "7:39 PM",
+    "Govenaires"
+   ],
+   [
+    "7:56 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:13 PM",
+    "Columbians"
+   ],
+   [
+    "8:30 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:47 PM",
+    "Encore - River City Rhythm - Anoka, MN"
+   ],
+   [
+    "8:55 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-21"
  },
  {
