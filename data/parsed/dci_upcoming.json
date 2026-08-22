@@ -1272,54 +1272,6 @@
   "_seen": "2026-08-22"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-america/",
-  "name": "Drums Across America",
-  "location": "Newnan, GA",
-  "date_display": "July 8, 2026",
-  "date": "2026-07-08",
-  "lineup": [
-   "Atlanta CV",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:02 PM",
-    "Music City"
-   ],
-   [
-    "8:24 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:42 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:04 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:12 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-22"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
   "name": "DCI Northern Alabama",
   "location": "Muscle Shoals, AL",
@@ -2980,6 +2932,41 @@
    ]
   ],
   "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
+  "name": "Raiders Tour Send-Off",
+  "location": "Aston Township, PA",
+  "date_display": "July 19, 2026",
+  "date": "2026-07-19",
+  "lineup": [
+   "Les Stentors",
+   "Raiders",
+   "Joint Performance"
+  ],
+  "schedule": [
+   [
+    "3:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:15 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:00 PM",
+    "Raiders"
+   ],
+   [
+    "8:45 PM",
+    "Joint Performance"
+   ]
+  ],
   "_seen": "2026-08-22"
  },
  {
