@@ -1272,6 +1272,54 @@
   "_seen": "2026-08-22"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-across-america/",
+  "name": "Drums Across America",
+  "location": "Newnan, GA",
+  "date_display": "July 8, 2026",
+  "date": "2026-07-08",
+  "lineup": [
+   "Atlanta CV",
+   "Music City",
+   "Spirit of Atlanta",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:02 PM",
+    "Music City"
+   ],
+   [
+    "8:24 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:42 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:04 PM",
+    "Encore - Spirit of Atlanta - Atlanta, GA"
+   ],
+   [
+    "9:12 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-22"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
   "name": "DCI Northern Alabama",
   "location": "Muscle Shoals, AL",
@@ -1402,156 +1450,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-08-22"
- },
- {
-  "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
-  "name": "Cavalcade of Brass",
-  "location": "Lisle, IL",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Rosemont King Cobras",
-   "Sound of Sun Prairie",
-   "Northern Lights",
-   "Eclipse",
-   "Spartans",
-   "Crossmen",
-   "Troopers",
-   "Phantom Regiment",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Rosemont King Cobras"
-   ],
-   [
-    "7:50 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "8:00 PM",
-    "Northern Lights"
-   ],
-   [
-    "8:12 PM",
-    "Eclipse"
-   ],
-   [
-    "8:29 PM",
-    "Spartans"
-   ],
-   [
-    "8:46 PM",
-    "Crossmen"
-   ],
-   [
-    "9:03 PM",
-    "Intermission"
-   ],
-   [
-    "9:20 PM",
-    "Troopers"
-   ],
-   [
-    "9:37 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:54 PM",
-    "The Cavaliers"
-   ],
-   [
-    "10:11 PM",
-    "Encore - The Cavaliers - Rosemont, IL"
-   ],
-   [
-    "10:19 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Spectators are welcome to bring one bag into the Sports Complex provided the bag is softsided and its dimensions do not exceed 12 inches by 12 inches by 8 inches. The Sports Complex and its staff reserves the right to inspect bags brought into The Sports Complex.",
-  "_seen": "2026-08-22"
- },
- {
-  "url": "https://www.dci.org/events/2026-music-on-the-march/",
-  "name": "Music on the March",
-  "location": "Dubuque, IA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Conquest",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Conquest"
-   ],
-   [
-    "7:22 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:39 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:56 PM",
-    "Genesis"
-   ],
-   [
-    "8:13 PM",
-    "Intermission"
-   ],
-   [
-    "8:33 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:50 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:07 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:24 PM",
-    "Colts"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:06 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-22"
  },
  {
