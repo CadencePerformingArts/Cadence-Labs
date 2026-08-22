@@ -1531,78 +1531,6 @@
   "_seen": "2026-08-22"
  },
  {
-  "url": "https://www.dci.org/events/2026-music-on-the-march/",
-  "name": "Music on the March",
-  "location": "Dubuque, IA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Conquest",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Conquest"
-   ],
-   [
-    "7:22 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:39 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:56 PM",
-    "Genesis"
-   ],
-   [
-    "8:13 PM",
-    "Intermission"
-   ],
-   [
-    "8:33 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:50 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:07 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:24 PM",
-    "Colts"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-22"
- },
- {
   "url": "https://www.dci.org/events/2026-western-corps-connection/",
   "name": "Western Corps Connection",
   "location": "Walnut, CA",
@@ -1923,105 +1851,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-08-22"
- },
- {
-  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
-  "name": "The Whitewater Classic",
-  "location": "Whitewater, WI",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Green Beret Marching Band",
-   "The Connexion",
-   "Sound of Sun Prairie",
-   "Eclipse",
-   "River City Rhythm",
-   "Spartans",
-   "Genesis",
-   "Crossmen",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Madison Scouts"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:55 PM",
-    "Green Beret Marching Band"
-   ],
-   [
-    "6:05 PM",
-    "The Connexion"
-   ],
-   [
-    "6:15 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "6:27 PM",
-    "Eclipse"
-   ],
-   [
-    "6:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:01 PM",
-    "Spartans"
-   ],
-   [
-    "7:18 PM",
-    "Genesis"
-   ],
-   [
-    "7:35 PM",
-    "Crossmen"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Troopers"
-   ],
-   [
-    "8:26 PM",
-    "Blue Knights"
-   ],
-   [
-    "8:43 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:00 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:17 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:34 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:51 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-08-22"
  },
  {
@@ -2613,6 +2442,61 @@
    ]
   ],
   "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
+  "_seen": "2026-08-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
   "_seen": "2026-08-22"
  },
  {
