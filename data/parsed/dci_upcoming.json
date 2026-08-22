@@ -57,6 +57,76 @@
   "_seen": "2026-08-22"
  },
  {
+  "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
+  "name": "Barnum Festival: Champions on Parade",
+  "location": "Shelton, CT",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "North Star",
+   "Crusaders Senior",
+   "Hawthorne Caballeros Alumni",
+   "CT Alumni",
+   "7th Regiment",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Bushwackers",
+   "Hurricanes"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "North Star"
+   ],
+   [
+    "6:58 PM",
+    "Crusaders Senior"
+   ],
+   [
+    "7:16 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "7:34 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:52 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:10 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:28 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "8:46 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:04 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-22"
+ },
+ {
   "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
   "name": "Bluecoats Opening Night Community Celebration",
   "location": "Alliance, OH",
@@ -317,6 +387,69 @@
     "Gates Open"
    ]
   ],
+  "_seen": "2026-08-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
+  "name": "Northwest Youth Music Games Seattle",
+  "location": "Seattle, WA",
+  "date_display": "June 30, 2026",
+  "date": "2026-06-30",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:45 PM",
+    "Intermission"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:52 PM",
+    "Impulse"
+   ],
+   [
+    "8:07 PM",
+    "Columbians"
+   ],
+   [
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-08-22"
  },
  {
