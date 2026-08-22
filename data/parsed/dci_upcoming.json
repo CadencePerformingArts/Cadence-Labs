@@ -735,6 +735,79 @@
   "_seen": "2026-08-22"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-capital-classic/",
+  "name": "DCI Capital Classic",
+  "location": "Sacramento, CA",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Sparta Ignite",
+   "Golden Empire",
+   "Impulse",
+   "Gold",
+   "Mandarins Alumni Corps",
+   "Seattle Cascades",
+   "The Academy",
+   "Santa Clara Vanguard",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sparta Ignite"
+   ],
+   [
+    "6:52 PM",
+    "Golden Empire"
+   ],
+   [
+    "7:07 PM",
+    "Impulse"
+   ],
+   [
+    "7:22 PM",
+    "Gold"
+   ],
+   [
+    "7:37 PM",
+    "Mandarins Alumni Corps"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:22 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:40 PM",
+    "The Academy"
+   ],
+   [
+    "8:58 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:16 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:41 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-22"
+ },
+ {
   "url": "https://www.dci.org/events/2026-show-of-shows/",
   "name": "Show of Shows",
   "location": "Rockford, IL",
@@ -2907,41 +2980,6 @@
    ]
   ],
   "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-22"
- },
- {
-  "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
-  "name": "Raiders Tour Send-Off",
-  "location": "Aston Township, PA",
-  "date_display": "July 19, 2026",
-  "date": "2026-07-19",
-  "lineup": [
-   "Les Stentors",
-   "Raiders",
-   "Joint Performance"
-  ],
-  "schedule": [
-   [
-    "3:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:15 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:00 PM",
-    "Raiders"
-   ],
-   [
-    "8:45 PM",
-    "Joint Performance"
-   ]
-  ],
   "_seen": "2026-08-22"
  },
  {
