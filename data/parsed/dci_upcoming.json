@@ -4881,6 +4881,149 @@
   "_seen": "2026-08-22"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
+  "name": "DCI Pittsburgh",
+  "location": "Pittsburgh, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Sonus Brass Theater",
+   "Columbus Saints",
+   "White Sabers",
+   "Rogues Hollow Regiment",
+   "Hurricanes",
+   "Bushwackers",
+   "Music City",
+   "Spirit of Atlanta"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome"
+   ],
+   [
+    "7:40 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "7:52 PM",
+    "Columbus Saints"
+   ],
+   [
+    "8:09 PM",
+    "White Sabers"
+   ],
+   [
+    "8:26 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "8:43 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:17 PM",
+    "Music City"
+   ],
+   [
+    "9:34 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:59 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-08-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-big-sounds-in-motion/",
+  "name": "Big Sounds in Motion",
+  "location": "Downingtown, PA",
+  "date_display": "August 2, 2026",
+  "date": "2026-08-02",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Sonus Brass Theater",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers",
+   "Pacific Crest",
+   "Colts",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome"
+   ],
+   [
+    "5:55 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:07 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "6:24 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:36 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "6:53 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:10 PM",
+    "Intermission"
+   ],
+   [
+    "7:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:44 PM",
+    "Colts"
+   ],
+   [
+    "8:01 PM",
+    "Carolina Crown"
+   ],
+   [
+    "8:18 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:35 PM",
+    "Encore - Reading Buccaneers - Reading, PA"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All bags may be subject to search upon entering the stadium.",
+  "_seen": "2026-08-22"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-kentucky/",
   "name": "DCI Kentucky",
   "location": "Lexington, KY",
@@ -5042,6 +5185,119 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-08-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-innovations-in-brass/",
+  "name": "Innovations In Brass",
+  "location": "Akron, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "The Blue Way Middle School Honor Band",
+   "Rhythm IN BLUE",
+   "EN-CORPS by EN-RICH-MENT",
+   "Genesis",
+   "Seattle Cascades",
+   "Music City",
+   "The Academy",
+   "Crossmen",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Santa Clara Vanguard",
+   "Carolina Crown",
+   "Boston Crusaders",
+   "Blue Devils",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "The Blue Way Middle School Honor Band"
+   ],
+   [
+    "6:20 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "6:30 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "6:42 PM",
+    "Genesis"
+   ],
+   [
+    "6:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:16 PM",
+    "Music City"
+   ],
+   [
+    "7:33 PM",
+    "The Academy"
+   ],
+   [
+    "7:50 PM",
+    "Crossmen"
+   ],
+   [
+    "8:07 PM",
+    "Intermission"
+   ],
+   [
+    "8:24 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Colts"
+   ],
+   [
+    "9:15 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:32 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:49 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:06 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:23 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:40 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "10:48 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
   "_seen": "2026-08-22"
  },
  {
@@ -5843,128 +6099,6 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-08-22"
- },
- {
-  "url": "https://www.dci.org/events/2026-soundsport-international-music-food-festival/",
-  "name": "SoundSport International Music & Food Festival",
-  "location": "Indianapolis, IN",
-  "date_display": "August 8, 2026",
-  "date": "2026-08-08",
-  "lineup": [
-   "Columbus Saints",
-   "Spark",
-   "IPS Combined Marching Band",
-   "Alexandria Marching Tigers",
-   "Sacramento Freelancers Mini Corps",
-   "Green Beret Marching Band",
-   "Apogee",
-   "Apollo Marching Theatre",
-   "Mercedes Marching Band",
-   "Sacramento Freelancers",
-   "Drumline Battle Seeding Round",
-   "Phoenix",
-   "Rhythm IN BLUE",
-   "Conquest Drum & Bugle Corps",
-   "Carolina Gold",
-   "Sonus Brass Theater",
-   "DrumLine Battle"
-  ],
-  "schedule": [
-   [
-    "10:00 AM",
-    "Gates Opens"
-   ],
-   [
-    "10:30 AM",
-    "Welcome"
-   ],
-   [
-    "10:45 AM",
-    "Columbus Saints"
-   ],
-   [
-    "11:02 AM",
-    "Spark"
-   ],
-   [
-    "11:13 AM",
-    "IPS Combined Marching Band"
-   ],
-   [
-    "11:24 AM",
-    "Alexandria Marching Tigers"
-   ],
-   [
-    "11:35 AM",
-    "Sacramento Freelancers Mini Corps"
-   ],
-   [
-    "11:50 AM",
-    "Intermission"
-   ],
-   [
-    "12:16 PM",
-    "Green Beret Marching Band"
-   ],
-   [
-    "12:27 PM",
-    "Apogee"
-   ],
-   [
-    "12:38 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "12:49 PM",
-    "Mercedes Marching Band"
-   ],
-   [
-    "1:00 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "1:11 PM",
-    "Intermission"
-   ],
-   [
-    "1:31 PM",
-    "Drumline Battle Seeding Round"
-   ],
-   [
-    "2:01 PM",
-    "Phoenix"
-   ],
-   [
-    "2:16 PM",
-    "Rhythm IN BLUE"
-   ],
-   [
-    "2:27 PM",
-    "Conquest Drum & Bugle Corps"
-   ],
-   [
-    "2:38 PM",
-    "Carolina Gold"
-   ],
-   [
-    "2:49 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "3:00 PM",
-    "DrumLine Battle"
-   ],
-   [
-    "3:30 PM",
-    "Awards Ceremony"
-   ],
-   [
-    "4:00 PM",
-    "Awards Ends"
-   ]
-  ],
-  "bag_policy": "Clear Bag Policy will be in effect. Outside food and Drink will NOT be permitted inside the stadium, including food and drink purchased at the festival. ACTIVITIES, EXHIBITS, & VENDORS Food Trucks Coco Bongos - Enjoy Tropical, non-alcoholic, frozen drinks in festive cups. Choose from 3 flavors: Bahama Mama, Pina Colada, and Outrageous Orange.",
   "_seen": "2026-08-22"
  }
 ]
