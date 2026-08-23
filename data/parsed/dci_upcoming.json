@@ -2903,86 +2903,6 @@
   "_seen": "2026-08-23"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-dallas/",
-  "name": "DCI Dallas",
-  "location": "Bedford, TX",
-  "date_display": "July 19, 2026",
-  "date": "2026-07-19",
-  "lineup": [
-   "Arsenal",
-   "Zephyrus",
-   "Spartans",
-   "The Academy",
-   "Music City",
-   "Madison Scouts",
-   "Pacific Crest",
-   "Blue Knights",
-   "Colts",
-   "The Cavaliers",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Arsenal"
-   ],
-   [
-    "7:27 PM",
-    "Zephyrus"
-   ],
-   [
-    "7:44 PM",
-    "Spartans"
-   ],
-   [
-    "8:01 PM",
-    "The Academy"
-   ],
-   [
-    "8:18 PM",
-    "Music City"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "Colts"
-   ],
-   [
-    "9:43 PM",
-    "The Cavaliers"
-   ],
-   [
-    "10:00 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:25 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-23"
- },
- {
   "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
   "name": "Raiders Tour Send-Off",
   "location": "Aston Township, PA",
@@ -3272,64 +3192,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-08-23"
- },
- {
-  "url": "https://www.dci.org/events/2026-march-on/",
-  "name": "March On!",
-  "location": "Champlin, MN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "RCR Street Club",
-   "MBI",
-   "Govenaires",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "RCR Street Club"
-   ],
-   [
-    "7:22 PM",
-    "MBI"
-   ],
-   [
-    "7:39 PM",
-    "Govenaires"
-   ],
-   [
-    "7:56 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:13 PM",
-    "Columbians"
-   ],
-   [
-    "8:30 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:47 PM",
-    "Encore - River City Rhythm - Anoka, MN"
-   ],
-   [
-    "8:55 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-23"
  },
  {
@@ -5185,6 +5047,119 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-08-23"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-innovations-in-brass/",
+  "name": "Innovations In Brass",
+  "location": "Akron, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "The Blue Way Middle School Honor Band",
+   "Rhythm IN BLUE",
+   "EN-CORPS by EN-RICH-MENT",
+   "Genesis",
+   "Seattle Cascades",
+   "Music City",
+   "The Academy",
+   "Crossmen",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Santa Clara Vanguard",
+   "Carolina Crown",
+   "Boston Crusaders",
+   "Blue Devils",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "The Blue Way Middle School Honor Band"
+   ],
+   [
+    "6:20 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "6:30 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "6:42 PM",
+    "Genesis"
+   ],
+   [
+    "6:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:16 PM",
+    "Music City"
+   ],
+   [
+    "7:33 PM",
+    "The Academy"
+   ],
+   [
+    "7:50 PM",
+    "Crossmen"
+   ],
+   [
+    "8:07 PM",
+    "Intermission"
+   ],
+   [
+    "8:24 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Colts"
+   ],
+   [
+    "9:15 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:32 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:49 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:06 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:23 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:40 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "10:48 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
   "_seen": "2026-08-23"
  },
  {
