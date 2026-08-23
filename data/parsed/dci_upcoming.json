@@ -4797,90 +4797,6 @@
   "_seen": "2026-08-23"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
-  "name": "DCI Eastern Classic",
-  "location": "Allentown, PA",
-  "date_display": "August 1, 2026",
-  "date": "2026-08-01",
-  "lineup": [
-   "Spartans",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Madison Scouts",
-   "Crossmen",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Spartans"
-   ],
-   [
-    "7:27 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "7:44 PM",
-    "The Academy"
-   ],
-   [
-    "8:01 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:18 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:35 PM",
-    "Crossmen"
-   ],
-   [
-    "8:52 PM",
-    "Intermission"
-   ],
-   [
-    "9:09 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:26 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:43 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:00 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:17 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:42 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-08-23"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
   "name": "DCI Pittsburgh",
   "location": "Pittsburgh, PA",
@@ -5392,6 +5308,14 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-08-23"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
+  "name": "DCI 2026: Big, Loud & Live",
+  "date_display": "August 6, 2026",
+  "date": "2026-08-06",
+  "lineup": [],
   "_seen": "2026-08-23"
  },
  {
