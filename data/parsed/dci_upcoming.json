@@ -2471,76 +2471,6 @@
   "_seen": "2026-08-24"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-denton/",
-  "name": "DCI Denton",
-  "location": "Denton, TX",
-  "date_display": "July 16, 2026",
-  "date": "2026-07-16",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Seattle Cascades",
-   "Spirit of Atlanta",
-   "Phantom Regiment",
-   "Carolina Crown",
-   "Bluecoats",
-   "Boston Crusaders",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Guardians"
-   ],
-   [
-    "8:42 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:59 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:16 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:33 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:50 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:07 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:24 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:41 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "11:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-24"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-houston/",
   "name": "DCI Houston",
   "location": "Houston, TX",
@@ -3015,6 +2945,71 @@
     "Joint Performance"
    ]
   ],
+  "_seen": "2026-08-24"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
   "_seen": "2026-08-24"
  },
  {
