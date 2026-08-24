@@ -1122,6 +1122,79 @@
   "_seen": "2026-08-24"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
+  "name": "The Kiwanis Thunder of Drums",
+  "location": "Mankato, MN",
+  "date_display": "July 7, 2026",
+  "date": "2026-07-07",
+  "lineup": [
+   "Govenaires",
+   "MBI",
+   "River City Rhythm",
+   "Genesis",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights",
+   "The Cavaliers"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:50 PM",
+    "Minnesota State University - Clinic Band - Mankato, MN"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Govenaires"
+   ],
+   [
+    "7:27 PM",
+    "MBI"
+   ],
+   [
+    "7:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:01 PM",
+    "Intermission"
+   ],
+   [
+    "8:18 PM",
+    "Genesis"
+   ],
+   [
+    "8:35 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:52 PM",
+    "Colts"
+   ],
+   [
+    "9:09 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:26 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
+  "_seen": "2026-08-24"
+ },
+ {
   "url": "https://www.dci.org/events/2026-celebration-in-brass/",
   "name": "Celebration in Brass",
   "location": "Des Moines, IA",
@@ -1527,149 +1600,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-08-24"
- },
- {
-  "url": "https://www.dci.org/events/2026-western-corps-connection/",
-  "name": "Western Corps Connection",
-  "location": "Walnut, CA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Blue Devils B",
-   "Blue Devils C",
-   "Golden Empire",
-   "Gold",
-   "Impulse",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Santa Clara Vanguard",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "4:45 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:00 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:15 PM",
-    "Blue Devils C"
-   ],
-   [
-    "6:30 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:45 PM",
-    "Gold"
-   ],
-   [
-    "7:00 PM",
-    "Impulse"
-   ],
-   [
-    "7:15 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:17 PM",
-    "The Academy"
-   ],
-   [
-    "8:34 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:51 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:08 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:25 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:50 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
-  "_seen": "2026-08-24"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-little-rock/",
-  "name": "DCI Little Rock",
-  "location": "Little Rock, AR",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Memphis Blues",
-   "Zephyrus",
-   "Music City",
-   "Spirit of Atlanta",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:27 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:44 PM",
-    "Music City"
-   ],
-   [
-    "9:01 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:18 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:35 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
   "_seen": "2026-08-24"
  },
  {
