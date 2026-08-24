@@ -1122,79 +1122,6 @@
   "_seen": "2026-08-24"
  },
  {
-  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
-  "name": "The Kiwanis Thunder of Drums",
-  "location": "Mankato, MN",
-  "date_display": "July 7, 2026",
-  "date": "2026-07-07",
-  "lineup": [
-   "Govenaires",
-   "MBI",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:50 PM",
-    "Minnesota State University - Clinic Band - Mankato, MN"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Govenaires"
-   ],
-   [
-    "7:27 PM",
-    "MBI"
-   ],
-   [
-    "7:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Genesis"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Colts"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
-  "_seen": "2026-08-24"
- },
- {
   "url": "https://www.dci.org/events/2026-celebration-in-brass/",
   "name": "Celebration in Brass",
   "location": "Des Moines, IA",
@@ -3018,6 +2945,71 @@
   "_seen": "2026-08-24"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-08-24"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -3207,6 +3199,64 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-08-24"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-march-on/",
+  "name": "March On!",
+  "location": "Champlin, MN",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "RCR Street Club",
+   "MBI",
+   "Govenaires",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "RCR Street Club"
+   ],
+   [
+    "7:22 PM",
+    "MBI"
+   ],
+   [
+    "7:39 PM",
+    "Govenaires"
+   ],
+   [
+    "7:56 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:13 PM",
+    "Columbians"
+   ],
+   [
+    "8:30 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:47 PM",
+    "Encore - River City Rhythm - Anoka, MN"
+   ],
+   [
+    "8:55 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-24"
  },
  {
