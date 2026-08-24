@@ -3018,71 +3018,6 @@
   "_seen": "2026-08-24"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-mckinney/",
-  "name": "DCI McKinney",
-  "location": "McKinney, TX",
-  "date_display": "July 20, 2026",
-  "date": "2026-07-20",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Blue Stars",
-   "Carolina Crown",
-   "Crossmen",
-   "Phantom Regiment",
-   "Spirit of Atlanta",
-   "Troopers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Guardians"
-   ],
-   [
-    "8:22 PM",
-    "Zephyrus"
-   ],
-   [
-    "10:46 PM",
-    "Scores Announced"
-   ],
-   [
-    "TBD",
-    "Blue Stars"
-   ],
-   [
-    "TBD",
-    "Carolina Crown"
-   ],
-   [
-    "TBD",
-    "Crossmen"
-   ],
-   [
-    "TBD",
-    "Phantom Regiment"
-   ],
-   [
-    "TBD",
-    "Spirit of Atlanta"
-   ],
-   [
-    "TBD",
-    "Troopers"
-   ]
-  ],
-  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
-  "_seen": "2026-08-24"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -3272,64 +3207,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-08-24"
- },
- {
-  "url": "https://www.dci.org/events/2026-march-on/",
-  "name": "March On!",
-  "location": "Champlin, MN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "RCR Street Club",
-   "MBI",
-   "Govenaires",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "RCR Street Club"
-   ],
-   [
-    "7:22 PM",
-    "MBI"
-   ],
-   [
-    "7:39 PM",
-    "Govenaires"
-   ],
-   [
-    "7:56 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:13 PM",
-    "Columbians"
-   ],
-   [
-    "8:30 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:47 PM",
-    "Encore - River City Rhythm - Anoka, MN"
-   ],
-   [
-    "8:55 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-24"
  },
  {
@@ -5891,6 +5768,22 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-08-24"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
+  "name": "Shining a Light on Music Education",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "Apogee",
+   "Freelancers",
+   "Green Beret Marching Band",
+   "Mercedes Marching Band",
+   "Rhythm IN BLUE",
+   "Spark"
+  ],
   "_seen": "2026-08-24"
  },
  {
