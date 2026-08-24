@@ -515,74 +515,6 @@
   "_seen": "2026-08-24"
  },
  {
-  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
-  "name": "Northwest Youth Music Games Portland",
-  "location": "Portland, OR",
-  "date_display": "July 1, 2026",
-  "date": "2026-07-01",
-  "lineup": [
-   "One More Time Around Marching Band",
-   "Gems",
-   "Impulse",
-   "Columbians",
-   "The Battalion",
-   "Santa Clara Vanguard",
-   "Seattle Cascades"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:15 PM",
-    "One More Time Around Marching Band"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:52 PM",
-    "Impulse"
-   ],
-   [
-    "8:07 PM",
-    "Columbians"
-   ],
-   [
-    "8:22 PM",
-    "The Battalion"
-   ],
-   [
-    "8:37 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:28 PM",
-    "Encore - Seattle Cascades - Seattle, WA"
-   ],
-   [
-    "9:35 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-08-24"
- },
- {
   "url": "https://www.dci.org/events/2026-midcal-showcase/",
   "name": "MidCal Showcase",
   "location": "Camarillo, CA",
@@ -991,89 +923,6 @@
    ]
   ],
   "bag_policy": "Stanford Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. See more details about the clear bag policy on the Stanford website . For more information, visit this page .",
-  "_seen": "2026-08-24"
- },
- {
-  "url": "https://www.dci.org/events/2026-river-city-rhapsody/",
-  "name": "River City Rhapsody",
-  "location": "La Crosse, WI",
-  "date_display": "July 5, 2026",
-  "date": "2026-07-05",
-  "lineup": [
-   "Blue Saints",
-   "Sound of Sun Prairie",
-   "Govenaires",
-   "River City Rhythm",
-   "Madison Scouts",
-   "Colts",
-   "Troopers",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Blue Saints"
-   ],
-   [
-    "7:20 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "7:32 PM",
-    "Govenaires"
-   ],
-   [
-    "7:49 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:06 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:23 PM",
-    "Colts"
-   ],
-   [
-    "8:40 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Troopers"
-   ],
-   [
-    "9:17 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:34 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:51 PM",
-    "Blue Stars"
-   ],
-   [
-    "10:08 PM",
-    "Encore - Blue Stars - La Crosse, WI"
-   ],
-   [
-    "10:16 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "No bag policy is enforced for this event. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-24"
  },
  {
@@ -2468,6 +2317,76 @@
    ]
   ],
   "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-24"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-denton/",
+  "name": "DCI Denton",
+  "location": "Denton, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Seattle Cascades",
+   "Spirit of Atlanta",
+   "Phantom Regiment",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Guardians"
+   ],
+   [
+    "8:42 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:16 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:33 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:50 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:07 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:24 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:41 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-24"
  },
  {
@@ -5821,22 +5740,6 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-08-24"
- },
- {
-  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
-  "name": "Shining a Light on Music Education",
-  "location": "Indianapolis, IN",
-  "date_display": "August 7, 2026",
-  "date": "2026-08-07",
-  "lineup": [
-   "Apogee",
-   "Freelancers",
-   "Green Beret Marching Band",
-   "Mercedes Marching Band",
-   "Rhythm IN BLUE",
-   "Spark"
-  ],
   "_seen": "2026-08-24"
  },
  {
