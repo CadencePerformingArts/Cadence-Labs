@@ -633,59 +633,6 @@
   "_seen": "2026-08-25"
  },
  {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-08-25"
- },
- {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -5891,22 +5838,6 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-08-25"
- },
- {
-  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
-  "name": "Shining a Light on Music Education",
-  "location": "Indianapolis, IN",
-  "date_display": "August 7, 2026",
-  "date": "2026-08-07",
-  "lineup": [
-   "Apogee",
-   "Freelancers",
-   "Green Beret Marching Band",
-   "Mercedes Marching Band",
-   "Rhythm IN BLUE",
-   "Spark"
-  ],
   "_seen": "2026-08-25"
  },
  {
