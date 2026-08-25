@@ -2083,53 +2083,80 @@
   "_seen": "2026-08-25"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
-  "name": "Drums Across the Desert",
-  "location": "Mesa, AZ",
+  "url": "https://www.dci.org/events/2026-brass-impact/",
+  "name": "Brass Impact",
+  "location": "Olathe, KS",
   "date_display": "July 13, 2026",
   "date": "2026-07-13",
   "lineup": [
-   "Seattle Cascades",
-   "Pacific Crest",
-   "The Academy",
-   "Bluecoats",
-   "Event Concludes"
+   "Sky Ryders",
+   "Colt Cadets",
+   "Spartans",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "Phantom Regiment",
+   "Colts"
   ],
   "schedule": [
    [
-    "7:00 PM",
+    "5:30 PM",
     "Gates Open"
    ],
    [
-    "8:00 PM",
-    "National Anthem The Phoenix Symphony Brass Quintet"
+    "7:30 PM",
+    "Welcome & National Anthem"
    ],
    [
-    "8:10 PM",
-    "Seattle Cascades"
+    "7:38 PM",
+    "Sky Ryders"
    ],
    [
-    "8:27 PM",
-    "Pacific Crest"
+    "7:50 PM",
+    "Colt Cadets"
    ],
    [
-    "8:44 PM",
-    "The Academy"
+    "8:07 PM",
+    "Spartans"
    ],
    [
-    "8:56 PM",
-    "Bluecoats"
+    "8:24 PM",
+    "Crossmen"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Intermission"
    ],
    [
     "9:13 PM",
-    "Encore - The Bluecoats and The Academy - Tempe, AZ"
+    "Troopers"
    ],
    [
-    "9:21 PM",
-    "Event Concludes"
+    "9:30 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:47 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Colts"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
    ]
   ],
-  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-08-25"
  },
  {
