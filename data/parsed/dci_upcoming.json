@@ -2401,6 +2401,76 @@
   "_seen": "2026-08-25"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-central-texas/",
+  "name": "DCI Central Texas",
+  "location": "Killeen, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Sky Ryders",
+   "Arsenal",
+   "Gold",
+   "Genesis",
+   "Music City",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:42 PM",
+    "Arsenal"
+   ],
+   [
+    "8:59 PM",
+    "Gold"
+   ],
+   [
+    "9:16 PM",
+    "Genesis"
+   ],
+   [
+    "9:33 PM",
+    "Music City"
+   ],
+   [
+    "9:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "10:07 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:24 PM",
+    "Colts"
+   ],
+   [
+    "10:41 PM",
+    "Blue Knights"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-25"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-denton/",
   "name": "DCI Denton",
   "location": "Denton, TX",
