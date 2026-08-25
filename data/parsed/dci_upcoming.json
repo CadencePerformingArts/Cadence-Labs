@@ -2083,133 +2083,6 @@
   "_seen": "2026-08-25"
  },
  {
-  "url": "https://www.dci.org/events/2026-brass-impact/",
-  "name": "Brass Impact",
-  "location": "Olathe, KS",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Sky Ryders",
-   "Colt Cadets",
-   "Spartans",
-   "Crossmen",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Stars",
-   "Phantom Regiment",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:38 PM",
-    "Sky Ryders"
-   ],
-   [
-    "7:50 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:07 PM",
-    "Spartans"
-   ],
-   [
-    "8:24 PM",
-    "Crossmen"
-   ],
-   [
-    "8:41 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:58 PM",
-    "Intermission"
-   ],
-   [
-    "9:13 PM",
-    "Troopers"
-   ],
-   [
-    "9:30 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:47 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:04 PM",
-    "Colts"
-   ],
-   [
-    "10:21 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-25"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
-  "name": "Drums Across the Desert",
-  "location": "Mesa, AZ",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Seattle Cascades",
-   "Pacific Crest",
-   "The Academy",
-   "Bluecoats",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "National Anthem The Phoenix Symphony Brass Quintet"
-   ],
-   [
-    "8:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:27 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:44 PM",
-    "The Academy"
-   ],
-   [
-    "8:56 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:13 PM",
-    "Encore - The Bluecoats and The Academy - Tempe, AZ"
-   ],
-   [
-    "9:21 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-08-25"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
   "name": "DCI Broken Arrow",
   "location": "Broken Arrow, OK",
@@ -2398,6 +2271,76 @@
    ]
   ],
   "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-08-25"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-central-texas/",
+  "name": "DCI Central Texas",
+  "location": "Killeen, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Sky Ryders",
+   "Arsenal",
+   "Gold",
+   "Genesis",
+   "Music City",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:42 PM",
+    "Arsenal"
+   ],
+   [
+    "8:59 PM",
+    "Gold"
+   ],
+   [
+    "9:16 PM",
+    "Genesis"
+   ],
+   [
+    "9:33 PM",
+    "Music City"
+   ],
+   [
+    "9:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "10:07 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:24 PM",
+    "Colts"
+   ],
+   [
+    "10:41 PM",
+    "Blue Knights"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-25"
  },
  {
