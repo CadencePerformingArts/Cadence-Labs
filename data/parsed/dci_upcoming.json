@@ -44,19 +44,6 @@
   "_seen": "2026-08-25"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-08-25"
- },
- {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -2210,6 +2197,75 @@
   "_seen": "2026-08-25"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
+  "name": "DCI Broken Arrow",
+  "location": "Broken Arrow, OK",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Zephyrus",
+   "Crossmen",
+   "Spirit of Atlanta",
+   "Colts",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:27 PM",
+    "Crossmen"
+   ],
+   [
+    "8:44 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:01 PM",
+    "Colts"
+   ],
+   [
+    "9:18 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:35 PM",
+    "Intermission"
+   ],
+   [
+    "9:52 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:09 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:26 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:51 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Broken Arrow Memorial Stadium has a clear bag policy, more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-25"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-hutchinson/",
   "name": "DCI Hutchinson",
   "location": "Hutchinson, KS",
@@ -2472,58 +2528,78 @@
   "_seen": "2026-08-25"
  },
  {
-  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
-  "name": "Sounds by the Seaport",
-  "location": "New London, CT",
+  "url": "https://www.dci.org/events/2026-dci-houston/",
+  "name": "DCI Houston",
+  "location": "Houston, TX",
   "date_display": "July 17, 2026",
   "date": "2026-07-17",
   "lineup": [
-   "Eastern Connecticut Symphony Orchestra",
-   "CT Alumni",
-   "Les Stentors",
-   "Hurricanes",
-   "7th Regiment",
-   "Event Concludes"
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "The Academy",
+   "The Cavaliers",
+   "Blue Stars",
+   "Blue Devils",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders"
   ],
   "schedule": [
    [
-    "6:00 PM",
+    "6:30 PM",
     "Gates Open"
    ],
    [
-    "7:00 PM",
-    "Welcome"
+    "8:00 PM",
+    "Welcome & National Anthem"
    ],
    [
-    "7:05 PM",
-    "Eastern Connecticut Symphony Orchestra"
+    "8:10 PM",
+    "Spartans"
    ],
    [
-    "7:20 PM",
-    "CT Alumni"
+    "8:27 PM",
+    "Genesis"
    ],
    [
-    "7:45 PM",
-    "Les Stentors"
+    "8:44 PM",
+    "Crossmen"
    ],
    [
-    "8:15 PM",
-    "Hall of Fame Recipients & Age-Out Recognition"
+    "9:01 PM",
+    "The Academy"
    ],
    [
-    "8:40 PM",
-    "Hurricanes"
+    "9:18 PM",
+    "The Cavaliers"
    ],
    [
-    "9:00 PM",
-    "7th Regiment"
+    "9:35 PM",
+    "Blue Stars"
    ],
    [
-    "9:30 PM",
-    "Event Concludes"
+    "9:52 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:09 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:26 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:43 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "11:08 PM",
+    "Scores Announced"
    ]
   ],
-  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
+  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
   "_seen": "2026-08-25"
  },
  {
