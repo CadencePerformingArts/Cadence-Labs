@@ -2083,6 +2083,83 @@
   "_seen": "2026-08-26"
  },
  {
+  "url": "https://www.dci.org/events/2026-brass-impact/",
+  "name": "Brass Impact",
+  "location": "Olathe, KS",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Sky Ryders",
+   "Colt Cadets",
+   "Spartans",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:38 PM",
+    "Sky Ryders"
+   ],
+   [
+    "7:50 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:07 PM",
+    "Spartans"
+   ],
+   [
+    "8:24 PM",
+    "Crossmen"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Intermission"
+   ],
+   [
+    "9:13 PM",
+    "Troopers"
+   ],
+   [
+    "9:30 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:47 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Colts"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-26"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
   "name": "Drums Across the Desert",
   "location": "Mesa, AZ",
@@ -2536,61 +2613,6 @@
    ]
   ],
   "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
-  "_seen": "2026-08-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
-  "name": "Sounds by the Seaport",
-  "location": "New London, CT",
-  "date_display": "July 17, 2026",
-  "date": "2026-07-17",
-  "lineup": [
-   "Eastern Connecticut Symphony Orchestra",
-   "CT Alumni",
-   "Les Stentors",
-   "Hurricanes",
-   "7th Regiment",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:05 PM",
-    "Eastern Connecticut Symphony Orchestra"
-   ],
-   [
-    "7:20 PM",
-    "CT Alumni"
-   ],
-   [
-    "7:45 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:15 PM",
-    "Hall of Fame Recipients & Age-Out Recognition"
-   ],
-   [
-    "8:40 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:00 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:30 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
   "_seen": "2026-08-26"
  },
  {
