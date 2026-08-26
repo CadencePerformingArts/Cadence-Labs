@@ -1531,6 +1531,162 @@
   "_seen": "2026-08-26"
  },
  {
+  "url": "https://www.dci.org/events/2026-music-on-the-march/",
+  "name": "Music on the March",
+  "location": "Dubuque, IA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Conquest",
+   "Colt Cadets",
+   "River City Rhythm",
+   "Genesis",
+   "Madison Scouts",
+   "Blue Knights",
+   "Blue Stars",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Conquest"
+   ],
+   [
+    "7:22 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:39 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:56 PM",
+    "Genesis"
+   ],
+   [
+    "8:13 PM",
+    "Intermission"
+   ],
+   [
+    "8:33 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:50 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:07 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:24 PM",
+    "Colts"
+   ],
+   [
+    "9:41 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-26"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-08-26"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -1866,141 +2022,6 @@
    ]
   ],
   "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-08-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "7:27 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:44 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Impulse"
-   ],
-   [
-    "8:35 PM",
-    "Gold"
-   ],
-   [
-    "8:52 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:17 PM",
-    "Retreat"
-   ]
-  ],
-  "_seen": "2026-08-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-brass-impact/",
-  "name": "Brass Impact",
-  "location": "Olathe, KS",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Sky Ryders",
-   "Colt Cadets",
-   "Spartans",
-   "Crossmen",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Stars",
-   "Phantom Regiment",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:38 PM",
-    "Sky Ryders"
-   ],
-   [
-    "7:50 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:07 PM",
-    "Spartans"
-   ],
-   [
-    "8:24 PM",
-    "Crossmen"
-   ],
-   [
-    "8:41 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:58 PM",
-    "Intermission"
-   ],
-   [
-    "9:13 PM",
-    "Troopers"
-   ],
-   [
-    "9:30 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:47 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:04 PM",
-    "Colts"
-   ],
-   [
-    "10:21 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:29 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-26"
  },
  {
