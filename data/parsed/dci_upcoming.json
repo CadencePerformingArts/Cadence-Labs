@@ -3333,90 +3333,6 @@
   "_seen": "2026-08-26"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-birmingham/",
-  "name": "DCI Birmingham",
-  "location": "Birmingham, AL",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Fusion Core",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Heat Wave",
-   "Spartans",
-   "The Academy",
-   "Crossmen",
-   "Blue Knights",
-   "Troopers",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "7:52 PM",
-    "Fusion Core"
-   ],
-   [
-    "8:09 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:26 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:43 PM",
-    "Heat Wave"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:17 PM",
-    "Spartans"
-   ],
-   [
-    "9:34 PM",
-    "The Academy"
-   ],
-   [
-    "9:51 PM",
-    "Crossmen"
-   ],
-   [
-    "10:08 PM",
-    "Blue Knights"
-   ],
-   [
-    "10:25 PM",
-    "Troopers"
-   ],
-   [
-    "10:42 PM",
-    "Blue Stars"
-   ],
-   [
-    "11:07 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-26"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
   "name": "DCI Middle Tennessee",
   "location": "Murfreesboro, TN",
@@ -3686,119 +3602,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-08-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-southeastern-championship/",
-  "name": "DCI Southeastern Championship",
-  "location": "Atlanta, GA",
-  "date_display": "July 25, 2026",
-  "date": "2026-07-25",
-  "lineup": [
-   "Fusion Core",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Spartans",
-   "The Academy",
-   "Music City",
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Troopers",
-   "Blue Knights",
-   "Colts",
-   "Blue Stars",
-   "Carolina Crown",
-   "Bluecoats",
-   "Boston Crusaders",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "3:30 PM",
-    "Gates Open"
-   ],
-   [
-    "5:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:10 PM",
-    "Fusion Core"
-   ],
-   [
-    "5:27 PM",
-    "Atlanta CV"
-   ],
-   [
-    "5:44 PM",
-    "Memphis Blues"
-   ],
-   [
-    "6:01 PM",
-    "Spartans"
-   ],
-   [
-    "6:18 PM",
-    "The Academy"
-   ],
-   [
-    "6:35 PM",
-    "Music City"
-   ],
-   [
-    "6:52 PM",
-    "Crossmen"
-   ],
-   [
-    "7:09 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "7:26 PM",
-    "Intermission"
-   ],
-   [
-    "8:06 PM",
-    "Troopers"
-   ],
-   [
-    "8:23 PM",
-    "Blue Knights"
-   ],
-   [
-    "8:40 PM",
-    "Colts"
-   ],
-   [
-    "8:57 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:14 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:31 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:48 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:05 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:22 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "10:30 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Center Parc Stadium will enforce security policies including the use of metal detectors, prohibited items, and a CLEAR BAG POLICY. Only approved clear bags will be permitted in the stadium. For more information, please visit the Center Parc Stadium Game Day Website .",
   "_seen": "2026-08-26"
  },
  {
@@ -4547,6 +4350,253 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-08-26"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-marion-open/",
+  "name": "The Marion Open",
+  "location": "Marion, OH",
+  "date_display": "July 30, 2026",
+  "date": "2026-07-30",
+  "lineup": [
+   "Cincinnati Tradition",
+   "Memphis Blues",
+   "Heat Wave",
+   "Raiders",
+   "Colt Cadets",
+   "Les Stentors",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "7:27 PM",
+    "Memphis Blues"
+   ],
+   [
+    "7:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:01 PM",
+    "Raiders"
+   ],
+   [
+    "8:18 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Les Stentors"
+   ],
+   [
+    "9:09 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Gold"
+   ],
+   [
+    "10:00 PM",
+    "The Battalion"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
+  "_seen": "2026-08-26"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic-2/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Genesis",
+   "Music City",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Blue Knights",
+   "Blue Stars",
+   "Colts",
+   "Bluecoats",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Bushwackers"
+   ],
+   [
+    "7:27 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:44 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "8:01 PM",
+    "Genesis"
+   ],
+   [
+    "8:18 PM",
+    "Music City"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:09 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:00 PM",
+    "Colts"
+   ],
+   [
+    "10:17 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:34 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-08-26"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-michigan/",
+  "name": "DCI Michigan",
+  "location": "Allendale, MI",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Northern Lights",
+   "Memphis Blues",
+   "Heat Wave",
+   "Les Stentors",
+   "Colt Cadets",
+   "Raiders",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:57 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:14 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:31 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:48 PM",
+    "Colt Cadets"
+   ],
+   [
+    "9:05 PM",
+    "Raiders"
+   ],
+   [
+    "9:22 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:39 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:56 PM",
+    "Gold"
+   ],
+   [
+    "10:13 PM",
+    "The Battalion"
+   ],
+   [
+    "10:30 PM",
+    "Encore - Northern Lights - Grand Rapids, MI"
+   ],
+   [
+    "10:38 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-08-26"
  },
  {
