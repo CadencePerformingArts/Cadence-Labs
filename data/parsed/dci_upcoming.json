@@ -4023,6 +4023,113 @@
   "_seen": "2026-08-26"
  },
  {
+  "url": "https://www.dci.org/events/2026-nightbeat/",
+  "name": "NightBEAT",
+  "location": "Winston-Salem, NC",
+  "date_display": "July 26, 2026",
+  "date": "2026-07-26",
+  "lineup": [
+   "North Carolina A&T Cold Steel Drumline",
+   "Atlanta CV",
+   "Heat Wave",
+   "Music City",
+   "Spartans",
+   "The Academy",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Colts",
+   "Blue Stars",
+   "Bluecoats",
+   "Blue Devils",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "3:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:00 PM",
+    "Welcome"
+   ],
+   [
+    "5:05 PM",
+    "National Anthem"
+   ],
+   [
+    "5:15 PM",
+    "North Carolina A&T Cold Steel Drumline"
+   ],
+   [
+    "5:35 PM",
+    "Atlanta CV"
+   ],
+   [
+    "5:53 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:11 PM",
+    "Music City"
+   ],
+   [
+    "6:29 PM",
+    "Spartans"
+   ],
+   [
+    "6:47 PM",
+    "The Academy"
+   ],
+   [
+    "7:05 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "7:23 PM",
+    "Intermission"
+   ],
+   [
+    "8:15 PM",
+    "Troopers"
+   ],
+   [
+    "8:33 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:51 PM",
+    "Colts"
+   ],
+   [
+    "9:09 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:27 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:45 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:03 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Carolina Crown"
+   ],
+   [
+    "10:36 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-26"
+ },
+ {
   "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
   "name": "Summer Music Games in Cincinnati",
   "location": "Mason, OH",
@@ -4160,75 +4267,6 @@
    ]
   ],
   "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-annapolis/",
-  "name": "DCI Annapolis",
-  "location": "Annapolis, MD",
-  "date_display": "July 28, 2026",
-  "date": "2026-07-28",
-  "lineup": [
-   "Raiders",
-   "Spartans",
-   "Pacific Crest",
-   "Blue Knights",
-   "Troopers",
-   "Colts",
-   "Boston Crusaders",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome"
-   ],
-   [
-    "6:40 PM",
-    "Raiders"
-   ],
-   [
-    "6:57 PM",
-    "Spartans"
-   ],
-   [
-    "7:14 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:31 PM",
-    "Blue Knights"
-   ],
-   [
-    "7:48 PM",
-    "Intermission"
-   ],
-   [
-    "8:05 PM",
-    "Troopers"
-   ],
-   [
-    "8:22 PM",
-    "Colts"
-   ],
-   [
-    "8:39 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:56 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:21 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-26"
  },
  {
