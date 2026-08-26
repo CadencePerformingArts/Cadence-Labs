@@ -1531,162 +1531,6 @@
   "_seen": "2026-08-26"
  },
  {
-  "url": "https://www.dci.org/events/2026-music-on-the-march/",
-  "name": "Music on the March",
-  "location": "Dubuque, IA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Conquest",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Conquest"
-   ],
-   [
-    "7:22 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:39 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:56 PM",
-    "Genesis"
-   ],
-   [
-    "8:13 PM",
-    "Intermission"
-   ],
-   [
-    "8:33 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:50 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:07 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:24 PM",
-    "Colts"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-western-corps-connection/",
-  "name": "Western Corps Connection",
-  "location": "Walnut, CA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Blue Devils B",
-   "Blue Devils C",
-   "Golden Empire",
-   "Gold",
-   "Impulse",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Santa Clara Vanguard",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "4:45 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:00 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:15 PM",
-    "Blue Devils C"
-   ],
-   [
-    "6:30 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:45 PM",
-    "Gold"
-   ],
-   [
-    "7:00 PM",
-    "Impulse"
-   ],
-   [
-    "7:15 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:17 PM",
-    "The Academy"
-   ],
-   [
-    "8:34 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:51 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:08 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:25 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:50 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
-  "_seen": "2026-08-26"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -3015,6 +2859,71 @@
     "Joint Performance"
    ]
   ],
+  "_seen": "2026-08-26"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
   "_seen": "2026-08-26"
  },
  {
