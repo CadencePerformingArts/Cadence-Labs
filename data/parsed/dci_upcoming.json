@@ -3481,69 +3481,6 @@
   "_seen": "2026-08-27"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-syracuse/",
-  "name": "DCI Syracuse",
-  "location": "Central Square, NY",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Baldwinsville Marching Band",
-   "Brig Juice Brass",
-   "Les Stentors",
-   "Raiders",
-   "7th Regiment",
-   "The Battalion",
-   "White Sabers"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Baldwinsville Marching Band"
-   ],
-   [
-    "7:20 PM",
-    "Brig Juice Brass"
-   ],
-   [
-    "7:32 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:49 PM",
-    "Raiders"
-   ],
-   [
-    "8:06 PM",
-    "7th Regiment"
-   ],
-   [
-    "8:23 PM",
-    "The Battalion"
-   ],
-   [
-    "8:40 PM",
-    "White Sabers"
-   ],
-   [
-    "8:57 PM",
-    "Encore - White Sabers - Rochester, NY"
-   ],
-   [
-    "9:05 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-27"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-on-parade/",
   "name": "Drums on Parade",
   "location": "Madison, WI",
@@ -3799,6 +3736,100 @@
    ]
   ],
   "bag_policy": "Center Parc Stadium will enforce security policies including the use of metal detectors, prohibited items, and a CLEAR BAG POLICY. Only approved clear bags will be permitted in the stadium. For more information, please visit the Center Parc Stadium Game Day Website .",
+  "_seen": "2026-08-27"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-midwestern-championship/",
+  "name": "Midwestern Championship",
+  "location": "DeKalb, IL",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "The ConneXion",
+   "Northern Lights",
+   "Govenaires",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "The ConneXion"
+   ],
+   [
+    "6:52 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:09 PM",
+    "Govenaires"
+   ],
+   [
+    "7:26 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:43 PM",
+    "Columbians"
+   ],
+   [
+    "8:00 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:17 PM",
+    "Intermission"
+   ],
+   [
+    "8:34 PM",
+    "Genesis"
+   ],
+   [
+    "8:51 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:25 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:42 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:59 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:16 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:24 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
   "_seen": "2026-08-27"
  },
  {
