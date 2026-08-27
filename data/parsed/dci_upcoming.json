@@ -127,6 +127,81 @@
   "_seen": "2026-08-27"
  },
  {
+  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
+  "name": "Bluecoats Opening Night Community Celebration",
+  "location": "Alliance, OH",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "Columbus Saints",
+   "Rogues Hollow Regiment",
+   "Cincinnati Tradition",
+   "Eclipse",
+   "EN-CORPS by EN-RICH-MENT",
+   "Bluecoats Alumni Legacy Arc",
+   "Rhythm IN BLUE",
+   "The Bluecoats",
+   "The Blue Way Summer Arts Camp",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "5:15 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:15 PM",
+    "Columbus Saints"
+   ],
+   [
+    "6:25 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "6:40 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "6:55 PM",
+    "Eclipse"
+   ],
+   [
+    "7:10 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "7:25 PM",
+    "Bluecoats Alumni Legacy Arc"
+   ],
+   [
+    "7:40 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "7:55 PM",
+    "The Bluecoats"
+   ],
+   [
+    "8:18 PM",
+    "The Blue Way Summer Arts Camp"
+   ],
+   [
+    "8:28 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "8:53 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event",
+  "_seen": "2026-08-27"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -1950,64 +2025,6 @@
   "_seen": "2026-08-27"
  },
  {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "7:27 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:44 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Impulse"
-   ],
-   [
-    "8:35 PM",
-    "Gold"
-   ],
-   [
-    "8:52 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:17 PM",
-    "Retreat"
-   ]
-  ],
-  "_seen": "2026-08-27"
- },
- {
   "url": "https://www.dci.org/events/2026-brass-impact/",
   "name": "Brass Impact",
   "location": "Olathe, KS",
@@ -3339,6 +3356,70 @@
    ]
   ],
   "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-27"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
+  "name": "DCI Middle Tennessee",
+  "location": "Murfreesboro, TN",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Music City",
+   "Spirit of Atlanta",
+   "Colts",
+   "Carolina Crown",
+   "Bluecoats",
+   "Blue Devils",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Music City"
+   ],
+   [
+    "7:58 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:16 PM",
+    "Colts"
+   ],
+   [
+    "8:34 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:10 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:28 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:46 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
   "_seen": "2026-08-27"
  },
  {
@@ -5253,6 +5334,14 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-08-27"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
+  "name": "DCI 2026: Big, Loud & Live",
+  "date_display": "August 6, 2026",
+  "date": "2026-08-06",
+  "lineup": [],
   "_seen": "2026-08-27"
  },
  {
