@@ -3481,6 +3481,69 @@
   "_seen": "2026-08-27"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-syracuse/",
+  "name": "DCI Syracuse",
+  "location": "Central Square, NY",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Baldwinsville Marching Band",
+   "Brig Juice Brass",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "White Sabers"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Baldwinsville Marching Band"
+   ],
+   [
+    "7:20 PM",
+    "Brig Juice Brass"
+   ],
+   [
+    "7:32 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:49 PM",
+    "Raiders"
+   ],
+   [
+    "8:06 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:23 PM",
+    "The Battalion"
+   ],
+   [
+    "8:40 PM",
+    "White Sabers"
+   ],
+   [
+    "8:57 PM",
+    "Encore - White Sabers - Rochester, NY"
+   ],
+   [
+    "9:05 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-27"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-on-parade/",
   "name": "Drums on Parade",
   "location": "Madison, WI",
