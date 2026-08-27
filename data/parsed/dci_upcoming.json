@@ -2025,191 +2025,6 @@
   "_seen": "2026-08-27"
  },
  {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "7:27 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:44 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Impulse"
-   ],
-   [
-    "8:35 PM",
-    "Gold"
-   ],
-   [
-    "8:52 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:17 PM",
-    "Retreat"
-   ]
-  ],
-  "_seen": "2026-08-27"
- },
- {
-  "url": "https://www.dci.org/events/2026-brass-impact/",
-  "name": "Brass Impact",
-  "location": "Olathe, KS",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Sky Ryders",
-   "Colt Cadets",
-   "Spartans",
-   "Crossmen",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Stars",
-   "Phantom Regiment",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:38 PM",
-    "Sky Ryders"
-   ],
-   [
-    "7:50 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:07 PM",
-    "Spartans"
-   ],
-   [
-    "8:24 PM",
-    "Crossmen"
-   ],
-   [
-    "8:41 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:58 PM",
-    "Intermission"
-   ],
-   [
-    "9:13 PM",
-    "Troopers"
-   ],
-   [
-    "9:30 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:47 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:04 PM",
-    "Colts"
-   ],
-   [
-    "10:21 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-27"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
-  "name": "Drums Across the Desert",
-  "location": "Mesa, AZ",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Seattle Cascades",
-   "Pacific Crest",
-   "The Academy",
-   "Bluecoats",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "National Anthem The Phoenix Symphony Brass Quintet"
-   ],
-   [
-    "8:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:27 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:44 PM",
-    "The Academy"
-   ],
-   [
-    "8:56 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:13 PM",
-    "Encore - The Bluecoats and The Academy - Tempe, AZ"
-   ],
-   [
-    "9:21 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-08-27"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
   "name": "DCI Broken Arrow",
   "location": "Broken Arrow, OK",
@@ -3140,6 +2955,65 @@
    ]
   ],
   "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-27"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
+  "name": "DCI Southern Mississippi",
+  "location": "Hattiesburg, MS",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "Crossmen",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Crossmen"
+   ],
+   [
+    "7:57 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:14 PM",
+    "Troopers"
+   ],
+   [
+    "8:31 PM",
+    "Intermission"
+   ],
+   [
+    "8:48 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:05 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:22 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:47 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-27"
  },
  {
