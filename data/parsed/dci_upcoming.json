@@ -1531,78 +1531,6 @@
   "_seen": "2026-08-28"
  },
  {
-  "url": "https://www.dci.org/events/2026-music-on-the-march/",
-  "name": "Music on the March",
-  "location": "Dubuque, IA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Conquest",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Conquest"
-   ],
-   [
-    "7:22 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:39 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:56 PM",
-    "Genesis"
-   ],
-   [
-    "8:13 PM",
-    "Intermission"
-   ],
-   [
-    "8:33 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:50 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:07 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:24 PM",
-    "Colts"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-28"
- },
- {
   "url": "https://www.dci.org/events/2026-western-corps-connection/",
   "name": "Western Corps Connection",
   "location": "Walnut, CA",
@@ -5096,6 +5024,95 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-08-28"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
+  "name": "DCI Open Class World Championship Prelims",
+  "location": "Dayton, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "Eclipse",
+   "Blue Devils B",
+   "Heat Wave",
+   "Les Stentors",
+   "7th Regiment",
+   "Raiders",
+   "Colt Cadets",
+   "Columbians",
+   "Memphis Blues",
+   "River City Rhythm",
+   "The Battalion",
+   "Gold"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "Eclipse"
+   ],
+   [
+    "6:27 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "7:01 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:18 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:35 PM",
+    "Raiders"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:26 PM",
+    "Columbians"
+   ],
+   [
+    "8:43 PM",
+    "Memphis Blues"
+   ],
+   [
+    "9:00 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:17 PM",
+    "The Battalion"
+   ],
+   [
+    "9:34 PM",
+    "Gold"
+   ],
+   [
+    "9:59 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-08-28"
  },
  {
