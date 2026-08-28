@@ -1687,65 +1687,6 @@
   "_seen": "2026-08-28"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-little-rock/",
-  "name": "DCI Little Rock",
-  "location": "Little Rock, AR",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Memphis Blues",
-   "Zephyrus",
-   "Music City",
-   "Spirit of Atlanta",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:27 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:44 PM",
-    "Music City"
-   ],
-   [
-    "9:01 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:18 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:35 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
-  "_seen": "2026-08-28"
- },
- {
   "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
   "name": "Drum Corps Grand Prix",
   "location": "Clifton, NJ",
@@ -2022,64 +1963,6 @@
    ]
   ],
   "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-08-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "7:27 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:44 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Impulse"
-   ],
-   [
-    "8:35 PM",
-    "Gold"
-   ],
-   [
-    "8:52 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:17 PM",
-    "Retreat"
-   ]
-  ],
   "_seen": "2026-08-28"
  },
  {
@@ -4794,6 +4677,90 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-08-28"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Spartans",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Crossmen",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spartans"
+   ],
+   [
+    "7:27 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:01 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:35 PM",
+    "Crossmen"
+   ],
+   [
+    "8:52 PM",
+    "Intermission"
+   ],
+   [
+    "9:09 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:26 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:00 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:17 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-08-28"
  },
  {
