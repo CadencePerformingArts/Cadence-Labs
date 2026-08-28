@@ -1453,6 +1453,84 @@
   "_seen": "2026-08-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
+  "name": "Cavalcade of Brass",
+  "location": "Lisle, IL",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Rosemont King Cobras",
+   "Sound of Sun Prairie",
+   "Northern Lights",
+   "Eclipse",
+   "Spartans",
+   "Crossmen",
+   "Troopers",
+   "Phantom Regiment",
+   "The Cavaliers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Rosemont King Cobras"
+   ],
+   [
+    "7:50 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "8:00 PM",
+    "Northern Lights"
+   ],
+   [
+    "8:12 PM",
+    "Eclipse"
+   ],
+   [
+    "8:29 PM",
+    "Spartans"
+   ],
+   [
+    "8:46 PM",
+    "Crossmen"
+   ],
+   [
+    "9:03 PM",
+    "Intermission"
+   ],
+   [
+    "9:20 PM",
+    "Troopers"
+   ],
+   [
+    "9:37 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:54 PM",
+    "The Cavaliers"
+   ],
+   [
+    "10:11 PM",
+    "Encore - The Cavaliers - Rosemont, IL"
+   ],
+   [
+    "10:19 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Spectators are welcome to bring one bag into the Sports Complex provided the bag is softsided and its dimensions do not exceed 12 inches by 12 inches by 8 inches. The Sports Complex and its staff reserves the right to inspect bags brought into The Sports Complex.",
+  "_seen": "2026-08-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-music-on-the-march/",
   "name": "Music on the March",
   "location": "Dubuque, IA",
