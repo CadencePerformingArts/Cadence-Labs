@@ -1687,6 +1687,65 @@
   "_seen": "2026-08-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-little-rock/",
+  "name": "DCI Little Rock",
+  "location": "Little Rock, AR",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Memphis Blues",
+   "Zephyrus",
+   "Music City",
+   "Spirit of Atlanta",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:27 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:44 PM",
+    "Music City"
+   ],
+   [
+    "9:01 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:18 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:35 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:52 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
+  "_seen": "2026-08-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
   "name": "Drum Corps Grand Prix",
   "location": "Clifton, NJ",
@@ -1963,6 +2022,64 @@
    ]
   ],
   "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-08-28"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
+  "name": "So Cal Classic: Open Class Pacific Championship Finals",
+  "location": "Buena Park, CA",
+  "date_display": "July 12, 2026",
+  "date": "2026-07-12",
+  "lineup": [
+   "Sacramento Freelancers",
+   "Blue Devils C",
+   "Golden Empire",
+   "Impulse",
+   "Gold",
+   "Blue Devils B"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Sacramento Freelancers"
+   ],
+   [
+    "7:27 PM",
+    "Blue Devils C"
+   ],
+   [
+    "7:44 PM",
+    "Golden Empire"
+   ],
+   [
+    "8:01 PM",
+    "Intermission"
+   ],
+   [
+    "8:18 PM",
+    "Impulse"
+   ],
+   [
+    "8:35 PM",
+    "Gold"
+   ],
+   [
+    "8:52 PM",
+    "Blue Devils B"
+   ],
+   [
+    "9:17 PM",
+    "Retreat"
+   ]
+  ],
   "_seen": "2026-08-28"
  },
  {
@@ -3300,70 +3417,6 @@
   "_seen": "2026-08-28"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
-  "name": "DCI Middle Tennessee",
-  "location": "Murfreesboro, TN",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Music City",
-   "Spirit of Atlanta",
-   "Colts",
-   "Carolina Crown",
-   "Bluecoats",
-   "Blue Devils",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Music City"
-   ],
-   [
-    "7:58 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:16 PM",
-    "Colts"
-   ],
-   [
-    "8:34 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:10 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:28 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:46 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:11 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
-  "_seen": "2026-08-28"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-syracuse/",
   "name": "DCI Syracuse",
   "location": "Central Square, NY",
@@ -3421,88 +3474,6 @@
    ],
    [
     "9:05 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-on-parade/",
-  "name": "Drums on Parade",
-  "location": "Madison, WI",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Green Beret Marching Band",
-   "Govenaires",
-   "Colt Cadets",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard",
-   "Madison Scouts"
-  ],
-  "schedule": [
-   [
-    "5:45 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Green Beret Marching Band"
-   ],
-   [
-    "7:22 PM",
-    "Govenaires"
-   ],
-   [
-    "7:39 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:56 PM",
-    "Genesis"
-   ],
-   [
-    "8:13 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:30 PM",
-    "Intermission"
-   ],
-   [
-    "8:47 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:04 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:21 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:38 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:55 PM",
-    "Madison Scouts"
-   ],
-   [
-    "10:12 PM",
-    "Encore - Madison Scouts - Madison, WI"
-   ],
-   [
-    "10:20 PM",
     "Scores Announced"
    ]
   ],
