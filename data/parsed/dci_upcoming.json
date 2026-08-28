@@ -1746,6 +1746,94 @@
   "_seen": "2026-08-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
+  "name": "Drum Corps Grand Prix",
+  "location": "Clifton, NJ",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Sonus Brass Theater",
+   "Raiders",
+   "Les Stentors",
+   "7th Regiment",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hurricanes",
+   "Hawthorne Caballeros",
+   "Hall of Fame Induction",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:52 PM",
+    "Raiders"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "White Sabers"
+   ],
+   [
+    "8:17 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:34 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:51 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "9:25 PM",
+    "Hall of Fame Induction"
+   ],
+   [
+    "9:35 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:52 PM",
+    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
+   ],
+   [
+    "10:00 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drum-corps-at-the-rose-bowl/",
   "name": "Drum Corps at the Rose Bowl",
   "location": "Pasadena, CA",
@@ -5008,95 +5096,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-08-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
-  "name": "DCI Open Class World Championship Prelims",
-  "location": "Dayton, OH",
-  "date_display": "August 3, 2026",
-  "date": "2026-08-03",
-  "lineup": [
-   "Eclipse",
-   "Blue Devils B",
-   "Heat Wave",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "Memphis Blues",
-   "River City Rhythm",
-   "The Battalion",
-   "Gold"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Eclipse"
-   ],
-   [
-    "6:27 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:44 PM",
-    "Heat Wave"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:00 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:17 PM",
-    "The Battalion"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:59 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-08-28"
  },
  {
