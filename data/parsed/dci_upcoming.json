@@ -3896,6 +3896,83 @@
   "_seen": "2026-08-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-music-on-the-mountain/",
+  "name": "Music on the Mountain",
+  "location": "Sheffield, PA",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "Allegheny Eclipse",
+   "Apogee",
+   "Rogues Hollow Regiment",
+   "Cincinnati Tradition",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "Gold"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Allegheny Eclipse"
+   ],
+   [
+    "7:20 PM",
+    "Apogee"
+   ],
+   [
+    "7:32 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "7:49 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:06 PM",
+    "Intermission"
+   ],
+   [
+    "8:23 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:40 PM",
+    "Raiders"
+   ],
+   [
+    "8:57 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:14 PM",
+    "The Battalion"
+   ],
+   [
+    "9:31 PM",
+    "Gold"
+   ],
+   [
+    "9:48 PM",
+    "Encore - The Battalion - Salt Lake City, UT"
+   ],
+   [
+    "9:56 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-in-motion/",
   "name": "DCI in Motion",
   "location": "Norton, OH",
@@ -4050,83 +4127,6 @@
    ]
   ],
   "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
-  "name": "Summer Music Games in Cincinnati",
-  "location": "Mason, OH",
-  "date_display": "July 27, 2026",
-  "date": "2026-07-27",
-  "lineup": [
-   "Columbus Saints",
-   "Cincinnati Tradition",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Seattle Cascades",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "7:32 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "7:49 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:06 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:23 PM",
-    "Intermission"
-   ],
-   [
-    "8:43 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:00 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:17 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:34 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:51 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:08 PM",
-    "Encore - TBD"
-   ],
-   [
-    "10:16 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-28"
  },
  {
