@@ -735,6 +735,162 @@
   "_seen": "2026-08-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-capital-classic/",
+  "name": "DCI Capital Classic",
+  "location": "Sacramento, CA",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Sparta Ignite",
+   "Golden Empire",
+   "Impulse",
+   "Gold",
+   "Mandarins Alumni Corps",
+   "Seattle Cascades",
+   "The Academy",
+   "Santa Clara Vanguard",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sparta Ignite"
+   ],
+   [
+    "6:52 PM",
+    "Golden Empire"
+   ],
+   [
+    "7:07 PM",
+    "Impulse"
+   ],
+   [
+    "7:22 PM",
+    "Gold"
+   ],
+   [
+    "7:37 PM",
+    "Mandarins Alumni Corps"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:22 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:40 PM",
+    "The Academy"
+   ],
+   [
+    "8:58 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:16 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:41 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-28"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-show-of-shows/",
+  "name": "Show of Shows",
+  "location": "Rockford, IL",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Conquest Drum & Bugle Corps",
+   "Colt Cadets",
+   "Genesis",
+   "Madison Scouts",
+   "Blue Knights",
+   "Colts",
+   "Troopers",
+   "The Cavaliers",
+   "Blue Stars",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Conquest Drum & Bugle Corps"
+   ],
+   [
+    "6:52 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:10 PM",
+    "Genesis"
+   ],
+   [
+    "7:28 PM",
+    "Madison Scouts"
+   ],
+   [
+    "7:46 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:04 PM",
+    "Colts"
+   ],
+   [
+    "8:22 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:10 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:28 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:46 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Encore - Phantom Regiment - Rockford, IL"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Swanson Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-08-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-west/",
   "name": "DCI West",
   "location": "Stanford, CA",
@@ -1294,84 +1450,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-08-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
-  "name": "Cavalcade of Brass",
-  "location": "Lisle, IL",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Rosemont King Cobras",
-   "Sound of Sun Prairie",
-   "Northern Lights",
-   "Eclipse",
-   "Spartans",
-   "Crossmen",
-   "Troopers",
-   "Phantom Regiment",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Rosemont King Cobras"
-   ],
-   [
-    "7:50 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "8:00 PM",
-    "Northern Lights"
-   ],
-   [
-    "8:12 PM",
-    "Eclipse"
-   ],
-   [
-    "8:29 PM",
-    "Spartans"
-   ],
-   [
-    "8:46 PM",
-    "Crossmen"
-   ],
-   [
-    "9:03 PM",
-    "Intermission"
-   ],
-   [
-    "9:20 PM",
-    "Troopers"
-   ],
-   [
-    "9:37 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:54 PM",
-    "The Cavaliers"
-   ],
-   [
-    "10:11 PM",
-    "Encore - The Cavaliers - Rosemont, IL"
-   ],
-   [
-    "10:19 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Spectators are welcome to bring one bag into the Sports Complex provided the bag is softsided and its dimensions do not exceed 12 inches by 12 inches by 8 inches. The Sports Complex and its staff reserves the right to inspect bags brought into The Sports Complex.",
   "_seen": "2026-08-28"
  },
  {
