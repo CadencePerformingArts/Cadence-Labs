@@ -1320,6 +1320,65 @@
   "_seen": "2026-08-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
+  "name": "DCI Northern Alabama",
+  "location": "Muscle Shoals, AL",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Apollo Marching Theatre",
+   "Atlanta CV",
+   "Memphis Blues",
+   "Music City",
+   "Spirit of Atlanta",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Apollo Marching Theatre"
+   ],
+   [
+    "8:22 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:39 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:56 PM",
+    "Music City"
+   ],
+   [
+    "9:13 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:47 PM",
+    "Encore - Spirit of Atlanta - Atlanta, GA"
+   ],
+   [
+    "9:55 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-08-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-gold-showcase/",
   "name": "Gold Showcase",
   "location": "Santa Clarita, CA",
