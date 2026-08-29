@@ -1,5 +1,49 @@
 [
  {
+  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
+  "name": "DCI Tour Preview",
+  "location": "Muncie, IN",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Cincinnati Tradition",
+   "The Cavaliers",
+   "Carolina Crown",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:15 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:45 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:15 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:45 PM",
+    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-08-29"
+ },
+ {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -286,6 +330,61 @@
    [
     "9:48 PM",
     "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-29"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
+  "name": "Drums Along the Columbia",
+  "location": "Kennewick, WA",
+  "date_display": "June 29, 2026",
+  "date": "2026-06-29",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "The Battalion",
+   "Columbians",
+   "Seattle Cascades",
+   "Santa Clara Vanguard",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:58 PM",
+    "Impulse"
+   ],
+   [
+    "8:16 PM",
+    "The Battalion"
+   ],
+   [
+    "8:34 PM",
+    "Columbians"
+   ],
+   [
+    "8:52 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:10 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:17 PM",
+    "Event Concludes"
+   ],
+   [
+    "",
+    "Gates Open"
    ]
   ],
   "_seen": "2026-08-29"
