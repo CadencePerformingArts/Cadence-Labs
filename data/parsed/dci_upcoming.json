@@ -686,6 +686,55 @@
   "_seen": "2026-08-29"
  },
  {
+  "url": "https://www.dci.org/events/2026-rotary-music-festival/",
+  "name": "Rotary Music Festival",
+  "location": "Cedarburg, WI",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Eclipse",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Eclipse"
+   ],
+   [
+    "7:58 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:16 PM",
+    "The Cavaliers"
+   ],
+   [
+    "8:39 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:02 PM",
+    "Encore - Madison Scouts - Madison, WI"
+   ],
+   [
+    "9:04 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-08-29"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-capital-classic/",
   "name": "DCI Capital Classic",
   "location": "Sacramento, CA",
@@ -1025,51 +1074,6 @@
    ]
   ],
   "bag_policy": "No bag policy is enforced for this event. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-29"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-across-the-smokies/",
-  "name": "Drums Across the Smokies",
-  "location": "Sevierville, TN",
-  "date_display": "July 7, 2026",
-  "date": "2026-07-07",
-  "lineup": [
-   "Music City",
-   "Spirit of Atlanta",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Music City"
-   ],
-   [
-    "8:32 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:54 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:16 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:41 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Lon C. Burchfield Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-29"
  },
  {
