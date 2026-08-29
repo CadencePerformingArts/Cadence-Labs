@@ -3896,83 +3896,6 @@
   "_seen": "2026-08-29"
  },
  {
-  "url": "https://www.dci.org/events/2026-music-on-the-mountain/",
-  "name": "Music on the Mountain",
-  "location": "Sheffield, PA",
-  "date_display": "July 25, 2026",
-  "date": "2026-07-25",
-  "lineup": [
-   "Allegheny Eclipse",
-   "Apogee",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Les Stentors",
-   "Raiders",
-   "7th Regiment",
-   "The Battalion",
-   "Gold"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Allegheny Eclipse"
-   ],
-   [
-    "7:20 PM",
-    "Apogee"
-   ],
-   [
-    "7:32 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "7:49 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:06 PM",
-    "Intermission"
-   ],
-   [
-    "8:23 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:40 PM",
-    "Raiders"
-   ],
-   [
-    "8:57 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:14 PM",
-    "The Battalion"
-   ],
-   [
-    "9:31 PM",
-    "Gold"
-   ],
-   [
-    "9:48 PM",
-    "Encore - The Battalion - Salt Lake City, UT"
-   ],
-   [
-    "9:56 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-29"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-in-motion/",
   "name": "DCI in Motion",
   "location": "Norton, OH",
@@ -4715,6 +4638,85 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-08-29"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-michigan/",
+  "name": "DCI Michigan",
+  "location": "Allendale, MI",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Northern Lights",
+   "Memphis Blues",
+   "Heat Wave",
+   "Les Stentors",
+   "Colt Cadets",
+   "Raiders",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:57 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:14 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:31 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:48 PM",
+    "Colt Cadets"
+   ],
+   [
+    "9:05 PM",
+    "Raiders"
+   ],
+   [
+    "9:22 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:39 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:56 PM",
+    "Gold"
+   ],
+   [
+    "10:13 PM",
+    "The Battalion"
+   ],
+   [
+    "10:30 PM",
+    "Encore - Northern Lights - Grand Rapids, MI"
+   ],
+   [
+    "10:38 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-08-29"
  },
  {
