@@ -1,49 +1,5 @@
 [
  {
-  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
-  "name": "DCI Tour Preview",
-  "location": "Muncie, IN",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Cincinnati Tradition",
-   "The Cavaliers",
-   "Carolina Crown",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:15 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:45 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:15 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:45 PM",
-    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-08-29"
- },
- {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -991,6 +947,89 @@
    ]
   ],
   "bag_policy": "Stanford Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. See more details about the clear bag policy on the Stanford website . For more information, visit this page .",
+  "_seen": "2026-08-29"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-river-city-rhapsody/",
+  "name": "River City Rhapsody",
+  "location": "La Crosse, WI",
+  "date_display": "July 5, 2026",
+  "date": "2026-07-05",
+  "lineup": [
+   "Blue Saints",
+   "Sound of Sun Prairie",
+   "Govenaires",
+   "River City Rhythm",
+   "Madison Scouts",
+   "Colts",
+   "Troopers",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Blue Saints"
+   ],
+   [
+    "7:20 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "7:32 PM",
+    "Govenaires"
+   ],
+   [
+    "7:49 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:06 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:23 PM",
+    "Colts"
+   ],
+   [
+    "8:40 PM",
+    "Intermission"
+   ],
+   [
+    "9:00 PM",
+    "Troopers"
+   ],
+   [
+    "9:17 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:34 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:51 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:08 PM",
+    "Encore - Blue Stars - La Crosse, WI"
+   ],
+   [
+    "10:16 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "No bag policy is enforced for this event. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-29"
  },
  {
