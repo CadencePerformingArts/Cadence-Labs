@@ -1603,6 +1603,90 @@
   "_seen": "2026-08-29"
  },
  {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-08-29"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -1839,6 +1923,105 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-08-29"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
+  "name": "The Whitewater Classic",
+  "location": "Whitewater, WI",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Green Beret Marching Band",
+   "The Connexion",
+   "Sound of Sun Prairie",
+   "Eclipse",
+   "River City Rhythm",
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Madison Scouts"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "5:55 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "6:05 PM",
+    "The Connexion"
+   ],
+   [
+    "6:15 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "6:27 PM",
+    "Eclipse"
+   ],
+   [
+    "6:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:01 PM",
+    "Spartans"
+   ],
+   [
+    "7:18 PM",
+    "Genesis"
+   ],
+   [
+    "7:35 PM",
+    "Crossmen"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Troopers"
+   ],
+   [
+    "8:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:00 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:17 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:34 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:51 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-08-29"
  },
  {
@@ -4446,95 +4629,6 @@
   "_seen": "2026-08-29"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-eastern-classic-2/",
-  "name": "DCI Eastern Classic",
-  "location": "Allentown, PA",
-  "date_display": "July 31, 2026",
-  "date": "2026-07-31",
-  "lineup": [
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros",
-   "Genesis",
-   "Music City",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts",
-   "Bluecoats",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Bushwackers"
-   ],
-   [
-    "7:27 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "7:44 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "8:01 PM",
-    "Genesis"
-   ],
-   [
-    "8:18 PM",
-    "Music City"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Troopers"
-   ],
-   [
-    "9:09 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:26 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:43 PM",
-    "Blue Stars"
-   ],
-   [
-    "10:00 PM",
-    "Colts"
-   ],
-   [
-    "10:17 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:34 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:42 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-08-29"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-michigan/",
   "name": "DCI Michigan",
   "location": "Allendale, MI",
@@ -4611,90 +4705,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-08-29"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
-  "name": "DCI Eastern Classic",
-  "location": "Allentown, PA",
-  "date_display": "August 1, 2026",
-  "date": "2026-08-01",
-  "lineup": [
-   "Spartans",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Madison Scouts",
-   "Crossmen",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Spartans"
-   ],
-   [
-    "7:27 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "7:44 PM",
-    "The Academy"
-   ],
-   [
-    "8:01 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:18 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:35 PM",
-    "Crossmen"
-   ],
-   [
-    "8:52 PM",
-    "Intermission"
-   ],
-   [
-    "9:09 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:26 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:43 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:00 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:17 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:42 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-08-29"
  },
  {
