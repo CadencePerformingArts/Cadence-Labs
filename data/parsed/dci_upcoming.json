@@ -1,5 +1,49 @@
 [
  {
+  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
+  "name": "DCI Tour Preview",
+  "location": "Muncie, IN",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Cincinnati Tradition",
+   "The Cavaliers",
+   "Carolina Crown",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:15 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:45 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:15 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:45 PM",
+    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-08-29"
+ },
+ {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
