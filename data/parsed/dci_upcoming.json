@@ -583,6 +583,56 @@
   "_seen": "2026-08-30"
  },
  {
+  "url": "https://www.dci.org/events/2026-midcal-showcase/",
+  "name": "MidCal Showcase",
+  "location": "Camarillo, CA",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Golden Empire",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Blue Devils",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:00 PM",
+    "Golden Empire"
+   ],
+   [
+    "8:25 PM",
+    "The Academy"
+   ],
+   [
+    "8:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:15 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:40 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-08-30"
+ },
+ {
   "url": "https://www.dci.org/events/2026-preview-of-champions/",
   "name": "Preview of Champions",
   "location": "Nashua, NH",
@@ -682,6 +732,79 @@
    ]
   ],
   "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-08-30"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-capital-classic/",
+  "name": "DCI Capital Classic",
+  "location": "Sacramento, CA",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Sparta Ignite",
+   "Golden Empire",
+   "Impulse",
+   "Gold",
+   "Mandarins Alumni Corps",
+   "Seattle Cascades",
+   "The Academy",
+   "Santa Clara Vanguard",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sparta Ignite"
+   ],
+   [
+    "6:52 PM",
+    "Golden Empire"
+   ],
+   [
+    "7:07 PM",
+    "Impulse"
+   ],
+   [
+    "7:22 PM",
+    "Gold"
+   ],
+   [
+    "7:37 PM",
+    "Mandarins Alumni Corps"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:22 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:40 PM",
+    "The Academy"
+   ],
+   [
+    "8:58 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:16 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:41 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-30"
  },
  {
@@ -2153,74 +2276,6 @@
    ]
   ],
   "bag_policy": "Broken Arrow Memorial Stadium has a clear bag policy, more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-30"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-hutchinson/",
-  "name": "DCI Hutchinson",
-  "location": "Hutchinson, KS",
-  "date_display": "July 14, 2026",
-  "date": "2026-07-14",
-  "lineup": [
-   "Sky Ryders",
-   "Spartans",
-   "Music City",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Sky Ryders"
-   ],
-   [
-    "8:22 PM",
-    "Spartans"
-   ],
-   [
-    "8:39 PM",
-    "Music City"
-   ],
-   [
-    "8:56 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:13 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Troopers"
-   ],
-   [
-    "9:47 PM",
-    "Blue Knights"
-   ],
-   [
-    "10:04 PM",
-    "Blue Stars"
-   ],
-   [
-    "10:21 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "10:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-08-30"
  },
  {
