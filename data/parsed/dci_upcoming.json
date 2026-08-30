@@ -390,69 +390,6 @@
   "_seen": "2026-08-30"
  },
  {
-  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
-  "name": "Northwest Youth Music Games Seattle",
-  "location": "Seattle, WA",
-  "date_display": "June 30, 2026",
-  "date": "2026-06-30",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "Columbians",
-   "The Battalion",
-   "Santa Clara Vanguard",
-   "Seattle Cascades"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:45 PM",
-    "Intermission"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:52 PM",
-    "Impulse"
-   ],
-   [
-    "8:07 PM",
-    "Columbians"
-   ],
-   [
-    "8:22 PM",
-    "The Battalion"
-   ],
-   [
-    "8:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:28 PM",
-    "Encore - Seattle Cascades - Seattle, WA"
-   ],
-   [
-    "9:35 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-08-30"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
   "name": "Drums Across Nebraska",
   "location": "Omaha, NE",
@@ -627,59 +564,6 @@
    ],
    [
     "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-08-30"
- },
- {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
     "Event Concludes"
    ]
   ],
@@ -4794,6 +4678,90 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-08-30"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Spartans",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Crossmen",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spartans"
+   ],
+   [
+    "7:27 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:01 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:35 PM",
+    "Crossmen"
+   ],
+   [
+    "8:52 PM",
+    "Intermission"
+   ],
+   [
+    "9:09 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:26 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:00 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:17 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-08-30"
  },
  {
