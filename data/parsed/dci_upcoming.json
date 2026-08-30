@@ -1122,6 +1122,79 @@
   "_seen": "2026-08-30"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
+  "name": "The Kiwanis Thunder of Drums",
+  "location": "Mankato, MN",
+  "date_display": "July 7, 2026",
+  "date": "2026-07-07",
+  "lineup": [
+   "Govenaires",
+   "MBI",
+   "River City Rhythm",
+   "Genesis",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights",
+   "The Cavaliers"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:50 PM",
+    "Minnesota State University - Clinic Band - Mankato, MN"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Govenaires"
+   ],
+   [
+    "7:27 PM",
+    "MBI"
+   ],
+   [
+    "7:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:01 PM",
+    "Intermission"
+   ],
+   [
+    "8:18 PM",
+    "Genesis"
+   ],
+   [
+    "8:35 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:52 PM",
+    "Colts"
+   ],
+   [
+    "9:09 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:26 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
+  "_seen": "2026-08-30"
+ },
+ {
   "url": "https://www.dci.org/events/2026-celebration-in-brass/",
   "name": "Celebration in Brass",
   "location": "Des Moines, IA",
@@ -3465,88 +3538,6 @@
    ],
    [
     "9:05 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-08-30"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-on-parade/",
-  "name": "Drums on Parade",
-  "location": "Madison, WI",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Green Beret Marching Band",
-   "Govenaires",
-   "Colt Cadets",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard",
-   "Madison Scouts"
-  ],
-  "schedule": [
-   [
-    "5:45 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Green Beret Marching Band"
-   ],
-   [
-    "7:22 PM",
-    "Govenaires"
-   ],
-   [
-    "7:39 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:56 PM",
-    "Genesis"
-   ],
-   [
-    "8:13 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:30 PM",
-    "Intermission"
-   ],
-   [
-    "8:47 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:04 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:21 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:38 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:55 PM",
-    "Madison Scouts"
-   ],
-   [
-    "10:12 PM",
-    "Encore - Madison Scouts - Madison, WI"
-   ],
-   [
-    "10:20 PM",
     "Scores Announced"
    ]
   ],
