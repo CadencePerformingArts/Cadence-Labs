@@ -2829,6 +2829,80 @@
   "_seen": "2026-08-31"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-buccaneer-classic/",
+  "name": "The Buccaneer Classic",
+  "location": "Landisville, PA",
+  "date_display": "July 18, 2026",
+  "date": "2026-07-18",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Les Stentors",
+   "Raiders",
+   "Sunrisers",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:52 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "Raiders"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Sunrisers"
+   ],
+   [
+    "8:17 PM",
+    "White Sabers"
+   ],
+   [
+    "8:34 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:51 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:33 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-08-31"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-dallas/",
   "name": "DCI Dallas",
   "location": "Bedford, TX",
@@ -4262,76 +4336,6 @@
    ]
   ],
   "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-31"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-huntington/",
-  "name": "DCI Huntington",
-  "location": "Huntington, WV",
-  "date_display": "July 29, 2026",
-  "date": "2026-07-29",
-  "lineup": [
-   "Memphis Blues",
-   "7th Regiment",
-   "Columbians",
-   "Gold",
-   "The Battalion",
-   "Seattle Cascades",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Memphis Blues"
-   ],
-   [
-    "7:57 PM",
-    "7th Regiment"
-   ],
-   [
-    "8:14 PM",
-    "Columbians"
-   ],
-   [
-    "8:31 PM",
-    "Gold"
-   ],
-   [
-    "8:48 PM",
-    "The Battalion"
-   ],
-   [
-    "9:05 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:22 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:39 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:56 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:21 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Marshall Athletics enforces a Clear Bag Policy. More information can be found here .",
   "_seen": "2026-08-31"
  },
  {
