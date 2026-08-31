@@ -1531,6 +1531,78 @@
   "_seen": "2026-08-31"
  },
  {
+  "url": "https://www.dci.org/events/2026-music-on-the-march/",
+  "name": "Music on the March",
+  "location": "Dubuque, IA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Conquest",
+   "Colt Cadets",
+   "River City Rhythm",
+   "Genesis",
+   "Madison Scouts",
+   "Blue Knights",
+   "Blue Stars",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Conquest"
+   ],
+   [
+    "7:22 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:39 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:56 PM",
+    "Genesis"
+   ],
+   [
+    "8:13 PM",
+    "Intermission"
+   ],
+   [
+    "8:33 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:50 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:07 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:24 PM",
+    "Colts"
+   ],
+   [
+    "9:41 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-08-31"
+ },
+ {
   "url": "https://www.dci.org/events/2026-western-corps-connection/",
   "name": "Western Corps Connection",
   "location": "Walnut, CA",
@@ -3068,65 +3140,6 @@
    ]
   ],
   "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-08-31"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
-  "name": "DCI Southern Mississippi",
-  "location": "Hattiesburg, MS",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Crossmen"
-   ],
-   [
-    "7:57 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:14 PM",
-    "Troopers"
-   ],
-   [
-    "8:31 PM",
-    "Intermission"
-   ],
-   [
-    "8:48 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:05 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:22 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-31"
  },
  {
