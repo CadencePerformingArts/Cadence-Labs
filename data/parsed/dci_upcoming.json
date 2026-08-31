@@ -44,6 +44,19 @@
   "_seen": "2026-08-31"
  },
  {
+  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
+  "name": "Santa Clara Vanguard Showcase",
+  "location": "Moscow, ID",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Columbians",
+   "Gems",
+   "Santa Clara Vanguard"
+  ],
+  "_seen": "2026-08-31"
+ },
+ {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -186,6 +199,82 @@
    ]
   ],
   "bag_policy": "There is no bag policy in effect for this event",
+  "_seen": "2026-08-31"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
+  "name": "Drums Along the Rockies",
+  "location": "Fort Collins, CO",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "Rocky Mountain Brassworks",
+   "BKXperience",
+   "Troopers Legacy Corps",
+   "Genesis",
+   "Troopers",
+   "Phantom Regiment",
+   "Blue Devils",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:15 PM",
+    "Rocky Mountain Brassworks"
+   ],
+   [
+    "7:25 PM",
+    "BKXperience"
+   ],
+   [
+    "7:35 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Blue Knights Awards Presentation"
+   ],
+   [
+    "7:45 PM",
+    "Troopers Legacy Corps"
+   ],
+   [
+    "8:03 PM",
+    "Genesis"
+   ],
+   [
+    "8:21 PM",
+    "Troopers"
+   ],
+   [
+    "8:39 PM",
+    "Intermission"
+   ],
+   [
+    "9:00 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:18 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:36 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:54 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "10:01 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-08-31"
  },
  {
@@ -5515,117 +5604,6 @@
    [
     "11:22 PM",
     "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-08-31"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-prelims/",
-  "name": "DCI All-Age World Championship Prelims",
-  "location": "Indianapolis, IN",
-  "date_display": "August 7, 2026",
-  "date": "2026-08-07",
-  "lineup": [
-   "MBI",
-   "Sunrisers",
-   "Columbus Saints",
-   "Northern Lights",
-   "Fusion Core",
-   "Govenaires",
-   "Rogues Hollow Regiment",
-   "White Sabers",
-   "Hurricanes",
-   "Cincinnati Tradition",
-   "Hawthorne Caballeros",
-   "Atlanta CV",
-   "Bushwackers",
-   "Reading Buccaneers"
-  ],
-  "schedule": [
-   [
-    "7:30 AM",
-    "Gates Open"
-   ],
-   [
-    "8:20 AM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 AM",
-    "MBI"
-   ],
-   [
-    "8:47 AM",
-    "Sunrisers"
-   ],
-   [
-    "9:04 AM",
-    "Columbus Saints"
-   ],
-   [
-    "9:21 AM",
-    "Northern Lights"
-   ],
-   [
-    "9:38 AM",
-    "Fusion Core"
-   ],
-   [
-    "9:55 AM",
-    "Govenaires"
-   ],
-   [
-    "10:12 AM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "10:29 AM",
-    "Intermission"
-   ],
-   [
-    "10:49 AM",
-    "White Sabers"
-   ],
-   [
-    "11:06 AM",
-    "Hurricanes"
-   ],
-   [
-    "11:23 AM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "11:40 AM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "11:57 AM",
-    "Atlanta CV"
-   ],
-   [
-    "12:00 PM",
-    "Loge and Terrace Levels Open"
-   ],
-   [
-    "12:14 PM",
-    "Bushwackers"
-   ],
-   [
-    "12:31 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "12:55 PM",
-    "Scores Announced"
-   ],
-   [
-    "1:00 PM",
-    "Reserved Seating Takes Effect"
-   ],
-   [
-    "1:30 PM",
-    "DCI World Championships Semifinals Begins"
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
