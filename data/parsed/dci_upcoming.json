@@ -44,19 +44,6 @@
   "_seen": "2026-08-31"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-08-31"
- },
- {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -199,82 +186,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy in effect for this event",
-  "_seen": "2026-08-31"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
-  "name": "Drums Along the Rockies",
-  "location": "Fort Collins, CO",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Rocky Mountain Brassworks",
-   "BKXperience",
-   "Troopers Legacy Corps",
-   "Genesis",
-   "Troopers",
-   "Phantom Regiment",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:15 PM",
-    "Rocky Mountain Brassworks"
-   ],
-   [
-    "7:25 PM",
-    "BKXperience"
-   ],
-   [
-    "7:35 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Blue Knights Awards Presentation"
-   ],
-   [
-    "7:45 PM",
-    "Troopers Legacy Corps"
-   ],
-   [
-    "8:03 PM",
-    "Genesis"
-   ],
-   [
-    "8:21 PM",
-    "Troopers"
-   ],
-   [
-    "8:39 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:18 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:36 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:54 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "10:01 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-08-31"
  },
  {
@@ -3080,6 +2991,66 @@
    ]
   ],
   "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-08-31"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-st-louis/",
+  "name": "DCI St. Louis",
+  "location": "Belleville, IL",
+  "date_display": "July 21, 2026",
+  "date": "2026-07-21",
+  "lineup": [
+   "Gold",
+   "The Battalion",
+   "Seattle Cascades",
+   "Music City",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Gold"
+   ],
+   [
+    "8:27 PM",
+    "The Battalion"
+   ],
+   [
+    "8:44 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:01 PM",
+    "Music City"
+   ],
+   [
+    "9:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:35 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:17 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-08-31"
  },
  {
