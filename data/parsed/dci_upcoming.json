@@ -2401,76 +2401,6 @@
   "_seen": "2026-09-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-central-texas/",
-  "name": "DCI Central Texas",
-  "location": "Killeen, TX",
-  "date_display": "July 16, 2026",
-  "date": "2026-07-16",
-  "lineup": [
-   "Sky Ryders",
-   "Arsenal",
-   "Gold",
-   "Genesis",
-   "Music City",
-   "Pacific Crest",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Sky Ryders"
-   ],
-   [
-    "8:42 PM",
-    "Arsenal"
-   ],
-   [
-    "8:59 PM",
-    "Gold"
-   ],
-   [
-    "9:16 PM",
-    "Genesis"
-   ],
-   [
-    "9:33 PM",
-    "Music City"
-   ],
-   [
-    "9:50 PM",
-    "Pacific Crest"
-   ],
-   [
-    "10:07 PM",
-    "Madison Scouts"
-   ],
-   [
-    "10:24 PM",
-    "Colts"
-   ],
-   [
-    "10:41 PM",
-    "Blue Knights"
-   ],
-   [
-    "11:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-01"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-denton/",
   "name": "DCI Denton",
   "location": "Denton, TX",
@@ -3414,6 +3344,133 @@
    ]
   ],
   "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
+  "name": "DCI Middle Tennessee",
+  "location": "Murfreesboro, TN",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Music City",
+   "Spirit of Atlanta",
+   "Colts",
+   "Carolina Crown",
+   "Bluecoats",
+   "Blue Devils",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Music City"
+   ],
+   [
+    "7:58 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:16 PM",
+    "Colts"
+   ],
+   [
+    "8:34 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:10 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:28 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:46 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-syracuse/",
+  "name": "DCI Syracuse",
+  "location": "Central Square, NY",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Baldwinsville Marching Band",
+   "Brig Juice Brass",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "White Sabers"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Baldwinsville Marching Band"
+   ],
+   [
+    "7:20 PM",
+    "Brig Juice Brass"
+   ],
+   [
+    "7:32 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:49 PM",
+    "Raiders"
+   ],
+   [
+    "8:06 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:23 PM",
+    "The Battalion"
+   ],
+   [
+    "8:40 PM",
+    "White Sabers"
+   ],
+   [
+    "8:57 PM",
+    "Encore - White Sabers - Rochester, NY"
+   ],
+   [
+    "9:05 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-09-01"
  },
  {
