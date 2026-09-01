@@ -1746,94 +1746,6 @@
   "_seen": "2026-09-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
-  "name": "Drum Corps Grand Prix",
-  "location": "Clifton, NJ",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Sonus Brass Theater",
-   "Raiders",
-   "Les Stentors",
-   "7th Regiment",
-   "White Sabers",
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hurricanes",
-   "Hawthorne Caballeros",
-   "Hall of Fame Induction",
-   "Hawthorne Caballeros Alumni"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "6:52 PM",
-    "Raiders"
-   ],
-   [
-    "7:09 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:26 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:43 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "White Sabers"
-   ],
-   [
-    "8:17 PM",
-    "Bushwackers"
-   ],
-   [
-    "8:34 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:51 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:08 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "9:25 PM",
-    "Hall of Fame Induction"
-   ],
-   [
-    "9:35 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-01"
- },
- {
   "url": "https://www.dci.org/events/2026-drum-corps-at-the-rose-bowl/",
   "name": "Drum Corps at the Rose Bowl",
   "location": "Pasadena, CA",
@@ -2022,64 +1934,6 @@
    ]
   ],
   "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-09-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "7:27 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:44 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Impulse"
-   ],
-   [
-    "8:35 PM",
-    "Gold"
-   ],
-   [
-    "8:52 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:17 PM",
-    "Retreat"
-   ]
-  ],
   "_seen": "2026-09-01"
  },
  {
@@ -2398,6 +2252,76 @@
    ]
   ],
   "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-central-texas/",
+  "name": "DCI Central Texas",
+  "location": "Killeen, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Sky Ryders",
+   "Arsenal",
+   "Gold",
+   "Genesis",
+   "Music City",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:42 PM",
+    "Arsenal"
+   ],
+   [
+    "8:59 PM",
+    "Gold"
+   ],
+   [
+    "9:16 PM",
+    "Genesis"
+   ],
+   [
+    "9:33 PM",
+    "Music City"
+   ],
+   [
+    "9:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "10:07 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:24 PM",
+    "Colts"
+   ],
+   [
+    "10:41 PM",
+    "Blue Knights"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-01"
  },
  {
