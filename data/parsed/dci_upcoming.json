@@ -1603,90 +1603,6 @@
   "_seen": "2026-09-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-western-corps-connection/",
-  "name": "Western Corps Connection",
-  "location": "Walnut, CA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Blue Devils B",
-   "Blue Devils C",
-   "Golden Empire",
-   "Gold",
-   "Impulse",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Santa Clara Vanguard",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "4:45 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:00 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:15 PM",
-    "Blue Devils C"
-   ],
-   [
-    "6:30 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:45 PM",
-    "Gold"
-   ],
-   [
-    "7:00 PM",
-    "Impulse"
-   ],
-   [
-    "7:15 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:17 PM",
-    "The Academy"
-   ],
-   [
-    "8:34 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:51 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:08 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:25 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:50 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
-  "_seen": "2026-09-01"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -2025,6 +1941,64 @@
   "_seen": "2026-09-01"
  },
  {
+  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
+  "name": "So Cal Classic: Open Class Pacific Championship Finals",
+  "location": "Buena Park, CA",
+  "date_display": "July 12, 2026",
+  "date": "2026-07-12",
+  "lineup": [
+   "Sacramento Freelancers",
+   "Blue Devils C",
+   "Golden Empire",
+   "Impulse",
+   "Gold",
+   "Blue Devils B"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Sacramento Freelancers"
+   ],
+   [
+    "7:27 PM",
+    "Blue Devils C"
+   ],
+   [
+    "7:44 PM",
+    "Golden Empire"
+   ],
+   [
+    "8:01 PM",
+    "Intermission"
+   ],
+   [
+    "8:18 PM",
+    "Impulse"
+   ],
+   [
+    "8:35 PM",
+    "Gold"
+   ],
+   [
+    "8:52 PM",
+    "Blue Devils B"
+   ],
+   [
+    "9:17 PM",
+    "Retreat"
+   ]
+  ],
+  "_seen": "2026-09-01"
+ },
+ {
   "url": "https://www.dci.org/events/2026-brass-impact/",
   "name": "Brass Impact",
   "location": "Olathe, KS",
@@ -2099,6 +2073,56 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
+  "name": "Drums Across the Desert",
+  "location": "Mesa, AZ",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Seattle Cascades",
+   "Pacific Crest",
+   "The Academy",
+   "Bluecoats",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "National Anthem The Phoenix Symphony Brass Quintet"
+   ],
+   [
+    "8:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:56 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:13 PM",
+    "Encore - The Bluecoats and The Academy - Tempe, AZ"
+   ],
+   [
+    "9:21 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-09-01"
  },
  {
