@@ -453,6 +453,68 @@
   "_seen": "2026-09-01"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
+  "name": "Drums Across Nebraska",
+  "location": "Omaha, NE",
+  "date_display": "July 1, 2026",
+  "date": "2026-07-01",
+  "lineup": [
+   "Colt Cadets",
+   "Genesis",
+   "Blue Knights",
+   "Troopers",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:28 PM",
+    "Genesis"
+   ],
+   [
+    "8:46 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:04 PM",
+    "Intermission"
+   ],
+   [
+    "9:24 PM",
+    "Troopers"
+   ],
+   [
+    "9:42 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:00 PM",
+    "Colts"
+   ],
+   [
+    "10:18 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-01"
+ },
+ {
   "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
   "name": "Northwest Youth Music Games Portland",
   "location": "Portland, OR",
@@ -518,6 +580,56 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-midcal-showcase/",
+  "name": "MidCal Showcase",
+  "location": "Camarillo, CA",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Golden Empire",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Blue Devils",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:00 PM",
+    "Golden Empire"
+   ],
+   [
+    "8:25 PM",
+    "The Academy"
+   ],
+   [
+    "8:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:15 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:40 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
   "_seen": "2026-09-01"
  },
  {
