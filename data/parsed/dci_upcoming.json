@@ -3083,66 +3083,6 @@
   "_seen": "2026-09-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-st-louis/",
-  "name": "DCI St. Louis",
-  "location": "Belleville, IL",
-  "date_display": "July 21, 2026",
-  "date": "2026-07-21",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Seattle Cascades",
-   "Music City",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Gold"
-   ],
-   [
-    "8:27 PM",
-    "The Battalion"
-   ],
-   [
-    "8:44 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:01 PM",
-    "Music City"
-   ],
-   [
-    "9:18 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:35 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:17 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-01"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
   "name": "DCI Southern Mississippi",
   "location": "Hattiesburg, MS",
@@ -5604,6 +5544,117 @@
    [
     "11:22 PM",
     "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-prelims/",
+  "name": "DCI All-Age World Championship Prelims",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "MBI",
+   "Sunrisers",
+   "Columbus Saints",
+   "Northern Lights",
+   "Fusion Core",
+   "Govenaires",
+   "Rogues Hollow Regiment",
+   "White Sabers",
+   "Hurricanes",
+   "Cincinnati Tradition",
+   "Hawthorne Caballeros",
+   "Atlanta CV",
+   "Bushwackers",
+   "Reading Buccaneers"
+  ],
+  "schedule": [
+   [
+    "7:30 AM",
+    "Gates Open"
+   ],
+   [
+    "8:20 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 AM",
+    "MBI"
+   ],
+   [
+    "8:47 AM",
+    "Sunrisers"
+   ],
+   [
+    "9:04 AM",
+    "Columbus Saints"
+   ],
+   [
+    "9:21 AM",
+    "Northern Lights"
+   ],
+   [
+    "9:38 AM",
+    "Fusion Core"
+   ],
+   [
+    "9:55 AM",
+    "Govenaires"
+   ],
+   [
+    "10:12 AM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "10:29 AM",
+    "Intermission"
+   ],
+   [
+    "10:49 AM",
+    "White Sabers"
+   ],
+   [
+    "11:06 AM",
+    "Hurricanes"
+   ],
+   [
+    "11:23 AM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "11:40 AM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "11:57 AM",
+    "Atlanta CV"
+   ],
+   [
+    "12:00 PM",
+    "Loge and Terrace Levels Open"
+   ],
+   [
+    "12:14 PM",
+    "Bushwackers"
+   ],
+   [
+    "12:31 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "12:55 PM",
+    "Scores Announced"
+   ],
+   [
+    "1:00 PM",
+    "Reserved Seating Takes Effect"
+   ],
+   [
+    "1:30 PM",
+    "DCI World Championships Semifinals Begins"
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
