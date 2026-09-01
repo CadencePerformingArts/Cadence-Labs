@@ -2347,6 +2347,200 @@
   "_seen": "2026-09-01"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-new-mexico/",
+  "name": "DCI New Mexico",
+  "location": "Albuquerque, NM",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Arsenal",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "7:15 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Arsenal"
+   ],
+   [
+    "8:47 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:04 PM",
+    "The Academy"
+   ],
+   [
+    "9:21 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:38 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Pacific Crest - City of Industry, CA"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-central-texas/",
+  "name": "DCI Central Texas",
+  "location": "Killeen, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Sky Ryders",
+   "Arsenal",
+   "Gold",
+   "Genesis",
+   "Music City",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:42 PM",
+    "Arsenal"
+   ],
+   [
+    "8:59 PM",
+    "Gold"
+   ],
+   [
+    "9:16 PM",
+    "Genesis"
+   ],
+   [
+    "9:33 PM",
+    "Music City"
+   ],
+   [
+    "9:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "10:07 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:24 PM",
+    "Colts"
+   ],
+   [
+    "10:41 PM",
+    "Blue Knights"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-denton/",
+  "name": "DCI Denton",
+  "location": "Denton, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Seattle Cascades",
+   "Spirit of Atlanta",
+   "Phantom Regiment",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Guardians"
+   ],
+   [
+    "8:42 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:16 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:33 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:50 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:07 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:24 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:41 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-01"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-houston/",
   "name": "DCI Houston",
   "location": "Houston, TX",
@@ -3933,83 +4127,6 @@
    ]
   ],
   "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
-  "name": "Summer Music Games in Cincinnati",
-  "location": "Mason, OH",
-  "date_display": "July 27, 2026",
-  "date": "2026-07-27",
-  "lineup": [
-   "Columbus Saints",
-   "Cincinnati Tradition",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Seattle Cascades",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "7:32 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "7:49 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:06 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:23 PM",
-    "Intermission"
-   ],
-   [
-    "8:43 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:00 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:17 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:34 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:51 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:08 PM",
-    "Encore - TBD"
-   ],
-   [
-    "10:16 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-09-01"
  },
  {
