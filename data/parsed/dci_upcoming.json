@@ -335,6 +335,61 @@
   "_seen": "2026-09-01"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
+  "name": "Drums Along the Columbia",
+  "location": "Kennewick, WA",
+  "date_display": "June 29, 2026",
+  "date": "2026-06-29",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "The Battalion",
+   "Columbians",
+   "Seattle Cascades",
+   "Santa Clara Vanguard",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:58 PM",
+    "Impulse"
+   ],
+   [
+    "8:16 PM",
+    "The Battalion"
+   ],
+   [
+    "8:34 PM",
+    "Columbians"
+   ],
+   [
+    "8:52 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:10 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:17 PM",
+    "Event Concludes"
+   ],
+   [
+    "",
+    "Gates Open"
+   ]
+  ],
+  "_seen": "2026-09-01"
+ },
+ {
   "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
   "name": "Northwest Youth Music Games Seattle",
   "location": "Seattle, WA",
@@ -1022,51 +1077,6 @@
   "_seen": "2026-09-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-the-smokies/",
-  "name": "Drums Across the Smokies",
-  "location": "Sevierville, TN",
-  "date_display": "July 7, 2026",
-  "date": "2026-07-07",
-  "lineup": [
-   "Music City",
-   "Spirit of Atlanta",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Music City"
-   ],
-   [
-    "8:32 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:54 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:16 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:41 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Lon C. Burchfield Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-01"
- },
- {
   "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
   "name": "The Kiwanis Thunder of Drums",
   "location": "Mankato, MN",
@@ -1137,83 +1147,6 @@
    ]
   ],
   "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
-  "_seen": "2026-09-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-celebration-in-brass/",
-  "name": "Celebration in Brass",
-  "location": "Des Moines, IA",
-  "date_display": "July 8, 2026",
-  "date": "2026-07-08",
-  "lineup": [
-   "Colt Cadets",
-   "River City Rhythm",
-   "Genesis",
-   "Crossmen",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Stars",
-   "The Cavaliers",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:27 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Crossmen"
-   ],
-   [
-    "8:18 PM",
-    "Intermission"
-   ],
-   [
-    "8:38 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:55 PM",
-    "Troopers"
-   ],
-   [
-    "9:12 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:29 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:46 PM",
-    "Colts"
-   ],
-   [
-    "10:03 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:11 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-09-01"
  },
  {
