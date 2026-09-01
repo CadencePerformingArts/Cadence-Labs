@@ -1603,6 +1603,90 @@
   "_seen": "2026-09-01"
  },
  {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-09-01"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -2260,200 +2344,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-09-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-new-mexico/",
-  "name": "DCI New Mexico",
-  "location": "Albuquerque, NM",
-  "date_display": "July 14, 2026",
-  "date": "2026-07-14",
-  "lineup": [
-   "Arsenal",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "7:15 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Arsenal"
-   ],
-   [
-    "8:47 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:04 PM",
-    "The Academy"
-   ],
-   [
-    "9:21 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:38 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:55 PM",
-    "Encore - Pacific Crest - City of Industry, CA"
-   ],
-   [
-    "10:03 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy in effect for this event.",
-  "_seen": "2026-09-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-central-texas/",
-  "name": "DCI Central Texas",
-  "location": "Killeen, TX",
-  "date_display": "July 16, 2026",
-  "date": "2026-07-16",
-  "lineup": [
-   "Sky Ryders",
-   "Arsenal",
-   "Gold",
-   "Genesis",
-   "Music City",
-   "Pacific Crest",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Sky Ryders"
-   ],
-   [
-    "8:42 PM",
-    "Arsenal"
-   ],
-   [
-    "8:59 PM",
-    "Gold"
-   ],
-   [
-    "9:16 PM",
-    "Genesis"
-   ],
-   [
-    "9:33 PM",
-    "Music City"
-   ],
-   [
-    "9:50 PM",
-    "Pacific Crest"
-   ],
-   [
-    "10:07 PM",
-    "Madison Scouts"
-   ],
-   [
-    "10:24 PM",
-    "Colts"
-   ],
-   [
-    "10:41 PM",
-    "Blue Knights"
-   ],
-   [
-    "11:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-denton/",
-  "name": "DCI Denton",
-  "location": "Denton, TX",
-  "date_display": "July 16, 2026",
-  "date": "2026-07-16",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Seattle Cascades",
-   "Spirit of Atlanta",
-   "Phantom Regiment",
-   "Carolina Crown",
-   "Bluecoats",
-   "Boston Crusaders",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Guardians"
-   ],
-   [
-    "8:42 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:59 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:16 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:33 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:50 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:07 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:24 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:41 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "11:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-01"
  },
  {
