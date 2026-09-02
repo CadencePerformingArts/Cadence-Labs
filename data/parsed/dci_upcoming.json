@@ -1,5 +1,49 @@
 [
  {
+  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
+  "name": "DCI Tour Preview",
+  "location": "Muncie, IN",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Cincinnati Tradition",
+   "The Cavaliers",
+   "Carolina Crown",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:15 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:45 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:15 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:45 PM",
+    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-09-02"
+ },
+ {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -234,6 +278,63 @@
   "_seen": "2026-09-02"
  },
  {
+  "url": "https://www.dci.org/events/2026-corps-encore/",
+  "name": "Corps Encore",
+  "location": "Ogden, UT",
+  "date_display": "June 28, 2026",
+  "date": "2026-06-28",
+  "lineup": [
+   "Crosstown Big Band",
+   "Genesis",
+   "Troopers",
+   "Blue Devils",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:35 PM",
+    "Crosstown Big Band"
+   ],
+   [
+    "8:00 PM",
+    "Genesis"
+   ],
+   [
+    "8:23 PM",
+    "Troopers"
+   ],
+   [
+    "8:46 PM",
+    "Intermission"
+   ],
+   [
+    "9:00 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:23 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:41 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "9:48 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-02"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
   "name": "Drums Along the Columbia",
   "location": "Kennewick, WA",
@@ -286,6 +387,69 @@
     "Gates Open"
    ]
   ],
+  "_seen": "2026-09-02"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
+  "name": "Northwest Youth Music Games Seattle",
+  "location": "Seattle, WA",
+  "date_display": "June 30, 2026",
+  "date": "2026-06-30",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:45 PM",
+    "Intermission"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:52 PM",
+    "Impulse"
+   ],
+   [
+    "8:07 PM",
+    "Columbians"
+   ],
+   [
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-02"
  },
  {
@@ -4320,69 +4484,6 @@
    ]
   ],
   "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-02"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-east-coast-showcase/",
-  "name": "DCI East Coast Showcase",
-  "location": "Lawrence, MA",
-  "date_display": "July 30, 2026",
-  "date": "2026-07-30",
-  "lineup": [
-   "Crusaders Senior",
-   "North Star",
-   "Spartans",
-   "Pacific Crest",
-   "Phantom Regiment",
-   "Bluecoats",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Crusaders Senior"
-   ],
-   [
-    "7:57 PM",
-    "North Star"
-   ],
-   [
-    "8:14 PM",
-    "Spartans"
-   ],
-   [
-    "8:31 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:48 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:05 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:22 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:39 PM",
-    "Encore - Boston Crusaders - Boston, MA"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-09-02"
  },
  {
