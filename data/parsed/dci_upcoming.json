@@ -2903,86 +2903,6 @@
   "_seen": "2026-09-02"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-dallas/",
-  "name": "DCI Dallas",
-  "location": "Bedford, TX",
-  "date_display": "July 19, 2026",
-  "date": "2026-07-19",
-  "lineup": [
-   "Arsenal",
-   "Zephyrus",
-   "Spartans",
-   "The Academy",
-   "Music City",
-   "Madison Scouts",
-   "Pacific Crest",
-   "Blue Knights",
-   "Colts",
-   "The Cavaliers",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Arsenal"
-   ],
-   [
-    "7:27 PM",
-    "Zephyrus"
-   ],
-   [
-    "7:44 PM",
-    "Spartans"
-   ],
-   [
-    "8:01 PM",
-    "The Academy"
-   ],
-   [
-    "8:18 PM",
-    "Music City"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "Colts"
-   ],
-   [
-    "9:43 PM",
-    "The Cavaliers"
-   ],
-   [
-    "10:00 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:25 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-02"
- },
- {
   "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
   "name": "Raiders Tour Send-Off",
   "location": "Aston Township, PA",
@@ -3015,71 +2935,6 @@
     "Joint Performance"
    ]
   ],
-  "_seen": "2026-09-02"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-mckinney/",
-  "name": "DCI McKinney",
-  "location": "McKinney, TX",
-  "date_display": "July 20, 2026",
-  "date": "2026-07-20",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Blue Stars",
-   "Carolina Crown",
-   "Crossmen",
-   "Phantom Regiment",
-   "Spirit of Atlanta",
-   "Troopers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Guardians"
-   ],
-   [
-    "8:22 PM",
-    "Zephyrus"
-   ],
-   [
-    "10:46 PM",
-    "Scores Announced"
-   ],
-   [
-    "TBD",
-    "Blue Stars"
-   ],
-   [
-    "TBD",
-    "Carolina Crown"
-   ],
-   [
-    "TBD",
-    "Crossmen"
-   ],
-   [
-    "TBD",
-    "Phantom Regiment"
-   ],
-   [
-    "TBD",
-    "Spirit of Atlanta"
-   ],
-   [
-    "TBD",
-    "Troopers"
-   ]
-  ],
-  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
   "_seen": "2026-09-02"
  },
  {
@@ -5392,14 +5247,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
-  "_seen": "2026-09-02"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
-  "name": "DCI 2026: Big, Loud & Live",
-  "date_display": "August 6, 2026",
-  "date": "2026-08-06",
-  "lineup": [],
   "_seen": "2026-09-02"
  },
  {
