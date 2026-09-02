@@ -1,49 +1,5 @@
 [
  {
-  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
-  "name": "DCI Tour Preview",
-  "location": "Muncie, IN",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Cincinnati Tradition",
-   "The Cavaliers",
-   "Carolina Crown",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:15 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:45 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:15 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:45 PM",
-    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-02"
- },
- {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -278,63 +234,6 @@
   "_seen": "2026-09-02"
  },
  {
-  "url": "https://www.dci.org/events/2026-corps-encore/",
-  "name": "Corps Encore",
-  "location": "Ogden, UT",
-  "date_display": "June 28, 2026",
-  "date": "2026-06-28",
-  "lineup": [
-   "Crosstown Big Band",
-   "Genesis",
-   "Troopers",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:35 PM",
-    "Crosstown Big Band"
-   ],
-   [
-    "8:00 PM",
-    "Genesis"
-   ],
-   [
-    "8:23 PM",
-    "Troopers"
-   ],
-   [
-    "8:46 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:23 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "9:48 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-09-02"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
   "name": "Drums Along the Columbia",
   "location": "Kennewick, WA",
@@ -387,69 +286,6 @@
     "Gates Open"
    ]
   ],
-  "_seen": "2026-09-02"
- },
- {
-  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
-  "name": "Northwest Youth Music Games Seattle",
-  "location": "Seattle, WA",
-  "date_display": "June 30, 2026",
-  "date": "2026-06-30",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "Columbians",
-   "The Battalion",
-   "Santa Clara Vanguard",
-   "Seattle Cascades"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:45 PM",
-    "Intermission"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:52 PM",
-    "Impulse"
-   ],
-   [
-    "8:07 PM",
-    "Columbians"
-   ],
-   [
-    "8:22 PM",
-    "The Battalion"
-   ],
-   [
-    "8:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:28 PM",
-    "Encore - Seattle Cascades - Seattle, WA"
-   ],
-   [
-    "9:35 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-02"
  },
  {
@@ -2398,6 +2234,76 @@
    ]
   ],
   "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-09-02"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-central-texas/",
+  "name": "DCI Central Texas",
+  "location": "Killeen, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Sky Ryders",
+   "Arsenal",
+   "Gold",
+   "Genesis",
+   "Music City",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:42 PM",
+    "Arsenal"
+   ],
+   [
+    "8:59 PM",
+    "Gold"
+   ],
+   [
+    "9:16 PM",
+    "Genesis"
+   ],
+   [
+    "9:33 PM",
+    "Music City"
+   ],
+   [
+    "9:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "10:07 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:24 PM",
+    "Colts"
+   ],
+   [
+    "10:41 PM",
+    "Blue Knights"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-02"
  },
  {
