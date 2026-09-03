@@ -2616,6 +2616,61 @@
   "_seen": "2026-09-03"
  },
  {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
+  "_seen": "2026-09-03"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southwestern-championship/",
   "name": "DCI Southwestern Championship",
   "location": "San Antonio, TX",
@@ -2960,71 +3015,6 @@
     "Joint Performance"
    ]
   ],
-  "_seen": "2026-09-03"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-mckinney/",
-  "name": "DCI McKinney",
-  "location": "McKinney, TX",
-  "date_display": "July 20, 2026",
-  "date": "2026-07-20",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Blue Stars",
-   "Carolina Crown",
-   "Crossmen",
-   "Phantom Regiment",
-   "Spirit of Atlanta",
-   "Troopers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Guardians"
-   ],
-   [
-    "8:22 PM",
-    "Zephyrus"
-   ],
-   [
-    "10:46 PM",
-    "Scores Announced"
-   ],
-   [
-    "TBD",
-    "Blue Stars"
-   ],
-   [
-    "TBD",
-    "Carolina Crown"
-   ],
-   [
-    "TBD",
-    "Crossmen"
-   ],
-   [
-    "TBD",
-    "Phantom Regiment"
-   ],
-   [
-    "TBD",
-    "Spirit of Atlanta"
-   ],
-   [
-    "TBD",
-    "Troopers"
-   ]
-  ],
-  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
   "_seen": "2026-09-03"
  },
  {
@@ -5246,11 +5236,97 @@
   "_seen": "2026-09-03"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
-  "name": "DCI 2026: Big, Loud & Live",
-  "date_display": "August 6, 2026",
-  "date": "2026-08-06",
-  "lineup": [],
+  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
+  "name": "DCI Open Class World Championship Finals",
+  "location": "Dayton, OH",
+  "date_display": "August 4, 2026",
+  "date": "2026-08-04",
+  "lineup": [
+   "Mercedes Marching Band",
+   "Heat Wave",
+   "Eclipse",
+   "Les Stentors",
+   "7th Regiment",
+   "Raiders",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Memphis Blues",
+   "Blue Devils B",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "Mercedes Marching Band"
+   ],
+   [
+    "6:27 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:44 PM",
+    "Eclipse"
+   ],
+   [
+    "7:01 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:18 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:35 PM",
+    "Raiders"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:26 PM",
+    "Columbians"
+   ],
+   [
+    "8:43 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:00 PM",
+    "Memphis Blues"
+   ],
+   [
+    "9:17 PM",
+    "Blue Devils B"
+   ],
+   [
+    "9:34 PM",
+    "Gold"
+   ],
+   [
+    "9:51 PM",
+    "The Battalion"
+   ],
+   [
+    "10:16 PM",
+    "Retreat"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-09-03"
  },
  {
