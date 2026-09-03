@@ -3333,6 +3333,90 @@
   "_seen": "2026-09-03"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-birmingham/",
+  "name": "DCI Birmingham",
+  "location": "Birmingham, AL",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Apollo Marching Theatre",
+   "Fusion Core",
+   "Atlanta CV",
+   "Memphis Blues",
+   "Heat Wave",
+   "Spartans",
+   "The Academy",
+   "Crossmen",
+   "Blue Knights",
+   "Troopers",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Apollo Marching Theatre"
+   ],
+   [
+    "7:52 PM",
+    "Fusion Core"
+   ],
+   [
+    "8:09 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:26 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:43 PM",
+    "Heat Wave"
+   ],
+   [
+    "9:00 PM",
+    "Intermission"
+   ],
+   [
+    "9:17 PM",
+    "Spartans"
+   ],
+   [
+    "9:34 PM",
+    "The Academy"
+   ],
+   [
+    "9:51 PM",
+    "Crossmen"
+   ],
+   [
+    "10:08 PM",
+    "Blue Knights"
+   ],
+   [
+    "10:25 PM",
+    "Troopers"
+   ],
+   [
+    "10:42 PM",
+    "Blue Stars"
+   ],
+   [
+    "11:07 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-03"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
   "name": "DCI Middle Tennessee",
   "location": "Murfreesboro, TN",
@@ -5807,22 +5891,6 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-09-03"
- },
- {
-  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
-  "name": "Shining a Light on Music Education",
-  "location": "Indianapolis, IN",
-  "date_display": "August 7, 2026",
-  "date": "2026-08-07",
-  "lineup": [
-   "Apogee",
-   "Freelancers",
-   "Green Beret Marching Band",
-   "Mercedes Marching Band",
-   "Rhythm IN BLUE",
-   "Spark"
-  ],
   "_seen": "2026-09-03"
  },
  {
