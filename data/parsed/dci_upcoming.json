@@ -2541,81 +2541,6 @@
   "_seen": "2026-09-03"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-houston/",
-  "name": "DCI Houston",
-  "location": "Houston, TX",
-  "date_display": "July 17, 2026",
-  "date": "2026-07-17",
-  "lineup": [
-   "Spartans",
-   "Genesis",
-   "Crossmen",
-   "The Academy",
-   "The Cavaliers",
-   "Blue Stars",
-   "Blue Devils",
-   "Carolina Crown",
-   "Bluecoats",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Spartans"
-   ],
-   [
-    "8:27 PM",
-    "Genesis"
-   ],
-   [
-    "8:44 PM",
-    "Crossmen"
-   ],
-   [
-    "9:01 PM",
-    "The Academy"
-   ],
-   [
-    "9:18 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:35 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:52 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:09 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:26 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:43 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "11:08 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
-  "_seen": "2026-09-03"
- },
- {
   "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
   "name": "Sounds by the Seaport",
   "location": "New London, CT",
@@ -3080,6 +3005,66 @@
    ]
   ],
   "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-09-03"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-st-louis/",
+  "name": "DCI St. Louis",
+  "location": "Belleville, IL",
+  "date_display": "July 21, 2026",
+  "date": "2026-07-21",
+  "lineup": [
+   "Gold",
+   "The Battalion",
+   "Seattle Cascades",
+   "Music City",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Gold"
+   ],
+   [
+    "8:27 PM",
+    "The Battalion"
+   ],
+   [
+    "8:44 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:01 PM",
+    "Music City"
+   ],
+   [
+    "9:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:35 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:17 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-03"
  },
  {
