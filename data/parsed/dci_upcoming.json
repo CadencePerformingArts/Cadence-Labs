@@ -3202,79 +3202,6 @@
   "_seen": "2026-09-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
-  "name": "Drums on the Ohio",
-  "location": "Evansville, IN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "Colts",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Gold"
-   ],
-   [
-    "7:27 PM",
-    "The Battalion"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:18 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:05 PM",
-    "Colts"
-   ],
-   [
-    "9:22 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:39 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:56 PM",
-    "Encore - Phantom Regiment - Rockford, IL"
-   ],
-   [
-    "10:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-09-04"
- },
- {
   "url": "https://www.dci.org/events/2026-march-on/",
   "name": "March On!",
   "location": "Champlin, MN",
@@ -3414,70 +3341,6 @@
    ]
   ],
   "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-04"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
-  "name": "DCI Middle Tennessee",
-  "location": "Murfreesboro, TN",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Music City",
-   "Spirit of Atlanta",
-   "Colts",
-   "Carolina Crown",
-   "Bluecoats",
-   "Blue Devils",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Music City"
-   ],
-   [
-    "7:58 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:16 PM",
-    "Colts"
-   ],
-   [
-    "8:34 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:10 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:28 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:46 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:11 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
   "_seen": "2026-09-04"
  },
  {
@@ -5392,6 +5255,14 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-09-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
+  "name": "DCI 2026: Big, Loud & Live",
+  "date_display": "August 6, 2026",
+  "date": "2026-08-06",
+  "lineup": [],
   "_seen": "2026-09-04"
  },
  {
