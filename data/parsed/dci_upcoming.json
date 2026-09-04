@@ -4718,6 +4718,85 @@
   "_seen": "2026-09-04"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-michigan/",
+  "name": "DCI Michigan",
+  "location": "Allendale, MI",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Northern Lights",
+   "Memphis Blues",
+   "Heat Wave",
+   "Les Stentors",
+   "Colt Cadets",
+   "Raiders",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:57 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:14 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:31 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:48 PM",
+    "Colt Cadets"
+   ],
+   [
+    "9:05 PM",
+    "Raiders"
+   ],
+   [
+    "9:22 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:39 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:56 PM",
+    "Gold"
+   ],
+   [
+    "10:13 PM",
+    "The Battalion"
+   ],
+   [
+    "10:30 PM",
+    "Encore - Northern Lights - Grand Rapids, MI"
+   ],
+   [
+    "10:38 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-09-04"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
   "name": "DCI Eastern Classic",
   "location": "Allentown, PA",
@@ -4799,71 +4878,6 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-09-04"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
-  "name": "DCI Pittsburgh",
-  "location": "Pittsburgh, PA",
-  "date_display": "August 1, 2026",
-  "date": "2026-08-01",
-  "lineup": [
-   "Sonus Brass Theater",
-   "Columbus Saints",
-   "White Sabers",
-   "Rogues Hollow Regiment",
-   "Hurricanes",
-   "Bushwackers",
-   "Music City",
-   "Spirit of Atlanta"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome"
-   ],
-   [
-    "7:40 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "7:52 PM",
-    "Columbus Saints"
-   ],
-   [
-    "8:09 PM",
-    "White Sabers"
-   ],
-   [
-    "8:26 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "8:43 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:00 PM",
-    "Bushwackers"
-   ],
-   [
-    "9:17 PM",
-    "Music City"
-   ],
-   [
-    "9:34 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:59 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-04"
  },
  {
