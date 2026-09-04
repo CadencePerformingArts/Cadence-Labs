@@ -1834,197 +1834,6 @@
   "_seen": "2026-09-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-drum-corps-at-the-rose-bowl/",
-  "name": "Drum Corps at the Rose Bowl",
-  "location": "Pasadena, CA",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Blue Devils B",
-   "Gold",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Blue Devils",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "4:15 PM",
-    "Gates Open"
-   ],
-   [
-    "5:25 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:35 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "5:50 PM",
-    "Blue Devils C"
-   ],
-   [
-    "6:05 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:20 PM",
-    "Impulse"
-   ],
-   [
-    "6:35 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:50 PM",
-    "Gold"
-   ],
-   [
-    "7:05 PM",
-    "Intermission"
-   ],
-   [
-    "7:50 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:08 PM",
-    "The Academy"
-   ],
-   [
-    "8:26 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:44 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:02 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:20 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:38 PM",
-    "Encore - Pacific Crest - City of Industry, CA"
-   ],
-   [
-    "9:45 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-09-04"
- },
- {
-  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
-  "name": "The Whitewater Classic",
-  "location": "Whitewater, WI",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Green Beret Marching Band",
-   "The Connexion",
-   "Sound of Sun Prairie",
-   "Eclipse",
-   "River City Rhythm",
-   "Spartans",
-   "Genesis",
-   "Crossmen",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Madison Scouts"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:55 PM",
-    "Green Beret Marching Band"
-   ],
-   [
-    "6:05 PM",
-    "The Connexion"
-   ],
-   [
-    "6:15 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "6:27 PM",
-    "Eclipse"
-   ],
-   [
-    "6:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:01 PM",
-    "Spartans"
-   ],
-   [
-    "7:18 PM",
-    "Genesis"
-   ],
-   [
-    "7:35 PM",
-    "Crossmen"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Troopers"
-   ],
-   [
-    "8:26 PM",
-    "Blue Knights"
-   ],
-   [
-    "8:43 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:00 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:17 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:34 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:51 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-09-04"
- },
- {
   "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
   "name": "So Cal Classic: Open Class Pacific Championship Finals",
   "location": "Buena Park, CA",
@@ -4794,6 +4603,90 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-09-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Spartans",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Crossmen",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spartans"
+   ],
+   [
+    "7:27 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:01 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:35 PM",
+    "Crossmen"
+   ],
+   [
+    "8:52 PM",
+    "Intermission"
+   ],
+   [
+    "9:09 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:26 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:00 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:17 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-09-04"
  },
  {
