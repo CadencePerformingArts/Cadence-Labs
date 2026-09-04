@@ -335,61 +335,6 @@
   "_seen": "2026-09-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
-  "name": "Drums Along the Columbia",
-  "location": "Kennewick, WA",
-  "date_display": "June 29, 2026",
-  "date": "2026-06-29",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "The Battalion",
-   "Columbians",
-   "Seattle Cascades",
-   "Santa Clara Vanguard",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:58 PM",
-    "Impulse"
-   ],
-   [
-    "8:16 PM",
-    "The Battalion"
-   ],
-   [
-    "8:34 PM",
-    "Columbians"
-   ],
-   [
-    "8:52 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:10 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:17 PM",
-    "Event Concludes"
-   ],
-   [
-    "",
-    "Gates Open"
-   ]
-  ],
-  "_seen": "2026-09-04"
- },
- {
   "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
   "name": "Northwest Youth Music Games Seattle",
   "location": "Seattle, WA",
@@ -2826,6 +2771,80 @@
    ]
   ],
   "bag_policy": "The Alamodome enforces a clear bag policy. More detailed information on the Alamodome bag policy can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-buccaneer-classic/",
+  "name": "The Buccaneer Classic",
+  "location": "Landisville, PA",
+  "date_display": "July 18, 2026",
+  "date": "2026-07-18",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Les Stentors",
+   "Raiders",
+   "Sunrisers",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:52 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "Raiders"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Sunrisers"
+   ],
+   [
+    "8:17 PM",
+    "White Sabers"
+   ],
+   [
+    "8:34 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:51 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:33 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-04"
  },
  {
