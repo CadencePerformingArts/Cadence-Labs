@@ -390,69 +390,6 @@
   "_seen": "2026-09-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
-  "name": "Northwest Youth Music Games Seattle",
-  "location": "Seattle, WA",
-  "date_display": "June 30, 2026",
-  "date": "2026-06-30",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "Columbians",
-   "The Battalion",
-   "Santa Clara Vanguard",
-   "Seattle Cascades"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:45 PM",
-    "Intermission"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:52 PM",
-    "Impulse"
-   ],
-   [
-    "8:07 PM",
-    "Columbians"
-   ],
-   [
-    "8:22 PM",
-    "The Battalion"
-   ],
-   [
-    "8:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:28 PM",
-    "Encore - Seattle Cascades - Seattle, WA"
-   ],
-   [
-    "9:35 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-09-04"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
   "name": "Drums Across Nebraska",
   "location": "Omaha, NE",
@@ -1831,6 +1768,197 @@
    ]
   ],
   "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drum-corps-at-the-rose-bowl/",
+  "name": "Drum Corps at the Rose Bowl",
+  "location": "Pasadena, CA",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Sacramento Freelancers",
+   "Blue Devils C",
+   "Golden Empire",
+   "Impulse",
+   "Blue Devils B",
+   "Gold",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Blue Devils",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "4:15 PM",
+    "Gates Open"
+   ],
+   [
+    "5:25 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "5:35 PM",
+    "Sacramento Freelancers"
+   ],
+   [
+    "5:50 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:05 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:20 PM",
+    "Impulse"
+   ],
+   [
+    "6:35 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:50 PM",
+    "Gold"
+   ],
+   [
+    "7:05 PM",
+    "Intermission"
+   ],
+   [
+    "7:50 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:08 PM",
+    "The Academy"
+   ],
+   [
+    "8:26 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:44 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:02 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:20 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:38 PM",
+    "Encore - Pacific Crest - City of Industry, CA"
+   ],
+   [
+    "9:45 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
+  "name": "The Whitewater Classic",
+  "location": "Whitewater, WI",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Green Beret Marching Band",
+   "The Connexion",
+   "Sound of Sun Prairie",
+   "Eclipse",
+   "River City Rhythm",
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Madison Scouts"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "5:55 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "6:05 PM",
+    "The Connexion"
+   ],
+   [
+    "6:15 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "6:27 PM",
+    "Eclipse"
+   ],
+   [
+    "6:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:01 PM",
+    "Spartans"
+   ],
+   [
+    "7:18 PM",
+    "Genesis"
+   ],
+   [
+    "7:35 PM",
+    "Crossmen"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Troopers"
+   ],
+   [
+    "8:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:00 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:17 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:34 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:51 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-09-04"
  },
  {
