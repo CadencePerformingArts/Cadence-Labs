@@ -4130,83 +4130,6 @@
   "_seen": "2026-09-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
-  "name": "Summer Music Games in Cincinnati",
-  "location": "Mason, OH",
-  "date_display": "July 27, 2026",
-  "date": "2026-07-27",
-  "lineup": [
-   "Columbus Saints",
-   "Cincinnati Tradition",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Seattle Cascades",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "7:32 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "7:49 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:06 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:23 PM",
-    "Intermission"
-   ],
-   [
-    "8:43 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:00 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:17 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:34 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:51 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:08 PM",
-    "Encore - TBD"
-   ],
-   [
-    "10:16 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-09-04"
- },
- {
   "url": "https://www.dci.org/events/2026-brass-at-the-beach/",
   "name": "Brass at the Beach",
   "location": "Myrtle Beach, SC",
@@ -4267,6 +4190,75 @@
    ]
   ],
   "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-annapolis/",
+  "name": "DCI Annapolis",
+  "location": "Annapolis, MD",
+  "date_display": "July 28, 2026",
+  "date": "2026-07-28",
+  "lineup": [
+   "Raiders",
+   "Spartans",
+   "Pacific Crest",
+   "Blue Knights",
+   "Troopers",
+   "Colts",
+   "Boston Crusaders",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome"
+   ],
+   [
+    "6:40 PM",
+    "Raiders"
+   ],
+   [
+    "6:57 PM",
+    "Spartans"
+   ],
+   [
+    "7:14 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:31 PM",
+    "Blue Knights"
+   ],
+   [
+    "7:48 PM",
+    "Intermission"
+   ],
+   [
+    "8:05 PM",
+    "Troopers"
+   ],
+   [
+    "8:22 PM",
+    "Colts"
+   ],
+   [
+    "8:39 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:56 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:21 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-04"
  },
  {
