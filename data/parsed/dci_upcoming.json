@@ -1379,6 +1379,80 @@
   "_seen": "2026-09-04"
  },
  {
+  "url": "https://www.dci.org/events/2026-gold-showcase/",
+  "name": "Gold Showcase",
+  "location": "Santa Clarita, CA",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Blue Devils C",
+   "Golden Empire",
+   "Blue Devils B",
+   "The Academy",
+   "Pacific Crest",
+   "Blue Devils",
+   "Santa Clara Vanguard",
+   "Gold",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:17 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:34 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:51 PM",
+    "The Academy"
+   ],
+   [
+    "7:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:25 PM",
+    "Intermission"
+   ],
+   [
+    "7:55 PM",
+    "Blue Devils"
+   ],
+   [
+    "8:12 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:29 PM",
+    "Gold"
+   ],
+   [
+    "8:46 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-04"
+ },
+ {
   "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
   "name": "Cavalcade of Brass",
   "location": "Lisle, IL",
