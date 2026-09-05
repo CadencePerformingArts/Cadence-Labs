@@ -2160,56 +2160,6 @@
   "_seen": "2026-09-05"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
-  "name": "Drums Across the Desert",
-  "location": "Mesa, AZ",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Seattle Cascades",
-   "Pacific Crest",
-   "The Academy",
-   "Bluecoats",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "National Anthem The Phoenix Symphony Brass Quintet"
-   ],
-   [
-    "8:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:27 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:44 PM",
-    "The Academy"
-   ],
-   [
-    "8:56 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:13 PM",
-    "Encore - The Bluecoats and The Academy - Tempe, AZ"
-   ],
-   [
-    "9:21 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-09-05"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
   "name": "DCI Broken Arrow",
   "location": "Broken Arrow, OK",
@@ -4943,6 +4893,84 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-05"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-big-sounds-in-motion/",
+  "name": "Big Sounds in Motion",
+  "location": "Downingtown, PA",
+  "date_display": "August 2, 2026",
+  "date": "2026-08-02",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Sonus Brass Theater",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers",
+   "Pacific Crest",
+   "Colts",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome"
+   ],
+   [
+    "5:55 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:07 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "6:24 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:36 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "6:53 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:10 PM",
+    "Intermission"
+   ],
+   [
+    "7:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:44 PM",
+    "Colts"
+   ],
+   [
+    "8:01 PM",
+    "Carolina Crown"
+   ],
+   [
+    "8:18 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:35 PM",
+    "Encore - Reading Buccaneers - Reading, PA"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All bags may be subject to search upon entering the stadium.",
   "_seen": "2026-09-05"
  },
  {
