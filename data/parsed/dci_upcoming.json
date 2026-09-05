@@ -1272,6 +1272,54 @@
   "_seen": "2026-09-05"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-across-america/",
+  "name": "Drums Across America",
+  "location": "Newnan, GA",
+  "date_display": "July 8, 2026",
+  "date": "2026-07-08",
+  "lineup": [
+   "Atlanta CV",
+   "Music City",
+   "Spirit of Atlanta",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:02 PM",
+    "Music City"
+   ],
+   [
+    "8:24 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:42 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:04 PM",
+    "Encore - Spirit of Atlanta - Atlanta, GA"
+   ],
+   [
+    "9:12 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-05"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
   "name": "DCI Northern Alabama",
   "location": "Muscle Shoals, AL",
