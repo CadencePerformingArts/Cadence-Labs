@@ -1195,6 +1195,83 @@
   "_seen": "2026-09-05"
  },
  {
+  "url": "https://www.dci.org/events/2026-celebration-in-brass/",
+  "name": "Celebration in Brass",
+  "location": "Des Moines, IA",
+  "date_display": "July 8, 2026",
+  "date": "2026-07-08",
+  "lineup": [
+   "Colt Cadets",
+   "River City Rhythm",
+   "Genesis",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "The Cavaliers",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:27 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:44 PM",
+    "Genesis"
+   ],
+   [
+    "8:01 PM",
+    "Crossmen"
+   ],
+   [
+    "8:18 PM",
+    "Intermission"
+   ],
+   [
+    "8:38 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:55 PM",
+    "Troopers"
+   ],
+   [
+    "9:12 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:29 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:46 PM",
+    "Colts"
+   ],
+   [
+    "10:03 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-05"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-across-america/",
   "name": "Drums Across America",
   "location": "Newnan, GA",
@@ -4638,85 +4715,6 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-09-05"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-michigan/",
-  "name": "DCI Michigan",
-  "location": "Allendale, MI",
-  "date_display": "July 31, 2026",
-  "date": "2026-07-31",
-  "lineup": [
-   "Northern Lights",
-   "Memphis Blues",
-   "Heat Wave",
-   "Les Stentors",
-   "Colt Cadets",
-   "Raiders",
-   "River City Rhythm",
-   "7th Regiment",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Northern Lights"
-   ],
-   [
-    "7:57 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:14 PM",
-    "Heat Wave"
-   ],
-   [
-    "8:31 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:48 PM",
-    "Colt Cadets"
-   ],
-   [
-    "9:05 PM",
-    "Raiders"
-   ],
-   [
-    "9:22 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:39 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:56 PM",
-    "Gold"
-   ],
-   [
-    "10:13 PM",
-    "The Battalion"
-   ],
-   [
-    "10:30 PM",
-    "Encore - Northern Lights - Grand Rapids, MI"
-   ],
-   [
-    "10:38 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-09-05"
  },
  {
