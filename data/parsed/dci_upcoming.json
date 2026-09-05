@@ -2347,6 +2347,60 @@
   "_seen": "2026-09-05"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-new-mexico/",
+  "name": "DCI New Mexico",
+  "location": "Albuquerque, NM",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Arsenal",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "7:15 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Arsenal"
+   ],
+   [
+    "8:47 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:04 PM",
+    "The Academy"
+   ],
+   [
+    "9:21 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:38 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Pacific Crest - City of Industry, CA"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-09-05"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-central-texas/",
   "name": "DCI Central Texas",
   "location": "Killeen, TX",
