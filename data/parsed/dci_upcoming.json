@@ -2160,6 +2160,56 @@
   "_seen": "2026-09-05"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
+  "name": "Drums Across the Desert",
+  "location": "Mesa, AZ",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Seattle Cascades",
+   "Pacific Crest",
+   "The Academy",
+   "Bluecoats",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "National Anthem The Phoenix Symphony Brass Quintet"
+   ],
+   [
+    "8:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:56 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:13 PM",
+    "Encore - The Bluecoats and The Academy - Tempe, AZ"
+   ],
+   [
+    "9:21 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-09-05"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
   "name": "DCI Broken Arrow",
   "location": "Broken Arrow, OK",
@@ -3843,83 +3893,6 @@
    ]
   ],
   "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
-  "_seen": "2026-09-05"
- },
- {
-  "url": "https://www.dci.org/events/2026-music-on-the-mountain/",
-  "name": "Music on the Mountain",
-  "location": "Sheffield, PA",
-  "date_display": "July 25, 2026",
-  "date": "2026-07-25",
-  "lineup": [
-   "Allegheny Eclipse",
-   "Apogee",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Les Stentors",
-   "Raiders",
-   "7th Regiment",
-   "The Battalion",
-   "Gold"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Allegheny Eclipse"
-   ],
-   [
-    "7:20 PM",
-    "Apogee"
-   ],
-   [
-    "7:32 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "7:49 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:06 PM",
-    "Intermission"
-   ],
-   [
-    "8:23 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:40 PM",
-    "Raiders"
-   ],
-   [
-    "8:57 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:14 PM",
-    "The Battalion"
-   ],
-   [
-    "9:31 PM",
-    "Gold"
-   ],
-   [
-    "9:48 PM",
-    "Encore - The Battalion - Salt Lake City, UT"
-   ],
-   [
-    "9:56 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-09-05"
  },
  {
