@@ -390,69 +390,6 @@
   "_seen": "2026-09-06"
  },
  {
-  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
-  "name": "Northwest Youth Music Games Seattle",
-  "location": "Seattle, WA",
-  "date_display": "June 30, 2026",
-  "date": "2026-06-30",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "Columbians",
-   "The Battalion",
-   "Santa Clara Vanguard",
-   "Seattle Cascades"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:45 PM",
-    "Intermission"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:52 PM",
-    "Impulse"
-   ],
-   [
-    "8:07 PM",
-    "Columbians"
-   ],
-   [
-    "8:22 PM",
-    "The Battalion"
-   ],
-   [
-    "8:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:28 PM",
-    "Encore - Seattle Cascades - Seattle, WA"
-   ],
-   [
-    "9:35 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-09-06"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
   "name": "Drums Across Nebraska",
   "location": "Omaha, NE",
@@ -627,59 +564,6 @@
    ],
    [
     "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-06"
- },
- {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
     "Event Concludes"
    ]
   ],
@@ -4023,6 +3907,113 @@
   "_seen": "2026-09-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-nightbeat/",
+  "name": "NightBEAT",
+  "location": "Winston-Salem, NC",
+  "date_display": "July 26, 2026",
+  "date": "2026-07-26",
+  "lineup": [
+   "North Carolina A&T Cold Steel Drumline",
+   "Atlanta CV",
+   "Heat Wave",
+   "Music City",
+   "Spartans",
+   "The Academy",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Colts",
+   "Blue Stars",
+   "Bluecoats",
+   "Blue Devils",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "3:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:00 PM",
+    "Welcome"
+   ],
+   [
+    "5:05 PM",
+    "National Anthem"
+   ],
+   [
+    "5:15 PM",
+    "North Carolina A&T Cold Steel Drumline"
+   ],
+   [
+    "5:35 PM",
+    "Atlanta CV"
+   ],
+   [
+    "5:53 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:11 PM",
+    "Music City"
+   ],
+   [
+    "6:29 PM",
+    "Spartans"
+   ],
+   [
+    "6:47 PM",
+    "The Academy"
+   ],
+   [
+    "7:05 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "7:23 PM",
+    "Intermission"
+   ],
+   [
+    "8:15 PM",
+    "Troopers"
+   ],
+   [
+    "8:33 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:51 PM",
+    "Colts"
+   ],
+   [
+    "9:09 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:27 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:45 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:03 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Carolina Crown"
+   ],
+   [
+    "10:36 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
   "name": "Summer Music Games in Cincinnati",
   "location": "Mason, OH",
@@ -4299,6 +4290,84 @@
    ]
   ],
   "bag_policy": "Marshall Athletics enforces a Clear Bag Policy. More information can be found here .",
+  "_seen": "2026-09-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-summer-music-games-of-southwest-virginia/",
+  "name": "Summer Music Games of Southwest Virginia",
+  "location": "Salem, VA",
+  "date_display": "July 29, 2026",
+  "date": "2026-07-29",
+  "lineup": [
+   "Carolina Gold",
+   "Heat Wave",
+   "Raiders",
+   "The Academy",
+   "Music City",
+   "Spirit of Atlanta",
+   "Crossmen",
+   "Blue Stars",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Carolina Gold"
+   ],
+   [
+    "7:22 PM",
+    "Heat Wave"
+   ],
+   [
+    "7:39 PM",
+    "Raiders"
+   ],
+   [
+    "7:56 PM",
+    "The Academy"
+   ],
+   [
+    "8:13 PM",
+    "Music City"
+   ],
+   [
+    "8:30 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:47 PM",
+    "Intermission"
+   ],
+   [
+    "9:04 PM",
+    "Crossmen"
+   ],
+   [
+    "9:21 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:38 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-06"
  },
  {
