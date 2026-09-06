@@ -4718,82 +4718,87 @@
   "_seen": "2026-09-06"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-michigan/",
-  "name": "DCI Michigan",
-  "location": "Allendale, MI",
-  "date_display": "July 31, 2026",
-  "date": "2026-07-31",
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
   "lineup": [
-   "Northern Lights",
-   "Memphis Blues",
-   "Heat Wave",
-   "Les Stentors",
-   "Colt Cadets",
-   "Raiders",
-   "River City Rhythm",
-   "7th Regiment",
-   "Gold",
-   "The Battalion"
+   "Spartans",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Crossmen",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown"
   ],
   "schedule": [
    [
-    "6:30 PM",
+    "5:30 PM",
     "Gates Open"
    ],
    [
-    "7:30 PM",
+    "7:00 PM",
     "Welcome & National Anthem"
    ],
    [
-    "7:40 PM",
-    "Northern Lights"
+    "7:10 PM",
+    "Spartans"
    ],
    [
-    "7:57 PM",
-    "Memphis Blues"
+    "7:27 PM",
+    "Seattle Cascades"
    ],
    [
-    "8:14 PM",
-    "Heat Wave"
+    "7:44 PM",
+    "The Academy"
    ],
    [
-    "8:31 PM",
-    "Les Stentors"
+    "8:01 PM",
+    "Pacific Crest"
    ],
    [
-    "8:48 PM",
-    "Colt Cadets"
+    "8:18 PM",
+    "Madison Scouts"
    ],
    [
-    "9:05 PM",
-    "Raiders"
+    "8:35 PM",
+    "Crossmen"
    ],
    [
-    "9:22 PM",
-    "River City Rhythm"
+    "8:52 PM",
+    "Intermission"
    ],
    [
-    "9:39 PM",
-    "7th Regiment"
+    "9:09 PM",
+    "The Cavaliers"
    ],
    [
-    "9:56 PM",
-    "Gold"
+    "9:26 PM",
+    "Phantom Regiment"
    ],
    [
-    "10:13 PM",
-    "The Battalion"
+    "9:43 PM",
+    "Santa Clara Vanguard"
    ],
    [
-    "10:30 PM",
-    "Encore - Northern Lights - Grand Rapids, MI"
+    "10:00 PM",
+    "Boston Crusaders"
    ],
    [
-    "10:38 PM",
+    "10:17 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:42 PM",
     "Scores Announced"
    ]
   ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-09-06"
  },
  {
