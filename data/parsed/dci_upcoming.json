@@ -390,6 +390,69 @@
   "_seen": "2026-09-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
+  "name": "Northwest Youth Music Games Seattle",
+  "location": "Seattle, WA",
+  "date_display": "June 30, 2026",
+  "date": "2026-06-30",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:45 PM",
+    "Intermission"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:52 PM",
+    "Impulse"
+   ],
+   [
+    "8:07 PM",
+    "Columbians"
+   ],
+   [
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
   "name": "Drums Across Nebraska",
   "location": "Omaha, NE",
@@ -564,6 +627,59 @@
    ],
    [
     "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-09-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-preview-of-champions/",
+  "name": "Preview of Champions",
+  "location": "Nashua, NH",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Boston Crusaders",
+   "Spartans",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome"
+   ],
+   [
+    "8:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:35 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:00 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:55 PM",
+    "Spartans"
+   ],
+   [
+    "10:20 PM",
+    "Encore - Spartans - Nashua, NH"
+   ],
+   [
+    "10:45 PM",
     "Event Concludes"
    ]
   ],
@@ -5791,95 +5907,6 @@
    "Rhythm IN BLUE",
    "Spark"
   ],
-  "_seen": "2026-09-06"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-finals/",
-  "name": "DCI All-Age World Championship Finals",
-  "location": "Indianapolis, IN",
-  "date_display": "August 8, 2026",
-  "date": "2026-08-08",
-  "lineup": [
-   "MBI",
-   "Northern Lights",
-   "Govenaires",
-   "Rogues Hollow Regiment",
-   "Fusion Core",
-   "White Sabers",
-   "Hurricanes",
-   "Cincinnati Tradition",
-   "Bushwackers",
-   "Atlanta CV",
-   "Hawthorne Caballeros",
-   "Reading Buccaneers"
-  ],
-  "schedule": [
-   [
-    "9:00 AM",
-    "Gates Open"
-   ],
-   [
-    "9:50 AM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "10:00 AM",
-    "MBI"
-   ],
-   [
-    "10:17 AM",
-    "Northern Lights"
-   ],
-   [
-    "10:34 AM",
-    "Govenaires"
-   ],
-   [
-    "10:51 AM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "11:08 AM",
-    "Fusion Core"
-   ],
-   [
-    "11:25 AM",
-    "White Sabers"
-   ],
-   [
-    "11:42 AM",
-    "Intermission"
-   ],
-   [
-    "11:57 AM",
-    "Hurricanes"
-   ],
-   [
-    "12:14 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "12:31 PM",
-    "Bushwackers"
-   ],
-   [
-    "12:48 PM",
-    "Atlanta CV"
-   ],
-   [
-    "1:05 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "1:22 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "1:45 PM",
-    "Awards Ceremony"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
   "_seen": "2026-09-06"
  },
  {
