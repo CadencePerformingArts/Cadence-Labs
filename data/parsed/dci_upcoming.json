@@ -44,6 +44,19 @@
   "_seen": "2026-09-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
+  "name": "Santa Clara Vanguard Showcase",
+  "location": "Moscow, ID",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Columbians",
+   "Gems",
+   "Santa Clara Vanguard"
+  ],
+  "_seen": "2026-09-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -317,6 +330,61 @@
    [
     "9:48 PM",
     "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
+  "name": "Drums Along the Columbia",
+  "location": "Kennewick, WA",
+  "date_display": "June 29, 2026",
+  "date": "2026-06-29",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "The Battalion",
+   "Columbians",
+   "Seattle Cascades",
+   "Santa Clara Vanguard",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:58 PM",
+    "Impulse"
+   ],
+   [
+    "8:16 PM",
+    "The Battalion"
+   ],
+   [
+    "8:34 PM",
+    "Columbians"
+   ],
+   [
+    "8:52 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:10 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:17 PM",
+    "Event Concludes"
+   ],
+   [
+    "",
+    "Gates Open"
    ]
   ],
   "_seen": "2026-09-06"
@@ -3262,90 +3330,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-09-06"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-birmingham/",
-  "name": "DCI Birmingham",
-  "location": "Birmingham, AL",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Fusion Core",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Heat Wave",
-   "Spartans",
-   "The Academy",
-   "Crossmen",
-   "Blue Knights",
-   "Troopers",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "7:52 PM",
-    "Fusion Core"
-   ],
-   [
-    "8:09 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:26 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:43 PM",
-    "Heat Wave"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:17 PM",
-    "Spartans"
-   ],
-   [
-    "9:34 PM",
-    "The Academy"
-   ],
-   [
-    "9:51 PM",
-    "Crossmen"
-   ],
-   [
-    "10:08 PM",
-    "Blue Knights"
-   ],
-   [
-    "10:25 PM",
-    "Troopers"
-   ],
-   [
-    "10:42 PM",
-    "Blue Stars"
-   ],
-   [
-    "11:07 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-06"
  },
  {
