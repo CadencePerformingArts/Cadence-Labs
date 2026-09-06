@@ -44,19 +44,6 @@
   "_seen": "2026-09-06"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-09-06"
- },
- {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -330,61 +317,6 @@
    [
     "9:48 PM",
     "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-09-06"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
-  "name": "Drums Along the Columbia",
-  "location": "Kennewick, WA",
-  "date_display": "June 29, 2026",
-  "date": "2026-06-29",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "The Battalion",
-   "Columbians",
-   "Seattle Cascades",
-   "Santa Clara Vanguard",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:58 PM",
-    "Impulse"
-   ],
-   [
-    "8:16 PM",
-    "The Battalion"
-   ],
-   [
-    "8:34 PM",
-    "Columbians"
-   ],
-   [
-    "8:52 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:10 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:17 PM",
-    "Event Concludes"
-   ],
-   [
-    "",
-    "Gates Open"
    ]
   ],
   "_seen": "2026-09-06"
@@ -4409,6 +4341,84 @@
   "_seen": "2026-09-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-summer-music-games-of-southwest-virginia/",
+  "name": "Summer Music Games of Southwest Virginia",
+  "location": "Salem, VA",
+  "date_display": "July 29, 2026",
+  "date": "2026-07-29",
+  "lineup": [
+   "Carolina Gold",
+   "Heat Wave",
+   "Raiders",
+   "The Academy",
+   "Music City",
+   "Spirit of Atlanta",
+   "Crossmen",
+   "Blue Stars",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Carolina Gold"
+   ],
+   [
+    "7:22 PM",
+    "Heat Wave"
+   ],
+   [
+    "7:39 PM",
+    "Raiders"
+   ],
+   [
+    "7:56 PM",
+    "The Academy"
+   ],
+   [
+    "8:13 PM",
+    "Music City"
+   ],
+   [
+    "8:30 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:47 PM",
+    "Intermission"
+   ],
+   [
+    "9:04 PM",
+    "Crossmen"
+   ],
+   [
+    "9:21 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:38 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-east-coast-showcase/",
   "name": "DCI East Coast Showcase",
   "location": "Lawrence, MA",
@@ -4716,6 +4726,90 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-09-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Spartans",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Crossmen",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spartans"
+   ],
+   [
+    "7:27 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:01 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:35 PM",
+    "Crossmen"
+   ],
+   [
+    "8:52 PM",
+    "Intermission"
+   ],
+   [
+    "9:09 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:26 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:00 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:17 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-09-06"
  },
  {
