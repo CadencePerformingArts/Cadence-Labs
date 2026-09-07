@@ -2829,6 +2829,80 @@
   "_seen": "2026-09-07"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-buccaneer-classic/",
+  "name": "The Buccaneer Classic",
+  "location": "Landisville, PA",
+  "date_display": "July 18, 2026",
+  "date": "2026-07-18",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Les Stentors",
+   "Raiders",
+   "Sunrisers",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:52 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "Raiders"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Sunrisers"
+   ],
+   [
+    "8:17 PM",
+    "White Sabers"
+   ],
+   [
+    "8:34 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:51 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:33 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-07"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-dallas/",
   "name": "DCI Dallas",
   "location": "Bedford, TX",
@@ -4130,69 +4204,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-09-07"
- },
- {
-  "url": "https://www.dci.org/events/2026-brass-at-the-beach/",
-  "name": "Brass at the Beach",
-  "location": "Myrtle Beach, SC",
-  "date_display": "July 28, 2026",
-  "date": "2026-07-28",
-  "lineup": [
-   "Music City",
-   "The Academy",
-   "Spirit of Atlanta",
-   "Crossmen",
-   "Blue Stars",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:10 PM",
-    "Music City"
-   ],
-   [
-    "7:27 PM",
-    "The Academy"
-   ],
-   [
-    "7:44 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:01 PM",
-    "Crossmen"
-   ],
-   [
-    "8:18 PM",
-    "Intermission"
-   ],
-   [
-    "8:35 PM",
-    "Blue Stars"
-   ],
-   [
-    "8:52 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:09 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "9:17 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-07"
  },
  {
