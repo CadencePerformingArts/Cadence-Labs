@@ -3143,6 +3143,65 @@
   "_seen": "2026-09-07"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
+  "name": "DCI Southern Mississippi",
+  "location": "Hattiesburg, MS",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "Crossmen",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Crossmen"
+   ],
+   [
+    "7:57 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:14 PM",
+    "Troopers"
+   ],
+   [
+    "8:31 PM",
+    "Intermission"
+   ],
+   [
+    "8:48 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:05 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:22 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:47 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-07"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
   "name": "Drums on the Ohio",
   "location": "Evansville, IN",
@@ -3419,6 +3478,69 @@
    ]
   ],
   "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
+  "_seen": "2026-09-07"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-syracuse/",
+  "name": "DCI Syracuse",
+  "location": "Central Square, NY",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Baldwinsville Marching Band",
+   "Brig Juice Brass",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "White Sabers"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Baldwinsville Marching Band"
+   ],
+   [
+    "7:20 PM",
+    "Brig Juice Brass"
+   ],
+   [
+    "7:32 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:49 PM",
+    "Raiders"
+   ],
+   [
+    "8:06 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:23 PM",
+    "The Battalion"
+   ],
+   [
+    "8:40 PM",
+    "White Sabers"
+   ],
+   [
+    "8:57 PM",
+    "Encore - White Sabers - Rochester, NY"
+   ],
+   [
+    "9:05 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-09-07"
  },
  {
@@ -4145,75 +4267,6 @@
    ]
   ],
   "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-07"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-annapolis/",
-  "name": "DCI Annapolis",
-  "location": "Annapolis, MD",
-  "date_display": "July 28, 2026",
-  "date": "2026-07-28",
-  "lineup": [
-   "Raiders",
-   "Spartans",
-   "Pacific Crest",
-   "Blue Knights",
-   "Troopers",
-   "Colts",
-   "Boston Crusaders",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome"
-   ],
-   [
-    "6:40 PM",
-    "Raiders"
-   ],
-   [
-    "6:57 PM",
-    "Spartans"
-   ],
-   [
-    "7:14 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:31 PM",
-    "Blue Knights"
-   ],
-   [
-    "7:48 PM",
-    "Intermission"
-   ],
-   [
-    "8:05 PM",
-    "Troopers"
-   ],
-   [
-    "8:22 PM",
-    "Colts"
-   ],
-   [
-    "8:39 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:56 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:21 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-07"
  },
  {
