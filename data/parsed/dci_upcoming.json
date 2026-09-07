@@ -633,6 +633,59 @@
   "_seen": "2026-09-07"
  },
  {
+  "url": "https://www.dci.org/events/2026-preview-of-champions/",
+  "name": "Preview of Champions",
+  "location": "Nashua, NH",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Boston Crusaders",
+   "Spartans",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome"
+   ],
+   [
+    "8:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:35 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:00 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:55 PM",
+    "Spartans"
+   ],
+   [
+    "10:20 PM",
+    "Encore - Spartans - Nashua, NH"
+   ],
+   [
+    "10:45 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-09-07"
+ },
+ {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -1547,90 +1600,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-09-07"
- },
- {
-  "url": "https://www.dci.org/events/2026-western-corps-connection/",
-  "name": "Western Corps Connection",
-  "location": "Walnut, CA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Blue Devils B",
-   "Blue Devils C",
-   "Golden Empire",
-   "Gold",
-   "Impulse",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Santa Clara Vanguard",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "4:45 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:00 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:15 PM",
-    "Blue Devils C"
-   ],
-   [
-    "6:30 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:45 PM",
-    "Gold"
-   ],
-   [
-    "7:00 PM",
-    "Impulse"
-   ],
-   [
-    "7:15 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:17 PM",
-    "The Academy"
-   ],
-   [
-    "8:34 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:51 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:08 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:25 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:50 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
   "_seen": "2026-09-07"
  },
  {
@@ -5838,6 +5807,22 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-09-07"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
+  "name": "Shining a Light on Music Education",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "Apogee",
+   "Freelancers",
+   "Green Beret Marching Band",
+   "Mercedes Marching Band",
+   "Rhythm IN BLUE",
+   "Spark"
+  ],
   "_seen": "2026-09-07"
  },
  {
