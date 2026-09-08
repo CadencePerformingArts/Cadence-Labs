@@ -583,56 +583,6 @@
   "_seen": "2026-09-08"
  },
  {
-  "url": "https://www.dci.org/events/2026-midcal-showcase/",
-  "name": "MidCal Showcase",
-  "location": "Camarillo, CA",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Golden Empire",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Blue Devils",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:50 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:00 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:25 PM",
-    "The Academy"
-   ],
-   [
-    "8:50 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:15 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-08"
- },
- {
   "url": "https://www.dci.org/events/2026-preview-of-champions/",
   "name": "Preview of Champions",
   "location": "Nashua, NH",
@@ -2826,6 +2776,80 @@
    ]
   ],
   "bag_policy": "The Alamodome enforces a clear bag policy. More detailed information on the Alamodome bag policy can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-08"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-buccaneer-classic/",
+  "name": "The Buccaneer Classic",
+  "location": "Landisville, PA",
+  "date_display": "July 18, 2026",
+  "date": "2026-07-18",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Les Stentors",
+   "Raiders",
+   "Sunrisers",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:52 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "Raiders"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Sunrisers"
+   ],
+   [
+    "8:17 PM",
+    "White Sabers"
+   ],
+   [
+    "8:34 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:51 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:33 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-08"
  },
  {
