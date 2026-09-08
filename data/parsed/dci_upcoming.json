@@ -1077,6 +1077,51 @@
   "_seen": "2026-09-08"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-across-the-smokies/",
+  "name": "Drums Across the Smokies",
+  "location": "Sevierville, TN",
+  "date_display": "July 7, 2026",
+  "date": "2026-07-07",
+  "lineup": [
+   "Music City",
+   "Spirit of Atlanta",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Music City"
+   ],
+   [
+    "8:32 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:54 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:16 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:41 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Lon C. Burchfield Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-08"
+ },
+ {
   "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
   "name": "The Kiwanis Thunder of Drums",
   "location": "Mankato, MN",
@@ -1331,6 +1376,80 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-09-08"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-gold-showcase/",
+  "name": "Gold Showcase",
+  "location": "Santa Clarita, CA",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Blue Devils C",
+   "Golden Empire",
+   "Blue Devils B",
+   "The Academy",
+   "Pacific Crest",
+   "Blue Devils",
+   "Santa Clara Vanguard",
+   "Gold",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:17 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:34 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:51 PM",
+    "The Academy"
+   ],
+   [
+    "7:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:25 PM",
+    "Intermission"
+   ],
+   [
+    "7:55 PM",
+    "Blue Devils"
+   ],
+   [
+    "8:12 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:29 PM",
+    "Gold"
+   ],
+   [
+    "8:46 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-08"
  },
  {
@@ -3021,65 +3140,6 @@
    ]
   ],
   "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-08"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
-  "name": "DCI Southern Mississippi",
-  "location": "Hattiesburg, MS",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Crossmen"
-   ],
-   [
-    "7:57 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:14 PM",
-    "Troopers"
-   ],
-   [
-    "8:31 PM",
-    "Intermission"
-   ],
-   [
-    "8:48 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:05 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:22 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-08"
  },
  {
