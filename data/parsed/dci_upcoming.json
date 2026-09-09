@@ -808,6 +808,89 @@
   "_seen": "2026-09-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-show-of-shows/",
+  "name": "Show of Shows",
+  "location": "Rockford, IL",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Conquest Drum & Bugle Corps",
+   "Colt Cadets",
+   "Genesis",
+   "Madison Scouts",
+   "Blue Knights",
+   "Colts",
+   "Troopers",
+   "The Cavaliers",
+   "Blue Stars",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Conquest Drum & Bugle Corps"
+   ],
+   [
+    "6:52 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:10 PM",
+    "Genesis"
+   ],
+   [
+    "7:28 PM",
+    "Madison Scouts"
+   ],
+   [
+    "7:46 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:04 PM",
+    "Colts"
+   ],
+   [
+    "8:22 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:10 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:28 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:46 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Encore - Phantom Regiment - Rockford, IL"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Swanson Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-west/",
   "name": "DCI West",
   "location": "Stanford, CA",
