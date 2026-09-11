@@ -583,6 +583,56 @@
   "_seen": "2026-09-11"
  },
  {
+  "url": "https://www.dci.org/events/2026-midcal-showcase/",
+  "name": "MidCal Showcase",
+  "location": "Camarillo, CA",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Golden Empire",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Blue Devils",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:00 PM",
+    "Golden Empire"
+   ],
+   [
+    "8:25 PM",
+    "The Academy"
+   ],
+   [
+    "8:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:15 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:40 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-09-11"
+ },
+ {
   "url": "https://www.dci.org/events/2026-preview-of-champions/",
   "name": "Preview of Champions",
   "location": "Nashua, NH",
