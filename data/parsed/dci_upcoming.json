@@ -3018,6 +3018,71 @@
   "_seen": "2026-09-12"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-09-12"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -4813,71 +4878,6 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-09-12"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
-  "name": "DCI Pittsburgh",
-  "location": "Pittsburgh, PA",
-  "date_display": "August 1, 2026",
-  "date": "2026-08-01",
-  "lineup": [
-   "Sonus Brass Theater",
-   "Columbus Saints",
-   "White Sabers",
-   "Rogues Hollow Regiment",
-   "Hurricanes",
-   "Bushwackers",
-   "Music City",
-   "Spirit of Atlanta"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome"
-   ],
-   [
-    "7:40 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "7:52 PM",
-    "Columbus Saints"
-   ],
-   [
-    "8:09 PM",
-    "White Sabers"
-   ],
-   [
-    "8:26 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "8:43 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:00 PM",
-    "Bushwackers"
-   ],
-   [
-    "9:17 PM",
-    "Music City"
-   ],
-   [
-    "9:34 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:59 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-12"
  },
  {
