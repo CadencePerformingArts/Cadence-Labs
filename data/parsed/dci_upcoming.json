@@ -1,49 +1,5 @@
 [
  {
-  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
-  "name": "DCI Tour Preview",
-  "location": "Muncie, IN",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Cincinnati Tradition",
-   "The Cavaliers",
-   "Carolina Crown",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:15 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:45 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:15 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:45 PM",
-    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-13"
- },
- {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -202,6 +158,82 @@
   "_seen": "2026-09-13"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
+  "name": "Drums Along the Rockies",
+  "location": "Fort Collins, CO",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "Rocky Mountain Brassworks",
+   "BKXperience",
+   "Troopers Legacy Corps",
+   "Genesis",
+   "Troopers",
+   "Phantom Regiment",
+   "Blue Devils",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:15 PM",
+    "Rocky Mountain Brassworks"
+   ],
+   [
+    "7:25 PM",
+    "BKXperience"
+   ],
+   [
+    "7:35 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Blue Knights Awards Presentation"
+   ],
+   [
+    "7:45 PM",
+    "Troopers Legacy Corps"
+   ],
+   [
+    "8:03 PM",
+    "Genesis"
+   ],
+   [
+    "8:21 PM",
+    "Troopers"
+   ],
+   [
+    "8:39 PM",
+    "Intermission"
+   ],
+   [
+    "9:00 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:18 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:36 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:54 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "10:01 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-13"
+ },
+ {
   "url": "https://www.dci.org/events/2026-corps-encore/",
   "name": "Corps Encore",
   "location": "Ogden, UT",
@@ -311,69 +343,6 @@
     "Gates Open"
    ]
   ],
-  "_seen": "2026-09-13"
- },
- {
-  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
-  "name": "Northwest Youth Music Games Seattle",
-  "location": "Seattle, WA",
-  "date_display": "June 30, 2026",
-  "date": "2026-06-30",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "Columbians",
-   "The Battalion",
-   "Santa Clara Vanguard",
-   "Seattle Cascades"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:45 PM",
-    "Intermission"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:52 PM",
-    "Impulse"
-   ],
-   [
-    "8:07 PM",
-    "Columbians"
-   ],
-   [
-    "8:22 PM",
-    "The Battalion"
-   ],
-   [
-    "8:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:28 PM",
-    "Encore - Seattle Cascades - Seattle, WA"
-   ],
-   [
-    "9:35 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-13"
  },
  {
@@ -551,59 +520,6 @@
    ],
    [
     "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-13"
- },
- {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
     "Event Concludes"
    ]
   ],
