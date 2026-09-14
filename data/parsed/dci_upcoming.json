@@ -127,81 +127,6 @@
   "_seen": "2026-09-14"
  },
  {
-  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
-  "name": "Bluecoats Opening Night Community Celebration",
-  "location": "Alliance, OH",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Columbus Saints",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Eclipse",
-   "EN-CORPS by EN-RICH-MENT",
-   "Bluecoats Alumni Legacy Arc",
-   "Rhythm IN BLUE",
-   "The Bluecoats",
-   "The Blue Way Summer Arts Camp",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "5:15 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "6:25 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "6:40 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "6:55 PM",
-    "Eclipse"
-   ],
-   [
-    "7:10 PM",
-    "EN-CORPS by EN-RICH-MENT"
-   ],
-   [
-    "7:25 PM",
-    "Bluecoats Alumni Legacy Arc"
-   ],
-   [
-    "7:40 PM",
-    "Rhythm IN BLUE"
-   ],
-   [
-    "7:55 PM",
-    "The Bluecoats"
-   ],
-   [
-    "8:18 PM",
-    "The Blue Way Summer Arts Camp"
-   ],
-   [
-    "8:28 PM",
-    "Encore - Bluecoats - Canton, OH"
-   ],
-   [
-    "8:53 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy in effect for this event",
-  "_seen": "2026-09-14"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -3417,70 +3342,6 @@
   "_seen": "2026-09-14"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
-  "name": "DCI Middle Tennessee",
-  "location": "Murfreesboro, TN",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Music City",
-   "Spirit of Atlanta",
-   "Colts",
-   "Carolina Crown",
-   "Bluecoats",
-   "Blue Devils",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Music City"
-   ],
-   [
-    "7:58 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:16 PM",
-    "Colts"
-   ],
-   [
-    "8:34 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:10 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:28 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:46 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:11 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
-  "_seen": "2026-09-14"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-syracuse/",
   "name": "DCI Syracuse",
   "location": "Central Square, NY",
@@ -5024,6 +4885,81 @@
   "_seen": "2026-09-14"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-kentucky/",
+  "name": "DCI Kentucky",
+  "location": "Lexington, KY",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "Hurricanes",
+   "Atlanta CV",
+   "Bushwackers",
+   "Spartans",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "The Cavaliers",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome"
+   ],
+   [
+    "7:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "7:57 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:14 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:31 PM",
+    "Spartans"
+   ],
+   [
+    "8:48 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:05 PM",
+    "Troopers"
+   ],
+   [
+    "9:22 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:39 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:56 PM",
+    "The Cavaliers"
+   ],
+   [
+    "10:13 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:38 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-14"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
   "name": "DCI Open Class World Championship Prelims",
   "location": "Dayton, OH",
@@ -5110,6 +5046,119 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-09-14"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-innovations-in-brass/",
+  "name": "Innovations In Brass",
+  "location": "Akron, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "The Blue Way Middle School Honor Band",
+   "Rhythm IN BLUE",
+   "EN-CORPS by EN-RICH-MENT",
+   "Genesis",
+   "Seattle Cascades",
+   "Music City",
+   "The Academy",
+   "Crossmen",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Santa Clara Vanguard",
+   "Carolina Crown",
+   "Boston Crusaders",
+   "Blue Devils",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "The Blue Way Middle School Honor Band"
+   ],
+   [
+    "6:20 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "6:30 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "6:42 PM",
+    "Genesis"
+   ],
+   [
+    "6:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:16 PM",
+    "Music City"
+   ],
+   [
+    "7:33 PM",
+    "The Academy"
+   ],
+   [
+    "7:50 PM",
+    "Crossmen"
+   ],
+   [
+    "8:07 PM",
+    "Intermission"
+   ],
+   [
+    "8:24 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Colts"
+   ],
+   [
+    "9:15 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:32 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:49 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:06 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:23 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:40 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "10:48 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
   "_seen": "2026-09-14"
  },
  {
