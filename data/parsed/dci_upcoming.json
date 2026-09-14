@@ -2083,83 +2083,6 @@
   "_seen": "2026-09-14"
  },
  {
-  "url": "https://www.dci.org/events/2026-brass-impact/",
-  "name": "Brass Impact",
-  "location": "Olathe, KS",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Sky Ryders",
-   "Colt Cadets",
-   "Spartans",
-   "Crossmen",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Stars",
-   "Phantom Regiment",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:38 PM",
-    "Sky Ryders"
-   ],
-   [
-    "7:50 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:07 PM",
-    "Spartans"
-   ],
-   [
-    "8:24 PM",
-    "Crossmen"
-   ],
-   [
-    "8:41 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:58 PM",
-    "Intermission"
-   ],
-   [
-    "9:13 PM",
-    "Troopers"
-   ],
-   [
-    "9:30 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:47 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:04 PM",
-    "Colts"
-   ],
-   [
-    "10:21 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-09-14"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
   "name": "Drums Across the Desert",
   "location": "Mesa, AZ",
@@ -2276,6 +2199,74 @@
    ]
   ],
   "bag_policy": "Broken Arrow Memorial Stadium has a clear bag policy, more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-14"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-hutchinson/",
+  "name": "DCI Hutchinson",
+  "location": "Hutchinson, KS",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Sky Ryders",
+   "Spartans",
+   "Music City",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:22 PM",
+    "Spartans"
+   ],
+   [
+    "8:39 PM",
+    "Music City"
+   ],
+   [
+    "8:56 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:13 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Troopers"
+   ],
+   [
+    "9:47 PM",
+    "Blue Knights"
+   ],
+   [
+    "10:04 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-14"
  },
  {
@@ -5230,6 +5221,100 @@
    ]
   ],
   "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
+  "_seen": "2026-09-14"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
+  "name": "DCI Open Class World Championship Finals",
+  "location": "Dayton, OH",
+  "date_display": "August 4, 2026",
+  "date": "2026-08-04",
+  "lineup": [
+   "Mercedes Marching Band",
+   "Heat Wave",
+   "Eclipse",
+   "Les Stentors",
+   "7th Regiment",
+   "Raiders",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Memphis Blues",
+   "Blue Devils B",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "Mercedes Marching Band"
+   ],
+   [
+    "6:27 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:44 PM",
+    "Eclipse"
+   ],
+   [
+    "7:01 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:18 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:35 PM",
+    "Raiders"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:26 PM",
+    "Columbians"
+   ],
+   [
+    "8:43 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:00 PM",
+    "Memphis Blues"
+   ],
+   [
+    "9:17 PM",
+    "Blue Devils B"
+   ],
+   [
+    "9:34 PM",
+    "Gold"
+   ],
+   [
+    "9:51 PM",
+    "The Battalion"
+   ],
+   [
+    "10:16 PM",
+    "Retreat"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-09-14"
  },
  {
