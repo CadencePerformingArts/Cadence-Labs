@@ -44,19 +44,6 @@
   "_seen": "2026-09-18"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-09-18"
- },
- {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -5891,6 +5878,22 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-09-18"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
+  "name": "Shining a Light on Music Education",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "Apogee",
+   "Freelancers",
+   "Green Beret Marching Band",
+   "Mercedes Marching Band",
+   "Rhythm IN BLUE",
+   "Spark"
+  ],
   "_seen": "2026-09-18"
  },
  {
