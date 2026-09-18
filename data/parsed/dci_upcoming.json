@@ -1531,78 +1531,6 @@
   "_seen": "2026-09-18"
  },
  {
-  "url": "https://www.dci.org/events/2026-music-on-the-march/",
-  "name": "Music on the March",
-  "location": "Dubuque, IA",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Conquest",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Conquest"
-   ],
-   [
-    "7:22 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:39 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:56 PM",
-    "Genesis"
-   ],
-   [
-    "8:13 PM",
-    "Intermission"
-   ],
-   [
-    "8:33 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:50 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:07 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:24 PM",
-    "Colts"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-09-18"
- },
- {
   "url": "https://www.dci.org/events/2026-western-corps-connection/",
   "name": "Western Corps Connection",
   "location": "Walnut, CA",
@@ -1743,94 +1671,6 @@
    ]
   ],
   "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
-  "_seen": "2026-09-18"
- },
- {
-  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
-  "name": "Drum Corps Grand Prix",
-  "location": "Clifton, NJ",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Sonus Brass Theater",
-   "Raiders",
-   "Les Stentors",
-   "7th Regiment",
-   "White Sabers",
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hurricanes",
-   "Hawthorne Caballeros",
-   "Hall of Fame Induction",
-   "Hawthorne Caballeros Alumni"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "6:52 PM",
-    "Raiders"
-   ],
-   [
-    "7:09 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:26 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:43 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "White Sabers"
-   ],
-   [
-    "8:17 PM",
-    "Bushwackers"
-   ],
-   [
-    "8:34 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:51 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:08 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "9:25 PM",
-    "Hall of Fame Induction"
-   ],
-   [
-    "9:35 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-18"
  },
  {
@@ -3478,6 +3318,69 @@
    ]
   ],
   "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
+  "_seen": "2026-09-18"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-syracuse/",
+  "name": "DCI Syracuse",
+  "location": "Central Square, NY",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Baldwinsville Marching Band",
+   "Brig Juice Brass",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "White Sabers"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Baldwinsville Marching Band"
+   ],
+   [
+    "7:20 PM",
+    "Brig Juice Brass"
+   ],
+   [
+    "7:32 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:49 PM",
+    "Raiders"
+   ],
+   [
+    "8:06 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:23 PM",
+    "The Battalion"
+   ],
+   [
+    "8:40 PM",
+    "White Sabers"
+   ],
+   [
+    "8:57 PM",
+    "Encore - White Sabers - Rochester, NY"
+   ],
+   [
+    "9:05 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-09-18"
  },
  {
