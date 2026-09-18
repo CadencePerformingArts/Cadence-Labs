@@ -1,49 +1,5 @@
 [
  {
-  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
-  "name": "DCI Tour Preview",
-  "location": "Muncie, IN",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Cincinnati Tradition",
-   "The Cavaliers",
-   "Carolina Crown",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:15 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:45 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:15 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:45 PM",
-    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-18"
- },
- {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -3018,6 +2974,71 @@
   "_seen": "2026-09-18"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-09-18"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -5327,6 +5348,14 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-09-18"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
+  "name": "DCI 2026: Big, Loud & Live",
+  "date_display": "August 6, 2026",
+  "date": "2026-08-06",
+  "lineup": [],
   "_seen": "2026-09-18"
  },
  {
