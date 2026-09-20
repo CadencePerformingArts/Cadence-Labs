@@ -633,6 +633,59 @@
   "_seen": "2026-09-20"
  },
  {
+  "url": "https://www.dci.org/events/2026-preview-of-champions/",
+  "name": "Preview of Champions",
+  "location": "Nashua, NH",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Boston Crusaders",
+   "Spartans",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome"
+   ],
+   [
+    "8:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:35 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:00 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:55 PM",
+    "Spartans"
+   ],
+   [
+    "10:20 PM",
+    "Encore - Spartans - Nashua, NH"
+   ],
+   [
+    "10:45 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-09-20"
+ },
+ {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -1264,65 +1317,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-09-20"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
-  "name": "DCI Northern Alabama",
-  "location": "Muscle Shoals, AL",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "8:22 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:39 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:56 PM",
-    "Music City"
-   ],
-   [
-    "9:13 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:47 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:55 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-09-20"
  },
  {
@@ -2485,81 +2479,6 @@
    ]
   ],
   "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-20"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-houston/",
-  "name": "DCI Houston",
-  "location": "Houston, TX",
-  "date_display": "July 17, 2026",
-  "date": "2026-07-17",
-  "lineup": [
-   "Spartans",
-   "Genesis",
-   "Crossmen",
-   "The Academy",
-   "The Cavaliers",
-   "Blue Stars",
-   "Blue Devils",
-   "Carolina Crown",
-   "Bluecoats",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Spartans"
-   ],
-   [
-    "8:27 PM",
-    "Genesis"
-   ],
-   [
-    "8:44 PM",
-    "Crossmen"
-   ],
-   [
-    "9:01 PM",
-    "The Academy"
-   ],
-   [
-    "9:18 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:35 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:52 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:09 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:26 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:43 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "11:08 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
   "_seen": "2026-09-20"
  },
  {
