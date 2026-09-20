@@ -515,124 +515,6 @@
   "_seen": "2026-09-20"
  },
  {
-  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
-  "name": "Northwest Youth Music Games Portland",
-  "location": "Portland, OR",
-  "date_display": "July 1, 2026",
-  "date": "2026-07-01",
-  "lineup": [
-   "One More Time Around Marching Band",
-   "Gems",
-   "Impulse",
-   "Columbians",
-   "The Battalion",
-   "Santa Clara Vanguard",
-   "Seattle Cascades"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:15 PM",
-    "One More Time Around Marching Band"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:52 PM",
-    "Impulse"
-   ],
-   [
-    "8:07 PM",
-    "Columbians"
-   ],
-   [
-    "8:22 PM",
-    "The Battalion"
-   ],
-   [
-    "8:37 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:28 PM",
-    "Encore - Seattle Cascades - Seattle, WA"
-   ],
-   [
-    "9:35 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-09-20"
- },
- {
-  "url": "https://www.dci.org/events/2026-midcal-showcase/",
-  "name": "MidCal Showcase",
-  "location": "Camarillo, CA",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Golden Empire",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Blue Devils",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:50 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:00 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:25 PM",
-    "The Academy"
-   ],
-   [
-    "8:50 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:15 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-20"
- },
- {
   "url": "https://www.dci.org/events/2026-preview-of-champions/",
   "name": "Preview of Champions",
   "location": "Nashua, NH",
@@ -1746,6 +1628,94 @@
   "_seen": "2026-09-20"
  },
  {
+  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
+  "name": "Drum Corps Grand Prix",
+  "location": "Clifton, NJ",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Sonus Brass Theater",
+   "Raiders",
+   "Les Stentors",
+   "7th Regiment",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hurricanes",
+   "Hawthorne Caballeros",
+   "Hall of Fame Induction",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:52 PM",
+    "Raiders"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "White Sabers"
+   ],
+   [
+    "8:17 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:34 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:51 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "9:25 PM",
+    "Hall of Fame Induction"
+   ],
+   [
+    "9:35 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:52 PM",
+    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
+   ],
+   [
+    "10:00 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-20"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drum-corps-at-the-rose-bowl/",
   "name": "Drum Corps at the Rose Bowl",
   "location": "Pasadena, CA",
@@ -1990,6 +1960,83 @@
    [
     "9:17 PM",
     "Retreat"
+   ]
+  ],
+  "_seen": "2026-09-20"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-brass-impact/",
+  "name": "Brass Impact",
+  "location": "Olathe, KS",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Sky Ryders",
+   "Colt Cadets",
+   "Spartans",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:38 PM",
+    "Sky Ryders"
+   ],
+   [
+    "7:50 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:07 PM",
+    "Spartans"
+   ],
+   [
+    "8:24 PM",
+    "Crossmen"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Intermission"
+   ],
+   [
+    "9:13 PM",
+    "Troopers"
+   ],
+   [
+    "9:30 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:47 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Colts"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
    ]
   ],
   "_seen": "2026-09-20"
