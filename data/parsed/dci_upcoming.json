@@ -2616,6 +2616,61 @@
   "_seen": "2026-09-20"
  },
  {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
+  "_seen": "2026-09-20"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southwestern-championship/",
   "name": "DCI Southwestern Championship",
   "location": "San Antonio, TX",
@@ -3275,90 +3330,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-09-20"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-birmingham/",
-  "name": "DCI Birmingham",
-  "location": "Birmingham, AL",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Fusion Core",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Heat Wave",
-   "Spartans",
-   "The Academy",
-   "Crossmen",
-   "Blue Knights",
-   "Troopers",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "7:52 PM",
-    "Fusion Core"
-   ],
-   [
-    "8:09 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:26 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:43 PM",
-    "Heat Wave"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:17 PM",
-    "Spartans"
-   ],
-   [
-    "9:34 PM",
-    "The Academy"
-   ],
-   [
-    "9:51 PM",
-    "Crossmen"
-   ],
-   [
-    "10:08 PM",
-    "Blue Knights"
-   ],
-   [
-    "10:25 PM",
-    "Troopers"
-   ],
-   [
-    "10:42 PM",
-    "Blue Stars"
-   ],
-   [
-    "11:07 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-20"
  },
  {
