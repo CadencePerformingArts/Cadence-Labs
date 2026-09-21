@@ -891,6 +891,109 @@
   "_seen": "2026-09-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-west/",
+  "name": "DCI West",
+  "location": "Stanford, CA",
+  "date_display": "July 5, 2026",
+  "date": "2026-07-05",
+  "lineup": [
+   "Alisal Union School District Marching Band",
+   "Alisal Union School District All-Star Academy",
+   "Sacramento Freelancers",
+   "Sparta Ignite",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Blue Devils C",
+   "Blue Devils B",
+   "Seattle Cascades",
+   "The Academy",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:25 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "5:35 PM",
+    "Alisal Union School District Marching Band"
+   ],
+   [
+    "5:45 PM",
+    "Alisal Union School District All-Star Academy"
+   ],
+   [
+    "5:55 PM",
+    "Sacramento Freelancers"
+   ],
+   [
+    "6:10 PM",
+    "Sparta Ignite"
+   ],
+   [
+    "6:20 PM",
+    "Intermission"
+   ],
+   [
+    "6:40 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:57 PM",
+    "Gold"
+   ],
+   [
+    "7:14 PM",
+    "Impulse"
+   ],
+   [
+    "7:31 PM",
+    "Blue Devils C"
+   ],
+   [
+    "7:48 PM",
+    "Blue Devils B"
+   ],
+   [
+    "8:05 PM",
+    "Intermission"
+   ],
+   [
+    "8:40 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:57 PM",
+    "The Academy"
+   ],
+   [
+    "9:14 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:31 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:48 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:13 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Stanford Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. See more details about the clear bag policy on the Stanford website . For more information, visit this page .",
+  "_seen": "2026-09-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-river-city-rhapsody/",
   "name": "River City Rhapsody",
   "location": "La Crosse, WI",
@@ -971,6 +1074,51 @@
    ]
   ],
   "bag_policy": "No bag policy is enforced for this event. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-21"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-across-the-smokies/",
+  "name": "Drums Across the Smokies",
+  "location": "Sevierville, TN",
+  "date_display": "July 7, 2026",
+  "date": "2026-07-07",
+  "lineup": [
+   "Music City",
+   "Spirit of Atlanta",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Music City"
+   ],
+   [
+    "8:32 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:54 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:16 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:41 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Lon C. Burchfield Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-21"
  },
  {
@@ -1595,94 +1743,6 @@
    ]
   ],
   "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
-  "_seen": "2026-09-21"
- },
- {
-  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
-  "name": "Drum Corps Grand Prix",
-  "location": "Clifton, NJ",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Sonus Brass Theater",
-   "Raiders",
-   "Les Stentors",
-   "7th Regiment",
-   "White Sabers",
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hurricanes",
-   "Hawthorne Caballeros",
-   "Hall of Fame Induction",
-   "Hawthorne Caballeros Alumni"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "6:52 PM",
-    "Raiders"
-   ],
-   [
-    "7:09 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:26 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:43 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "White Sabers"
-   ],
-   [
-    "8:17 PM",
-    "Bushwackers"
-   ],
-   [
-    "8:34 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:51 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:08 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "9:25 PM",
-    "Hall of Fame Induction"
-   ],
-   [
-    "9:35 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-21"
  },
  {
