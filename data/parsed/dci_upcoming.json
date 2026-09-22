@@ -1379,80 +1379,6 @@
   "_seen": "2026-09-22"
  },
  {
-  "url": "https://www.dci.org/events/2026-gold-showcase/",
-  "name": "Gold Showcase",
-  "location": "Santa Clarita, CA",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Blue Devils C",
-   "Golden Empire",
-   "Blue Devils B",
-   "The Academy",
-   "Pacific Crest",
-   "Blue Devils",
-   "Santa Clara Vanguard",
-   "Gold",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "5:50 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:00 PM",
-    "Blue Devils C"
-   ],
-   [
-    "6:17 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:34 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:51 PM",
-    "The Academy"
-   ],
-   [
-    "7:08 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:25 PM",
-    "Intermission"
-   ],
-   [
-    "7:55 PM",
-    "Blue Devils"
-   ],
-   [
-    "8:12 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "8:29 PM",
-    "Gold"
-   ],
-   [
-    "8:46 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:11 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-09-22"
- },
- {
   "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
   "name": "Cavalcade of Brass",
   "location": "Lisle, IL",
@@ -2829,6 +2755,80 @@
   "_seen": "2026-09-22"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-buccaneer-classic/",
+  "name": "The Buccaneer Classic",
+  "location": "Landisville, PA",
+  "date_display": "July 18, 2026",
+  "date": "2026-07-18",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Les Stentors",
+   "Raiders",
+   "Sunrisers",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:52 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "Raiders"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Sunrisers"
+   ],
+   [
+    "8:17 PM",
+    "White Sabers"
+   ],
+   [
+    "8:34 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:51 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:33 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-22"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-dallas/",
   "name": "DCI Dallas",
   "location": "Bedford, TX",
@@ -2906,6 +2906,41 @@
    ]
   ],
   "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
+  "name": "Raiders Tour Send-Off",
+  "location": "Aston Township, PA",
+  "date_display": "July 19, 2026",
+  "date": "2026-07-19",
+  "lineup": [
+   "Les Stentors",
+   "Raiders",
+   "Joint Performance"
+  ],
+  "schedule": [
+   [
+    "3:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:15 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:00 PM",
+    "Raiders"
+   ],
+   [
+    "8:45 PM",
+    "Joint Performance"
+   ]
+  ],
   "_seen": "2026-09-22"
  },
  {
