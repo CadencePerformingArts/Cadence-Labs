@@ -686,6 +686,55 @@
   "_seen": "2026-09-23"
  },
  {
+  "url": "https://www.dci.org/events/2026-rotary-music-festival/",
+  "name": "Rotary Music Festival",
+  "location": "Cedarburg, WI",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Eclipse",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Eclipse"
+   ],
+   [
+    "7:58 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:16 PM",
+    "The Cavaliers"
+   ],
+   [
+    "8:39 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:02 PM",
+    "Encore - Madison Scouts - Madison, WI"
+   ],
+   [
+    "9:04 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-09-23"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-capital-classic/",
   "name": "DCI Capital Classic",
   "location": "Sacramento, CA",
@@ -1070,6 +1119,79 @@
    ]
   ],
   "bag_policy": "Lon C. Burchfield Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-23"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
+  "name": "The Kiwanis Thunder of Drums",
+  "location": "Mankato, MN",
+  "date_display": "July 7, 2026",
+  "date": "2026-07-07",
+  "lineup": [
+   "Govenaires",
+   "MBI",
+   "River City Rhythm",
+   "Genesis",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights",
+   "The Cavaliers"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:50 PM",
+    "Minnesota State University - Clinic Band - Mankato, MN"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Govenaires"
+   ],
+   [
+    "7:27 PM",
+    "MBI"
+   ],
+   [
+    "7:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:01 PM",
+    "Intermission"
+   ],
+   [
+    "8:18 PM",
+    "Genesis"
+   ],
+   [
+    "8:35 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:52 PM",
+    "Colts"
+   ],
+   [
+    "9:09 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:26 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
   "_seen": "2026-09-23"
  },
  {
@@ -3356,69 +3478,6 @@
    ]
   ],
   "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
-  "_seen": "2026-09-23"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-syracuse/",
-  "name": "DCI Syracuse",
-  "location": "Central Square, NY",
-  "date_display": "July 24, 2026",
-  "date": "2026-07-24",
-  "lineup": [
-   "Baldwinsville Marching Band",
-   "Brig Juice Brass",
-   "Les Stentors",
-   "Raiders",
-   "7th Regiment",
-   "The Battalion",
-   "White Sabers"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Baldwinsville Marching Band"
-   ],
-   [
-    "7:20 PM",
-    "Brig Juice Brass"
-   ],
-   [
-    "7:32 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:49 PM",
-    "Raiders"
-   ],
-   [
-    "8:06 PM",
-    "7th Regiment"
-   ],
-   [
-    "8:23 PM",
-    "The Battalion"
-   ],
-   [
-    "8:40 PM",
-    "White Sabers"
-   ],
-   [
-    "8:57 PM",
-    "Encore - White Sabers - Rochester, NY"
-   ],
-   [
-    "9:05 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-09-23"
  },
  {
