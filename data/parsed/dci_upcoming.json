@@ -4629,6 +4629,95 @@
   "_seen": "2026-09-23"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic-2/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Genesis",
+   "Music City",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Blue Knights",
+   "Blue Stars",
+   "Colts",
+   "Bluecoats",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Bushwackers"
+   ],
+   [
+    "7:27 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:44 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "8:01 PM",
+    "Genesis"
+   ],
+   [
+    "8:18 PM",
+    "Music City"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:09 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:00 PM",
+    "Colts"
+   ],
+   [
+    "10:17 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:34 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-09-23"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-michigan/",
   "name": "DCI Michigan",
   "location": "Allendale, MI",
@@ -4932,81 +5021,6 @@
    ]
   ],
   "bag_policy": "All bags may be subject to search upon entering the stadium.",
-  "_seen": "2026-09-23"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-kentucky/",
-  "name": "DCI Kentucky",
-  "location": "Lexington, KY",
-  "date_display": "August 3, 2026",
-  "date": "2026-08-03",
-  "lineup": [
-   "Hurricanes",
-   "Atlanta CV",
-   "Bushwackers",
-   "Spartans",
-   "Spirit of Atlanta",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "The Cavaliers",
-   "Phantom Regiment"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome"
-   ],
-   [
-    "7:40 PM",
-    "Hurricanes"
-   ],
-   [
-    "7:57 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:14 PM",
-    "Bushwackers"
-   ],
-   [
-    "8:31 PM",
-    "Spartans"
-   ],
-   [
-    "8:48 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:05 PM",
-    "Troopers"
-   ],
-   [
-    "9:22 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:39 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:56 PM",
-    "The Cavaliers"
-   ],
-   [
-    "10:13 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:38 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-23"
  },
  {
