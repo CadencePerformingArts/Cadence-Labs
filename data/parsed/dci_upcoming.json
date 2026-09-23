@@ -5024,6 +5024,81 @@
   "_seen": "2026-09-23"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-kentucky/",
+  "name": "DCI Kentucky",
+  "location": "Lexington, KY",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "Hurricanes",
+   "Atlanta CV",
+   "Bushwackers",
+   "Spartans",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "The Cavaliers",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome"
+   ],
+   [
+    "7:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "7:57 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:14 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:31 PM",
+    "Spartans"
+   ],
+   [
+    "8:48 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:05 PM",
+    "Troopers"
+   ],
+   [
+    "9:22 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:39 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:56 PM",
+    "The Cavaliers"
+   ],
+   [
+    "10:13 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:38 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-23"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
   "name": "DCI Open Class World Championship Prelims",
   "location": "Dayton, OH",
