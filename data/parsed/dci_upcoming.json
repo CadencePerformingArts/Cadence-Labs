@@ -3544,6 +3544,88 @@
   "_seen": "2026-09-25"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-on-parade/",
+  "name": "Drums on Parade",
+  "location": "Madison, WI",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Green Beret Marching Band",
+   "Govenaires",
+   "Colt Cadets",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Madison Scouts"
+  ],
+  "schedule": [
+   [
+    "5:45 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "7:22 PM",
+    "Govenaires"
+   ],
+   [
+    "7:39 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:56 PM",
+    "Genesis"
+   ],
+   [
+    "8:13 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:30 PM",
+    "Intermission"
+   ],
+   [
+    "8:47 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:04 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:21 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:38 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:55 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:12 PM",
+    "Encore - Madison Scouts - Madison, WI"
+   ],
+   [
+    "10:20 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-25"
+ },
+ {
   "url": "https://www.dci.org/events/2026-bushwackers-invitational/",
   "name": "Bushwackers Invitational",
   "location": "Mt. Olive, NJ",
@@ -4712,90 +4794,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-09-25"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-eastern-classic/",
-  "name": "DCI Eastern Classic",
-  "location": "Allentown, PA",
-  "date_display": "August 1, 2026",
-  "date": "2026-08-01",
-  "lineup": [
-   "Spartans",
-   "Seattle Cascades",
-   "The Academy",
-   "Pacific Crest",
-   "Madison Scouts",
-   "Crossmen",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Spartans"
-   ],
-   [
-    "7:27 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "7:44 PM",
-    "The Academy"
-   ],
-   [
-    "8:01 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:18 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:35 PM",
-    "Crossmen"
-   ],
-   [
-    "8:52 PM",
-    "Intermission"
-   ],
-   [
-    "9:09 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:26 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:43 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:00 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:17 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:42 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-09-25"
  },
  {
