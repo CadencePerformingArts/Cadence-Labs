@@ -3973,6 +3973,56 @@
   "_seen": "2026-09-25"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-in-motion/",
+  "name": "DCI in Motion",
+  "location": "Norton, OH",
+  "date_display": "July 26, 2026",
+  "date": "2026-07-26",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Gold",
+   "Cincinnati Tradition",
+   "Rogues Hollow Regiment"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:27 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:44 PM",
+    "Gold"
+   ],
+   [
+    "8:01 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:18 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-09-25"
+ },
+ {
   "url": "https://www.dci.org/events/2026-nightbeat/",
   "name": "NightBEAT",
   "location": "Winston-Salem, NC",
