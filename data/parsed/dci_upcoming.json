@@ -335,61 +335,6 @@
   "_seen": "2026-09-25"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
-  "name": "Drums Along the Columbia",
-  "location": "Kennewick, WA",
-  "date_display": "June 29, 2026",
-  "date": "2026-06-29",
-  "lineup": [
-   "Gems",
-   "Impulse",
-   "The Battalion",
-   "Columbians",
-   "Seattle Cascades",
-   "Santa Clara Vanguard",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Gems"
-   ],
-   [
-    "7:58 PM",
-    "Impulse"
-   ],
-   [
-    "8:16 PM",
-    "The Battalion"
-   ],
-   [
-    "8:34 PM",
-    "Columbians"
-   ],
-   [
-    "8:52 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:10 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:17 PM",
-    "Event Concludes"
-   ],
-   [
-    "",
-    "Gates Open"
-   ]
-  ],
-  "_seen": "2026-09-25"
- },
- {
   "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
   "name": "Northwest Youth Music Games Seattle",
   "location": "Seattle, WA",
@@ -5392,6 +5337,14 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-09-25"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
+  "name": "DCI 2026: Big, Loud & Live",
+  "date_display": "August 6, 2026",
+  "date": "2026-08-06",
+  "lineup": [],
   "_seen": "2026-09-25"
  },
  {
