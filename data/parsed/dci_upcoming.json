@@ -1603,6 +1603,90 @@
   "_seen": "2026-09-27"
  },
  {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-09-27"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -4794,71 +4878,6 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-09-27"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
-  "name": "DCI Pittsburgh",
-  "location": "Pittsburgh, PA",
-  "date_display": "August 1, 2026",
-  "date": "2026-08-01",
-  "lineup": [
-   "Sonus Brass Theater",
-   "Columbus Saints",
-   "White Sabers",
-   "Rogues Hollow Regiment",
-   "Hurricanes",
-   "Bushwackers",
-   "Music City",
-   "Spirit of Atlanta"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome"
-   ],
-   [
-    "7:40 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "7:52 PM",
-    "Columbus Saints"
-   ],
-   [
-    "8:09 PM",
-    "White Sabers"
-   ],
-   [
-    "8:26 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "8:43 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:00 PM",
-    "Bushwackers"
-   ],
-   [
-    "9:17 PM",
-    "Music City"
-   ],
-   [
-    "9:34 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:59 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-27"
  },
  {
