@@ -4881,81 +4881,68 @@
   "_seen": "2026-09-27"
  },
  {
-  "url": "https://www.dci.org/events/2026-big-sounds-in-motion/",
-  "name": "Big Sounds in Motion",
-  "location": "Downingtown, PA",
-  "date_display": "August 2, 2026",
-  "date": "2026-08-02",
+  "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
+  "name": "DCI Pittsburgh",
+  "location": "Pittsburgh, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
   "lineup": [
-   "Buccaneer Banner Brass",
-   "Buccaneers Alumni",
    "Sonus Brass Theater",
-   "Hawthorne Caballeros",
-   "Reading Buccaneers",
-   "Pacific Crest",
-   "Colts",
-   "Carolina Crown",
-   "Boston Crusaders"
+   "Columbus Saints",
+   "White Sabers",
+   "Rogues Hollow Regiment",
+   "Hurricanes",
+   "Bushwackers",
+   "Music City",
+   "Spirit of Atlanta"
   ],
   "schedule": [
    [
-    "4:45 PM",
+    "6:00 PM",
     "Gates Open"
    ],
    [
-    "5:45 PM",
+    "7:30 PM",
     "Welcome"
    ],
    [
-    "5:55 PM",
-    "Buccaneer Banner Brass"
-   ],
-   [
-    "6:07 PM",
-    "Buccaneers Alumni"
-   ],
-   [
-    "6:24 PM",
+    "7:40 PM",
     "Sonus Brass Theater"
    ],
    [
-    "6:36 PM",
-    "Hawthorne Caballeros"
+    "7:52 PM",
+    "Columbus Saints"
    ],
    [
-    "6:53 PM",
-    "Reading Buccaneers"
+    "8:09 PM",
+    "White Sabers"
    ],
    [
-    "7:10 PM",
-    "Intermission"
-   ],
-   [
-    "7:27 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:44 PM",
-    "Colts"
-   ],
-   [
-    "8:01 PM",
-    "Carolina Crown"
-   ],
-   [
-    "8:18 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:35 PM",
-    "Encore - Reading Buccaneers - Reading, PA"
+    "8:26 PM",
+    "Rogues Hollow Regiment"
    ],
    [
     "8:43 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:17 PM",
+    "Music City"
+   ],
+   [
+    "9:34 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:59 PM",
     "Scores Announced"
    ]
   ],
-  "bag_policy": "All bags may be subject to search upon entering the stadium.",
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-27"
  },
  {
