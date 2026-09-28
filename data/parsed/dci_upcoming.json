@@ -2083,6 +2083,83 @@
   "_seen": "2026-09-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-brass-impact/",
+  "name": "Brass Impact",
+  "location": "Olathe, KS",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Sky Ryders",
+   "Colt Cadets",
+   "Spartans",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:38 PM",
+    "Sky Ryders"
+   ],
+   [
+    "7:50 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:07 PM",
+    "Spartans"
+   ],
+   [
+    "8:24 PM",
+    "Crossmen"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Intermission"
+   ],
+   [
+    "9:13 PM",
+    "Troopers"
+   ],
+   [
+    "9:30 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:47 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Colts"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-09-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
   "name": "Drums Across the Desert",
   "location": "Mesa, AZ",
@@ -3122,79 +3199,6 @@
    ]
   ],
   "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-09-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
-  "name": "Drums on the Ohio",
-  "location": "Evansville, IN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "Colts",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Gold"
-   ],
-   [
-    "7:27 PM",
-    "The Battalion"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:18 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:05 PM",
-    "Colts"
-   ],
-   [
-    "9:22 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:39 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:56 PM",
-    "Encore - Phantom Regiment - Rockford, IL"
-   ],
-   [
-    "10:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-09-28"
  },
  {
