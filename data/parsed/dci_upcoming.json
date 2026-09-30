@@ -1,49 +1,5 @@
 [
  {
-  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
-  "name": "DCI Tour Preview",
-  "location": "Muncie, IN",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Cincinnati Tradition",
-   "The Cavaliers",
-   "Carolina Crown",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:15 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:45 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:15 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:45 PM",
-    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-09-30"
- },
- {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -2538,6 +2494,81 @@
    ]
   ],
   "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-09-30"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-houston/",
+  "name": "DCI Houston",
+  "location": "Houston, TX",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "The Academy",
+   "The Cavaliers",
+   "Blue Stars",
+   "Blue Devils",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Spartans"
+   ],
+   [
+    "8:27 PM",
+    "Genesis"
+   ],
+   [
+    "8:44 PM",
+    "Crossmen"
+   ],
+   [
+    "9:01 PM",
+    "The Academy"
+   ],
+   [
+    "9:18 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:35 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:52 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:09 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:26 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:43 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "11:08 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
   "_seen": "2026-09-30"
  },
  {
