@@ -1926,105 +1926,6 @@
   "_seen": "2026-09-30"
  },
  {
-  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
-  "name": "The Whitewater Classic",
-  "location": "Whitewater, WI",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Green Beret Marching Band",
-   "The Connexion",
-   "Sound of Sun Prairie",
-   "Eclipse",
-   "River City Rhythm",
-   "Spartans",
-   "Genesis",
-   "Crossmen",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Madison Scouts"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:55 PM",
-    "Green Beret Marching Band"
-   ],
-   [
-    "6:05 PM",
-    "The Connexion"
-   ],
-   [
-    "6:15 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "6:27 PM",
-    "Eclipse"
-   ],
-   [
-    "6:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:01 PM",
-    "Spartans"
-   ],
-   [
-    "7:18 PM",
-    "Genesis"
-   ],
-   [
-    "7:35 PM",
-    "Crossmen"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Troopers"
-   ],
-   [
-    "8:26 PM",
-    "Blue Knights"
-   ],
-   [
-    "8:43 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:00 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:17 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:34 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:51 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-09-30"
- },
- {
   "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
   "name": "So Cal Classic: Open Class Pacific Championship Finals",
   "location": "Buena Park, CA",
@@ -4204,6 +4105,69 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-09-30"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-brass-at-the-beach/",
+  "name": "Brass at the Beach",
+  "location": "Myrtle Beach, SC",
+  "date_display": "July 28, 2026",
+  "date": "2026-07-28",
+  "lineup": [
+   "Music City",
+   "The Academy",
+   "Spirit of Atlanta",
+   "Crossmen",
+   "Blue Stars",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:10 PM",
+    "Music City"
+   ],
+   [
+    "7:27 PM",
+    "The Academy"
+   ],
+   [
+    "7:44 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:01 PM",
+    "Crossmen"
+   ],
+   [
+    "8:18 PM",
+    "Intermission"
+   ],
+   [
+    "8:35 PM",
+    "Blue Stars"
+   ],
+   [
+    "8:52 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:09 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "9:17 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-09-30"
  },
  {
