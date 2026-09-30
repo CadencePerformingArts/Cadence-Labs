@@ -4550,28 +4550,26 @@
   "_seen": "2026-09-30"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-eastern-classic-2/",
-  "name": "DCI Eastern Classic",
-  "location": "Allentown, PA",
-  "date_display": "July 31, 2026",
-  "date": "2026-07-31",
+  "url": "https://www.dci.org/events/2026-the-marion-open/",
+  "name": "The Marion Open",
+  "location": "Marion, OH",
+  "date_display": "July 30, 2026",
+  "date": "2026-07-30",
   "lineup": [
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros",
-   "Genesis",
-   "Music City",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts",
-   "Bluecoats",
-   "Blue Devils"
+   "Cincinnati Tradition",
+   "Memphis Blues",
+   "Heat Wave",
+   "Raiders",
+   "Colt Cadets",
+   "Les Stentors",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
   ],
   "schedule": [
    [
-    "5:30 PM",
+    "6:00 PM",
     "Gates Open"
    ],
    [
@@ -4580,23 +4578,23 @@
    ],
    [
     "7:10 PM",
-    "Bushwackers"
+    "Cincinnati Tradition"
    ],
    [
     "7:27 PM",
-    "Reading Buccaneers"
+    "Memphis Blues"
    ],
    [
     "7:44 PM",
-    "Hawthorne Caballeros"
+    "Heat Wave"
    ],
    [
     "8:01 PM",
-    "Genesis"
+    "Raiders"
    ],
    [
     "8:18 PM",
-    "Music City"
+    "Colt Cadets"
    ],
    [
     "8:35 PM",
@@ -4604,38 +4602,30 @@
    ],
    [
     "8:52 PM",
-    "Troopers"
+    "Les Stentors"
    ],
    [
     "9:09 PM",
-    "Spirit of Atlanta"
+    "River City Rhythm"
    ],
    [
     "9:26 PM",
-    "Blue Knights"
+    "7th Regiment"
    ],
    [
     "9:43 PM",
-    "Blue Stars"
+    "Gold"
    ],
    [
     "10:00 PM",
-    "Colts"
+    "The Battalion"
    ],
    [
-    "10:17 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:34 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:42 PM",
+    "10:25 PM",
     "Scores Announced"
    ]
   ],
-  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
   "_seen": "2026-09-30"
  },
  {
@@ -4799,6 +4789,71 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-09-30"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
+  "name": "DCI Pittsburgh",
+  "location": "Pittsburgh, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Sonus Brass Theater",
+   "Columbus Saints",
+   "White Sabers",
+   "Rogues Hollow Regiment",
+   "Hurricanes",
+   "Bushwackers",
+   "Music City",
+   "Spirit of Atlanta"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome"
+   ],
+   [
+    "7:40 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "7:52 PM",
+    "Columbus Saints"
+   ],
+   [
+    "8:09 PM",
+    "White Sabers"
+   ],
+   [
+    "8:26 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "8:43 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:17 PM",
+    "Music City"
+   ],
+   [
+    "9:34 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:59 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-09-30"
  },
  {
