@@ -44,6 +44,19 @@
   "_seen": "2026-10-01"
  },
  {
+  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
+  "name": "Santa Clara Vanguard Showcase",
+  "location": "Moscow, ID",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Columbians",
+   "Gems",
+   "Santa Clara Vanguard"
+  ],
+  "_seen": "2026-10-01"
+ },
+ {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -567,56 +580,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-10-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-midcal-showcase/",
-  "name": "MidCal Showcase",
-  "location": "Camarillo, CA",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Golden Empire",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Blue Devils",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:50 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:00 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:25 PM",
-    "The Academy"
-   ],
-   [
-    "8:50 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:15 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
   "_seen": "2026-10-01"
  },
  {
