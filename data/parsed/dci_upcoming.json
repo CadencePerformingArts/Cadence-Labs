@@ -44,19 +44,6 @@
   "_seen": "2026-10-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-10-01"
- },
- {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -1600,6 +1587,149 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-10-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-10-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-little-rock/",
+  "name": "DCI Little Rock",
+  "location": "Little Rock, AR",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Memphis Blues",
+   "Zephyrus",
+   "Music City",
+   "Spirit of Atlanta",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:27 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:44 PM",
+    "Music City"
+   ],
+   [
+    "9:01 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:18 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:35 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:52 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
   "_seen": "2026-10-01"
  },
  {
