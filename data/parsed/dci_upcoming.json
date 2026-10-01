@@ -1320,65 +1320,6 @@
   "_seen": "2026-10-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
-  "name": "DCI Northern Alabama",
-  "location": "Muscle Shoals, AL",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "8:22 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:39 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:56 PM",
-    "Music City"
-   ],
-   [
-    "9:13 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:47 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:55 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-10-01"
- },
- {
   "url": "https://www.dci.org/events/2026-gold-showcase/",
   "name": "Gold Showcase",
   "location": "Santa Clarita, CA",
@@ -2279,74 +2220,6 @@
   "_seen": "2026-10-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-hutchinson/",
-  "name": "DCI Hutchinson",
-  "location": "Hutchinson, KS",
-  "date_display": "July 14, 2026",
-  "date": "2026-07-14",
-  "lineup": [
-   "Sky Ryders",
-   "Spartans",
-   "Music City",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Sky Ryders"
-   ],
-   [
-    "8:22 PM",
-    "Spartans"
-   ],
-   [
-    "8:39 PM",
-    "Music City"
-   ],
-   [
-    "8:56 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:13 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Troopers"
-   ],
-   [
-    "9:47 PM",
-    "Blue Knights"
-   ],
-   [
-    "10:04 PM",
-    "Blue Stars"
-   ],
-   [
-    "10:21 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "10:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-10-01"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-new-mexico/",
   "name": "DCI New Mexico",
   "location": "Albuquerque, NM",
@@ -2538,81 +2411,6 @@
    ]
   ],
   "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-houston/",
-  "name": "DCI Houston",
-  "location": "Houston, TX",
-  "date_display": "July 17, 2026",
-  "date": "2026-07-17",
-  "lineup": [
-   "Spartans",
-   "Genesis",
-   "Crossmen",
-   "The Academy",
-   "The Cavaliers",
-   "Blue Stars",
-   "Blue Devils",
-   "Carolina Crown",
-   "Bluecoats",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Spartans"
-   ],
-   [
-    "8:27 PM",
-    "Genesis"
-   ],
-   [
-    "8:44 PM",
-    "Crossmen"
-   ],
-   [
-    "9:01 PM",
-    "The Academy"
-   ],
-   [
-    "9:18 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:35 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:52 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:09 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:26 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:43 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "11:08 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
   "_seen": "2026-10-01"
  },
  {
@@ -4339,6 +4137,76 @@
   "_seen": "2026-10-01"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-huntington/",
+  "name": "DCI Huntington",
+  "location": "Huntington, WV",
+  "date_display": "July 29, 2026",
+  "date": "2026-07-29",
+  "lineup": [
+   "Memphis Blues",
+   "7th Regiment",
+   "Columbians",
+   "Gold",
+   "The Battalion",
+   "Seattle Cascades",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Memphis Blues"
+   ],
+   [
+    "7:57 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:14 PM",
+    "Columbians"
+   ],
+   [
+    "8:31 PM",
+    "Gold"
+   ],
+   [
+    "8:48 PM",
+    "The Battalion"
+   ],
+   [
+    "9:05 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:22 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:39 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:56 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:21 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Marshall Athletics enforces a Clear Bag Policy. More information can be found here .",
+  "_seen": "2026-10-01"
+ },
+ {
   "url": "https://www.dci.org/events/2026-summer-music-games-of-southwest-virginia/",
   "name": "Summer Music Games of Southwest Virginia",
   "location": "Salem, VA",
@@ -4645,6 +4513,85 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-10-01"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-michigan/",
+  "name": "DCI Michigan",
+  "location": "Allendale, MI",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Northern Lights",
+   "Memphis Blues",
+   "Heat Wave",
+   "Les Stentors",
+   "Colt Cadets",
+   "Raiders",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:57 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:14 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:31 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:48 PM",
+    "Colt Cadets"
+   ],
+   [
+    "9:05 PM",
+    "Raiders"
+   ],
+   [
+    "9:22 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:39 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:56 PM",
+    "Gold"
+   ],
+   [
+    "10:13 PM",
+    "The Battalion"
+   ],
+   [
+    "10:30 PM",
+    "Encore - Northern Lights - Grand Rapids, MI"
+   ],
+   [
+    "10:38 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, to ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-10-01"
  },
  {
