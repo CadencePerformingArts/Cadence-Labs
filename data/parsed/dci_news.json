@@ -1,6 +1,12 @@
 {
- "updated": "2026-10-01 18:47 UTC",
+ "updated": "2026-10-01 19:00 UTC",
  "articles": [
+  {
+   "title": "The Battalion and Gold approved for DCI’s World Class in 2027",
+   "url": "https://www.dci.org/news/the-battalion-and-gold-approved-for-dcis-world-class-in-2027/",
+   "date": "2026-10-01",
+   "image": "https://images.dci.org/wp-content/uploads/2026/09/gold-battalion-world-class-scaled.jpg"
+  },
   {
    "title": "Steve Vickers, longtime publisher of Drum Corps World, dies at 77",
    "url": "https://www.dci.org/news/steve-vickers-longtime-publisher-of-drum-corps-world-dies-at-77/",
@@ -54,12 +60,6 @@
    "url": "https://www.dci.org/news/record-interest-fuels-biggest-year-yet-for-dcis-inpact-and-bandtastic-indy-honors-bands/",
    "date": "2026-09-09",
    "image": "https://images.dci.org/wp-content/uploads/2026/09/2026-inpact-article-lead-scaled.jpg"
-  },
-  {
-   "title": "Corps news and announcements",
-   "url": "https://www.dci.org/news/corps-news-and-announcements-20260904/",
-   "date": "2026-09-04",
-   "image": "https://images.dci.org/wp-content/uploads/2026/09/pacific-crest-semis-news-20260904-scaled.jpg"
   }
  ],
  "corps_items": [
