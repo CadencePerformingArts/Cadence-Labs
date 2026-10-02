@@ -2541,6 +2541,81 @@
   "_seen": "2026-10-02"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-houston/",
+  "name": "DCI Houston",
+  "location": "Houston, TX",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "The Academy",
+   "The Cavaliers",
+   "Blue Stars",
+   "Blue Devils",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Spartans"
+   ],
+   [
+    "8:27 PM",
+    "Genesis"
+   ],
+   [
+    "8:44 PM",
+    "Crossmen"
+   ],
+   [
+    "9:01 PM",
+    "The Academy"
+   ],
+   [
+    "9:18 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:35 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:52 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:09 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:26 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:43 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "11:08 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
+  "_seen": "2026-10-02"
+ },
+ {
   "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
   "name": "Sounds by the Seaport",
   "location": "New London, CT",
@@ -4132,69 +4207,6 @@
   "_seen": "2026-10-02"
  },
  {
-  "url": "https://www.dci.org/events/2026-brass-at-the-beach/",
-  "name": "Brass at the Beach",
-  "location": "Myrtle Beach, SC",
-  "date_display": "July 28, 2026",
-  "date": "2026-07-28",
-  "lineup": [
-   "Music City",
-   "The Academy",
-   "Spirit of Atlanta",
-   "Crossmen",
-   "Blue Stars",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:10 PM",
-    "Music City"
-   ],
-   [
-    "7:27 PM",
-    "The Academy"
-   ],
-   [
-    "7:44 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:01 PM",
-    "Crossmen"
-   ],
-   [
-    "8:18 PM",
-    "Intermission"
-   ],
-   [
-    "8:35 PM",
-    "Blue Stars"
-   ],
-   [
-    "8:52 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:09 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "9:17 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-02"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-annapolis/",
   "name": "DCI Annapolis",
   "location": "Annapolis, MD",
@@ -4554,95 +4566,6 @@
   "_seen": "2026-10-02"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-eastern-classic-2/",
-  "name": "DCI Eastern Classic",
-  "location": "Allentown, PA",
-  "date_display": "July 31, 2026",
-  "date": "2026-07-31",
-  "lineup": [
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros",
-   "Genesis",
-   "Music City",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Blue Knights",
-   "Blue Stars",
-   "Colts",
-   "Bluecoats",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Bushwackers"
-   ],
-   [
-    "7:27 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "7:44 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "8:01 PM",
-    "Genesis"
-   ],
-   [
-    "8:18 PM",
-    "Music City"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Troopers"
-   ],
-   [
-    "9:09 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:26 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:43 PM",
-    "Blue Stars"
-   ],
-   [
-    "10:00 PM",
-    "Colts"
-   ],
-   [
-    "10:17 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:34 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:42 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
-  "_seen": "2026-10-02"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-michigan/",
   "name": "DCI Michigan",
   "location": "Allendale, MI",
@@ -4868,6 +4791,84 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-02"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-big-sounds-in-motion/",
+  "name": "Big Sounds in Motion",
+  "location": "Downingtown, PA",
+  "date_display": "August 2, 2026",
+  "date": "2026-08-02",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Sonus Brass Theater",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers",
+   "Pacific Crest",
+   "Colts",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome"
+   ],
+   [
+    "5:55 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:07 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "6:24 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:36 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "6:53 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:10 PM",
+    "Intermission"
+   ],
+   [
+    "7:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:44 PM",
+    "Colts"
+   ],
+   [
+    "8:01 PM",
+    "Carolina Crown"
+   ],
+   [
+    "8:18 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:35 PM",
+    "Encore - Reading Buccaneers - Reading, PA"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All bags may be subject to search upon entering the stadium.",
   "_seen": "2026-10-02"
  },
  {
