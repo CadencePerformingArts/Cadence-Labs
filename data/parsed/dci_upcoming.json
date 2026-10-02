@@ -2616,6 +2616,61 @@
   "_seen": "2026-10-02"
  },
  {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
+  "_seen": "2026-10-02"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southwestern-championship/",
   "name": "DCI Southwestern Championship",
   "location": "San Antonio, TX",
@@ -4888,84 +4943,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-10-02"
- },
- {
-  "url": "https://www.dci.org/events/2026-big-sounds-in-motion/",
-  "name": "Big Sounds in Motion",
-  "location": "Downingtown, PA",
-  "date_display": "August 2, 2026",
-  "date": "2026-08-02",
-  "lineup": [
-   "Buccaneer Banner Brass",
-   "Buccaneers Alumni",
-   "Sonus Brass Theater",
-   "Hawthorne Caballeros",
-   "Reading Buccaneers",
-   "Pacific Crest",
-   "Colts",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "4:45 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome"
-   ],
-   [
-    "5:55 PM",
-    "Buccaneer Banner Brass"
-   ],
-   [
-    "6:07 PM",
-    "Buccaneers Alumni"
-   ],
-   [
-    "6:24 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "6:36 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "6:53 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "7:10 PM",
-    "Intermission"
-   ],
-   [
-    "7:27 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:44 PM",
-    "Colts"
-   ],
-   [
-    "8:01 PM",
-    "Carolina Crown"
-   ],
-   [
-    "8:18 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:35 PM",
-    "Encore - Reading Buccaneers - Reading, PA"
-   ],
-   [
-    "8:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "All bags may be subject to search upon entering the stadium.",
   "_seen": "2026-10-02"
  },
  {
