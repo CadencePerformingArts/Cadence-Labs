@@ -202,82 +202,6 @@
   "_seen": "2026-10-03"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
-  "name": "Drums Along the Rockies",
-  "location": "Fort Collins, CO",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Rocky Mountain Brassworks",
-   "BKXperience",
-   "Troopers Legacy Corps",
-   "Genesis",
-   "Troopers",
-   "Phantom Regiment",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:15 PM",
-    "Rocky Mountain Brassworks"
-   ],
-   [
-    "7:25 PM",
-    "BKXperience"
-   ],
-   [
-    "7:35 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Blue Knights Awards Presentation"
-   ],
-   [
-    "7:45 PM",
-    "Troopers Legacy Corps"
-   ],
-   [
-    "8:03 PM",
-    "Genesis"
-   ],
-   [
-    "8:21 PM",
-    "Troopers"
-   ],
-   [
-    "8:39 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:18 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:36 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:54 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "10:01 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-03"
- },
- {
   "url": "https://www.dci.org/events/2026-corps-encore/",
   "name": "Corps Encore",
   "location": "Ogden, UT",
@@ -4943,6 +4867,84 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-03"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-big-sounds-in-motion/",
+  "name": "Big Sounds in Motion",
+  "location": "Downingtown, PA",
+  "date_display": "August 2, 2026",
+  "date": "2026-08-02",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Sonus Brass Theater",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers",
+   "Pacific Crest",
+   "Colts",
+   "Carolina Crown",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome"
+   ],
+   [
+    "5:55 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:07 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "6:24 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:36 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "6:53 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:10 PM",
+    "Intermission"
+   ],
+   [
+    "7:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:44 PM",
+    "Colts"
+   ],
+   [
+    "8:01 PM",
+    "Carolina Crown"
+   ],
+   [
+    "8:18 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:35 PM",
+    "Encore - Reading Buccaneers - Reading, PA"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All bags may be subject to search upon entering the stadium.",
   "_seen": "2026-10-03"
  },
  {
