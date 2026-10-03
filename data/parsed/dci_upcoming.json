@@ -2279,6 +2279,74 @@
   "_seen": "2026-10-03"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-hutchinson/",
+  "name": "DCI Hutchinson",
+  "location": "Hutchinson, KS",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Sky Ryders",
+   "Spartans",
+   "Music City",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:22 PM",
+    "Spartans"
+   ],
+   [
+    "8:39 PM",
+    "Music City"
+   ],
+   [
+    "8:56 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:13 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Troopers"
+   ],
+   [
+    "9:47 PM",
+    "Blue Knights"
+   ],
+   [
+    "10:04 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-03"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-new-mexico/",
   "name": "DCI New Mexico",
   "location": "Albuquerque, NM",
@@ -2470,6 +2538,81 @@
    ]
   ],
   "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-03"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-houston/",
+  "name": "DCI Houston",
+  "location": "Houston, TX",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "The Academy",
+   "The Cavaliers",
+   "Blue Stars",
+   "Blue Devils",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Spartans"
+   ],
+   [
+    "8:27 PM",
+    "Genesis"
+   ],
+   [
+    "8:44 PM",
+    "Crossmen"
+   ],
+   [
+    "9:01 PM",
+    "The Academy"
+   ],
+   [
+    "9:18 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:35 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:52 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:09 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:26 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:43 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "11:08 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
   "_seen": "2026-10-03"
  },
  {
@@ -3827,56 +3970,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-10-03"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-in-motion/",
-  "name": "DCI in Motion",
-  "location": "Norton, OH",
-  "date_display": "July 26, 2026",
-  "date": "2026-07-26",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Gold",
-   "Cincinnati Tradition",
-   "Rogues Hollow Regiment"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:27 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:44 PM",
-    "Gold"
-   ],
-   [
-    "8:01 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:18 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "8:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-10-03"
  },
  {
