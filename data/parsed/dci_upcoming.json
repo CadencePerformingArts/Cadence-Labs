@@ -202,82 +202,6 @@
   "_seen": "2026-10-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
-  "name": "Drums Along the Rockies",
-  "location": "Fort Collins, CO",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Rocky Mountain Brassworks",
-   "BKXperience",
-   "Troopers Legacy Corps",
-   "Genesis",
-   "Troopers",
-   "Phantom Regiment",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:15 PM",
-    "Rocky Mountain Brassworks"
-   ],
-   [
-    "7:25 PM",
-    "BKXperience"
-   ],
-   [
-    "7:35 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Blue Knights Awards Presentation"
-   ],
-   [
-    "7:45 PM",
-    "Troopers Legacy Corps"
-   ],
-   [
-    "8:03 PM",
-    "Genesis"
-   ],
-   [
-    "8:21 PM",
-    "Troopers"
-   ],
-   [
-    "8:39 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:18 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:36 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:54 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "10:01 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-04"
- },
- {
   "url": "https://www.dci.org/events/2026-corps-encore/",
   "name": "Corps Encore",
   "location": "Ogden, UT",
@@ -1379,6 +1303,80 @@
   "_seen": "2026-10-04"
  },
  {
+  "url": "https://www.dci.org/events/2026-gold-showcase/",
+  "name": "Gold Showcase",
+  "location": "Santa Clarita, CA",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Blue Devils C",
+   "Golden Empire",
+   "Blue Devils B",
+   "The Academy",
+   "Pacific Crest",
+   "Blue Devils",
+   "Santa Clara Vanguard",
+   "Gold",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:17 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:34 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:51 PM",
+    "The Academy"
+   ],
+   [
+    "7:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:25 PM",
+    "Intermission"
+   ],
+   [
+    "7:55 PM",
+    "Blue Devils"
+   ],
+   [
+    "8:12 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:29 PM",
+    "Gold"
+   ],
+   [
+    "8:46 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-04"
+ },
+ {
   "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
   "name": "Cavalcade of Brass",
   "location": "Lisle, IL",
@@ -1454,6 +1452,78 @@
    ]
   ],
   "bag_policy": "Spectators are welcome to bring one bag into the Sports Complex provided the bag is softsided and its dimensions do not exceed 12 inches by 12 inches by 8 inches. The Sports Complex and its staff reserves the right to inspect bags brought into The Sports Complex.",
+  "_seen": "2026-10-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-music-on-the-march/",
+  "name": "Music on the March",
+  "location": "Dubuque, IA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Conquest",
+   "Colt Cadets",
+   "River City Rhythm",
+   "Genesis",
+   "Madison Scouts",
+   "Blue Knights",
+   "Blue Stars",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Conquest"
+   ],
+   [
+    "7:22 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:39 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:56 PM",
+    "Genesis"
+   ],
+   [
+    "8:13 PM",
+    "Intermission"
+   ],
+   [
+    "8:33 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:50 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:07 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:24 PM",
+    "Colts"
+   ],
+   [
+    "9:41 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:06 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-10-04"
  },
  {
