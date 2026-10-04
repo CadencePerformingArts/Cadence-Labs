@@ -3202,137 +3202,6 @@
   "_seen": "2026-10-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
-  "name": "Drums on the Ohio",
-  "location": "Evansville, IN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "Colts",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Gold"
-   ],
-   [
-    "7:27 PM",
-    "The Battalion"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:18 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:05 PM",
-    "Colts"
-   ],
-   [
-    "9:22 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:39 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:56 PM",
-    "Encore - Phantom Regiment - Rockford, IL"
-   ],
-   [
-    "10:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-10-04"
- },
- {
-  "url": "https://www.dci.org/events/2026-march-on/",
-  "name": "March On!",
-  "location": "Champlin, MN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "RCR Street Club",
-   "MBI",
-   "Govenaires",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "RCR Street Club"
-   ],
-   [
-    "7:22 PM",
-    "MBI"
-   ],
-   [
-    "7:39 PM",
-    "Govenaires"
-   ],
-   [
-    "7:56 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:13 PM",
-    "Columbians"
-   ],
-   [
-    "8:30 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:47 PM",
-    "Encore - River City Rhythm - Anoka, MN"
-   ],
-   [
-    "8:55 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-04"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-birmingham/",
   "name": "DCI Birmingham",
   "location": "Birmingham, AL",
@@ -5604,6 +5473,117 @@
    [
     "11:22 PM",
     "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-10-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-prelims/",
+  "name": "DCI All-Age World Championship Prelims",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "MBI",
+   "Sunrisers",
+   "Columbus Saints",
+   "Northern Lights",
+   "Fusion Core",
+   "Govenaires",
+   "Rogues Hollow Regiment",
+   "White Sabers",
+   "Hurricanes",
+   "Cincinnati Tradition",
+   "Hawthorne Caballeros",
+   "Atlanta CV",
+   "Bushwackers",
+   "Reading Buccaneers"
+  ],
+  "schedule": [
+   [
+    "7:30 AM",
+    "Gates Open"
+   ],
+   [
+    "8:20 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 AM",
+    "MBI"
+   ],
+   [
+    "8:47 AM",
+    "Sunrisers"
+   ],
+   [
+    "9:04 AM",
+    "Columbus Saints"
+   ],
+   [
+    "9:21 AM",
+    "Northern Lights"
+   ],
+   [
+    "9:38 AM",
+    "Fusion Core"
+   ],
+   [
+    "9:55 AM",
+    "Govenaires"
+   ],
+   [
+    "10:12 AM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "10:29 AM",
+    "Intermission"
+   ],
+   [
+    "10:49 AM",
+    "White Sabers"
+   ],
+   [
+    "11:06 AM",
+    "Hurricanes"
+   ],
+   [
+    "11:23 AM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "11:40 AM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "11:57 AM",
+    "Atlanta CV"
+   ],
+   [
+    "12:00 PM",
+    "Loge and Terrace Levels Open"
+   ],
+   [
+    "12:14 PM",
+    "Bushwackers"
+   ],
+   [
+    "12:31 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "12:55 PM",
+    "Scores Announced"
+   ],
+   [
+    "1:00 PM",
+    "Reserved Seating Takes Effect"
+   ],
+   [
+    "1:30 PM",
+    "DCI World Championships Semifinals Begins"
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
