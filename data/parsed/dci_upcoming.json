@@ -1746,94 +1746,6 @@
   "_seen": "2026-10-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
-  "name": "Drum Corps Grand Prix",
-  "location": "Clifton, NJ",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Sonus Brass Theater",
-   "Raiders",
-   "Les Stentors",
-   "7th Regiment",
-   "White Sabers",
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hurricanes",
-   "Hawthorne Caballeros",
-   "Hall of Fame Induction",
-   "Hawthorne Caballeros Alumni"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "Sonus Brass Theater"
-   ],
-   [
-    "6:52 PM",
-    "Raiders"
-   ],
-   [
-    "7:09 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:26 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:43 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "White Sabers"
-   ],
-   [
-    "8:17 PM",
-    "Bushwackers"
-   ],
-   [
-    "8:34 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:51 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:08 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "9:25 PM",
-    "Hall of Fame Induction"
-   ],
-   [
-    "9:35 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-04"
- },
- {
   "url": "https://www.dci.org/events/2026-drum-corps-at-the-rose-bowl/",
   "name": "Drum Corps at the Rose Bowl",
   "location": "Pasadena, CA",
@@ -4878,6 +4790,71 @@
    ]
   ],
   "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-10-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-pittsburgh/",
+  "name": "DCI Pittsburgh",
+  "location": "Pittsburgh, PA",
+  "date_display": "August 1, 2026",
+  "date": "2026-08-01",
+  "lineup": [
+   "Sonus Brass Theater",
+   "Columbus Saints",
+   "White Sabers",
+   "Rogues Hollow Regiment",
+   "Hurricanes",
+   "Bushwackers",
+   "Music City",
+   "Spirit of Atlanta"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome"
+   ],
+   [
+    "7:40 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "7:52 PM",
+    "Columbus Saints"
+   ],
+   [
+    "8:09 PM",
+    "White Sabers"
+   ],
+   [
+    "8:26 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "8:43 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:17 PM",
+    "Music City"
+   ],
+   [
+    "9:34 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:59 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-10-04"
  },
  {
