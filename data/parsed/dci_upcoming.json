@@ -994,89 +994,6 @@
   "_seen": "2026-10-04"
  },
  {
-  "url": "https://www.dci.org/events/2026-river-city-rhapsody/",
-  "name": "River City Rhapsody",
-  "location": "La Crosse, WI",
-  "date_display": "July 5, 2026",
-  "date": "2026-07-05",
-  "lineup": [
-   "Blue Saints",
-   "Sound of Sun Prairie",
-   "Govenaires",
-   "River City Rhythm",
-   "Madison Scouts",
-   "Colts",
-   "Troopers",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Blue Saints"
-   ],
-   [
-    "7:20 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "7:32 PM",
-    "Govenaires"
-   ],
-   [
-    "7:49 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:06 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:23 PM",
-    "Colts"
-   ],
-   [
-    "8:40 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Troopers"
-   ],
-   [
-    "9:17 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:34 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:51 PM",
-    "Blue Stars"
-   ],
-   [
-    "10:08 PM",
-    "Encore - Blue Stars - La Crosse, WI"
-   ],
-   [
-    "10:16 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "No bag policy is enforced for this event. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-04"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-across-the-smokies/",
   "name": "Drums Across the Smokies",
   "location": "Sevierville, TN",
@@ -3083,6 +3000,66 @@
   "_seen": "2026-10-04"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-st-louis/",
+  "name": "DCI St. Louis",
+  "location": "Belleville, IL",
+  "date_display": "July 21, 2026",
+  "date": "2026-07-21",
+  "lineup": [
+   "Gold",
+   "The Battalion",
+   "Seattle Cascades",
+   "Music City",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Gold"
+   ],
+   [
+    "8:27 PM",
+    "The Battalion"
+   ],
+   [
+    "8:44 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:01 PM",
+    "Music City"
+   ],
+   [
+    "9:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:35 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:17 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-04"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
   "name": "DCI Southern Mississippi",
   "location": "Hattiesburg, MS",
@@ -3478,6 +3455,88 @@
    ],
    [
     "9:05 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-10-04"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-on-parade/",
+  "name": "Drums on Parade",
+  "location": "Madison, WI",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Green Beret Marching Band",
+   "Govenaires",
+   "Colt Cadets",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Santa Clara Vanguard",
+   "Madison Scouts"
+  ],
+  "schedule": [
+   [
+    "5:45 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "7:22 PM",
+    "Govenaires"
+   ],
+   [
+    "7:39 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:56 PM",
+    "Genesis"
+   ],
+   [
+    "8:13 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:30 PM",
+    "Intermission"
+   ],
+   [
+    "8:47 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:04 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:21 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:38 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:55 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:12 PM",
+    "Encore - Madison Scouts - Madison, WI"
+   ],
+   [
+    "10:20 PM",
     "Scores Announced"
    ]
   ],
