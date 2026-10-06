@@ -1320,65 +1320,6 @@
   "_seen": "2026-10-06"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
-  "name": "DCI Northern Alabama",
-  "location": "Muscle Shoals, AL",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "8:22 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:39 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:56 PM",
-    "Music City"
-   ],
-   [
-    "9:13 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:47 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:55 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-10-06"
- },
- {
   "url": "https://www.dci.org/events/2026-gold-showcase/",
   "name": "Gold Showcase",
   "location": "Santa Clarita, CA",
@@ -5721,6 +5662,179 @@
   "_seen": "2026-10-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-world-championship-semifinals/",
+  "name": "DCI World Championship Semifinals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "All-Age World Championships Prelims",
+   "River City Rhythm",
+   "Memphis Blues",
+   "Genesis",
+   "Gold",
+   "Seattle Cascades",
+   "The Battalion",
+   "Spartans",
+   "Blue Devils B",
+   "The Academy",
+   "Music City",
+   "Crossmen",
+   "Madison Scouts",
+   "Blue Knights",
+   "Pacific Crest",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Colts",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Blue Stars",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown",
+   "Blue Devils",
+   "Bluecoats",
+   "Phantom Regiment Alumni Corps",
+   "Age-Out Ceremony"
+  ],
+  "schedule": [
+   [
+    "7:30 AM",
+    "Gates Open"
+   ],
+   [
+    "8:20 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 AM",
+    "All-Age World Championships Prelims"
+   ],
+   [
+    "1:30 PM",
+    "River City Rhythm"
+   ],
+   [
+    "1:47 PM",
+    "Memphis Blues"
+   ],
+   [
+    "2:04 PM",
+    "Genesis"
+   ],
+   [
+    "2:21 PM",
+    "Gold"
+   ],
+   [
+    "2:38 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "2:55 PM",
+    "The Battalion"
+   ],
+   [
+    "3:12 PM",
+    "Spartans"
+   ],
+   [
+    "3:29 PM",
+    "Intermission"
+   ],
+   [
+    "3:46 PM",
+    "Blue Devils B"
+   ],
+   [
+    "4:03 PM",
+    "The Academy"
+   ],
+   [
+    "4:20 PM",
+    "Music City"
+   ],
+   [
+    "4:37 PM",
+    "Crossmen"
+   ],
+   [
+    "4:54 PM",
+    "Madison Scouts"
+   ],
+   [
+    "5:11 PM",
+    "Blue Knights"
+   ],
+   [
+    "5:28 PM",
+    "Pacific Crest"
+   ],
+   [
+    "5:45 PM",
+    "Troopers"
+   ],
+   [
+    "6:02 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "6:27 PM",
+    "Intermission"
+   ],
+   [
+    "6:49 PM",
+    "Colts"
+   ],
+   [
+    "7:06 PM",
+    "The Cavaliers"
+   ],
+   [
+    "7:23 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "7:40 PM",
+    "Blue Stars"
+   ],
+   [
+    "7:57 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:14 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:31 PM",
+    "Carolina Crown"
+   ],
+   [
+    "8:48 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:05 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:22 PM",
+    "Open Class Encore Champion Encore Blue Devils \"B\" - Concord, CA"
+   ],
+   [
+    "10:11 PM",
+    "Phantom Regiment Alumni Corps"
+   ],
+   [
+    "10:31 PM",
+    "Age-Out Ceremony"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-10-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
   "name": "Shining a Light on Music Education",
   "location": "Indianapolis, IN",
@@ -5734,6 +5848,198 @@
    "Rhythm IN BLUE",
    "Spark"
   ],
+  "_seen": "2026-10-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-finals/",
+  "name": "DCI All-Age World Championship Finals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 8, 2026",
+  "date": "2026-08-08",
+  "lineup": [
+   "MBI",
+   "Northern Lights",
+   "Govenaires",
+   "Rogues Hollow Regiment",
+   "Fusion Core",
+   "White Sabers",
+   "Hurricanes",
+   "Cincinnati Tradition",
+   "Bushwackers",
+   "Atlanta CV",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers"
+  ],
+  "schedule": [
+   [
+    "9:00 AM",
+    "Gates Open"
+   ],
+   [
+    "9:50 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "10:00 AM",
+    "MBI"
+   ],
+   [
+    "10:17 AM",
+    "Northern Lights"
+   ],
+   [
+    "10:34 AM",
+    "Govenaires"
+   ],
+   [
+    "10:51 AM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "11:08 AM",
+    "Fusion Core"
+   ],
+   [
+    "11:25 AM",
+    "White Sabers"
+   ],
+   [
+    "11:42 AM",
+    "Intermission"
+   ],
+   [
+    "11:57 AM",
+    "Hurricanes"
+   ],
+   [
+    "12:14 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "12:31 PM",
+    "Bushwackers"
+   ],
+   [
+    "12:48 PM",
+    "Atlanta CV"
+   ],
+   [
+    "1:05 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "1:22 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "1:45 PM",
+    "Awards Ceremony"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-10-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-world-championship-finals/",
+  "name": "DCI World Championship Finals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 8, 2026",
+  "date": "2026-08-08",
+  "lineup": [
+   "INpact & BANDtastic Band",
+   "U.S. Marine Drum & Bugle Corps",
+   "Blue Knights",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Colts",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Blue Stars",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown",
+   "Blue Devils",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:00 PM",
+    "Gates Open"
+   ],
+   [
+    "5:30 PM",
+    "Welcome"
+   ],
+   [
+    "5:40 PM",
+    "INpact & BANDtastic Band"
+   ],
+   [
+    "6:00 PM",
+    "U.S. Marine Drum & Bugle Corps"
+   ],
+   [
+    "6:20 PM",
+    "National Anthem - U.S. Marine Drum & Bugle Corps"
+   ],
+   [
+    "6:30 PM",
+    "Blue Knights"
+   ],
+   [
+    "6:47 PM",
+    "Troopers"
+   ],
+   [
+    "7:04 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "7:21 PM",
+    "Colts"
+   ],
+   [
+    "7:38 PM",
+    "The Cavaliers"
+   ],
+   [
+    "7:55 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "8:12 PM",
+    "Intermission"
+   ],
+   [
+    "8:32 PM",
+    "Blue Stars"
+   ],
+   [
+    "8:49 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:06 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:23 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:40 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:57 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:00 PM",
+    "Awards Ceremony"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
   "_seen": "2026-10-06"
  },
  {
