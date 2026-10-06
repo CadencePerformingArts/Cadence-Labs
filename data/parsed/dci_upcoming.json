@@ -1320,6 +1320,65 @@
   "_seen": "2026-10-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
+  "name": "DCI Northern Alabama",
+  "location": "Muscle Shoals, AL",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Apollo Marching Theatre",
+   "Atlanta CV",
+   "Memphis Blues",
+   "Music City",
+   "Spirit of Atlanta",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Apollo Marching Theatre"
+   ],
+   [
+    "8:22 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:39 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:56 PM",
+    "Music City"
+   ],
+   [
+    "9:13 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:47 PM",
+    "Encore - Spirit of Atlanta - Atlanta, GA"
+   ],
+   [
+    "9:55 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-10-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-gold-showcase/",
   "name": "Gold Showcase",
   "location": "Santa Clarita, CA",
@@ -3140,79 +3199,6 @@
    ]
   ],
   "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-06"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
-  "name": "Drums on the Ohio",
-  "location": "Evansville, IN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "Colts",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Gold"
-   ],
-   [
-    "7:27 PM",
-    "The Battalion"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:18 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:05 PM",
-    "Colts"
-   ],
-   [
-    "9:22 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:39 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:56 PM",
-    "Encore - Phantom Regiment - Rockford, IL"
-   ],
-   [
-    "10:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-10-06"
  },
  {
