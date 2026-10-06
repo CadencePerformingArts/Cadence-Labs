@@ -127,6 +127,81 @@
   "_seen": "2026-10-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
+  "name": "Bluecoats Opening Night Community Celebration",
+  "location": "Alliance, OH",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "Columbus Saints",
+   "Rogues Hollow Regiment",
+   "Cincinnati Tradition",
+   "Eclipse",
+   "EN-CORPS by EN-RICH-MENT",
+   "Bluecoats Alumni Legacy Arc",
+   "Rhythm IN BLUE",
+   "The Bluecoats",
+   "The Blue Way Summer Arts Camp",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "5:15 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:15 PM",
+    "Columbus Saints"
+   ],
+   [
+    "6:25 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "6:40 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "6:55 PM",
+    "Eclipse"
+   ],
+   [
+    "7:10 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "7:25 PM",
+    "Bluecoats Alumni Legacy Arc"
+   ],
+   [
+    "7:40 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "7:55 PM",
+    "The Bluecoats"
+   ],
+   [
+    "8:18 PM",
+    "The Blue Way Summer Arts Camp"
+   ],
+   [
+    "8:28 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "8:53 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event",
+  "_seen": "2026-10-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -3895,6 +3970,56 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-10-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-in-motion/",
+  "name": "DCI in Motion",
+  "location": "Norton, OH",
+  "date_display": "July 26, 2026",
+  "date": "2026-07-26",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Gold",
+   "Cincinnati Tradition",
+   "Rogues Hollow Regiment"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:27 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:44 PM",
+    "Gold"
+   ],
+   [
+    "8:01 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:18 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-10-06"
  },
  {
