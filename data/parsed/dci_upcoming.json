@@ -1453,84 +1453,6 @@
   "_seen": "2026-10-09"
  },
  {
-  "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
-  "name": "Cavalcade of Brass",
-  "location": "Lisle, IL",
-  "date_display": "July 10, 2026",
-  "date": "2026-07-10",
-  "lineup": [
-   "Rosemont King Cobras",
-   "Sound of Sun Prairie",
-   "Northern Lights",
-   "Eclipse",
-   "Spartans",
-   "Crossmen",
-   "Troopers",
-   "Phantom Regiment",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Rosemont King Cobras"
-   ],
-   [
-    "7:50 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "8:00 PM",
-    "Northern Lights"
-   ],
-   [
-    "8:12 PM",
-    "Eclipse"
-   ],
-   [
-    "8:29 PM",
-    "Spartans"
-   ],
-   [
-    "8:46 PM",
-    "Crossmen"
-   ],
-   [
-    "9:03 PM",
-    "Intermission"
-   ],
-   [
-    "9:20 PM",
-    "Troopers"
-   ],
-   [
-    "9:37 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:54 PM",
-    "The Cavaliers"
-   ],
-   [
-    "10:11 PM",
-    "Encore - The Cavaliers - Rosemont, IL"
-   ],
-   [
-    "10:19 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Spectators are welcome to bring one bag into the Sports Complex provided the bag is softsided and its dimensions do not exceed 12 inches by 12 inches by 8 inches. The Sports Complex and its staff reserves the right to inspect bags brought into The Sports Complex.",
-  "_seen": "2026-10-09"
- },
- {
   "url": "https://www.dci.org/events/2026-music-on-the-march/",
   "name": "Music on the March",
   "location": "Dubuque, IA",
@@ -1923,105 +1845,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-10-09"
- },
- {
-  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
-  "name": "The Whitewater Classic",
-  "location": "Whitewater, WI",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Green Beret Marching Band",
-   "The Connexion",
-   "Sound of Sun Prairie",
-   "Eclipse",
-   "River City Rhythm",
-   "Spartans",
-   "Genesis",
-   "Crossmen",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Madison Scouts"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "5:45 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:55 PM",
-    "Green Beret Marching Band"
-   ],
-   [
-    "6:05 PM",
-    "The Connexion"
-   ],
-   [
-    "6:15 PM",
-    "Sound of Sun Prairie"
-   ],
-   [
-    "6:27 PM",
-    "Eclipse"
-   ],
-   [
-    "6:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:01 PM",
-    "Spartans"
-   ],
-   [
-    "7:18 PM",
-    "Genesis"
-   ],
-   [
-    "7:35 PM",
-    "Crossmen"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Troopers"
-   ],
-   [
-    "8:26 PM",
-    "Blue Knights"
-   ],
-   [
-    "8:43 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:00 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:17 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:34 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:51 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-10-09"
  },
  {
@@ -2538,6 +2361,81 @@
    ]
   ],
   "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-houston/",
+  "name": "DCI Houston",
+  "location": "Houston, TX",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "The Academy",
+   "The Cavaliers",
+   "Blue Stars",
+   "Blue Devils",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Spartans"
+   ],
+   [
+    "8:27 PM",
+    "Genesis"
+   ],
+   [
+    "8:44 PM",
+    "Crossmen"
+   ],
+   [
+    "9:01 PM",
+    "The Academy"
+   ],
+   [
+    "9:18 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:35 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:52 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:09 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:26 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:43 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "11:08 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
   "_seen": "2026-10-09"
  },
  {
