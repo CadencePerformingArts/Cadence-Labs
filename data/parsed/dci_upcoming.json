@@ -1926,6 +1926,105 @@
   "_seen": "2026-10-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
+  "name": "The Whitewater Classic",
+  "location": "Whitewater, WI",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Green Beret Marching Band",
+   "The Connexion",
+   "Sound of Sun Prairie",
+   "Eclipse",
+   "River City Rhythm",
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Madison Scouts"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "5:55 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "6:05 PM",
+    "The Connexion"
+   ],
+   [
+    "6:15 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "6:27 PM",
+    "Eclipse"
+   ],
+   [
+    "6:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:01 PM",
+    "Spartans"
+   ],
+   [
+    "7:18 PM",
+    "Genesis"
+   ],
+   [
+    "7:35 PM",
+    "Crossmen"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Troopers"
+   ],
+   [
+    "8:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:00 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:17 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:34 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:51 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-10-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
   "name": "So Cal Classic: Open Class Pacific Championship Finals",
   "location": "Buena Park, CA",
@@ -1979,6 +2078,83 @@
    [
     "9:17 PM",
     "Retreat"
+   ]
+  ],
+  "_seen": "2026-10-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-brass-impact/",
+  "name": "Brass Impact",
+  "location": "Olathe, KS",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Sky Ryders",
+   "Colt Cadets",
+   "Spartans",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:38 PM",
+    "Sky Ryders"
+   ],
+   [
+    "7:50 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:07 PM",
+    "Spartans"
+   ],
+   [
+    "8:24 PM",
+    "Crossmen"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Intermission"
+   ],
+   [
+    "9:13 PM",
+    "Troopers"
+   ],
+   [
+    "9:30 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:47 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Colts"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
    ]
   ],
   "_seen": "2026-10-09"
@@ -2292,6 +2468,76 @@
    ]
   ],
   "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-denton/",
+  "name": "DCI Denton",
+  "location": "Denton, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Seattle Cascades",
+   "Spirit of Atlanta",
+   "Phantom Regiment",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Guardians"
+   ],
+   [
+    "8:42 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:16 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:33 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:50 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:07 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:24 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:41 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-09"
  },
  {
