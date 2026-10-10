@@ -2616,6 +2616,61 @@
   "_seen": "2026-10-10"
  },
  {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
+  "_seen": "2026-10-10"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southwestern-championship/",
   "name": "DCI Southwestern Championship",
   "location": "San Antonio, TX",
@@ -3571,6 +3626,69 @@
   "_seen": "2026-10-10"
  },
  {
+  "url": "https://www.dci.org/events/2026-bushwackers-invitational/",
+  "name": "Bushwackers Invitational",
+  "location": "Mt. Olive, NJ",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "Spark",
+   "Sunrisers",
+   "Hurricanes",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Bushwackers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spark"
+   ],
+   [
+    "7:22 PM",
+    "Sunrisers"
+   ],
+   [
+    "7:39 PM",
+    "Hurricanes"
+   ],
+   [
+    "7:56 PM",
+    "Intermission"
+   ],
+   [
+    "8:31 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:48 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "9:05 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:22 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:47 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-10-10"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-southeastern-championship/",
   "name": "DCI Southeastern Championship",
   "location": "Atlanta, GA",
@@ -3855,56 +3973,6 @@
   "_seen": "2026-10-10"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-in-motion/",
-  "name": "DCI in Motion",
-  "location": "Norton, OH",
-  "date_display": "July 26, 2026",
-  "date": "2026-07-26",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Gold",
-   "Cincinnati Tradition",
-   "Rogues Hollow Regiment"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:27 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:44 PM",
-    "Gold"
-   ],
-   [
-    "8:01 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:18 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "8:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-10-10"
- },
- {
   "url": "https://www.dci.org/events/2026-nightbeat/",
   "name": "NightBEAT",
   "location": "Winston-Salem, NC",
@@ -4086,69 +4154,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-10-10"
- },
- {
-  "url": "https://www.dci.org/events/2026-brass-at-the-beach/",
-  "name": "Brass at the Beach",
-  "location": "Myrtle Beach, SC",
-  "date_display": "July 28, 2026",
-  "date": "2026-07-28",
-  "lineup": [
-   "Music City",
-   "The Academy",
-   "Spirit of Atlanta",
-   "Crossmen",
-   "Blue Stars",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:10 PM",
-    "Music City"
-   ],
-   [
-    "7:27 PM",
-    "The Academy"
-   ],
-   [
-    "7:44 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:01 PM",
-    "Crossmen"
-   ],
-   [
-    "8:18 PM",
-    "Intermission"
-   ],
-   [
-    "8:35 PM",
-    "Blue Stars"
-   ],
-   [
-    "8:52 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:09 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "9:17 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-10"
  },
  {
