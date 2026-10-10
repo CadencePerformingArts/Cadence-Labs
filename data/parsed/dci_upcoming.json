@@ -1122,79 +1122,6 @@
   "_seen": "2026-10-10"
  },
  {
-  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
-  "name": "The Kiwanis Thunder of Drums",
-  "location": "Mankato, MN",
-  "date_display": "July 7, 2026",
-  "date": "2026-07-07",
-  "lineup": [
-   "Govenaires",
-   "MBI",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:50 PM",
-    "Minnesota State University - Clinic Band - Mankato, MN"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Govenaires"
-   ],
-   [
-    "7:27 PM",
-    "MBI"
-   ],
-   [
-    "7:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Genesis"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Colts"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
-  "_seen": "2026-10-10"
- },
- {
   "url": "https://www.dci.org/events/2026-celebration-in-brass/",
   "name": "Celebration in Brass",
   "location": "Des Moines, IA",
@@ -2538,6 +2465,81 @@
    ]
   ],
   "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-10"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-houston/",
+  "name": "DCI Houston",
+  "location": "Houston, TX",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "The Academy",
+   "The Cavaliers",
+   "Blue Stars",
+   "Blue Devils",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Spartans"
+   ],
+   [
+    "8:27 PM",
+    "Genesis"
+   ],
+   [
+    "8:44 PM",
+    "Crossmen"
+   ],
+   [
+    "9:01 PM",
+    "The Academy"
+   ],
+   [
+    "9:18 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:35 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:52 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:09 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:26 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:43 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "11:08 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
   "_seen": "2026-10-10"
  },
  {
