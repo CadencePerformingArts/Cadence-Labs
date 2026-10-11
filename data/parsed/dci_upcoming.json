@@ -390,6 +390,131 @@
   "_seen": "2026-10-11"
  },
  {
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
+  "name": "Northwest Youth Music Games Seattle",
+  "location": "Seattle, WA",
+  "date_display": "June 30, 2026",
+  "date": "2026-06-30",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:45 PM",
+    "Intermission"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:52 PM",
+    "Impulse"
+   ],
+   [
+    "8:07 PM",
+    "Columbians"
+   ],
+   [
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-11"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
+  "name": "Drums Across Nebraska",
+  "location": "Omaha, NE",
+  "date_display": "July 1, 2026",
+  "date": "2026-07-01",
+  "lineup": [
+   "Colt Cadets",
+   "Genesis",
+   "Blue Knights",
+   "Troopers",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:28 PM",
+    "Genesis"
+   ],
+   [
+    "8:46 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:04 PM",
+    "Intermission"
+   ],
+   [
+    "9:24 PM",
+    "Troopers"
+   ],
+   [
+    "9:42 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:00 PM",
+    "Colts"
+   ],
+   [
+    "10:18 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-10-11"
+ },
+ {
   "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
   "name": "Northwest Youth Music Games Portland",
   "location": "Portland, OR",
@@ -5596,176 +5721,19 @@
   "_seen": "2026-10-11"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-world-championship-semifinals/",
-  "name": "DCI World Championship Semifinals",
+  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
+  "name": "Shining a Light on Music Education",
   "location": "Indianapolis, IN",
   "date_display": "August 7, 2026",
   "date": "2026-08-07",
   "lineup": [
-   "All-Age World Championships Prelims",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Genesis",
-   "Gold",
-   "Seattle Cascades",
-   "The Battalion",
-   "Spartans",
-   "Blue Devils B",
-   "The Academy",
-   "Music City",
-   "Crossmen",
-   "Madison Scouts",
-   "Blue Knights",
-   "Pacific Crest",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Blue Stars",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown",
-   "Blue Devils",
-   "Bluecoats",
-   "Phantom Regiment Alumni Corps",
-   "Age-Out Ceremony"
+   "Apogee",
+   "Freelancers",
+   "Green Beret Marching Band",
+   "Mercedes Marching Band",
+   "Rhythm IN BLUE",
+   "Spark"
   ],
-  "schedule": [
-   [
-    "7:30 AM",
-    "Gates Open"
-   ],
-   [
-    "8:20 AM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 AM",
-    "All-Age World Championships Prelims"
-   ],
-   [
-    "1:30 PM",
-    "River City Rhythm"
-   ],
-   [
-    "1:47 PM",
-    "Memphis Blues"
-   ],
-   [
-    "2:04 PM",
-    "Genesis"
-   ],
-   [
-    "2:21 PM",
-    "Gold"
-   ],
-   [
-    "2:38 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "2:55 PM",
-    "The Battalion"
-   ],
-   [
-    "3:12 PM",
-    "Spartans"
-   ],
-   [
-    "3:29 PM",
-    "Intermission"
-   ],
-   [
-    "3:46 PM",
-    "Blue Devils B"
-   ],
-   [
-    "4:03 PM",
-    "The Academy"
-   ],
-   [
-    "4:20 PM",
-    "Music City"
-   ],
-   [
-    "4:37 PM",
-    "Crossmen"
-   ],
-   [
-    "4:54 PM",
-    "Madison Scouts"
-   ],
-   [
-    "5:11 PM",
-    "Blue Knights"
-   ],
-   [
-    "5:28 PM",
-    "Pacific Crest"
-   ],
-   [
-    "5:45 PM",
-    "Troopers"
-   ],
-   [
-    "6:02 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "6:27 PM",
-    "Intermission"
-   ],
-   [
-    "6:49 PM",
-    "Colts"
-   ],
-   [
-    "7:06 PM",
-    "The Cavaliers"
-   ],
-   [
-    "7:23 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "7:40 PM",
-    "Blue Stars"
-   ],
-   [
-    "7:57 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "8:14 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:31 PM",
-    "Carolina Crown"
-   ],
-   [
-    "8:48 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:05 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:22 PM",
-    "Open Class Encore Champion Encore Blue Devils \"B\" - Concord, CA"
-   ],
-   [
-    "10:11 PM",
-    "Phantom Regiment Alumni Corps"
-   ],
-   [
-    "10:31 PM",
-    "Age-Out Ceremony"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
   "_seen": "2026-10-11"
  },
  {
