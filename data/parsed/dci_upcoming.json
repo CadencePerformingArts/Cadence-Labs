@@ -127,81 +127,6 @@
   "_seen": "2026-10-12"
  },
  {
-  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
-  "name": "Bluecoats Opening Night Community Celebration",
-  "location": "Alliance, OH",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Columbus Saints",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Eclipse",
-   "EN-CORPS by EN-RICH-MENT",
-   "Bluecoats Alumni Legacy Arc",
-   "Rhythm IN BLUE",
-   "The Bluecoats",
-   "The Blue Way Summer Arts Camp",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "5:15 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "6:25 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "6:40 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "6:55 PM",
-    "Eclipse"
-   ],
-   [
-    "7:10 PM",
-    "EN-CORPS by EN-RICH-MENT"
-   ],
-   [
-    "7:25 PM",
-    "Bluecoats Alumni Legacy Arc"
-   ],
-   [
-    "7:40 PM",
-    "Rhythm IN BLUE"
-   ],
-   [
-    "7:55 PM",
-    "The Bluecoats"
-   ],
-   [
-    "8:18 PM",
-    "The Blue Way Summer Arts Camp"
-   ],
-   [
-    "8:28 PM",
-    "Encore - Bluecoats - Canton, OH"
-   ],
-   [
-    "8:53 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy in effect for this event",
-  "_seen": "2026-10-12"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -1743,6 +1668,94 @@
    ]
   ],
   "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
+  "_seen": "2026-10-12"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
+  "name": "Drum Corps Grand Prix",
+  "location": "Clifton, NJ",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Sonus Brass Theater",
+   "Raiders",
+   "Les Stentors",
+   "7th Regiment",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hurricanes",
+   "Hawthorne Caballeros",
+   "Hall of Fame Induction",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:52 PM",
+    "Raiders"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "White Sabers"
+   ],
+   [
+    "8:17 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:34 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:51 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "9:25 PM",
+    "Hall of Fame Induction"
+   ],
+   [
+    "9:35 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:52 PM",
+    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
+   ],
+   [
+    "10:00 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-12"
  },
  {
@@ -5304,14 +5317,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
-  "_seen": "2026-10-12"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
-  "name": "DCI 2026: Big, Loud & Live",
-  "date_display": "August 6, 2026",
-  "date": "2026-08-06",
-  "lineup": [],
   "_seen": "2026-10-12"
  },
  {
