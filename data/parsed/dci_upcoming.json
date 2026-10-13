@@ -808,6 +808,89 @@
   "_seen": "2026-10-13"
  },
  {
+  "url": "https://www.dci.org/events/2026-show-of-shows/",
+  "name": "Show of Shows",
+  "location": "Rockford, IL",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Conquest Drum & Bugle Corps",
+   "Colt Cadets",
+   "Genesis",
+   "Madison Scouts",
+   "Blue Knights",
+   "Colts",
+   "Troopers",
+   "The Cavaliers",
+   "Blue Stars",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Conquest Drum & Bugle Corps"
+   ],
+   [
+    "6:52 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:10 PM",
+    "Genesis"
+   ],
+   [
+    "7:28 PM",
+    "Madison Scouts"
+   ],
+   [
+    "7:46 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:04 PM",
+    "Colts"
+   ],
+   [
+    "8:22 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:10 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:28 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:46 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Encore - Phantom Regiment - Rockford, IL"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Swanson Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-13"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-west/",
   "name": "DCI West",
   "location": "Stanford, CA",
@@ -1036,79 +1119,6 @@
    ]
   ],
   "bag_policy": "Lon C. Burchfield Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-13"
- },
- {
-  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
-  "name": "The Kiwanis Thunder of Drums",
-  "location": "Mankato, MN",
-  "date_display": "July 7, 2026",
-  "date": "2026-07-07",
-  "lineup": [
-   "Govenaires",
-   "MBI",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:50 PM",
-    "Minnesota State University - Clinic Band - Mankato, MN"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Govenaires"
-   ],
-   [
-    "7:27 PM",
-    "MBI"
-   ],
-   [
-    "7:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Genesis"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Colts"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
   "_seen": "2026-10-13"
  },
  {
@@ -5808,22 +5818,6 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-10-13"
- },
- {
-  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
-  "name": "Shining a Light on Music Education",
-  "location": "Indianapolis, IN",
-  "date_display": "August 7, 2026",
-  "date": "2026-08-07",
-  "lineup": [
-   "Apogee",
-   "Freelancers",
-   "Green Beret Marching Band",
-   "Mercedes Marching Band",
-   "Rhythm IN BLUE",
-   "Spark"
-  ],
   "_seen": "2026-10-13"
  },
  {
