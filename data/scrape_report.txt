@@ -1,9 +1,9 @@
-mode=update started=2026-10-13 19:58:13 UTC
-dci.org current season: OK (10s)
+mode=update started=2026-10-13 20:10:14 UTC
+dci.org current season: OK (8s)
 drum-corps.net fill: OK (1s)
 downbeat fallback fill: OK (0s)
-compsuite captions: OK (215s)
-upcoming events: OK (8s)
+compsuite captions: OK (160s)
+upcoming events: OK (4s)
 dci news: OK (1s)
-build site data: OK (4s)
-finished=2026-10-13 20:02:12 UTC
+build site data: OK (5s)
+finished=2026-10-13 20:13:13 UTC
