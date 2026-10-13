@@ -2983,6 +2983,41 @@
   "_seen": "2026-10-13"
  },
  {
+  "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
+  "name": "Raiders Tour Send-Off",
+  "location": "Aston Township, PA",
+  "date_display": "July 19, 2026",
+  "date": "2026-07-19",
+  "lineup": [
+   "Les Stentors",
+   "Raiders",
+   "Joint Performance"
+  ],
+  "schedule": [
+   [
+    "3:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:15 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:00 PM",
+    "Raiders"
+   ],
+   [
+    "8:45 PM",
+    "Joint Performance"
+   ]
+  ],
+  "_seen": "2026-10-13"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-mckinney/",
   "name": "DCI McKinney",
   "location": "McKinney, TX",
@@ -4235,75 +4270,6 @@
   "_seen": "2026-10-13"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-annapolis/",
-  "name": "DCI Annapolis",
-  "location": "Annapolis, MD",
-  "date_display": "July 28, 2026",
-  "date": "2026-07-28",
-  "lineup": [
-   "Raiders",
-   "Spartans",
-   "Pacific Crest",
-   "Blue Knights",
-   "Troopers",
-   "Colts",
-   "Boston Crusaders",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome"
-   ],
-   [
-    "6:40 PM",
-    "Raiders"
-   ],
-   [
-    "6:57 PM",
-    "Spartans"
-   ],
-   [
-    "7:14 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:31 PM",
-    "Blue Knights"
-   ],
-   [
-    "7:48 PM",
-    "Intermission"
-   ],
-   [
-    "8:05 PM",
-    "Troopers"
-   ],
-   [
-    "8:22 PM",
-    "Colts"
-   ],
-   [
-    "8:39 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:56 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:21 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-13"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-huntington/",
   "name": "DCI Huntington",
   "location": "Huntington, WV",
@@ -5064,95 +5030,6 @@
   "_seen": "2026-10-13"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
-  "name": "DCI Open Class World Championship Prelims",
-  "location": "Dayton, OH",
-  "date_display": "August 3, 2026",
-  "date": "2026-08-03",
-  "lineup": [
-   "Eclipse",
-   "Blue Devils B",
-   "Heat Wave",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "Memphis Blues",
-   "River City Rhythm",
-   "The Battalion",
-   "Gold"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Eclipse"
-   ],
-   [
-    "6:27 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:44 PM",
-    "Heat Wave"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:00 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:17 PM",
-    "The Battalion"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:59 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
-  "_seen": "2026-10-13"
- },
- {
   "url": "https://www.dci.org/events/2026-innovations-in-brass/",
   "name": "Innovations In Brass",
   "location": "Akron, OH",
@@ -5263,100 +5140,6 @@
    ]
   ],
   "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
-  "_seen": "2026-10-13"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
-  "name": "DCI Open Class World Championship Finals",
-  "location": "Dayton, OH",
-  "date_display": "August 4, 2026",
-  "date": "2026-08-04",
-  "lineup": [
-   "Mercedes Marching Band",
-   "Heat Wave",
-   "Eclipse",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Blue Devils B",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Mercedes Marching Band"
-   ],
-   [
-    "6:27 PM",
-    "Heat Wave"
-   ],
-   [
-    "6:44 PM",
-    "Eclipse"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:00 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:17 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:51 PM",
-    "The Battalion"
-   ],
-   [
-    "10:16 PM",
-    "Retreat"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-10-13"
  },
  {
