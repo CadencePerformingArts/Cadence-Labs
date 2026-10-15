@@ -1272,54 +1272,6 @@
   "_seen": "2026-10-15"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-america/",
-  "name": "Drums Across America",
-  "location": "Newnan, GA",
-  "date_display": "July 8, 2026",
-  "date": "2026-07-08",
-  "lineup": [
-   "Atlanta CV",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:02 PM",
-    "Music City"
-   ],
-   [
-    "8:24 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:42 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:04 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:12 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-15"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
   "name": "DCI Northern Alabama",
   "location": "Muscle Shoals, AL",
@@ -1376,80 +1328,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-10-15"
- },
- {
-  "url": "https://www.dci.org/events/2026-gold-showcase/",
-  "name": "Gold Showcase",
-  "location": "Santa Clarita, CA",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Blue Devils C",
-   "Golden Empire",
-   "Blue Devils B",
-   "The Academy",
-   "Pacific Crest",
-   "Blue Devils",
-   "Santa Clara Vanguard",
-   "Gold",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "5:50 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:00 PM",
-    "Blue Devils C"
-   ],
-   [
-    "6:17 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:34 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:51 PM",
-    "The Academy"
-   ],
-   [
-    "7:08 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:25 PM",
-    "Intermission"
-   ],
-   [
-    "7:55 PM",
-    "Blue Devils"
-   ],
-   [
-    "8:12 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "8:29 PM",
-    "Gold"
-   ],
-   [
-    "8:46 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:11 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-10-15"
  },
  {
@@ -4406,6 +4284,84 @@
    ]
   ],
   "bag_policy": "Marshall Athletics enforces a Clear Bag Policy. More information can be found here .",
+  "_seen": "2026-10-15"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-summer-music-games-of-southwest-virginia/",
+  "name": "Summer Music Games of Southwest Virginia",
+  "location": "Salem, VA",
+  "date_display": "July 29, 2026",
+  "date": "2026-07-29",
+  "lineup": [
+   "Carolina Gold",
+   "Heat Wave",
+   "Raiders",
+   "The Academy",
+   "Music City",
+   "Spirit of Atlanta",
+   "Crossmen",
+   "Blue Stars",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Carolina Gold"
+   ],
+   [
+    "7:22 PM",
+    "Heat Wave"
+   ],
+   [
+    "7:39 PM",
+    "Raiders"
+   ],
+   [
+    "7:56 PM",
+    "The Academy"
+   ],
+   [
+    "8:13 PM",
+    "Music City"
+   ],
+   [
+    "8:30 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:47 PM",
+    "Intermission"
+   ],
+   [
+    "9:04 PM",
+    "Crossmen"
+   ],
+   [
+    "9:21 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:38 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-15"
  },
  {
