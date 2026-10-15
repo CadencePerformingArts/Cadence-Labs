@@ -4409,84 +4409,6 @@
   "_seen": "2026-10-15"
  },
  {
-  "url": "https://www.dci.org/events/2026-summer-music-games-of-southwest-virginia/",
-  "name": "Summer Music Games of Southwest Virginia",
-  "location": "Salem, VA",
-  "date_display": "July 29, 2026",
-  "date": "2026-07-29",
-  "lineup": [
-   "Carolina Gold",
-   "Heat Wave",
-   "Raiders",
-   "The Academy",
-   "Music City",
-   "Spirit of Atlanta",
-   "Crossmen",
-   "Blue Stars",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Carolina Gold"
-   ],
-   [
-    "7:22 PM",
-    "Heat Wave"
-   ],
-   [
-    "7:39 PM",
-    "Raiders"
-   ],
-   [
-    "7:56 PM",
-    "The Academy"
-   ],
-   [
-    "8:13 PM",
-    "Music City"
-   ],
-   [
-    "8:30 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:47 PM",
-    "Intermission"
-   ],
-   [
-    "9:04 PM",
-    "Crossmen"
-   ],
-   [
-    "9:21 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:38 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:55 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:03 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-15"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-east-coast-showcase/",
   "name": "DCI East Coast Showcase",
   "location": "Lawrence, MA",
@@ -5907,6 +5829,95 @@
    "Rhythm IN BLUE",
    "Spark"
   ],
+  "_seen": "2026-10-15"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-finals/",
+  "name": "DCI All-Age World Championship Finals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 8, 2026",
+  "date": "2026-08-08",
+  "lineup": [
+   "MBI",
+   "Northern Lights",
+   "Govenaires",
+   "Rogues Hollow Regiment",
+   "Fusion Core",
+   "White Sabers",
+   "Hurricanes",
+   "Cincinnati Tradition",
+   "Bushwackers",
+   "Atlanta CV",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers"
+  ],
+  "schedule": [
+   [
+    "9:00 AM",
+    "Gates Open"
+   ],
+   [
+    "9:50 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "10:00 AM",
+    "MBI"
+   ],
+   [
+    "10:17 AM",
+    "Northern Lights"
+   ],
+   [
+    "10:34 AM",
+    "Govenaires"
+   ],
+   [
+    "10:51 AM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "11:08 AM",
+    "Fusion Core"
+   ],
+   [
+    "11:25 AM",
+    "White Sabers"
+   ],
+   [
+    "11:42 AM",
+    "Intermission"
+   ],
+   [
+    "11:57 AM",
+    "Hurricanes"
+   ],
+   [
+    "12:14 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "12:31 PM",
+    "Bushwackers"
+   ],
+   [
+    "12:48 PM",
+    "Atlanta CV"
+   ],
+   [
+    "1:05 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "1:22 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "1:45 PM",
+    "Awards Ceremony"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
   "_seen": "2026-10-15"
  },
  {
