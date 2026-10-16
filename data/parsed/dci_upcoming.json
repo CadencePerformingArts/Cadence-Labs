@@ -202,82 +202,6 @@
   "_seen": "2026-10-16"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
-  "name": "Drums Along the Rockies",
-  "location": "Fort Collins, CO",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Rocky Mountain Brassworks",
-   "BKXperience",
-   "Troopers Legacy Corps",
-   "Genesis",
-   "Troopers",
-   "Phantom Regiment",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:15 PM",
-    "Rocky Mountain Brassworks"
-   ],
-   [
-    "7:25 PM",
-    "BKXperience"
-   ],
-   [
-    "7:35 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Blue Knights Awards Presentation"
-   ],
-   [
-    "7:45 PM",
-    "Troopers Legacy Corps"
-   ],
-   [
-    "8:03 PM",
-    "Genesis"
-   ],
-   [
-    "8:21 PM",
-    "Troopers"
-   ],
-   [
-    "8:39 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:18 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:36 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:54 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "10:01 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-16"
- },
- {
   "url": "https://www.dci.org/events/2026-corps-encore/",
   "name": "Corps Encore",
   "location": "Ogden, UT",
@@ -2398,6 +2322,76 @@
    ]
   ],
   "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-10-16"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-central-texas/",
+  "name": "DCI Central Texas",
+  "location": "Killeen, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Sky Ryders",
+   "Arsenal",
+   "Gold",
+   "Genesis",
+   "Music City",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Blue Knights"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:42 PM",
+    "Arsenal"
+   ],
+   [
+    "8:59 PM",
+    "Gold"
+   ],
+   [
+    "9:16 PM",
+    "Genesis"
+   ],
+   [
+    "9:33 PM",
+    "Music City"
+   ],
+   [
+    "9:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "10:07 PM",
+    "Madison Scouts"
+   ],
+   [
+    "10:24 PM",
+    "Colts"
+   ],
+   [
+    "10:41 PM",
+    "Blue Knights"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-16"
  },
  {
