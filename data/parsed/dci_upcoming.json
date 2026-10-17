@@ -3202,6 +3202,79 @@
   "_seen": "2026-10-17"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
+  "name": "Drums on the Ohio",
+  "location": "Evansville, IN",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "Gold",
+   "The Battalion",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "Colts",
+   "Phantom Regiment",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Gold"
+   ],
+   [
+    "7:27 PM",
+    "The Battalion"
+   ],
+   [
+    "7:44 PM",
+    "Genesis"
+   ],
+   [
+    "8:01 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:18 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "9:05 PM",
+    "Colts"
+   ],
+   [
+    "9:22 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:39 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:56 PM",
+    "Encore - Phantom Regiment - Rockford, IL"
+   ],
+   [
+    "10:04 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-10-17"
+ },
+ {
   "url": "https://www.dci.org/events/2026-march-on/",
   "name": "March On!",
   "location": "Champlin, MN",
@@ -3820,6 +3893,83 @@
    ]
   ],
   "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
+  "_seen": "2026-10-17"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-music-on-the-mountain/",
+  "name": "Music on the Mountain",
+  "location": "Sheffield, PA",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "Allegheny Eclipse",
+   "Apogee",
+   "Rogues Hollow Regiment",
+   "Cincinnati Tradition",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "Gold"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Allegheny Eclipse"
+   ],
+   [
+    "7:20 PM",
+    "Apogee"
+   ],
+   [
+    "7:32 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "7:49 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:06 PM",
+    "Intermission"
+   ],
+   [
+    "8:23 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:40 PM",
+    "Raiders"
+   ],
+   [
+    "8:57 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:14 PM",
+    "The Battalion"
+   ],
+   [
+    "9:31 PM",
+    "Gold"
+   ],
+   [
+    "9:48 PM",
+    "Encore - The Battalion - Salt Lake City, UT"
+   ],
+   [
+    "9:56 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-10-17"
  },
  {
@@ -5035,119 +5185,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
-  "_seen": "2026-10-17"
- },
- {
-  "url": "https://www.dci.org/events/2026-innovations-in-brass/",
-  "name": "Innovations In Brass",
-  "location": "Akron, OH",
-  "date_display": "August 3, 2026",
-  "date": "2026-08-03",
-  "lineup": [
-   "The Blue Way Middle School Honor Band",
-   "Rhythm IN BLUE",
-   "EN-CORPS by EN-RICH-MENT",
-   "Genesis",
-   "Seattle Cascades",
-   "Music City",
-   "The Academy",
-   "Crossmen",
-   "Pacific Crest",
-   "Madison Scouts",
-   "Colts",
-   "Santa Clara Vanguard",
-   "Carolina Crown",
-   "Boston Crusaders",
-   "Blue Devils",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "The Blue Way Middle School Honor Band"
-   ],
-   [
-    "6:20 PM",
-    "Rhythm IN BLUE"
-   ],
-   [
-    "6:30 PM",
-    "EN-CORPS by EN-RICH-MENT"
-   ],
-   [
-    "6:42 PM",
-    "Genesis"
-   ],
-   [
-    "6:59 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "7:16 PM",
-    "Music City"
-   ],
-   [
-    "7:33 PM",
-    "The Academy"
-   ],
-   [
-    "7:50 PM",
-    "Crossmen"
-   ],
-   [
-    "8:07 PM",
-    "Intermission"
-   ],
-   [
-    "8:24 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:41 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:58 PM",
-    "Colts"
-   ],
-   [
-    "9:15 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:32 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:49 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:06 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:23 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:40 PM",
-    "Encore - Bluecoats - Canton, OH"
-   ],
-   [
-    "10:48 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
   "_seen": "2026-10-17"
  },
  {
