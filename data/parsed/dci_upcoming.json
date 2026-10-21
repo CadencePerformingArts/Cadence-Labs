@@ -1603,6 +1603,90 @@
   "_seen": "2026-10-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-10-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -5319,213 +5403,6 @@
   "_seen": "2026-10-21"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-world-championship-prelims/",
-  "name": "DCI World Championship Prelims",
-  "location": "Indianapolis, IN",
-  "date_display": "August 6, 2026",
-  "date": "2026-08-06",
-  "lineup": [
-   "Mercedes Marching Band",
-   "Heat Wave",
-   "Eclipse",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Gold",
-   "The Battalion",
-   "Blue Devils B",
-   "Genesis",
-   "Seattle Cascades",
-   "Spartans",
-   "The Academy",
-   "Music City",
-   "LIVE",
-   "Crossmen",
-   "Madison Scouts",
-   "Pacific Crest",
-   "Spirit of Atlanta",
-   "Blue Knights",
-   "Troopers",
-   "Colts",
-   "The Cavaliers",
-   "Blue Stars",
-   "Phantom Regiment",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown",
-   "Blue Devils",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "10:30 AM",
-    "Gates Open"
-   ],
-   [
-    "12:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "12:10 PM",
-    "Mercedes Marching Band"
-   ],
-   [
-    "12:27 PM",
-    "Heat Wave"
-   ],
-   [
-    "12:44 PM",
-    "Eclipse"
-   ],
-   [
-    "1:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "1:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "1:35 PM",
-    "Raiders"
-   ],
-   [
-    "1:52 PM",
-    "Colt Cadets"
-   ],
-   [
-    "2:09 PM",
-    "Columbians"
-   ],
-   [
-    "2:26 PM",
-    "Intermission"
-   ],
-   [
-    "2:48 PM",
-    "River City Rhythm"
-   ],
-   [
-    "3:05 PM",
-    "Memphis Blues"
-   ],
-   [
-    "3:22 PM",
-    "Gold"
-   ],
-   [
-    "3:39 PM",
-    "The Battalion"
-   ],
-   [
-    "3:56 PM",
-    "Blue Devils B"
-   ],
-   [
-    "4:13 PM",
-    "Genesis"
-   ],
-   [
-    "4:30 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "4:47 PM",
-    "Spartans"
-   ],
-   [
-    "5:04 PM",
-    "The Academy"
-   ],
-   [
-    "5:21 PM",
-    "Music City"
-   ],
-   [
-    "5:38 PM",
-    "Intermission"
-   ],
-   [
-    "6:30 PM",
-    "LIVE"
-   ],
-   [
-    "6:37 PM",
-    "Crossmen"
-   ],
-   [
-    "6:54 PM",
-    "Madison Scouts"
-   ],
-   [
-    "7:11 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:28 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "7:45 PM",
-    "Blue Knights"
-   ],
-   [
-    "8:02 PM",
-    "Troopers"
-   ],
-   [
-    "8:19 PM",
-    "Intermission"
-   ],
-   [
-    "8:41 PM",
-    "Colts"
-   ],
-   [
-    "8:58 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:15 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:32 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:49 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:06 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:23 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:57 PM",
-    "Bluecoats"
-   ],
-   [
-    "11:22 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-10-21"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-prelims/",
   "name": "DCI All-Age World Championship Prelims",
   "location": "Indianapolis, IN",
@@ -5631,179 +5508,6 @@
    [
     "1:30 PM",
     "DCI World Championships Semifinals Begins"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-10-21"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-world-championship-semifinals/",
-  "name": "DCI World Championship Semifinals",
-  "location": "Indianapolis, IN",
-  "date_display": "August 7, 2026",
-  "date": "2026-08-07",
-  "lineup": [
-   "All-Age World Championships Prelims",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Genesis",
-   "Gold",
-   "Seattle Cascades",
-   "The Battalion",
-   "Spartans",
-   "Blue Devils B",
-   "The Academy",
-   "Music City",
-   "Crossmen",
-   "Madison Scouts",
-   "Blue Knights",
-   "Pacific Crest",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Blue Stars",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown",
-   "Blue Devils",
-   "Bluecoats",
-   "Phantom Regiment Alumni Corps",
-   "Age-Out Ceremony"
-  ],
-  "schedule": [
-   [
-    "7:30 AM",
-    "Gates Open"
-   ],
-   [
-    "8:20 AM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 AM",
-    "All-Age World Championships Prelims"
-   ],
-   [
-    "1:30 PM",
-    "River City Rhythm"
-   ],
-   [
-    "1:47 PM",
-    "Memphis Blues"
-   ],
-   [
-    "2:04 PM",
-    "Genesis"
-   ],
-   [
-    "2:21 PM",
-    "Gold"
-   ],
-   [
-    "2:38 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "2:55 PM",
-    "The Battalion"
-   ],
-   [
-    "3:12 PM",
-    "Spartans"
-   ],
-   [
-    "3:29 PM",
-    "Intermission"
-   ],
-   [
-    "3:46 PM",
-    "Blue Devils B"
-   ],
-   [
-    "4:03 PM",
-    "The Academy"
-   ],
-   [
-    "4:20 PM",
-    "Music City"
-   ],
-   [
-    "4:37 PM",
-    "Crossmen"
-   ],
-   [
-    "4:54 PM",
-    "Madison Scouts"
-   ],
-   [
-    "5:11 PM",
-    "Blue Knights"
-   ],
-   [
-    "5:28 PM",
-    "Pacific Crest"
-   ],
-   [
-    "5:45 PM",
-    "Troopers"
-   ],
-   [
-    "6:02 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "6:27 PM",
-    "Intermission"
-   ],
-   [
-    "6:49 PM",
-    "Colts"
-   ],
-   [
-    "7:06 PM",
-    "The Cavaliers"
-   ],
-   [
-    "7:23 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "7:40 PM",
-    "Blue Stars"
-   ],
-   [
-    "7:57 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "8:14 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:31 PM",
-    "Carolina Crown"
-   ],
-   [
-    "8:48 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:05 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:22 PM",
-    "Open Class Encore Champion Encore Blue Devils \"B\" - Concord, CA"
-   ],
-   [
-    "10:11 PM",
-    "Phantom Regiment Alumni Corps"
-   ],
-   [
-    "10:31 PM",
-    "Age-Out Ceremony"
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
