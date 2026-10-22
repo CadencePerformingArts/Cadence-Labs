@@ -2160,56 +2160,6 @@
   "_seen": "2026-10-22"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
-  "name": "Drums Across the Desert",
-  "location": "Mesa, AZ",
-  "date_display": "July 13, 2026",
-  "date": "2026-07-13",
-  "lineup": [
-   "Seattle Cascades",
-   "Pacific Crest",
-   "The Academy",
-   "Bluecoats",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "National Anthem The Phoenix Symphony Brass Quintet"
-   ],
-   [
-    "8:10 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:27 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:44 PM",
-    "The Academy"
-   ],
-   [
-    "8:56 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:13 PM",
-    "Encore - The Bluecoats and The Academy - Tempe, AZ"
-   ],
-   [
-    "9:21 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-10-22"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
   "name": "DCI Broken Arrow",
   "location": "Broken Arrow, OK",
@@ -2468,76 +2418,6 @@
    ]
   ],
   "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-22"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-denton/",
-  "name": "DCI Denton",
-  "location": "Denton, TX",
-  "date_display": "July 16, 2026",
-  "date": "2026-07-16",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Seattle Cascades",
-   "Spirit of Atlanta",
-   "Phantom Regiment",
-   "Carolina Crown",
-   "Bluecoats",
-   "Boston Crusaders",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:20 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:30 PM",
-    "Guardians"
-   ],
-   [
-    "8:42 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:59 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:16 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:33 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:50 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:07 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:24 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:41 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "11:06 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-22"
  },
  {
@@ -2903,6 +2783,86 @@
   "_seen": "2026-10-22"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-dallas/",
+  "name": "DCI Dallas",
+  "location": "Bedford, TX",
+  "date_display": "July 19, 2026",
+  "date": "2026-07-19",
+  "lineup": [
+   "Arsenal",
+   "Zephyrus",
+   "Spartans",
+   "The Academy",
+   "Music City",
+   "Madison Scouts",
+   "Pacific Crest",
+   "Blue Knights",
+   "Colts",
+   "The Cavaliers",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Arsenal"
+   ],
+   [
+    "7:27 PM",
+    "Zephyrus"
+   ],
+   [
+    "7:44 PM",
+    "Spartans"
+   ],
+   [
+    "8:01 PM",
+    "The Academy"
+   ],
+   [
+    "8:18 PM",
+    "Music City"
+   ],
+   [
+    "8:35 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:52 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:09 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:26 PM",
+    "Colts"
+   ],
+   [
+    "9:43 PM",
+    "The Cavaliers"
+   ],
+   [
+    "10:00 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-22"
+ },
+ {
   "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
   "name": "Raiders Tour Send-Off",
   "location": "Aston Township, PA",
@@ -3000,6 +2960,66 @@
    ]
   ],
   "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-10-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-st-louis/",
+  "name": "DCI St. Louis",
+  "location": "Belleville, IL",
+  "date_display": "July 21, 2026",
+  "date": "2026-07-21",
+  "lineup": [
+   "Gold",
+   "The Battalion",
+   "Seattle Cascades",
+   "Music City",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Gold"
+   ],
+   [
+    "8:27 PM",
+    "The Battalion"
+   ],
+   [
+    "8:44 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:01 PM",
+    "Music City"
+   ],
+   [
+    "9:18 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:35 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:17 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-22"
  },
  {
