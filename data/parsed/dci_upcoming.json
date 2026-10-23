@@ -2279,6 +2279,74 @@
   "_seen": "2026-10-23"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-hutchinson/",
+  "name": "DCI Hutchinson",
+  "location": "Hutchinson, KS",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Sky Ryders",
+   "Spartans",
+   "Music City",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:22 PM",
+    "Spartans"
+   ],
+   [
+    "8:39 PM",
+    "Music City"
+   ],
+   [
+    "8:56 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:13 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Troopers"
+   ],
+   [
+    "9:47 PM",
+    "Blue Knights"
+   ],
+   [
+    "10:04 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-23"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-new-mexico/",
   "name": "DCI New Mexico",
   "location": "Albuquerque, NM",
@@ -2545,6 +2613,61 @@
    ]
   ],
   "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
+  "_seen": "2026-10-23"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
   "_seen": "2026-10-23"
  },
  {
@@ -3676,6 +3799,100 @@
    ]
   ],
   "bag_policy": "Center Parc Stadium will enforce security policies including the use of metal detectors, prohibited items, and a CLEAR BAG POLICY. Only approved clear bags will be permitted in the stadium. For more information, please visit the Center Parc Stadium Game Day Website .",
+  "_seen": "2026-10-23"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-midwestern-championship/",
+  "name": "Midwestern Championship",
+  "location": "DeKalb, IL",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "The ConneXion",
+   "Northern Lights",
+   "Govenaires",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "The ConneXion"
+   ],
+   [
+    "6:52 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:09 PM",
+    "Govenaires"
+   ],
+   [
+    "7:26 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:43 PM",
+    "Columbians"
+   ],
+   [
+    "8:00 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:17 PM",
+    "Intermission"
+   ],
+   [
+    "8:34 PM",
+    "Genesis"
+   ],
+   [
+    "8:51 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:25 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:42 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:59 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:16 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:24 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
   "_seen": "2026-10-23"
  },
  {
