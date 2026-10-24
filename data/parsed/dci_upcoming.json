@@ -44,19 +44,6 @@
   "_seen": "2026-10-24"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-10-24"
- },
- {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -335,21 +322,28 @@
   "_seen": "2026-10-24"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
-  "name": "Drums Along the Columbia",
-  "location": "Kennewick, WA",
-  "date_display": "June 29, 2026",
-  "date": "2026-06-29",
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
+  "name": "Northwest Youth Music Games Seattle",
+  "location": "Seattle, WA",
+  "date_display": "June 30, 2026",
+  "date": "2026-06-30",
   "lineup": [
    "Gems",
    "Impulse",
-   "The Battalion",
    "Columbians",
-   "Seattle Cascades",
+   "The Battalion",
    "Santa Clara Vanguard",
-   "Event Concludes"
+   "Seattle Cascades"
   ],
   "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:45 PM",
+    "Intermission"
+   ],
    [
     "7:30 PM",
     "Welcome & National Anthem"
@@ -359,34 +353,35 @@
     "Gems"
    ],
    [
-    "7:58 PM",
+    "7:52 PM",
     "Impulse"
    ],
    [
-    "8:16 PM",
-    "The Battalion"
-   ],
-   [
-    "8:34 PM",
+    "8:07 PM",
     "Columbians"
    ],
    [
-    "8:52 PM",
-    "Seattle Cascades"
+    "8:22 PM",
+    "The Battalion"
    ],
    [
-    "9:10 PM",
+    "8:52 PM",
     "Santa Clara Vanguard"
    ],
    [
-    "9:17 PM",
-    "Event Concludes"
+    "9:10 PM",
+    "Seattle Cascades"
    ],
    [
-    "",
-    "Gates Open"
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
    ]
   ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-10-24"
  },
  {
@@ -564,6 +559,59 @@
    ],
    [
     "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-10-24"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-preview-of-champions/",
+  "name": "Preview of Champions",
+  "location": "Nashua, NH",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Boston Crusaders",
+   "Spartans",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome"
+   ],
+   [
+    "8:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:35 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:00 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:55 PM",
+    "Spartans"
+   ],
+   [
+    "10:20 PM",
+    "Encore - Spartans - Nashua, NH"
+   ],
+   [
+    "10:45 PM",
     "Event Concludes"
    ]
   ],
