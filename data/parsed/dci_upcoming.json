@@ -1926,6 +1926,105 @@
   "_seen": "2026-10-25"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
+  "name": "The Whitewater Classic",
+  "location": "Whitewater, WI",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Green Beret Marching Band",
+   "The Connexion",
+   "Sound of Sun Prairie",
+   "Eclipse",
+   "River City Rhythm",
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Madison Scouts"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "5:55 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "6:05 PM",
+    "The Connexion"
+   ],
+   [
+    "6:15 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "6:27 PM",
+    "Eclipse"
+   ],
+   [
+    "6:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:01 PM",
+    "Spartans"
+   ],
+   [
+    "7:18 PM",
+    "Genesis"
+   ],
+   [
+    "7:35 PM",
+    "Crossmen"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Troopers"
+   ],
+   [
+    "8:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:00 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:17 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:34 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:51 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-10-25"
+ },
+ {
   "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
   "name": "So Cal Classic: Open Class Pacific Championship Finals",
   "location": "Buena Park, CA",
@@ -3100,137 +3199,6 @@
    ]
   ],
   "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-10-25"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
-  "name": "Drums on the Ohio",
-  "location": "Evansville, IN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Genesis",
-   "Seattle Cascades",
-   "Pacific Crest",
-   "Colts",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Gold"
-   ],
-   [
-    "7:27 PM",
-    "The Battalion"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:18 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:05 PM",
-    "Colts"
-   ],
-   [
-    "9:22 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:39 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:56 PM",
-    "Encore - Phantom Regiment - Rockford, IL"
-   ],
-   [
-    "10:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-10-25"
- },
- {
-  "url": "https://www.dci.org/events/2026-march-on/",
-  "name": "March On!",
-  "location": "Champlin, MN",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "RCR Street Club",
-   "MBI",
-   "Govenaires",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "RCR Street Club"
-   ],
-   [
-    "7:22 PM",
-    "MBI"
-   ],
-   [
-    "7:39 PM",
-    "Govenaires"
-   ],
-   [
-    "7:56 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:13 PM",
-    "Columbians"
-   ],
-   [
-    "8:30 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:47 PM",
-    "Encore - River City Rhythm - Anoka, MN"
-   ],
-   [
-    "8:55 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-10-25"
  },
  {
