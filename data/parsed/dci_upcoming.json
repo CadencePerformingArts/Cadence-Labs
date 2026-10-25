@@ -127,6 +127,81 @@
   "_seen": "2026-10-25"
  },
  {
+  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
+  "name": "Bluecoats Opening Night Community Celebration",
+  "location": "Alliance, OH",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "Columbus Saints",
+   "Rogues Hollow Regiment",
+   "Cincinnati Tradition",
+   "Eclipse",
+   "EN-CORPS by EN-RICH-MENT",
+   "Bluecoats Alumni Legacy Arc",
+   "Rhythm IN BLUE",
+   "The Bluecoats",
+   "The Blue Way Summer Arts Camp",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "5:15 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:15 PM",
+    "Columbus Saints"
+   ],
+   [
+    "6:25 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "6:40 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "6:55 PM",
+    "Eclipse"
+   ],
+   [
+    "7:10 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "7:25 PM",
+    "Bluecoats Alumni Legacy Arc"
+   ],
+   [
+    "7:40 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "7:55 PM",
+    "The Bluecoats"
+   ],
+   [
+    "8:18 PM",
+    "The Blue Way Summer Arts Camp"
+   ],
+   [
+    "8:28 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "8:53 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event",
+  "_seen": "2026-10-25"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -3065,6 +3140,138 @@
    ]
   ],
   "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-25"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
+  "name": "DCI Southern Mississippi",
+  "location": "Hattiesburg, MS",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "Crossmen",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Crossmen"
+   ],
+   [
+    "7:57 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:14 PM",
+    "Troopers"
+   ],
+   [
+    "8:31 PM",
+    "Intermission"
+   ],
+   [
+    "8:48 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:05 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:22 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:47 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-10-25"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
+  "name": "Drums on the Ohio",
+  "location": "Evansville, IN",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "Gold",
+   "The Battalion",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "Colts",
+   "Phantom Regiment",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Gold"
+   ],
+   [
+    "7:27 PM",
+    "The Battalion"
+   ],
+   [
+    "7:44 PM",
+    "Genesis"
+   ],
+   [
+    "8:01 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:18 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "9:05 PM",
+    "Colts"
+   ],
+   [
+    "9:22 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:39 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:56 PM",
+    "Encore - Phantom Regiment - Rockford, IL"
+   ],
+   [
+    "10:04 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
   "_seen": "2026-10-25"
  },
  {
