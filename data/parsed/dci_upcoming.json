@@ -1,49 +1,5 @@
 [
  {
-  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
-  "name": "DCI Tour Preview",
-  "location": "Muncie, IN",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Cincinnati Tradition",
-   "The Cavaliers",
-   "Carolina Crown",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:15 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:45 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:15 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:45 PM",
-    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-10-26"
- },
- {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -520,50 +476,53 @@
   "_seen": "2026-10-26"
  },
  {
-  "url": "https://www.dci.org/events/2026-midcal-showcase/",
-  "name": "MidCal Showcase",
-  "location": "Camarillo, CA",
+  "url": "https://www.dci.org/events/2026-preview-of-champions/",
+  "name": "Preview of Champions",
+  "location": "Nashua, NH",
   "date_display": "July 2, 2026",
   "date": "2026-07-02",
   "lineup": [
-   "Golden Empire",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Blue Devils",
+   "Les Stentors",
+   "7th Regiment",
+   "Boston Crusaders",
+   "Spartans",
    "Event Concludes"
   ],
   "schedule": [
    [
-    "7:00 PM",
+    "6:00 PM",
     "Gates Open"
    ],
    [
-    "7:50 PM",
-    "Welcome & National Anthem"
-   ],
-   [
     "8:00 PM",
-    "Golden Empire"
+    "Welcome"
    ],
    [
-    "8:25 PM",
-    "The Academy"
+    "8:10 PM",
+    "Les Stentors"
    ],
    [
-    "8:50 PM",
-    "Pacific Crest"
+    "8:35 PM",
+    "7th Regiment"
    ],
    [
-    "9:15 PM",
-    "Bluecoats"
+    "9:00 PM",
+    "Intermission"
    ],
    [
-    "9:40 PM",
-    "Blue Devils"
+    "9:30 PM",
+    "Boston Crusaders"
    ],
    [
-    "10:00 PM",
+    "9:55 PM",
+    "Spartans"
+   ],
+   [
+    "10:20 PM",
+    "Encore - Spartans - Nashua, NH"
+   ],
+   [
+    "10:45 PM",
     "Event Concludes"
    ]
   ],
