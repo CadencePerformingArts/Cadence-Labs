@@ -1195,131 +1195,6 @@
   "_seen": "2026-10-26"
  },
  {
-  "url": "https://www.dci.org/events/2026-celebration-in-brass/",
-  "name": "Celebration in Brass",
-  "location": "Des Moines, IA",
-  "date_display": "July 8, 2026",
-  "date": "2026-07-08",
-  "lineup": [
-   "Colt Cadets",
-   "River City Rhythm",
-   "Genesis",
-   "Crossmen",
-   "Madison Scouts",
-   "Troopers",
-   "Blue Stars",
-   "The Cavaliers",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Colt Cadets"
-   ],
-   [
-    "7:27 PM",
-    "River City Rhythm"
-   ],
-   [
-    "7:44 PM",
-    "Genesis"
-   ],
-   [
-    "8:01 PM",
-    "Crossmen"
-   ],
-   [
-    "8:18 PM",
-    "Intermission"
-   ],
-   [
-    "8:38 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:55 PM",
-    "Troopers"
-   ],
-   [
-    "9:12 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:29 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:46 PM",
-    "Colts"
-   ],
-   [
-    "10:03 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:11 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-drums-across-america/",
-  "name": "Drums Across America",
-  "location": "Newnan, GA",
-  "date_display": "July 8, 2026",
-  "date": "2026-07-08",
-  "lineup": [
-   "Atlanta CV",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:02 PM",
-    "Music City"
-   ],
-   [
-    "8:24 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:42 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:04 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:12 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-26"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
   "name": "DCI Northern Alabama",
   "location": "Muscle Shoals, AL",
@@ -5992,6 +5867,109 @@
    ],
    [
     "1:45 PM",
+    "Awards Ceremony"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-10-26"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-world-championship-finals/",
+  "name": "DCI World Championship Finals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 8, 2026",
+  "date": "2026-08-08",
+  "lineup": [
+   "INpact & BANDtastic Band",
+   "U.S. Marine Drum & Bugle Corps",
+   "Blue Knights",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Colts",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Blue Stars",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown",
+   "Blue Devils",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:00 PM",
+    "Gates Open"
+   ],
+   [
+    "5:30 PM",
+    "Welcome"
+   ],
+   [
+    "5:40 PM",
+    "INpact & BANDtastic Band"
+   ],
+   [
+    "6:00 PM",
+    "U.S. Marine Drum & Bugle Corps"
+   ],
+   [
+    "6:20 PM",
+    "National Anthem - U.S. Marine Drum & Bugle Corps"
+   ],
+   [
+    "6:30 PM",
+    "Blue Knights"
+   ],
+   [
+    "6:47 PM",
+    "Troopers"
+   ],
+   [
+    "7:04 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "7:21 PM",
+    "Colts"
+   ],
+   [
+    "7:38 PM",
+    "The Cavaliers"
+   ],
+   [
+    "7:55 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "8:12 PM",
+    "Intermission"
+   ],
+   [
+    "8:32 PM",
+    "Blue Stars"
+   ],
+   [
+    "8:49 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:06 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:23 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:40 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:57 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:00 PM",
     "Awards Ceremony"
    ]
   ],
