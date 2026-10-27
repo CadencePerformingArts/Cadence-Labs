@@ -3018,71 +3018,6 @@
   "_seen": "2026-10-27"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-mckinney/",
-  "name": "DCI McKinney",
-  "location": "McKinney, TX",
-  "date_display": "July 20, 2026",
-  "date": "2026-07-20",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Blue Stars",
-   "Carolina Crown",
-   "Crossmen",
-   "Phantom Regiment",
-   "Spirit of Atlanta",
-   "Troopers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Guardians"
-   ],
-   [
-    "8:22 PM",
-    "Zephyrus"
-   ],
-   [
-    "10:46 PM",
-    "Scores Announced"
-   ],
-   [
-    "TBD",
-    "Blue Stars"
-   ],
-   [
-    "TBD",
-    "Carolina Crown"
-   ],
-   [
-    "TBD",
-    "Crossmen"
-   ],
-   [
-    "TBD",
-    "Phantom Regiment"
-   ],
-   [
-    "TBD",
-    "Spirit of Atlanta"
-   ],
-   [
-    "TBD",
-    "Troopers"
-   ]
-  ],
-  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
-  "_seen": "2026-10-27"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -4626,6 +4561,95 @@
    ]
   ],
   "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
+  "_seen": "2026-10-27"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic-2/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Genesis",
+   "Music City",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Blue Knights",
+   "Blue Stars",
+   "Colts",
+   "Bluecoats",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Bushwackers"
+   ],
+   [
+    "7:27 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:44 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "8:01 PM",
+    "Genesis"
+   ],
+   [
+    "8:18 PM",
+    "Music City"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:09 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:00 PM",
+    "Colts"
+   ],
+   [
+    "10:17 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:34 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
   "_seen": "2026-10-27"
  },
  {
