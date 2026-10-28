@@ -1122,79 +1122,6 @@
   "_seen": "2026-10-28"
  },
  {
-  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
-  "name": "The Kiwanis Thunder of Drums",
-  "location": "Mankato, MN",
-  "date_display": "July 7, 2026",
-  "date": "2026-07-07",
-  "lineup": [
-   "Govenaires",
-   "MBI",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:50 PM",
-    "Minnesota State University - Clinic Band - Mankato, MN"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Govenaires"
-   ],
-   [
-    "7:27 PM",
-    "MBI"
-   ],
-   [
-    "7:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Genesis"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Colts"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
-  "_seen": "2026-10-28"
- },
- {
   "url": "https://www.dci.org/events/2026-celebration-in-brass/",
   "name": "Celebration in Brass",
   "location": "Des Moines, IA",
@@ -5096,6 +5023,95 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-28"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
+  "name": "DCI Open Class World Championship Prelims",
+  "location": "Dayton, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "Eclipse",
+   "Blue Devils B",
+   "Heat Wave",
+   "Les Stentors",
+   "7th Regiment",
+   "Raiders",
+   "Colt Cadets",
+   "Columbians",
+   "Memphis Blues",
+   "River City Rhythm",
+   "The Battalion",
+   "Gold"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "Eclipse"
+   ],
+   [
+    "6:27 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "7:01 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:18 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:35 PM",
+    "Raiders"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:26 PM",
+    "Columbians"
+   ],
+   [
+    "8:43 PM",
+    "Memphis Blues"
+   ],
+   [
+    "9:00 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:17 PM",
+    "The Battalion"
+   ],
+   [
+    "9:34 PM",
+    "Gold"
+   ],
+   [
+    "9:59 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-10-28"
  },
  {
