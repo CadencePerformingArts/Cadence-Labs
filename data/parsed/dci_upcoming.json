@@ -515,6 +515,74 @@
   "_seen": "2026-10-28"
  },
  {
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
+  "name": "Northwest Youth Music Games Portland",
+  "location": "Portland, OR",
+  "date_display": "July 1, 2026",
+  "date": "2026-07-01",
+  "lineup": [
+   "One More Time Around Marching Band",
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:15 PM",
+    "One More Time Around Marching Band"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:52 PM",
+    "Impulse"
+   ],
+   [
+    "8:07 PM",
+    "Columbians"
+   ],
+   [
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:37 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-10-28"
+ },
+ {
   "url": "https://www.dci.org/events/2026-midcal-showcase/",
   "name": "MidCal Showcase",
   "location": "Camarillo, CA",
@@ -2947,131 +3015,6 @@
     "Joint Performance"
    ]
   ],
-  "_seen": "2026-10-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-mckinney/",
-  "name": "DCI McKinney",
-  "location": "McKinney, TX",
-  "date_display": "July 20, 2026",
-  "date": "2026-07-20",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Blue Stars",
-   "Carolina Crown",
-   "Crossmen",
-   "Phantom Regiment",
-   "Spirit of Atlanta",
-   "Troopers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Guardians"
-   ],
-   [
-    "8:22 PM",
-    "Zephyrus"
-   ],
-   [
-    "10:46 PM",
-    "Scores Announced"
-   ],
-   [
-    "TBD",
-    "Blue Stars"
-   ],
-   [
-    "TBD",
-    "Carolina Crown"
-   ],
-   [
-    "TBD",
-    "Crossmen"
-   ],
-   [
-    "TBD",
-    "Phantom Regiment"
-   ],
-   [
-    "TBD",
-    "Spirit of Atlanta"
-   ],
-   [
-    "TBD",
-    "Troopers"
-   ]
-  ],
-  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
-  "_seen": "2026-10-28"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-st-louis/",
-  "name": "DCI St. Louis",
-  "location": "Belleville, IL",
-  "date_display": "July 21, 2026",
-  "date": "2026-07-21",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Seattle Cascades",
-   "Music City",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Gold"
-   ],
-   [
-    "8:27 PM",
-    "The Battalion"
-   ],
-   [
-    "8:44 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:01 PM",
-    "Music City"
-   ],
-   [
-    "9:18 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:35 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:17 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-10-28"
  },
  {
@@ -5823,6 +5766,22 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-10-28"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
+  "name": "Shining a Light on Music Education",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "Apogee",
+   "Freelancers",
+   "Green Beret Marching Band",
+   "Mercedes Marching Band",
+   "Rhythm IN BLUE",
+   "Spark"
+  ],
   "_seen": "2026-10-28"
  },
  {
