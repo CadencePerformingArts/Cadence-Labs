@@ -127,6 +127,81 @@
   "_seen": "2026-10-30"
  },
  {
+  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
+  "name": "Bluecoats Opening Night Community Celebration",
+  "location": "Alliance, OH",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "Columbus Saints",
+   "Rogues Hollow Regiment",
+   "Cincinnati Tradition",
+   "Eclipse",
+   "EN-CORPS by EN-RICH-MENT",
+   "Bluecoats Alumni Legacy Arc",
+   "Rhythm IN BLUE",
+   "The Bluecoats",
+   "The Blue Way Summer Arts Camp",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "5:15 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:15 PM",
+    "Columbus Saints"
+   ],
+   [
+    "6:25 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "6:40 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "6:55 PM",
+    "Eclipse"
+   ],
+   [
+    "7:10 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "7:25 PM",
+    "Bluecoats Alumni Legacy Arc"
+   ],
+   [
+    "7:40 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "7:55 PM",
+    "The Bluecoats"
+   ],
+   [
+    "8:18 PM",
+    "The Blue Way Summer Arts Camp"
+   ],
+   [
+    "8:28 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "8:53 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event",
+  "_seen": "2026-10-30"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
   "name": "Drums Along the Rockies",
   "location": "Fort Collins, CO",
@@ -197,63 +272,6 @@
    ],
    [
     "10:01 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-10-30"
- },
- {
-  "url": "https://www.dci.org/events/2026-corps-encore/",
-  "name": "Corps Encore",
-  "location": "Ogden, UT",
-  "date_display": "June 28, 2026",
-  "date": "2026-06-28",
-  "lineup": [
-   "Crosstown Big Band",
-   "Genesis",
-   "Troopers",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:35 PM",
-    "Crosstown Big Band"
-   ],
-   [
-    "8:00 PM",
-    "Genesis"
-   ],
-   [
-    "8:23 PM",
-    "Troopers"
-   ],
-   [
-    "8:46 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:23 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "9:48 PM",
     "Scores Announced"
    ]
   ],
@@ -608,55 +626,6 @@
     "Event Concludes"
    ]
   ],
-  "_seen": "2026-10-30"
- },
- {
-  "url": "https://www.dci.org/events/2026-rotary-music-festival/",
-  "name": "Rotary Music Festival",
-  "location": "Cedarburg, WI",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Eclipse",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Blue Stars"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Eclipse"
-   ],
-   [
-    "7:58 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:16 PM",
-    "The Cavaliers"
-   ],
-   [
-    "8:39 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:02 PM",
-    "Encore - Madison Scouts - Madison, WI"
-   ],
-   [
-    "9:04 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-10-30"
  },
  {
@@ -1047,79 +1016,6 @@
   "_seen": "2026-10-30"
  },
  {
-  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
-  "name": "The Kiwanis Thunder of Drums",
-  "location": "Mankato, MN",
-  "date_display": "July 7, 2026",
-  "date": "2026-07-07",
-  "lineup": [
-   "Govenaires",
-   "MBI",
-   "River City Rhythm",
-   "Genesis",
-   "Madison Scouts",
-   "Colts",
-   "Blue Knights",
-   "The Cavaliers"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:50 PM",
-    "Minnesota State University - Clinic Band - Mankato, MN"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Govenaires"
-   ],
-   [
-    "7:27 PM",
-    "MBI"
-   ],
-   [
-    "7:44 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Genesis"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Colts"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
-  "_seen": "2026-10-30"
- },
- {
   "url": "https://www.dci.org/events/2026-celebration-in-brass/",
   "name": "Celebration in Brass",
   "location": "Des Moines, IA",
@@ -1242,6 +1138,65 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-10-30"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
+  "name": "DCI Northern Alabama",
+  "location": "Muscle Shoals, AL",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Apollo Marching Theatre",
+   "Atlanta CV",
+   "Memphis Blues",
+   "Music City",
+   "Spirit of Atlanta",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Apollo Marching Theatre"
+   ],
+   [
+    "8:22 PM",
+    "Atlanta CV"
+   ],
+   [
+    "8:39 PM",
+    "Memphis Blues"
+   ],
+   [
+    "8:56 PM",
+    "Music City"
+   ],
+   [
+    "9:13 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:30 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "9:47 PM",
+    "Encore - Spirit of Atlanta - Atlanta, GA"
+   ],
+   [
+    "9:55 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-10-30"
  },
  {
@@ -2479,6 +2434,61 @@
    ]
   ],
   "bag_policy": "All guests will be required to abide by the Katy ISD Clear Bag Policy and pass through security screening including the use of walk-through and hand wand metal detectors. Outside food and beverage are prohibited and will not be allowed in the stadium. For a list of other prohibited items, visit katyisd.org . One empty reusable water bottle or one full sealed bottle of water will be permitted into the stadium.",
+  "_seen": "2026-10-30"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-sounds-by-the-seaport/",
+  "name": "Sounds by the Seaport",
+  "location": "New London, CT",
+  "date_display": "July 17, 2026",
+  "date": "2026-07-17",
+  "lineup": [
+   "Eastern Connecticut Symphony Orchestra",
+   "CT Alumni",
+   "Les Stentors",
+   "Hurricanes",
+   "7th Regiment",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome"
+   ],
+   [
+    "7:05 PM",
+    "Eastern Connecticut Symphony Orchestra"
+   ],
+   [
+    "7:20 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:45 PM",
+    "Les Stentors"
+   ],
+   [
+    "8:15 PM",
+    "Hall of Fame Recipients & Age-Out Recognition"
+   ],
+   [
+    "8:40 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:00 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:30 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "Large bags will be subject to inspection upon entry. To ensure a smooth and speedy entry, please bring only essential items.",
   "_seen": "2026-10-30"
  },
  {
