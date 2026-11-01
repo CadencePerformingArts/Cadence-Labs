@@ -1272,54 +1272,6 @@
   "_seen": "2026-11-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-america/",
-  "name": "Drums Across America",
-  "location": "Newnan, GA",
-  "date_display": "July 8, 2026",
-  "date": "2026-07-08",
-  "lineup": [
-   "Atlanta CV",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:02 PM",
-    "Music City"
-   ],
-   [
-    "8:24 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:42 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:04 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:12 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-11-01"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
   "name": "DCI Northern Alabama",
   "location": "Muscle Shoals, AL",
@@ -3973,56 +3925,6 @@
   "_seen": "2026-11-01"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-in-motion/",
-  "name": "DCI in Motion",
-  "location": "Norton, OH",
-  "date_display": "July 26, 2026",
-  "date": "2026-07-26",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Gold",
-   "Cincinnati Tradition",
-   "Rogues Hollow Regiment"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:27 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:44 PM",
-    "Gold"
-   ],
-   [
-    "8:01 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:18 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "8:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-11-01"
- },
- {
   "url": "https://www.dci.org/events/2026-nightbeat/",
   "name": "NightBEAT",
   "location": "Winston-Salem, NC",
@@ -4484,69 +4386,6 @@
    ]
   ],
   "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-01"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-east-coast-showcase/",
-  "name": "DCI East Coast Showcase",
-  "location": "Lawrence, MA",
-  "date_display": "July 30, 2026",
-  "date": "2026-07-30",
-  "lineup": [
-   "Crusaders Senior",
-   "North Star",
-   "Spartans",
-   "Pacific Crest",
-   "Phantom Regiment",
-   "Bluecoats",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Crusaders Senior"
-   ],
-   [
-    "7:57 PM",
-    "North Star"
-   ],
-   [
-    "8:14 PM",
-    "Spartans"
-   ],
-   [
-    "8:31 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:48 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:05 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:22 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:39 PM",
-    "Encore - Boston Crusaders - Boston, MA"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-11-01"
  },
  {
