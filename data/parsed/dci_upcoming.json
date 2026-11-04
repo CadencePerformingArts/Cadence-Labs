@@ -3973,6 +3973,56 @@
   "_seen": "2026-11-04"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-in-motion/",
+  "name": "DCI in Motion",
+  "location": "Norton, OH",
+  "date_display": "July 26, 2026",
+  "date": "2026-07-26",
+  "lineup": [
+   "Les Stentors",
+   "7th Regiment",
+   "Gold",
+   "Cincinnati Tradition",
+   "Rogues Hollow Regiment"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:27 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:44 PM",
+    "Gold"
+   ],
+   [
+    "8:01 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:18 PM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "8:43 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-11-04"
+ },
+ {
   "url": "https://www.dci.org/events/2026-nightbeat/",
   "name": "NightBEAT",
   "location": "Winston-Salem, NC",
@@ -5841,22 +5891,6 @@
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-11-04"
- },
- {
-  "url": "https://www.dci.org/events/2026-shining-a-light-on-music-education/",
-  "name": "Shining a Light on Music Education",
-  "location": "Indianapolis, IN",
-  "date_display": "August 7, 2026",
-  "date": "2026-08-07",
-  "lineup": [
-   "Apogee",
-   "Freelancers",
-   "Green Beret Marching Band",
-   "Mercedes Marching Band",
-   "Rhythm IN BLUE",
-   "Spark"
-  ],
   "_seen": "2026-11-04"
  },
  {
