@@ -1,6 +1,11 @@
 {
- "updated": "2026-11-06 19:58 UTC",
+ "updated": "2026-11-06 20:10 UTC",
  "articles": [
+  {
+   "title": "Corps news and announcements",
+   "url": "https://www.dci.org/news/corps-news-and-announcements-20261106/",
+   "date": "2026-11-06"
+  },
   {
    "title": "Phantom Regiment set to tour California for the first time in 10 years",
    "url": "https://www.dci.org/news/phantom-regiment-set-to-tour-california-for-the-first-time-in-10-years/",
@@ -54,12 +59,6 @@
    "url": "https://www.dci.org/news/corps-news-and-announcements-20261009/",
    "date": "2026-10-09",
    "image": "https://images.dci.org/wp-content/uploads/2026/10/white-sabers-corpsnews-20261009-scaled.jpg"
-  },
-  {
-   "title": "Corps news and announcements",
-   "url": "https://www.dci.org/news/corps-news-and-announcements-20261002/",
-   "date": "2026-10-02",
-   "image": "https://images.dci.org/wp-content/uploads/2026/10/sky-ryders-header-scaled.jpg"
   }
  ],
  "corps_items": [
@@ -310,190 +309,6 @@
    "logo": "https://production.assets.dci.org/65b351aca5a41f902e0a5062_DWxlpKLOiEh_8lnTDHOiaD9lbgxiIM-2.png",
    "kind": "auditions",
    "date": "2026-10-23"
-  },
-  {
-   "corps": "7th Regiment",
-   "blurb": "7th Regiment announced its percussion educational leadership for 2027.",
-   "link": "https://www.facebook.com/7thregiment/posts/1554340250061390",
-   "logo": "https://images.dci.org/wp-content/uploads/2025/05/7th-regiment-logo-2025-800x800-1.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Blue Devils",
-   "blurb": "Blue Devils is hosting audition camps in Dallas and Austin on October 18.",
-   "link": "https://www.facebook.com/reel/2004251346877621/",
-   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b08_Uzne3m6mvUnKdgmHijfR1ONE_5lXRM_5.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Carolina Crown",
-   "blurb": "Carolina Crown shared a list of its audition locations and dates.",
-   "link": "https://www.facebook.com/carolinacrown/posts/1567605078737987",
-   "logo": "https://images.dci.org/wp-content/uploads/2026/04/carolina-crown-logo-2026-800x800-1.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "The Cavaliers",
-   "blurb": "The Cavaliers announced that Levi Chavis, a corps alum, will step in as education director. “His extensive background as an educator, clinician, program coordinator, and adjudicator makes him uniquely suited to guide our educational vision and execution into the future,” corps director Daniel Belcher said.",
-   "link": "https://cavaliers.org/news-blog/2027-education-director",
-   "logo": "https://production.assets.dci.org/5ef6c5f9694c8b6b7c436322_BG_EFfjuppP9PJoOcFk1zOl1tQoaFmCE.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Crossmen",
-   "blurb": "Crossmen announced a preliminary list of audition camps, with more to be added.",
-   "link": "https://www.facebook.com/CrossmenDBC/posts/1697780725240908",
-   "logo": "https://images.dci.org/wp-content/uploads/2025/05/crossmen-logo-2025-800x800-1.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Eclipse",
-   "blurb": "Eclipse is hiring for a wide variety of staff positions.",
-   "link": "https://www.facebook.com/share/p/19aMbT5FS8/",
-   "logo": "https://images.dci.org/wp-content/uploads/2026/08/eclipse-logo-600x600-1.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Gold",
-   "blurb": "Gold introduced the members of the corps’ 2027 design team.",
-   "link": "https://www.facebook.com/golddrumcorps/posts/1547822597379458",
-   "logo": "https://images.dci.org/wp-content/uploads/2025/09/gold-logo-2025-800x800-1.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Madison Scouts",
-   "blurb": "Madison Scouts’ audition packets are now available.",
-   "link": "https://www.facebook.com/MadisonScouts/posts/1475943664405905",
-   "logo": "https://production.assets.dci.org/5a181168d670bd001b2e637b_XVfT9k-W5gcOkuQ6X0dN90CVLLeqv2HY.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Mandarins",
-   "blurb": "Sign-ups are now open for Mandarins’ audition camps.",
-   "link": "https://www.facebook.com/mandarins.sacramento/posts/1533455255488757",
-   "logo": "https://production.assets.dci.org/5a181168d670bd001b2e637c_hsc3QNRMPgTFcrZ7cGL5SZnfVa-ElLRW.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Music City",
-   "blurb": "Music City will host an audition camp in the Houston area on Saturday, November 21.",
-   "link": "https://www.facebook.com/MusicCityDrumCorps/posts/1673479131014530",
-   "logo": "https://production.assets.dci.org/60745db031aad24c2a28bf82_NX3k9OaDxEwg3iY32PA_0HopnnIN4zNi.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Pacific Crest",
-   "blurb": "Pacific Crest shared the attendance numbers for the 2026 edition of Drum Corps at the Rose Bowl.",
-   "link": "https://www.facebook.com/PCDrumCorps/posts/1546857410816597",
-   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e6380_ig_O2i2w44kMY9sAdB33wfyR7FxaUwnq.png",
-   "kind": "news",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Phantom Regiment",
-   "blurb": "Phantom Regiment announced that the corps will return to the West Coast as part of its 2027 summer tour.",
-   "link": "https://www.facebook.com/regiment/posts/1558576522975746",
-   "logo": "https://images.dci.org/wp-content/uploads/2026/08/phantom-regiment-logo-modern-600x600-1.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "River City Rhythm",
-   "blurb": "River City Rhythm’s 2027 audition packets are now available.",
-   "link": "https://www.facebook.com/RCRCorps/posts/1530850085751417",
-   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e6385_EwteLulOtHFmWAzjvcolDGTkPzuQf6z2.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Santa Clara Vanguard",
-   "blurb": "Vanguard acknowledged the passing of beloved supporter, Christina Mavroudis.",
-   "link": "https://www.scvanguard.org/in-memoriam-christina-mavroudis/",
-   "logo": "https://production.assets.dci.org/5a181189d670bd001a3d7667_kBC05CQk-TmysXsCUfxZoS4jODaJGKp_.png",
-   "kind": "news",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Seattle Cascades",
-   "blurb": "Seattle Cascades shared a look at its financial commitments for the 2027 season.",
-   "link": "https://www.facebook.com/SeattleCascadesDrumCorps/posts/1942531283809025",
-   "logo": "https://production.assets.dci.org/65fc6116a20db2fb6f043d52_IZ3CjfyeBATPeR4OHRFqVOcjrfPJ5SJf.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Bushwackers",
-   "blurb": "Bushwackers announced the members of the corps’ 2027 color guard staff.",
-   "link": "https://www.facebook.com/share/p/1N7qvg1UCp/",
-   "logo": "https://production.assets.dci.org/6515b6a9e471c33c5807f562_ymGvhSvIhpgoM50b5D8DQ9TeaKj2kOp6.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Hurricanes",
-   "blurb": "The Hurricanes are seeing an additional front ensemble staff member for 2027.",
-   "link": "https://www.facebook.com/cthurricanes/posts/1620631650105820",
-   "logo": "https://production.assets.dci.org/6515a72064801ac41c080e22_iBnMbN1ndcNvLRtQ-z46jPPzuaW4sEzL.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Reading Buccaneers",
-   "blurb": "Reading Buccaneers announced its color guard staff for the 2027 season.",
-   "link": "https://www.facebook.com/readingbuccaneers/posts/1543678654471404",
-   "logo": "https://production.assets.dci.org/6515a72364801ac41c080e23_KXplljOajr795twFBXH02vRKOaTXswT9.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Rogues Hollow Regiment",
-   "blurb": "Rogues Hollow Regiment’s audition packets and camp registration are now live.",
-   "link": "https://www.facebook.com/rhrdbc/posts/1128426933176984",
-   "logo": "https://production.assets.dci.org/651b13984df3159f380878c5_AbSzwYNRS9TDSF64ejU91hVWWrhWUKXs.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Carolina Gold – Winston-Salem, NC",
-   "blurb": "Carolina Gold is now recruiting members for its 2027 season.",
-   "link": "https://www.facebook.com/share/p/1EwXDpa32k/",
-   "logo": "https://production.assets.dci.org/6760fe217a240f0613095042_GUR1oM1qpXSiUp-npAMh684NjCX-1VFU.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Guardians – McKinney, TX",
-   "blurb": "Guardians announced Damien Waites as its color guard caption head.",
-   "link": "https://www.facebook.com/guardiansdbc/posts/1542477837912047",
-   "logo": "https://images.dci.org/wp-content/uploads/2026/10/guardians-logo-400x400-1.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "Sky Ryders – Hutchinson, KS",
-   "blurb": "Sky Ryders announced its 2027 instructional leadership team.",
-   "link": "https://www.facebook.com/share/p/19i1omXh16/",
-   "logo": "https://production.assets.dci.org/65cf7eb6824d2ae1d00683f3_nek-WQjyLjCbcZHhqBEs4I3opo3cbpJ3.png",
-   "kind": "announcement",
-   "date": "2026-10-16"
-  },
-  {
-   "corps": "The ConneXion – South Milwaukee, WI",
-   "blurb": "Prospective members can fill out The ConneXion’s interest form today.",
-   "link": "https://www.facebook.com/share/p/1BxCFYugKP/",
-   "logo": "https://images.dci.org/wp-content/uploads/2026/01/bridgette-logorevised.png",
-   "kind": "auditions",
-   "date": "2026-10-16"
   }
  ]
 }
