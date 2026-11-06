@@ -808,6 +808,89 @@
   "_seen": "2026-11-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-show-of-shows/",
+  "name": "Show of Shows",
+  "location": "Rockford, IL",
+  "date_display": "July 3, 2026",
+  "date": "2026-07-03",
+  "lineup": [
+   "Conquest Drum & Bugle Corps",
+   "Colt Cadets",
+   "Genesis",
+   "Madison Scouts",
+   "Blue Knights",
+   "Colts",
+   "Troopers",
+   "The Cavaliers",
+   "Blue Stars",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Conquest Drum & Bugle Corps"
+   ],
+   [
+    "6:52 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:10 PM",
+    "Genesis"
+   ],
+   [
+    "7:28 PM",
+    "Madison Scouts"
+   ],
+   [
+    "7:46 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:04 PM",
+    "Colts"
+   ],
+   [
+    "8:22 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:10 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:28 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:46 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:04 PM",
+    "Encore - Phantom Regiment - Rockford, IL"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Swanson Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-west/",
   "name": "DCI West",
   "location": "Stanford, CA",
@@ -1840,6 +1923,105 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-11-06"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-whitewater-classic/",
+  "name": "The Whitewater Classic",
+  "location": "Whitewater, WI",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Green Beret Marching Band",
+   "The Connexion",
+   "Sound of Sun Prairie",
+   "Eclipse",
+   "River City Rhythm",
+   "Spartans",
+   "Genesis",
+   "Crossmen",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Madison Scouts"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "5:55 PM",
+    "Green Beret Marching Band"
+   ],
+   [
+    "6:05 PM",
+    "The Connexion"
+   ],
+   [
+    "6:15 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "6:27 PM",
+    "Eclipse"
+   ],
+   [
+    "6:44 PM",
+    "River City Rhythm"
+   ],
+   [
+    "7:01 PM",
+    "Spartans"
+   ],
+   [
+    "7:18 PM",
+    "Genesis"
+   ],
+   [
+    "7:35 PM",
+    "Crossmen"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Troopers"
+   ],
+   [
+    "8:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:00 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:17 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:34 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:51 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Perkins Stadium enforces a clear bag policy, more information can be found here. All bags are subject to search by event staff and security. With security and efficiency in mind, all attendees are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-11-06"
  },
  {
