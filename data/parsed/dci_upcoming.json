@@ -4270,6 +4270,75 @@
   "_seen": "2026-11-06"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-annapolis/",
+  "name": "DCI Annapolis",
+  "location": "Annapolis, MD",
+  "date_display": "July 28, 2026",
+  "date": "2026-07-28",
+  "lineup": [
+   "Raiders",
+   "Spartans",
+   "Pacific Crest",
+   "Blue Knights",
+   "Troopers",
+   "Colts",
+   "Boston Crusaders",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome"
+   ],
+   [
+    "6:40 PM",
+    "Raiders"
+   ],
+   [
+    "6:57 PM",
+    "Spartans"
+   ],
+   [
+    "7:14 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:31 PM",
+    "Blue Knights"
+   ],
+   [
+    "7:48 PM",
+    "Intermission"
+   ],
+   [
+    "8:05 PM",
+    "Troopers"
+   ],
+   [
+    "8:22 PM",
+    "Colts"
+   ],
+   [
+    "8:39 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:56 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:21 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-06"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-huntington/",
   "name": "DCI Huntington",
   "location": "Huntington, WV",
@@ -4415,69 +4484,6 @@
    ]
   ],
   "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-06"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-east-coast-showcase/",
-  "name": "DCI East Coast Showcase",
-  "location": "Lawrence, MA",
-  "date_display": "July 30, 2026",
-  "date": "2026-07-30",
-  "lineup": [
-   "Crusaders Senior",
-   "North Star",
-   "Spartans",
-   "Pacific Crest",
-   "Phantom Regiment",
-   "Bluecoats",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Crusaders Senior"
-   ],
-   [
-    "7:57 PM",
-    "North Star"
-   ],
-   [
-    "8:14 PM",
-    "Spartans"
-   ],
-   [
-    "8:31 PM",
-    "Pacific Crest"
-   ],
-   [
-    "8:48 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:05 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:22 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:39 PM",
-    "Encore - Boston Crusaders - Boston, MA"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-11-06"
  },
  {
