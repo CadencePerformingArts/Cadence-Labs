@@ -633,59 +633,6 @@
   "_seen": "2026-11-08"
  },
  {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-11-08"
- },
- {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -1320,65 +1267,6 @@
   "_seen": "2026-11-08"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
-  "name": "DCI Northern Alabama",
-  "location": "Muscle Shoals, AL",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "8:22 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:39 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:56 PM",
-    "Music City"
-   ],
-   [
-    "9:13 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:47 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:55 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-11-08"
- },
- {
   "url": "https://www.dci.org/events/2026-gold-showcase/",
   "name": "Gold Showcase",
   "location": "Santa Clarita, CA",
@@ -1450,6 +1338,84 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-11-08"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-cavalcade-of-brass/",
+  "name": "Cavalcade of Brass",
+  "location": "Lisle, IL",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Rosemont King Cobras",
+   "Sound of Sun Prairie",
+   "Northern Lights",
+   "Eclipse",
+   "Spartans",
+   "Crossmen",
+   "Troopers",
+   "Phantom Regiment",
+   "The Cavaliers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Rosemont King Cobras"
+   ],
+   [
+    "7:50 PM",
+    "Sound of Sun Prairie"
+   ],
+   [
+    "8:00 PM",
+    "Northern Lights"
+   ],
+   [
+    "8:12 PM",
+    "Eclipse"
+   ],
+   [
+    "8:29 PM",
+    "Spartans"
+   ],
+   [
+    "8:46 PM",
+    "Crossmen"
+   ],
+   [
+    "9:03 PM",
+    "Intermission"
+   ],
+   [
+    "9:20 PM",
+    "Troopers"
+   ],
+   [
+    "9:37 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:54 PM",
+    "The Cavaliers"
+   ],
+   [
+    "10:11 PM",
+    "Encore - The Cavaliers - Rosemont, IL"
+   ],
+   [
+    "10:19 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Spectators are welcome to bring one bag into the Sports Complex provided the bag is softsided and its dimensions do not exceed 12 inches by 12 inches by 8 inches. The Sports Complex and its staff reserves the right to inspect bags brought into The Sports Complex.",
   "_seen": "2026-11-08"
  },
  {
@@ -4189,75 +4155,6 @@
    ]
   ],
   "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-08"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-annapolis/",
-  "name": "DCI Annapolis",
-  "location": "Annapolis, MD",
-  "date_display": "July 28, 2026",
-  "date": "2026-07-28",
-  "lineup": [
-   "Raiders",
-   "Spartans",
-   "Pacific Crest",
-   "Blue Knights",
-   "Troopers",
-   "Colts",
-   "Boston Crusaders",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome"
-   ],
-   [
-    "6:40 PM",
-    "Raiders"
-   ],
-   [
-    "6:57 PM",
-    "Spartans"
-   ],
-   [
-    "7:14 PM",
-    "Pacific Crest"
-   ],
-   [
-    "7:31 PM",
-    "Blue Knights"
-   ],
-   [
-    "7:48 PM",
-    "Intermission"
-   ],
-   [
-    "8:05 PM",
-    "Troopers"
-   ],
-   [
-    "8:22 PM",
-    "Colts"
-   ],
-   [
-    "8:39 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "8:56 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:21 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-11-08"
  },
  {
