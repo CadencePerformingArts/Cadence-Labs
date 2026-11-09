@@ -1,5 +1,49 @@
 [
  {
+  "url": "https://www.dci.org/events/2026-dci-tour-preview/",
+  "name": "DCI Tour Preview",
+  "location": "Muncie, IN",
+  "date_display": "June 26, 2026",
+  "date": "2026-06-26",
+  "lineup": [
+   "Cincinnati Tradition",
+   "The Cavaliers",
+   "Carolina Crown",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:15 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "8:45 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:15 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:45 PM",
+    "Encore - Bands of America & Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-11-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
   "name": "Santa Clara Vanguard Showcase",
   "location": "Moscow, ID",
@@ -3099,65 +3143,6 @@
   "_seen": "2026-11-09"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
-  "name": "DCI Southern Mississippi",
-  "location": "Hattiesburg, MS",
-  "date_display": "July 22, 2026",
-  "date": "2026-07-22",
-  "lineup": [
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Troopers",
-   "Blue Knights",
-   "Blue Stars",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Crossmen"
-   ],
-   [
-    "7:57 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "8:14 PM",
-    "Troopers"
-   ],
-   [
-    "8:31 PM",
-    "Intermission"
-   ],
-   [
-    "8:48 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:05 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:22 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:47 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-09"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
   "name": "Drums on the Ohio",
   "location": "Evansville, IN",
@@ -3370,6 +3355,70 @@
    ]
   ],
   "bag_policy": "Jaguar Stadium does not have a Clear Bag Policy. However, all bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-middle-tennessee/",
+  "name": "DCI Middle Tennessee",
+  "location": "Murfreesboro, TN",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Music City",
+   "Spirit of Atlanta",
+   "Colts",
+   "Carolina Crown",
+   "Bluecoats",
+   "Blue Devils",
+   "Boston Crusaders"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Music City"
+   ],
+   [
+    "7:58 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:16 PM",
+    "Colts"
+   ],
+   [
+    "8:34 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:10 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:28 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:46 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
   "_seen": "2026-11-09"
  },
  {
@@ -4991,95 +5040,6 @@
   "_seen": "2026-11-09"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
-  "name": "DCI Open Class World Championship Prelims",
-  "location": "Dayton, OH",
-  "date_display": "August 3, 2026",
-  "date": "2026-08-03",
-  "lineup": [
-   "Eclipse",
-   "Blue Devils B",
-   "Heat Wave",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "Memphis Blues",
-   "River City Rhythm",
-   "The Battalion",
-   "Gold"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Eclipse"
-   ],
-   [
-    "6:27 PM",
-    "Blue Devils B"
-   ],
-   [
-    "6:44 PM",
-    "Heat Wave"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:00 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:17 PM",
-    "The Battalion"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:59 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
-  "_seen": "2026-11-09"
- },
- {
   "url": "https://www.dci.org/events/2026-innovations-in-brass/",
   "name": "Innovations In Brass",
   "location": "Akron, OH",
@@ -5190,100 +5150,6 @@
    ]
   ],
   "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
-  "_seen": "2026-11-09"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
-  "name": "DCI Open Class World Championship Finals",
-  "location": "Dayton, OH",
-  "date_display": "August 4, 2026",
-  "date": "2026-08-04",
-  "lineup": [
-   "Mercedes Marching Band",
-   "Heat Wave",
-   "Eclipse",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Blue Devils B",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Mercedes Marching Band"
-   ],
-   [
-    "6:27 PM",
-    "Heat Wave"
-   ],
-   [
-    "6:44 PM",
-    "Eclipse"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:00 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:17 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:51 PM",
-    "The Battalion"
-   ],
-   [
-    "10:16 PM",
-    "Retreat"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-11-09"
  },
  {
