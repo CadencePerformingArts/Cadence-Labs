@@ -278,63 +278,6 @@
   "_seen": "2026-11-09"
  },
  {
-  "url": "https://www.dci.org/events/2026-corps-encore/",
-  "name": "Corps Encore",
-  "location": "Ogden, UT",
-  "date_display": "June 28, 2026",
-  "date": "2026-06-28",
-  "lineup": [
-   "Crosstown Big Band",
-   "Genesis",
-   "Troopers",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:35 PM",
-    "Crosstown Big Band"
-   ],
-   [
-    "8:00 PM",
-    "Genesis"
-   ],
-   [
-    "8:23 PM",
-    "Troopers"
-   ],
-   [
-    "8:46 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:23 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:41 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "9:48 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-11-09"
- },
- {
   "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
   "name": "Drums Along the Columbia",
   "location": "Kennewick, WA",
@@ -888,109 +831,6 @@
    ]
   ],
   "bag_policy": "Swanson Stadium does not have a Clear Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-09"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-west/",
-  "name": "DCI West",
-  "location": "Stanford, CA",
-  "date_display": "July 5, 2026",
-  "date": "2026-07-05",
-  "lineup": [
-   "Alisal Union School District Marching Band",
-   "Alisal Union School District All-Star Academy",
-   "Sacramento Freelancers",
-   "Sparta Ignite",
-   "Golden Empire",
-   "Gold",
-   "Impulse",
-   "Blue Devils C",
-   "Blue Devils B",
-   "Seattle Cascades",
-   "The Academy",
-   "Bluecoats",
-   "Santa Clara Vanguard",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "4:30 PM",
-    "Gates Open"
-   ],
-   [
-    "5:25 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "5:35 PM",
-    "Alisal Union School District Marching Band"
-   ],
-   [
-    "5:45 PM",
-    "Alisal Union School District All-Star Academy"
-   ],
-   [
-    "5:55 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "6:10 PM",
-    "Sparta Ignite"
-   ],
-   [
-    "6:20 PM",
-    "Intermission"
-   ],
-   [
-    "6:40 PM",
-    "Golden Empire"
-   ],
-   [
-    "6:57 PM",
-    "Gold"
-   ],
-   [
-    "7:14 PM",
-    "Impulse"
-   ],
-   [
-    "7:31 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:48 PM",
-    "Blue Devils B"
-   ],
-   [
-    "8:05 PM",
-    "Intermission"
-   ],
-   [
-    "8:40 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:57 PM",
-    "The Academy"
-   ],
-   [
-    "9:14 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:31 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:48 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:13 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Stanford Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. See more details about the clear bag policy on the Stanford website . For more information, visit this page .",
   "_seen": "2026-11-09"
  },
  {
@@ -3143,6 +2983,65 @@
   "_seen": "2026-11-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
+  "name": "DCI Southern Mississippi",
+  "location": "Hattiesburg, MS",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "Crossmen",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Crossmen"
+   ],
+   [
+    "7:57 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:14 PM",
+    "Troopers"
+   ],
+   [
+    "8:31 PM",
+    "Intermission"
+   ],
+   [
+    "8:48 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:05 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:22 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:47 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "M.M. Roberts Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
   "name": "Drums on the Ohio",
   "location": "Evansville, IN",
@@ -5040,6 +4939,95 @@
   "_seen": "2026-11-09"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-prelims/",
+  "name": "DCI Open Class World Championship Prelims",
+  "location": "Dayton, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "Eclipse",
+   "Blue Devils B",
+   "Heat Wave",
+   "Les Stentors",
+   "7th Regiment",
+   "Raiders",
+   "Colt Cadets",
+   "Columbians",
+   "Memphis Blues",
+   "River City Rhythm",
+   "The Battalion",
+   "Gold"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "Eclipse"
+   ],
+   [
+    "6:27 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "7:01 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:18 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:35 PM",
+    "Raiders"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:26 PM",
+    "Columbians"
+   ],
+   [
+    "8:43 PM",
+    "Memphis Blues"
+   ],
+   [
+    "9:00 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:17 PM",
+    "The Battalion"
+   ],
+   [
+    "9:34 PM",
+    "Gold"
+   ],
+   [
+    "9:59 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-11-09"
+ },
+ {
   "url": "https://www.dci.org/events/2026-innovations-in-brass/",
   "name": "Innovations In Brass",
   "location": "Akron, OH",
@@ -5150,6 +5138,100 @@
    ]
   ],
   "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
+  "_seen": "2026-11-09"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
+  "name": "DCI Open Class World Championship Finals",
+  "location": "Dayton, OH",
+  "date_display": "August 4, 2026",
+  "date": "2026-08-04",
+  "lineup": [
+   "Mercedes Marching Band",
+   "Heat Wave",
+   "Eclipse",
+   "Les Stentors",
+   "7th Regiment",
+   "Raiders",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Memphis Blues",
+   "Blue Devils B",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "Mercedes Marching Band"
+   ],
+   [
+    "6:27 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:44 PM",
+    "Eclipse"
+   ],
+   [
+    "7:01 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:18 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:35 PM",
+    "Raiders"
+   ],
+   [
+    "7:52 PM",
+    "Intermission"
+   ],
+   [
+    "8:09 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:26 PM",
+    "Columbians"
+   ],
+   [
+    "8:43 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:00 PM",
+    "Memphis Blues"
+   ],
+   [
+    "9:17 PM",
+    "Blue Devils B"
+   ],
+   [
+    "9:34 PM",
+    "Gold"
+   ],
+   [
+    "9:51 PM",
+    "The Battalion"
+   ],
+   [
+    "10:16 PM",
+    "Retreat"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-11-09"
  },
  {
