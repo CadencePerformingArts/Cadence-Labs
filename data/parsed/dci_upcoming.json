@@ -2279,6 +2279,74 @@
   "_seen": "2026-11-10"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-hutchinson/",
+  "name": "DCI Hutchinson",
+  "location": "Hutchinson, KS",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Sky Ryders",
+   "Spartans",
+   "Music City",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Knights",
+   "Blue Stars"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Sky Ryders"
+   ],
+   [
+    "8:22 PM",
+    "Spartans"
+   ],
+   [
+    "8:39 PM",
+    "Music City"
+   ],
+   [
+    "8:56 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:13 PM",
+    "Intermission"
+   ],
+   [
+    "9:30 PM",
+    "Troopers"
+   ],
+   [
+    "9:47 PM",
+    "Blue Knights"
+   ],
+   [
+    "10:04 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Blue Knights - Denver, CO"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
+  "_seen": "2026-11-10"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-new-mexico/",
   "name": "DCI New Mexico",
   "location": "Albuquerque, NM",
@@ -2761,80 +2829,6 @@
   "_seen": "2026-11-10"
  },
  {
-  "url": "https://www.dci.org/events/2026-the-buccaneer-classic/",
-  "name": "The Buccaneer Classic",
-  "location": "Landisville, PA",
-  "date_display": "July 18, 2026",
-  "date": "2026-07-18",
-  "lineup": [
-   "Buccaneer Banner Brass",
-   "Buccaneers Alumni",
-   "Les Stentors",
-   "Raiders",
-   "Sunrisers",
-   "White Sabers",
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros Alumni"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "Buccaneer Banner Brass"
-   ],
-   [
-    "6:52 PM",
-    "Buccaneers Alumni"
-   ],
-   [
-    "7:09 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:26 PM",
-    "Raiders"
-   ],
-   [
-    "7:43 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "Sunrisers"
-   ],
-   [
-    "8:17 PM",
-    "White Sabers"
-   ],
-   [
-    "8:34 PM",
-    "Bushwackers"
-   ],
-   [
-    "8:51 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "9:08 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "9:33 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-11-10"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-dallas/",
   "name": "DCI Dallas",
   "location": "Bedford, TX",
@@ -2912,41 +2906,6 @@
    ]
   ],
   "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-10"
- },
- {
-  "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
-  "name": "Raiders Tour Send-Off",
-  "location": "Aston Township, PA",
-  "date_display": "July 19, 2026",
-  "date": "2026-07-19",
-  "lineup": [
-   "Les Stentors",
-   "Raiders",
-   "Joint Performance"
-  ],
-  "schedule": [
-   [
-    "3:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:15 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:00 PM",
-    "Raiders"
-   ],
-   [
-    "8:45 PM",
-    "Joint Performance"
-   ]
-  ],
   "_seen": "2026-11-10"
  },
  {
@@ -4479,6 +4438,85 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-11-10"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-marion-open/",
+  "name": "The Marion Open",
+  "location": "Marion, OH",
+  "date_display": "July 30, 2026",
+  "date": "2026-07-30",
+  "lineup": [
+   "Cincinnati Tradition",
+   "Memphis Blues",
+   "Heat Wave",
+   "Raiders",
+   "Colt Cadets",
+   "Les Stentors",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "7:27 PM",
+    "Memphis Blues"
+   ],
+   [
+    "7:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:01 PM",
+    "Raiders"
+   ],
+   [
+    "8:18 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Les Stentors"
+   ],
+   [
+    "9:09 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Gold"
+   ],
+   [
+    "10:00 PM",
+    "The Battalion"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
   "_seen": "2026-11-10"
  },
  {
