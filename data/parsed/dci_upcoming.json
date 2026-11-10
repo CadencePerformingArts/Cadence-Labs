@@ -2025,18 +2025,21 @@
   "_seen": "2026-11-10"
  },
  {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
+  "url": "https://www.dci.org/events/2026-brass-impact/",
+  "name": "Brass Impact",
+  "location": "Olathe, KS",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
   "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
+   "Sky Ryders",
+   "Colt Cadets",
+   "Spartans",
+   "Crossmen",
+   "Madison Scouts",
+   "Troopers",
+   "Blue Stars",
+   "Phantom Regiment",
+   "Colts"
   ],
   "schedule": [
    [
@@ -2044,40 +2047,56 @@
     "Gates Open"
    ],
    [
-    "7:00 PM",
+    "7:30 PM",
     "Welcome & National Anthem"
    ],
    [
-    "7:10 PM",
-    "Sacramento Freelancers"
+    "7:38 PM",
+    "Sky Ryders"
    ],
    [
-    "7:27 PM",
-    "Blue Devils C"
+    "7:50 PM",
+    "Colt Cadets"
    ],
    [
-    "7:44 PM",
-    "Golden Empire"
+    "8:07 PM",
+    "Spartans"
    ],
    [
-    "8:01 PM",
+    "8:24 PM",
+    "Crossmen"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
     "Intermission"
    ],
    [
-    "8:18 PM",
-    "Impulse"
+    "9:13 PM",
+    "Troopers"
    ],
    [
-    "8:35 PM",
-    "Gold"
+    "9:30 PM",
+    "Blue Stars"
    ],
    [
-    "8:52 PM",
-    "Blue Devils B"
+    "9:47 PM",
+    "Phantom Regiment"
    ],
    [
-    "9:17 PM",
-    "Retreat"
+    "10:04 PM",
+    "Colts"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:29 PM",
+    "Scores Announced"
    ]
   ],
   "_seen": "2026-11-10"
@@ -3725,6 +3744,100 @@
   "_seen": "2026-11-10"
  },
  {
+  "url": "https://www.dci.org/events/2026-midwestern-championship/",
+  "name": "Midwestern Championship",
+  "location": "DeKalb, IL",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "The ConneXion",
+   "Northern Lights",
+   "Govenaires",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "The ConneXion"
+   ],
+   [
+    "6:52 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:09 PM",
+    "Govenaires"
+   ],
+   [
+    "7:26 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:43 PM",
+    "Columbians"
+   ],
+   [
+    "8:00 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:17 PM",
+    "Intermission"
+   ],
+   [
+    "8:34 PM",
+    "Genesis"
+   ],
+   [
+    "8:51 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:25 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:42 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:59 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:16 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:24 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
+  "_seen": "2026-11-10"
+ },
+ {
   "url": "https://www.dci.org/events/2026-music-on-the-mountain/",
   "name": "Music on the Mountain",
   "location": "Sheffield, PA",
@@ -3956,83 +4069,6 @@
    ]
   ],
   "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-10"
- },
- {
-  "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
-  "name": "Summer Music Games in Cincinnati",
-  "location": "Mason, OH",
-  "date_display": "July 27, 2026",
-  "date": "2026-07-27",
-  "lineup": [
-   "Columbus Saints",
-   "Cincinnati Tradition",
-   "Colt Cadets",
-   "River City Rhythm",
-   "Seattle Cascades",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome"
-   ],
-   [
-    "7:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "7:32 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "7:49 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:06 PM",
-    "River City Rhythm"
-   ],
-   [
-    "8:23 PM",
-    "Intermission"
-   ],
-   [
-    "8:43 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:00 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:17 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:34 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:51 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:08 PM",
-    "Encore - TBD"
-   ],
-   [
-    "10:16 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-11-10"
  },
  {
