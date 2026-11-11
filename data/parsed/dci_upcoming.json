@@ -44,19 +44,6 @@
   "_seen": "2026-11-11"
  },
  {
-  "url": "https://www.dci.org/events/2026-santa-clara-vanguard-showcase/",
-  "name": "Santa Clara Vanguard Showcase",
-  "location": "Moscow, ID",
-  "date_display": "June 26, 2026",
-  "date": "2026-06-26",
-  "lineup": [
-   "Columbians",
-   "Gems",
-   "Santa Clara Vanguard"
-  ],
-  "_seen": "2026-11-11"
- },
- {
   "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
   "name": "Barnum Festival: Champions on Parade",
   "location": "Shelton, CT",
@@ -124,81 +111,6 @@
    ]
   ],
   "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-11"
- },
- {
-  "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
-  "name": "Bluecoats Opening Night Community Celebration",
-  "location": "Alliance, OH",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Columbus Saints",
-   "Rogues Hollow Regiment",
-   "Cincinnati Tradition",
-   "Eclipse",
-   "EN-CORPS by EN-RICH-MENT",
-   "Bluecoats Alumni Legacy Arc",
-   "Rhythm IN BLUE",
-   "The Bluecoats",
-   "The Blue Way Summer Arts Camp",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "5:15 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:15 PM",
-    "Columbus Saints"
-   ],
-   [
-    "6:25 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "6:40 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "6:55 PM",
-    "Eclipse"
-   ],
-   [
-    "7:10 PM",
-    "EN-CORPS by EN-RICH-MENT"
-   ],
-   [
-    "7:25 PM",
-    "Bluecoats Alumni Legacy Arc"
-   ],
-   [
-    "7:40 PM",
-    "Rhythm IN BLUE"
-   ],
-   [
-    "7:55 PM",
-    "The Bluecoats"
-   ],
-   [
-    "8:18 PM",
-    "The Blue Way Summer Arts Camp"
-   ],
-   [
-    "8:28 PM",
-    "Encore - Bluecoats - Canton, OH"
-   ],
-   [
-    "8:53 PM",
-    "Event Concludes"
-   ]
-  ],
-  "bag_policy": "There is no bag policy in effect for this event",
   "_seen": "2026-11-11"
  },
  {
@@ -1317,65 +1229,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-11-11"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
-  "name": "DCI Northern Alabama",
-  "location": "Muscle Shoals, AL",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "8:22 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:39 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:56 PM",
-    "Music City"
-   ],
-   [
-    "9:13 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:47 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:55 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-11-11"
  },
  {
