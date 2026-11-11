@@ -2347,6 +2347,60 @@
   "_seen": "2026-11-11"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-new-mexico/",
+  "name": "DCI New Mexico",
+  "location": "Albuquerque, NM",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Arsenal",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "7:15 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Arsenal"
+   ],
+   [
+    "8:47 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:04 PM",
+    "The Academy"
+   ],
+   [
+    "9:21 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:38 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Pacific Crest - City of Industry, CA"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-11-11"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-central-texas/",
   "name": "DCI Central Texas",
   "location": "Killeen, TX",
@@ -2961,71 +3015,6 @@
     "Joint Performance"
    ]
   ],
-  "_seen": "2026-11-11"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-mckinney/",
-  "name": "DCI McKinney",
-  "location": "McKinney, TX",
-  "date_display": "July 20, 2026",
-  "date": "2026-07-20",
-  "lineup": [
-   "Guardians",
-   "Zephyrus",
-   "Blue Stars",
-   "Carolina Crown",
-   "Crossmen",
-   "Phantom Regiment",
-   "Spirit of Atlanta",
-   "Troopers"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Guardians"
-   ],
-   [
-    "8:22 PM",
-    "Zephyrus"
-   ],
-   [
-    "10:46 PM",
-    "Scores Announced"
-   ],
-   [
-    "TBD",
-    "Blue Stars"
-   ],
-   [
-    "TBD",
-    "Carolina Crown"
-   ],
-   [
-    "TBD",
-    "Crossmen"
-   ],
-   [
-    "TBD",
-    "Phantom Regiment"
-   ],
-   [
-    "TBD",
-    "Spirit of Atlanta"
-   ],
-   [
-    "TBD",
-    "Troopers"
-   ]
-  ],
-  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
   "_seen": "2026-11-11"
  },
  {
@@ -4496,6 +4485,174 @@
   "_seen": "2026-11-11"
  },
  {
+  "url": "https://www.dci.org/events/2026-the-marion-open/",
+  "name": "The Marion Open",
+  "location": "Marion, OH",
+  "date_display": "July 30, 2026",
+  "date": "2026-07-30",
+  "lineup": [
+   "Cincinnati Tradition",
+   "Memphis Blues",
+   "Heat Wave",
+   "Raiders",
+   "Colt Cadets",
+   "Les Stentors",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "7:27 PM",
+    "Memphis Blues"
+   ],
+   [
+    "7:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:01 PM",
+    "Raiders"
+   ],
+   [
+    "8:18 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Les Stentors"
+   ],
+   [
+    "9:09 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Gold"
+   ],
+   [
+    "10:00 PM",
+    "The Battalion"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
+  "_seen": "2026-11-11"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-eastern-classic-2/",
+  "name": "DCI Eastern Classic",
+  "location": "Allentown, PA",
+  "date_display": "July 31, 2026",
+  "date": "2026-07-31",
+  "lineup": [
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Genesis",
+   "Music City",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Blue Knights",
+   "Blue Stars",
+   "Colts",
+   "Bluecoats",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Bushwackers"
+   ],
+   [
+    "7:27 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "7:44 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "8:01 PM",
+    "Genesis"
+   ],
+   [
+    "8:18 PM",
+    "Music City"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Troopers"
+   ],
+   [
+    "9:09 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:26 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:43 PM",
+    "Blue Stars"
+   ],
+   [
+    "10:00 PM",
+    "Colts"
+   ],
+   [
+    "10:17 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:34 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:42 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Walk through metal detectors will be used at all spectator gates. There is no clear bag policy for this event. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep bags small and all items to a minimum.",
+  "_seen": "2026-11-11"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-michigan/",
   "name": "DCI Michigan",
   "location": "Allendale, MI",
@@ -5173,14 +5330,6 @@
   "_seen": "2026-11-11"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
-  "name": "DCI 2026: Big, Loud & Live",
-  "date_display": "August 6, 2026",
-  "date": "2026-08-06",
-  "lineup": [],
-  "_seen": "2026-11-11"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-world-championship-prelims/",
   "name": "DCI World Championship Prelims",
   "location": "Indianapolis, IN",
@@ -5493,6 +5642,179 @@
    [
     "1:30 PM",
     "DCI World Championships Semifinals Begins"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
+  "_seen": "2026-11-11"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-world-championship-semifinals/",
+  "name": "DCI World Championship Semifinals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 7, 2026",
+  "date": "2026-08-07",
+  "lineup": [
+   "All-Age World Championships Prelims",
+   "River City Rhythm",
+   "Memphis Blues",
+   "Genesis",
+   "Gold",
+   "Seattle Cascades",
+   "The Battalion",
+   "Spartans",
+   "Blue Devils B",
+   "The Academy",
+   "Music City",
+   "Crossmen",
+   "Madison Scouts",
+   "Blue Knights",
+   "Pacific Crest",
+   "Troopers",
+   "Spirit of Atlanta",
+   "Colts",
+   "The Cavaliers",
+   "Phantom Regiment",
+   "Blue Stars",
+   "Santa Clara Vanguard",
+   "Boston Crusaders",
+   "Carolina Crown",
+   "Blue Devils",
+   "Bluecoats",
+   "Phantom Regiment Alumni Corps",
+   "Age-Out Ceremony"
+  ],
+  "schedule": [
+   [
+    "7:30 AM",
+    "Gates Open"
+   ],
+   [
+    "8:20 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 AM",
+    "All-Age World Championships Prelims"
+   ],
+   [
+    "1:30 PM",
+    "River City Rhythm"
+   ],
+   [
+    "1:47 PM",
+    "Memphis Blues"
+   ],
+   [
+    "2:04 PM",
+    "Genesis"
+   ],
+   [
+    "2:21 PM",
+    "Gold"
+   ],
+   [
+    "2:38 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "2:55 PM",
+    "The Battalion"
+   ],
+   [
+    "3:12 PM",
+    "Spartans"
+   ],
+   [
+    "3:29 PM",
+    "Intermission"
+   ],
+   [
+    "3:46 PM",
+    "Blue Devils B"
+   ],
+   [
+    "4:03 PM",
+    "The Academy"
+   ],
+   [
+    "4:20 PM",
+    "Music City"
+   ],
+   [
+    "4:37 PM",
+    "Crossmen"
+   ],
+   [
+    "4:54 PM",
+    "Madison Scouts"
+   ],
+   [
+    "5:11 PM",
+    "Blue Knights"
+   ],
+   [
+    "5:28 PM",
+    "Pacific Crest"
+   ],
+   [
+    "5:45 PM",
+    "Troopers"
+   ],
+   [
+    "6:02 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "6:27 PM",
+    "Intermission"
+   ],
+   [
+    "6:49 PM",
+    "Colts"
+   ],
+   [
+    "7:06 PM",
+    "The Cavaliers"
+   ],
+   [
+    "7:23 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "7:40 PM",
+    "Blue Stars"
+   ],
+   [
+    "7:57 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:14 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:31 PM",
+    "Carolina Crown"
+   ],
+   [
+    "8:48 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:05 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:22 PM",
+    "Open Class Encore Champion Encore Blue Devils \"B\" - Concord, CA"
+   ],
+   [
+    "10:11 PM",
+    "Phantom Regiment Alumni Corps"
+   ],
+   [
+    "10:31 PM",
+    "Age-Out Ceremony"
    ]
   ],
   "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
