@@ -57,76 +57,6 @@
   "_seen": "2026-11-11"
  },
  {
-  "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
-  "name": "Barnum Festival: Champions on Parade",
-  "location": "Shelton, CT",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "North Star",
-   "Crusaders Senior",
-   "Hawthorne Caballeros Alumni",
-   "CT Alumni",
-   "7th Regiment",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros",
-   "Bushwackers",
-   "Hurricanes"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "North Star"
-   ],
-   [
-    "6:58 PM",
-    "Crusaders Senior"
-   ],
-   [
-    "7:16 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "7:34 PM",
-    "CT Alumni"
-   ],
-   [
-    "7:52 PM",
-    "7th Regiment"
-   ],
-   [
-    "8:10 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:28 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "8:46 PM",
-    "Bushwackers"
-   ],
-   [
-    "9:04 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-11"
- },
- {
   "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
   "name": "Bluecoats Opening Night Community Celebration",
   "location": "Alliance, OH",
@@ -330,6 +260,61 @@
    [
     "9:48 PM",
     "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-11-11"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drums-along-the-columbia/",
+  "name": "Drums Along the Columbia",
+  "location": "Kennewick, WA",
+  "date_display": "June 29, 2026",
+  "date": "2026-06-29",
+  "lineup": [
+   "Gems",
+   "Impulse",
+   "The Battalion",
+   "Columbians",
+   "Seattle Cascades",
+   "Santa Clara Vanguard",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:40 PM",
+    "Gems"
+   ],
+   [
+    "7:58 PM",
+    "Impulse"
+   ],
+   [
+    "8:16 PM",
+    "The Battalion"
+   ],
+   [
+    "8:34 PM",
+    "Columbians"
+   ],
+   [
+    "8:52 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:10 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:17 PM",
+    "Event Concludes"
+   ],
+   [
+    "",
+    "Gates Open"
    ]
   ],
   "_seen": "2026-11-11"
@@ -1321,6 +1306,80 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-11-11"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-gold-showcase/",
+  "name": "Gold Showcase",
+  "location": "Santa Clarita, CA",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Blue Devils C",
+   "Golden Empire",
+   "Blue Devils B",
+   "The Academy",
+   "Pacific Crest",
+   "Blue Devils",
+   "Santa Clara Vanguard",
+   "Gold",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:17 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:34 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:51 PM",
+    "The Academy"
+   ],
+   [
+    "7:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:25 PM",
+    "Intermission"
+   ],
+   [
+    "7:55 PM",
+    "Blue Devils"
+   ],
+   [
+    "8:12 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:29 PM",
+    "Gold"
+   ],
+   [
+    "8:46 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-11-11"
  },
  {
@@ -2854,41 +2913,6 @@
   "_seen": "2026-11-11"
  },
  {
-  "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
-  "name": "Raiders Tour Send-Off",
-  "location": "Aston Township, PA",
-  "date_display": "July 19, 2026",
-  "date": "2026-07-19",
-  "lineup": [
-   "Les Stentors",
-   "Raiders",
-   "Joint Performance"
-  ],
-  "schedule": [
-   [
-    "3:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:15 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:00 PM",
-    "Raiders"
-   ],
-   [
-    "8:45 PM",
-    "Joint Performance"
-   ]
-  ],
-  "_seen": "2026-11-11"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-mckinney/",
   "name": "DCI McKinney",
   "location": "McKinney, TX",
@@ -3841,56 +3865,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-11-11"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-in-motion/",
-  "name": "DCI in Motion",
-  "location": "Norton, OH",
-  "date_display": "July 26, 2026",
-  "date": "2026-07-26",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Gold",
-   "Cincinnati Tradition",
-   "Rogues Hollow Regiment"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:27 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:44 PM",
-    "Gold"
-   ],
-   [
-    "8:01 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "8:18 PM",
-    "Rogues Hollow Regiment"
-   ],
-   [
-    "8:43 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-11-11"
  },
  {
