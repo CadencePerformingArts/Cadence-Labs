@@ -515,53 +515,71 @@
   "_seen": "2026-11-12"
  },
  {
-  "url": "https://www.dci.org/events/2026-midcal-showcase/",
-  "name": "MidCal Showcase",
-  "location": "Camarillo, CA",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
+  "name": "Northwest Youth Music Games Portland",
+  "location": "Portland, OR",
+  "date_display": "July 1, 2026",
+  "date": "2026-07-01",
   "lineup": [
-   "Golden Empire",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Blue Devils",
-   "Event Concludes"
+   "One More Time Around Marching Band",
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
   ],
   "schedule": [
    [
-    "7:00 PM",
+    "6:00 PM",
     "Gates Open"
    ],
    [
-    "7:50 PM",
+    "7:15 PM",
+    "One More Time Around Marching Band"
+   ],
+   [
+    "7:30 PM",
     "Welcome & National Anthem"
    ],
    [
-    "8:00 PM",
-    "Golden Empire"
+    "7:40 PM",
+    "Gems"
    ],
    [
-    "8:25 PM",
-    "The Academy"
+    "7:52 PM",
+    "Impulse"
    ],
    [
-    "8:50 PM",
-    "Pacific Crest"
+    "8:07 PM",
+    "Columbians"
    ],
    [
-    "9:15 PM",
-    "Bluecoats"
+    "8:22 PM",
+    "The Battalion"
    ],
    [
-    "9:40 PM",
-    "Blue Devils"
+    "8:37 PM",
+    "Intermission"
    ],
    [
-    "10:00 PM",
-    "Event Concludes"
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
+    "Scores Announced"
    ]
   ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-11-12"
  },
  {
@@ -2758,6 +2776,80 @@
    ]
   ],
   "bag_policy": "The Alamodome enforces a clear bag policy. More detailed information on the Alamodome bag policy can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-12"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-buccaneer-classic/",
+  "name": "The Buccaneer Classic",
+  "location": "Landisville, PA",
+  "date_display": "July 18, 2026",
+  "date": "2026-07-18",
+  "lineup": [
+   "Buccaneer Banner Brass",
+   "Buccaneers Alumni",
+   "Les Stentors",
+   "Raiders",
+   "Sunrisers",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Buccaneer Banner Brass"
+   ],
+   [
+    "6:52 PM",
+    "Buccaneers Alumni"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "Raiders"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Sunrisers"
+   ],
+   [
+    "8:17 PM",
+    "White Sabers"
+   ],
+   [
+    "8:34 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:51 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:33 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-11-12"
  },
  {
