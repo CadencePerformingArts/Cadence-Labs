@@ -3202,6 +3202,79 @@
   "_seen": "2026-11-13"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-on-the-ohio/",
+  "name": "Drums on the Ohio",
+  "location": "Evansville, IN",
+  "date_display": "July 22, 2026",
+  "date": "2026-07-22",
+  "lineup": [
+   "Gold",
+   "The Battalion",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "Colts",
+   "Phantom Regiment",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Gold"
+   ],
+   [
+    "7:27 PM",
+    "The Battalion"
+   ],
+   [
+    "7:44 PM",
+    "Genesis"
+   ],
+   [
+    "8:01 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:18 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "9:05 PM",
+    "Colts"
+   ],
+   [
+    "9:22 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:39 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:56 PM",
+    "Encore - Phantom Regiment - Rockford, IL"
+   ],
+   [
+    "10:04 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, to ensure security and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-11-13"
+ },
+ {
   "url": "https://www.dci.org/events/2026-march-on/",
   "name": "March On!",
   "location": "Champlin, MN",
@@ -5228,100 +5301,6 @@
   "_seen": "2026-11-13"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
-  "name": "DCI Open Class World Championship Finals",
-  "location": "Dayton, OH",
-  "date_display": "August 4, 2026",
-  "date": "2026-08-04",
-  "lineup": [
-   "Mercedes Marching Band",
-   "Heat Wave",
-   "Eclipse",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Blue Devils B",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Mercedes Marching Band"
-   ],
-   [
-    "6:27 PM",
-    "Heat Wave"
-   ],
-   [
-    "6:44 PM",
-    "Eclipse"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:00 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:17 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:51 PM",
-    "The Battalion"
-   ],
-   [
-    "10:16 PM",
-    "Retreat"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
-  "_seen": "2026-11-13"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
   "name": "DCI 2026: Big, Loud & Live",
   "date_display": "August 6, 2026",
@@ -5919,109 +5898,6 @@
    ],
    [
     "1:45 PM",
-    "Awards Ceremony"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-11-13"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-world-championship-finals/",
-  "name": "DCI World Championship Finals",
-  "location": "Indianapolis, IN",
-  "date_display": "August 8, 2026",
-  "date": "2026-08-08",
-  "lineup": [
-   "INpact & BANDtastic Band",
-   "U.S. Marine Drum & Bugle Corps",
-   "Blue Knights",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Blue Stars",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown",
-   "Blue Devils",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:00 PM",
-    "Gates Open"
-   ],
-   [
-    "5:30 PM",
-    "Welcome"
-   ],
-   [
-    "5:40 PM",
-    "INpact & BANDtastic Band"
-   ],
-   [
-    "6:00 PM",
-    "U.S. Marine Drum & Bugle Corps"
-   ],
-   [
-    "6:20 PM",
-    "National Anthem - U.S. Marine Drum & Bugle Corps"
-   ],
-   [
-    "6:30 PM",
-    "Blue Knights"
-   ],
-   [
-    "6:47 PM",
-    "Troopers"
-   ],
-   [
-    "7:04 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "7:21 PM",
-    "Colts"
-   ],
-   [
-    "7:38 PM",
-    "The Cavaliers"
-   ],
-   [
-    "7:55 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "8:12 PM",
-    "Intermission"
-   ],
-   [
-    "8:32 PM",
-    "Blue Stars"
-   ],
-   [
-    "8:49 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:06 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:23 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:57 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:00 PM",
     "Awards Ceremony"
    ]
   ],
