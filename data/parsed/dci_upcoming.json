@@ -2347,6 +2347,60 @@
   "_seen": "2026-11-14"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-new-mexico/",
+  "name": "DCI New Mexico",
+  "location": "Albuquerque, NM",
+  "date_display": "July 14, 2026",
+  "date": "2026-07-14",
+  "lineup": [
+   "Arsenal",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "7:15 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Arsenal"
+   ],
+   [
+    "8:47 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:04 PM",
+    "The Academy"
+   ],
+   [
+    "9:21 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:38 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Pacific Crest - City of Industry, CA"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy in effect for this event.",
+  "_seen": "2026-11-14"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-central-texas/",
   "name": "DCI Central Texas",
   "location": "Killeen, TX",
@@ -2849,86 +2903,6 @@
   "_seen": "2026-11-14"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-dallas/",
-  "name": "DCI Dallas",
-  "location": "Bedford, TX",
-  "date_display": "July 19, 2026",
-  "date": "2026-07-19",
-  "lineup": [
-   "Arsenal",
-   "Zephyrus",
-   "Spartans",
-   "The Academy",
-   "Music City",
-   "Madison Scouts",
-   "Pacific Crest",
-   "Blue Knights",
-   "Colts",
-   "The Cavaliers",
-   "Blue Devils"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Arsenal"
-   ],
-   [
-    "7:27 PM",
-    "Zephyrus"
-   ],
-   [
-    "7:44 PM",
-    "Spartans"
-   ],
-   [
-    "8:01 PM",
-    "The Academy"
-   ],
-   [
-    "8:18 PM",
-    "Music City"
-   ],
-   [
-    "8:35 PM",
-    "Madison Scouts"
-   ],
-   [
-    "8:52 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:09 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:26 PM",
-    "Colts"
-   ],
-   [
-    "9:43 PM",
-    "The Cavaliers"
-   ],
-   [
-    "10:00 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:25 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Pennington Field does have a Clear Bag Policy. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-14"
- },
- {
   "url": "https://www.dci.org/events/2026-raiders-tour-send-off/",
   "name": "Raiders Tour Send-Off",
   "location": "Aston Township, PA",
@@ -3424,6 +3398,69 @@
    ]
   ],
   "bag_policy": "Floyd Stadium will have a clear bag policy that will be in effect for this event, restricting the size and style of bags that will be permitted within the venue. For security and efficiency, all attendees are encouraged to keep all items to a minimum. Prohibited Items: Certain Items are prohibited inside Floyd Stadium.",
+  "_seen": "2026-11-14"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-syracuse/",
+  "name": "DCI Syracuse",
+  "location": "Central Square, NY",
+  "date_display": "July 24, 2026",
+  "date": "2026-07-24",
+  "lineup": [
+   "Baldwinsville Marching Band",
+   "Brig Juice Brass",
+   "Les Stentors",
+   "Raiders",
+   "7th Regiment",
+   "The Battalion",
+   "White Sabers"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Baldwinsville Marching Band"
+   ],
+   [
+    "7:20 PM",
+    "Brig Juice Brass"
+   ],
+   [
+    "7:32 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:49 PM",
+    "Raiders"
+   ],
+   [
+    "8:06 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:23 PM",
+    "The Battalion"
+   ],
+   [
+    "8:40 PM",
+    "White Sabers"
+   ],
+   [
+    "8:57 PM",
+    "Encore - White Sabers - Rochester, NY"
+   ],
+   [
+    "9:05 PM",
+    "Scores Announced"
+   ]
+  ],
   "_seen": "2026-11-14"
  },
  {
@@ -5275,6 +5312,14 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-11-14"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-2026-big-loud-live/",
+  "name": "DCI 2026: Big, Loud & Live",
+  "date_display": "August 6, 2026",
+  "date": "2026-08-06",
+  "lineup": [],
   "_seen": "2026-11-14"
  },
  {
