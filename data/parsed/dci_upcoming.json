@@ -1603,6 +1603,90 @@
   "_seen": "2026-11-14"
  },
  {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-11-14"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -5104,29 +5188,32 @@
   "_seen": "2026-11-14"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
-  "name": "DCI Open Class World Championship Finals",
-  "location": "Dayton, OH",
-  "date_display": "August 4, 2026",
-  "date": "2026-08-04",
+  "url": "https://www.dci.org/events/2026-innovations-in-brass/",
+  "name": "Innovations In Brass",
+  "location": "Akron, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
   "lineup": [
-   "Mercedes Marching Band",
-   "Heat Wave",
-   "Eclipse",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Blue Devils B",
-   "Gold",
-   "The Battalion"
+   "The Blue Way Middle School Honor Band",
+   "Rhythm IN BLUE",
+   "EN-CORPS by EN-RICH-MENT",
+   "Genesis",
+   "Seattle Cascades",
+   "Music City",
+   "The Academy",
+   "Crossmen",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Santa Clara Vanguard",
+   "Carolina Crown",
+   "Boston Crusaders",
+   "Blue Devils",
+   "Bluecoats"
   ],
   "schedule": [
    [
-    "5:00 PM",
+    "4:30 PM",
     "Gates Open"
    ],
    [
@@ -5135,66 +5222,82 @@
    ],
    [
     "6:10 PM",
-    "Mercedes Marching Band"
+    "The Blue Way Middle School Honor Band"
    ],
    [
-    "6:27 PM",
-    "Heat Wave"
+    "6:20 PM",
+    "Rhythm IN BLUE"
    ],
    [
-    "6:44 PM",
-    "Eclipse"
+    "6:30 PM",
+    "EN-CORPS by EN-RICH-MENT"
    ],
    [
-    "7:01 PM",
-    "Les Stentors"
+    "6:42 PM",
+    "Genesis"
    ],
    [
-    "7:18 PM",
-    "7th Regiment"
+    "6:59 PM",
+    "Seattle Cascades"
    ],
    [
-    "7:35 PM",
-    "Raiders"
+    "7:16 PM",
+    "Music City"
    ],
    [
-    "7:52 PM",
+    "7:33 PM",
+    "The Academy"
+   ],
+   [
+    "7:50 PM",
+    "Crossmen"
+   ],
+   [
+    "8:07 PM",
     "Intermission"
    ],
    [
-    "8:09 PM",
-    "Colt Cadets"
+    "8:24 PM",
+    "Pacific Crest"
    ],
    [
-    "8:26 PM",
-    "Columbians"
+    "8:41 PM",
+    "Madison Scouts"
    ],
    [
-    "8:43 PM",
-    "River City Rhythm"
+    "8:58 PM",
+    "Colts"
    ],
    [
-    "9:00 PM",
-    "Memphis Blues"
+    "9:15 PM",
+    "Santa Clara Vanguard"
    ],
    [
-    "9:17 PM",
-    "Blue Devils B"
+    "9:32 PM",
+    "Carolina Crown"
    ],
    [
-    "9:34 PM",
-    "Gold"
+    "9:49 PM",
+    "Boston Crusaders"
    ],
    [
-    "9:51 PM",
-    "The Battalion"
+    "10:06 PM",
+    "Blue Devils"
    ],
    [
-    "10:16 PM",
-    "Retreat"
+    "10:23 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:40 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "10:48 PM",
+    "Scores Announced"
    ]
   ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
   "_seen": "2026-11-14"
  },
  {
@@ -5795,109 +5898,6 @@
    ],
    [
     "1:45 PM",
-    "Awards Ceremony"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-11-14"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-world-championship-finals/",
-  "name": "DCI World Championship Finals",
-  "location": "Indianapolis, IN",
-  "date_display": "August 8, 2026",
-  "date": "2026-08-08",
-  "lineup": [
-   "INpact & BANDtastic Band",
-   "U.S. Marine Drum & Bugle Corps",
-   "Blue Knights",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Blue Stars",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown",
-   "Blue Devils",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:00 PM",
-    "Gates Open"
-   ],
-   [
-    "5:30 PM",
-    "Welcome"
-   ],
-   [
-    "5:40 PM",
-    "INpact & BANDtastic Band"
-   ],
-   [
-    "6:00 PM",
-    "U.S. Marine Drum & Bugle Corps"
-   ],
-   [
-    "6:20 PM",
-    "National Anthem - U.S. Marine Drum & Bugle Corps"
-   ],
-   [
-    "6:30 PM",
-    "Blue Knights"
-   ],
-   [
-    "6:47 PM",
-    "Troopers"
-   ],
-   [
-    "7:04 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "7:21 PM",
-    "Colts"
-   ],
-   [
-    "7:38 PM",
-    "The Cavaliers"
-   ],
-   [
-    "7:55 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "8:12 PM",
-    "Intermission"
-   ],
-   [
-    "8:32 PM",
-    "Blue Stars"
-   ],
-   [
-    "8:49 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:06 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:23 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:57 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:00 PM",
     "Awards Ceremony"
    ]
   ],
