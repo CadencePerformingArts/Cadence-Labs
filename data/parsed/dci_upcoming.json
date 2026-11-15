@@ -1603,6 +1603,90 @@
   "_seen": "2026-11-15"
  },
  {
+  "url": "https://www.dci.org/events/2026-western-corps-connection/",
+  "name": "Western Corps Connection",
+  "location": "Walnut, CA",
+  "date_display": "July 10, 2026",
+  "date": "2026-07-10",
+  "lineup": [
+   "Blue Devils B",
+   "Blue Devils C",
+   "Golden Empire",
+   "Gold",
+   "Impulse",
+   "Seattle Cascades",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Santa Clara Vanguard",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "4:45 PM",
+    "Gates Open"
+   ],
+   [
+    "5:45 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:15 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:30 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:45 PM",
+    "Gold"
+   ],
+   [
+    "7:00 PM",
+    "Impulse"
+   ],
+   [
+    "7:15 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:17 PM",
+    "The Academy"
+   ],
+   [
+    "8:34 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:51 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:08 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:25 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:50 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
+  "_seen": "2026-11-15"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-little-rock/",
   "name": "DCI Little Rock",
   "location": "Little Rock, AR",
@@ -3939,6 +4023,113 @@
   "_seen": "2026-11-15"
  },
  {
+  "url": "https://www.dci.org/events/2026-nightbeat/",
+  "name": "NightBEAT",
+  "location": "Winston-Salem, NC",
+  "date_display": "July 26, 2026",
+  "date": "2026-07-26",
+  "lineup": [
+   "North Carolina A&T Cold Steel Drumline",
+   "Atlanta CV",
+   "Heat Wave",
+   "Music City",
+   "Spartans",
+   "The Academy",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Colts",
+   "Blue Stars",
+   "Bluecoats",
+   "Blue Devils",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "3:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:00 PM",
+    "Welcome"
+   ],
+   [
+    "5:05 PM",
+    "National Anthem"
+   ],
+   [
+    "5:15 PM",
+    "North Carolina A&T Cold Steel Drumline"
+   ],
+   [
+    "5:35 PM",
+    "Atlanta CV"
+   ],
+   [
+    "5:53 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:11 PM",
+    "Music City"
+   ],
+   [
+    "6:29 PM",
+    "Spartans"
+   ],
+   [
+    "6:47 PM",
+    "The Academy"
+   ],
+   [
+    "7:05 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "7:23 PM",
+    "Intermission"
+   ],
+   [
+    "8:15 PM",
+    "Troopers"
+   ],
+   [
+    "8:33 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:51 PM",
+    "Colts"
+   ],
+   [
+    "9:09 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:27 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:45 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:03 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Carolina Crown"
+   ],
+   [
+    "10:36 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-15"
+ },
+ {
   "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
   "name": "Summer Music Games in Cincinnati",
   "location": "Mason, OH",
@@ -5801,109 +5992,6 @@
    ],
    [
     "1:45 PM",
-    "Awards Ceremony"
-   ]
-  ],
-  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
-  "_seen": "2026-11-15"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-world-championship-finals/",
-  "name": "DCI World Championship Finals",
-  "location": "Indianapolis, IN",
-  "date_display": "August 8, 2026",
-  "date": "2026-08-08",
-  "lineup": [
-   "INpact & BANDtastic Band",
-   "U.S. Marine Drum & Bugle Corps",
-   "Blue Knights",
-   "Troopers",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Blue Stars",
-   "Santa Clara Vanguard",
-   "Boston Crusaders",
-   "Carolina Crown",
-   "Blue Devils",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:00 PM",
-    "Gates Open"
-   ],
-   [
-    "5:30 PM",
-    "Welcome"
-   ],
-   [
-    "5:40 PM",
-    "INpact & BANDtastic Band"
-   ],
-   [
-    "6:00 PM",
-    "U.S. Marine Drum & Bugle Corps"
-   ],
-   [
-    "6:20 PM",
-    "National Anthem - U.S. Marine Drum & Bugle Corps"
-   ],
-   [
-    "6:30 PM",
-    "Blue Knights"
-   ],
-   [
-    "6:47 PM",
-    "Troopers"
-   ],
-   [
-    "7:04 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "7:21 PM",
-    "Colts"
-   ],
-   [
-    "7:38 PM",
-    "The Cavaliers"
-   ],
-   [
-    "7:55 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "8:12 PM",
-    "Intermission"
-   ],
-   [
-    "8:32 PM",
-    "Blue Stars"
-   ],
-   [
-    "8:49 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:06 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:23 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:57 PM",
-    "Bluecoats"
-   ],
-   [
-    "10:00 PM",
     "Awards Ceremony"
    ]
   ],
