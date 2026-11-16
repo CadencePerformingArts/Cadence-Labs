@@ -583,56 +583,6 @@
   "_seen": "2026-11-16"
  },
  {
-  "url": "https://www.dci.org/events/2026-midcal-showcase/",
-  "name": "MidCal Showcase",
-  "location": "Camarillo, CA",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Golden Empire",
-   "The Academy",
-   "Pacific Crest",
-   "Bluecoats",
-   "Blue Devils",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:50 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:00 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:25 PM",
-    "The Academy"
-   ],
-   [
-    "8:50 PM",
-    "Pacific Crest"
-   ],
-   [
-    "9:15 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:40 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:00 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-11-16"
- },
- {
   "url": "https://www.dci.org/events/2026-preview-of-champions/",
   "name": "Preview of Champions",
   "location": "Nashua, NH",
@@ -732,79 +682,6 @@
    ]
   ],
   "bag_policy": "There is no enforced bag policy for this event. For security and efficiency, all attendees are encouraged to keep all personal items to a minimum.",
-  "_seen": "2026-11-16"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-capital-classic/",
-  "name": "DCI Capital Classic",
-  "location": "Sacramento, CA",
-  "date_display": "July 3, 2026",
-  "date": "2026-07-03",
-  "lineup": [
-   "Sparta Ignite",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Mandarins Alumni Corps",
-   "Seattle Cascades",
-   "The Academy",
-   "Santa Clara Vanguard",
-   "Bluecoats"
-  ],
-  "schedule": [
-   [
-    "4:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "Sparta Ignite"
-   ],
-   [
-    "6:52 PM",
-    "Golden Empire"
-   ],
-   [
-    "7:07 PM",
-    "Impulse"
-   ],
-   [
-    "7:22 PM",
-    "Gold"
-   ],
-   [
-    "7:37 PM",
-    "Mandarins Alumni Corps"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:22 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "8:40 PM",
-    "The Academy"
-   ],
-   [
-    "8:58 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "9:16 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:41 PM",
-    "Scores Announced"
-   ]
-  ],
   "_seen": "2026-11-16"
  },
  {
@@ -1376,6 +1253,80 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
+  "_seen": "2026-11-16"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-gold-showcase/",
+  "name": "Gold Showcase",
+  "location": "Santa Clarita, CA",
+  "date_display": "July 9, 2026",
+  "date": "2026-07-09",
+  "lineup": [
+   "Blue Devils C",
+   "Golden Empire",
+   "Blue Devils B",
+   "The Academy",
+   "Pacific Crest",
+   "Blue Devils",
+   "Santa Clara Vanguard",
+   "Gold",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:00 PM",
+    "Blue Devils C"
+   ],
+   [
+    "6:17 PM",
+    "Golden Empire"
+   ],
+   [
+    "6:34 PM",
+    "Blue Devils B"
+   ],
+   [
+    "6:51 PM",
+    "The Academy"
+   ],
+   [
+    "7:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:25 PM",
+    "Intermission"
+   ],
+   [
+    "7:55 PM",
+    "Blue Devils"
+   ],
+   [
+    "8:12 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "8:29 PM",
+    "Gold"
+   ],
+   [
+    "8:46 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:11 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-11-16"
  },
  {
@@ -2394,6 +2345,76 @@
    ]
   ],
   "bag_policy": "Leo Buckley Stadium does have a Clear Bag Policy and Security Screening. More detailed information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-16"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-denton/",
+  "name": "DCI Denton",
+  "location": "Denton, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Seattle Cascades",
+   "Spirit of Atlanta",
+   "Phantom Regiment",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Guardians"
+   ],
+   [
+    "8:42 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:16 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:33 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:50 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:07 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:24 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:41 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-11-16"
  },
  {
