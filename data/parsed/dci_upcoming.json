@@ -2471,6 +2471,76 @@
   "_seen": "2026-11-16"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-denton/",
+  "name": "DCI Denton",
+  "location": "Denton, TX",
+  "date_display": "July 16, 2026",
+  "date": "2026-07-16",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Seattle Cascades",
+   "Spirit of Atlanta",
+   "Phantom Regiment",
+   "Carolina Crown",
+   "Bluecoats",
+   "Boston Crusaders",
+   "Santa Clara Vanguard"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:20 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:30 PM",
+    "Guardians"
+   ],
+   [
+    "8:42 PM",
+    "Zephyrus"
+   ],
+   [
+    "8:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:16 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "9:33 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "9:50 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:07 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:24 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:41 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "11:06 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "DATCU Stadium does have a Clear Bag Policy and more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-16"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-houston/",
   "name": "DCI Houston",
   "location": "Houston, TX",
@@ -3550,6 +3620,69 @@
    ],
    [
     "10:20 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-11-16"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-bushwackers-invitational/",
+  "name": "Bushwackers Invitational",
+  "location": "Mt. Olive, NJ",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "Spark",
+   "Sunrisers",
+   "Hurricanes",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Bushwackers",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Spark"
+   ],
+   [
+    "7:22 PM",
+    "Sunrisers"
+   ],
+   [
+    "7:39 PM",
+    "Hurricanes"
+   ],
+   [
+    "7:56 PM",
+    "Intermission"
+   ],
+   [
+    "8:31 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:48 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "9:05 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:22 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:47 PM",
     "Scores Announced"
    ]
   ],
@@ -5774,6 +5907,95 @@
    "Rhythm IN BLUE",
    "Spark"
   ],
+  "_seen": "2026-11-16"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-all-age-world-championship-finals/",
+  "name": "DCI All-Age World Championship Finals",
+  "location": "Indianapolis, IN",
+  "date_display": "August 8, 2026",
+  "date": "2026-08-08",
+  "lineup": [
+   "MBI",
+   "Northern Lights",
+   "Govenaires",
+   "Rogues Hollow Regiment",
+   "Fusion Core",
+   "White Sabers",
+   "Hurricanes",
+   "Cincinnati Tradition",
+   "Bushwackers",
+   "Atlanta CV",
+   "Hawthorne Caballeros",
+   "Reading Buccaneers"
+  ],
+  "schedule": [
+   [
+    "9:00 AM",
+    "Gates Open"
+   ],
+   [
+    "9:50 AM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "10:00 AM",
+    "MBI"
+   ],
+   [
+    "10:17 AM",
+    "Northern Lights"
+   ],
+   [
+    "10:34 AM",
+    "Govenaires"
+   ],
+   [
+    "10:51 AM",
+    "Rogues Hollow Regiment"
+   ],
+   [
+    "11:08 AM",
+    "Fusion Core"
+   ],
+   [
+    "11:25 AM",
+    "White Sabers"
+   ],
+   [
+    "11:42 AM",
+    "Intermission"
+   ],
+   [
+    "11:57 AM",
+    "Hurricanes"
+   ],
+   [
+    "12:14 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "12:31 PM",
+    "Bushwackers"
+   ],
+   [
+    "12:48 PM",
+    "Atlanta CV"
+   ],
+   [
+    "1:05 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "1:22 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "1:45 PM",
+    "Awards Ceremony"
+   ]
+  ],
+  "bag_policy": "Lucas Oil Stadium will have a clear bag policy in effect for this event, restricting the size and style of bags that will be permitted within the venue. Patrons are allowed to carry one clear plastic, vinyl, or PVC bag that does not exceed the dimensions 12’’ by 6’’ by 12’’ or a one-gallon size clear plastic freezer bag. Fans may also carry in a small clutch bag or purse approximately the size of a hand.",
   "_seen": "2026-11-16"
  },
  {
