@@ -3018,6 +3018,71 @@
   "_seen": "2026-11-16"
  },
  {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
+  "_seen": "2026-11-16"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-st-louis/",
   "name": "DCI St. Louis",
   "location": "Belleville, IL",
@@ -4482,6 +4547,85 @@
     "Scores Announced"
    ]
   ],
+  "_seen": "2026-11-16"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-the-marion-open/",
+  "name": "The Marion Open",
+  "location": "Marion, OH",
+  "date_display": "July 30, 2026",
+  "date": "2026-07-30",
+  "lineup": [
+   "Cincinnati Tradition",
+   "Memphis Blues",
+   "Heat Wave",
+   "Raiders",
+   "Colt Cadets",
+   "Les Stentors",
+   "River City Rhythm",
+   "7th Regiment",
+   "Gold",
+   "The Battalion"
+  ],
+  "schedule": [
+   [
+    "6:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Cincinnati Tradition"
+   ],
+   [
+    "7:27 PM",
+    "Memphis Blues"
+   ],
+   [
+    "7:44 PM",
+    "Heat Wave"
+   ],
+   [
+    "8:01 PM",
+    "Raiders"
+   ],
+   [
+    "8:18 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:35 PM",
+    "Intermission"
+   ],
+   [
+    "8:52 PM",
+    "Les Stentors"
+   ],
+   [
+    "9:09 PM",
+    "River City Rhythm"
+   ],
+   [
+    "9:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "9:43 PM",
+    "Gold"
+   ],
+   [
+    "10:00 PM",
+    "The Battalion"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
   "_seen": "2026-11-16"
  },
  {
