@@ -3083,66 +3083,6 @@
   "_seen": "2026-11-17"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-st-louis/",
-  "name": "DCI St. Louis",
-  "location": "Belleville, IL",
-  "date_display": "July 21, 2026",
-  "date": "2026-07-21",
-  "lineup": [
-   "Gold",
-   "The Battalion",
-   "Seattle Cascades",
-   "Music City",
-   "Madison Scouts",
-   "The Cavaliers",
-   "Santa Clara Vanguard"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Gold"
-   ],
-   [
-    "8:27 PM",
-    "The Battalion"
-   ],
-   [
-    "8:44 PM",
-    "Seattle Cascades"
-   ],
-   [
-    "9:01 PM",
-    "Music City"
-   ],
-   [
-    "9:18 PM",
-    "Madison Scouts"
-   ],
-   [
-    "9:35 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:52 PM",
-    "Santa Clara Vanguard"
-   ],
-   [
-    "10:17 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Bob Goalby Field does not have a Bag Policy. All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-17"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-southern-mississippi/",
   "name": "DCI Southern Mississippi",
   "location": "Hattiesburg, MS",
@@ -3799,6 +3739,100 @@
    ]
   ],
   "bag_policy": "Center Parc Stadium will enforce security policies including the use of metal detectors, prohibited items, and a CLEAR BAG POLICY. Only approved clear bags will be permitted in the stadium. For more information, please visit the Center Parc Stadium Game Day Website .",
+  "_seen": "2026-11-17"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-midwestern-championship/",
+  "name": "Midwestern Championship",
+  "location": "DeKalb, IL",
+  "date_display": "July 25, 2026",
+  "date": "2026-07-25",
+  "lineup": [
+   "The ConneXion",
+   "Northern Lights",
+   "Govenaires",
+   "Colt Cadets",
+   "Columbians",
+   "River City Rhythm",
+   "Genesis",
+   "Seattle Cascades",
+   "Pacific Crest",
+   "Madison Scouts",
+   "The Cavaliers",
+   "Santa Clara Vanguard",
+   "Phantom Regiment"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "The ConneXion"
+   ],
+   [
+    "6:52 PM",
+    "Northern Lights"
+   ],
+   [
+    "7:09 PM",
+    "Govenaires"
+   ],
+   [
+    "7:26 PM",
+    "Colt Cadets"
+   ],
+   [
+    "7:43 PM",
+    "Columbians"
+   ],
+   [
+    "8:00 PM",
+    "River City Rhythm"
+   ],
+   [
+    "8:17 PM",
+    "Intermission"
+   ],
+   [
+    "8:34 PM",
+    "Genesis"
+   ],
+   [
+    "8:51 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:08 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:25 PM",
+    "Madison Scouts"
+   ],
+   [
+    "9:42 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:59 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "10:16 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:24 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "About About Contact Us Ethics & Compliance DCI DEI: In Step Bylaws, Policies, Procedures Scholarship Opportunities Board of Directors DCI Hall of Fame Employment Our Partners Schedule &",
   "_seen": "2026-11-17"
  },
  {
