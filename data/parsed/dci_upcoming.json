@@ -57,6 +57,76 @@
   "_seen": "2026-11-18"
  },
  {
+  "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
+  "name": "Barnum Festival: Champions on Parade",
+  "location": "Shelton, CT",
+  "date_display": "June 27, 2026",
+  "date": "2026-06-27",
+  "lineup": [
+   "North Star",
+   "Crusaders Senior",
+   "Hawthorne Caballeros Alumni",
+   "CT Alumni",
+   "7th Regiment",
+   "Reading Buccaneers",
+   "Hawthorne Caballeros",
+   "Bushwackers",
+   "Hurricanes"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "North Star"
+   ],
+   [
+    "6:58 PM",
+    "Crusaders Senior"
+   ],
+   [
+    "7:16 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "7:34 PM",
+    "CT Alumni"
+   ],
+   [
+    "7:52 PM",
+    "7th Regiment"
+   ],
+   [
+    "8:10 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:28 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "8:46 PM",
+    "Bushwackers"
+   ],
+   [
+    "9:04 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:29 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-18"
+ },
+ {
   "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
   "name": "Bluecoats Opening Night Community Celebration",
   "location": "Alliance, OH",
@@ -2140,75 +2210,6 @@
   "_seen": "2026-11-18"
  },
  {
-  "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
-  "name": "DCI Broken Arrow",
-  "location": "Broken Arrow, OK",
-  "date_display": "July 14, 2026",
-  "date": "2026-07-14",
-  "lineup": [
-   "Zephyrus",
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:27 PM",
-    "Crossmen"
-   ],
-   [
-    "8:44 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:01 PM",
-    "Colts"
-   ],
-   [
-    "9:18 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:52 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:09 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:26 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:51 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Broken Arrow Memorial Stadium has a clear bag policy, more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-18"
- },
- {
   "url": "https://www.dci.org/events/2026-dci-hutchinson/",
   "name": "DCI Hutchinson",
   "location": "Hutchinson, KS",
@@ -3950,113 +3951,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event.",
-  "_seen": "2026-11-18"
- },
- {
-  "url": "https://www.dci.org/events/2026-nightbeat/",
-  "name": "NightBEAT",
-  "location": "Winston-Salem, NC",
-  "date_display": "July 26, 2026",
-  "date": "2026-07-26",
-  "lineup": [
-   "North Carolina A&T Cold Steel Drumline",
-   "Atlanta CV",
-   "Heat Wave",
-   "Music City",
-   "Spartans",
-   "The Academy",
-   "Spirit of Atlanta",
-   "Troopers",
-   "Blue Knights",
-   "Colts",
-   "Blue Stars",
-   "Bluecoats",
-   "Blue Devils",
-   "Carolina Crown"
-  ],
-  "schedule": [
-   [
-    "3:30 PM",
-    "Gates Open"
-   ],
-   [
-    "5:00 PM",
-    "Welcome"
-   ],
-   [
-    "5:05 PM",
-    "National Anthem"
-   ],
-   [
-    "5:15 PM",
-    "North Carolina A&T Cold Steel Drumline"
-   ],
-   [
-    "5:35 PM",
-    "Atlanta CV"
-   ],
-   [
-    "5:53 PM",
-    "Heat Wave"
-   ],
-   [
-    "6:11 PM",
-    "Music City"
-   ],
-   [
-    "6:29 PM",
-    "Spartans"
-   ],
-   [
-    "6:47 PM",
-    "The Academy"
-   ],
-   [
-    "7:05 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "7:23 PM",
-    "Intermission"
-   ],
-   [
-    "8:15 PM",
-    "Troopers"
-   ],
-   [
-    "8:33 PM",
-    "Blue Knights"
-   ],
-   [
-    "8:51 PM",
-    "Colts"
-   ],
-   [
-    "9:09 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:27 PM",
-    "Bluecoats"
-   ],
-   [
-    "9:45 PM",
-    "Blue Devils"
-   ],
-   [
-    "10:03 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:21 PM",
-    "Encore - Carolina Crown"
-   ],
-   [
-    "10:36 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-11-18"
  },
  {
