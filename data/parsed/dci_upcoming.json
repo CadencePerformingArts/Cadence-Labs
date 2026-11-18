@@ -57,76 +57,6 @@
   "_seen": "2026-11-18"
  },
  {
-  "url": "https://www.dci.org/events/2026-barnum-festival-champions-on-parade/",
-  "name": "Barnum Festival: Champions on Parade",
-  "location": "Shelton, CT",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "North Star",
-   "Crusaders Senior",
-   "Hawthorne Caballeros Alumni",
-   "CT Alumni",
-   "7th Regiment",
-   "Reading Buccaneers",
-   "Hawthorne Caballeros",
-   "Bushwackers",
-   "Hurricanes"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:30 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "6:40 PM",
-    "North Star"
-   ],
-   [
-    "6:58 PM",
-    "Crusaders Senior"
-   ],
-   [
-    "7:16 PM",
-    "Hawthorne Caballeros Alumni"
-   ],
-   [
-    "7:34 PM",
-    "CT Alumni"
-   ],
-   [
-    "7:52 PM",
-    "7th Regiment"
-   ],
-   [
-    "8:10 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:28 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "8:46 PM",
-    "Bushwackers"
-   ],
-   [
-    "9:04 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:29 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
-  "_seen": "2026-11-18"
- },
- {
   "url": "https://www.dci.org/events/2026-bluecoats-opening-night-community-celebration/",
   "name": "Bluecoats Opening Night Community Celebration",
   "location": "Alliance, OH",
@@ -1687,91 +1617,62 @@
   "_seen": "2026-11-18"
  },
  {
-  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
-  "name": "Drum Corps Grand Prix",
-  "location": "Clifton, NJ",
+  "url": "https://www.dci.org/events/2026-dci-little-rock/",
+  "name": "DCI Little Rock",
+  "location": "Little Rock, AR",
   "date_display": "July 11, 2026",
   "date": "2026-07-11",
   "lineup": [
-   "Sonus Brass Theater",
-   "Raiders",
-   "Les Stentors",
-   "7th Regiment",
-   "White Sabers",
-   "Bushwackers",
-   "Reading Buccaneers",
-   "Hurricanes",
-   "Hawthorne Caballeros",
-   "Hall of Fame Induction",
-   "Hawthorne Caballeros Alumni"
+   "Memphis Blues",
+   "Zephyrus",
+   "Music City",
+   "Spirit of Atlanta",
+   "Carolina Crown",
+   "Boston Crusaders"
   ],
   "schedule": [
    [
-    "5:30 PM",
+    "7:00 PM",
     "Gates Open"
    ],
    [
-    "6:30 PM",
+    "8:00 PM",
     "Welcome & National Anthem"
    ],
    [
-    "6:40 PM",
-    "Sonus Brass Theater"
+    "8:10 PM",
+    "Memphis Blues"
    ],
    [
-    "6:52 PM",
-    "Raiders"
+    "8:27 PM",
+    "Zephyrus"
    ],
    [
-    "7:09 PM",
-    "Les Stentors"
+    "8:44 PM",
+    "Music City"
    ],
    [
-    "7:26 PM",
-    "7th Regiment"
+    "9:01 PM",
+    "Spirit of Atlanta"
    ],
    [
-    "7:43 PM",
-    "Intermission"
-   ],
-   [
-    "8:00 PM",
-    "White Sabers"
-   ],
-   [
-    "8:17 PM",
-    "Bushwackers"
-   ],
-   [
-    "8:34 PM",
-    "Reading Buccaneers"
-   ],
-   [
-    "8:51 PM",
-    "Hurricanes"
-   ],
-   [
-    "9:08 PM",
-    "Hawthorne Caballeros"
-   ],
-   [
-    "9:25 PM",
-    "Hall of Fame Induction"
+    "9:18 PM",
+    "Carolina Crown"
    ],
    [
     "9:35 PM",
-    "Hawthorne Caballeros Alumni"
+    "Boston Crusaders"
    ],
    [
     "9:52 PM",
-    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
+    "Encore - Carolina Crown - Fort Mill, SC"
    ],
    [
     "10:00 PM",
     "Scores Announced"
    ]
   ],
-  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
   "_seen": "2026-11-18"
  },
  {
