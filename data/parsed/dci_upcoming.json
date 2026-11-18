@@ -583,6 +583,56 @@
   "_seen": "2026-11-18"
  },
  {
+  "url": "https://www.dci.org/events/2026-midcal-showcase/",
+  "name": "MidCal Showcase",
+  "location": "Camarillo, CA",
+  "date_display": "July 2, 2026",
+  "date": "2026-07-02",
+  "lineup": [
+   "Golden Empire",
+   "The Academy",
+   "Pacific Crest",
+   "Bluecoats",
+   "Blue Devils",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:50 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:00 PM",
+    "Golden Empire"
+   ],
+   [
+    "8:25 PM",
+    "The Academy"
+   ],
+   [
+    "8:50 PM",
+    "Pacific Crest"
+   ],
+   [
+    "9:15 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:40 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:00 PM",
+    "Event Concludes"
+   ]
+  ],
+  "_seen": "2026-11-18"
+ },
+ {
   "url": "https://www.dci.org/events/2026-preview-of-champions/",
   "name": "Preview of Champions",
   "location": "Nashua, NH",
@@ -1634,65 +1684,6 @@
    ]
   ],
   "bag_policy": "To ensure security and efficiency, all attendees are encouraged to keep all items to a minimum. More information on Hilmer Lodge Stadium’s bag policy can be found here .",
-  "_seen": "2026-11-18"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-little-rock/",
-  "name": "DCI Little Rock",
-  "location": "Little Rock, AR",
-  "date_display": "July 11, 2026",
-  "date": "2026-07-11",
-  "lineup": [
-   "Memphis Blues",
-   "Zephyrus",
-   "Music City",
-   "Spirit of Atlanta",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:27 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:44 PM",
-    "Music City"
-   ],
-   [
-    "9:01 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:18 PM",
-    "Carolina Crown"
-   ],
-   [
-    "9:35 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:52 PM",
-    "Encore - Carolina Crown - Fort Mill, SC"
-   ],
-   [
-    "10:00 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
   "_seen": "2026-11-18"
  },
  {
