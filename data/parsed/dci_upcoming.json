@@ -390,65 +390,66 @@
   "_seen": "2026-11-19"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
-  "name": "Drums Across Nebraska",
-  "location": "Omaha, NE",
-  "date_display": "July 1, 2026",
-  "date": "2026-07-01",
+  "url": "https://www.dci.org/events/2026-northwest-youth-music-games-seattle/",
+  "name": "Northwest Youth Music Games Seattle",
+  "location": "Seattle, WA",
+  "date_display": "June 30, 2026",
+  "date": "2026-06-30",
   "lineup": [
-   "Colt Cadets",
-   "Genesis",
-   "Blue Knights",
-   "Troopers",
-   "Phantom Regiment",
-   "Colts"
+   "Gems",
+   "Impulse",
+   "Columbians",
+   "The Battalion",
+   "Santa Clara Vanguard",
+   "Seattle Cascades"
   ],
   "schedule": [
    [
-    "6:30 PM",
+    "6:00 PM",
     "Gates Open"
    ],
    [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:28 PM",
-    "Genesis"
-   ],
-   [
-    "8:46 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:04 PM",
+    "6:45 PM",
     "Intermission"
    ],
    [
-    "9:24 PM",
-    "Troopers"
+    "7:30 PM",
+    "Welcome & National Anthem"
    ],
    [
-    "9:42 PM",
-    "Phantom Regiment"
+    "7:40 PM",
+    "Gems"
    ],
    [
-    "10:00 PM",
-    "Colts"
+    "7:52 PM",
+    "Impulse"
    ],
    [
-    "10:18 PM",
-    "Encore - Colts - Dubuque, IA"
+    "8:07 PM",
+    "Columbians"
    ],
    [
-    "10:25 PM",
+    "8:22 PM",
+    "The Battalion"
+   ],
+   [
+    "8:52 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "9:28 PM",
+    "Encore - Seattle Cascades - Seattle, WA"
+   ],
+   [
+    "9:35 PM",
     "Scores Announced"
    ]
   ],
+  "bag_policy": "There is no bag policy for this event.",
   "_seen": "2026-11-19"
  },
  {
