@@ -453,6 +453,68 @@
   "_seen": "2026-11-19"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
+  "name": "Drums Across Nebraska",
+  "location": "Omaha, NE",
+  "date_display": "July 1, 2026",
+  "date": "2026-07-01",
+  "lineup": [
+   "Colt Cadets",
+   "Genesis",
+   "Blue Knights",
+   "Troopers",
+   "Phantom Regiment",
+   "Colts"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Colt Cadets"
+   ],
+   [
+    "8:28 PM",
+    "Genesis"
+   ],
+   [
+    "8:46 PM",
+    "Blue Knights"
+   ],
+   [
+    "9:04 PM",
+    "Intermission"
+   ],
+   [
+    "9:24 PM",
+    "Troopers"
+   ],
+   [
+    "9:42 PM",
+    "Phantom Regiment"
+   ],
+   [
+    "10:00 PM",
+    "Colts"
+   ],
+   [
+    "10:18 PM",
+    "Encore - Colts - Dubuque, IA"
+   ],
+   [
+    "10:25 PM",
+    "Scores Announced"
+   ]
+  ],
+  "_seen": "2026-11-19"
+ },
+ {
   "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
   "name": "Northwest Youth Music Games Portland",
   "location": "Portland, OR",
@@ -1060,21 +1122,20 @@
   "_seen": "2026-11-19"
  },
  {
-  "url": "https://www.dci.org/events/2026-celebration-in-brass/",
-  "name": "Celebration in Brass",
-  "location": "Des Moines, IA",
-  "date_display": "July 8, 2026",
-  "date": "2026-07-08",
+  "url": "https://www.dci.org/events/2026-the-kiwanis-thunder-of-drums/",
+  "name": "The Kiwanis Thunder of Drums",
+  "location": "Mankato, MN",
+  "date_display": "July 7, 2026",
+  "date": "2026-07-07",
   "lineup": [
-   "Colt Cadets",
+   "Govenaires",
+   "MBI",
    "River City Rhythm",
    "Genesis",
-   "Crossmen",
    "Madison Scouts",
-   "Troopers",
-   "Blue Stars",
-   "The Cavaliers",
-   "Colts"
+   "Colts",
+   "Blue Knights",
+   "The Cavaliers"
   ],
   "schedule": [
    [
@@ -1082,58 +1143,55 @@
     "Gates Open"
    ],
    [
+    "6:50 PM",
+    "Minnesota State University - Clinic Band - Mankato, MN"
+   ],
+   [
     "7:00 PM",
     "Welcome & National Anthem"
    ],
    [
     "7:10 PM",
-    "Colt Cadets"
+    "Govenaires"
    ],
    [
     "7:27 PM",
-    "River City Rhythm"
+    "MBI"
    ],
    [
     "7:44 PM",
-    "Genesis"
+    "River City Rhythm"
    ],
    [
     "8:01 PM",
-    "Crossmen"
-   ],
-   [
-    "8:18 PM",
     "Intermission"
    ],
    [
-    "8:38 PM",
+    "8:18 PM",
+    "Genesis"
+   ],
+   [
+    "8:35 PM",
     "Madison Scouts"
    ],
    [
-    "8:55 PM",
-    "Troopers"
-   ],
-   [
-    "9:12 PM",
-    "Blue Stars"
-   ],
-   [
-    "9:29 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:46 PM",
+    "8:52 PM",
     "Colts"
    ],
    [
-    "10:03 PM",
-    "Encore - Colts - Dubuque, IA"
+    "9:09 PM",
+    "Blue Knights"
    ],
    [
-    "10:11 PM",
+    "9:26 PM",
+    "The Cavaliers"
+   ],
+   [
+    "9:43 PM",
     "Scores Announced"
    ]
   ],
+  "bag_policy": "In an effort to enhance security at campus events, to reduce staff touchpoints, and to expedite entry times for guests Minnesota State University, Mankato has implemented a clear bag policy .",
   "_seen": "2026-11-19"
  },
  {
@@ -1890,64 +1948,6 @@
   "_seen": "2026-11-19"
  },
  {
-  "url": "https://www.dci.org/events/2026-so-cal-classic-open-class-pacific-championship-finals/",
-  "name": "So Cal Classic: Open Class Pacific Championship Finals",
-  "location": "Buena Park, CA",
-  "date_display": "July 12, 2026",
-  "date": "2026-07-12",
-  "lineup": [
-   "Sacramento Freelancers",
-   "Blue Devils C",
-   "Golden Empire",
-   "Impulse",
-   "Gold",
-   "Blue Devils B"
-  ],
-  "schedule": [
-   [
-    "5:30 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Sacramento Freelancers"
-   ],
-   [
-    "7:27 PM",
-    "Blue Devils C"
-   ],
-   [
-    "7:44 PM",
-    "Golden Empire"
-   ],
-   [
-    "8:01 PM",
-    "Intermission"
-   ],
-   [
-    "8:18 PM",
-    "Impulse"
-   ],
-   [
-    "8:35 PM",
-    "Gold"
-   ],
-   [
-    "8:52 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:17 PM",
-    "Retreat"
-   ]
-  ],
-  "_seen": "2026-11-19"
- },
- {
   "url": "https://www.dci.org/events/2026-brass-impact/",
   "name": "Brass Impact",
   "location": "Olathe, KS",
@@ -2072,75 +2072,6 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
-  "_seen": "2026-11-19"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
-  "name": "DCI Broken Arrow",
-  "location": "Broken Arrow, OK",
-  "date_display": "July 14, 2026",
-  "date": "2026-07-14",
-  "lineup": [
-   "Zephyrus",
-   "Crossmen",
-   "Spirit of Atlanta",
-   "Colts",
-   "The Cavaliers",
-   "Phantom Regiment",
-   "Carolina Crown",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Zephyrus"
-   ],
-   [
-    "8:27 PM",
-    "Crossmen"
-   ],
-   [
-    "8:44 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:01 PM",
-    "Colts"
-   ],
-   [
-    "9:18 PM",
-    "The Cavaliers"
-   ],
-   [
-    "9:35 PM",
-    "Intermission"
-   ],
-   [
-    "9:52 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:09 PM",
-    "Carolina Crown"
-   ],
-   [
-    "10:26 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "10:51 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Broken Arrow Memorial Stadium has a clear bag policy, more information can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-11-19"
  },
  {
