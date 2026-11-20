@@ -1,10 +1,11 @@
 {
- "updated": "2026-11-20 14:35 UTC",
+ "updated": "2026-11-20 14:47 UTC",
  "articles": [
   {
    "title": "Corps news and announcements",
    "url": "https://www.dci.org/news/corps-news-and-announcements-20261120/",
-   "date": "2026-11-20"
+   "date": "2026-11-20",
+   "image": "https://images.dci.org/wp-content/uploads/2026/11/northernlightscorpsnews-scaled.jpg"
   },
   {
    "title": "DCI Open Class World Championship Finals returning to Lucas Oil Stadium in 2027",
@@ -62,6 +63,238 @@
   }
  ],
  "corps_items": [
+  {
+   "corps": "7th Regiment",
+   "blurb": "7th Regiment’s next audition will be held December 13 in New London, Connecticut.",
+   "link": "https://www.facebook.com/share/p/18YFVCyK3n/",
+   "logo": "https://images.dci.org/wp-content/uploads/2025/05/7th-regiment-logo-2025-800x800-1.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "The Battalion",
+   "blurb": "The Battalion’s first full corps camp will be on Saturday, November 21 in Colorado Springs, Colorado.",
+   "link": "https://www.facebook.com/share/p/18urqvS4Pa/",
+   "logo": "https://images.dci.org/wp-content/uploads/2026/08/battalion-logo-600x600-1.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Blue Knights",
+   "blurb": "Blue Knights announced its roster of cymbal instructors.",
+   "link": "https://www.facebook.com/share/p/1D61Cg6Pdm/",
+   "logo": "https://production.assets.dci.org/5a1b302fd670bd00c13da212_QtXzpIO58Ca5Fxh_TZp9Tt66z_qwM6RG.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Blue Stars",
+   "blurb": "Blue Stars is gearing up for its weekend audition camps in California and Tokyo, Japan.",
+   "link": "https://www.facebook.com/bluestars/posts/1554759606687253",
+   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b0b_O-JgnhkTHqeBTb2CX2DmCYHHMzfR9WCa.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Bluecoats",
+   "blurb": "Bluecoats will send a small brass ensemble to the Thailand World Music Championships in December to present an educational clinic.",
+   "link": "https://www.facebook.com/bluecoats/posts/1608135431358830",
+   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b0c_wRimxHy5d3FL1RVb48fVoLZBJm6JCPHj.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Boston Crusaders",
+   "blurb": "More than 120 brass students attended a free educational brass clinic hosted by Boston Crusaders, Spartans and 7th Regiment in Reading, Massachusetts.",
+   "link": "https://www.facebook.com/share/p/1FBJBYkM7D/",
+   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b0d_-rL8mWx--vjTIXAXL829d5QRD8ANuyqN.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Carolina Crown",
+   "blurb": "Carolina Crown is hosting a brass audition camp November 20-22 in Charlotte, North Carolina.",
+   "link": "https://www.facebook.com/share/p/1GjFVMDYeQ/",
+   "logo": "https://images.dci.org/wp-content/uploads/2026/04/carolina-crown-logo-2026-800x800-1.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "The Cavaliers",
+   "blurb": "The Cavaliers have a brass audition scheduled November 20-22 in Indianapolis.",
+   "link": "https://www.facebook.com/share/p/1B76qhYJdG/",
+   "logo": "https://production.assets.dci.org/5ef6c5f9694c8b6b7c436322_BG_EFfjuppP9PJoOcFk1zOl1tQoaFmCE.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Colts",
+   "blurb": "Colts introduced its 2027 color guard staff.",
+   "link": "https://www.facebook.com/dcicolts/posts/1603793145122515",
+   "logo": "https://production.assets.dci.org/5a181124d670bd001f490b11_A4Ndqer0pihrDjJx8CSsr9chF9_69GxA.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Crossmen",
+   "blurb": "Crossmen shared a handful of photos from a recent audition camp.",
+   "link": "https://www.facebook.com/CrossmenDBC/posts/1731932605159053",
+   "logo": "https://images.dci.org/wp-content/uploads/2025/05/crossmen-logo-2025-800x800-1.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Eclipse",
+   "blurb": "Eclipse’s first audition camp will take place November 21 in Indianapolis.",
+   "link": "https://www.facebook.com/share/p/1NQ8Z5SR3E/",
+   "logo": "https://images.dci.org/wp-content/uploads/2026/08/eclipse-logo-600x600-1.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Gems",
+   "blurb": "Gems introduced its brass education team.",
+   "link": "https://www.facebook.com/share/p/1GXsSTv1nj/",
+   "logo": "https://production.assets.dci.org/63c0e2a578e9fe9846012e52_Sy5XkWQB-ipqgaRCpLEzpZNmp7xDX4Do.png",
+   "kind": "news",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Madison Scouts",
+   "blurb": "Madison Scouts shared a schedule of its upcoming audition camp dates.",
+   "link": "https://www.facebook.com/share/p/19tTYvt9gj/",
+   "logo": "https://production.assets.dci.org/5a181168d670bd001b2e637b_XVfT9k-W5gcOkuQ6X0dN90CVLLeqv2HY.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Mandarins",
+   "blurb": "Mandarins’ audition camp season begins this weekend, with dates in Houston and Dallas.",
+   "link": "https://www.facebook.com/mandarins.sacramento/posts/1569545051879777",
+   "logo": "https://production.assets.dci.org/5a181168d670bd001b2e637c_hsc3QNRMPgTFcrZ7cGL5SZnfVa-ElLRW.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Pacific Crest",
+   "blurb": "Pacific Crest will host a brass and drum line clinic/audition in Reno, Nevada on November 22.",
+   "link": "https://www.facebook.com/share/p/1DhrKoLbL3/",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e6380_ig_O2i2w44kMY9sAdB33wfyR7FxaUwnq.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Raiders",
+   "blurb": "Raiders shared news of the passing of Phil Melius, the corps’ longtime executive director.",
+   "link": "https://www.facebook.com/share/p/1EHTnTYP6n/",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e6383_M-wCmu1XspKtixIv688vfTOMs0dcz8ny.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "River City Rhythm",
+   "blurb": "River City Rhythm announced its educational leadership team members.",
+   "link": "https://www.facebook.com/share/p/1MtRrgzmEP/",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e6385_EwteLulOtHFmWAzjvcolDGTkPzuQf6z2.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Santa Clara Vanguard",
+   "blurb": "Vanguard has a full slate of audition camps in Texas November 20-22.",
+   "link": "https://www.facebook.com/share/p/1A8mr6KDwj/",
+   "logo": "https://production.assets.dci.org/5a181189d670bd001a3d7667_kBC05CQk-TmysXsCUfxZoS4jODaJGKp_.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Spartans",
+   "blurb": "Spartans will host a free educational brass clinic in Newport News, Virginia on Sunday, November 22.",
+   "link": "https://www.facebook.com/share/p/19pjAYL6iq/",
+   "logo": "https://production.assets.dci.org/5a18117cd670bd001b2e638b_jyGwm7j5R3SuNK_dQCJUOVXTpzNkXYp3.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Spirit of Atlanta",
+   "blurb": "Spirit of Atlanta is ready for its upcoming audition camp on November 22 in Douglasville, Georgia.",
+   "link": "https://www.facebook.com/SpiritofAtlanta/posts/1748778530146195",
+   "logo": "https://production.assets.dci.org/63db1d184f749ab6c1031403_kq1KhesMNe83jr9WLQnnVs6XIi0WPWi2.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Cincinnati Tradition",
+   "blurb": "Cincinnati Tradition is seeking a drum set performer for its 2027 season.",
+   "link": "https://www.facebook.com/share/p/1Bq3Fbjc25/",
+   "logo": "https://production.assets.dci.org/6515b5d0faa75784aa051262_mgL4Z8piwopCeEEL4vA4j4eB93wcssKG.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Columbus Saints",
+   "blurb": "Columbus Saints’ brass and color guard audition packets are available now, free of charge.",
+   "link": "https://www.facebook.com/share/p/1GKhza3Q3k/",
+   "logo": "https://production.assets.dci.org/6515b519c5719f2f750c6523_SqqK4Cn9UhX-4QUjZPIx4UtHF7PvCAcG.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Govenaires",
+   "blurb": "Govenaires’ percussion audition packets are free and available now.",
+   "link": "https://www.facebook.com/share/p/1GL3qdKNwj/",
+   "logo": "https://production.assets.dci.org/6515b2eb538cb30314083e05_fCkEbmkpkV4JFFpAWc8-2DfGV4RcOqlF.png",
+   "kind": "auditions",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Hawthorne Caballeros",
+   "blurb": "Hawthorne Caballeros introduced its 2027 brass staff.",
+   "link": "https://www.facebook.com/share/p/1DNfoLfKJJ/",
+   "logo": "https://production.assets.dci.org/6515b1fc538cb30314083e04_ZfE4tprbZukslkzEhh1M8jL3jBYlErM1.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Northern Lights",
+   "blurb": "Northern Lights revealed the theme of its 2027 production titled “Skyfire Compass.”",
+   "link": "https://www.facebook.com/share/p/1FGCALxqm5/",
+   "logo": "https://images.dci.org/wp-content/uploads/2026/11/northern-lights-logo-2026-600x600-1.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Sunrisers",
+   "blurb": "Sunrisers introduced its color guard caption leadership.",
+   "link": "https://www.facebook.com/share/p/1CAbsSZvko/",
+   "logo": "https://production.assets.dci.org/657b18c9ec350f75bd05b792_QgeuOSjQFJ6469rKksKpLGYdMMM7R6AC.png",
+   "kind": "news",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "White Sabers",
+   "blurb": "White Sabers introduced its 2027 percussion staff.",
+   "link": "https://www.facebook.com/whitesabers/posts/1570136505150574",
+   "logo": "https://production.assets.dci.org/6515afb0538cb30314083e03_t2r19Qsr6NV5-mECGLkA8f2P3Sp0ejPL.png",
+   "kind": "announcement",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "King Cobras Drumline – Rosemont, IL",
+   "blurb": "King Cobras is seeking volunteers in a variety of areas for the ensemble.",
+   "link": "https://www.facebook.com/share/p/18b8bmL1Q3/",
+   "logo": "https://images.dci.org/wp-content/uploads/2025/06/king-cobras-drumline-SS-logo.png",
+   "kind": "news",
+   "date": "2026-11-20"
+  },
+  {
+   "corps": "Sky Ryders – Hutchinson, KS",
+   "blurb": "Bingo enthusiasts can support Sky Ryders during select games at a Hutchinson, Kansas bingo hall.",
+   "link": "https://www.facebook.com/share/p/19fLqTkFrf/",
+   "logo": "https://production.assets.dci.org/65cf7eb6824d2ae1d00683f3_nek-WQjyLjCbcZHhqBEs4I3opo3cbpJ3.png",
+   "kind": "news",
+   "date": "2026-11-20"
+  },
   {
    "corps": "7th Regiment",
    "blurb": "7th Regiment shared its brass staff roster for 2027.",
