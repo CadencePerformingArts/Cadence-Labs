@@ -4023,6 +4023,113 @@
   "_seen": "2026-11-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-nightbeat/",
+  "name": "NightBEAT",
+  "location": "Winston-Salem, NC",
+  "date_display": "July 26, 2026",
+  "date": "2026-07-26",
+  "lineup": [
+   "North Carolina A&T Cold Steel Drumline",
+   "Atlanta CV",
+   "Heat Wave",
+   "Music City",
+   "Spartans",
+   "The Academy",
+   "Spirit of Atlanta",
+   "Troopers",
+   "Blue Knights",
+   "Colts",
+   "Blue Stars",
+   "Bluecoats",
+   "Blue Devils",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "3:30 PM",
+    "Gates Open"
+   ],
+   [
+    "5:00 PM",
+    "Welcome"
+   ],
+   [
+    "5:05 PM",
+    "National Anthem"
+   ],
+   [
+    "5:15 PM",
+    "North Carolina A&T Cold Steel Drumline"
+   ],
+   [
+    "5:35 PM",
+    "Atlanta CV"
+   ],
+   [
+    "5:53 PM",
+    "Heat Wave"
+   ],
+   [
+    "6:11 PM",
+    "Music City"
+   ],
+   [
+    "6:29 PM",
+    "Spartans"
+   ],
+   [
+    "6:47 PM",
+    "The Academy"
+   ],
+   [
+    "7:05 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "7:23 PM",
+    "Intermission"
+   ],
+   [
+    "8:15 PM",
+    "Troopers"
+   ],
+   [
+    "8:33 PM",
+    "Blue Knights"
+   ],
+   [
+    "8:51 PM",
+    "Colts"
+   ],
+   [
+    "9:09 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:27 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:45 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:03 PM",
+    "Carolina Crown"
+   ],
+   [
+    "10:21 PM",
+    "Encore - Carolina Crown"
+   ],
+   [
+    "10:36 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Allegacy Federal Credit Union Stadium has a clear bag policy that will be in effect for this event. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-summer-music-games-in-cincinnati/",
   "name": "Summer Music Games in Cincinnati",
   "location": "Mason, OH",
@@ -4302,6 +4409,84 @@
   "_seen": "2026-11-21"
  },
  {
+  "url": "https://www.dci.org/events/2026-summer-music-games-of-southwest-virginia/",
+  "name": "Summer Music Games of Southwest Virginia",
+  "location": "Salem, VA",
+  "date_display": "July 29, 2026",
+  "date": "2026-07-29",
+  "lineup": [
+   "Carolina Gold",
+   "Heat Wave",
+   "Raiders",
+   "The Academy",
+   "Music City",
+   "Spirit of Atlanta",
+   "Crossmen",
+   "Blue Stars",
+   "Carolina Crown"
+  ],
+  "schedule": [
+   [
+    "5:00 PM",
+    "Gates Open"
+   ],
+   [
+    "7:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "7:10 PM",
+    "Carolina Gold"
+   ],
+   [
+    "7:22 PM",
+    "Heat Wave"
+   ],
+   [
+    "7:39 PM",
+    "Raiders"
+   ],
+   [
+    "7:56 PM",
+    "The Academy"
+   ],
+   [
+    "8:13 PM",
+    "Music City"
+   ],
+   [
+    "8:30 PM",
+    "Spirit of Atlanta"
+   ],
+   [
+    "8:47 PM",
+    "Intermission"
+   ],
+   [
+    "9:04 PM",
+    "Crossmen"
+   ],
+   [
+    "9:21 PM",
+    "Blue Stars"
+   ],
+   [
+    "9:38 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:55 PM",
+    "Encore - Carolina Crown - Fort Mill, SC"
+   ],
+   [
+    "10:03 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Salem Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-21"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-east-coast-showcase/",
   "name": "DCI East Coast Showcase",
   "location": "Lawrence, MA",
@@ -4362,85 +4547,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-11-21"
- },
- {
-  "url": "https://www.dci.org/events/2026-the-marion-open/",
-  "name": "The Marion Open",
-  "location": "Marion, OH",
-  "date_display": "July 30, 2026",
-  "date": "2026-07-30",
-  "lineup": [
-   "Cincinnati Tradition",
-   "Memphis Blues",
-   "Heat Wave",
-   "Raiders",
-   "Colt Cadets",
-   "Les Stentors",
-   "River City Rhythm",
-   "7th Regiment",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:10 PM",
-    "Cincinnati Tradition"
-   ],
-   [
-    "7:27 PM",
-    "Memphis Blues"
-   ],
-   [
-    "7:44 PM",
-    "Heat Wave"
-   ],
-   [
-    "8:01 PM",
-    "Raiders"
-   ],
-   [
-    "8:18 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:35 PM",
-    "Intermission"
-   ],
-   [
-    "8:52 PM",
-    "Les Stentors"
-   ],
-   [
-    "9:09 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:26 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:43 PM",
-    "Gold"
-   ],
-   [
-    "10:00 PM",
-    "The Battalion"
-   ],
-   [
-    "10:25 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "Marion Harding Football Stadium does not have a clear bag policy. However, all bags are subject to search by event staff and security. For security and efficiency, please keep all bags and items to a minimum. This event is in partnership with The Marion Arts Legacy Alliance, Inc. Instagram: @malaohio Facebook: The Marion Arts Legacy Alliance, Inc.",
   "_seen": "2026-11-21"
  },
  {
@@ -5000,6 +5106,119 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-11-21"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-innovations-in-brass/",
+  "name": "Innovations In Brass",
+  "location": "Akron, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "The Blue Way Middle School Honor Band",
+   "Rhythm IN BLUE",
+   "EN-CORPS by EN-RICH-MENT",
+   "Genesis",
+   "Seattle Cascades",
+   "Music City",
+   "The Academy",
+   "Crossmen",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Santa Clara Vanguard",
+   "Carolina Crown",
+   "Boston Crusaders",
+   "Blue Devils",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "The Blue Way Middle School Honor Band"
+   ],
+   [
+    "6:20 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "6:30 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "6:42 PM",
+    "Genesis"
+   ],
+   [
+    "6:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:16 PM",
+    "Music City"
+   ],
+   [
+    "7:33 PM",
+    "The Academy"
+   ],
+   [
+    "7:50 PM",
+    "Crossmen"
+   ],
+   [
+    "8:07 PM",
+    "Intermission"
+   ],
+   [
+    "8:24 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Colts"
+   ],
+   [
+    "9:15 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:32 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:49 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:06 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:23 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:40 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "10:48 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
   "_seen": "2026-11-21"
  },
  {
