@@ -633,59 +633,6 @@
   "_seen": "2026-11-22"
  },
  {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-11-22"
- },
- {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -3015,6 +2962,71 @@
     "Joint Performance"
    ]
   ],
+  "_seen": "2026-11-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-mckinney/",
+  "name": "DCI McKinney",
+  "location": "McKinney, TX",
+  "date_display": "July 20, 2026",
+  "date": "2026-07-20",
+  "lineup": [
+   "Guardians",
+   "Zephyrus",
+   "Blue Stars",
+   "Carolina Crown",
+   "Crossmen",
+   "Phantom Regiment",
+   "Spirit of Atlanta",
+   "Troopers"
+  ],
+  "schedule": [
+   [
+    "6:30 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "8:10 PM",
+    "Guardians"
+   ],
+   [
+    "8:22 PM",
+    "Zephyrus"
+   ],
+   [
+    "10:46 PM",
+    "Scores Announced"
+   ],
+   [
+    "TBD",
+    "Blue Stars"
+   ],
+   [
+    "TBD",
+    "Carolina Crown"
+   ],
+   [
+    "TBD",
+    "Crossmen"
+   ],
+   [
+    "TBD",
+    "Phantom Regiment"
+   ],
+   [
+    "TBD",
+    "Spirit of Atlanta"
+   ],
+   [
+    "TBD",
+    "Troopers"
+   ]
+  ],
+  "bag_policy": "There is a clear bag policy in effect for this event. More information can be found here .",
   "_seen": "2026-11-22"
  },
  {
