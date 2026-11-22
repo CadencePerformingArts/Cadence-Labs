@@ -453,68 +453,6 @@
   "_seen": "2026-11-22"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-across-nebraska/",
-  "name": "Drums Across Nebraska",
-  "location": "Omaha, NE",
-  "date_display": "July 1, 2026",
-  "date": "2026-07-01",
-  "lineup": [
-   "Colt Cadets",
-   "Genesis",
-   "Blue Knights",
-   "Troopers",
-   "Phantom Regiment",
-   "Colts"
-  ],
-  "schedule": [
-   [
-    "6:30 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:28 PM",
-    "Genesis"
-   ],
-   [
-    "8:46 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:04 PM",
-    "Intermission"
-   ],
-   [
-    "9:24 PM",
-    "Troopers"
-   ],
-   [
-    "9:42 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "10:00 PM",
-    "Colts"
-   ],
-   [
-    "10:18 PM",
-    "Encore - Colts - Dubuque, IA"
-   ],
-   [
-    "10:25 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-11-22"
- },
- {
   "url": "https://www.dci.org/events/2026-northwest-youth-music-games-portland/",
   "name": "Northwest Youth Music Games Portland",
   "location": "Portland, OR",
@@ -1743,6 +1681,94 @@
    ]
   ],
   "bag_policy": "War Memorial Stadium enforces a Clear Bag Policy. Find more information about this policy here.",
+  "_seen": "2026-11-22"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-drum-corps-grand-prix/",
+  "name": "Drum Corps Grand Prix",
+  "location": "Clifton, NJ",
+  "date_display": "July 11, 2026",
+  "date": "2026-07-11",
+  "lineup": [
+   "Sonus Brass Theater",
+   "Raiders",
+   "Les Stentors",
+   "7th Regiment",
+   "White Sabers",
+   "Bushwackers",
+   "Reading Buccaneers",
+   "Hurricanes",
+   "Hawthorne Caballeros",
+   "Hall of Fame Induction",
+   "Hawthorne Caballeros Alumni"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome & National Anthem"
+   ],
+   [
+    "6:40 PM",
+    "Sonus Brass Theater"
+   ],
+   [
+    "6:52 PM",
+    "Raiders"
+   ],
+   [
+    "7:09 PM",
+    "Les Stentors"
+   ],
+   [
+    "7:26 PM",
+    "7th Regiment"
+   ],
+   [
+    "7:43 PM",
+    "Intermission"
+   ],
+   [
+    "8:00 PM",
+    "White Sabers"
+   ],
+   [
+    "8:17 PM",
+    "Bushwackers"
+   ],
+   [
+    "8:34 PM",
+    "Reading Buccaneers"
+   ],
+   [
+    "8:51 PM",
+    "Hurricanes"
+   ],
+   [
+    "9:08 PM",
+    "Hawthorne Caballeros"
+   ],
+   [
+    "9:25 PM",
+    "Hall of Fame Induction"
+   ],
+   [
+    "9:35 PM",
+    "Hawthorne Caballeros Alumni"
+   ],
+   [
+    "9:52 PM",
+    "Encore - Hawthorne Caballeros - Hawthorne, NJ"
+   ],
+   [
+    "10:00 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-11-22"
  },
  {
