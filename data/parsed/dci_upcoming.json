@@ -633,59 +633,6 @@
   "_seen": "2026-11-23"
  },
  {
-  "url": "https://www.dci.org/events/2026-preview-of-champions/",
-  "name": "Preview of Champions",
-  "location": "Nashua, NH",
-  "date_display": "July 2, 2026",
-  "date": "2026-07-02",
-  "lineup": [
-   "Les Stentors",
-   "7th Regiment",
-   "Boston Crusaders",
-   "Spartans",
-   "Event Concludes"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome"
-   ],
-   [
-    "8:10 PM",
-    "Les Stentors"
-   ],
-   [
-    "8:35 PM",
-    "7th Regiment"
-   ],
-   [
-    "9:00 PM",
-    "Intermission"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:55 PM",
-    "Spartans"
-   ],
-   [
-    "10:20 PM",
-    "Encore - Spartans - Nashua, NH"
-   ],
-   [
-    "10:45 PM",
-    "Event Concludes"
-   ]
-  ],
-  "_seen": "2026-11-23"
- },
- {
   "url": "https://www.dci.org/events/2026-rotary-music-festival/",
   "name": "Rotary Music Festival",
   "location": "Cedarburg, WI",
@@ -1317,65 +1264,6 @@
     "Scores Announced"
    ]
   ],
-  "_seen": "2026-11-23"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-northern-alabama/",
-  "name": "DCI Northern Alabama",
-  "location": "Muscle Shoals, AL",
-  "date_display": "July 9, 2026",
-  "date": "2026-07-09",
-  "lineup": [
-   "Apollo Marching Theatre",
-   "Atlanta CV",
-   "Memphis Blues",
-   "Music City",
-   "Spirit of Atlanta",
-   "Boston Crusaders"
-  ],
-  "schedule": [
-   [
-    "7:00 PM",
-    "Gates Open"
-   ],
-   [
-    "8:00 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "8:10 PM",
-    "Apollo Marching Theatre"
-   ],
-   [
-    "8:22 PM",
-    "Atlanta CV"
-   ],
-   [
-    "8:39 PM",
-    "Memphis Blues"
-   ],
-   [
-    "8:56 PM",
-    "Music City"
-   ],
-   [
-    "9:13 PM",
-    "Spirit of Atlanta"
-   ],
-   [
-    "9:30 PM",
-    "Boston Crusaders"
-   ],
-   [
-    "9:47 PM",
-    "Encore - Spirit of Atlanta - Atlanta, GA"
-   ],
-   [
-    "9:55 PM",
-    "Scores Announced"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. However, for security and efficiency, all spectators are encouraged to keep all personal items to a minimum.",
   "_seen": "2026-11-23"
  },
  {
@@ -5185,6 +5073,119 @@
    ]
   ],
   "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
+  "_seen": "2026-11-23"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-innovations-in-brass/",
+  "name": "Innovations In Brass",
+  "location": "Akron, OH",
+  "date_display": "August 3, 2026",
+  "date": "2026-08-03",
+  "lineup": [
+   "The Blue Way Middle School Honor Band",
+   "Rhythm IN BLUE",
+   "EN-CORPS by EN-RICH-MENT",
+   "Genesis",
+   "Seattle Cascades",
+   "Music City",
+   "The Academy",
+   "Crossmen",
+   "Pacific Crest",
+   "Madison Scouts",
+   "Colts",
+   "Santa Clara Vanguard",
+   "Carolina Crown",
+   "Boston Crusaders",
+   "Blue Devils",
+   "Bluecoats"
+  ],
+  "schedule": [
+   [
+    "4:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:00 PM",
+    "Welcome"
+   ],
+   [
+    "6:10 PM",
+    "The Blue Way Middle School Honor Band"
+   ],
+   [
+    "6:20 PM",
+    "Rhythm IN BLUE"
+   ],
+   [
+    "6:30 PM",
+    "EN-CORPS by EN-RICH-MENT"
+   ],
+   [
+    "6:42 PM",
+    "Genesis"
+   ],
+   [
+    "6:59 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "7:16 PM",
+    "Music City"
+   ],
+   [
+    "7:33 PM",
+    "The Academy"
+   ],
+   [
+    "7:50 PM",
+    "Crossmen"
+   ],
+   [
+    "8:07 PM",
+    "Intermission"
+   ],
+   [
+    "8:24 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:41 PM",
+    "Madison Scouts"
+   ],
+   [
+    "8:58 PM",
+    "Colts"
+   ],
+   [
+    "9:15 PM",
+    "Santa Clara Vanguard"
+   ],
+   [
+    "9:32 PM",
+    "Carolina Crown"
+   ],
+   [
+    "9:49 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "10:06 PM",
+    "Blue Devils"
+   ],
+   [
+    "10:23 PM",
+    "Bluecoats"
+   ],
+   [
+    "10:40 PM",
+    "Encore - Bluecoats - Canton, OH"
+   ],
+   [
+    "10:48 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
   "_seen": "2026-11-23"
  },
  {
