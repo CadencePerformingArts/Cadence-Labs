@@ -202,82 +202,6 @@
   "_seen": "2026-11-25"
  },
  {
-  "url": "https://www.dci.org/events/2026-drums-along-the-rockies/",
-  "name": "Drums Along the Rockies",
-  "location": "Fort Collins, CO",
-  "date_display": "June 27, 2026",
-  "date": "2026-06-27",
-  "lineup": [
-   "Rocky Mountain Brassworks",
-   "BKXperience",
-   "Troopers Legacy Corps",
-   "Genesis",
-   "Troopers",
-   "Phantom Regiment",
-   "Blue Devils",
-   "Blue Knights"
-  ],
-  "schedule": [
-   [
-    "6:00 PM",
-    "Gates Open"
-   ],
-   [
-    "7:15 PM",
-    "Rocky Mountain Brassworks"
-   ],
-   [
-    "7:25 PM",
-    "BKXperience"
-   ],
-   [
-    "7:35 PM",
-    "Welcome & National Anthem"
-   ],
-   [
-    "7:40 PM",
-    "Blue Knights Awards Presentation"
-   ],
-   [
-    "7:45 PM",
-    "Troopers Legacy Corps"
-   ],
-   [
-    "8:03 PM",
-    "Genesis"
-   ],
-   [
-    "8:21 PM",
-    "Troopers"
-   ],
-   [
-    "8:39 PM",
-    "Intermission"
-   ],
-   [
-    "9:00 PM",
-    "Phantom Regiment"
-   ],
-   [
-    "9:18 PM",
-    "Blue Devils"
-   ],
-   [
-    "9:36 PM",
-    "Blue Knights"
-   ],
-   [
-    "9:54 PM",
-    "Encore - Blue Knights - Denver, CO"
-   ],
-   [
-    "10:01 PM",
-    "Scores Announced"
-   ]
-  ],
-  "_seen": "2026-11-25"
- },
- {
   "url": "https://www.dci.org/events/2026-corps-encore/",
   "name": "Corps Encore",
   "location": "Ogden, UT",
@@ -4267,6 +4191,75 @@
    ]
   ],
   "bag_policy": "Doug Shaw Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
+  "_seen": "2026-11-25"
+ },
+ {
+  "url": "https://www.dci.org/events/2026-dci-annapolis/",
+  "name": "DCI Annapolis",
+  "location": "Annapolis, MD",
+  "date_display": "July 28, 2026",
+  "date": "2026-07-28",
+  "lineup": [
+   "Raiders",
+   "Spartans",
+   "Pacific Crest",
+   "Blue Knights",
+   "Troopers",
+   "Colts",
+   "Boston Crusaders",
+   "Blue Devils"
+  ],
+  "schedule": [
+   [
+    "5:30 PM",
+    "Gates Open"
+   ],
+   [
+    "6:30 PM",
+    "Welcome"
+   ],
+   [
+    "6:40 PM",
+    "Raiders"
+   ],
+   [
+    "6:57 PM",
+    "Spartans"
+   ],
+   [
+    "7:14 PM",
+    "Pacific Crest"
+   ],
+   [
+    "7:31 PM",
+    "Blue Knights"
+   ],
+   [
+    "7:48 PM",
+    "Intermission"
+   ],
+   [
+    "8:05 PM",
+    "Troopers"
+   ],
+   [
+    "8:22 PM",
+    "Colts"
+   ],
+   [
+    "8:39 PM",
+    "Boston Crusaders"
+   ],
+   [
+    "8:56 PM",
+    "Blue Devils"
+   ],
+   [
+    "9:21 PM",
+    "Scores Announced"
+   ]
+  ],
+  "bag_policy": "Navy-Marine Corps Memorial Stadium does have a Clear Bag Policy. More detailed information regarding bags and stadium policies can be found here . All bags are subject to search by event staff and security. For security and efficiency, all attendees are encouraged to keep all items to a minimum.",
   "_seen": "2026-11-25"
  },
  {
