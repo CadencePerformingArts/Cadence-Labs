@@ -2160,6 +2160,56 @@
   "_seen": "2026-11-26"
  },
  {
+  "url": "https://www.dci.org/events/2026-drums-across-the-desert/",
+  "name": "Drums Across the Desert",
+  "location": "Mesa, AZ",
+  "date_display": "July 13, 2026",
+  "date": "2026-07-13",
+  "lineup": [
+   "Seattle Cascades",
+   "Pacific Crest",
+   "The Academy",
+   "Bluecoats",
+   "Event Concludes"
+  ],
+  "schedule": [
+   [
+    "7:00 PM",
+    "Gates Open"
+   ],
+   [
+    "8:00 PM",
+    "National Anthem The Phoenix Symphony Brass Quintet"
+   ],
+   [
+    "8:10 PM",
+    "Seattle Cascades"
+   ],
+   [
+    "8:27 PM",
+    "Pacific Crest"
+   ],
+   [
+    "8:44 PM",
+    "The Academy"
+   ],
+   [
+    "8:56 PM",
+    "Bluecoats"
+   ],
+   [
+    "9:13 PM",
+    "Encore - The Bluecoats and The Academy - Tempe, AZ"
+   ],
+   [
+    "9:21 PM",
+    "Event Concludes"
+   ]
+  ],
+  "bag_policy": "There is no bag policy for this event. However, all bags are subject to search by event staff and/or security. To ensure safety and efficiency, all attendees are encouraged to keep personal items to a minimum.",
+  "_seen": "2026-11-26"
+ },
+ {
   "url": "https://www.dci.org/events/2026-dci-broken-arrow/",
   "name": "DCI Broken Arrow",
   "location": "Broken Arrow, OK",
@@ -5248,100 +5298,6 @@
    ]
   ],
   "bag_policy": "There will be a clear bag policy in effect. More information can be found here .",
-  "_seen": "2026-11-26"
- },
- {
-  "url": "https://www.dci.org/events/2026-dci-open-class-world-championship-finals/",
-  "name": "DCI Open Class World Championship Finals",
-  "location": "Dayton, OH",
-  "date_display": "August 4, 2026",
-  "date": "2026-08-04",
-  "lineup": [
-   "Mercedes Marching Band",
-   "Heat Wave",
-   "Eclipse",
-   "Les Stentors",
-   "7th Regiment",
-   "Raiders",
-   "Colt Cadets",
-   "Columbians",
-   "River City Rhythm",
-   "Memphis Blues",
-   "Blue Devils B",
-   "Gold",
-   "The Battalion"
-  ],
-  "schedule": [
-   [
-    "5:00 PM",
-    "Gates Open"
-   ],
-   [
-    "6:00 PM",
-    "Welcome"
-   ],
-   [
-    "6:10 PM",
-    "Mercedes Marching Band"
-   ],
-   [
-    "6:27 PM",
-    "Heat Wave"
-   ],
-   [
-    "6:44 PM",
-    "Eclipse"
-   ],
-   [
-    "7:01 PM",
-    "Les Stentors"
-   ],
-   [
-    "7:18 PM",
-    "7th Regiment"
-   ],
-   [
-    "7:35 PM",
-    "Raiders"
-   ],
-   [
-    "7:52 PM",
-    "Intermission"
-   ],
-   [
-    "8:09 PM",
-    "Colt Cadets"
-   ],
-   [
-    "8:26 PM",
-    "Columbians"
-   ],
-   [
-    "8:43 PM",
-    "River City Rhythm"
-   ],
-   [
-    "9:00 PM",
-    "Memphis Blues"
-   ],
-   [
-    "9:17 PM",
-    "Blue Devils B"
-   ],
-   [
-    "9:34 PM",
-    "Gold"
-   ],
-   [
-    "9:51 PM",
-    "The Battalion"
-   ],
-   [
-    "10:16 PM",
-    "Retreat"
-   ]
-  ],
-  "bag_policy": "There is no bag policy for this event. Pet/Animal Policy: Welcome Stadium enforces a strict no pet policy, with the exception of service animals.",
   "_seen": "2026-11-26"
  },
  {
